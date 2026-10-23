@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-10-22",
+  "entryInventory": "context/evidence/data/phase9b-doctor/614-resolution/entry-inventory.json",
+  "entryFiles": 224,
+  "missing": [],
+  "changed": [],
+  "checkpointArchivesWithManifests": {
+    "checkpoint-10": 94,
+    "checkpoint-11": 54,
+    "checkpoint-12": 47,
+    "checkpoint-13": 36,
+    "checkpoint-14": 22,
+    "checkpoint-15": 56,
+    "checkpoint-16": 23,
+    "checkpoint-17": 96,
+    "checkpoint-2": 186,
+    "checkpoint-3": 142,
+    "checkpoint-4": 161,
+    "checkpoint-5": 104,
+    "checkpoint-6": 71,
+    "checkpoint-7": 57,
+    "checkpoint-8": 146,
+    "checkpoint-9": 115,
+    "handoff-2026-10-22": 24
+  },
+  "archivedDevelopmentFiles": 1434,
+  "diagnosticSourceFiles": 98,
+  "liveActions": false,
+  "writeAuthority": false,
+  "unitRegression": {
+    "log": "/tmp/gn-9b6g-unit-regression-26.log",
+    "ran": 417,
+    "passed": 387,
+    "skipped": 30
+  }
+}

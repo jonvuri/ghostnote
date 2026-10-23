@@ -1,0 +1,77 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace listener mode and factory disposal branches. No runtime admission.",
+  "methods": [
+    {
+      "owner": "apd",
+      "name": "Hnt",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "apd",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "apd",
+      "name": "MRY",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "apd",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "TT",
+      "name": "addListener",
+      "descriptor": "(Lfoz;)V"
+    },
+    {
+      "owner": "TT",
+      "name": "removeListener",
+      "descriptor": "(Lfoz;)V"
+    },
+    {
+      "owner": "Hgx",
+      "name": "BAa",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "Hgx",
+      "name": "ix_",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "Hgx",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/serial/rsB;)V"
+    },
+    {
+      "owner": "Hgx",
+      "name": "b_",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    }
+  ],
+  "slots": [],
+  "targets": [
+    {
+      "kind": "field",
+      "owner": "apd",
+      "name": "Hnt",
+      "descriptor": "Z"
+    },
+    {
+      "owner": "apd",
+      "name": "cfM",
+      "descriptor": "()V",
+      "kind": "method"
+    },
+    {
+      "owner": "apd",
+      "name": "MRY",
+      "descriptor": "()V",
+      "kind": "method"
+    }
+  ]
+}

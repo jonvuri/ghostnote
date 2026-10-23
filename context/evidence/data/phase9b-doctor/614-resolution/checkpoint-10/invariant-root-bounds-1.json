@@ -1,0 +1,499 @@
+{
+  "builds": [
+    {
+      "method": [
+        "cXV",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;)V"
+      ],
+      "valueArray": [
+        "cXV",
+        "NaF",
+        "[LcYF;"
+      ],
+      "lockArray": [
+        "cXV",
+        "QiZ",
+        "[LcYr;"
+      ],
+      "emptyListCondition": [
+        "cXV",
+        "MkF",
+        "Ljava/util/List;"
+      ],
+      "valueCall": [
+        "cYF",
+        "kG",
+        "(Lcom/bitwig/ramona/core/HEV;)V"
+      ],
+      "lockRead": [
+        "cYr",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/wfl;"
+      ],
+      "lockCheck": [
+        "com/bitwig/ramona/core/wfl",
+        "aq_",
+        "()V"
+      ],
+      "ownInstructions": {
+        "constant": 33,
+        "perValue": 12,
+        "perLock": 15
+      },
+      "vendorCalls": {
+        "constant": 0,
+        "perValue": 1,
+        "perLock": 2
+      },
+      "externalCalls": [
+        {
+          "method": [
+            "java/util/List",
+            "isEmpty",
+            "()Z"
+          ],
+          "count": 1
+        }
+      ],
+      "selectedOffsets": [
+        0,
+        1,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        24,
+        25,
+        27,
+        28,
+        30,
+        32,
+        33,
+        36,
+        39,
+        42,
+        43,
+        46,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        62,
+        63,
+        66,
+        67,
+        69,
+        70,
+        72,
+        74,
+        75,
+        78,
+        80,
+        82,
+        85,
+        88,
+        91,
+        92,
+        95,
+        100,
+        230
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false,
+      "conditions": [
+        "The expression list is empty and remains empty.",
+        "Array lengths, contents, and identities require stable runtime guards.",
+        "Callee bodies, external bodies, and failure paths are separate."
+      ],
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "emptyReferenceEvidence": "/tmp/gn-9b6g-empty-storage-3.json",
+      "emptyReferenceEvidenceIsOriginalBuild": true
+    },
+    {
+      "method": [
+        "der",
+        "cfM",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "valueArray": [
+        "der",
+        "IwV",
+        "[LdeZ;"
+      ],
+      "lockArray": [
+        "der",
+        "E3",
+        "[LdeM;"
+      ],
+      "emptyListCondition": [
+        "der",
+        "wGc",
+        "Ljava/util/List;"
+      ],
+      "valueCall": [
+        "deZ",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "lockRead": [
+        "deM",
+        "cfM",
+        "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/IOJ;"
+      ],
+      "lockCheck": [
+        "com/bitwig/ramona/core/IOJ",
+        "ar_",
+        "()V"
+      ],
+      "ownInstructions": {
+        "constant": 33,
+        "perValue": 12,
+        "perLock": 15
+      },
+      "vendorCalls": {
+        "constant": 0,
+        "perValue": 1,
+        "perLock": 2
+      },
+      "externalCalls": [
+        {
+          "method": [
+            "java/util/List",
+            "isEmpty",
+            "()Z"
+          ],
+          "count": 1
+        }
+      ],
+      "selectedOffsets": [
+        0,
+        1,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        24,
+        25,
+        27,
+        28,
+        30,
+        32,
+        33,
+        36,
+        39,
+        42,
+        43,
+        46,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        62,
+        63,
+        66,
+        67,
+        69,
+        70,
+        72,
+        74,
+        75,
+        78,
+        80,
+        82,
+        85,
+        88,
+        91,
+        92,
+        95,
+        100,
+        230
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false,
+      "conditions": [
+        "The expression list is empty and remains empty.",
+        "Array lengths, contents, and identities require stable runtime guards.",
+        "Callee bodies, external bodies, and failure paths are separate."
+      ],
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "emptyReferenceEvidence": "/tmp/gn-9b6g-empty-storage-3.json",
+      "emptyReferenceEvidenceIsOriginalBuild": true
+    },
+    {
+      "method": [
+        "R18131",
+        "r_ffA",
+        "(LR11033;)V"
+      ],
+      "valueArray": [
+        "R18131",
+        "r_NaF",
+        "[LR18093;"
+      ],
+      "lockArray": [
+        "R18131",
+        "r_QiZ",
+        "[LR18055;"
+      ],
+      "emptyListCondition": [
+        "R18131",
+        "r_MkF",
+        "Ljava/util/List;"
+      ],
+      "valueCall": [
+        "R18093",
+        "r_kG",
+        "(LR11033;)V"
+      ],
+      "lockRead": [
+        "R18055",
+        "r_ffA",
+        "(LR11033;)LR10963;"
+      ],
+      "lockCheck": [
+        "R10963",
+        "r_aq_",
+        "()V"
+      ],
+      "ownInstructions": {
+        "constant": 33,
+        "perValue": 12,
+        "perLock": 15
+      },
+      "vendorCalls": {
+        "constant": 0,
+        "perValue": 1,
+        "perLock": 2
+      },
+      "externalCalls": [
+        {
+          "method": [
+            "java/util/List",
+            "isEmpty",
+            "()Z"
+          ],
+          "count": 1
+        }
+      ],
+      "selectedOffsets": [
+        0,
+        1,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        24,
+        25,
+        27,
+        28,
+        30,
+        32,
+        33,
+        36,
+        39,
+        42,
+        43,
+        46,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        62,
+        63,
+        66,
+        67,
+        69,
+        70,
+        72,
+        74,
+        75,
+        78,
+        80,
+        82,
+        85,
+        88,
+        91,
+        92,
+        95,
+        100,
+        230
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false,
+      "conditions": [
+        "The expression list is empty and remains empty.",
+        "Array lengths, contents, and identities require stable runtime guards.",
+        "Callee bodies, external bodies, and failure paths are separate."
+      ],
+      "sha256": "23708ef4c362ed072410c5415857bddcbfdc71f26087760cf5158ef8bf4158d6",
+      "emptyReferenceEvidence": "/tmp/gn-9b6g-empty-storage-3.json",
+      "emptyReferenceEvidenceIsOriginalBuild": false
+    },
+    {
+      "method": [
+        "R8612",
+        "r_cfM",
+        "(LR11331;)V"
+      ],
+      "valueArray": [
+        "R8612",
+        "r_IwV",
+        "[LR8630;"
+      ],
+      "lockArray": [
+        "R8612",
+        "r_E3",
+        "[LR8643;"
+      ],
+      "emptyListCondition": [
+        "R8612",
+        "r_wGc",
+        "Ljava/util/List;"
+      ],
+      "valueCall": [
+        "R8630",
+        "r_hUR",
+        "(LR11331;)V"
+      ],
+      "lockRead": [
+        "R8643",
+        "r_cfM",
+        "(LR11331;)LR11389;"
+      ],
+      "lockCheck": [
+        "R11389",
+        "r_ar_",
+        "()V"
+      ],
+      "ownInstructions": {
+        "constant": 33,
+        "perValue": 12,
+        "perLock": 15
+      },
+      "vendorCalls": {
+        "constant": 0,
+        "perValue": 1,
+        "perLock": 2
+      },
+      "externalCalls": [
+        {
+          "method": [
+            "java/util/List",
+            "isEmpty",
+            "()Z"
+          ],
+          "count": 1
+        }
+      ],
+      "selectedOffsets": [
+        0,
+        1,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18,
+        20,
+        21,
+        24,
+        25,
+        27,
+        28,
+        30,
+        32,
+        33,
+        36,
+        39,
+        42,
+        43,
+        46,
+        49,
+        50,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        62,
+        63,
+        66,
+        67,
+        69,
+        70,
+        72,
+        74,
+        75,
+        78,
+        80,
+        82,
+        85,
+        88,
+        91,
+        92,
+        95,
+        100,
+        230
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false,
+      "conditions": [
+        "The expression list is empty and remains empty.",
+        "Array lengths, contents, and identities require stable runtime guards.",
+        "Callee bodies, external bodies, and failure paths are separate."
+      ],
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "emptyReferenceEvidence": "/tmp/gn-9b6g-empty-storage-3.json",
+      "emptyReferenceEvidenceIsOriginalBuild": false
+    }
+  ],
+  "elapsedMs": 20441.882624989375,
+  "peakRssBytes": 214319104,
+  "boundedAdmission": false
+}

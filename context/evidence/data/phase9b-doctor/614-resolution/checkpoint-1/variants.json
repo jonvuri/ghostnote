@@ -1,0 +1,5626 @@
+{
+  "inputHash": "d968dafc42a91cef64ca30bf38c1ed013c5c104f5e0d0c68d255553e008a24a0",
+  "variants": [
+    [
+      {
+        "role": "disposal",
+        "variant": "shared-exact-contract",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [],
+        "source": {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 138,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "H_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "MkF",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dC_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                172
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "H_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                176
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "MkF",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                194
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dC_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 138,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "H_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "MkF",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dC_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                172
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "H_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                176
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "MkF",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                194
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dC_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      },
+      {
+        "role": "members",
+        "variant": "shared-exact-contract",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [],
+        "source": {
+          "owner": "com/bitwig/flt/document/core/master/device/NHx",
+          "name": "eJS",
+          "descriptor": "()Ljava/util/List;",
+          "flags": 1,
+          "codeBytes": 42,
+          "classSha256": "fda0050f03db8f54eb34caf1fd0198b7e4142a480a2b4ab0c0feb9efefeae806",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "target": 34
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "target": 41
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "wi2",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "owner": "java/util/Collections",
+              "name": "EMPTY_LIST",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "owner": "java/util/Collections",
+              "name": "unmodifiableList",
+              "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                46
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "wi2",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                86
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 187,
+              "args": [
+                0,
+                17
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "args": [
+                0,
+                109
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 20,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "args": [
+                0,
+                9
+              ]
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "args": [
+                0,
+                47
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "java/util/Collections",
+                "name": "EMPTY_LIST",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "args": [
+                0,
+                10
+              ]
+            },
+            {
+              "offset": 34,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "args": [
+                0,
+                118
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/util/Collections",
+                "name": "unmodifiableList",
+                "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 41,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "com/bitwig/flt/document/core/master/device/NHx",
+          "name": "eJS",
+          "descriptor": "()Ljava/util/List;",
+          "flags": 1,
+          "codeBytes": 42,
+          "classSha256": "fda0050f03db8f54eb34caf1fd0198b7e4142a480a2b4ab0c0feb9efefeae806",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "target": 34
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "target": 41
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "wi2",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "owner": "java/util/Collections",
+              "name": "EMPTY_LIST",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "owner": "java/util/Collections",
+              "name": "unmodifiableList",
+              "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                46
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "wi2",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                86
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 187,
+              "args": [
+                0,
+                17
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "args": [
+                0,
+                109
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 20,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "args": [
+                0,
+                9
+              ]
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "args": [
+                0,
+                47
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "java/util/Collections",
+                "name": "EMPTY_LIST",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "args": [
+                0,
+                10
+              ]
+            },
+            {
+              "offset": 34,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "args": [
+                0,
+                118
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/util/Collections",
+                "name": "unmodifiableList",
+                "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 41,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        }
+      },
+      {
+        "role": "journal-recording-edit",
+        "variant": "shared-exact-contract",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [],
+        "source": {
+          "owner": "daR",
+          "name": "YLA",
+          "descriptor": "()LcZv;",
+          "flags": 2,
+          "codeBytes": 17,
+          "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 198,
+              "target": 12
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "NaF",
+              "descriptor": "LcZv;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 198,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 11,
+              "opcode": 176,
+              "args": []
+            },
+            {
+              "offset": 12,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "NaF",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "daR",
+          "name": "YLA",
+          "descriptor": "()LcZv;",
+          "flags": 2,
+          "codeBytes": 17,
+          "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 198,
+              "target": 12
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "NaF",
+              "descriptor": "LcZv;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 198,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 11,
+              "opcode": 176,
+              "args": []
+            },
+            {
+              "offset": 12,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "NaF",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        }
+      }
+    ],
+    [
+      {
+        "role": "disposal",
+        "variant": "exact-prefix-plus-tracking-tail",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [
+          "The tracking helper must be initialized and disabled before every disposal.",
+          "Mode stability requires command and callback closure; one false read is insufficient.",
+          "Enabled tracking has an uncapped global queue and monitor wait. It remains refused.",
+          "A tail failure follows mutation. Retain the uncertain-state latch."
+        ],
+        "source": {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 138,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "H_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "MkF",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dC_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                172
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "H_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                176
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "MkF",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                194
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dC_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "ix_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 142,
+          "classSha256": "ca07af87d61561a317fc70c53c959031ad192dad9da2689ed38525362d076782",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "K_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xmC",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "I_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "wGc",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "tB1",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "ix_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "Hnt",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "Hnt",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "K_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 138,
+              "opcode": 184,
+              "owner": "thz",
+              "name": "cfM",
+              "descriptor": "(Ljava/lang/Object;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                173
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "K_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                233
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xmC",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                170
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "I_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "wGc",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                228
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "tB1",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                83,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                79,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                80,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                38
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/oDc"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                223
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "ix_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                111
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "Hnt",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                111
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "Hnt",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                173
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "K_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 138,
+              "opcode": 184,
+              "args": [
+                1,
+                74
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "thz",
+                "name": "cfM",
+                "descriptor": "(Ljava/lang/Object;)V"
+              }
+            },
+            {
+              "offset": 141,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      },
+      {
+        "role": "members",
+        "variant": "jdk-empty-list-access",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [
+          "Pin the inspected runtime artifact. Keep its initialization and added static call in the cost model."
+        ],
+        "source": {
+          "owner": "com/bitwig/flt/document/core/master/device/NHx",
+          "name": "eJS",
+          "descriptor": "()Ljava/util/List;",
+          "flags": 1,
+          "codeBytes": 42,
+          "classSha256": "fda0050f03db8f54eb34caf1fd0198b7e4142a480a2b4ab0c0feb9efefeae806",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "target": 34
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "target": 41
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "wi2",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "owner": "java/util/Collections",
+              "name": "EMPTY_LIST",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/NHx",
+              "name": "cG3",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "owner": "java/util/Collections",
+              "name": "unmodifiableList",
+              "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                46
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "wi2",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                86
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 187,
+              "args": [
+                0,
+                17
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "args": [
+                0,
+                109
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 20,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "args": [
+                0,
+                9
+              ]
+            },
+            {
+              "offset": 28,
+              "opcode": 178,
+              "args": [
+                0,
+                47
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "java/util/Collections",
+                "name": "EMPTY_LIST",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "args": [
+                0,
+                10
+              ]
+            },
+            {
+              "offset": 34,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/NHx",
+                "name": "cG3",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "args": [
+                0,
+                118
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/util/Collections",
+                "name": "unmodifiableList",
+                "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 41,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "com/bitwig/flt/document/core/master/device/BZG",
+          "name": "Grk",
+          "descriptor": "()Ljava/util/List;",
+          "flags": 1,
+          "codeBytes": 42,
+          "classSha256": "e7e7d081a4bbf0cf0210d97d49c0d0d1be75286eca57c15ba418e5f80a74e7df",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 21
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "target": 34
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "target": 41
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/flt/document/core/master/device/BZG",
+              "name": "TMF",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/flt/document/core/master/device/BZG",
+              "name": "xmC",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/BZG",
+              "name": "Hnt",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 28,
+              "opcode": 184,
+              "owner": "java/util/Collections",
+              "name": "emptyList",
+              "descriptor": "()Ljava/util/List;"
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "owner": "com/bitwig/flt/document/core/master/device/BZG",
+              "name": "Hnt",
+              "descriptor": "Ljava/util/List;"
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "owner": "java/util/Collections",
+              "name": "unmodifiableList",
+              "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/BZG",
+                "name": "TMF",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                94
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/flt/document/core/master/device/BZG",
+                "name": "xmC",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 187,
+              "args": [
+                0,
+                18
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 17,
+              "opcode": 183,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 20,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 22,
+              "opcode": 180,
+              "args": [
+                0,
+                37
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/BZG",
+                "name": "Hnt",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 25,
+              "opcode": 199,
+              "args": [
+                0,
+                9
+              ]
+            },
+            {
+              "offset": 28,
+              "opcode": 184,
+              "args": [
+                0,
+                121
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/util/Collections",
+                "name": "emptyList",
+                "descriptor": "()Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 167,
+              "args": [
+                0,
+                10
+              ]
+            },
+            {
+              "offset": 34,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 180,
+              "args": [
+                0,
+                37
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/flt/document/core/master/device/BZG",
+                "name": "Hnt",
+                "descriptor": "Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 184,
+              "args": [
+                0,
+                122
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/util/Collections",
+                "name": "unmodifiableList",
+                "descriptor": "(Ljava/util/List;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 41,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        }
+      },
+      {
+        "role": "journal-recording-edit",
+        "variant": "private-to-package-access-only",
+        "localContractChecked": true,
+        "runtimeAdmission": false,
+        "requirements": [
+          "Retain exact lookup receiver and reflective access checks."
+        ],
+        "source": {
+          "owner": "daR",
+          "name": "YLA",
+          "descriptor": "()LcZv;",
+          "flags": 2,
+          "codeBytes": 17,
+          "classSha256": "e2a6561eeb1602b13303968892565a81f51329260411b925b50966718ebd12a6",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 198,
+              "target": 12
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "wi2",
+              "descriptor": "LcZv;"
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "owner": "daR",
+              "name": "NaF",
+              "descriptor": "LcZv;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 198,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "args": [
+                0,
+                53
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "wi2",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 11,
+              "opcode": 176,
+              "args": []
+            },
+            {
+              "offset": 12,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "args": [
+                0,
+                40
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "daR",
+                "name": "NaF",
+                "descriptor": "LcZv;"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        },
+        "target": {
+          "owner": "dhu",
+          "name": "Hnt",
+          "descriptor": "()LdfT;",
+          "flags": 0,
+          "codeBytes": 17,
+          "classSha256": "b221a277c85d5387170f721fa1734c1b1a52c6d24b664ecce08d8b7594edbde0",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 198,
+              "target": 12
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 180,
+              "owner": "dhu",
+              "name": "TMF",
+              "descriptor": "LdfT;"
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "owner": "dhu",
+              "name": "TMF",
+              "descriptor": "LdfT;"
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "owner": "dhu",
+              "name": "IwV",
+              "descriptor": "LdfT;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 180,
+              "args": [
+                0,
+                46
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "dhu",
+                "name": "TMF",
+                "descriptor": "LdfT;"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 198,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 180,
+              "args": [
+                0,
+                46
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "dhu",
+                "name": "TMF",
+                "descriptor": "LdfT;"
+              }
+            },
+            {
+              "offset": 11,
+              "opcode": 176,
+              "args": []
+            },
+            {
+              "offset": 12,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 180,
+              "args": [
+                0,
+                44
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "dhu",
+                "name": "IwV",
+                "descriptor": "LdfT;"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 176,
+              "args": []
+            }
+          ]
+        }
+      }
+    ]
+  ],
+  "jdk": [
+    {
+      "classes": [
+        {
+          "name": "java/util/Collections",
+          "parent": "java/lang/Object",
+          "sha256": "d795f1a85ba22c80b599a278794540b1f166972edb419fc3995926da363cd591",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "5769f2f985d7be2773f7b615e4bbfe47ec8b73b68668b4a42f6097ec65e1e913",
+                "bodyDigest": "119c058ac60f067a2b6d0a34426d6eaad49f487336734c15f7f99674de44303c",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/lang/Object",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            },
+            {
+              "name": "emptyList",
+              "descriptor": "()Ljava/util/List;",
+              "contract": {
+                "digest": "86cd4ee19c0bed982e4e43fc61b8558b66f1cd8c1c80e0b2320d7209d98db9aa",
+                "bodyDigest": "50f6286bd8cd7745f3e73388167b78119b35c6e07e5215de6784ea1fe0411a9e",
+                "tokens": [
+                  [
+                    178,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_LIST",
+                      "Ljava/util/List;"
+                    ],
+                    []
+                  ],
+                  [
+                    176,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 2
+              }
+            },
+            {
+              "name": "<clinit>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "93b84e7ee180e615fe9dcbb07108cd0c67557cb22943545df21fba9d327e0514",
+                "bodyDigest": "b1b722410b474aae7e544f3a6ae422b2b205f40490c1fd850112a497efc4f68d",
+                "tokens": [
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptySet"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptySet",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_SET",
+                      "Ljava/util/Set;"
+                    ],
+                    []
+                  ],
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptyList"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptyList",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_LIST",
+                      "Ljava/util/List;"
+                    ],
+                    []
+                  ],
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptyMap"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptyMap",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_MAP",
+                      "Ljava/util/Map;"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 13
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptyList",
+          "parent": "java/util/AbstractList",
+          "sha256": "3f5eec1eb4ce260f66c14ec96822b5ea05eed5d76ddd22fb933b0126ce0e46ec",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "7a05d46811640e6f088195eea658f47e347f40621582ea908d590bb0c9a16ca7",
+                "bodyDigest": "73f760d1166afc54aa6f6462cd4d4f5070893e65bfd49f31a0033ed25b686c44",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractList",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptyList": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptySet",
+          "parent": "java/util/AbstractSet",
+          "sha256": "cfae735102242ecfa7e9d1fa6d8d3596f55c90ed2e0482b8295475127d25a2a4",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "41d780f0472e1afa322e81f25b702f4bd632199f45f62746a05cfb03fa1da197",
+                "bodyDigest": "245f56b81191d1979a3499771c6b1b3539b9363d5ae9acd1f3ecc1b303854f06",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractSet",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptySet": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptyMap",
+          "parent": "java/util/AbstractMap",
+          "sha256": "5b53f536b102973b1ae4dc183e5c86e69c2430e5011017d00ee55f7e91af1db7",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "3d48ceceec0acf27ddd98f397fec1860ca70eb98509c15772cb534d99951a2ca",
+                "bodyDigest": "9174d6135f2b33c0ae079c365ee7ca7e044bdf8ba882c6503618c2cff67d1ccf",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractMap",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptyMap": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractList",
+          "parent": "java/util/AbstractCollection",
+          "sha256": "7363fe1f4961b44e246cf8a6d584028e4c93b88ba4074c71e863d870d02cb219",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "0603ea1bfd18959d0cb4c6a7a8b7c0ee374c7489c84513dbb7f1332f96d58a5a",
+                "bodyDigest": "46606e7bee2859b8ce6a8b325e00a5e7afdbe6c96485df0eb7c1b7826ffbda8e",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractCollection",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    3,
+                    []
+                  ],
+                  [
+                    181,
+                    [
+                      9,
+                      "java/util/AbstractList",
+                      "modCount",
+                      "I"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractList": "self"
+                },
+                "members": {},
+                "instructions": 6
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractCollection",
+          "parent": "java/lang/Object",
+          "sha256": "8a1e3d199d9b0c9d48aca30e03d331c9a2a45f33ca4bb41185f985340ef9705c",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "83b572f6c0f584ce5e8b5ac91185c445ee4fd37b1eb65c640151afa10efcebb6",
+                "bodyDigest": "119c058ac60f067a2b6d0a34426d6eaad49f487336734c15f7f99674de44303c",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/lang/Object",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractCollection": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractSet",
+          "parent": "java/util/AbstractCollection",
+          "sha256": "31780a5c7d53065afe0237f642bd75c154dbd73d759ff04a797aa426033cf8c0",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "d4c8498f31d5a90f6a13432f4fb0622e0d8b086137f39bcd6fc50373d0084a85",
+                "bodyDigest": "d5b50503e637bbcc2f1c0b788e1e183f40b5910a8b4dad928908b8bd0b9fc850",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractCollection",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractSet": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/lang/Object",
+          "parent": "",
+          "sha256": "a7dd9da566cd7a4a15275c67d286a7d40bfe5c75b0f0d0a60a194a4a1b006839",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "0270665936dc79dde5972f4c3d753552d801e103f7649b3f8a094bce718ac662",
+                "bodyDigest": "00d54544379c7a65a2a513c138329aa0b8a3a51d958556c097a64e850c612a04",
+                "tokens": [
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/lang/Object": "self"
+                },
+                "members": {},
+                "instructions": 1
+              }
+            }
+          ]
+        }
+      ],
+      "methodAllocation": 0,
+      "addedInvocations": 1,
+      "initialization": "Both getstatic and invokestatic require Collections initialization. The field is not a compile-time constant.",
+      "runtimeInitialized": "not-observed",
+      "latencyMeasured": false
+    },
+    {
+      "classes": [
+        {
+          "name": "java/util/Collections",
+          "parent": "java/lang/Object",
+          "sha256": "d795f1a85ba22c80b599a278794540b1f166972edb419fc3995926da363cd591",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "5769f2f985d7be2773f7b615e4bbfe47ec8b73b68668b4a42f6097ec65e1e913",
+                "bodyDigest": "119c058ac60f067a2b6d0a34426d6eaad49f487336734c15f7f99674de44303c",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/lang/Object",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            },
+            {
+              "name": "emptyList",
+              "descriptor": "()Ljava/util/List;",
+              "contract": {
+                "digest": "86cd4ee19c0bed982e4e43fc61b8558b66f1cd8c1c80e0b2320d7209d98db9aa",
+                "bodyDigest": "50f6286bd8cd7745f3e73388167b78119b35c6e07e5215de6784ea1fe0411a9e",
+                "tokens": [
+                  [
+                    178,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_LIST",
+                      "Ljava/util/List;"
+                    ],
+                    []
+                  ],
+                  [
+                    176,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 2
+              }
+            },
+            {
+              "name": "<clinit>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "93b84e7ee180e615fe9dcbb07108cd0c67557cb22943545df21fba9d327e0514",
+                "bodyDigest": "b1b722410b474aae7e544f3a6ae422b2b205f40490c1fd850112a497efc4f68d",
+                "tokens": [
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptySet"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptySet",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_SET",
+                      "Ljava/util/Set;"
+                    ],
+                    []
+                  ],
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptyList"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptyList",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_LIST",
+                      "Ljava/util/List;"
+                    ],
+                    []
+                  ],
+                  [
+                    187,
+                    [
+                      "type",
+                      "java/util/Collections$EmptyMap"
+                    ],
+                    []
+                  ],
+                  [
+                    89,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/Collections$EmptyMap",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    179,
+                    [
+                      9,
+                      "java/util/Collections",
+                      "EMPTY_MAP",
+                      "Ljava/util/Map;"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections": "self"
+                },
+                "members": {},
+                "instructions": 13
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptyList",
+          "parent": "java/util/AbstractList",
+          "sha256": "3f5eec1eb4ce260f66c14ec96822b5ea05eed5d76ddd22fb933b0126ce0e46ec",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "7a05d46811640e6f088195eea658f47e347f40621582ea908d590bb0c9a16ca7",
+                "bodyDigest": "73f760d1166afc54aa6f6462cd4d4f5070893e65bfd49f31a0033ed25b686c44",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractList",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptyList": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptySet",
+          "parent": "java/util/AbstractSet",
+          "sha256": "cfae735102242ecfa7e9d1fa6d8d3596f55c90ed2e0482b8295475127d25a2a4",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "41d780f0472e1afa322e81f25b702f4bd632199f45f62746a05cfb03fa1da197",
+                "bodyDigest": "245f56b81191d1979a3499771c6b1b3539b9363d5ae9acd1f3ecc1b303854f06",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractSet",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptySet": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/Collections$EmptyMap",
+          "parent": "java/util/AbstractMap",
+          "sha256": "5b53f536b102973b1ae4dc183e5c86e69c2430e5011017d00ee55f7e91af1db7",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "3d48ceceec0acf27ddd98f397fec1860ca70eb98509c15772cb534d99951a2ca",
+                "bodyDigest": "9174d6135f2b33c0ae079c365ee7ca7e044bdf8ba882c6503618c2cff67d1ccf",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractMap",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/Collections$EmptyMap": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractList",
+          "parent": "java/util/AbstractCollection",
+          "sha256": "7363fe1f4961b44e246cf8a6d584028e4c93b88ba4074c71e863d870d02cb219",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "0603ea1bfd18959d0cb4c6a7a8b7c0ee374c7489c84513dbb7f1332f96d58a5a",
+                "bodyDigest": "46606e7bee2859b8ce6a8b325e00a5e7afdbe6c96485df0eb7c1b7826ffbda8e",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractCollection",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    3,
+                    []
+                  ],
+                  [
+                    181,
+                    [
+                      9,
+                      "java/util/AbstractList",
+                      "modCount",
+                      "I"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractList": "self"
+                },
+                "members": {},
+                "instructions": 6
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractCollection",
+          "parent": "java/lang/Object",
+          "sha256": "8a1e3d199d9b0c9d48aca30e03d331c9a2a45f33ca4bb41185f985340ef9705c",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "83b572f6c0f584ce5e8b5ac91185c445ee4fd37b1eb65c640151afa10efcebb6",
+                "bodyDigest": "119c058ac60f067a2b6d0a34426d6eaad49f487336734c15f7f99674de44303c",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/lang/Object",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractCollection": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/util/AbstractSet",
+          "parent": "java/util/AbstractCollection",
+          "sha256": "31780a5c7d53065afe0237f642bd75c154dbd73d759ff04a797aa426033cf8c0",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "d4c8498f31d5a90f6a13432f4fb0622e0d8b086137f39bcd6fc50373d0084a85",
+                "bodyDigest": "d5b50503e637bbcc2f1c0b788e1e183f40b5910a8b4dad928908b8bd0b9fc850",
+                "tokens": [
+                  [
+                    42,
+                    []
+                  ],
+                  [
+                    183,
+                    [
+                      10,
+                      "java/util/AbstractCollection",
+                      "<init>",
+                      "()V"
+                    ],
+                    []
+                  ],
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/util/AbstractSet": "self"
+                },
+                "members": {},
+                "instructions": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "java/lang/Object",
+          "parent": "",
+          "sha256": "a7dd9da566cd7a4a15275c67d286a7d40bfe5c75b0f0d0a60a194a4a1b006839",
+          "methods": [
+            {
+              "name": "<init>",
+              "descriptor": "()V",
+              "contract": {
+                "digest": "0270665936dc79dde5972f4c3d753552d801e103f7649b3f8a094bce718ac662",
+                "bodyDigest": "00d54544379c7a65a2a513c138329aa0b8a3a51d958556c097a64e850c612a04",
+                "tokens": [
+                  [
+                    177,
+                    []
+                  ]
+                ],
+                "handlers": [],
+                "types": {
+                  "java/lang/Object": "self"
+                },
+                "members": {},
+                "instructions": 1
+              }
+            }
+          ]
+        }
+      ],
+      "methodAllocation": 0,
+      "addedInvocations": 1,
+      "initialization": "Both getstatic and invokestatic require Collections initialization. The field is not a compile-time constant.",
+      "runtimeInitialized": "not-observed",
+      "latencyMeasured": false
+    }
+  ],
+  "elapsedMs": 8105.290709005203,
+  "peakRssBytes": 325517312,
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

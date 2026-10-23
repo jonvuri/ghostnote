@@ -1,0 +1,4060 @@
+{
+  "builds": [
+    {
+      "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "moduleSha256": "03200abf4491787aae49714a9bdefe5863e525950f138b5f89f9f63b9d59757b",
+      "objectCount": 61,
+      "edges": [
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2000,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 2000,
+          "parentClassName": "audio_source_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1721,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2002,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2002,
+          "parentClassName": "audio_destination_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1763,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 702,
+          "propertyName": "value_type",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 123,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 6411,
+          "propertyName": "bipolar_panel_value",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1751,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1751,
+          "parentClassName": "boolean_panel_value",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6411,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6411,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 87,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 87,
+          "parentClassName": "boolean_value_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 87,
+          "parentClassName": "boolean_value_atom",
+          "propertyId": 702,
+          "propertyName": "value_type",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 198,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15757,
+          "propertyName": "nitro_outputs",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 1,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 14,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 2,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 3,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 10,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 4,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 6,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 5,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1681,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1695,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2001,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 10,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1687,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1687,
+          "parentClassName": "knob_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1687,
+          "parentClassName": "knob_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 14,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 2001,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 2,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 3,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 4,
+          "inlineObject": true,
+          "targetClassId": 1719,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1719,
+          "parentClassName": "image_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              4
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6277,
+          "propertyName": "expressions",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1728,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1728,
+          "parentClassName": "panel_expression",
+          "propertyId": 6275,
+          "propertyName": "panel_item",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 32,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6277,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6277,
+          "propertyName": "expressions",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1728,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1728,
+          "parentClassName": "panel_expression",
+          "propertyId": 6275,
+          "propertyName": "panel_item",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 40,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6277,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1923,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1923,
+          "parentClassName": "menu_container_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1924,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1928,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6835,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1923,
+          "parentClassName": "menu_container_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1924,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1928,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6835,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1681,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1702,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 3,
+          "inlineObject": true,
+          "targetClassId": 1702,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 9820,
+          "propertyName": "inspector_panel",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 52,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": []
+        }
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false
+    },
+    {
+      "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "moduleSha256": "d128c197c714711bca547ebaad651f799e9dbf0696ad7eeb3f463328d19f9586",
+      "objectCount": 61,
+      "edges": [
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2000,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 2000,
+          "parentClassName": "audio_source_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1721,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2002,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2002,
+          "parentClassName": "audio_destination_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1763,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 702,
+          "propertyName": "value_type",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 123,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1763,
+          "parentClassName": "bipolar_toggleable_decimal_value_atom",
+          "propertyId": 6411,
+          "propertyName": "bipolar_panel_value",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1751,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1751,
+          "parentClassName": "boolean_panel_value",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6411,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              1
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6411,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 105,
+          "parentClassName": "inport_connection",
+          "propertyId": 248,
+          "propertyName": "source_component",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 87,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 87,
+          "parentClassName": "boolean_value_atom",
+          "propertyId": 6194,
+          "propertyName": "settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 236,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 612,
+          "propertyName": "desktop_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 17,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 236,
+          "parentClassName": "component_settings",
+          "propertyId": 614,
+          "propertyName": "inport_connections",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 105,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 87,
+          "parentClassName": "boolean_value_atom",
+          "propertyId": 702,
+          "propertyName": "value_type",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 198,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              2
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15756,
+          "propertyName": "nitro_inputs",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1721,
+          "parentClassName": "nitro_atom",
+          "propertyId": 15757,
+          "propertyName": "nitro_outputs",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2428,
+          "reference": null,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              173,
+              0
+            ],
+            [
+              6194,
+              0
+            ],
+            [
+              614,
+              0
+            ],
+            [
+              248,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 1,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 14,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 2,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 3,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 10,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 4,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 6,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 173,
+          "propertyName": "child_components",
+          "slot": 5,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1681,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1695,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 2001,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 10,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1687,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1687,
+          "parentClassName": "knob_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1687,
+          "parentClassName": "knob_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 14,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 2001,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 2001,
+          "parentClassName": "port_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 2,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 3,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 4,
+          "inlineObject": true,
+          "targetClassId": 1719,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1719,
+          "parentClassName": "image_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              4
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6277,
+          "propertyName": "expressions",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1728,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1728,
+          "parentClassName": "panel_expression",
+          "propertyId": 6275,
+          "propertyName": "panel_item",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 32,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6277,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6277,
+          "propertyName": "expressions",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1728,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1728,
+          "parentClassName": "panel_expression",
+          "propertyId": 6275,
+          "propertyName": "panel_item",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 40,
+          "predicate": false,
+          "flags": 264,
+          "parentPath": [
+            [
+              6213,
+              0
+            ],
+            [
+              6277,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1923,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1923,
+          "parentClassName": "menu_container_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1924,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1928,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6835,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1923,
+          "parentClassName": "menu_container_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1924,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1928,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1924,
+          "parentClassName": "menu_toggle_panel_item",
+          "propertyId": 6835,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              1
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 6213,
+          "propertyName": "panels",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 1680,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": []
+        },
+        {
+          "parentClassId": 1680,
+          "parentClassName": "panel",
+          "propertyId": 6212,
+          "propertyName": "root_item",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1681,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 1,
+          "inlineObject": true,
+          "targetClassId": 1702,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 18,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              1
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 2,
+          "inlineObject": true,
+          "targetClassId": 1683,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1683,
+          "parentClassName": "label_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              2
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1681,
+          "parentClassName": "grid_panel_item",
+          "propertyId": 6221,
+          "propertyName": "items",
+          "slot": 3,
+          "inlineObject": true,
+          "targetClassId": 1702,
+          "reference": null,
+          "predicate": false,
+          "flags": 392,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6226,
+          "propertyName": "layout_settings",
+          "slot": 0,
+          "inlineObject": true,
+          "targetClassId": 1694,
+          "reference": null,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1702,
+          "parentClassName": "toggle_button_panel_item",
+          "propertyId": 6220,
+          "propertyName": "data_model",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 22,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": [
+            [
+              6213,
+              2
+            ],
+            [
+              6212,
+              0
+            ],
+            [
+              6221,
+              3
+            ]
+          ]
+        },
+        {
+          "parentClassId": 1904,
+          "parentClassName": "module_contents",
+          "propertyId": 9820,
+          "propertyName": "inspector_panel",
+          "slot": 0,
+          "inlineObject": false,
+          "targetClassId": null,
+          "reference": 52,
+          "predicate": false,
+          "flags": 394,
+          "parentPath": []
+        }
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false
+    }
+  ],
+  "boundedAdmission": false,
+  "conditions": [
+    "These are serialized relationship values, not a live ownership or mutation trace.",
+    "Constructor and predicate conditions remain required.",
+    "Defaults, generated children, clone initialization, and command effects remain separate."
+  ]
+}

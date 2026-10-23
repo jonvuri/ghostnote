@@ -1,0 +1,32 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace descriptor invariant storage and registration. No runtime emptiness is inferred.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "der",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "field",
+      "owner": "der",
+      "name": "wGc",
+      "descriptor": "Ljava/util/List;"
+    },
+    {
+      "kind": "field",
+      "owner": "der",
+      "name": "IwV",
+      "descriptor": "[LdeZ;"
+    },
+    {
+      "kind": "field",
+      "owner": "der",
+      "name": "E3",
+      "descriptor": "[LdeM;"
+    }
+  ]
+}

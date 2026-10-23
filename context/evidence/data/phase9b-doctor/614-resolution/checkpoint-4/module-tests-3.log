@@ -1,0 +1,16 @@
+test_array_string_and_tree_limits (grid_doctor.test_module_file.ModuleFileTests.test_array_string_and_tree_limits) ... ok
+test_boolean_and_nonfinite_refuse (grid_doctor.test_module_file.ModuleFileTests.test_boolean_and_nonfinite_refuse) ... ok
+test_codec_indices_and_rotation (grid_doctor.test_module_file.ModuleFileTests.test_codec_indices_and_rotation) ... ok
+test_codec_shapes_refuse (grid_doctor.test_module_file.ModuleFileTests.test_codec_shapes_refuse) ... ok
+test_header_and_stream_split (grid_doctor.test_module_file.ModuleFileTests.test_header_and_stream_split) ... ok
+test_key_initializer_and_changed_index (grid_doctor.test_module_file.ModuleFileTests.test_key_initializer_and_changed_index) ... ok
+test_list_children_null_and_reference (grid_doctor.test_module_file.ModuleFileTests.test_list_children_null_and_reference) ... ok
+test_named_class_and_property (grid_doctor.test_module_file.ModuleFileTests.test_named_class_and_property) ... ok
+test_scalar_and_property_order (grid_doctor.test_module_file.ModuleFileTests.test_scalar_and_property_order) ... ok
+test_truncation_and_trailing_data_refuse (grid_doctor.test_module_file.ModuleFileTests.test_truncation_and_trailing_data_refuse) ... ok
+test_untraced_forms_refuse (grid_doctor.test_module_file.ModuleFileTests.test_untraced_forms_refuse) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.001s
+
+OK

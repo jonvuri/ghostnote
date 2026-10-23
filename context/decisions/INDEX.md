@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-15
+updated: 2026-10-22
 ---
 
 # Decision index
@@ -63,6 +63,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D49 | The fidelity of a revert states what the revert restored **[SETTLED 2026-10-11]** | [open](d49-revert-fidelity-states-what-the-revert-restored.md) |
 | D50 | MIDI files are offline conversions: full inline documents, explicit tempo mapping and losses, FIFO pairing, atomic new-file export with no project revert; snapshot export uses observed MIDI field coverage **[SETTLED 2026-10-14, AMENDED 2026-10-15]** | [open](d50-midi-files-are-offline-conversions.md) |
 | D51 | Document files keep large documents out of the conversation: `documentPath` on the document writers, `documentOutputPath` on the document readers, content-detected encoding, `.gndoc` and `.gndoc.json` by convention, no added host call **[SETTLED 2026-10-15]** | [open](d51-document-file-paths.md) |
+| D52 | Grid upgrade admission: offline structural resolution stays required; complete offline bounded admission is replaced by a body-change report, bounded traces of changed bodies, runtime entry guards, and the consent-gated doctor with timing **[SETTLED 2026-10-22]** | [open](d52-grid-upgrade-admission-policy.md) |
 
 ## Phase 4 closeout audit
 

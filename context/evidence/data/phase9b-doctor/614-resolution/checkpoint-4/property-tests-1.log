@@ -1,0 +1,12 @@
+test_allocation_subtype_is_used_not_return_type (grid_doctor.test_property_contracts.PropertyContractsTests.test_allocation_subtype_is_used_not_return_type) ... ok
+test_closest_declaration_wins (grid_doctor.test_property_contracts.PropertyContractsTests.test_closest_declaration_wins) ... ok
+test_cycle_and_duplicate_descriptor_refuse (grid_doctor.test_property_contracts.PropertyContractsTests.test_cycle_and_duplicate_descriptor_refuse) ... ok
+test_duplicate_allocation_is_incomplete (grid_doctor.test_property_contracts.PropertyContractsTests.test_duplicate_allocation_is_incomplete) ... ok
+test_full_schema_relationships_do_not_need_descriptor_classes (grid_doctor.test_property_contracts.PropertyContractsTests.test_full_schema_relationships_do_not_need_descriptor_classes) ... ok
+test_missing_and_nonrelationship_allocations_are_incomplete (grid_doctor.test_property_contracts.PropertyContractsTests.test_missing_and_nonrelationship_allocations_are_incomplete) ... ok
+test_uncaptured_descriptor_does_not_cover_wanted (grid_doctor.test_property_contracts.PropertyContractsTests.test_uncaptured_descriptor_does_not_cover_wanted) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+OK

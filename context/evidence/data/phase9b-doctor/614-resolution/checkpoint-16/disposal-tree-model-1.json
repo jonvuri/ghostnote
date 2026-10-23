@@ -1,0 +1,5231 @@
+{
+  "builds": [
+    {
+      "build": 0,
+      "methods": [
+        {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "dC_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 138,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "kh3",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "H_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "MkF",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dC_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "cG3",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "J_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "kh3",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                172
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "H_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                176
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "MkF",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                194
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dC_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                105
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "cG3",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                175
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "J_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "MkF",
+          "descriptor": "(Z)V",
+          "flags": 2,
+          "codeBytes": 81,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 153,
+              "target": 80
+            },
+            {
+              "offset": 26,
+              "opcode": 153,
+              "target": 80
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "target": 70
+            },
+            {
+              "offset": 48,
+              "opcode": 198,
+              "target": 55
+            },
+            {
+              "offset": 52,
+              "opcode": 167,
+              "target": 56
+            },
+            {
+              "offset": 59,
+              "opcode": 154,
+              "target": 70
+            },
+            {
+              "offset": 77,
+              "opcode": 167,
+              "target": 20
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "H_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 9,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 14,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 21,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 30,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 40,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 56,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 66,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 74,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "NaF",
+              "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 182,
+              "args": [
+                0,
+                172
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "H_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 153,
+              "args": [
+                0,
+                76
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 12,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 19,
+              "opcode": 78,
+              "args": []
+            },
+            {
+              "offset": 20,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 26,
+              "opcode": 153,
+              "args": [
+                0,
+                54
+              ]
+            },
+            {
+              "offset": 29,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 30,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 58,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 40,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "args": [
+                0,
+                27
+              ]
+            },
+            {
+              "offset": 46,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 48,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 51,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 52,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 55,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 56,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 59,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 62,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 69,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 70,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 72,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 73,
+              "opcode": 27,
+              "args": []
+            },
+            {
+              "offset": 74,
+              "opcode": 182,
+              "args": [
+                0,
+                177
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "NaF",
+                "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              }
+            },
+            {
+              "offset": 77,
+              "opcode": 167,
+              "args": [
+                255,
+                199
+              ]
+            },
+            {
+              "offset": 80,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "com/bitwig/ramona/core/HEV",
+          "name": "NaF",
+          "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V",
+          "flags": 2,
+          "codeBytes": 143,
+          "classSha256": "1e8942c158fbcd7c4747dcd75f7095b797a08191eae3762300e00ef37379d77b",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 29
+            },
+            {
+              "offset": 7,
+              "opcode": 198,
+              "target": 14
+            },
+            {
+              "offset": 11,
+              "opcode": 167,
+              "target": 15
+            },
+            {
+              "offset": 18,
+              "opcode": 154,
+              "target": 29
+            },
+            {
+              "offset": 32,
+              "opcode": 154,
+              "target": 54
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "target": 54
+            },
+            {
+              "offset": 81,
+              "opcode": 153,
+              "target": 136
+            },
+            {
+              "offset": 99,
+              "opcode": 154,
+              "target": 126
+            },
+            {
+              "offset": 104,
+              "opcode": 198,
+              "target": 111
+            },
+            {
+              "offset": 108,
+              "opcode": 167,
+              "target": 112
+            },
+            {
+              "offset": 115,
+              "opcode": 154,
+              "target": 126
+            },
+            {
+              "offset": 133,
+              "opcode": 167,
+              "target": 74
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 15,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 25,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 29,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 37,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "eJS",
+              "descriptor": "(Lcom/bitwig/ramona/core/FZ1;)Z"
+            },
+            {
+              "offset": 40,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 50,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 57,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "a_",
+              "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "dpx",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 67,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 76,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "b3M",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 112,
+              "opcode": 184,
+              "owner": "cJT",
+              "name": "eOi",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 122,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 130,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "NaF",
+              "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+            },
+            {
+              "offset": 139,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/HEV",
+              "name": "ffA",
+              "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                26
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 10,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 11,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 14,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 15,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 18,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 21,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 24,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 25,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 28,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 29,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 32,
+              "opcode": 154,
+              "args": [
+                0,
+                22
+              ]
+            },
+            {
+              "offset": 35,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 36,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 37,
+              "opcode": 182,
+              "args": [
+                0,
+                197
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "eJS",
+                "descriptor": "(Lcom/bitwig/ramona/core/FZ1;)Z"
+              }
+            },
+            {
+              "offset": 40,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 46,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 49,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 50,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 53,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 55,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 56,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 57,
+              "opcode": 182,
+              "args": [
+                0,
+                186
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "a_",
+                "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              }
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                196
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "dpx",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 78,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 185,
+              "args": [
+                1,
+                61,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 72,
+              "opcode": 58,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 74,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 76,
+              "opcode": 185,
+              "args": [
+                1,
+                57,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 81,
+              "opcode": 153,
+              "args": [
+                0,
+                55
+              ]
+            },
+            {
+              "offset": 84,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                58,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                51
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/HEV"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 58,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 96,
+              "opcode": 178,
+              "args": [
+                0,
+                104
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "b3M",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 154,
+              "args": [
+                0,
+                27
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 25,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 104,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 107,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 108,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 111,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 112,
+              "opcode": 184,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cJT",
+                "name": "eOi",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 115,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 118,
+              "opcode": 187,
+              "args": [
+                0,
+                77
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 121,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 122,
+              "opcode": 183,
+              "args": [
+                1,
+                33
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 125,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 126,
+              "opcode": 25,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 128,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 129,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 130,
+              "opcode": 182,
+              "args": [
+                0,
+                177
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "NaF",
+                "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              }
+            },
+            {
+              "offset": 133,
+              "opcode": 167,
+              "args": [
+                255,
+                197
+              ]
+            },
+            {
+              "offset": 136,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 138,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 139,
+              "opcode": 182,
+              "args": [
+                0,
+                225
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/HEV",
+                "name": "ffA",
+                "descriptor": "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              }
+            },
+            {
+              "offset": 142,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "cases": 910,
+      "maxOwnInstructions": 112179,
+      "coefficients": {
+        "dispose": {
+          "perNode": 24,
+          "perManaged": 3,
+          "perTreeEdge": 10
+        },
+        "walk": {
+          "perManaged": 14,
+          "perManagedImmediateChild": 14
+        },
+        "release": {
+          "perReleaseVisit": 23,
+          "perReleaseChildEdge": 14
+        }
+      },
+      "samples": [
+        {
+          "N": 32,
+          "M": 0,
+          "D": 31,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31
+          },
+          "steps": {
+            "dispose": 1078
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 31,
+          "R": 496,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 560,
+            "iterator": 560,
+            "hasNext": 1087,
+            "next": 527,
+            "release": 496,
+            "before": 496,
+            "after": 496
+          },
+          "steps": {
+            "dispose": 1174,
+            "walk": 882,
+            "release": 17918
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 31,
+          "R": 31,
+          "C": 1,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31
+          },
+          "steps": {
+            "dispose": 1081,
+            "walk": 28,
+            "release": 1133
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 31,
+          "R": 240,
+          "C": 15,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 288,
+            "iterator": 288,
+            "hasNext": 559,
+            "next": 271,
+            "walk": 16,
+            "release": 240,
+            "before": 240,
+            "after": 240
+          },
+          "steps": {
+            "dispose": 1126,
+            "walk": 434,
+            "release": 8670
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 0,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31
+          },
+          "steps": {
+            "dispose": 1078
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 1,
+          "R": 31,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 95,
+            "iterator": 95,
+            "hasNext": 157,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31
+          },
+          "steps": {
+            "dispose": 1174,
+            "walk": 882,
+            "release": 713
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 1,
+          "R": 31,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31
+          },
+          "steps": {
+            "dispose": 1081,
+            "walk": 448,
+            "release": 713
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 48,
+            "iterator": 48,
+            "hasNext": 79,
+            "next": 31,
+            "walk": 16
+          },
+          "steps": {
+            "dispose": 1126,
+            "walk": 224
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 0,
+          "D": 5,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31
+          },
+          "steps": {
+            "dispose": 1078
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 5,
+          "R": 103,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 167,
+            "iterator": 167,
+            "hasNext": 301,
+            "next": 134,
+            "release": 103,
+            "before": 103,
+            "after": 103
+          },
+          "steps": {
+            "dispose": 1174,
+            "walk": 882,
+            "release": 3377
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 5,
+          "R": 31,
+          "C": 2,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31
+          },
+          "steps": {
+            "dispose": 1081,
+            "walk": 42,
+            "release": 1119
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 5,
+          "R": 38,
+          "C": 15,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 86,
+            "iterator": 86,
+            "hasNext": 155,
+            "next": 69,
+            "walk": 16,
+            "release": 38,
+            "before": 38,
+            "after": 38
+          },
+          "steps": {
+            "dispose": 1126,
+            "walk": 434,
+            "release": 1196
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 76,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76
+          },
+          "steps": {
+            "dispose": 2608
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 76,
+          "R": 2926,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 3080,
+            "iterator": 3080,
+            "hasNext": 6082,
+            "next": 3002,
+            "release": 2926,
+            "before": 2926,
+            "after": 2926
+          },
+          "steps": {
+            "dispose": 2839,
+            "walk": 2142,
+            "release": 107198
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 76,
+          "R": 76,
+          "C": 1,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76
+          },
+          "steps": {
+            "dispose": 2611,
+            "walk": 28,
+            "release": 2798
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 76,
+          "R": 1444,
+          "C": 38,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 1559,
+            "iterator": 1559,
+            "hasNext": 3079,
+            "next": 1520,
+            "walk": 38,
+            "release": 1444,
+            "before": 1444,
+            "after": 1444
+          },
+          "steps": {
+            "dispose": 2722,
+            "walk": 1064,
+            "release": 52896
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76
+          },
+          "steps": {
+            "dispose": 2608
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 1,
+          "R": 76,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 230,
+            "iterator": 230,
+            "hasNext": 382,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76
+          },
+          "steps": {
+            "dispose": 2839,
+            "walk": 2142,
+            "release": 1748
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 1,
+          "R": 76,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76
+          },
+          "steps": {
+            "dispose": 2611,
+            "walk": 1078,
+            "release": 1748
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 115,
+            "iterator": 115,
+            "hasNext": 191,
+            "next": 76,
+            "walk": 38
+          },
+          "steps": {
+            "dispose": 2722,
+            "walk": 532
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 6,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76
+          },
+          "steps": {
+            "dispose": 2608
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 6,
+          "R": 342,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 496,
+            "iterator": 496,
+            "hasNext": 914,
+            "next": 418,
+            "release": 342,
+            "before": 342,
+            "after": 342
+          },
+          "steps": {
+            "dispose": 2839,
+            "walk": 2142,
+            "release": 11590
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 6,
+          "R": 76,
+          "C": 2,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76
+          },
+          "steps": {
+            "dispose": 2611,
+            "walk": 42,
+            "release": 2784
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 6,
+          "R": 150,
+          "C": 38,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 265,
+            "iterator": 265,
+            "hasNext": 491,
+            "next": 226,
+            "walk": 38,
+            "release": 150,
+            "before": 150,
+            "after": 150
+          },
+          "steps": {
+            "dispose": 2722,
+            "walk": 1064,
+            "release": 5018
+          },
+          "failed": false,
+          "disposed": 77
+        }
+      ],
+      "partialFailure": {
+        "N": 3,
+        "M": 0,
+        "D": 1,
+        "R": 0,
+        "C": 0,
+        "counts": {
+          "dispose": 3,
+          "managed": 2,
+          "collect": 2,
+          "iterator": 2,
+          "hasNext": 3,
+          "next": 2
+        },
+        "steps": {
+          "dispose": 55
+        },
+        "failed": true,
+        "disposed": 1
+      }
+    },
+    {
+      "build": 1,
+      "methods": [
+        {
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "ix_",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 142,
+          "classSha256": "ca07af87d61561a317fc70c53c959031ad192dad9da2689ed38525362d076782",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "target": 17
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "target": 18
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "target": 32
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "target": 53
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "target": 65
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "target": 102
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "target": 76
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "target": 137
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "target": 137
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "K_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xmC",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "I_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "wGc",
+              "descriptor": "(Z)V"
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "tB1",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "ix_",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "Hnt",
+              "descriptor": "I"
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "Hnt",
+              "descriptor": "I"
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "K_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 138,
+              "opcode": 184,
+              "owner": "thz",
+              "name": "cfM",
+              "descriptor": "(Ljava/lang/Object;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 182,
+              "args": [
+                0,
+                173
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "K_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 13,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 17,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 18,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 21,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 24,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 27,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 28,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 31,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 32,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 154,
+              "args": [
+                0,
+                18
+              ]
+            },
+            {
+              "offset": 38,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 39,
+              "opcode": 182,
+              "args": [
+                0,
+                233
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xmC",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 42,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 45,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 48,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 49,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 52,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 53,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 54,
+              "opcode": 182,
+              "args": [
+                0,
+                170
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "I_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 57,
+              "opcode": 153,
+              "args": [
+                0,
+                8
+              ]
+            },
+            {
+              "offset": 60,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 182,
+              "args": [
+                0,
+                231
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "wGc",
+                "descriptor": "(Z)V"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 67,
+              "opcode": 182,
+              "args": [
+                0,
+                228
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "tB1",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 70,
+              "opcode": 185,
+              "args": [
+                1,
+                83,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 75,
+              "opcode": 76,
+              "args": []
+            },
+            {
+              "offset": 76,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 77,
+              "opcode": 185,
+              "args": [
+                1,
+                79,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 82,
+              "opcode": 153,
+              "args": [
+                0,
+                20
+              ]
+            },
+            {
+              "offset": 85,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 86,
+              "opcode": 185,
+              "args": [
+                1,
+                80,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 91,
+              "opcode": 192,
+              "args": [
+                0,
+                38
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/oDc"
+              }
+            },
+            {
+              "offset": 94,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 95,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 96,
+              "opcode": 182,
+              "args": [
+                0,
+                223
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "ix_",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 99,
+              "opcode": 167,
+              "args": [
+                255,
+                233
+              ]
+            },
+            {
+              "offset": 102,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 103,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 104,
+              "opcode": 180,
+              "args": [
+                0,
+                111
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "Hnt",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 107,
+              "opcode": 18,
+              "args": [
+                1
+              ],
+              "constant": {
+                "tag": 3,
+                "value": "80000000"
+              }
+            },
+            {
+              "offset": 109,
+              "opcode": 128,
+              "args": []
+            },
+            {
+              "offset": 110,
+              "opcode": 181,
+              "args": [
+                0,
+                111
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "Hnt",
+                "descriptor": "I"
+              }
+            },
+            {
+              "offset": 113,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 116,
+              "opcode": 154,
+              "args": [
+                0,
+                21
+              ]
+            },
+            {
+              "offset": 119,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 120,
+              "opcode": 182,
+              "args": [
+                0,
+                173
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "K_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 123,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 126,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 129,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 136,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 138,
+              "opcode": 184,
+              "args": [
+                1,
+                74
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "thz",
+                "name": "cfM",
+                "descriptor": "(Ljava/lang/Object;)V"
+              }
+            },
+            {
+              "offset": 141,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "wGc",
+          "descriptor": "(Z)V",
+          "flags": 2,
+          "codeBytes": 81,
+          "classSha256": "ca07af87d61561a317fc70c53c959031ad192dad9da2689ed38525362d076782",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 4,
+              "opcode": 153,
+              "target": 80
+            },
+            {
+              "offset": 26,
+              "opcode": 153,
+              "target": 80
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "target": 70
+            },
+            {
+              "offset": 48,
+              "opcode": 198,
+              "target": 55
+            },
+            {
+              "offset": 52,
+              "opcode": 167,
+              "target": 56
+            },
+            {
+              "offset": 59,
+              "opcode": 154,
+              "target": 70
+            },
+            {
+              "offset": 77,
+              "opcode": 167,
+              "target": 20
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "I_",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 9,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "tB1",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 14,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 21,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 30,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 40,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 56,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 66,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 74,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "IwV",
+              "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 182,
+              "args": [
+                0,
+                170
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "I_",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 153,
+              "args": [
+                0,
+                76
+              ]
+            },
+            {
+              "offset": 7,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 8,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 182,
+              "args": [
+                0,
+                228
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "tB1",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 12,
+              "opcode": 77,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 14,
+              "opcode": 185,
+              "args": [
+                1,
+                83,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 19,
+              "opcode": 78,
+              "args": []
+            },
+            {
+              "offset": 20,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 21,
+              "opcode": 185,
+              "args": [
+                1,
+                79,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 26,
+              "opcode": 153,
+              "args": [
+                0,
+                54
+              ]
+            },
+            {
+              "offset": 29,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 30,
+              "opcode": 185,
+              "args": [
+                1,
+                80,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 35,
+              "opcode": 192,
+              "args": [
+                0,
+                38
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/oDc"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 58,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 40,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 43,
+              "opcode": 154,
+              "args": [
+                0,
+                27
+              ]
+            },
+            {
+              "offset": 46,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 48,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 51,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 52,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 55,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 56,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 59,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 62,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 65,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 66,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 69,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 70,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 72,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 73,
+              "opcode": 27,
+              "args": []
+            },
+            {
+              "offset": 74,
+              "opcode": 182,
+              "args": [
+                0,
+                171
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "IwV",
+                "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              }
+            },
+            {
+              "offset": 77,
+              "opcode": 167,
+              "args": [
+                255,
+                199
+              ]
+            },
+            {
+              "offset": 80,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "IwV",
+          "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V",
+          "flags": 2,
+          "codeBytes": 150,
+          "classSha256": "ca07af87d61561a317fc70c53c959031ad192dad9da2689ed38525362d076782",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 3,
+              "opcode": 154,
+              "target": 29
+            },
+            {
+              "offset": 7,
+              "opcode": 198,
+              "target": 14
+            },
+            {
+              "offset": 11,
+              "opcode": 167,
+              "target": 15
+            },
+            {
+              "offset": 18,
+              "opcode": 154,
+              "target": 29
+            },
+            {
+              "offset": 32,
+              "opcode": 154,
+              "target": 61
+            },
+            {
+              "offset": 39,
+              "opcode": 198,
+              "target": 46
+            },
+            {
+              "offset": 43,
+              "opcode": 167,
+              "target": 47
+            },
+            {
+              "offset": 50,
+              "opcode": 154,
+              "target": 61
+            },
+            {
+              "offset": 88,
+              "opcode": 153,
+              "target": 143
+            },
+            {
+              "offset": 106,
+              "opcode": 154,
+              "target": 133
+            },
+            {
+              "offset": 111,
+              "opcode": 198,
+              "target": 118
+            },
+            {
+              "offset": 115,
+              "opcode": 167,
+              "target": 119
+            },
+            {
+              "offset": 122,
+              "opcode": 154,
+              "target": 133
+            },
+            {
+              "offset": 140,
+              "opcode": 167,
+              "target": 81
+            }
+          ],
+          "references": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 15,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 25,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 29,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 36,
+              "opcode": 180,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "IwV",
+              "descriptor": "Lcom/bitwig/ramona/core/oDc;"
+            },
+            {
+              "offset": 47,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 57,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 64,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "a_",
+              "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+            },
+            {
+              "offset": 69,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "tB1",
+              "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+            },
+            {
+              "offset": 74,
+              "opcode": 185,
+              "owner": "java/util/List",
+              "name": "iterator",
+              "descriptor": "()Ljava/util/Iterator;"
+            },
+            {
+              "offset": 83,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "hasNext",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 93,
+              "opcode": 185,
+              "owner": "java/util/Iterator",
+              "name": "next",
+              "descriptor": "()Ljava/lang/Object;"
+            },
+            {
+              "offset": 103,
+              "opcode": 178,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "xPh",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 119,
+              "opcode": 184,
+              "owner": "cQi",
+              "name": "MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 129,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 137,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "IwV",
+              "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+            },
+            {
+              "offset": 146,
+              "opcode": 182,
+              "owner": "com/bitwig/ramona/core/oDc",
+              "name": "cfM",
+              "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 3,
+              "opcode": 154,
+              "args": [
+                0,
+                26
+              ]
+            },
+            {
+              "offset": 6,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 10,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 11,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 14,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 15,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 18,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 21,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 24,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 25,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 28,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 29,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 32,
+              "opcode": 154,
+              "args": [
+                0,
+                29
+              ]
+            },
+            {
+              "offset": 35,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 36,
+              "opcode": 180,
+              "args": [
+                0,
+                112
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "IwV",
+                "descriptor": "Lcom/bitwig/ramona/core/oDc;"
+              }
+            },
+            {
+              "offset": 39,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 42,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 43,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 46,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 47,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 50,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 53,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 56,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 57,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 60,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 61,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 62,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 63,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 64,
+              "opcode": 182,
+              "args": [
+                0,
+                183
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "a_",
+                "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              }
+            },
+            {
+              "offset": 67,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 68,
+              "opcode": 1,
+              "args": []
+            },
+            {
+              "offset": 69,
+              "opcode": 182,
+              "args": [
+                0,
+                228
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "tB1",
+                "descriptor": "(Ljava/lang/String;)Ljava/util/List;"
+              }
+            },
+            {
+              "offset": 72,
+              "opcode": 78,
+              "args": []
+            },
+            {
+              "offset": 73,
+              "opcode": 45,
+              "args": []
+            },
+            {
+              "offset": 74,
+              "opcode": 185,
+              "args": [
+                1,
+                83,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/List",
+                "name": "iterator",
+                "descriptor": "()Ljava/util/Iterator;"
+              }
+            },
+            {
+              "offset": 79,
+              "opcode": 58,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 81,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 83,
+              "opcode": 185,
+              "args": [
+                1,
+                79,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "hasNext",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 88,
+              "opcode": 153,
+              "args": [
+                0,
+                55
+              ]
+            },
+            {
+              "offset": 91,
+              "opcode": 25,
+              "args": [
+                4
+              ]
+            },
+            {
+              "offset": 93,
+              "opcode": 185,
+              "args": [
+                1,
+                80,
+                1,
+                0
+              ],
+              "constant": {
+                "tag": 11,
+                "owner": "java/util/Iterator",
+                "name": "next",
+                "descriptor": "()Ljava/lang/Object;"
+              }
+            },
+            {
+              "offset": 98,
+              "opcode": 192,
+              "args": [
+                0,
+                38
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "com/bitwig/ramona/core/oDc"
+              }
+            },
+            {
+              "offset": 101,
+              "opcode": 58,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 103,
+              "opcode": 178,
+              "args": [
+                0,
+                116
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "xPh",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 106,
+              "opcode": 154,
+              "args": [
+                0,
+                27
+              ]
+            },
+            {
+              "offset": 109,
+              "opcode": 25,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 111,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 114,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 115,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 118,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 119,
+              "opcode": 184,
+              "args": [
+                0,
+                120
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "cQi",
+                "name": "MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 122,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 125,
+              "opcode": 187,
+              "args": [
+                0,
+                85
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 128,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 129,
+              "opcode": 183,
+              "args": [
+                1,
+                51
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 132,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 133,
+              "opcode": 25,
+              "args": [
+                5
+              ]
+            },
+            {
+              "offset": 135,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 136,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 137,
+              "opcode": 182,
+              "args": [
+                0,
+                171
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "IwV",
+                "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              }
+            },
+            {
+              "offset": 140,
+              "opcode": 167,
+              "args": [
+                255,
+                197
+              ]
+            },
+            {
+              "offset": 143,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 144,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 145,
+              "opcode": 28,
+              "args": []
+            },
+            {
+              "offset": 146,
+              "opcode": 182,
+              "args": [
+                0,
+                194
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "com/bitwig/ramona/core/oDc",
+                "name": "cfM",
+                "descriptor": "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              }
+            },
+            {
+              "offset": 149,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "cases": 910,
+      "maxOwnInstructions": 112333,
+      "coefficients": {
+        "dispose": {
+          "perNode": 26,
+          "perManaged": 3,
+          "perTreeEdge": 10
+        },
+        "walk": {
+          "perManaged": 14,
+          "perManagedImmediateChild": 14
+        },
+        "release": {
+          "perReleaseVisit": 23,
+          "perReleaseChildEdge": 14
+        }
+      },
+      "samples": [
+        {
+          "N": 32,
+          "M": 0,
+          "D": 31,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1142
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 31,
+          "R": 496,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 560,
+            "iterator": 560,
+            "hasNext": 1087,
+            "next": 527,
+            "release": 496,
+            "before": 496,
+            "after": 496,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1238,
+            "walk": 882,
+            "release": 17918
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 31,
+          "R": 31,
+          "C": 1,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1145,
+            "walk": 28,
+            "release": 1133
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 31,
+          "R": 240,
+          "C": 15,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 288,
+            "iterator": 288,
+            "hasNext": 559,
+            "next": 271,
+            "walk": 16,
+            "release": 240,
+            "before": 240,
+            "after": 240,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1190,
+            "walk": 434,
+            "release": 8670
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 0,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1142
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 1,
+          "R": 31,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 95,
+            "iterator": 95,
+            "hasNext": 157,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1238,
+            "walk": 882,
+            "release": 713
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 1,
+          "R": 31,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1145,
+            "walk": 448,
+            "release": 713
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 48,
+            "iterator": 48,
+            "hasNext": 79,
+            "next": 31,
+            "walk": 16,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1190,
+            "walk": 224
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 0,
+          "D": 5,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 32,
+            "managed": 32,
+            "collect": 32,
+            "iterator": 32,
+            "hasNext": 63,
+            "next": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1142
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 32,
+          "D": 5,
+          "R": 103,
+          "C": 31,
+          "counts": {
+            "dispose": 32,
+            "managed": 64,
+            "walk": 32,
+            "collect": 167,
+            "iterator": 167,
+            "hasNext": 301,
+            "next": 134,
+            "release": 103,
+            "before": 103,
+            "after": 103,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1238,
+            "walk": 882,
+            "release": 3377
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 1,
+          "D": 5,
+          "R": 31,
+          "C": 2,
+          "counts": {
+            "dispose": 32,
+            "managed": 33,
+            "walk": 1,
+            "collect": 64,
+            "iterator": 64,
+            "hasNext": 126,
+            "next": 62,
+            "release": 31,
+            "before": 31,
+            "after": 31,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1145,
+            "walk": 42,
+            "release": 1119
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 32,
+          "M": 16,
+          "D": 5,
+          "R": 38,
+          "C": 15,
+          "counts": {
+            "dispose": 32,
+            "managed": 48,
+            "collect": 86,
+            "iterator": 86,
+            "hasNext": 155,
+            "next": 69,
+            "walk": 16,
+            "release": 38,
+            "before": 38,
+            "after": 38,
+            "trackingFalse": 32
+          },
+          "steps": {
+            "dispose": 1190,
+            "walk": 434,
+            "release": 1196
+          },
+          "failed": false,
+          "disposed": 32
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 76,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2762
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 76,
+          "R": 2926,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 3080,
+            "iterator": 3080,
+            "hasNext": 6082,
+            "next": 3002,
+            "release": 2926,
+            "before": 2926,
+            "after": 2926,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2993,
+            "walk": 2142,
+            "release": 107198
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 76,
+          "R": 76,
+          "C": 1,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2765,
+            "walk": 28,
+            "release": 2798
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 76,
+          "R": 1444,
+          "C": 38,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 1559,
+            "iterator": 1559,
+            "hasNext": 3079,
+            "next": 1520,
+            "walk": 38,
+            "release": 1444,
+            "before": 1444,
+            "after": 1444,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2876,
+            "walk": 1064,
+            "release": 52896
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2762
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 1,
+          "R": 76,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 230,
+            "iterator": 230,
+            "hasNext": 382,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2993,
+            "walk": 2142,
+            "release": 1748
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 1,
+          "R": 76,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2765,
+            "walk": 1078,
+            "release": 1748
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 1,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 115,
+            "iterator": 115,
+            "hasNext": 191,
+            "next": 76,
+            "walk": 38,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2876,
+            "walk": 532
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 0,
+          "D": 6,
+          "R": 0,
+          "C": 0,
+          "counts": {
+            "dispose": 77,
+            "managed": 77,
+            "collect": 77,
+            "iterator": 77,
+            "hasNext": 153,
+            "next": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2762
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 77,
+          "D": 6,
+          "R": 342,
+          "C": 76,
+          "counts": {
+            "dispose": 77,
+            "managed": 154,
+            "walk": 77,
+            "collect": 496,
+            "iterator": 496,
+            "hasNext": 914,
+            "next": 418,
+            "release": 342,
+            "before": 342,
+            "after": 342,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2993,
+            "walk": 2142,
+            "release": 11590
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 1,
+          "D": 6,
+          "R": 76,
+          "C": 2,
+          "counts": {
+            "dispose": 77,
+            "managed": 78,
+            "walk": 1,
+            "collect": 154,
+            "iterator": 154,
+            "hasNext": 306,
+            "next": 152,
+            "release": 76,
+            "before": 76,
+            "after": 76,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2765,
+            "walk": 42,
+            "release": 2784
+          },
+          "failed": false,
+          "disposed": 77
+        },
+        {
+          "N": 77,
+          "M": 38,
+          "D": 6,
+          "R": 150,
+          "C": 38,
+          "counts": {
+            "dispose": 77,
+            "managed": 115,
+            "collect": 265,
+            "iterator": 265,
+            "hasNext": 491,
+            "next": 226,
+            "walk": 38,
+            "release": 150,
+            "before": 150,
+            "after": 150,
+            "trackingFalse": 77
+          },
+          "steps": {
+            "dispose": 2876,
+            "walk": 1064,
+            "release": 5018
+          },
+          "failed": false,
+          "disposed": 77
+        }
+      ],
+      "partialFailure": {
+        "N": 3,
+        "M": 0,
+        "D": 1,
+        "R": 0,
+        "C": 0,
+        "counts": {
+          "dispose": 3,
+          "managed": 2,
+          "collect": 2,
+          "iterator": 2,
+          "hasNext": 3,
+          "next": 2,
+          "trackingFalse": 1
+        },
+        "steps": {
+          "dispose": 57
+        },
+        "failed": true,
+        "disposed": 1
+      }
+    }
+  ],
+  "elapsedMs": 881.0164580354467,
+  "runtimeClassesInitialized": 0,
+  "boundedAdmission": false,
+  "conditions": [
+    "The owned graph is a stable finite tree with distinct children.",
+    "Assertion fields are initialized and true. New tracking remains false.",
+    "The managed predicate and both hook slots have the fixed factory contracts.",
+    "Owned collection and iterator bodies use inert models. Their costs are excluded.",
+    "Disposal wrappers, maps, listener removals, native operations, and failure latency need separate bounds.",
+    "R counts visits below managed ancestors; C counts their immediate children. R is at most N times D."
+  ]
+}

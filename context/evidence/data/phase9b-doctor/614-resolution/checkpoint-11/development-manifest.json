@@ -1,0 +1,272 @@
+[
+  {
+    "name": "gn-9b6g-checkpoint11.py",
+    "sha256": "95a7fb3ed5088dda530d79501f94e7deb2f1c0d72f9a7c8765c75c9e278e67f7",
+    "bytes": 1657
+  },
+  {
+    "name": "gn-9b6g-nitro-port-construction-1.txt",
+    "sha256": "6859fe115cb8f30b14bd5af7ebea04b72a399e00508d5718cf9226ba117f4bb6",
+    "bytes": 1356
+  },
+  {
+    "name": "gn-9b6g-nitro-port-construction-2.txt",
+    "sha256": "1768732b4da2cd454f57c8cf54007c44e9cd0a4e0defb3f67c211a4dca315532",
+    "bytes": 1397
+  },
+  {
+    "name": "gn-9b6g-nitro-port-factories-1.txt",
+    "sha256": "e054eeb09ffc499f49739c8a262992e4965e82a3c0c272a0f48b05b24481b6f4",
+    "bytes": 2184
+  },
+  {
+    "name": "gn-9b6g-nitro-port-identity-1.txt",
+    "sha256": "a2a4f06d21113e08ddc2cb13e4db915f45f93ae934a1de891dcba4f8107f377a",
+    "bytes": 2626
+  },
+  {
+    "name": "gn-9b6g-nitro-port-reads-1.txt",
+    "sha256": "f473bf14b43a5edbfb1e969bd3374ad1d36fe053ead53d5ff38451eaff9e819a",
+    "bytes": 2784
+  },
+  {
+    "name": "gn-9b6g-port-catalog-1.json",
+    "sha256": "046a396e7dbb1c323f9c03c05356029a6050be9f2771686d1eab14af7edc627d",
+    "bytes": 29591
+  },
+  {
+    "name": "gn-9b6g-port-catalog-1.log",
+    "sha256": "7309eaa0dc49d9436b548d05a6f7a7330a2a406ca24245f1995970f0d316740c",
+    "bytes": 252
+  },
+  {
+    "name": "gn-9b6g-port-catalog-1.py",
+    "sha256": "3e17269f877e3eae2dc1a2eb923e88c613ecd6df6f21e3be0dad94c59e49d70b",
+    "bytes": 2513
+  },
+  {
+    "name": "gn-9b6g-port-constructors-1.json",
+    "sha256": "3c99b92b97745af35420fcc44dc5d7a3892eba2d252948d2e3b0507cbc8d8e80",
+    "bytes": 3497346
+  },
+  {
+    "name": "gn-9b6g-port-constructors-1.log",
+    "sha256": "08919c9d2d12a751b41accee39782bb056b36d5f23befea3d04a03ad174334a8",
+    "bytes": 140
+  },
+  {
+    "name": "gn-9b6g-port-constructors-1.py",
+    "sha256": "746f7bd8c84b647e3fc28ade4528515926e06fdd3cae2af8a30952b9a8d2f97c",
+    "bytes": 1819
+  },
+  {
+    "name": "gn-9b6g-port-contracts-1.log",
+    "sha256": "f4791704da43b5cf1fab3e4fc299935df6f56a165fb54264261597e73d9e07b5",
+    "bytes": 304
+  },
+  {
+    "name": "gn-9b6g-port-contracts-1.py",
+    "sha256": "0709bb92afbdb22ea1a59ca39ab539a48933be122bee5d54506ba6ee9e6b9031",
+    "bytes": 2899
+  },
+  {
+    "name": "gn-9b6g-port-contracts-2.json",
+    "sha256": "6b89f7d38c026e0ae4ac0edd89b52e9d04a3af46fb2c21ca70f1eeb52f5a56e2",
+    "bytes": 3176444
+  },
+  {
+    "name": "gn-9b6g-port-contracts-2.log",
+    "sha256": "7dba8be21c95b53fe2e4ece44de8cffaba9c82e44fd52f40b92a607cf4cd59ef",
+    "bytes": 60
+  },
+  {
+    "name": "gn-9b6g-port-contracts-2.py",
+    "sha256": "909dcd8bb24a4a28098e05d66edb786a7ebb716b95b60007559540566ac5424f",
+    "bytes": 2966
+  },
+  {
+    "name": "gn-9b6g-port-descriptor-constructors-1.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "name": "gn-9b6g-port-descriptor-constructors-2.txt",
+    "sha256": "899c7b7e6b7e828f36ebf84109227b559e7a354305e720f83e654cd5edd3f19a",
+    "bytes": 512
+  },
+  {
+    "name": "gn-9b6g-port-flows-1.json",
+    "sha256": "0ef966f2f0904547b6f970c71fb847fefdc9837aa5829a4269e16249c45c4e51",
+    "bytes": 1943120
+  },
+  {
+    "name": "gn-9b6g-port-flows-1.log",
+    "sha256": "0eead091c6db3d8512d21ed619a4141ca86ef7f7eda07c1471f99cf5cb42726c",
+    "bytes": 135
+  },
+  {
+    "name": "gn-9b6g-port-flows-1.py",
+    "sha256": "ce25bb19df3b90c2088f2e38e7a99d85725c9be873d4471a55cc6296ad5af4f6",
+    "bytes": 3302
+  },
+  {
+    "name": "gn-9b6g-port-init-closure-1.txt",
+    "sha256": "21c43ae68ca38e40ac0e2a2d62ef2fef538141087f1e1bd9a2c4346f6cc3122e",
+    "bytes": 465
+  },
+  {
+    "name": "gn-9b6g-port-initialize-1.txt",
+    "sha256": "e086f289f1cd88250d16479a5e8cf21336e0e22216d18072b8182456b9f963db",
+    "bytes": 1074
+  },
+  {
+    "name": "gn-9b6g-port-invariant-contracts-1.json",
+    "sha256": "db7136aed5139ed704ed9fbc07361a857b16d702610ff0bef90f56b5a2dd77fb",
+    "bytes": 3142338
+  },
+  {
+    "name": "gn-9b6g-port-invariant-contracts-1.log",
+    "sha256": "ff0a3c46135d214ed2e5652bd2aa18f332612382923150b9fc9529b861c84f67",
+    "bytes": 60
+  },
+  {
+    "name": "gn-9b6g-port-invariant-contracts-1.py",
+    "sha256": "e61173114a229fb7f6f3efceb838d35d69f31be8b147018257c3dc08e020a38a",
+    "bytes": 1044
+  },
+  {
+    "name": "gn-9b6g-port-invariant-costs-1.json",
+    "sha256": "e1606782a642ed84f060e04ffd3184441f6ac0cb2c23d3f77e0f562a8b825525",
+    "bytes": 10134
+  },
+  {
+    "name": "gn-9b6g-port-invariant-costs-1.log",
+    "sha256": "9ffef8aef30488854ab1a5e43d3af1b6756334f8fc627af6b05c2e8d342c9ec4",
+    "bytes": 227
+  },
+  {
+    "name": "gn-9b6g-port-invariant-costs-1.py",
+    "sha256": "e259a6a3d4a2edf2287e945a29f0a0c088b6c1f2c1c651fbae4e4479c8ff34e9",
+    "bytes": 6355
+  },
+  {
+    "name": "gn-9b6g-port-invariant-reads-1.json",
+    "sha256": "c247ba0b2b981cb3b326f70cb91dd399268d4f5d38de564b3867e88894c9619c",
+    "bytes": 89170
+  },
+  {
+    "name": "gn-9b6g-port-invariant-reads-1.log",
+    "sha256": "5c7614c18cf07039deea6e7f3f9860b98111d1208468edd7f59bb55d237459cc",
+    "bytes": 189
+  },
+  {
+    "name": "gn-9b6g-port-invariant-reads-1.py",
+    "sha256": "d0c3913ae2a9fe700edc45afc45365c957f7fae386c4ad7eb904b35492af4e5a",
+    "bytes": 3584
+  },
+  {
+    "name": "gn-9b6g-port-invariants-1.txt",
+    "sha256": "3736ed296f2f055c5c8c62285942d614f7f1c74ad5984d4554fe42fcb3c30aed",
+    "bytes": 5176
+  },
+  {
+    "name": "gn-9b6g-port-labels-1.json",
+    "sha256": "e7d81a012e773cbc5ada794fb651b54be524fe60d7afc0bca11859eb2b1c84af",
+    "bytes": 9940
+  },
+  {
+    "name": "gn-9b6g-port-labels-1.log",
+    "sha256": "e77494748d1386c994c92b81628536e061611682391adbecde99e6c7e6e912c0",
+    "bytes": 100
+  },
+  {
+    "name": "gn-9b6g-port-labels-1.py",
+    "sha256": "f9cb30bc32b12f850a424f74c5409c72ffc9fe8d5dc446924414b075167c53cd",
+    "bytes": 2811
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-1.json",
+    "sha256": "ca9a4772e119d6bcc7954150807bbb011f406a1c51695ed4e429069d396da5f6",
+    "bytes": 3294
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-1.log",
+    "sha256": "b47e3f95e79ea75e69e79cd211ff95b8a8f355890ca3362ee3727e594fb2b48e",
+    "bytes": 259
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-1.py",
+    "sha256": "299d47c4b0a16feffabf92dba0b5726c7840ba73428045c6427840ad3b3364ee",
+    "bytes": 3753
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-2.json",
+    "sha256": "a176b3e5ddafffb6f854e5d7b50629fe746dd244f68999a610e439fe97059072",
+    "bytes": 3293
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-2.log",
+    "sha256": "8252f7baa9a08e3677d8752de09a3857117984ede3c4a974dbd1caa55ab4ed35",
+    "bytes": 258
+  },
+  {
+    "name": "gn-9b6g-port-object-costs-2.py",
+    "sha256": "7206ba8d61ebd81bf538519519bc35b26d6fd1e9bdf2b4867e009cfb5ba63047",
+    "bytes": 4153
+  },
+  {
+    "name": "gn-9b6g-port-property-bindings-1-0.json",
+    "sha256": "388160c4c49db5d5c582aa61f606ac418e68fcc2f83fc42ee37e9c12cd1a533d",
+    "bytes": 117337
+  },
+  {
+    "name": "gn-9b6g-port-property-bindings-1-1.json",
+    "sha256": "58ba05e595e7eacc962e10fdfce5d4b981242bdec34bfd9cf6e9539a39f2868b",
+    "bytes": 153934
+  },
+  {
+    "name": "gn-9b6g-port-property-bindings-1.log",
+    "sha256": "412c998e3645773f9213d34f3dcfd17d8244a220968ae1b33dc0e42c0685fdc2",
+    "bytes": 150
+  },
+  {
+    "name": "gn-9b6g-port-property-bindings-1.py",
+    "sha256": "3ce816fe8430bc2157ba5845465100ab3d46e17379c060b8d89da31b024625ae",
+    "bytes": 1787
+  },
+  {
+    "name": "gn-9b6g-port-setter-hooks-1.txt",
+    "sha256": "978bb5cdd4a0bf266c4479dfa9ace2fe1eeca1e06408a5db8b00516af2650d8e",
+    "bytes": 2417
+  },
+  {
+    "name": "gn-9b6g-port-setters-1.txt",
+    "sha256": "2c471e33559537cb144d438997e16b4e6838d65d3068fe01bbcf24bcb47a40e0",
+    "bytes": 2257
+  },
+  {
+    "name": "gn-9b6g-port-state-1.txt",
+    "sha256": "73f8f75fdd7f2205a8d006ab5242039b57f90832e9216b8675229fe53da7c73c",
+    "bytes": 371
+  },
+  {
+    "name": "gn-9b6g-port-terminal-stores-1.txt",
+    "sha256": "b65e389da3538341836a962a452b502367ce4c7ce9501f3a962647d8900e74af",
+    "bytes": 3628
+  },
+  {
+    "name": "gn-9b6g-port-terminal-stores-2.txt",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "name": "gn-9b6g-port-terminal-stores-3.txt",
+    "sha256": "febf2cdfc574f8d9dfeeb4e8101d2e373d8e142128d78f5823a740404b745e7c",
+    "bytes": 7492
+  },
+  {
+    "name": "gn-9b6g-warm-template-isolation-1.txt",
+    "sha256": "71a07cbd4c8f1bb9736cf0a940e1a3b72c738c16a2c449792243b1ff1b5d4d08",
+    "bytes": 496
+  }
+]

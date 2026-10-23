@@ -1,0 +1,609 @@
+{
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "rows": [
+        {
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "classId": 1763,
+          "propertyName": "engine_shared_memory_helper",
+          "propertyId": 3605,
+          "flags": 257,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "rOk",
+            "oNk",
+            "()LcYz;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYz",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "boolean_value_atom",
+          "classId": 87,
+          "propertyName": "engine_shared_memory_helper",
+          "propertyId": 3605,
+          "flags": 257,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "rOk",
+            "oNk",
+            "()LcYz;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYz",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "module",
+          "classId": 1902,
+          "propertyName": "remote_controls",
+          "propertyId": 6785,
+          "flags": 281,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/GCp",
+            "SRu",
+            "()LcYz;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYz",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "module",
+          "classId": 1902,
+          "propertyName": "browsing_session_state",
+          "propertyId": 6054,
+          "flags": 281,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/ilU",
+            "RDR",
+            "()LcYz;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYz",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "nitro_atom",
+          "classId": 1721,
+          "propertyName": "in_ports",
+          "propertyId": 228,
+          "flags": 385,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "SgA",
+            "LHx",
+            "()LcYy;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYy",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "nitro_atom",
+          "classId": 1721,
+          "propertyName": "out_ports",
+          "propertyId": 229,
+          "flags": 385,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "SgA",
+            "fqk",
+            "()LcYy;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYy",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "auxiliary_device_remote_controls",
+          "classId": 1961,
+          "propertyName": "device_pages",
+          "propertyId": 7005,
+          "flags": 264,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/ejg",
+            "W2P",
+            "()LcYz;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "cYH",
+              "VoD",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "cYz",
+                "property"
+              ],
+              [
+                "cYF",
+                "Uhv",
+                "I"
+              ]
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "rows": [
+        {
+          "className": "bipolar_toggleable_decimal_value_atom",
+          "classId": 1763,
+          "propertyName": "engine_shared_memory_helper",
+          "propertyId": 3605,
+          "flags": 257,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "vKA",
+            "BNq",
+            "()LdeU;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deU",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "boolean_value_atom",
+          "classId": 87,
+          "propertyName": "engine_shared_memory_helper",
+          "propertyId": 3605,
+          "flags": 257,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "vKA",
+            "BNq",
+            "()LdeU;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deU",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "module",
+          "classId": 1902,
+          "propertyName": "remote_controls",
+          "propertyId": 6785,
+          "flags": 281,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/rsB",
+            "eLY",
+            "()LdeU;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deU",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "module",
+          "classId": 1902,
+          "propertyName": "browsing_session_state",
+          "propertyId": 6054,
+          "flags": 281,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/OCK",
+            "Z1C",
+            "()LdeU;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deU",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "nitro_atom",
+          "classId": 1721,
+          "propertyName": "in_ports",
+          "propertyId": 228,
+          "flags": 385,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "nmv",
+            "pWb",
+            "()LdeT;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deT",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "nitro_atom",
+          "classId": 1721,
+          "propertyName": "out_ports",
+          "propertyId": 229,
+          "flags": 385,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "nmv",
+            "e3y",
+            "()LdeT;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deT",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        },
+        {
+          "className": "auxiliary_device_remote_controls",
+          "classId": 1961,
+          "propertyName": "device_pages",
+          "propertyId": 7005,
+          "flags": 264,
+          "historyBit32": false,
+          "error": null,
+          "witness": [
+            "com/bitwig/flt/document/core/master/device/Vc3",
+            "TtY",
+            "()LdeU;",
+            6
+          ],
+          "predicate": false,
+          "predicateBound": [
+            7,
+            0,
+            0
+          ],
+          "predicateMethods": [
+            [
+              "dfb",
+              "nVd",
+              "()Z"
+            ]
+          ],
+          "fieldConditions": [
+            [
+              [
+                "ref",
+                "deU",
+                "property"
+              ],
+              [
+                "deZ",
+                "FzB",
+                "I"
+              ]
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "conditions": [
+    "These seven schema rows name the traced default-child and generated-port relationships.",
+    "The result does not establish which children exist, parent identity, or state stability.",
+    "The surrounding clone, initialization, attachment, and disposal paths remain separate."
+  ]
+}

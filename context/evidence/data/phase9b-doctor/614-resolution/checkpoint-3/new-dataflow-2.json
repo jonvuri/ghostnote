@@ -1,0 +1,4056 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "paths": [
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7123,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "BNq",
+          "()Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "MRY",
+          "(Lcom/bitwig/flt/document/core/master/device/PSD;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/cXR",
+          "cfM",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/WzZ",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7124,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "BNq",
+          "()Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "MRY",
+          "(Lcom/bitwig/flt/document/core/master/device/PSD;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/cXR",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/WzZ",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7125,
+      "propertyName": "source",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "BNq",
+          "()Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "FzB",
+          "(Lcom/bitwig/flt/document/core/master/device/PSD;I)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "UNj",
+          "(Lcom/bitwig/ramona/core/OLR;I)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/cXR",
+          "Scv",
+          "()Lcom/bitwig/flt/document/core/master/device/xOa;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deU",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deU",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deU",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deU",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/WzZ",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7234,
+      "propertyName": "default_value",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "BNq",
+          "()Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CuM",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "Hnt",
+          "(Lcom/bitwig/flt/document/core/master/device/PSD;I)D"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Zb1",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/OLR;I)D"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/cXR",
+          "RDJ",
+          "()D"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dey",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dey",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+        ],
+        [
+          "dey",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)D"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/WzZ",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/WzZ;"
+        ]
+      ]
+    },
+    {
+      "classId": 2000,
+      "className": "audio_source_atom",
+      "propertyId": 3639,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/IWT",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/IWT",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/xOa;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/YSk",
+          "emh",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/z2y",
+          "Z1C",
+          "()Lcom/bitwig/flt/document/core/master/device/Uev;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/z2y",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/Uev",
+          "Hnt",
+          "Lcom/bitwig/flt/document/core/master/device/Uev;"
+        ]
+      ]
+    },
+    {
+      "classId": 2000,
+      "className": "audio_source_atom",
+      "propertyId": 3640,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/IWT",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/IWT",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/xOa;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/YSk",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/z2y",
+          "Z1C",
+          "()Lcom/bitwig/flt/document/core/master/device/Uev;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/z2y",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/Uev",
+          "Hnt",
+          "Lcom/bitwig/flt/document/core/master/device/Uev;"
+        ]
+      ]
+    },
+    {
+      "classId": 3469,
+      "className": "audio_voice_sum_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "PJ",
+          "iHb",
+          "()LxgH;"
+        ],
+        [
+          "PJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "vdx",
+          "()I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deS",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "xgH",
+          "cfM",
+          "LxgH;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 6406,
+      "propertyName": "bipolar",
+      "error": null,
+      "methods": [
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ],
+        [
+          "exD",
+          "cfM",
+          "(LHgx;I)Z"
+        ],
+        [
+          "exD",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "rXz",
+          "MIO",
+          "()LexD;"
+        ],
+        [
+          "rXz",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "rXz",
+          "vpw",
+          "()Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "exD",
+          "cfM",
+          "LexD;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 712,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "hUR",
+          "()D"
+        ],
+        [
+          "Yxs",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/OLR;I)D"
+        ],
+        [
+          "Yxs",
+          "cfM",
+          "(Lrce;I)D"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dey",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dey",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+        ],
+        [
+          "dey",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)D"
+        ],
+        [
+          "rXz",
+          "MIO",
+          "()LexD;"
+        ],
+        [
+          "rXz",
+          "ng_",
+          "()LdeS;"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "exD",
+          "cfM",
+          "LexD;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 949,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "iCS",
+          "()D"
+        ],
+        [
+          "Yxs",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/OLR;I)D"
+        ],
+        [
+          "Yxs",
+          "cfM",
+          "(Lrce;I)D"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dey",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dey",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+        ],
+        [
+          "dey",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)D"
+        ],
+        [
+          "rXz",
+          "MIO",
+          "()LexD;"
+        ],
+        [
+          "rXz",
+          "ng_",
+          "()LdeS;"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "exD",
+          "cfM",
+          "LexD;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "rXz",
+          "MIO",
+          "()LexD;"
+        ],
+        [
+          "rXz",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "exD",
+          "cfM",
+          "LexD;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "rXz",
+          "MIO",
+          "()LexD;"
+        ],
+        [
+          "rXz",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "exD",
+          "cfM",
+          "LexD;"
+        ]
+      ]
+    },
+    {
+      "classId": 1751,
+      "className": "boolean_panel_value",
+      "propertyId": 6386,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "FbA",
+          "cfM",
+          "(LBMo;I)Z"
+        ],
+        [
+          "FbA",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ],
+        [
+          "xqx",
+          "ODA",
+          "()LFbA;"
+        ],
+        [
+          "xqx",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "xqx",
+          "vpw",
+          "()Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "FbA",
+          "MRY",
+          "LFbA;"
+        ]
+      ]
+    },
+    {
+      "classId": 1751,
+      "className": "boolean_panel_value",
+      "propertyId": 6387,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "Hys",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "Xyt",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "Xyt",
+          "cfM",
+          "(LmoR;I)Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "xqx",
+          "ODA",
+          "()LFbA;"
+        ],
+        [
+          "xqx",
+          "ng_",
+          "()LdeS;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "FbA",
+          "MRY",
+          "LFbA;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 210,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "CWc",
+          "cfM",
+          "(LRuU;I)Z"
+        ],
+        [
+          "CWc",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "Qe",
+          "MIO",
+          "()LCWc;"
+        ],
+        [
+          "Qe",
+          "hUR",
+          "()Z"
+        ],
+        [
+          "Qe",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "CWc",
+          "Hnt",
+          "LCWc;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 953,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "CWc",
+          "cfM",
+          "(LRuU;I)Z"
+        ],
+        [
+          "CWc",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "Qe",
+          "Grk",
+          "()Z"
+        ],
+        [
+          "Qe",
+          "MIO",
+          "()LCWc;"
+        ],
+        [
+          "Qe",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "CWc",
+          "Hnt",
+          "LCWc;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "Qe",
+          "MIO",
+          "()LCWc;"
+        ],
+        [
+          "Qe",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "CWc",
+          "Hnt",
+          "LCWc;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "Qe",
+          "MIO",
+          "()LCWc;"
+        ],
+        [
+          "Qe",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "CWc",
+          "Hnt",
+          "LCWc;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 210,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "BEI",
+          "lYc",
+          "()LIhN;"
+        ],
+        [
+          "BEI",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "CWc",
+          "cfM",
+          "(LRuU;I)Z"
+        ],
+        [
+          "CWc",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "Qe",
+          "hUR",
+          "()Z"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "IhN",
+          "cfM",
+          "LIhN;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 953,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "BEI",
+          "lYc",
+          "()LIhN;"
+        ],
+        [
+          "BEI",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "CWc",
+          "cfM",
+          "(LRuU;I)Z"
+        ],
+        [
+          "CWc",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "Qe",
+          "Grk",
+          "()Z"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "IhN",
+          "cfM",
+          "LIhN;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "BEI",
+          "lYc",
+          "()LIhN;"
+        ],
+        [
+          "BEI",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "IhN",
+          "cfM",
+          "LIhN;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "BEI",
+          "lYc",
+          "()LIhN;"
+        ],
+        [
+          "BEI",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "IhN",
+          "cfM",
+          "LIhN;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 712,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "MJ",
+          "()LYxs;"
+        ],
+        [
+          "Opy",
+          "hUR",
+          "()D"
+        ],
+        [
+          "Opy",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Yxs",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/OLR;I)D"
+        ],
+        [
+          "Yxs",
+          "cfM",
+          "(Lrce;I)D"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dey",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dey",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+        ],
+        [
+          "dey",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)D"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "Yxs",
+          "FzB",
+          "LYxs;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 949,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "MJ",
+          "()LYxs;"
+        ],
+        [
+          "Opy",
+          "iCS",
+          "()D"
+        ],
+        [
+          "Opy",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Yxs",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/OLR;I)D"
+        ],
+        [
+          "Yxs",
+          "cfM",
+          "(Lrce;I)D"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dey",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dey",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+        ],
+        [
+          "dey",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)D"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "Yxs",
+          "FzB",
+          "LYxs;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "MJ",
+          "()LYxs;"
+        ],
+        [
+          "Opy",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "Yxs",
+          "FzB",
+          "LYxs;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "Opy",
+          "MJ",
+          "()LYxs;"
+        ],
+        [
+          "Opy",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "Yxs",
+          "FzB",
+          "LYxs;"
+        ]
+      ]
+    },
+    {
+      "classId": 3335,
+      "className": "device_audio_output_proxy_atom",
+      "propertyId": 9817,
+      "propertyName": "device_destination_ID",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/TrO",
+          "dvk",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/b",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/b",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/qRe;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/vna",
+          "MIO",
+          "()Lcom/bitwig/flt/document/core/master/device/eCm;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/vna",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/eCm",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/eCm;"
+        ]
+      ]
+    },
+    {
+      "classId": 3300,
+      "className": "device_input_proxy_atom",
+      "propertyId": 9794,
+      "propertyName": "device_source_ID",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CIa",
+          "FzB",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CIa",
+          "ODA",
+          "()Lcom/bitwig/flt/document/core/master/device/JYc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CIa",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/JYc",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/JYc",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/Kiy;I)Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/JYc",
+          "cfM",
+          "Lcom/bitwig/flt/document/core/master/device/JYc;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 457,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "RSJ",
+          "UNj",
+          "()I"
+        ],
+        [
+          "RSJ",
+          "Zyp",
+          "()LmbE;"
+        ],
+        [
+          "RSJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(LLig;I)I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "mbE",
+          "MRY",
+          "LmbE;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 955,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "RSJ",
+          "TMF",
+          "()I"
+        ],
+        [
+          "RSJ",
+          "Zyp",
+          "()LmbE;"
+        ],
+        [
+          "RSJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(LLig;I)I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "mbE",
+          "MRY",
+          "LmbE;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 6928,
+      "propertyName": "value_item_index",
+      "error": null,
+      "methods": [
+        [
+          "RSJ",
+          "Zyp",
+          "()LmbE;"
+        ],
+        [
+          "RSJ",
+          "kTh",
+          "()I"
+        ],
+        [
+          "RSJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(LLig;I)I"
+        ],
+        [
+          "mbE",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "mbE",
+          "MRY",
+          "LmbE;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "RSJ",
+          "Zyp",
+          "()LmbE;"
+        ],
+        [
+          "RSJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "mbE",
+          "MRY",
+          "LmbE;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "RSJ",
+          "Zyp",
+          "()LmbE;"
+        ],
+        [
+          "RSJ",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "mbE",
+          "MRY",
+          "LmbE;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 828,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "Igl",
+          "kIh",
+          "()I"
+        ],
+        [
+          "Igl",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Igl",
+          "zxZ",
+          "()LOsq;"
+        ],
+        [
+          "Osq",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ],
+        [
+          "Osq",
+          "cfM",
+          "(LiS3;I)I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "Osq",
+          "MRY",
+          "LOsq;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 957,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "Igl",
+          "hUR",
+          "()I"
+        ],
+        [
+          "Igl",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Igl",
+          "zxZ",
+          "()LOsq;"
+        ],
+        [
+          "Osq",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ],
+        [
+          "Osq",
+          "cfM",
+          "(LiS3;I)I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "Osq",
+          "MRY",
+          "LOsq;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "Igl",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Igl",
+          "zxZ",
+          "()LOsq;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "Osq",
+          "MRY",
+          "LOsq;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "Igl",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Igl",
+          "zxZ",
+          "()LOsq;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ],
+        [
+          "rBL",
+          "BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "vKA",
+          "IwV",
+          "(LbDH;I)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "Osq",
+          "MRY",
+          "LOsq;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "QOl",
+          "()Lcom/bitwig/flt/document/core/master/device/hpW;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "jHi",
+          "()LK2G;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Dgc",
+          "jHi",
+          "()LK2G;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "UNj",
+          "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "UNj",
+          "(Lcom/bitwig/ramona/core/OLR;I)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/gJi",
+          "ifN",
+          "()Lcom/bitwig/flt/document/core/master/device/RYd;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deU",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deU",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deU",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deU",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6679,
+      "propertyName": "grid_x",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/rSf;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/gJi",
+          "FzB",
+          "()I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6680,
+      "propertyName": "grid_y",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/rSf;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/gJi",
+          "UNj",
+          "()I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6977,
+      "propertyName": "active",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "MRY",
+          "(Lcom/bitwig/flt/document/core/master/device/rSf;I)Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "eLY",
+          "(Lcom/bitwig/ramona/core/OLR;I)Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/gJi",
+          "luv",
+          "()Z"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dep",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dep",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+        ],
+        [
+          "dep",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)Z"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 15,
+      "propertyName": "UUID",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Dgc",
+          "kFU",
+          "()Ljava/util/UUID;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "MRY",
+          "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Ljava/util/UUID;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "hUR",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/UUID;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfi",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfi",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/UUID;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 404,
+      "propertyName": "device_name",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "Dah",
+          "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Dgc",
+          "vpw",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OCK",
+          "Hnt",
+          "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/QWa",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/QWa;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 6369,
+      "propertyName": "device_UUID",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "gfw",
+          "()Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/iYN",
+          "UNj",
+          "()Ljava/util/UUID;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/sQv",
+          "cfM",
+          "(Lcom/bitwig/flt/document/core/master/device/RYd;I)Ljava/util/UUID;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/sQv",
+          "hUR",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/UUID;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfi",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfi",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/UUID;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/fNT",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 6370,
+      "propertyName": "device_name",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "gfw",
+          "()Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/iYN",
+          "hUR",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/sQv",
+          "FzB",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/sQv",
+          "MRY",
+          "(Lcom/bitwig/flt/document/core/master/device/RYd;I)Ljava/lang/String;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "dfg",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "dfg",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/fNT",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "FzB",
+          "(Lcom/bitwig/flt/document/core/master/device/BVs;I)Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "FzB",
+          "(Lcom/bitwig/flt/document/core/master/device/BVs;II)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "IwV",
+          "(Lcom/bitwig/flt/document/core/master/device/BVs;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/OLR;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/M2Y",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/OLR;II)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "gfw",
+          "()Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/i2s",
+          "MLK",
+          "()I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/i2s",
+          "SQN",
+          "()Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/i2s",
+          "TMF",
+          "(I)LK2G;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deT",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/List;"
+        ],
+        [
+          "deT",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deT",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deT",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deT",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/oDc;"
+        ]
+      ],
+      "external": [
+        [
+          "java/util/Collections",
+          "emptyList",
+          "()Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/Collections",
+          "unmodifiableList",
+          "(Ljava/util/List;)Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/List",
+          "get",
+          "(I)Ljava/lang/Object;",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ],
+        [
+          "java/util/List",
+          "size",
+          "()I",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/fNT",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/fNT;"
+        ]
+      ]
+    },
+    {
+      "classId": 1901,
+      "className": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "error": null,
+      "methods": [
+        [
+          "com/bitwig/flt/document/core/master/device/BZG",
+          "Grk",
+          "()Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/BZG",
+          "Hnt",
+          "(I)Lcom/bitwig/flt/document/core/master/device/JXO;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/BZG",
+          "lYc",
+          "()I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/EYY",
+          "Cuu",
+          "()Lcom/bitwig/flt/document/core/master/device/PMp;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/EYY",
+          "Grk",
+          "()Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/EYY",
+          "hUR",
+          "(I)Lcom/bitwig/flt/document/core/master/device/rSf;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/EYY",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "FzB",
+          "(Lcom/bitwig/flt/document/core/master/device/IcG;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "Hnt",
+          "(Lcom/bitwig/flt/document/core/master/device/IcG;I)Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "Hnt",
+          "(Lcom/bitwig/flt/document/core/master/device/IcG;II)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/List;"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/OLR;I)I"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/OLR;II)Lcom/bitwig/ramona/core/oDc;"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deT",
+          "Hnt",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/List;"
+        ],
+        [
+          "deT",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deT",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+        ],
+        [
+          "deT",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deT",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/oDc;"
+        ]
+      ],
+      "external": [
+        [
+          "java/util/Collections",
+          "emptyList",
+          "()Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/Collections",
+          "unmodifiableList",
+          "(Ljava/util/List;)Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/List",
+          "get",
+          "(I)Ljava/lang/Object;",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ],
+        [
+          "java/util/List",
+          "size",
+          "()I",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "com/bitwig/flt/document/core/master/device/PMp",
+          "IwV",
+          "Lcom/bitwig/flt/document/core/master/device/PMp;"
+        ]
+      ]
+    },
+    {
+      "classId": 1721,
+      "className": "nitro_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "Mdi",
+          "PD3",
+          "()LQZn;"
+        ],
+        [
+          "Mdi",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "vdx",
+          "()I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ],
+        [
+          "deS",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "QZn",
+          "cfM",
+          "LQZn;"
+        ]
+      ]
+    },
+    {
+      "classId": 1815,
+      "className": "polyphonic_observer_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "Gah",
+          "ng_",
+          "()LdeS;"
+        ],
+        [
+          "Gah",
+          "vpw",
+          "()LHHA;"
+        ],
+        [
+          "HHA",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;I)I"
+        ],
+        [
+          "HHA",
+          "cfM",
+          "(LfwH;I)I"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "vdx",
+          "()I"
+        ],
+        [
+          "deH",
+          "MRY",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+        ],
+        [
+          "deH",
+          "TMF",
+          "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+        ],
+        [
+          "deH",
+          "lYc",
+          "(Lcom/bitwig/ramona/core/oDc;)I"
+        ],
+        [
+          "deN",
+          "E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "HHA",
+          "cfM",
+          "LHHA;"
+        ]
+      ]
+    }
+  ],
+  "methods": [
+    [
+      "BEI",
+      "lYc",
+      "()LIhN;"
+    ],
+    [
+      "BEI",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "CWc",
+      "cfM",
+      "(LRuU;I)Z"
+    ],
+    [
+      "CWc",
+      "eLY",
+      "(Lcom/bitwig/ramona/core/OLR;I)Z"
+    ],
+    [
+      "FbA",
+      "cfM",
+      "(LBMo;I)Z"
+    ],
+    [
+      "FbA",
+      "eLY",
+      "(Lcom/bitwig/ramona/core/OLR;I)Z"
+    ],
+    [
+      "Gah",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Gah",
+      "vpw",
+      "()LHHA;"
+    ],
+    [
+      "HHA",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)I"
+    ],
+    [
+      "HHA",
+      "cfM",
+      "(LfwH;I)I"
+    ],
+    [
+      "Hys",
+      "ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "Igl",
+      "hUR",
+      "()I"
+    ],
+    [
+      "Igl",
+      "kIh",
+      "()I"
+    ],
+    [
+      "Igl",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Igl",
+      "zxZ",
+      "()LOsq;"
+    ],
+    [
+      "Mdi",
+      "PD3",
+      "()LQZn;"
+    ],
+    [
+      "Mdi",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Opy",
+      "MJ",
+      "()LYxs;"
+    ],
+    [
+      "Opy",
+      "hUR",
+      "()D"
+    ],
+    [
+      "Opy",
+      "iCS",
+      "()D"
+    ],
+    [
+      "Opy",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Osq",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)I"
+    ],
+    [
+      "Osq",
+      "cfM",
+      "(LiS3;I)I"
+    ],
+    [
+      "PJ",
+      "iHb",
+      "()LxgH;"
+    ],
+    [
+      "PJ",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Qe",
+      "Grk",
+      "()Z"
+    ],
+    [
+      "Qe",
+      "MIO",
+      "()LCWc;"
+    ],
+    [
+      "Qe",
+      "hUR",
+      "()Z"
+    ],
+    [
+      "Qe",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "RSJ",
+      "TMF",
+      "()I"
+    ],
+    [
+      "RSJ",
+      "UNj",
+      "()I"
+    ],
+    [
+      "RSJ",
+      "Zyp",
+      "()LmbE;"
+    ],
+    [
+      "RSJ",
+      "kTh",
+      "()I"
+    ],
+    [
+      "RSJ",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "Xyt",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "Xyt",
+      "cfM",
+      "(LmoR;I)Ljava/lang/String;"
+    ],
+    [
+      "Yxs",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/OLR;I)D"
+    ],
+    [
+      "Yxs",
+      "cfM",
+      "(Lrce;I)D"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/BZG",
+      "Grk",
+      "()Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/BZG",
+      "Hnt",
+      "(I)Lcom/bitwig/flt/document/core/master/device/JXO;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/BZG",
+      "lYc",
+      "()I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CEE",
+      "Dah",
+      "()Lcom/bitwig/flt/document/core/master/device/QWa;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CEE",
+      "QOl",
+      "()Lcom/bitwig/flt/document/core/master/device/hpW;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CEE",
+      "jHi",
+      "()LK2G;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CEE",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CIa",
+      "FzB",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CIa",
+      "ODA",
+      "()Lcom/bitwig/flt/document/core/master/device/JYc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CIa",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CuM",
+      "BNq",
+      "()Lcom/bitwig/flt/document/core/master/device/WzZ;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/CuM",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Dgc",
+      "jHi",
+      "()LK2G;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Dgc",
+      "kFU",
+      "()Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Dgc",
+      "vpw",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/EYY",
+      "Cuu",
+      "()Lcom/bitwig/flt/document/core/master/device/PMp;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/EYY",
+      "Grk",
+      "()Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/EYY",
+      "hUR",
+      "(I)Lcom/bitwig/flt/document/core/master/device/rSf;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/EYY",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/IWT",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/IWT",
+      "cfM",
+      "(Lcom/bitwig/flt/document/core/master/device/xOa;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/JYc",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/JYc",
+      "cfM",
+      "(Lcom/bitwig/flt/document/core/master/device/Kiy;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "FzB",
+      "(Lcom/bitwig/flt/document/core/master/device/BVs;I)Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "FzB",
+      "(Lcom/bitwig/flt/document/core/master/device/BVs;II)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "Hnt",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "IwV",
+      "(Lcom/bitwig/flt/document/core/master/device/BVs;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/OLR;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/M2Y",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/OLR;II)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "Hnt",
+      "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "MRY",
+      "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "UNj",
+      "(Lcom/bitwig/flt/document/core/master/device/hgq;I)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "UNj",
+      "(Lcom/bitwig/ramona/core/OLR;I)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/OCK",
+      "hUR",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "FzB",
+      "(Lcom/bitwig/flt/document/core/master/device/IcG;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "Hnt",
+      "(Lcom/bitwig/flt/document/core/master/device/IcG;I)Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "Hnt",
+      "(Lcom/bitwig/flt/document/core/master/device/IcG;II)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "Hnt",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/OLR;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/PMp",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/OLR;II)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/QWa",
+      "MRY",
+      "(Lcom/bitwig/flt/document/core/master/device/rSf;I)Z"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/QWa",
+      "cfM",
+      "(Lcom/bitwig/flt/document/core/master/device/rSf;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/QWa",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/QWa",
+      "eLY",
+      "(Lcom/bitwig/ramona/core/OLR;I)Z"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/TrO",
+      "dvk",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/YSk",
+      "ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/YSk",
+      "emh",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "FzB",
+      "(Lcom/bitwig/flt/document/core/master/device/PSD;I)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "Hnt",
+      "(Lcom/bitwig/flt/document/core/master/device/PSD;I)D"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "MRY",
+      "(Lcom/bitwig/flt/document/core/master/device/PSD;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/OLR;I)D"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/Zb1",
+      "UNj",
+      "(Lcom/bitwig/ramona/core/OLR;I)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/b",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/b",
+      "cfM",
+      "(Lcom/bitwig/flt/document/core/master/device/qRe;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/cXR",
+      "RDJ",
+      "()D"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/cXR",
+      "Scv",
+      "()Lcom/bitwig/flt/document/core/master/device/xOa;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/cXR",
+      "ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/cXR",
+      "cfM",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/gJi",
+      "FzB",
+      "()I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/gJi",
+      "UNj",
+      "()I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/gJi",
+      "ifN",
+      "()Lcom/bitwig/flt/document/core/master/device/RYd;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/gJi",
+      "luv",
+      "()Z"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/hp",
+      "gfw",
+      "()Lcom/bitwig/flt/document/core/master/device/fNT;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/hp",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/i2s",
+      "MLK",
+      "()I"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/i2s",
+      "SQN",
+      "()Ljava/util/List;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/i2s",
+      "TMF",
+      "(I)LK2G;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/iYN",
+      "UNj",
+      "()Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/iYN",
+      "hUR",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/sQv",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/sQv",
+      "MRY",
+      "(Lcom/bitwig/flt/document/core/master/device/RYd;I)Ljava/lang/String;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/sQv",
+      "cfM",
+      "(Lcom/bitwig/flt/document/core/master/device/RYd;I)Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/sQv",
+      "hUR",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/util/UUID;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/vna",
+      "MIO",
+      "()Lcom/bitwig/flt/document/core/master/device/eCm;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/vna",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/z2y",
+      "Z1C",
+      "()Lcom/bitwig/flt/document/core/master/device/Uev;"
+    ],
+    [
+      "com/bitwig/flt/document/core/master/device/z2y",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "com/bitwig/ramona/core/oDc",
+      "vdx",
+      "()I"
+    ],
+    [
+      "deH",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "deH",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Integer;"
+    ],
+    [
+      "deH",
+      "lYc",
+      "(Lcom/bitwig/ramona/core/oDc;)I"
+    ],
+    [
+      "deN",
+      "E3",
+      "()I"
+    ],
+    [
+      "deS",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)I"
+    ],
+    [
+      "deT",
+      "Hnt",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/List;"
+    ],
+    [
+      "deT",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "deT",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+    ],
+    [
+      "deT",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)I"
+    ],
+    [
+      "deT",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/oDc;"
+    ],
+    [
+      "deU",
+      "Hnt",
+      "(Lcom/bitwig/ramona/core/oDc;)Lcom/bitwig/ramona/core/OLR;"
+    ],
+    [
+      "deU",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "deU",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;I)Lcom/bitwig/ramona/core/OLR;"
+    ],
+    [
+      "deU",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)I"
+    ],
+    [
+      "dep",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "dep",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Boolean;"
+    ],
+    [
+      "dep",
+      "lYc",
+      "(Lcom/bitwig/ramona/core/oDc;)Z"
+    ],
+    [
+      "dey",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "dey",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Double;"
+    ],
+    [
+      "dey",
+      "lYc",
+      "(Lcom/bitwig/ramona/core/oDc;)D"
+    ],
+    [
+      "dfg",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "dfg",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/String;"
+    ],
+    [
+      "dfi",
+      "MRY",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/lang/Object;"
+    ],
+    [
+      "dfi",
+      "TMF",
+      "(Lcom/bitwig/ramona/core/oDc;)Ljava/util/UUID;"
+    ],
+    [
+      "exD",
+      "cfM",
+      "(LHgx;I)Z"
+    ],
+    [
+      "exD",
+      "eLY",
+      "(Lcom/bitwig/ramona/core/OLR;I)Z"
+    ],
+    [
+      "mbE",
+      "cfM",
+      "(LLig;I)I"
+    ],
+    [
+      "mbE",
+      "cfM",
+      "(Lcom/bitwig/ramona/core/oDc;I)I"
+    ],
+    [
+      "rBL",
+      "BDm",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "rBL",
+      "ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "rXz",
+      "MIO",
+      "()LexD;"
+    ],
+    [
+      "rXz",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "rXz",
+      "vpw",
+      "()Z"
+    ],
+    [
+      "vKA",
+      "FzB",
+      "(Lcom/bitwig/ramona/core/OLR;I)Ljava/lang/String;"
+    ],
+    [
+      "vKA",
+      "IwV",
+      "(LbDH;I)Ljava/lang/String;"
+    ],
+    [
+      "xqx",
+      "ODA",
+      "()LFbA;"
+    ],
+    [
+      "xqx",
+      "ng_",
+      "()LdeS;"
+    ],
+    [
+      "xqx",
+      "vpw",
+      "()Z"
+    ]
+  ],
+  "propertyIdField": [
+    "deN",
+    "cfM",
+    "I"
+  ],
+  "work": {
+    "instructions": 2372,
+    "states": 2372,
+    "calls": 424
+  },
+  "limits": [
+    "Property and object receivers require exact runtime-class guards.",
+    "Property IDs and static descriptor identities require live checks.",
+    "External list and boxing dependencies remain separate conditions.",
+    "No vendor class is initialized and no runtime value is observed."
+  ],
+  "completeTable": false,
+  "boundedAdmission": false,
+  "writeAuthority": false,
+  "elapsedMs": 4076.354916964192,
+  "peakRssBytes": 184991744
+}

@@ -1,0 +1,7232 @@
+{
+  "root": "com/bitwig/flt/document/core/master/QfF",
+  "packages": {
+    "com/bitwig/flt/document/core/master/NcW": "float_core",
+    "weV": "float_common_atoms",
+    "gB": "device_mappings",
+    "ib": "float_document_structure",
+    "com/bitwig/nitro/Adh": "nitro",
+    "com/bitwig/nitro/zjj": "nitro_cache",
+    "com/bitwig/nitro/Jtv": "nitro_test",
+    "com/bitwig/flt/document/core/master/kj2": "float_core_enums"
+  },
+  "members": [
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "cfM",
+        "()V"
+      ],
+      "offset": 441,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/KLT",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/KLT",
+        "name": "cfM",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/KLT;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "inport_connection",
+      "id": 105
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "cfM",
+        "()V"
+      ],
+      "offset": 756,
+      "descriptorClass": "CGU",
+      "field": {
+        "tag": 9,
+        "owner": "CGU",
+        "name": "cfM",
+        "descriptor": "LCGU;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "grid_panel_item_layout_settings",
+      "id": 1694
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "FzB",
+        "()V"
+      ],
+      "offset": 532,
+      "descriptorClass": "DtU",
+      "field": {
+        "tag": 9,
+        "owner": "DtU",
+        "name": "cfM",
+        "descriptor": "LDtU;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "panel_expression",
+      "id": 1728
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "FzB",
+        "()V"
+      ],
+      "offset": 840,
+      "descriptorClass": "LaR",
+      "field": {
+        "tag": 9,
+        "owner": "LaR",
+        "name": "Hnt",
+        "descriptor": "LLaR;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "menu_toggle_panel_item",
+      "id": 1924
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "IwV",
+        "()V"
+      ],
+      "offset": 294,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/TL",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/TL",
+        "name": "cfM",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/TL;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "desktop_settings",
+      "id": 17
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "IwV",
+        "()V"
+      ],
+      "offset": 497,
+      "descriptorClass": "fxe",
+      "field": {
+        "tag": 9,
+        "owner": "fxe",
+        "name": "cfM",
+        "descriptor": "Lfxe;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "box_panel_item_layout_settings",
+      "id": 1695
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "lYc",
+        "()V"
+      ],
+      "offset": 49,
+      "descriptorClass": "KtW",
+      "field": {
+        "tag": 9,
+        "owner": "KtW",
+        "name": "hUR",
+        "descriptor": "LKtW;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "grid_panel_item",
+      "id": 1681
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "lYc",
+        "()V"
+      ],
+      "offset": 567,
+      "descriptorClass": "gsO",
+      "field": {
+        "tag": 9,
+        "owner": "gsO",
+        "name": "cfM",
+        "descriptor": "LgsO;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "panel",
+      "id": 1680
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "lYc",
+        "()V"
+      ],
+      "offset": 896,
+      "descriptorClass": "CuG",
+      "field": {
+        "tag": 9,
+        "owner": "CuG",
+        "name": "hUR",
+        "descriptor": "LCuG;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "port_panel_item",
+      "id": 2001
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "lYc",
+        "()V"
+      ],
+      "offset": 1015,
+      "descriptorClass": "rYx",
+      "field": {
+        "tag": 9,
+        "owner": "rYx",
+        "name": "cfM",
+        "descriptor": "LrYx;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "menu_container_panel_item_layout_settings",
+      "id": 1928
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "E3",
+        "()V"
+      ],
+      "offset": 301,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/Uev",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/Uev",
+        "name": "Hnt",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/Uev;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "audio_source_atom",
+      "id": 2000
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "E3",
+        "()V"
+      ],
+      "offset": 322,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/fNT",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/fNT",
+        "name": "IwV",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/fNT;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "module_contents",
+      "id": 1904
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "E3",
+        "()V"
+      ],
+      "offset": 350,
+      "descriptorClass": "CWc",
+      "field": {
+        "tag": 9,
+        "owner": "CWc",
+        "name": "Hnt",
+        "descriptor": "LCWc;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "boolean_value_atom",
+      "id": 87
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "E3",
+        "()V"
+      ],
+      "offset": 364,
+      "descriptorClass": "lY2",
+      "field": {
+        "tag": 9,
+        "owner": "lY2",
+        "name": "hUR",
+        "descriptor": "LlY2;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "knob_panel_item",
+      "id": 1687
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "E3",
+        "()V"
+      ],
+      "offset": 427,
+      "descriptorClass": "OVH",
+      "field": {
+        "tag": 9,
+        "owner": "OVH",
+        "name": "hUR",
+        "descriptor": "LOVH;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "toggle_button_panel_item",
+      "id": 1702
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "wGc",
+        "()V"
+      ],
+      "offset": 126,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/YFZ",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/YFZ",
+        "name": "cfM",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/YFZ;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "component_settings",
+      "id": 236
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "wGc",
+        "()V"
+      ],
+      "offset": 231,
+      "descriptorClass": "zAq",
+      "field": {
+        "tag": 9,
+        "owner": "zAq",
+        "name": "Hnt",
+        "descriptor": "LzAq;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "menu_container_panel_item",
+      "id": 1923
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "wGc",
+        "()V"
+      ],
+      "offset": 245,
+      "descriptorClass": "ASM",
+      "field": {
+        "tag": 9,
+        "owner": "ASM",
+        "name": "Hnt",
+        "descriptor": "LASM;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "label_panel_item",
+      "id": 1683
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "eLY",
+        "()V"
+      ],
+      "offset": 448,
+      "descriptorClass": "Voz",
+      "field": {
+        "tag": 9,
+        "owner": "Voz",
+        "name": "Hnt",
+        "descriptor": "LVoz;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "image_panel_item",
+      "id": 1719
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "eLY",
+        "()V"
+      ],
+      "offset": 910,
+      "descriptorClass": "com/bitwig/flt/document/core/master/device/WzZ",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/flt/document/core/master/device/WzZ",
+        "name": "cfM",
+        "descriptor": "Lcom/bitwig/flt/document/core/master/device/WzZ;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "audio_destination_atom",
+      "id": 2002
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "TtY",
+        "()V"
+      ],
+      "offset": 91,
+      "descriptorClass": "aK",
+      "field": {
+        "tag": 9,
+        "owner": "aK",
+        "name": "cfM",
+        "descriptor": "LaK;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "boolean_value_type",
+      "id": 198
+    },
+    {
+      "package": "float_core",
+      "registryClass": "com/bitwig/flt/document/core/master/NcW",
+      "method": [
+        "TtY",
+        "()V"
+      ],
+      "offset": 756,
+      "descriptorClass": "aP",
+      "field": {
+        "tag": 9,
+        "owner": "aP",
+        "name": "cfM",
+        "descriptor": "LaP;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/flt/document/core/master/NcW",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "decimal_value_type",
+      "id": 123
+    },
+    {
+      "package": "float_common_atoms",
+      "registryClass": "weV",
+      "method": [
+        "FzB",
+        "()V"
+      ],
+      "offset": 7,
+      "descriptorClass": "exD",
+      "field": {
+        "tag": 9,
+        "owner": "exD",
+        "name": "cfM",
+        "descriptor": "LexD;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "weV",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "bipolar_toggleable_decimal_value_atom",
+      "id": 1763
+    },
+    {
+      "package": "float_common_atoms",
+      "registryClass": "weV",
+      "method": [
+        "FzB",
+        "()V"
+      ],
+      "offset": 35,
+      "descriptorClass": "FbA",
+      "field": {
+        "tag": 9,
+        "owner": "FbA",
+        "name": "MRY",
+        "descriptor": "LFbA;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "weV",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "boolean_panel_value",
+      "id": 1751
+    },
+    {
+      "package": "float_common_atoms",
+      "registryClass": "weV",
+      "method": [
+        "wGc",
+        "()V"
+      ],
+      "offset": 105,
+      "descriptorClass": "QZn",
+      "field": {
+        "tag": 9,
+        "owner": "QZn",
+        "name": "cfM",
+        "descriptor": "LQZn;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "weV",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "nitro_atom",
+      "id": 1721
+    },
+    {
+      "package": "nitro",
+      "registryClass": "com/bitwig/nitro/Adh",
+      "method": [
+        "wGc",
+        "()V"
+      ],
+      "offset": 0,
+      "descriptorClass": "com/bitwig/nitro/uMi",
+      "field": {
+        "tag": 9,
+        "owner": "com/bitwig/nitro/uMi",
+        "name": "cfM",
+        "descriptor": "Lcom/bitwig/nitro/uMi;"
+      },
+      "registration": {
+        "tag": 10,
+        "owner": "com/bitwig/nitro/Adh",
+        "name": "cfM",
+        "descriptor": "(Lder;)V"
+      },
+      "name": "nitro_port_info",
+      "id": 2428
+    }
+  ],
+  "selectedRows": [
+    {
+      "name": "audio_destination_atom",
+      "id": 2002,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/WzZ",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/Wkj",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/WzZ",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "f3a02da6a23a8ba622a28d1f4967e4ba7e01c6c7aaef3a75ad77d5b752ce23be",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "com/bitwig/flt/document/core/master/device/Zb1",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "audio_destination_atom"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  210
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  14
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "com/bitwig/flt/document/core/master/device/Zb1",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/WzZ",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "f3a02da6a23a8ba622a28d1f4967e4ba7e01c6c7aaef3a75ad77d5b752ce23be",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  3
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/Wkj"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "audio_source_atom",
+      "id": 2000,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/Uev",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/RKg",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/Uev",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "574477256d576f477f2d4f7264a41bac4a39a4d829490847d07bd9b35f057747",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "com/bitwig/flt/document/core/master/device/IWT",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "audio_source_atom"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  208
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  8
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "com/bitwig/flt/document/core/master/device/IWT",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/Uev",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "574477256d576f477f2d4f7264a41bac4a39a4d829490847d07bd9b35f057747",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/RKg"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "bipolar_toggleable_decimal_value_atom",
+      "id": 1763,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "exD",
+          "runtimeClass": "Hgx",
+          "constructor": {
+            "owner": "exD",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "6db6d489b648e35f8c7dd8fc9c20c40b1eb7437dfe40725d1cdb361d3d19514b",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Yxs",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "bipolar_toggleable_decimal_value_atom"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  227
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  102
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Yxs",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "exD",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "6db6d489b648e35f8c7dd8fc9c20c40b1eb7437dfe40725d1cdb361d3d19514b",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  12
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "Hgx"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "boolean_panel_value",
+      "id": 1751,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "FbA",
+          "runtimeClass": "BMo",
+          "constructor": {
+            "owner": "FbA",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "0f32f3dce73b54b71741e689459e789670549b427ea1fc66f64fa0e82a28db45",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Xyt",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "boolean_panel_value"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  215
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  40
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Xyt",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "FbA",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "0f32f3dce73b54b71741e689459e789670549b427ea1fc66f64fa0e82a28db45",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  6
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "BMo"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "boolean_value_atom",
+      "id": 87,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "CWc",
+          "runtimeClass": "RuU",
+          "constructor": {
+            "owner": "CWc",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "179dbbe2b600b9941644346525ca4fa275b54d94cdbcf7881d2ad2c8691a1097",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "vKA",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "boolean_value_atom"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  87
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  190
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "vKA",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "CWc",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "179dbbe2b600b9941644346525ca4fa275b54d94cdbcf7881d2ad2c8691a1097",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  18
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "RuU"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "boolean_value_type",
+      "id": 198,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "aK",
+          "runtimeClass": "aI",
+          "constructor": {
+            "owner": "aK",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "ba6620349925220f6d025a2c95efb2b9a1403666d875f3f4febc3a4344bf5ee5",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "bX",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  3
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "boolean_value_type"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  0,
+                  198
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  75
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "bX",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "aK",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "ba6620349925220f6d025a2c95efb2b9a1403666d875f3f4febc3a4344bf5ee5",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  13
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "aI"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "box_panel_item_layout_settings",
+      "id": 1695,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "fxe",
+          "runtimeClass": "vAT",
+          "constructor": {
+            "owner": "fxe",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "88a08c06785c1810a56e078cd8ac4a17a85d375a0eab910b49ef8f4741ad5311",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Eui",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "box_panel_item_layout_settings"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  159
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  23
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Eui",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "fxe",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "88a08c06785c1810a56e078cd8ac4a17a85d375a0eab910b49ef8f4741ad5311",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  14
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "vAT"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "component_settings",
+      "id": 236,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/YFZ",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/OcA",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/YFZ",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "3a8fc66a77651cd629c48aad8ec7942feaf0812710ed92a2d42113ab6c0be6bd",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Qyd",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  2
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "component_settings"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  0,
+                  236
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  52
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Qyd",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/YFZ",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "3a8fc66a77651cd629c48aad8ec7942feaf0812710ed92a2d42113ab6c0be6bd",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  19
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/OcA"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "decimal_value_type",
+      "id": 123,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "aP",
+          "runtimeClass": "aL",
+          "constructor": {
+            "owner": "aP",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "00f343aa10f08b283926fefc0807326a658a6924a3b215bb0c781a5d9862d0be",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "bz",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  3
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "decimal_value_type"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  123
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  177
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "bz",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "aP",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "00f343aa10f08b283926fefc0807326a658a6924a3b215bb0c781a5d9862d0be",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  19
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "aL"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "desktop_settings",
+      "id": 17,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/TL",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/Rzi",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/TL",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "bb4a6d310d839abed05016399cdb25e8e1cc13dd7ca84ed0021350007ff3702f",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "deS",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  5
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "desktop_settings"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  17
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  79
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "deS",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/TL",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "bb4a6d310d839abed05016399cdb25e8e1cc13dd7ca84ed0021350007ff3702f",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  11
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/Rzi"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "grid_panel_item",
+      "id": 1681,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "KtW",
+          "runtimeClass": "MLM",
+          "constructor": {
+            "owner": "KtW",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "4f35edaf5a25c1c0c19c84e6b9e6082915c0e8cc543d4772679812bc50565bd9",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "LLO",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  2
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "grid_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  145
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  16
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "LLO",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "KtW",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "4f35edaf5a25c1c0c19c84e6b9e6082915c0e8cc543d4772679812bc50565bd9",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  6
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "MLM"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "grid_panel_item_layout_settings",
+      "id": 1694,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "CGU",
+          "runtimeClass": "yII",
+          "constructor": {
+            "owner": "CGU",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "437849b71a83300db813847fe17afc583e887513cfe363aea0fb2287d8a7c824",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Eui",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "grid_panel_item_layout_settings"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  158
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  42
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Eui",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "CGU",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "437849b71a83300db813847fe17afc583e887513cfe363aea0fb2287d8a7c824",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  17
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "yII"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "image_panel_item",
+      "id": 1719,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "Voz",
+          "runtimeClass": "WXa",
+          "constructor": {
+            "owner": "Voz",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "92f98f23e4a0692222859367fae6bf586ba7f6431eaf899bfdce4d5b17cafd9a",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "a1J",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  8
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "image_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  183
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  131
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "a1J",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "Voz",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "92f98f23e4a0692222859367fae6bf586ba7f6431eaf899bfdce4d5b17cafd9a",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  18
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "WXa"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "inport_connection",
+      "id": 105,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/KLT",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/AJD",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/KLT",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "00610aa073d2466b4de308df61740b876fe009baf955e803d98e3398ff01a6ca",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "deS",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  6
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "inport_connection"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  105
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  122
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "deS",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/KLT",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "00610aa073d2466b4de308df61740b876fe009baf955e803d98e3398ff01a6ca",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  16
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/AJD"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "knob_panel_item",
+      "id": 1687,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "lY2",
+          "runtimeClass": "rOx",
+          "constructor": {
+            "owner": "lY2",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "7d44d79880ef0ce39fd05a3f2f103668ce6aae10418f9583d33a44c620fc201e",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "LnT",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  2
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "knob_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  151
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  48
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "LnT",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "lY2",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "7d44d79880ef0ce39fd05a3f2f103668ce6aae10418f9583d33a44c620fc201e",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  27
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "rOx"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "label_panel_item",
+      "id": 1683,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "ASM",
+          "runtimeClass": "BE2",
+          "constructor": {
+            "owner": "ASM",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "372c8554db337f0802b59511cf9606c96f95a8c884c49528a799f866afee33e8",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "a1J",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  6
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "label_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  147
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  126
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "a1J",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "ASM",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "372c8554db337f0802b59511cf9606c96f95a8c884c49528a799f866afee33e8",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  13
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "BE2"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "menu_container_panel_item",
+      "id": 1923,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "zAq",
+          "runtimeClass": "bj1",
+          "constructor": {
+            "owner": "zAq",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "3ddfbeb16d5ad7a7bb80f7ce3b993a4ca79cbdb675b3eb2389f2a3e31a0f0c20",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "IIV",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "menu_container_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  131
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  23
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "IIV",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "zAq",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "3ddfbeb16d5ad7a7bb80f7ce3b993a4ca79cbdb675b3eb2389f2a3e31a0f0c20",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  8
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "bj1"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "menu_container_panel_item_layout_settings",
+      "id": 1928,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "rYx",
+          "runtimeClass": "LX1",
+          "constructor": {
+            "owner": "rYx",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "6adb760552cb63ab9901f679070a1c1f45daa7f289d1d125e56abf1db29a2f5c",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "Eui",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  2
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "menu_container_panel_item_layout_settings"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  136
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  11
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "Eui",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "rYx",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "6adb760552cb63ab9901f679070a1c1f45daa7f289d1d125e56abf1db29a2f5c",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  5
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "LX1"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "menu_toggle_panel_item",
+      "id": 1924,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "LaR",
+          "runtimeClass": "qZc",
+          "constructor": {
+            "owner": "LaR",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "2e3ff315af2a6e8016dc08a302f29958bd300fa62776a414f2054b0e2aa76685",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "DFd",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "menu_toggle_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  132
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  24
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "DFd",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "LaR",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "2e3ff315af2a6e8016dc08a302f29958bd300fa62776a414f2054b0e2aa76685",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  15
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "qZc"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "module_contents",
+      "id": 1904,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/flt/document/core/master/device/fNT",
+          "runtimeClass": "com/bitwig/flt/document/core/master/device/hpW",
+          "constructor": {
+            "owner": "com/bitwig/flt/document/core/master/device/fNT",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "56757827d5a21089bba459aefae775d7424c2568c57b8259df018757c1e98ce5",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "com/bitwig/flt/document/core/master/device/sQv",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "module_contents"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  112
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  121
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "com/bitwig/flt/document/core/master/device/sQv",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/flt/document/core/master/device/fNT",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "56757827d5a21089bba459aefae775d7424c2568c57b8259df018757c1e98ce5",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  15
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/flt/document/core/master/device/hpW"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "nitro_atom",
+      "id": 1721,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "QZn",
+          "runtimeClass": "BgP",
+          "constructor": {
+            "owner": "QZn",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "51d7b0007497adb58875c5b2bc08da83655d002ff252fce27550fe9e8d1ada1b",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "To1",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  30
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "nitro_atom"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  185
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  1,
+                  86
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "To1",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "QZn",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "51d7b0007497adb58875c5b2bc08da83655d002ff252fce27550fe9e8d1ada1b",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  44
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "BgP"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "nitro_port_info",
+      "id": 2428,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "com/bitwig/nitro/uMi",
+          "runtimeClass": "com/bitwig/nitro/CcL",
+          "constructor": {
+            "owner": "com/bitwig/nitro/uMi",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "b6d0cf84edb7e726e98e62a7b6d78b17207331b5570e6f86193842ba6bf65f49",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "deS",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  15
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "nitro_port_info"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  9,
+                  124
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  129
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "deS",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "com/bitwig/nitro/uMi",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "b6d0cf84edb7e726e98e62a7b6d78b17207331b5570e6f86193842ba6bf65f49",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  18
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "com/bitwig/nitro/CcL"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "panel",
+      "id": 1680,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "gsO",
+          "runtimeClass": "Fot",
+          "constructor": {
+            "owner": "gsO",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "fac9247ffbbc98d63a769c0787ce812d901043a79458683cac53519fcb917009",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "p2",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  10
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "panel"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  144
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  197
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "p2",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "gsO",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "fac9247ffbbc98d63a769c0787ce812d901043a79458683cac53519fcb917009",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  17
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "Fot"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "panel_expression",
+      "id": 1728,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "DtU",
+          "runtimeClass": "CbC",
+          "constructor": {
+            "owner": "DtU",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "9b741d29cb373fa99e16a4bf46fa423f551fa2d62a6e4f7909d9e9617510eb46",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "deS",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  7
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "panel_expression"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  192
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  69
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "deS",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "DtU",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "9b741d29cb373fa99e16a4bf46fa423f551fa2d62a6e4f7909d9e9617510eb46",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  9
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "CbC"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "port_panel_item",
+      "id": 2001,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "CuG",
+          "runtimeClass": "Imy",
+          "constructor": {
+            "owner": "CuG",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "1be2226e7527dba0f5a3531944dd7de3679fdf429fbbf73a98cb46c01b15c3c6",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "LnT",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  5
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "port_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  7,
+                  209
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  57
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "LnT",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "CuG",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "1be2226e7527dba0f5a3531944dd7de3679fdf429fbbf73a98cb46c01b15c3c6",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  8
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "Imy"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "toggle_button_panel_item",
+      "id": 1702,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "OVH",
+          "runtimeClass": "ehl",
+          "constructor": {
+            "owner": "OVH",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 10,
+            "classSha256": "fae1d08e3236a7fe45d905107d959302b64aac42e26b44a565d2345688e96f27",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 6,
+                "opcode": 183,
+                "owner": "LnT",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  15
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "toggle_button_panel_item"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 17,
+                "args": [
+                  6,
+                  166
+                ]
+              },
+              {
+                "offset": 6,
+                "opcode": 183,
+                "args": [
+                  0,
+                  60
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "LnT",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 9,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "OVH",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "fae1d08e3236a7fe45d905107d959302b64aac42e26b44a565d2345688e96f27",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  31
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "ehl"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    }
+  ],
+  "excludedRows": [
+    {
+      "name": "bool_array_protocol_value",
+      "id": 17,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "dbA",
+          "runtimeClass": "dby",
+          "constructor": {
+            "owner": "dbA",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "3554549edb89eef85dfe9f74e635f6a25ab5c187997cf19ce22a9006f6ac0a7f",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "ddW",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "bool_array_protocol_value"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  17
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  27
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "ddW",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "dbA",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "3554549edb89eef85dfe9f74e635f6a25ab5c187997cf19ce22a9006f6ac0a7f",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  7
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "dby"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "local_engine_activated",
+      "id": 105,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "amJ",
+          "runtimeClass": "amH",
+          "constructor": {
+            "owner": "amJ",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "954ea849cc7263daf28fbfca7d10a476bb4203f1e1b2e1ed94e0c917a0ac96dd",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "cZC",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  1
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "local_engine_activated"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  105
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  13
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "cZC",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "amJ",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "954ea849cc7263daf28fbfca7d10a476bb4203f1e1b2e1ed94e0c917a0ac96dd",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  2
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "amH"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "name": "set_pointer_value_to_object_change_request",
+      "id": 87,
+      "sourceRuntime": null,
+      "count": 1,
+      "status": "unique-constructor-and-class-getter",
+      "matches": [
+        {
+          "descriptor": "cZR",
+          "runtimeClass": "cZP",
+          "constructor": {
+            "owner": "cZR",
+            "name": "<init>",
+            "descriptor": "()V",
+            "flags": 2,
+            "codeBytes": 9,
+            "classSha256": "f22c089adc065595054933fd42681b8f8974d73825f2d7a044c833ee632270b3",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [
+              {
+                "offset": 5,
+                "opcode": 183,
+                "owner": "cZF",
+                "name": "<init>",
+                "descriptor": "(Ljava/lang/String;I)V"
+              }
+            ],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 42,
+                "args": []
+              },
+              {
+                "offset": 1,
+                "opcode": 18,
+                "args": [
+                  4
+                ],
+                "constant": {
+                  "tag": 8,
+                  "value": "set_pointer_value_to_object_change_request"
+                }
+              },
+              {
+                "offset": 3,
+                "opcode": 16,
+                "args": [
+                  87
+                ]
+              },
+              {
+                "offset": 5,
+                "opcode": 183,
+                "args": [
+                  0,
+                  20
+                ],
+                "constant": {
+                  "tag": 10,
+                  "owner": "cZF",
+                  "name": "<init>",
+                  "descriptor": "(Ljava/lang/String;I)V"
+                }
+              },
+              {
+                "offset": 8,
+                "opcode": 177,
+                "args": []
+              }
+            ]
+          },
+          "classGetter": {
+            "owner": "cZR",
+            "name": "Hnt",
+            "descriptor": "()Ljava/lang/Class;",
+            "flags": 1,
+            "codeBytes": 3,
+            "classSha256": "f22c089adc065595054933fd42681b8f8974d73825f2d7a044c833ee632270b3",
+            "exceptionHandlers": [],
+            "branches": [],
+            "references": [],
+            "instructions": [
+              {
+                "offset": 0,
+                "opcode": 18,
+                "args": [
+                  7
+                ],
+                "constant": {
+                  "tag": 7,
+                  "value": "cZP"
+                }
+              },
+              {
+                "offset": 2,
+                "opcode": 176,
+                "args": []
+              }
+            ]
+          }
+        }
+      ],
+      "runtimeObserved": false
+    }
+  ],
+  "registrationMethods": [
+    {
+      "owner": "com/bitwig/flt/document/core/master/QfF",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 49,
+      "classSha256": "aa5b28e458c729ef5ef535f2ae79109a25bf2af1ad677ce4e6de413db0aa086c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 27,
+          "opcode": 154,
+          "target": 48
+        },
+        {
+          "offset": 37,
+          "opcode": 154,
+          "target": 48
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "deO",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 5,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 9,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 13,
+          "opcode": 184,
+          "owner": "weV",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "owner": "gB",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "ib",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 24,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/QfF",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 31,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/QfF",
+          "name": "TMF",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 34,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 44,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            18
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 184,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 184,
+          "args": [
+            0,
+            14
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 12,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 184,
+          "args": [
+            0,
+            23
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "weV",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "gB",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "args": [
+            0,
+            20
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ib",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 178,
+          "args": [
+            0,
+            12
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/QfF",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 154,
+          "args": [
+            0,
+            21
+          ]
+        },
+        {
+          "offset": 30,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 182,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/QfF",
+            "name": "TMF",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 184,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 37,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 40,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 43,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 44,
+          "opcode": 183,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 47,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/nitro/kj2",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 41,
+      "codeBytes": 73,
+      "classSha256": "1edfaf4daca9b3604cda345a01bd81e3edd1d630fcb3c784793cc8bd591190fe",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 31
+        },
+        {
+          "offset": 9,
+          "opcode": 199,
+          "target": 16
+        },
+        {
+          "offset": 13,
+          "opcode": 167,
+          "target": 17
+        },
+        {
+          "offset": 20,
+          "opcode": 154,
+          "target": 31
+        },
+        {
+          "offset": 32,
+          "opcode": 198,
+          "target": 39
+        },
+        {
+          "offset": 36,
+          "opcode": 167,
+          "target": 46
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 6,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "FzB",
+          "descriptor": "LdeO;"
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "owner": "cQg",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 27,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 43,
+          "opcode": 183,
+          "owner": "deO",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 46,
+          "opcode": 179,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "FzB",
+          "descriptor": "LdeO;"
+        },
+        {
+          "offset": 49,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "FzB",
+          "descriptor": "LdeO;"
+        },
+        {
+          "offset": 52,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 55,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "FzB",
+          "descriptor": "LdeO;"
+        },
+        {
+          "offset": 58,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 61,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/kj2",
+          "name": "FzB",
+          "descriptor": "LdeO;"
+        },
+        {
+          "offset": 64,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Jtv",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 69,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/FDA",
+          "name": "cfM",
+          "descriptor": "(Ljava/lang/String;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            30
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            28
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "FzB",
+            "descriptor": "LdeO;"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 16,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cQg",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 23,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 26,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 27,
+          "opcode": 183,
+          "args": [
+            0,
+            52
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 30,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 35,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 167,
+          "args": [
+            0,
+            10
+          ]
+        },
+        {
+          "offset": 39,
+          "opcode": 187,
+          "args": [
+            0,
+            18
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "deO"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 43,
+          "opcode": 183,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 46,
+          "opcode": 179,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "FzB",
+            "descriptor": "LdeO;"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "FzB",
+            "descriptor": "LdeO;"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 184,
+          "args": [
+            0,
+            40
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "FzB",
+            "descriptor": "LdeO;"
+          }
+        },
+        {
+          "offset": 58,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 61,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/kj2",
+            "name": "FzB",
+            "descriptor": "LdeO;"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 184,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Jtv",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 67,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "6.1.4 - ec15d6fed6aedb20bbe2eb320ff1d95a3484b42e"
+          }
+        },
+        {
+          "offset": 69,
+          "opcode": 184,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/FDA",
+            "name": "cfM",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 72,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/NcW",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 60,
+      "classSha256": "bd3611d0d6c7824f57fef9b0b7bef8939ae5a15dc322907a8b3b06ed6614daa0",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 59
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/kj2",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            7,
+            254
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            17,
+            193
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            3,
+            246
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            21,
+            23
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float_core"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            19,
+            195
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            24
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "args": [
+            19,
+            98
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/kj2",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 187,
+          "args": [
+            2,
+            166
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/flt/document/core/master/NcW"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "args": [
+            17,
+            183
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            19,
+            196
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "args": [
+            17,
+            195
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 59,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "weV",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 64,
+      "classSha256": "2aa22e01c99b94d134eaddf672b8a5f37d97d4ea09cbee24ae10797621de8243",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 63
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "weV",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "weV",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 43,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 50,
+          "opcode": 183,
+          "owner": "weV",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "owner": "weV",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            1,
+            117
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "weV",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            3,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "weV",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            141
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            2,
+            199
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float_common_atoms"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            2,
+            147
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            28
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "args": [
+            2,
+            139
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 43,
+          "opcode": 184,
+          "args": [
+            2,
+            140
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 46,
+          "opcode": 187,
+          "args": [
+            0,
+            188
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "weV"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 183,
+          "args": [
+            3,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "weV",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 53,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 54,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 55,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "args": [
+            2,
+            148
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 59,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "args": [
+            3,
+            62
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "weV",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "gB",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 56,
+      "classSha256": "efb53c6b03b80bf452d007bdd27593908c4a60ffaba630d011ea96a71fd41867",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 55
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "gB",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "gB",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "owner": "gB",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "gB",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "gB",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "gB",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            14
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            62
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "device_mappings"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            20
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 187,
+          "args": [
+            0,
+            9
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "gB"
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "gB",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "args": [
+            0,
+            32
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "gB",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "ib",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 56,
+      "classSha256": "de70bb1e28ba476db4f33b48ca8d1422a68fa577080f8e476d753d1a50f6b648",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 55
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "ib",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "ib",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "owner": "ib",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "ib",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "ib",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ib",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            87
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float_document_structure"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            20
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 187,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "ib"
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "args": [
+            0,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ib",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            0,
+            71
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ib",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/nitro/Adh",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 56,
+      "classSha256": "fa0e511557c28ccb23a09b80cf830d2c8cfdfabcff2f0eaa4f714da6dea97f5f",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 55
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            75
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "nitro"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            71
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            20
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 187,
+          "args": [
+            0,
+            6
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/nitro/Adh"
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "args": [
+            0,
+            37
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "args": [
+            0,
+            72
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/nitro/zjj",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 60,
+      "classSha256": "4ea6a0e7633a7dbc9e9ecd7f071bb4255ef9cc83a5b225e4680ec3fef79f1d65",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 59
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            14
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            54
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            3
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "nitro_cache"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            24
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 187,
+          "args": [
+            0,
+            9
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/nitro/zjj"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 59,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/nitro/Jtv",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 64,
+      "classSha256": "bf2625f04bbd8133f1f3bf7b512ebf58ce7e0d4ca97a5e81ba59e7ddccfd1ddc",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 63
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/nitro/Jtv",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Jtv",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/Adh",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 43,
+          "opcode": 184,
+          "owner": "com/bitwig/nitro/zjj",
+          "name": "cfM",
+          "descriptor": "(LdeO;)V"
+        },
+        {
+          "offset": 50,
+          "opcode": 183,
+          "owner": "com/bitwig/nitro/Jtv",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "owner": "com/bitwig/nitro/Jtv",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/nitro/Jtv",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Jtv",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            62
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            4
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "nitro_test"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            58
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            28
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 184,
+          "args": [
+            0,
+            32
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Adh",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 43,
+          "opcode": 184,
+          "args": [
+            0,
+            57
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/zjj",
+            "name": "cfM",
+            "descriptor": "(LdeO;)V"
+          }
+        },
+        {
+          "offset": 46,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/nitro/Jtv"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 183,
+          "args": [
+            0,
+            33
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Jtv",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 53,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 54,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 55,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 182,
+          "args": [
+            0,
+            59
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 59,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/nitro/Jtv",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/kj2",
+      "name": "cfM",
+      "descriptor": "(LdeO;)V",
+      "flags": 9,
+      "codeBytes": 56,
+      "classSha256": "2487c16d2fa5cf7880387be937821e91a1c22a910e5d707ad38a637c2d813964",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 55
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/kj2",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/kj2",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "IwV",
+          "descriptor": "(Ljava/lang/String;)LdeP;"
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "owner": "com/bitwig/flt/document/core/master/kj2",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "owner": "deO",
+          "name": "cfM",
+          "descriptor": "(LdeP;)V"
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/kj2",
+          "name": "fJR",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            29
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/kj2",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/kj2",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            14
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 18,
+          "args": [
+            2
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float_core_enums"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 182,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "IwV",
+            "descriptor": "(Ljava/lang/String;)LdeP;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            20
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 187,
+          "args": [
+            0,
+            9
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/flt/document/core/master/kj2"
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 42,
+          "opcode": 183,
+          "args": [
+            0,
+            30
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/kj2",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 182,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deO",
+            "name": "cfM",
+            "descriptor": "(LdeP;)V"
+          }
+        },
+        {
+          "offset": 51,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 182,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/kj2",
+            "name": "fJR",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "instructions": 281,
+  "elapsedMs": 4052.8698750422336,
+  "peakRssBytes": 177291264,
+  "boundedAdmission": false,
+  "runtimeObserved": false
+}

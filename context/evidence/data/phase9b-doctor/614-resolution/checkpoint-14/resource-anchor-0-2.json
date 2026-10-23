@@ -1,0 +1,27 @@
+{
+  "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "rows": [
+    {
+      "name": "analyzable_sample_reference_handle",
+      "id": 5604,
+      "sourceRuntime": null,
+      "count": 0,
+      "status": "refused",
+      "matches": [],
+      "runtimeObserved": false
+    },
+    {
+      "name": "simple_single_sample_resource",
+      "id": 534,
+      "sourceRuntime": null,
+      "count": 0,
+      "status": "refused",
+      "matches": [],
+      "runtimeObserved": false
+    }
+  ],
+  "methodsScanned": 383673,
+  "instructionsDecoded": 78600,
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

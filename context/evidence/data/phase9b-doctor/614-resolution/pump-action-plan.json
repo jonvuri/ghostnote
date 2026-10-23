@@ -1,0 +1,20 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace the generic action descriptor entry to project ping. No command exclusion is inferred.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "deV",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/util/List;)Ljava/lang/Object;"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "deV",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Ljava/util/List;)Ljava/lang/Object;"
+    }
+  ]
+}

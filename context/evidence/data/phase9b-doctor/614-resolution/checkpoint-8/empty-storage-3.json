@@ -1,0 +1,81 @@
+{
+  "builds": [
+    {
+      "field": [
+        "cXV",
+        "MkF",
+        "Ljava/util/List;"
+      ],
+      "initialization": [
+        "cXV",
+        "<init>",
+        "(Ljava/lang/String;I)V",
+        25
+      ],
+      "reads": [
+        [
+          "cXV",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;)V",
+          92,
+          "isEmpty"
+        ],
+        [
+          "cXV",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;)V",
+          113,
+          "iterator"
+        ]
+      ],
+      "ordinaryReferenceCheck": true,
+      "boundedAdmission": false,
+      "conditions": [
+        "The scan covers all ordinary field references and method handles.",
+        "The field belongs to a fully initialized descriptor.",
+        "The field contains an exact empty ArrayList.",
+        "Reflective and native mutation require separate exclusion."
+      ]
+    },
+    {
+      "field": [
+        "der",
+        "wGc",
+        "Ljava/util/List;"
+      ],
+      "initialization": [
+        "der",
+        "<init>",
+        "(Ljava/lang/String;I)V",
+        25
+      ],
+      "reads": [
+        [
+          "der",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;)V",
+          92,
+          "isEmpty"
+        ],
+        [
+          "der",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;)V",
+          113,
+          "iterator"
+        ]
+      ],
+      "ordinaryReferenceCheck": true,
+      "boundedAdmission": false,
+      "conditions": [
+        "The scan covers all ordinary field references and method handles.",
+        "The field belongs to a fully initialized descriptor.",
+        "The field contains an exact empty ArrayList.",
+        "Reflective and native mutation require separate exclusion."
+      ]
+    }
+  ],
+  "elapsedMs": 9172.862750012428,
+  "peakRssBytes": 325828608,
+  "boundedAdmission": false
+}

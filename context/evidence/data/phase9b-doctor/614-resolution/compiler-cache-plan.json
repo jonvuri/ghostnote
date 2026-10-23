@@ -1,0 +1,32 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Check compiler cache mutation sites and module invalidation scheduling. This scan does not establish concurrency exclusion.",
+  "slots": [],
+  "methods": [],
+  "targets": [
+    {
+      "kind": "field",
+      "owner": "com/bitwig/nitro/FDA",
+      "name": "TMF",
+      "descriptor": "Ljava/util/Map;"
+    },
+    {
+      "kind": "field",
+      "owner": "com/bitwig/nitro/FDA",
+      "name": "FzB",
+      "descriptor": "Ljava/util/Map;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/nitro/FDA",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/nitro/IPO;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Z)Lcom/bitwig/nitro/ESe;"
+    },
+    {
+      "kind": "method",
+      "owner": "FJj",
+      "name": "<init>",
+      "descriptor": "(LGDf;Lcom/bitwig/base/io/z2y;)V"
+    }
+  ]
+}

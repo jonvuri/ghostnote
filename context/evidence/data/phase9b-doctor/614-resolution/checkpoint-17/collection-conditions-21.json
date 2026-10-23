@@ -1,0 +1,884 @@
+{
+ "builds": [
+  {
+   "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+   "removal": {
+    "method": [
+     "rHF",
+     "removeListener",
+     "(LNpn;)V"
+    ],
+    "storageField": [
+     "rHF",
+     "mListeners",
+     "Ljava/util/List;"
+    ],
+    "storageForm": "list",
+    "assertionGuard": [
+     "rHF",
+     "$assertionsDisabled",
+     "Z"
+    ],
+    "mode": null,
+    "ownInstructionBound": 16,
+    "vendorCallBound": 0,
+    "listRemoveCallBound": 1,
+    "listIsEmptyCallBound": 0,
+    "explicitAllocations": 0,
+    "boundedAdmission": false,
+    "runtimeObserved": false,
+    "conditions": [
+     "The assertion field must already be initialized and true.",
+     "The tracking field, if present, must remain false.",
+     "Storage must remain null, one non-List listener, or an exact ArrayList.",
+     "The query must be non-null and use Object.equals.",
+     "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+     "Storage identity and capacity are not equivalent between forms.",
+     "A failure propagates. Do not retry an uncertain removal."
+    ]
+   },
+   "addStaticCalls": [
+    [
+     "cJf",
+     "cG3",
+     "(Z)Z"
+    ]
+   ],
+   "agentDebugClasses": 0,
+   "lambdas": [
+    {
+     "listener": {
+      "method": [
+       "<init>",
+       "()V"
+      ],
+      "offset": 21,
+      "interface": "Eo",
+      "implementation": {
+       "tag": 10,
+       "owner": "tqm",
+       "name": "eOi",
+       "descriptor": "(Llqr;)V"
+      },
+      "interfaces": [
+       "Eo",
+       "Npn"
+      ],
+      "field": [
+       "tqm",
+       "neE",
+       "LNpn;"
+      ],
+      "equality": "identity",
+      "boundedAdmission": false,
+      "conditions": [
+       "The JDK lambda proxy implements only the listed interfaces and inherits Object.equals.",
+       "The field is assigned once in the constructor and never changes."
+      ]
+     },
+     "registration": {
+      "method": [
+       "tqm",
+       "Wrf",
+       "()V"
+      ],
+      "flag": "dRD",
+      "field": "neE",
+      "addCall": [
+       "yhl",
+       "ffA",
+       "(LNpn;)V"
+      ],
+      "addOffset": 21,
+      "registrationsPerFlagCycle": 1
+     },
+     "fieldSites": [
+      [
+       "tqm",
+       "<init>",
+       "()V",
+       21,
+       181
+      ],
+      [
+       "tqm",
+       "Wrf",
+       "()V",
+       18,
+       180
+      ],
+      [
+       "tqm",
+       "dC_",
+       "()V",
+       12,
+       180
+      ],
+      [
+       "tqm",
+       "ffA",
+       "(Lyhl;)V",
+       19,
+       180
+      ],
+      [
+       "tqm",
+       "ffA",
+       "(Lyhl;)V",
+       49,
+       180
+      ]
+     ]
+    },
+    {
+     "listener": {
+      "method": [
+       "<init>",
+       "()V"
+      ],
+      "offset": 31,
+      "interface": "Eo",
+      "implementation": {
+       "tag": 10,
+       "owner": "tqm",
+       "name": "ffA",
+       "descriptor": "(Llqr;)V"
+      },
+      "interfaces": [
+       "Eo",
+       "Npn"
+      ],
+      "field": [
+       "tqm",
+       "nwQ",
+       "LNpn;"
+      ],
+      "equality": "identity",
+      "boundedAdmission": false,
+      "conditions": [
+       "The JDK lambda proxy implements only the listed interfaces and inherits Object.equals.",
+       "The field is assigned once in the constructor and never changes."
+      ]
+     },
+     "registration": {
+      "method": [
+       "tqm",
+       "Wrf",
+       "()V"
+      ],
+      "flag": "dwY",
+      "field": "nwQ",
+      "addCall": [
+       "UcJ",
+       "ffA",
+       "(LNpn;)V"
+      ],
+      "addOffset": 58,
+      "registrationsPerFlagCycle": 1
+     },
+     "fieldSites": [
+      [
+       "tqm",
+       "<init>",
+       "()V",
+       31,
+       181
+      ],
+      [
+       "tqm",
+       "Wrf",
+       "()V",
+       55,
+       180
+      ],
+      [
+       "tqm",
+       "dC_",
+       "()V",
+       35,
+       180
+      ],
+      [
+       "tqm",
+       "ffA",
+       "(LUcJ;)V",
+       19,
+       180
+      ],
+      [
+       "tqm",
+       "ffA",
+       "(LUcJ;)V",
+       49,
+       180
+      ]
+     ]
+    }
+   ],
+   "registrationCensus": {
+    "addSlot": [
+     "yhl",
+     "ffA",
+     "(LNpn;)V"
+    ],
+    "declaration": "C3V",
+    "sitesOnValueChain": 3,
+    "allSlotSites": 1338,
+    "fixedHolderSites": [
+     [
+      "tqm",
+      "Wrf",
+      "()V",
+      21
+     ],
+     [
+      "tqm",
+      "ffA",
+      "(Lyhl;)V",
+      52
+     ]
+    ],
+    "sampleOtherSites": [
+     [
+      "qFU",
+      "ffA",
+      "(Lyhl;ILNpn;)V",
+      78
+     ]
+    ]
+   }
+  },
+  {
+   "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+   "removal": {
+    "method": [
+     "TT",
+     "removeListener",
+     "(Lfoz;)V"
+    ],
+    "storageField": [
+     "TT",
+     "mListeners",
+     "Ljava/lang/Object;"
+    ],
+    "storageForm": "single-or-list",
+    "assertionGuard": [
+     "TT",
+     "$assertionsDisabled",
+     "Z"
+    ],
+    "mode": {
+     "getter": [
+      "apd",
+      "Hnt",
+      "()Z"
+     ],
+     "requiredFalseField": [
+      "apd",
+      "Hnt",
+      "Z"
+     ],
+     "getterInstructions": 2,
+     "excludedRecordingCall": {
+      "tag": 10,
+      "owner": "apd",
+      "name": "MRY",
+      "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)V"
+     }
+    },
+    "ownInstructionBound": 43,
+    "vendorCallBound": 1,
+    "listRemoveCallBound": 1,
+    "listIsEmptyCallBound": 1,
+    "explicitAllocations": 0,
+    "boundedAdmission": false,
+    "runtimeObserved": false,
+    "conditions": [
+     "The assertion field must already be initialized and true.",
+     "The tracking field, if present, must remain false.",
+     "Storage must remain null, one non-List listener, or an exact ArrayList.",
+     "The query must be non-null and use Object.equals.",
+     "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+     "Storage identity and capacity are not equivalent between forms.",
+     "A failure propagates. Do not retry an uncertain removal."
+    ]
+   },
+   "addStaticCalls": [
+    [
+     "apd",
+     "Hnt",
+     "()Z"
+    ],
+    [
+     "apd",
+     "cfM",
+     "(Ljava/lang/Object;Ljava/lang/Object;)V"
+    ],
+    [
+     "cPs",
+     "Hnt",
+     "(Z)Z"
+    ],
+    [
+     "cPs",
+     "Hnt",
+     "(Z)Z"
+    ]
+   ],
+   "agentDebugClasses": 36,
+   "lambdas": [
+    {
+     "listener": {
+      "method": [
+       "<init>",
+       "()V"
+      ],
+      "offset": 21,
+      "interface": "rqm",
+      "implementation": {
+       "tag": 10,
+       "owner": "Hgx",
+       "name": "MRY",
+       "descriptor": "(LVGL;)V"
+      },
+      "interfaces": [
+       "rqm",
+       "foz"
+      ],
+      "field": [
+       "Hgx",
+       "jFL",
+       "Lfoz;"
+      ],
+      "equality": "identity",
+      "boundedAdmission": false,
+      "conditions": [
+       "The JDK lambda proxy implements only the listed interfaces and inherits Object.equals.",
+       "The field is assigned once in the constructor and never changes."
+      ]
+     },
+     "registration": {
+      "method": [
+       "Hgx",
+       "BAa",
+       "()V"
+      ],
+      "flag": "Scv",
+      "field": "jFL",
+      "addCall": [
+       "BMo",
+       "cfM",
+       "(Lfoz;)V"
+      ],
+      "addOffset": 21,
+      "registrationsPerFlagCycle": 1
+     },
+     "fieldSites": [
+      [
+       "Hgx",
+       "<init>",
+       "()V",
+       21,
+       181
+      ],
+      [
+       "Hgx",
+       "BAa",
+       "()V",
+       18,
+       180
+      ],
+      [
+       "Hgx",
+       "ix_",
+       "()V",
+       12,
+       180
+      ],
+      [
+       "Hgx",
+       "cfM",
+       "(LBMo;)V",
+       19,
+       180
+      ],
+      [
+       "Hgx",
+       "cfM",
+       "(LBMo;)V",
+       49,
+       180
+      ]
+     ]
+    },
+    {
+     "listener": {
+      "method": [
+       "<init>",
+       "()V"
+      ],
+      "offset": 31,
+      "interface": "rqm",
+      "implementation": {
+       "tag": 10,
+       "owner": "Hgx",
+       "name": "cfM",
+       "descriptor": "(LVGL;)V"
+      },
+      "interfaces": [
+       "rqm",
+       "foz"
+      ],
+      "field": [
+       "Hgx",
+       "hDc",
+       "Lfoz;"
+      ],
+      "equality": "identity",
+      "boundedAdmission": false,
+      "conditions": [
+       "The JDK lambda proxy implements only the listed interfaces and inherits Object.equals.",
+       "The field is assigned once in the constructor and never changes."
+      ]
+     },
+     "registration": {
+      "method": [
+       "Hgx",
+       "BAa",
+       "()V"
+      ],
+      "flag": "jhH",
+      "field": "hDc",
+      "addCall": [
+       "xMn",
+       "cfM",
+       "(Lfoz;)V"
+      ],
+      "addOffset": 58,
+      "registrationsPerFlagCycle": 1
+     },
+     "fieldSites": [
+      [
+       "Hgx",
+       "<init>",
+       "()V",
+       31,
+       181
+      ],
+      [
+       "Hgx",
+       "BAa",
+       "()V",
+       55,
+       180
+      ],
+      [
+       "Hgx",
+       "ix_",
+       "()V",
+       35,
+       180
+      ],
+      [
+       "Hgx",
+       "cfM",
+       "(LxMn;)V",
+       19,
+       180
+      ],
+      [
+       "Hgx",
+       "cfM",
+       "(LxMn;)V",
+       49,
+       180
+      ]
+     ]
+    }
+   ],
+   "registrationCensus": {
+    "addSlot": [
+     "BMo",
+     "cfM",
+     "(Lfoz;)V"
+    ],
+    "declaration": "xqx",
+    "sitesOnValueChain": 3,
+    "allSlotSites": 1365,
+    "fixedHolderSites": [
+     [
+      "Hgx",
+      "BAa",
+      "()V",
+      21
+     ],
+     [
+      "Hgx",
+      "cfM",
+      "(LBMo;)V",
+      52
+     ]
+    ],
+    "sampleOtherSites": [
+     [
+      "FbA",
+      "cfM",
+      "(LBMo;ILfoz;)V",
+      78
+     ]
+    ]
+   },
+   "mode": {
+    "field": [
+     "apd",
+     "Hnt",
+     "Z"
+    ],
+    "getter": {
+     "instructions": 2,
+     "flags": 74
+    },
+    "writers": [
+     {
+      "writer": [
+       "apd",
+       "cfM",
+       "()V",
+       15
+      ],
+      "stores": true,
+      "monitor": true,
+      "callers": [
+       {
+        "class": "com/bitwig/flt/app/agent_debug/tfK",
+        "method": [
+         "cfM",
+         "(Ljava/lang/String;IZ)Ljava/lang/Object;"
+        ],
+        "flags": 0,
+        "offset": 119,
+        "opcode": 184
+       }
+      ]
+     },
+     {
+      "writer": [
+       "apd",
+       "MRY",
+       "()V",
+       15
+      ],
+      "stores": false,
+      "monitor": true,
+      "callers": [
+       {
+        "class": "com/bitwig/flt/app/agent_debug/tfK",
+        "method": [
+         "cfM",
+         "(Ljava/lang/String;IZ)Ljava/lang/Object;"
+        ],
+        "flags": 0,
+        "offset": 132,
+        "opcode": 184
+       }
+      ]
+     }
+    ],
+    "reads": [
+     [
+      "apd",
+      "Hnt",
+      "()Z",
+      0
+     ],
+     [
+      "apd",
+      "cfM",
+      "(Ljava/lang/Object;Ljava/lang/Object;)V",
+      0
+     ],
+     [
+      "apd",
+      "MRY",
+      "(Ljava/lang/Object;Ljava/lang/Object;)V",
+      0
+     ]
+    ],
+    "scannedClasses": 6,
+    "chain": [
+     {
+      "method": [
+       "com/bitwig/flt/app/agent_debug/tfK",
+       "cfM",
+       "(Ljava/lang/String;IZ)Ljava/lang/Object;"
+      ],
+      "calls": [
+       [
+        8,
+        [
+         "java/lang/String",
+         "hashCode",
+         "()I"
+        ]
+       ],
+       [
+        46,
+        "start"
+       ],
+       [
+        48,
+        [
+         "java/lang/String",
+         "equals",
+         "(Ljava/lang/Object;)Z"
+        ]
+       ],
+       [
+        62,
+        "stop"
+       ],
+       [
+        64,
+        [
+         "java/lang/String",
+         "equals",
+         "(Ljava/lang/Object;)Z"
+        ]
+       ],
+       [
+        78,
+        "report"
+       ],
+       [
+        80,
+        [
+         "java/lang/String",
+         "equals",
+         "(Ljava/lang/Object;)Z"
+        ]
+       ],
+       [
+        116,
+        [
+         "thz",
+         "cfM",
+         "()V"
+        ]
+       ],
+       [
+        119,
+        [
+         "apd",
+         "cfM",
+         "()V"
+        ]
+       ],
+       [
+        129,
+        [
+         "thz",
+         "MRY",
+         "()V"
+        ]
+       ],
+       [
+        132,
+        [
+         "apd",
+         "MRY",
+         "()V"
+        ]
+       ],
+       [
+        155,
+        [
+         "java/lang/IllegalArgumentException",
+         "<init>",
+         "(Ljava/lang/String;)V"
+        ]
+       ],
+       [
+        159,
+        [
+         "thz",
+         "FzB",
+         "()Ljava/util/List;"
+        ]
+       ],
+       [
+        164,
+        [
+         "com/bitwig/flt/app/agent_debug/tfK",
+         "cfM",
+         "(Ljava/util/List;JI)Ljava/lang/String;"
+        ]
+       ]
+      ]
+     },
+     {
+      "method": [
+       "com/bitwig/flt/app/agent_debug/lBQ",
+       "Hnt",
+       "(Lcom/bitwig/flt/app/agent_debug/CuM;)Ljava/lang/Object;"
+      ],
+      "flags": 4098,
+      "bootstraps": [
+       49
+      ],
+      "registeredAt": [
+       [
+        "FzB",
+        "()V",
+        112,
+        "run",
+        "(Lcom/bitwig/flt/app/agent_debug/lBQ;)Lcom/bitwig/flt/app/agent_debug/WzZ;"
+       ]
+      ]
+     },
+     {
+      "dispatch": [
+       [
+        "cfM",
+        "(Lcom/bitwig/flt/app/agent_debug/RKg;Lcom/bitwig/flt/app/agent_debug/CuM;)Ljava/lang/Object;",
+        [
+         [
+          5,
+          [
+           "java/util/concurrent/ArrayBlockingQueue",
+           "<init>",
+           "(I)V"
+          ]
+         ],
+         [
+          9,
+          [
+           "dpN",
+           "TVZ",
+           "()LdpN;"
+          ]
+         ],
+         [
+          20,
+          [
+           "dpN",
+           "asyncExec",
+           "(Ljava/lang/Runnable;)V"
+          ]
+         ],
+         [
+          30,
+          [
+           "java/util/concurrent/BlockingQueue",
+           "poll",
+           "(JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;"
+          ]
+         ],
+         [
+          46,
+          "the application did not answer within 20s"
+         ],
+         [
+          48,
+          [
+           "java/lang/IllegalStateException",
+           "<init>",
+           "(Ljava/lang/String;)V"
+          ]
+         ]
+        ]
+       ],
+       [
+        "eLY",
+        "(Lcom/bitwig/flt/app/agent_debug/CuM;)V",
+        [
+         [
+          0,
+          [
+           "dpN",
+           "TVZ",
+           "()LdpN;"
+          ]
+         ],
+         [
+          10,
+          [
+           "dpN",
+           "asyncExec",
+           "(Ljava/lang/Runnable;)V"
+          ]
+         ]
+        ]
+       ],
+       [
+        "iHb",
+        "(Lcom/bitwig/flt/app/agent_debug/CuM;)V",
+        [
+         [
+          0,
+          [
+           "dpN",
+           "TVZ",
+           "()LdpN;"
+          ]
+         ],
+         [
+          10,
+          [
+           "dpN",
+           "asyncExec",
+           "(Ljava/lang/Runnable;)V"
+          ]
+         ]
+        ]
+       ]
+      ]
+     },
+     {
+      "constructedBy": [
+       [
+        {
+         "class": "com/bitwig/flt/app/agent_debug/MVg",
+         "method": [
+          "<init>",
+          "(Lcom/bitwig/flt/app/agent_debug/SYo;Ljava/net/Socket;)V"
+         ],
+         "flags": 1,
+         "offset": 78,
+         "opcode": 183
+        }
+       ]
+      ]
+     }
+    ],
+    "otherCommandCalls": [
+     [
+      116,
+      [
+       "thz",
+       "cfM",
+       "()V"
+      ]
+     ],
+     [
+      129,
+      [
+       "thz",
+       "MRY",
+       "()V"
+      ]
+     ]
+    ]
+   }
+  }
+ ],
+ "elapsedMs": 32832.605,
+ "peakRssBytes": 424919040,
+ "boundedAdmission": false,
+ "runtimeClassesInitialized": 0,
+ "conditions": [
+  "Field and invoke sites are symbolic. Reflection, Unsafe, VarHandle, JNI, and dynamic class loading are not excluded.",
+  "A listed writer path is retained. The scan does not prove it does not run during the doctor sequence.",
+  "The JDK lambda proxy inherits Object.equals and implements only its listed interfaces.",
+  "A registration count is a static site count. It is not a runtime listener count."
+ ]
+}

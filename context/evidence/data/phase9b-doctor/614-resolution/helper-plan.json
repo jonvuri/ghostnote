@@ -1,0 +1,53 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned command and helper entry investigation. No runtime dispatch or admission.",
+  "methods": [
+    {
+      "owner": "com/bitwig/ramona/core/oDc",
+      "name": "IPH",
+      "descriptor": "()LdgI;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "IwV",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+    }
+  ],
+  "slots": [],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/oDc",
+      "name": "IPH",
+      "descriptor": "()LdgI;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "UNj",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "dfI",
+      "name": "IwV",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+    }
+  ]
+}

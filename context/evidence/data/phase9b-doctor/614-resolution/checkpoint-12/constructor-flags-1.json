@@ -1,0 +1,542 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "rows": [
+    {
+      "field": [
+        "deZ",
+        "FzB",
+        "I"
+      ],
+      "origin": [
+        "argument",
+        8
+      ],
+      "store": {
+        "method": [
+          "deZ",
+          "<init>",
+          "(Ljava/lang/String;ILder;I)V"
+        ],
+        "offset": 10,
+        "origin": [
+          "argument",
+          8
+        ]
+      },
+      "constructors": [
+        {
+          "method": [
+            "deT",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ILjava/lang/Integer;I)V"
+          ],
+          "parentOffset": 12,
+          "parent": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              3
+            ],
+            [
+              "argument",
+              4
+            ],
+            [
+              "argument",
+              5
+            ],
+            [
+              "argument",
+              8
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "parentOffset": 6,
+          "parent": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              8
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "parentOffset": 4,
+          "parent": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "parentOffset": 2,
+          "parent": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "parentOffset": 1,
+          "parent": [
+            "java/lang/Object",
+            "<init>",
+            "()V"
+          ],
+          "arguments": []
+        }
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false
+    },
+    {
+      "field": [
+        "deZ",
+        "FzB",
+        "I"
+      ],
+      "origin": [
+        "argument",
+        7
+      ],
+      "store": {
+        "method": [
+          "deZ",
+          "<init>",
+          "(Ljava/lang/String;ILder;I)V"
+        ],
+        "offset": 10,
+        "origin": [
+          "argument",
+          7
+        ]
+      },
+      "constructors": [
+        {
+          "method": [
+            "deU",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ZI)V"
+          ],
+          "parentOffset": 12,
+          "parent": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              3
+            ],
+            [
+              "argument",
+              4
+            ],
+            [
+              "argument",
+              5
+            ],
+            [
+              "argument",
+              7
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "parentOffset": 6,
+          "parent": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              7
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "parentOffset": 4,
+          "parent": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "parentOffset": 2,
+          "parent": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "parentOffset": 1,
+          "parent": [
+            "java/lang/Object",
+            "<init>",
+            "()V"
+          ],
+          "arguments": []
+        }
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false
+    },
+    {
+      "field": [
+        "deZ",
+        "FzB",
+        "I"
+      ],
+      "origin": [
+        "argument",
+        5
+      ],
+      "store": {
+        "method": [
+          "deZ",
+          "<init>",
+          "(Ljava/lang/String;ILder;I)V"
+        ],
+        "offset": 10,
+        "origin": [
+          "argument",
+          5
+        ]
+      },
+      "constructors": [
+        {
+          "method": [
+            "deX",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;Ljava/lang/String;I)V"
+          ],
+          "parentOffset": 14,
+          "parent": [
+            "deU",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ZI)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              3
+            ],
+            [
+              "static",
+              "cUb",
+              "Hnt",
+              "LcUb;"
+            ],
+            [
+              "argument",
+              4
+            ],
+            [
+              "integer",
+              0
+            ],
+            [
+              "argument",
+              5
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deU",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ZI)V"
+          ],
+          "parentOffset": 12,
+          "parent": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              3
+            ],
+            [
+              "static",
+              "cUb",
+              "Hnt",
+              "LcUb;"
+            ],
+            [
+              "argument",
+              4
+            ],
+            [
+              "argument",
+              5
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dfb",
+            "<init>",
+            "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;I)V"
+          ],
+          "parentOffset": 6,
+          "parent": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ],
+            [
+              "argument",
+              5
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deZ",
+            "<init>",
+            "(Ljava/lang/String;ILder;I)V"
+          ],
+          "parentOffset": 4,
+          "parent": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ],
+            [
+              "argument",
+              1
+            ],
+            [
+              "argument",
+              2
+            ]
+          ]
+        },
+        {
+          "method": [
+            "deN",
+            "<init>",
+            "(Ljava/lang/String;ILder;)V"
+          ],
+          "parentOffset": 2,
+          "parent": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "arguments": [
+            [
+              "argument",
+              0
+            ]
+          ]
+        },
+        {
+          "method": [
+            "dev",
+            "<init>",
+            "(Ljava/lang/String;)V"
+          ],
+          "parentOffset": 1,
+          "parent": [
+            "java/lang/Object",
+            "<init>",
+            "()V"
+          ],
+          "arguments": []
+        }
+      ],
+      "runtimeObserved": false,
+      "boundedAdmission": false
+    }
+  ],
+  "elapsedMs": 4141.463875013869,
+  "peakRssBytes": 177897472,
+  "boundedAdmission": false
+}

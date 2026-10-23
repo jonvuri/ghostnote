@@ -1,0 +1,6267 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "rows": [
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/GiH",
+        "E3",
+        "()V"
+      ],
+      "offset": 45,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "()LivQ;"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": false,
+      "handlers": []
+    },
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/Ac",
+        "Nnn",
+        "()V"
+      ],
+      "offset": 76,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "(LivQ;)V"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": true,
+      "handlers": []
+    },
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/ImZ",
+        "E3",
+        "()V"
+      ],
+      "offset": 89,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "()LivQ;"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": false,
+      "handlers": [
+        [
+          118,
+          152,
+          155,
+          6
+        ]
+      ]
+    },
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/ImZ",
+        "E3",
+        "()V"
+      ],
+      "offset": 237,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "()LivQ;"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": false,
+      "handlers": [
+        [
+          118,
+          152,
+          155,
+          6
+        ]
+      ]
+    },
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/oJk",
+        "lYc",
+        "()V"
+      ],
+      "offset": 45,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "()LivQ;"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": false,
+      "handlers": []
+    },
+    {
+      "caller": [
+        "com/bitwig/flt/document/core/master/device/g2L",
+        "wGc",
+        "()V"
+      ],
+      "offset": 45,
+      "target": {
+        "tag": 10,
+        "owner": "EIm",
+        "name": "cfM",
+        "descriptor": "(LivQ;)V"
+      },
+      "withoutGuardReachable": true,
+      "guardedReachable": true,
+      "handlers": []
+    }
+  ],
+  "guards": {
+    "fields": [
+      [
+        "com/bitwig/flt/document/core/master/device/Ac",
+        "UNj",
+        "Z"
+      ],
+      [
+        "com/bitwig/flt/document/core/master/device/GiH",
+        "cfM",
+        "Z"
+      ],
+      [
+        "com/bitwig/flt/document/core/master/device/ImZ",
+        "cfM",
+        "Z"
+      ],
+      [
+        "com/bitwig/flt/document/core/master/device/g2L",
+        "hUR",
+        "Z"
+      ],
+      [
+        "com/bitwig/flt/document/core/master/device/oJk",
+        "cfM",
+        "Z"
+      ]
+    ],
+    "initializers": [
+      {
+        "owner": "com/bitwig/flt/document/core/master/device/Ac",
+        "name": "<clinit>",
+        "descriptor": "()V",
+        "flags": 8,
+        "codeBytes": 17,
+        "classSha256": "e3df0708a7c644902970f939e3c3caf6bd702f1d42e168892c2c16abc554c81e",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 5,
+            "opcode": 154,
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "target": 13
+          }
+        ],
+        "references": [
+          {
+            "offset": 2,
+            "opcode": 182,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "UNj",
+            "descriptor": "Z"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 18,
+            "args": [
+              22
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "com/bitwig/flt/document/core/master/device/Ac"
+            }
+          },
+          {
+            "offset": 2,
+            "opcode": 182,
+            "args": [
+              0,
+              192
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            }
+          },
+          {
+            "offset": 5,
+            "opcode": 154,
+            "args": [
+              0,
+              7
+            ]
+          },
+          {
+            "offset": 8,
+            "opcode": 4,
+            "args": []
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "args": [
+              0,
+              4
+            ]
+          },
+          {
+            "offset": 12,
+            "opcode": 3,
+            "args": []
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "args": [
+              0,
+              71
+            ],
+            "constant": {
+              "tag": 9,
+              "owner": "com/bitwig/flt/document/core/master/device/Ac",
+              "name": "UNj",
+              "descriptor": "Z"
+            }
+          },
+          {
+            "offset": 16,
+            "opcode": 177,
+            "args": []
+          }
+        ]
+      },
+      {
+        "owner": "com/bitwig/flt/document/core/master/device/GiH",
+        "name": "<clinit>",
+        "descriptor": "()V",
+        "flags": 8,
+        "codeBytes": 17,
+        "classSha256": "68c99886c00d56a7342f8a27b98d624e623f3552bf1198c357a4f0fe4844effc",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 5,
+            "opcode": 154,
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "target": 13
+          }
+        ],
+        "references": [
+          {
+            "offset": 2,
+            "opcode": 182,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 18,
+            "args": [
+              3
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "com/bitwig/flt/document/core/master/device/GiH"
+            }
+          },
+          {
+            "offset": 2,
+            "opcode": 182,
+            "args": [
+              0,
+              46
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            }
+          },
+          {
+            "offset": 5,
+            "opcode": 154,
+            "args": [
+              0,
+              7
+            ]
+          },
+          {
+            "offset": 8,
+            "opcode": 4,
+            "args": []
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "args": [
+              0,
+              4
+            ]
+          },
+          {
+            "offset": 12,
+            "opcode": 3,
+            "args": []
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "args": [
+              0,
+              17
+            ],
+            "constant": {
+              "tag": 9,
+              "owner": "com/bitwig/flt/document/core/master/device/GiH",
+              "name": "cfM",
+              "descriptor": "Z"
+            }
+          },
+          {
+            "offset": 16,
+            "opcode": 177,
+            "args": []
+          }
+        ]
+      },
+      {
+        "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+        "name": "<clinit>",
+        "descriptor": "()V",
+        "flags": 8,
+        "codeBytes": 17,
+        "classSha256": "2835ec60231ad8b7420c85481eddc1fd9a6dea58753167b241538c7166636cb7",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 5,
+            "opcode": 154,
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "target": 13
+          }
+        ],
+        "references": [
+          {
+            "offset": 2,
+            "opcode": 182,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 18,
+            "args": [
+              13
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "com/bitwig/flt/document/core/master/device/ImZ"
+            }
+          },
+          {
+            "offset": 2,
+            "opcode": 182,
+            "args": [
+              0,
+              100
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            }
+          },
+          {
+            "offset": 5,
+            "opcode": 154,
+            "args": [
+              0,
+              7
+            ]
+          },
+          {
+            "offset": 8,
+            "opcode": 4,
+            "args": []
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "args": [
+              0,
+              4
+            ]
+          },
+          {
+            "offset": 12,
+            "opcode": 3,
+            "args": []
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "args": [
+              0,
+              38
+            ],
+            "constant": {
+              "tag": 9,
+              "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+              "name": "cfM",
+              "descriptor": "Z"
+            }
+          },
+          {
+            "offset": 16,
+            "opcode": 177,
+            "args": []
+          }
+        ]
+      },
+      {
+        "owner": "com/bitwig/flt/document/core/master/device/g2L",
+        "name": "<clinit>",
+        "descriptor": "()V",
+        "flags": 8,
+        "codeBytes": 17,
+        "classSha256": "358bfeeaebfc41ee68b64c3f146d47649f240f982806a71b45d394957d969114",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 5,
+            "opcode": 154,
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "target": 13
+          }
+        ],
+        "references": [
+          {
+            "offset": 2,
+            "opcode": 182,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "hUR",
+            "descriptor": "Z"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 18,
+            "args": [
+              7
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "com/bitwig/flt/document/core/master/device/g2L"
+            }
+          },
+          {
+            "offset": 2,
+            "opcode": 182,
+            "args": [
+              0,
+              62
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            }
+          },
+          {
+            "offset": 5,
+            "opcode": 154,
+            "args": [
+              0,
+              7
+            ]
+          },
+          {
+            "offset": 8,
+            "opcode": 4,
+            "args": []
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "args": [
+              0,
+              4
+            ]
+          },
+          {
+            "offset": 12,
+            "opcode": 3,
+            "args": []
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "args": [
+              0,
+              26
+            ],
+            "constant": {
+              "tag": 9,
+              "owner": "com/bitwig/flt/document/core/master/device/g2L",
+              "name": "hUR",
+              "descriptor": "Z"
+            }
+          },
+          {
+            "offset": 16,
+            "opcode": 177,
+            "args": []
+          }
+        ]
+      },
+      {
+        "owner": "com/bitwig/flt/document/core/master/device/oJk",
+        "name": "<clinit>",
+        "descriptor": "()V",
+        "flags": 8,
+        "codeBytes": 17,
+        "classSha256": "27514db09aa56052ce08108c0ff7ee7c6d321c61e03ca979c5b216ccd98dd963",
+        "exceptionHandlers": [],
+        "branches": [
+          {
+            "offset": 5,
+            "opcode": 154,
+            "target": 12
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "target": 13
+          }
+        ],
+        "references": [
+          {
+            "offset": 2,
+            "opcode": 182,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 18,
+            "args": [
+              7
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "com/bitwig/flt/document/core/master/device/oJk"
+            }
+          },
+          {
+            "offset": 2,
+            "opcode": 182,
+            "args": [
+              0,
+              51
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            }
+          },
+          {
+            "offset": 5,
+            "opcode": 154,
+            "args": [
+              0,
+              7
+            ]
+          },
+          {
+            "offset": 8,
+            "opcode": 4,
+            "args": []
+          },
+          {
+            "offset": 9,
+            "opcode": 167,
+            "args": [
+              0,
+              4
+            ]
+          },
+          {
+            "offset": 12,
+            "opcode": 3,
+            "args": []
+          },
+          {
+            "offset": 13,
+            "opcode": 179,
+            "args": [
+              0,
+              20
+            ],
+            "constant": {
+              "tag": 9,
+              "owner": "com/bitwig/flt/document/core/master/device/oJk",
+              "name": "cfM",
+              "descriptor": "Z"
+            }
+          },
+          {
+            "offset": 16,
+            "opcode": 177,
+            "args": []
+          }
+        ]
+      }
+    ],
+    "runtimeValuesObserved": false,
+    "condition": "Each field must already be initialized and true. Do not change assertion mode.",
+    "boundedAdmission": false
+  },
+  "traces": [
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/GiH",
+      "name": "E3",
+      "descriptor": "()V",
+      "flags": 4,
+      "codeBytes": 137,
+      "classSha256": "68c99886c00d56a7342f8a27b98d624e623f3552bf1198c357a4f0fe4844effc",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 18
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "target": 74
+        },
+        {
+          "offset": 52,
+          "opcode": 166,
+          "target": 59
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "target": 60
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "target": 74
+        },
+        {
+          "offset": 77,
+          "opcode": 154,
+          "target": 98
+        },
+        {
+          "offset": 87,
+          "opcode": 154,
+          "target": 98
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 42,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "()LivQ;"
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "ERO",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 81,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "OzW",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 84,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 94,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 99,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 102,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 105,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "lYc",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 114,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "BNq",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 119,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "MRY",
+          "descriptor": "(Ljava/lang/Object;)V"
+        },
+        {
+          "offset": 123,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 128,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/GiH",
+          "name": "MRY",
+          "descriptor": "I"
+        },
+        {
+          "offset": 133,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "MRY",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;IZLcom/bitwig/base/async/lBQ;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 24,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "args": [
+            0,
+            45
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "args": [
+            0,
+            39
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "()LivQ;"
+          }
+        },
+        {
+          "offset": 48,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "args": [
+            0,
+            24
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "ERO",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 166,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 55,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 59,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 66,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 69,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "args": [
+            0,
+            45
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 154,
+          "args": [
+            0,
+            21
+          ]
+        },
+        {
+          "offset": 80,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 81,
+          "opcode": 182,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "OzW",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 84,
+          "opcode": 184,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 87,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 90,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 93,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 94,
+          "opcode": 183,
+          "args": [
+            0,
+            45
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 98,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 99,
+          "opcode": 180,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 102,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 105,
+          "opcode": 182,
+          "args": [
+            0,
+            20
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "lYc",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 108,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 112,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 113,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 114,
+          "opcode": 182,
+          "args": [
+            0,
+            23
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "BNq",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 117,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 118,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 119,
+          "opcode": 182,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "MRY",
+            "descriptor": "(Ljava/lang/Object;)V"
+          }
+        },
+        {
+          "offset": 122,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 123,
+          "opcode": 180,
+          "args": [
+            0,
+            14
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 126,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 127,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 128,
+          "opcode": 180,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/GiH",
+            "name": "MRY",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 131,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 132,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 133,
+          "opcode": 182,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "MRY",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;IZLcom/bitwig/base/async/lBQ;)V"
+          }
+        },
+        {
+          "offset": 136,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/Ac",
+      "name": "Nnn",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 185,
+      "classSha256": "e3df0708a7c644902970f939e3c3caf6bd702f1d42e168892c2c16abc554c81e",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 8,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 12,
+          "opcode": 198,
+          "target": 19
+        },
+        {
+          "offset": 16,
+          "opcode": 167,
+          "target": 20
+        },
+        {
+          "offset": 23,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "target": 65
+        },
+        {
+          "offset": 42,
+          "opcode": 198,
+          "target": 64
+        },
+        {
+          "offset": 53,
+          "opcode": 166,
+          "target": 64
+        },
+        {
+          "offset": 96,
+          "opcode": 154,
+          "target": 125
+        },
+        {
+          "offset": 103,
+          "opcode": 199,
+          "target": 110
+        },
+        {
+          "offset": 107,
+          "opcode": 167,
+          "target": 111
+        },
+        {
+          "offset": 114,
+          "opcode": 154,
+          "target": 125
+        },
+        {
+          "offset": 128,
+          "opcode": 154,
+          "target": 171
+        },
+        {
+          "offset": 139,
+          "opcode": 165,
+          "target": 152
+        },
+        {
+          "offset": 149,
+          "opcode": 199,
+          "target": 156
+        },
+        {
+          "offset": 153,
+          "opcode": 167,
+          "target": 157
+        },
+        {
+          "offset": 160,
+          "opcode": 154,
+          "target": 171
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "UNj",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 20,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 30,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 46,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "d3",
+          "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+        },
+        {
+          "offset": 57,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 61,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "cfM",
+          "descriptor": "(Lgtp;)V"
+        },
+        {
+          "offset": 66,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 69,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 73,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "MRY",
+          "descriptor": "LivQ;"
+        },
+        {
+          "offset": 76,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "(LivQ;)V"
+        },
+        {
+          "offset": 81,
+          "opcode": 181,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "nVd",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 85,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "E3",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 90,
+          "opcode": 181,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "nVd",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 93,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "UNj",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 100,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 111,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 121,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 125,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "UNj",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 132,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 135,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "d3",
+          "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+        },
+        {
+          "offset": 143,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 146,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "d3",
+          "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+        },
+        {
+          "offset": 157,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 167,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 172,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+        },
+        {
+          "offset": 176,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ISf",
+          "name": "cfM",
+          "descriptor": "(Lgtp;)V"
+        },
+        {
+          "offset": 181,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/Ac",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "args": [
+            0,
+            71
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "UNj",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 15,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 19,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 184,
+          "args": [
+            0,
+            96
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 26,
+          "opcode": 187,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 29,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 183,
+          "args": [
+            0,
+            191
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 33,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 199,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 198,
+          "args": [
+            0,
+            22
+          ]
+        },
+        {
+          "offset": 45,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "args": [
+            0,
+            135
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "d3",
+            "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 53,
+          "opcode": 166,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 56,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 60,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 182,
+          "args": [
+            0,
+            134
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "cfM",
+            "descriptor": "(Lgtp;)V"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 177,
+          "args": []
+        },
+        {
+          "offset": 65,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 66,
+          "opcode": 180,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 69,
+          "opcode": 182,
+          "args": [
+            0,
+            158
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 72,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 73,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "MRY",
+            "descriptor": "LivQ;"
+          }
+        },
+        {
+          "offset": 76,
+          "opcode": 182,
+          "args": [
+            0,
+            84
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "(LivQ;)V"
+          }
+        },
+        {
+          "offset": 79,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 80,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 81,
+          "opcode": 181,
+          "args": [
+            0,
+            75
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "nVd",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 84,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 85,
+          "opcode": 182,
+          "args": [
+            0,
+            105
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "E3",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 88,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 89,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 181,
+          "args": [
+            0,
+            75
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "nVd",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 93,
+          "opcode": 178,
+          "args": [
+            0,
+            71
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "UNj",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 96,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 99,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 100,
+          "opcode": 180,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 103,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 106,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 107,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 110,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 111,
+          "opcode": 184,
+          "args": [
+            0,
+            96
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 114,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 117,
+          "opcode": 187,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 120,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 121,
+          "opcode": 183,
+          "args": [
+            0,
+            191
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 124,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 125,
+          "opcode": 178,
+          "args": [
+            0,
+            71
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "UNj",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 128,
+          "opcode": 154,
+          "args": [
+            0,
+            43
+          ]
+        },
+        {
+          "offset": 131,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 132,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 135,
+          "opcode": 182,
+          "args": [
+            0,
+            135
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "d3",
+            "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+          }
+        },
+        {
+          "offset": 138,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 139,
+          "opcode": 165,
+          "args": [
+            0,
+            13
+          ]
+        },
+        {
+          "offset": 142,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 143,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 146,
+          "opcode": 182,
+          "args": [
+            0,
+            135
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "d3",
+            "descriptor": "()Lcom/bitwig/flt/document/core/master/device/Ac;"
+          }
+        },
+        {
+          "offset": 149,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 152,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 153,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 156,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 157,
+          "opcode": 184,
+          "args": [
+            0,
+            96
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 160,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 163,
+          "opcode": 187,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 166,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 167,
+          "opcode": 183,
+          "args": [
+            0,
+            191
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 170,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 171,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 172,
+          "opcode": 180,
+          "args": [
+            0,
+            68
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/ISf;"
+          }
+        },
+        {
+          "offset": 175,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 176,
+          "opcode": 182,
+          "args": [
+            0,
+            134
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ISf",
+            "name": "cfM",
+            "descriptor": "(Lgtp;)V"
+          }
+        },
+        {
+          "offset": 179,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 180,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 181,
+          "opcode": 182,
+          "args": [
+            0,
+            118
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/Ac",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;)V"
+          }
+        },
+        {
+          "offset": 184,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+      "name": "E3",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 333,
+      "classSha256": "2835ec60231ad8b7420c85481eddc1fd9a6dea58753167b241538c7166636cb7",
+      "exceptionHandlers": [
+        [
+          118,
+          152,
+          155,
+          6
+        ]
+      ],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 18
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "target": 56
+        },
+        {
+          "offset": 45,
+          "opcode": 154,
+          "target": 56
+        },
+        {
+          "offset": 73,
+          "opcode": 153,
+          "target": 192
+        },
+        {
+          "offset": 79,
+          "opcode": 154,
+          "target": 118
+        },
+        {
+          "offset": 96,
+          "opcode": 166,
+          "target": 103
+        },
+        {
+          "offset": 100,
+          "opcode": 167,
+          "target": 104
+        },
+        {
+          "offset": 107,
+          "opcode": 154,
+          "target": 118
+        },
+        {
+          "offset": 152,
+          "opcode": 167,
+          "target": 184
+        },
+        {
+          "offset": 159,
+          "opcode": 154,
+          "target": 177
+        },
+        {
+          "offset": 166,
+          "opcode": 154,
+          "target": 177
+        },
+        {
+          "offset": 189,
+          "opcode": 167,
+          "target": 300
+        },
+        {
+          "offset": 195,
+          "opcode": 154,
+          "target": 224
+        },
+        {
+          "offset": 202,
+          "opcode": 198,
+          "target": 209
+        },
+        {
+          "offset": 206,
+          "opcode": 167,
+          "target": 210
+        },
+        {
+          "offset": 213,
+          "opcode": 154,
+          "target": 224
+        },
+        {
+          "offset": 227,
+          "opcode": 154,
+          "target": 266
+        },
+        {
+          "offset": 244,
+          "opcode": 166,
+          "target": 251
+        },
+        {
+          "offset": 248,
+          "opcode": 167,
+          "target": 252
+        },
+        {
+          "offset": 255,
+          "opcode": 154,
+          "target": 266
+        },
+        {
+          "offset": 303,
+          "opcode": 154,
+          "target": 332
+        },
+        {
+          "offset": 310,
+          "opcode": 199,
+          "target": 317
+        },
+        {
+          "offset": 314,
+          "opcode": 167,
+          "target": 318
+        },
+        {
+          "offset": 321,
+          "opcode": 154,
+          "target": 332
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 39,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "OzW",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 42,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 52,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 57,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "qoU",
+          "descriptor": "()Lcom/bitwig/flt/device/MVg;"
+        },
+        {
+          "offset": 64,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "MRY",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "qoU",
+          "descriptor": "()Lcom/bitwig/flt/device/MVg;"
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/device/MVg",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/flt/device/MVg;)Z"
+        },
+        {
+          "offset": 76,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 83,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "MRY",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 86,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 89,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "()LivQ;"
+        },
+        {
+          "offset": 93,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "ERO",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 104,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 114,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 119,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 122,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "zjc",
+          "descriptor": "()LlUL;"
+        },
+        {
+          "offset": 127,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "MRY",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 136,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "fJR",
+          "descriptor": "Ljava/lang/String;"
+        },
+        {
+          "offset": 139,
+          "opcode": 184,
+          "owner": "com/bitwig/base/io/z2y",
+          "name": "cfM",
+          "descriptor": "(Ljava/lang/String;)Lcom/bitwig/base/io/z2y;"
+        },
+        {
+          "offset": 144,
+          "opcode": 183,
+          "owner": "com/bitwig/flt/document/core/master/IbI",
+          "name": "<init>",
+          "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/library/metadata/master/iyP;LivQ;)V"
+        },
+        {
+          "offset": 149,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "MRY",
+          "descriptor": "(LlUL;Lcom/bitwig/flt/document/core/master/IbI;ZLcom/bitwig/base/async/lBQ;)V"
+        },
+        {
+          "offset": 156,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 163,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 173,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 177,
+          "opcode": 178,
+          "owner": "cPJ",
+          "name": "IwV",
+          "descriptor": "LUtt;"
+        },
+        {
+          "offset": 181,
+          "opcode": 182,
+          "owner": "Utt",
+          "name": "MRY",
+          "descriptor": "(Ljava/lang/Throwable;)V"
+        },
+        {
+          "offset": 186,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "MRY",
+          "descriptor": "(Ljsd;)V"
+        },
+        {
+          "offset": 192,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 199,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 210,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 220,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 224,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 231,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 234,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 237,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "()LivQ;"
+        },
+        {
+          "offset": 241,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "ERO",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 252,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 262,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 267,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 270,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 273,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "lYc",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 277,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 282,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "BNq",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 287,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "MRY",
+          "descriptor": "(Ljava/lang/Object;)V"
+        },
+        {
+          "offset": 291,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "MRY",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 297,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/xlG",
+          "name": "MRY",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;ZLcom/bitwig/base/async/lBQ;)V"
+        },
+        {
+          "offset": 300,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 307,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+          "name": "TMF",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+        },
+        {
+          "offset": 318,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 328,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 24,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "args": [
+            0,
+            21
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 182,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "OzW",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 48,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 51,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "args": [
+            0,
+            93
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "qoU",
+            "descriptor": "()Lcom/bitwig/flt/device/MVg;"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 64,
+          "opcode": 180,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "MRY",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "args": [
+            0,
+            93
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "qoU",
+            "descriptor": "()Lcom/bitwig/flt/device/MVg;"
+          }
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/device/MVg",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/flt/device/MVg;)Z"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 153,
+          "args": [
+            0,
+            119
+          ]
+        },
+        {
+          "offset": 76,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 79,
+          "opcode": 154,
+          "args": [
+            0,
+            39
+          ]
+        },
+        {
+          "offset": 82,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 83,
+          "opcode": 180,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "MRY",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 86,
+          "opcode": 182,
+          "args": [
+            0,
+            88
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 89,
+          "opcode": 182,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "()LivQ;"
+          }
+        },
+        {
+          "offset": 92,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 93,
+          "opcode": 182,
+          "args": [
+            0,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "ERO",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 96,
+          "opcode": 166,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 99,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 100,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 103,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 104,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 107,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 110,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 113,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 114,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 117,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 118,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 119,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 122,
+          "opcode": 182,
+          "args": [
+            0,
+            94
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "zjc",
+            "descriptor": "()LlUL;"
+          }
+        },
+        {
+          "offset": 125,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 126,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 127,
+          "opcode": 180,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "MRY",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 130,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 131,
+          "opcode": 187,
+          "args": [
+            0,
+            10
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/flt/document/core/master/IbI"
+          }
+        },
+        {
+          "offset": 134,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 135,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 136,
+          "opcode": 180,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "fJR",
+            "descriptor": "Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 139,
+          "opcode": 184,
+          "args": [
+            0,
+            48
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/base/io/z2y",
+            "name": "cfM",
+            "descriptor": "(Ljava/lang/String;)Lcom/bitwig/base/io/z2y;"
+          }
+        },
+        {
+          "offset": 142,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 143,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 144,
+          "opcode": 183,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/IbI",
+            "name": "<init>",
+            "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/library/metadata/master/iyP;LivQ;)V"
+          }
+        },
+        {
+          "offset": 147,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 148,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 149,
+          "opcode": 182,
+          "args": [
+            0,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "MRY",
+            "descriptor": "(LlUL;Lcom/bitwig/flt/document/core/master/IbI;ZLcom/bitwig/base/async/lBQ;)V"
+          }
+        },
+        {
+          "offset": 152,
+          "opcode": 167,
+          "args": [
+            0,
+            32
+          ]
+        },
+        {
+          "offset": 155,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 156,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 159,
+          "opcode": 154,
+          "args": [
+            0,
+            18
+          ]
+        },
+        {
+          "offset": 162,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 163,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 166,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 169,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 172,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 173,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 176,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 177,
+          "opcode": 178,
+          "args": [
+            0,
+            32
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "cPJ",
+            "name": "IwV",
+            "descriptor": "LUtt;"
+          }
+        },
+        {
+          "offset": 180,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 181,
+          "opcode": 182,
+          "args": [
+            0,
+            45
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "Utt",
+            "name": "MRY",
+            "descriptor": "(Ljava/lang/Throwable;)V"
+          }
+        },
+        {
+          "offset": 184,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 185,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 186,
+          "opcode": 182,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "MRY",
+            "descriptor": "(Ljsd;)V"
+          }
+        },
+        {
+          "offset": 189,
+          "opcode": 167,
+          "args": [
+            0,
+            111
+          ]
+        },
+        {
+          "offset": 192,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 195,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 198,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 199,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 202,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 205,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 206,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 209,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 210,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 213,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 216,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 219,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 220,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 223,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 224,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 227,
+          "opcode": 154,
+          "args": [
+            0,
+            39
+          ]
+        },
+        {
+          "offset": 230,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 231,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 234,
+          "opcode": 182,
+          "args": [
+            0,
+            88
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 237,
+          "opcode": 182,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "()LivQ;"
+          }
+        },
+        {
+          "offset": 240,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 241,
+          "opcode": 182,
+          "args": [
+            0,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "ERO",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 244,
+          "opcode": 166,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 247,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 248,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 251,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 252,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 255,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 258,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 261,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 262,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 265,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 266,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 267,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 270,
+          "opcode": 182,
+          "args": [
+            0,
+            88
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 273,
+          "opcode": 182,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "lYc",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 276,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 277,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 280,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 281,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 282,
+          "opcode": 182,
+          "args": [
+            0,
+            59
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "BNq",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 285,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 286,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 287,
+          "opcode": 182,
+          "args": [
+            0,
+            85
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "MRY",
+            "descriptor": "(Ljava/lang/Object;)V"
+          }
+        },
+        {
+          "offset": 290,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 291,
+          "opcode": 180,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "MRY",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 294,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 295,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 296,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 297,
+          "opcode": 182,
+          "args": [
+            0,
+            84
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/xlG",
+            "name": "MRY",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/xlG;ZLcom/bitwig/base/async/lBQ;)V"
+          }
+        },
+        {
+          "offset": 300,
+          "opcode": 178,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 303,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 306,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 307,
+          "opcode": 180,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/ImZ",
+            "name": "TMF",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/xlG;"
+          }
+        },
+        {
+          "offset": 310,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 313,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 314,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 317,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 318,
+          "opcode": 184,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 321,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 324,
+          "opcode": 187,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 327,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 328,
+          "opcode": 183,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 331,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 332,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/oJk",
+      "name": "lYc",
+      "descriptor": "()V",
+      "flags": 4,
+      "codeBytes": 138,
+      "classSha256": "27514db09aa56052ce08108c0ff7ee7c6d321c61e03ca979c5b216ccd98dd963",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 18
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "target": 32
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "target": 74
+        },
+        {
+          "offset": 52,
+          "opcode": 166,
+          "target": 59
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "target": 60
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "target": 74
+        },
+        {
+          "offset": 77,
+          "opcode": 154,
+          "target": 98
+        },
+        {
+          "offset": 87,
+          "opcode": 154,
+          "target": 98
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 42,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/tad",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "()LivQ;"
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "vpw",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 81,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "ERO",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 84,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 94,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 99,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 102,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/tad",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 105,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "lYc",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 114,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "UZr",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 119,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/tad",
+          "name": "MRY",
+          "descriptor": "(Ljava/lang/Object;)V"
+        },
+        {
+          "offset": 127,
+          "opcode": 183,
+          "owner": "com/bitwig/flt/document/core/master/clipboard/modulator/MVg",
+          "name": "<init>",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/tad;)V"
+        },
+        {
+          "offset": 131,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/oJk",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+        },
+        {
+          "offset": 134,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/clipboard/modulator/MVg",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/nZA;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            20
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            0,
+            25
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 24,
+          "opcode": 187,
+          "args": [
+            0,
+            10
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "args": [
+            0,
+            20
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 154,
+          "args": [
+            0,
+            39
+          ]
+        },
+        {
+          "offset": 38,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 42,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/tad",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "args": [
+            0,
+            23
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "()LivQ;"
+          }
+        },
+        {
+          "offset": 48,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 49,
+          "opcode": 182,
+          "args": [
+            0,
+            45
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "vpw",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 166,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 55,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 59,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "args": [
+            0,
+            25
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 66,
+          "opcode": 187,
+          "args": [
+            0,
+            10
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 69,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "args": [
+            0,
+            20
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 154,
+          "args": [
+            0,
+            21
+          ]
+        },
+        {
+          "offset": 80,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 81,
+          "opcode": 182,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "ERO",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 84,
+          "opcode": 184,
+          "args": [
+            0,
+            25
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 87,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 90,
+          "opcode": 187,
+          "args": [
+            0,
+            10
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 93,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 94,
+          "opcode": 183,
+          "args": [
+            0,
+            50
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 98,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 99,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 102,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/tad",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 105,
+          "opcode": 182,
+          "args": [
+            0,
+            24
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "lYc",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 108,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 109,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 112,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 113,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 114,
+          "opcode": 182,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "UZr",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 117,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 118,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 119,
+          "opcode": 182,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/tad",
+            "name": "MRY",
+            "descriptor": "(Ljava/lang/Object;)V"
+          }
+        },
+        {
+          "offset": 122,
+          "opcode": 187,
+          "args": [
+            0,
+            3
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/flt/document/core/master/clipboard/modulator/MVg"
+          }
+        },
+        {
+          "offset": 125,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 126,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 127,
+          "opcode": 183,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/clipboard/modulator/MVg",
+            "name": "<init>",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/tad;)V"
+          }
+        },
+        {
+          "offset": 130,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 131,
+          "opcode": 180,
+          "args": [
+            0,
+            18
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/oJk",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+          }
+        },
+        {
+          "offset": 134,
+          "opcode": 182,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/clipboard/modulator/MVg",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/nZA;)V"
+          }
+        },
+        {
+          "offset": 137,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/g2L",
+      "name": "wGc",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 154,
+      "classSha256": "358bfeeaebfc41ee68b64c3f146d47649f240f982806a71b45d394957d969114",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 8,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 12,
+          "opcode": 198,
+          "target": 19
+        },
+        {
+          "offset": 16,
+          "opcode": 167,
+          "target": 20
+        },
+        {
+          "offset": 23,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 65,
+          "opcode": 154,
+          "target": 94
+        },
+        {
+          "offset": 72,
+          "opcode": 199,
+          "target": 79
+        },
+        {
+          "offset": 76,
+          "opcode": 167,
+          "target": 80
+        },
+        {
+          "offset": 83,
+          "opcode": 154,
+          "target": 94
+        },
+        {
+          "offset": 97,
+          "opcode": 154,
+          "target": 140
+        },
+        {
+          "offset": 108,
+          "opcode": 165,
+          "target": 121
+        },
+        {
+          "offset": 118,
+          "opcode": 199,
+          "target": 125
+        },
+        {
+          "offset": 122,
+          "opcode": 167,
+          "target": 126
+        },
+        {
+          "offset": 129,
+          "opcode": 154,
+          "target": 140
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "hUR",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 20,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "FzB",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 30,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 35,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 38,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/tad",
+          "name": "ai3",
+          "descriptor": "()LEIm;"
+        },
+        {
+          "offset": 42,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "MRY",
+          "descriptor": "LivQ;"
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "owner": "EIm",
+          "name": "cfM",
+          "descriptor": "(LivQ;)V"
+        },
+        {
+          "offset": 50,
+          "opcode": 181,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "nVd",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "lYc",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 59,
+          "opcode": 181,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "nVd",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 62,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "hUR",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 69,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "lYc",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+        },
+        {
+          "offset": 80,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "FzB",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 90,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 94,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "hUR",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 101,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+        },
+        {
+          "offset": 104,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/nZA",
+          "name": "BBT",
+          "descriptor": "()Lcom/bitwig/flt/document/core/master/device/g2L;"
+        },
+        {
+          "offset": 112,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+        },
+        {
+          "offset": 115,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/nZA",
+          "name": "BBT",
+          "descriptor": "()Lcom/bitwig/flt/document/core/master/device/g2L;"
+        },
+        {
+          "offset": 126,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "FzB",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 136,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 141,
+          "opcode": 180,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "IwV",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+        },
+        {
+          "offset": 145,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/nZA",
+          "name": "cfM",
+          "descriptor": "(LZfm;)V"
+        },
+        {
+          "offset": 150,
+          "opcode": 182,
+          "owner": "com/bitwig/flt/document/core/master/device/g2L",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/flt/document/core/master/device/JXO;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "hUR",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 15,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 19,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 184,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "FzB",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 26,
+          "opcode": 187,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 29,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 183,
+          "args": [
+            0,
+            61
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 33,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 180,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 38,
+          "opcode": 182,
+          "args": [
+            0,
+            59
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/tad",
+            "name": "ai3",
+            "descriptor": "()LEIm;"
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 42,
+          "opcode": 180,
+          "args": [
+            0,
+            22
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "MRY",
+            "descriptor": "LivQ;"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 182,
+          "args": [
+            0,
+            30
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "EIm",
+            "name": "cfM",
+            "descriptor": "(LivQ;)V"
+          }
+        },
+        {
+          "offset": 48,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 49,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 181,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "nVd",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 53,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "lYc",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 57,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 58,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 59,
+          "opcode": 181,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "nVd",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 62,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "hUR",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 65,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 68,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 69,
+          "opcode": 180,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "lYc",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/tad;"
+          }
+        },
+        {
+          "offset": 72,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 75,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 76,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 79,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 80,
+          "opcode": 184,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "FzB",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 83,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 86,
+          "opcode": 187,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 89,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 183,
+          "args": [
+            0,
+            61
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 93,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 94,
+          "opcode": 178,
+          "args": [
+            0,
+            26
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "hUR",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 154,
+          "args": [
+            0,
+            43
+          ]
+        },
+        {
+          "offset": 100,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 101,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+          }
+        },
+        {
+          "offset": 104,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/nZA",
+            "name": "BBT",
+            "descriptor": "()Lcom/bitwig/flt/document/core/master/device/g2L;"
+          }
+        },
+        {
+          "offset": 107,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 108,
+          "opcode": 165,
+          "args": [
+            0,
+            13
+          ]
+        },
+        {
+          "offset": 111,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 112,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+          }
+        },
+        {
+          "offset": 115,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/nZA",
+            "name": "BBT",
+            "descriptor": "()Lcom/bitwig/flt/document/core/master/device/g2L;"
+          }
+        },
+        {
+          "offset": 118,
+          "opcode": 199,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 121,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 122,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 125,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 126,
+          "opcode": 184,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "FzB",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 129,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 132,
+          "opcode": 187,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 135,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 136,
+          "opcode": 183,
+          "args": [
+            0,
+            61
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 139,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 140,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 141,
+          "opcode": 180,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "IwV",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/device/nZA;"
+          }
+        },
+        {
+          "offset": 144,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 145,
+          "opcode": 182,
+          "args": [
+            0,
+            55
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/nZA",
+            "name": "cfM",
+            "descriptor": "(LZfm;)V"
+          }
+        },
+        {
+          "offset": 148,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 149,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 150,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/device/g2L",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/flt/document/core/master/device/JXO;)V"
+          }
+        },
+        {
+          "offset": 153,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "elapsedMs": 3958.3669580169953,
+  "peakRssBytes": 178765824,
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "limits": [
+    "The assertion flags must already be initialized and true.",
+    "Two setters remain reachable. This result does not establish command exclusion or holder stability.",
+    "Incoming scan coverage remains conditional on its unresolved symbolic references."
+  ]
+}

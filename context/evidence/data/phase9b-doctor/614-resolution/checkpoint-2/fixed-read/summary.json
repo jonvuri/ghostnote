@@ -1,0 +1,82 @@
+{
+  "inputs": {
+    "symbols": "38ffee693f3363d640bcc0c75ddbca649f69624d51ab010e372f8219aca4c8ce",
+    "catalog": "8ab1e1caf50cb5d3b66fbd55d1b824e741e74f06b8cac3a70972d96b86057820",
+    "properties": "0ed33239069d7c61b12781fb0953002bfc606e8bfcf6861a25c6ccbac654ee45"
+  },
+  "outputs": {
+    "domains": {
+      "sha256": "ec6ad4ec4034b49c658c3f8a9f9351664405e2b0efd1b016f21b5efd006961e4",
+      "bytes": 71207
+    },
+    "slots-0": {
+      "sha256": "5a210832ea6da307653379c78f09c7a536c6101e992a91432f17a41fd319046b",
+      "bytes": 302220
+    },
+    "reads-0": {
+      "sha256": "4692b8f8c77c6f5eb591b6a671241a857d67415bbdec188b5064cd428b780643",
+      "bytes": 1156595
+    },
+    "domain-reads-0": {
+      "sha256": "02d7753b39afcaedbff10fb413362ea0f269a05aad5dc3801558b7e5bdc90c4e",
+      "bytes": 97540
+    },
+    "callees-0": {
+      "sha256": "98fabdb549905ad83e8fe39e3bd6483a69a2c015b8c82b788ea99118f01c8bfb",
+      "bytes": 331309
+    },
+    "slots-1": {
+      "sha256": "1413be9a801ad6a987d5a2086a504412fa13147df5a4e213d79c1af65b695343",
+      "bytes": 367949
+    },
+    "reads-1": {
+      "sha256": "1560ac52b76a5bb25caf5addfaff2f2e795098fff65ad5051be310a015f35fa9",
+      "bytes": 1162584
+    },
+    "domain-reads-1": {
+      "sha256": "7f659b833daf19833d284c8f090ea5123a1aff6b25a40a94efc74e35c2d3b7d2",
+      "bytes": 97344
+    },
+    "callees-1": {
+      "sha256": "aa9e1a9026cc46591a2f72286716f792283f1bde95b48a9c53e357dcb1afecef",
+      "bytes": 317444
+    }
+  },
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "slots": 111,
+      "readWork": {
+        "instructions": 4959,
+        "edges": 422,
+        "traces": 156
+      },
+      "domainWork": {
+        "instructions": 137,
+        "calls": 13
+      },
+      "matchedCallees": 172,
+      "unmatchedCallees": []
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "slots": 111,
+      "readWork": {
+        "instructions": 4959,
+        "edges": 424,
+        "traces": 156
+      },
+      "domainWork": {
+        "instructions": 137,
+        "calls": 13
+      },
+      "matchedCallees": 172,
+      "unmatchedCallees": []
+    }
+  ],
+  "elapsedMs": 12868.957,
+  "peakRssBytes": 342228992,
+  "completeTable": false,
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

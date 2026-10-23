@@ -1,0 +1,4056 @@
+{
+  "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+  "paths": [
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7123,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R14892",
+          "r_cfM",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R14914",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R14914",
+          "r_MRY",
+          "(LR15000;I)Ljava/lang/String;"
+        ],
+        [
+          "R15131",
+          "r_BNq",
+          "()LR14933;"
+        ],
+        [
+          "R15131",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14933",
+          "r_cfM",
+          "LR14933;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7124,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R14892",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R14914",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R14914",
+          "r_MRY",
+          "(LR15000;I)Ljava/lang/String;"
+        ],
+        [
+          "R15131",
+          "r_BNq",
+          "()LR14933;"
+        ],
+        [
+          "R15131",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14933",
+          "r_cfM",
+          "LR14933;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7125,
+      "propertyName": "source",
+      "error": null,
+      "methods": [
+        [
+          "R14892",
+          "r_Scv",
+          "()LR14680;"
+        ],
+        [
+          "R14914",
+          "r_FzB",
+          "(LR15000;I)LR11331;"
+        ],
+        [
+          "R14914",
+          "r_UNj",
+          "(LR11371;I)LR11331;"
+        ],
+        [
+          "R15131",
+          "r_BNq",
+          "()LR14933;"
+        ],
+        [
+          "R15131",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8635",
+          "r_Hnt",
+          "(LR11331;)LR11371;"
+        ],
+        [
+          "R8635",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8635",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ],
+        [
+          "R8635",
+          "r_TMF",
+          "(LR11331;)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14933",
+          "r_cfM",
+          "LR14933;"
+        ]
+      ]
+    },
+    {
+      "classId": 2002,
+      "className": "audio_destination_atom",
+      "propertyId": 7234,
+      "propertyName": "default_value",
+      "error": null,
+      "methods": [
+        [
+          "R14892",
+          "r_RDJ",
+          "()D"
+        ],
+        [
+          "R14914",
+          "r_Hnt",
+          "(LR15000;I)D"
+        ],
+        [
+          "R14914",
+          "r_TMF",
+          "(LR11371;I)D"
+        ],
+        [
+          "R15131",
+          "r_BNq",
+          "()LR14933;"
+        ],
+        [
+          "R15131",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ],
+        [
+          "R8605",
+          "r_lYc",
+          "(LR11331;)D"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14933",
+          "r_cfM",
+          "LR14933;"
+        ]
+      ]
+    },
+    {
+      "classId": 2000,
+      "className": "audio_source_atom",
+      "propertyId": 3639,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R14663",
+          "r_Z1C",
+          "()LR14954;"
+        ],
+        [
+          "R14663",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R14923",
+          "r_emh",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R15069",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R15069",
+          "r_cfM",
+          "(LR14680;I)Ljava/lang/String;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14954",
+          "r_Hnt",
+          "LR14954;"
+        ]
+      ]
+    },
+    {
+      "classId": 2000,
+      "className": "audio_source_atom",
+      "propertyId": 3640,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R14663",
+          "r_Z1C",
+          "()LR14954;"
+        ],
+        [
+          "R14663",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R14923",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R15069",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R15069",
+          "r_cfM",
+          "(LR14680;I)Ljava/lang/String;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14954",
+          "r_Hnt",
+          "LR14954;"
+        ]
+      ]
+    },
+    {
+      "classId": 3469,
+      "className": "audio_voice_sum_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "R11331",
+          "r_vdx",
+          "()I"
+        ],
+        [
+          "R27993",
+          "r_iHb",
+          "()LR564;"
+        ],
+        [
+          "R27993",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8637",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R564",
+          "r_cfM",
+          "LR564;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 6406,
+      "propertyName": "bipolar",
+      "error": null,
+      "methods": [
+        [
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ],
+        [
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R2002",
+          "r_vpw",
+          "()Z"
+        ],
+        [
+          "R4998",
+          "r_cfM",
+          "(LR29823;I)Z"
+        ],
+        [
+          "R4998",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R4998",
+          "r_cfM",
+          "LR4998;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 712,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ],
+        [
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R25764",
+          "r_TMF",
+          "(LR11371;I)D"
+        ],
+        [
+          "R25764",
+          "r_cfM",
+          "(LR1982;I)D"
+        ],
+        [
+          "R28099",
+          "r_hUR",
+          "()D"
+        ],
+        [
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ],
+        [
+          "R8605",
+          "r_lYc",
+          "(LR11331;)D"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R4998",
+          "r_cfM",
+          "LR4998;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 949,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ],
+        [
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R25764",
+          "r_TMF",
+          "(LR11371;I)D"
+        ],
+        [
+          "R25764",
+          "r_cfM",
+          "(LR1982;I)D"
+        ],
+        [
+          "R28099",
+          "r_iCS",
+          "()D"
+        ],
+        [
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ],
+        [
+          "R8605",
+          "r_lYc",
+          "(LR11331;)D"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R4998",
+          "r_cfM",
+          "LR4998;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ],
+        [
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R4998",
+          "r_cfM",
+          "LR4998;"
+        ]
+      ]
+    },
+    {
+      "classId": 1763,
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ],
+        [
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R4998",
+          "r_cfM",
+          "LR4998;"
+        ]
+      ]
+    },
+    {
+      "classId": 1751,
+      "className": "boolean_panel_value",
+      "propertyId": 6386,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R30325",
+          "r_cfM",
+          "(LR31336;I)Z"
+        ],
+        [
+          "R30325",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R514",
+          "r_ODA",
+          "()LR30325;"
+        ],
+        [
+          "R514",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R514",
+          "r_vpw",
+          "()Z"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R30325",
+          "r_MRY",
+          "LR30325;"
+        ]
+      ]
+    },
+    {
+      "classId": 1751,
+      "className": "boolean_panel_value",
+      "propertyId": 6387,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R25986",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R25986",
+          "r_cfM",
+          "(LR3054;I)Ljava/lang/String;"
+        ],
+        [
+          "R29745",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R514",
+          "r_ODA",
+          "()LR30325;"
+        ],
+        [
+          "R514",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R30325",
+          "r_MRY",
+          "LR30325;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 210,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R27693",
+          "r_MIO",
+          "()LR31063;"
+        ],
+        [
+          "R27693",
+          "r_hUR",
+          "()Z"
+        ],
+        [
+          "R27693",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R31063",
+          "r_cfM",
+          "(LR27375;I)Z"
+        ],
+        [
+          "R31063",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R31063",
+          "r_Hnt",
+          "LR31063;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 953,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R27693",
+          "r_Grk",
+          "()Z"
+        ],
+        [
+          "R27693",
+          "r_MIO",
+          "()LR31063;"
+        ],
+        [
+          "R27693",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R31063",
+          "r_cfM",
+          "(LR27375;I)Z"
+        ],
+        [
+          "R31063",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R31063",
+          "r_Hnt",
+          "LR31063;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R27693",
+          "r_MIO",
+          "()LR31063;"
+        ],
+        [
+          "R27693",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R31063",
+          "r_Hnt",
+          "LR31063;"
+        ]
+      ]
+    },
+    {
+      "classId": 87,
+      "className": "boolean_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R27693",
+          "r_MIO",
+          "()LR31063;"
+        ],
+        [
+          "R27693",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R31063",
+          "r_Hnt",
+          "LR31063;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 210,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R27693",
+          "r_hUR",
+          "()Z"
+        ],
+        [
+          "R31063",
+          "r_cfM",
+          "(LR27375;I)Z"
+        ],
+        [
+          "R31063",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R31373",
+          "r_lYc",
+          "()LR29587;"
+        ],
+        [
+          "R31373",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R29587",
+          "r_cfM",
+          "LR29587;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 953,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R27693",
+          "r_Grk",
+          "()Z"
+        ],
+        [
+          "R31063",
+          "r_cfM",
+          "(LR27375;I)Z"
+        ],
+        [
+          "R31063",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R31373",
+          "r_lYc",
+          "()LR29587;"
+        ],
+        [
+          "R31373",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R29587",
+          "r_cfM",
+          "LR29587;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R31373",
+          "r_lYc",
+          "()LR29587;"
+        ],
+        [
+          "R31373",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R29587",
+          "r_cfM",
+          "LR29587;"
+        ]
+      ]
+    },
+    {
+      "classId": 3380,
+      "className": "button_boolean_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R31373",
+          "r_lYc",
+          "()LR29587;"
+        ],
+        [
+          "R31373",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R29587",
+          "r_cfM",
+          "LR29587;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 712,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R25764",
+          "r_TMF",
+          "(LR11371;I)D"
+        ],
+        [
+          "R25764",
+          "r_cfM",
+          "(LR1982;I)D"
+        ],
+        [
+          "R28099",
+          "r_MJ",
+          "()LR25764;"
+        ],
+        [
+          "R28099",
+          "r_hUR",
+          "()D"
+        ],
+        [
+          "R28099",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ],
+        [
+          "R8605",
+          "r_lYc",
+          "(LR11331;)D"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R25764",
+          "r_FzB",
+          "LR25764;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 949,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R25764",
+          "r_TMF",
+          "(LR11371;I)D"
+        ],
+        [
+          "R25764",
+          "r_cfM",
+          "(LR1982;I)D"
+        ],
+        [
+          "R28099",
+          "r_MJ",
+          "()LR25764;"
+        ],
+        [
+          "R28099",
+          "r_iCS",
+          "()D"
+        ],
+        [
+          "R28099",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ],
+        [
+          "R8605",
+          "r_lYc",
+          "(LR11331;)D"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Double",
+          "valueOf",
+          "(D)Ljava/lang/Double;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R25764",
+          "r_FzB",
+          "LR25764;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R28099",
+          "r_MJ",
+          "()LR25764;"
+        ],
+        [
+          "R28099",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R25764",
+          "r_FzB",
+          "LR25764;"
+        ]
+      ]
+    },
+    {
+      "classId": 289,
+      "className": "decimal_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R28099",
+          "r_MJ",
+          "()LR25764;"
+        ],
+        [
+          "R28099",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R25764",
+          "r_FzB",
+          "LR25764;"
+        ]
+      ]
+    },
+    {
+      "classId": 3335,
+      "className": "device_audio_output_proxy_atom",
+      "propertyId": 9817,
+      "propertyName": "device_destination_ID",
+      "error": null,
+      "methods": [
+        [
+          "R14691",
+          "r_MIO",
+          "()LR14837;"
+        ],
+        [
+          "R14691",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R14904",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R14904",
+          "r_cfM",
+          "(LR14735;I)Ljava/lang/String;"
+        ],
+        [
+          "R14957",
+          "r_dvk",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14837",
+          "r_cfM",
+          "LR14837;"
+        ]
+      ]
+    },
+    {
+      "classId": 3300,
+      "className": "device_input_proxy_atom",
+      "propertyId": 9794,
+      "propertyName": "device_source_ID",
+      "error": null,
+      "methods": [
+        [
+          "R15054",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R15054",
+          "r_cfM",
+          "(LR15045;I)Ljava/lang/String;"
+        ],
+        [
+          "R15139",
+          "r_FzB",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R15139",
+          "r_ODA",
+          "()LR15054;"
+        ],
+        [
+          "R15139",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R15054",
+          "r_cfM",
+          "LR15054;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 457,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R27503",
+          "r_UNj",
+          "()I"
+        ],
+        [
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ],
+        [
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR28871;I)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R3105",
+          "r_MRY",
+          "LR3105;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 955,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R27503",
+          "r_TMF",
+          "()I"
+        ],
+        [
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ],
+        [
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR28871;I)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R3105",
+          "r_MRY",
+          "LR3105;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 6928,
+      "propertyName": "value_item_index",
+      "error": null,
+      "methods": [
+        [
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ],
+        [
+          "R27503",
+          "r_kTh",
+          "()I"
+        ],
+        [
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R3105",
+          "r_cfM",
+          "(LR28871;I)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R3105",
+          "r_MRY",
+          "LR3105;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ],
+        [
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R3105",
+          "r_MRY",
+          "LR3105;"
+        ]
+      ]
+    },
+    {
+      "classId": 180,
+      "className": "indexed_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ],
+        [
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R3105",
+          "r_MRY",
+          "LR3105;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 828,
+      "propertyName": "value",
+      "error": null,
+      "methods": [
+        [
+          "R28082",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R28082",
+          "r_cfM",
+          "(LR4070;I)I"
+        ],
+        [
+          "R29589",
+          "r_kIh",
+          "()I"
+        ],
+        [
+          "R29589",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R29589",
+          "r_zxZ",
+          "()LR28082;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R28082",
+          "r_MRY",
+          "LR28082;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 957,
+      "propertyName": "gui_value",
+      "error": null,
+      "methods": [
+        [
+          "R28082",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R28082",
+          "r_cfM",
+          "(LR4070;I)I"
+        ],
+        [
+          "R29589",
+          "r_hUR",
+          "()I"
+        ],
+        [
+          "R29589",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R29589",
+          "r_zxZ",
+          "()LR28082;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R28082",
+          "r_MRY",
+          "LR28082;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 701,
+      "propertyName": "preset_identifier",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_ax_",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R29589",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R29589",
+          "r_zxZ",
+          "()LR28082;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R28082",
+          "r_MRY",
+          "LR28082;"
+        ]
+      ]
+    },
+    {
+      "classId": 394,
+      "className": "integer_value_atom",
+      "propertyId": 374,
+      "propertyName": "name",
+      "error": null,
+      "methods": [
+        [
+          "R1104",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R1104",
+          "r_IwV",
+          "(LR22561;I)Ljava/lang/String;"
+        ],
+        [
+          "R2111",
+          "r_BDm",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R29589",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R29589",
+          "r_zxZ",
+          "()LR28082;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R28082",
+          "r_MRY",
+          "LR28082;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "error": null,
+      "methods": [
+        [
+          "R14820",
+          "r_ifN",
+          "()LR14984;"
+        ],
+        [
+          "R15016",
+          "r_UNj",
+          "(LR11371;I)LR11331;"
+        ],
+        [
+          "R15016",
+          "r_UNj",
+          "(LR14811;I)LR11331;"
+        ],
+        [
+          "R15116",
+          "r_jHi",
+          "()LR29268;"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_QOl",
+          "()LR14808;"
+        ],
+        [
+          "R15141",
+          "r_jHi",
+          "()LR29268;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8635",
+          "r_Hnt",
+          "(LR11331;)LR11371;"
+        ],
+        [
+          "R8635",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8635",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ],
+        [
+          "R8635",
+          "r_TMF",
+          "(LR11331;)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6679,
+      "propertyName": "grid_x",
+      "error": null,
+      "methods": [
+        [
+          "R14820",
+          "r_FzB",
+          "()I"
+        ],
+        [
+          "R14992",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R14992",
+          "r_cfM",
+          "(LR14729;I)I"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6680,
+      "propertyName": "grid_y",
+      "error": null,
+      "methods": [
+        [
+          "R14820",
+          "r_UNj",
+          "()I"
+        ],
+        [
+          "R14992",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R14992",
+          "r_cfM",
+          "(LR14729;I)I"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 6977,
+      "propertyName": "active",
+      "error": null,
+      "methods": [
+        [
+          "R14820",
+          "r_luv",
+          "()Z"
+        ],
+        [
+          "R14992",
+          "r_MRY",
+          "(LR14729;I)Z"
+        ],
+        [
+          "R14992",
+          "r_eLY",
+          "(LR11371;I)Z"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ],
+        [
+          "R8614",
+          "r_lYc",
+          "(LR11331;)Z"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Boolean",
+          "valueOf",
+          "(Z)Ljava/lang/Boolean;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 15,
+      "propertyName": "UUID",
+      "error": null,
+      "methods": [
+        [
+          "R15016",
+          "r_MRY",
+          "(LR14811;I)Ljava/util/UUID;"
+        ],
+        [
+          "R15016",
+          "r_hUR",
+          "(LR11371;I)Ljava/util/UUID;"
+        ],
+        [
+          "R15116",
+          "r_kFU",
+          "()Ljava/util/UUID;"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8566",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8566",
+          "r_TMF",
+          "(LR11331;)Ljava/util/UUID;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1902,
+      "className": "module",
+      "propertyId": 404,
+      "propertyName": "device_name",
+      "error": null,
+      "methods": [
+        [
+          "R15016",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R15016",
+          "r_Hnt",
+          "(LR14811;I)Ljava/lang/String;"
+        ],
+        [
+          "R15116",
+          "r_vpw",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ],
+        [
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14992",
+          "r_IwV",
+          "LR14992;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 6369,
+      "propertyName": "device_UUID",
+      "error": null,
+      "methods": [
+        [
+          "R14719",
+          "r_cfM",
+          "(LR14984;I)Ljava/util/UUID;"
+        ],
+        [
+          "R14719",
+          "r_hUR",
+          "(LR11371;I)Ljava/util/UUID;"
+        ],
+        [
+          "R14799",
+          "r_UNj",
+          "()Ljava/util/UUID;"
+        ],
+        [
+          "R14809",
+          "r_gfw",
+          "()LR14828;"
+        ],
+        [
+          "R14809",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8566",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8566",
+          "r_TMF",
+          "(LR11331;)Ljava/util/UUID;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14828",
+          "r_IwV",
+          "LR14828;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 6370,
+      "propertyName": "device_name",
+      "error": null,
+      "methods": [
+        [
+          "R14719",
+          "r_FzB",
+          "(LR11371;I)Ljava/lang/String;"
+        ],
+        [
+          "R14719",
+          "r_MRY",
+          "(LR14984;I)Ljava/lang/String;"
+        ],
+        [
+          "R14799",
+          "r_hUR",
+          "()Ljava/lang/String;"
+        ],
+        [
+          "R14809",
+          "r_gfw",
+          "()LR14828;"
+        ],
+        [
+          "R14809",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14828",
+          "r_IwV",
+          "LR14828;"
+        ]
+      ]
+    },
+    {
+      "classId": 1904,
+      "className": "module_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "error": null,
+      "methods": [
+        [
+          "R14805",
+          "r_MLK",
+          "()I"
+        ],
+        [
+          "R14805",
+          "r_SQN",
+          "()Ljava/util/List;"
+        ],
+        [
+          "R14805",
+          "r_TMF",
+          "(I)LR29268;"
+        ],
+        [
+          "R14809",
+          "r_gfw",
+          "()LR14828;"
+        ],
+        [
+          "R14809",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R15032",
+          "r_FzB",
+          "(LR15148;I)Ljava/util/List;"
+        ],
+        [
+          "R15032",
+          "r_FzB",
+          "(LR15148;II)LR11331;"
+        ],
+        [
+          "R15032",
+          "r_Hnt",
+          "(LR11371;I)Ljava/util/List;"
+        ],
+        [
+          "R15032",
+          "r_IwV",
+          "(LR15148;I)I"
+        ],
+        [
+          "R15032",
+          "r_MRY",
+          "(LR11371;I)I"
+        ],
+        [
+          "R15032",
+          "r_cfM",
+          "(LR11371;II)LR11331;"
+        ],
+        [
+          "R8636",
+          "r_Hnt",
+          "(LR11331;)Ljava/util/List;"
+        ],
+        [
+          "R8636",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8636",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ],
+        [
+          "R8636",
+          "r_TMF",
+          "(LR11331;)I"
+        ],
+        [
+          "R8636",
+          "r_cfM",
+          "(LR11331;I)LR11331;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/util/Collections",
+          "emptyList",
+          "()Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/Collections",
+          "unmodifiableList",
+          "(Ljava/util/List;)Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/List",
+          "get",
+          "(I)Ljava/lang/Object;",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ],
+        [
+          "java/util/List",
+          "size",
+          "()I",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R14828",
+          "r_IwV",
+          "LR14828;"
+        ]
+      ]
+    },
+    {
+      "classId": 1901,
+      "className": "module_grid",
+      "propertyId": 6428,
+      "propertyName": "auxiliary_devices",
+      "error": null,
+      "methods": [
+        [
+          "R15002",
+          "r_FzB",
+          "(LR15066;I)I"
+        ],
+        [
+          "R15002",
+          "r_Hnt",
+          "(LR11371;I)Ljava/util/List;"
+        ],
+        [
+          "R15002",
+          "r_Hnt",
+          "(LR15066;I)Ljava/util/List;"
+        ],
+        [
+          "R15002",
+          "r_Hnt",
+          "(LR15066;II)LR11331;"
+        ],
+        [
+          "R15002",
+          "r_MRY",
+          "(LR11371;I)I"
+        ],
+        [
+          "R15002",
+          "r_cfM",
+          "(LR11371;II)LR11331;"
+        ],
+        [
+          "R15105",
+          "r_Cuu",
+          "()LR15002;"
+        ],
+        [
+          "R15105",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ],
+        [
+          "R15105",
+          "r_hUR",
+          "(I)LR14729;"
+        ],
+        [
+          "R15105",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R15147",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ],
+        [
+          "R15147",
+          "r_Hnt",
+          "(I)LR15055;"
+        ],
+        [
+          "R15147",
+          "r_lYc",
+          "()I"
+        ],
+        [
+          "R8636",
+          "r_Hnt",
+          "(LR11331;)Ljava/util/List;"
+        ],
+        [
+          "R8636",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8636",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ],
+        [
+          "R8636",
+          "r_TMF",
+          "(LR11331;)I"
+        ],
+        [
+          "R8636",
+          "r_cfM",
+          "(LR11331;I)LR11331;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      ],
+      "external": [
+        [
+          "java/util/Collections",
+          "emptyList",
+          "()Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/Collections",
+          "unmodifiableList",
+          "(Ljava/util/List;)Ljava/util/List;",
+          null
+        ],
+        [
+          "java/util/List",
+          "get",
+          "(I)Ljava/lang/Object;",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ],
+        [
+          "java/util/List",
+          "size",
+          "()I",
+          [
+            "unknown",
+            "Ljava/util/List;",
+            null
+          ]
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R15002",
+          "r_IwV",
+          "LR15002;"
+        ]
+      ]
+    },
+    {
+      "classId": 1721,
+      "className": "nitro_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "R11331",
+          "r_vdx",
+          "()I"
+        ],
+        [
+          "R28630",
+          "r_PD3",
+          "()LR27702;"
+        ],
+        [
+          "R28630",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R8637",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R27702",
+          "r_cfM",
+          "LR27702;"
+        ]
+      ]
+    },
+    {
+      "classId": 1815,
+      "className": "polyphonic_observer_atom",
+      "propertyId": 14,
+      "propertyName": "managed_object_ID",
+      "error": null,
+      "methods": [
+        [
+          "R11331",
+          "r_vdx",
+          "()I"
+        ],
+        [
+          "R29937",
+          "r_cfM",
+          "(LR11331;I)I"
+        ],
+        [
+          "R29937",
+          "r_cfM",
+          "(LR4634;I)I"
+        ],
+        [
+          "R30088",
+          "r_ng_",
+          "()LR8637;"
+        ],
+        [
+          "R30088",
+          "r_vpw",
+          "()LR29937;"
+        ],
+        [
+          "R8642",
+          "r_E3",
+          "()I"
+        ],
+        [
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ],
+        [
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ],
+        [
+          "R8648",
+          "r_lYc",
+          "(LR11331;)I"
+        ]
+      ],
+      "external": [
+        [
+          "java/lang/Integer",
+          "valueOf",
+          "(I)Ljava/lang/Integer;",
+          null
+        ]
+      ],
+      "requiredStaticDescriptorFields": [
+        [
+          "R29937",
+          "r_cfM",
+          "LR29937;"
+        ]
+      ]
+    }
+  ],
+  "methods": [
+    [
+      "R1104",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R1104",
+      "r_IwV",
+      "(LR22561;I)Ljava/lang/String;"
+    ],
+    [
+      "R11331",
+      "r_vdx",
+      "()I"
+    ],
+    [
+      "R14663",
+      "r_Z1C",
+      "()LR14954;"
+    ],
+    [
+      "R14663",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R14691",
+      "r_MIO",
+      "()LR14837;"
+    ],
+    [
+      "R14691",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R14719",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R14719",
+      "r_MRY",
+      "(LR14984;I)Ljava/lang/String;"
+    ],
+    [
+      "R14719",
+      "r_cfM",
+      "(LR14984;I)Ljava/util/UUID;"
+    ],
+    [
+      "R14719",
+      "r_hUR",
+      "(LR11371;I)Ljava/util/UUID;"
+    ],
+    [
+      "R14799",
+      "r_UNj",
+      "()Ljava/util/UUID;"
+    ],
+    [
+      "R14799",
+      "r_hUR",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14805",
+      "r_MLK",
+      "()I"
+    ],
+    [
+      "R14805",
+      "r_SQN",
+      "()Ljava/util/List;"
+    ],
+    [
+      "R14805",
+      "r_TMF",
+      "(I)LR29268;"
+    ],
+    [
+      "R14809",
+      "r_gfw",
+      "()LR14828;"
+    ],
+    [
+      "R14809",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R14820",
+      "r_FzB",
+      "()I"
+    ],
+    [
+      "R14820",
+      "r_UNj",
+      "()I"
+    ],
+    [
+      "R14820",
+      "r_ifN",
+      "()LR14984;"
+    ],
+    [
+      "R14820",
+      "r_luv",
+      "()Z"
+    ],
+    [
+      "R14892",
+      "r_RDJ",
+      "()D"
+    ],
+    [
+      "R14892",
+      "r_Scv",
+      "()LR14680;"
+    ],
+    [
+      "R14892",
+      "r_ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14892",
+      "r_cfM",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14904",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R14904",
+      "r_cfM",
+      "(LR14735;I)Ljava/lang/String;"
+    ],
+    [
+      "R14914",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R14914",
+      "r_FzB",
+      "(LR15000;I)LR11331;"
+    ],
+    [
+      "R14914",
+      "r_Hnt",
+      "(LR15000;I)D"
+    ],
+    [
+      "R14914",
+      "r_MRY",
+      "(LR15000;I)Ljava/lang/String;"
+    ],
+    [
+      "R14914",
+      "r_TMF",
+      "(LR11371;I)D"
+    ],
+    [
+      "R14914",
+      "r_UNj",
+      "(LR11371;I)LR11331;"
+    ],
+    [
+      "R14923",
+      "r_ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14923",
+      "r_emh",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14957",
+      "r_dvk",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R14992",
+      "r_MRY",
+      "(LR14729;I)Z"
+    ],
+    [
+      "R14992",
+      "r_cfM",
+      "(LR11331;I)I"
+    ],
+    [
+      "R14992",
+      "r_cfM",
+      "(LR14729;I)I"
+    ],
+    [
+      "R14992",
+      "r_eLY",
+      "(LR11371;I)Z"
+    ],
+    [
+      "R15002",
+      "r_FzB",
+      "(LR15066;I)I"
+    ],
+    [
+      "R15002",
+      "r_Hnt",
+      "(LR11371;I)Ljava/util/List;"
+    ],
+    [
+      "R15002",
+      "r_Hnt",
+      "(LR15066;I)Ljava/util/List;"
+    ],
+    [
+      "R15002",
+      "r_Hnt",
+      "(LR15066;II)LR11331;"
+    ],
+    [
+      "R15002",
+      "r_MRY",
+      "(LR11371;I)I"
+    ],
+    [
+      "R15002",
+      "r_cfM",
+      "(LR11371;II)LR11331;"
+    ],
+    [
+      "R15016",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R15016",
+      "r_Hnt",
+      "(LR14811;I)Ljava/lang/String;"
+    ],
+    [
+      "R15016",
+      "r_MRY",
+      "(LR14811;I)Ljava/util/UUID;"
+    ],
+    [
+      "R15016",
+      "r_UNj",
+      "(LR11371;I)LR11331;"
+    ],
+    [
+      "R15016",
+      "r_UNj",
+      "(LR14811;I)LR11331;"
+    ],
+    [
+      "R15016",
+      "r_hUR",
+      "(LR11371;I)Ljava/util/UUID;"
+    ],
+    [
+      "R15032",
+      "r_FzB",
+      "(LR15148;I)Ljava/util/List;"
+    ],
+    [
+      "R15032",
+      "r_FzB",
+      "(LR15148;II)LR11331;"
+    ],
+    [
+      "R15032",
+      "r_Hnt",
+      "(LR11371;I)Ljava/util/List;"
+    ],
+    [
+      "R15032",
+      "r_IwV",
+      "(LR15148;I)I"
+    ],
+    [
+      "R15032",
+      "r_MRY",
+      "(LR11371;I)I"
+    ],
+    [
+      "R15032",
+      "r_cfM",
+      "(LR11371;II)LR11331;"
+    ],
+    [
+      "R15054",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R15054",
+      "r_cfM",
+      "(LR15045;I)Ljava/lang/String;"
+    ],
+    [
+      "R15069",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R15069",
+      "r_cfM",
+      "(LR14680;I)Ljava/lang/String;"
+    ],
+    [
+      "R15105",
+      "r_Cuu",
+      "()LR15002;"
+    ],
+    [
+      "R15105",
+      "r_Grk",
+      "()Ljava/util/List;"
+    ],
+    [
+      "R15105",
+      "r_hUR",
+      "(I)LR14729;"
+    ],
+    [
+      "R15105",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R15116",
+      "r_jHi",
+      "()LR29268;"
+    ],
+    [
+      "R15116",
+      "r_kFU",
+      "()Ljava/util/UUID;"
+    ],
+    [
+      "R15116",
+      "r_vpw",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R15131",
+      "r_BNq",
+      "()LR14933;"
+    ],
+    [
+      "R15131",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R15139",
+      "r_FzB",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R15139",
+      "r_ODA",
+      "()LR15054;"
+    ],
+    [
+      "R15139",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R15141",
+      "r_Dah",
+      "()LR14992;"
+    ],
+    [
+      "R15141",
+      "r_QOl",
+      "()LR14808;"
+    ],
+    [
+      "R15141",
+      "r_jHi",
+      "()LR29268;"
+    ],
+    [
+      "R15141",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R15147",
+      "r_Grk",
+      "()Ljava/util/List;"
+    ],
+    [
+      "R15147",
+      "r_Hnt",
+      "(I)LR15055;"
+    ],
+    [
+      "R15147",
+      "r_lYc",
+      "()I"
+    ],
+    [
+      "R2002",
+      "r_MIO",
+      "()LR4998;"
+    ],
+    [
+      "R2002",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R2002",
+      "r_vpw",
+      "()Z"
+    ],
+    [
+      "R2111",
+      "r_BDm",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R2111",
+      "r_ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R25764",
+      "r_TMF",
+      "(LR11371;I)D"
+    ],
+    [
+      "R25764",
+      "r_cfM",
+      "(LR1982;I)D"
+    ],
+    [
+      "R25986",
+      "r_FzB",
+      "(LR11371;I)Ljava/lang/String;"
+    ],
+    [
+      "R25986",
+      "r_cfM",
+      "(LR3054;I)Ljava/lang/String;"
+    ],
+    [
+      "R27503",
+      "r_TMF",
+      "()I"
+    ],
+    [
+      "R27503",
+      "r_UNj",
+      "()I"
+    ],
+    [
+      "R27503",
+      "r_Zyp",
+      "()LR3105;"
+    ],
+    [
+      "R27503",
+      "r_kTh",
+      "()I"
+    ],
+    [
+      "R27503",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R27693",
+      "r_Grk",
+      "()Z"
+    ],
+    [
+      "R27693",
+      "r_MIO",
+      "()LR31063;"
+    ],
+    [
+      "R27693",
+      "r_hUR",
+      "()Z"
+    ],
+    [
+      "R27693",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R27993",
+      "r_iHb",
+      "()LR564;"
+    ],
+    [
+      "R27993",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R28082",
+      "r_cfM",
+      "(LR11331;I)I"
+    ],
+    [
+      "R28082",
+      "r_cfM",
+      "(LR4070;I)I"
+    ],
+    [
+      "R28099",
+      "r_MJ",
+      "()LR25764;"
+    ],
+    [
+      "R28099",
+      "r_hUR",
+      "()D"
+    ],
+    [
+      "R28099",
+      "r_iCS",
+      "()D"
+    ],
+    [
+      "R28099",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R28630",
+      "r_PD3",
+      "()LR27702;"
+    ],
+    [
+      "R28630",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R29589",
+      "r_hUR",
+      "()I"
+    ],
+    [
+      "R29589",
+      "r_kIh",
+      "()I"
+    ],
+    [
+      "R29589",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R29589",
+      "r_zxZ",
+      "()LR28082;"
+    ],
+    [
+      "R29745",
+      "r_ax_",
+      "()Ljava/lang/String;"
+    ],
+    [
+      "R29937",
+      "r_cfM",
+      "(LR11331;I)I"
+    ],
+    [
+      "R29937",
+      "r_cfM",
+      "(LR4634;I)I"
+    ],
+    [
+      "R30088",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R30088",
+      "r_vpw",
+      "()LR29937;"
+    ],
+    [
+      "R30325",
+      "r_cfM",
+      "(LR31336;I)Z"
+    ],
+    [
+      "R30325",
+      "r_eLY",
+      "(LR11371;I)Z"
+    ],
+    [
+      "R3105",
+      "r_cfM",
+      "(LR11331;I)I"
+    ],
+    [
+      "R3105",
+      "r_cfM",
+      "(LR28871;I)I"
+    ],
+    [
+      "R31063",
+      "r_cfM",
+      "(LR27375;I)Z"
+    ],
+    [
+      "R31063",
+      "r_eLY",
+      "(LR11371;I)Z"
+    ],
+    [
+      "R31373",
+      "r_lYc",
+      "()LR29587;"
+    ],
+    [
+      "R31373",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R4998",
+      "r_cfM",
+      "(LR29823;I)Z"
+    ],
+    [
+      "R4998",
+      "r_eLY",
+      "(LR11371;I)Z"
+    ],
+    [
+      "R514",
+      "r_ODA",
+      "()LR30325;"
+    ],
+    [
+      "R514",
+      "r_ng_",
+      "()LR8637;"
+    ],
+    [
+      "R514",
+      "r_vpw",
+      "()Z"
+    ],
+    [
+      "R8566",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8566",
+      "r_TMF",
+      "(LR11331;)Ljava/util/UUID;"
+    ],
+    [
+      "R8568",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8568",
+      "r_TMF",
+      "(LR11331;)Ljava/lang/String;"
+    ],
+    [
+      "R8605",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8605",
+      "r_TMF",
+      "(LR11331;)Ljava/lang/Double;"
+    ],
+    [
+      "R8605",
+      "r_lYc",
+      "(LR11331;)D"
+    ],
+    [
+      "R8614",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8614",
+      "r_TMF",
+      "(LR11331;)Ljava/lang/Boolean;"
+    ],
+    [
+      "R8614",
+      "r_lYc",
+      "(LR11331;)Z"
+    ],
+    [
+      "R8635",
+      "r_Hnt",
+      "(LR11331;)LR11371;"
+    ],
+    [
+      "R8635",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8635",
+      "r_MRY",
+      "(LR11331;I)LR11371;"
+    ],
+    [
+      "R8635",
+      "r_TMF",
+      "(LR11331;)I"
+    ],
+    [
+      "R8636",
+      "r_Hnt",
+      "(LR11331;)Ljava/util/List;"
+    ],
+    [
+      "R8636",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8636",
+      "r_MRY",
+      "(LR11331;I)LR11371;"
+    ],
+    [
+      "R8636",
+      "r_TMF",
+      "(LR11331;)I"
+    ],
+    [
+      "R8636",
+      "r_cfM",
+      "(LR11331;I)LR11331;"
+    ],
+    [
+      "R8637",
+      "r_cfM",
+      "(LR11331;I)I"
+    ],
+    [
+      "R8642",
+      "r_E3",
+      "()I"
+    ],
+    [
+      "R8648",
+      "r_MRY",
+      "(LR11331;)Ljava/lang/Object;"
+    ],
+    [
+      "R8648",
+      "r_TMF",
+      "(LR11331;)Ljava/lang/Integer;"
+    ],
+    [
+      "R8648",
+      "r_lYc",
+      "(LR11331;)I"
+    ]
+  ],
+  "propertyIdField": [
+    "R8642",
+    "r_cfM",
+    "I"
+  ],
+  "work": {
+    "instructions": 2372,
+    "states": 2372,
+    "calls": 424
+  },
+  "limits": [
+    "Property and object receivers require exact runtime-class guards.",
+    "Property IDs and static descriptor identities require live checks.",
+    "External list and boxing dependencies remain separate conditions.",
+    "No vendor class is initialized and no runtime value is observed."
+  ],
+  "completeTable": false,
+  "boundedAdmission": false,
+  "writeAuthority": false,
+  "elapsedMs": 5095.464916026685,
+  "peakRssBytes": 198574080
+}

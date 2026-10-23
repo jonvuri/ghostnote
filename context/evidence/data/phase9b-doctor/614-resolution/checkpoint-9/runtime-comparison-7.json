@@ -1,0 +1,2366 @@
+{
+  "inputs": {
+    "old-arm64": {
+      "sha256": "745d74e9cbc48b6e1f135688243e4d320478496f4aa57114399e07bb799d499e",
+      "imageSha256": "ca997e4e695f869b3a18a025d5fdfa2f6789c649633369608a47b9252de6ce6a",
+      "elapsedMs": 357.938,
+      "peakRssBytes": 37486592
+    },
+    "old-x64": {
+      "sha256": "eb780a7b4c3b640acdb0e3ada7a3d7ac4eee4c4286b4fb92b15fdd33d024d3c4",
+      "imageSha256": "0f0f7c076dc9e8af91da0ec2f5eac60fd02e7c5d50df1e8b2873f60045304068",
+      "elapsedMs": 344.521,
+      "peakRssBytes": 35749888
+    },
+    "new-arm64": {
+      "sha256": "052893d6311315fc405579fae9982fc6da4218c38d6e1dfc410b0a4b27561b4f",
+      "imageSha256": "2c41602621cb66d2211ab7ba34c0a8a5dfd624c6a26160e3da9a0a2c33ffa9a9",
+      "elapsedMs": 416.176,
+      "peakRssBytes": 38977536
+    },
+    "new-x64": {
+      "sha256": "5bbdf4312427e0bd0065a572552bb7d9468ad93d67285d6a9535aacde03c2804",
+      "imageSha256": "3540490d761294ef5fdbab40a765acc1ea4c36a36a14856d58c63ee22e6d2482",
+      "elapsedMs": 447.011,
+      "peakRssBytes": 41631744
+    }
+  },
+  "comparisons": [
+    {
+      "source": "old-arm64",
+      "target": "old-x64",
+      "classes": 32,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "new-arm64",
+      "target": "new-x64",
+      "classes": 32,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "old-arm64",
+      "target": "new-arm64",
+      "classes": 32,
+      "different": [
+        "java/lang/ref/ReferenceQueue"
+      ],
+      "missing": []
+    }
+  ],
+  "methods": [
+    {
+      "owner": "java/lang/Float",
+      "name": "floatToRawIntBits",
+      "descriptor": "(F)I",
+      "flags": 265,
+      "codeBytes": 0,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [],
+      "instructions": []
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "max",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 6,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 184,
+          "owner": "java/lang/Math",
+          "name": "max",
+          "descriptor": "(FF)F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 184,
+          "args": [
+            0,
+            110
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Math",
+            "name": "max",
+            "descriptor": "(FF)F"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "min",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 6,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 184,
+          "owner": "java/lang/Math",
+          "name": "min",
+          "descriptor": "(FF)F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 184,
+          "args": [
+            0,
+            114
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Math",
+            "name": "min",
+            "descriptor": "(FF)F"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 25,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 154,
+          "target": 12
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "target": 13
+        }
+      ],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 182,
+          "owner": "java/lang/Class",
+          "name": "desiredAssertionStatus",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "owner": "java/lang/Float",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "java/lang/Class",
+          "name": "getPrimitiveClass",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+        },
+        {
+          "offset": 21,
+          "opcode": 179,
+          "owner": "java/lang/Float",
+          "name": "TYPE",
+          "descriptor": "Ljava/lang/Class;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Float"
+          }
+        },
+        {
+          "offset": 2,
+          "opcode": 182,
+          "args": [
+            0,
+            131
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "args": [
+            0,
+            89
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Float",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 18,
+          "args": [
+            137
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            0,
+            139
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "getPrimitiveClass",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 179,
+          "args": [
+            0,
+            143
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Float",
+            "name": "TYPE",
+            "descriptor": "Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 5,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            5
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "max",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 46,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 153,
+          "target": 8
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 37,
+          "opcode": 155,
+          "target": 44
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "target": 45
+        }
+      ],
+      "references": [
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 153,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "args": [
+            0,
+            23
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 32,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 155,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 40,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 44,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "min",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 46,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 153,
+          "target": 8
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 37,
+          "opcode": 157,
+          "target": 44
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "target": 45
+        }
+      ],
+      "references": [
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 153,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "args": [
+            0,
+            23
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 32,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 150,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 157,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 40,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 44,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 36,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 154,
+          "target": 12
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "target": 13
+        }
+      ],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 182,
+          "owner": "java/lang/Class",
+          "name": "desiredAssertionStatus",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 23,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        },
+        {
+          "offset": 29,
+          "opcode": 184,
+          "owner": "java/lang/Double",
+          "name": "doubleToRawLongBits",
+          "descriptor": "(D)J"
+        },
+        {
+          "offset": 32,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroDoubleBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Math"
+          }
+        },
+        {
+          "offset": 2,
+          "opcode": 182,
+          "args": [
+            1,
+            105
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "args": [
+            0,
+            243
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 19,
+          "args": [
+            1,
+            111
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "80000000"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 22,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 23,
+          "opcode": 179,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 26,
+          "opcode": 20,
+          "args": [
+            1,
+            112
+          ],
+          "constant": {
+            "tag": 6,
+            "value": "8000000000000000"
+          }
+        },
+        {
+          "offset": 29,
+          "opcode": 184,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Double",
+            "name": "doubleToRawLongBits",
+            "descriptor": "(D)J"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 179,
+          "args": [
+            0,
+            174
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroDoubleBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "(IF)V",
+      "flags": 1,
+      "codeBytes": 17,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(IF)V"
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 13,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 183,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(IF)V"
+          }
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "flags": 1,
+      "codeBytes": 16,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(I)V"
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 12,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 183,
+          "args": [
+            0,
+            84
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 15,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 15,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 11,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            87
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "tableSizeFor",
+      "descriptor": "(I)I",
+      "flags": 24,
+      "codeBytes": 32,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 10,
+          "opcode": 156,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 31
+        },
+        {
+          "offset": 20,
+          "opcode": 161,
+          "target": 28
+        },
+        {
+          "offset": 25,
+          "opcode": 167,
+          "target": 31
+        }
+      ],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 184,
+          "owner": "java/lang/Integer",
+          "name": "numberOfLeadingZeros",
+          "descriptor": "(I)I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 2,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 100,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 184,
+          "args": [
+            0,
+            34
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Integer",
+            "name": "numberOfLeadingZeros",
+            "descriptor": "(I)I"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 124,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 60,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 156,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 161,
+          "args": [
+            0,
+            8
+          ]
+        },
+        {
+          "offset": 23,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 25,
+          "opcode": 167,
+          "args": [
+            0,
+            6
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "(IF)V",
+      "flags": 1,
+      "codeBytes": 98,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 156,
+          "target": 35
+        },
+        {
+          "offset": 38,
+          "opcode": 164,
+          "target": 44
+        },
+        {
+          "offset": 47,
+          "opcode": 158,
+          "target": 57
+        },
+        {
+          "offset": 54,
+          "opcode": 153,
+          "target": 84
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "owner": "java/lang/StringBuilder",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(I)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "toString",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "owner": "java/lang/IllegalArgumentException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 51,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "isNaN",
+          "descriptor": "(F)Z"
+        },
+        {
+          "offset": 65,
+          "opcode": 183,
+          "owner": "java/lang/StringBuilder",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 74,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(F)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "toString",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 80,
+          "opcode": 183,
+          "owner": "java/lang/IllegalArgumentException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 86,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "loadFactor",
+          "descriptor": "F"
+        },
+        {
+          "offset": 91,
+          "opcode": 184,
+          "owner": "java/util/HashMap",
+          "name": "tableSizeFor",
+          "descriptor": "(I)I"
+        },
+        {
+          "offset": 94,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "threshold",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 156,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 187,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalArgumentException"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 187,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/StringBuilder"
+          }
+        },
+        {
+          "offset": 15,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "args": [
+            0,
+            53
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 18,
+          "args": [
+            54
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Illegal initial capacity: "
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "args": [
+            0,
+            56
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "args": [
+            0,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(I)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "toString",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "args": [
+            0,
+            67
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalArgumentException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 38,
+          "opcode": 164,
+          "args": [
+            0,
+            6
+          ]
+        },
+        {
+          "offset": 41,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 43,
+          "opcode": 60,
+          "args": []
+        },
+        {
+          "offset": 44,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 150,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 158,
+          "args": [
+            0,
+            10
+          ]
+        },
+        {
+          "offset": 50,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "isNaN",
+            "descriptor": "(F)Z"
+          }
+        },
+        {
+          "offset": 54,
+          "opcode": 153,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 57,
+          "opcode": 187,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalArgumentException"
+          }
+        },
+        {
+          "offset": 60,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 187,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/StringBuilder"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 65,
+          "opcode": 183,
+          "args": [
+            0,
+            53
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 68,
+          "opcode": 18,
+          "args": [
+            76
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Illegal load factor: "
+          }
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "args": [
+            0,
+            56
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 182,
+          "args": [
+            0,
+            78
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(F)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "toString",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 80,
+          "opcode": 183,
+          "args": [
+            0,
+            67
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalArgumentException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 83,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 84,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 85,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 86,
+          "opcode": 181,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "loadFactor",
+            "descriptor": "F"
+          }
+        },
+        {
+          "offset": 89,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 91,
+          "opcode": 184,
+          "args": [
+            0,
+            85
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "tableSizeFor",
+            "descriptor": "(I)I"
+          }
+        },
+        {
+          "offset": 94,
+          "opcode": 181,
+          "args": [
+            0,
+            88
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "threshold",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "flags": 1,
+      "codeBytes": 8,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(IF)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 18,
+          "args": [
+            92
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "3f400000"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 183,
+          "args": [
+            0,
+            93
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(IF)V"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 11,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "loadFactor",
+          "descriptor": "F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 18,
+          "args": [
+            92
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "3f400000"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "loadFactor",
+            "descriptor": "F"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/AbstractMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 4,
+      "codeBytes": 5,
+      "classSha256": "3d4750a8f368d0f2ab934d531e34547f82f0892961a9ae6c710fac89704aabe0",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "runtimeClassesInitialized": 0,
+  "boundedAdmission": false
+}

@@ -1,0 +1,354 @@
+{
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "moduleSha256": "03200abf4491787aae49714a9bdefe5863e525950f138b5f89f9f63b9d59757b",
+  "methods": [
+    {
+      "owner": "com/bitwig/base/serial/file/syr",
+      "name": "cG3",
+      "descriptor": "()LIYr;",
+      "digest": "4cff7b99337b5d71ac3f4a70162c8506ffede05582720a9a3978e9ae1a364819"
+    },
+    {
+      "owner": "nAR",
+      "name": "<init>",
+      "descriptor": "([BI)V",
+      "digest": "2b789cbaa46c4a36307e56bd704cca748de0aa5efbfe4b03fc55d7a0533d35f5"
+    },
+    {
+      "owner": "nAR",
+      "name": "ffA",
+      "descriptor": "(Ljava/io/InputStream;)Ljava/io/InputStream;",
+      "digest": "62eaf1e8551a5af799c71849a029eb246a5b3cf35e5fa681604bc929fe4c1e54"
+    },
+    {
+      "owner": "nAR",
+      "name": "ffA",
+      "descriptor": "(Ljava/io/OutputStream;)Ljava/io/OutputStream;",
+      "digest": "b701bf8b4b214aeea4236f5145e940ef9fd871b918ff7716506d99033349888f"
+    },
+    {
+      "owner": "nAR",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "digest": "a03793e5a7f6ed6ba28d8f2c882700f2e3a433dbef46d258103bdc7dd44ce42b"
+    },
+    {
+      "owner": "xFg",
+      "name": "<init>",
+      "descriptor": "(Ljava/io/InputStream;LHaV;)V",
+      "digest": "015c6aaae7501b48ecd42d4e741f07e731694a85e0f4a7437f28711187169904"
+    },
+    {
+      "owner": "xFg",
+      "name": "read",
+      "descriptor": "()I",
+      "digest": "1916f81482f34aae3f9cf83a0ecec195d287eb317884bef1ea642536362b9b52"
+    },
+    {
+      "owner": "HaV",
+      "name": "<init>",
+      "descriptor": "([B[B)V",
+      "digest": "340d90b02def0a65f8627a55d99cf1d58666acdc9e4dec6e42a41ea42c71faab"
+    },
+    {
+      "owner": "HaV",
+      "name": "ffA",
+      "descriptor": "(B)B",
+      "digest": "cfd7457520485c1ca7281e5f92518d06bc6ecce037f112dca8c2cc796a62a77a"
+    },
+    {
+      "owner": "HaV",
+      "name": "eOi",
+      "descriptor": "(B)B",
+      "digest": "113d00d0bfa59b9332c6b2218f673b7ed95eb3cfc19761f244d6bc2ccd7c9c32"
+    },
+    {
+      "owner": "HaV",
+      "name": "ffA",
+      "descriptor": "(BI)B",
+      "digest": "9fe315c681ad3dfd12ffd02497d40677ff3a8e4d2c6ef821563b65f1fbe44f1f"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "<init>",
+      "descriptor": "(Ljava/io/InputStream;)V",
+      "digest": "f766612a19febc9b1149d02b98ccd136a6d453fe73bce6134ca67e878d739d8f"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "ffA",
+      "descriptor": "()V",
+      "digest": "61369920c3e7720095407022f0b90e48f386a58f1475e337d38b55cd956be243"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "Uhv",
+      "descriptor": "()Lcom/bitwig/base/serial/jzG;",
+      "digest": "7a071757843fc1ddf06b75bf1bd32f974e50a8daaa97684dd6001b00b7404c7a"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "zmC",
+      "descriptor": "()B",
+      "digest": "f9f5680332cba69e3f034392a12b55b570f907c942b707c6fe2bb220b65d3c69"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "kyi",
+      "descriptor": "()B",
+      "digest": "a449d5527fb24062d02f71016c8ec657640d88601a88a961de0f6e7cdf6ebed9"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "NaF",
+      "descriptor": "()Z",
+      "digest": "dfd9c913efb3b18177295a555581b346a85a2d42372a70367a88693f16712518"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "QiZ",
+      "descriptor": "()F",
+      "digest": "fbf61f473cb2622a4cf133fb603baca54a659eb51f7dd498a76914aefa524e10"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "pvN",
+      "descriptor": "()D",
+      "digest": "78850333929f856248822ec2e857d002da3d234738d3f425bb004293bd877889"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "kG",
+      "descriptor": "()Lcom/bitwig/base/serial/qil;",
+      "digest": "37003e709c02e1256f6d1031f61fcec3c8ea66911bb649c860b73300c2b3df5b"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "wi2",
+      "descriptor": "()V",
+      "digest": "98e9813b79d71098961abac51dc317a2dc446b0b4d852ca1f30a04774a756ad9"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "eOi",
+      "descriptor": "()Z",
+      "digest": "43b1e6b3988e6a0b81729064b98a7fd61f2ac6aab2d9d0ca29f0c22cec322c99"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "SRu",
+      "descriptor": "()Lcom/bitwig/base/serial/ytV;",
+      "digest": "fd93c555c09707e89f9ced7e1775086edbc0797b2c9a6382629a82ce7cfa6e34"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "W2P",
+      "descriptor": "()V",
+      "digest": "c5d42ca74036af33814d8b4f951274508788e5d591299340a80fa88c24eda498"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "cG3",
+      "descriptor": "()Z",
+      "digest": "7f178ab830b54278e4638d515ac384e966f173ede7733b4dc7c2b2cd03199673"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "eJS",
+      "descriptor": "()Lcom/bitwig/base/serial/jzG;",
+      "digest": "73578ed2e8117062b74b267bb84f75dd97eb425b406eb120fa91f95c2b748a1c"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "YLA",
+      "descriptor": "()V",
+      "digest": "1139ed7be2d4fccaa92472033854d3befd47fc0f9ffc82f24c2d9be22a58ec5b"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "iUG",
+      "descriptor": "()V",
+      "digest": "f351e6c65b61300c7d30ada268e5d045ff6384f9de2ee110d48d74804d16ee1b"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "EbT",
+      "descriptor": "()I",
+      "digest": "76657e2e1fa44052ecc7ae2fea9559b40a3efa6c4265e635d59275b5e1af4de2"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "VoD",
+      "descriptor": "()J",
+      "digest": "edba867655eaccfd2cacd89a1e82cc2ab97333799024875965cdf9ed84860237"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "asI",
+      "descriptor": "()S",
+      "digest": "08b78cd0fc6953817dc574dcbd424b01ea582d03ce066040972f4e68a330aa9e"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "OTd",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "b09ea54bb5a563c9c408e69ec96c61b9a13676aa7b84b3eefdc61118a42e99c1"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "hhJ",
+      "descriptor": "()I",
+      "digest": "cd40707ce590d070d6704e5b19f3d109e5f2a4306268c8d6141a2f9e135a50a8"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "Mkn",
+      "descriptor": "()I",
+      "digest": "a6a90abd32d729288e4d791998a46c2203de4d57bf8404f4582952881c4a2710"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "zVi",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "4675af1029603b299ebe68380cff7ed488fa27d13fa3e47a24523d8d8aa4e7bd"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "ZzB",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "7d740d0207ebfc7e11b5770a0dd48ecf1f9df59edbf4a559c406017acd4308d8"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "nrP",
+      "descriptor": "()Ljava/util/UUID;",
+      "digest": "09cc57d942e62843e67d613b08a6e7eb4c340fa45989c32095b69b68b6b27b50"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "MkF",
+      "descriptor": "()Lv3K;",
+      "digest": "d203cdf46ec9228d44defcf56f7c0c4c6c2173284791973cfe5d099cf926d49d"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "aou",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "2dfaf4932ecf0deee998bf54d9ef546a268b42277bcd1e59ac3bef84f057b0e3"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "ffA",
+      "descriptor": "(I)Ljava/lang/String;",
+      "digest": "6219d5beb5cf059f6fd3cba702c03b6e3da27af0751ef454c8bd209c94c2d96c"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "Ode",
+      "descriptor": "()[Z",
+      "digest": "90074c2b0b707d9386767c94ea5afb0c294e78dc6dea550939f968c19b1ed690"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "jBn",
+      "descriptor": "()[B",
+      "digest": "d55e45b37057e6e4fe1d3750193217cd5fe5ab31bfd38609a242da2dd8bccb67"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "MDs",
+      "descriptor": "()[S",
+      "digest": "85efbc84d7f6a36c9243261f1216414c063dfaf21e7e005cc8a6ea69a9430049"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "Fmu",
+      "descriptor": "()[I",
+      "digest": "f9b4a157c22a6263bf70e0fe7c532392a543aedd805733579332374f2b5e028b"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "NCM",
+      "descriptor": "()[J",
+      "digest": "66d7c2c7fc296370601dc0d9081db544f9a5207a53924b618d385bf176393536"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "RSP",
+      "descriptor": "()[F",
+      "digest": "e8ccd4fd6ddbc8ae9069a9ec138602ce910818c3ea76c9d9d9aced0ab56e82d3"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "RDR",
+      "descriptor": "()[D",
+      "digest": "3c06fd0a0e4e54a6238364359865d247a2b60d8b6fc483e7336f2ef653289c2e"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "eWy",
+      "descriptor": "()[Ljava/lang/String;",
+      "digest": "b3ba112cc6401bca3c47a0ab359005266d78f486406193202c7dc815f517d7be"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "zad",
+      "descriptor": "()Z",
+      "digest": "7a0d33a36c821fba2a76173d6ca092d5a1393929abe055b2cf783ab8ba4a23de"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "pfb",
+      "descriptor": "()V",
+      "digest": "fd83cd4faa92dc5678fb8789f7398af4a6e2499add04e0baf201d91d34b54dca"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "x3q",
+      "descriptor": "()V",
+      "digest": "3804a6e7f8930de470e6e16b801b43c91ed1bb516d76f598458a04b5142a038e"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "VEb",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "5fdcb87f6d5d47599f92a217109ce5ed4949d5dbc41c7bb45b302e88fa7303e4"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ar",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "digest": "7f16641ea8366d38d0dad7739a1e94552b8f9eb7199c53db54afb652fa208f3b"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ilU",
+      "name": "<init>",
+      "descriptor": "(Ljava/io/InputStream;)V",
+      "digest": "dca5899813e28b3fb3db43c54ee25aac3e7ca3f621dfde0ef3bfe30a1c54f29f"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ilU",
+      "name": "OTd",
+      "descriptor": "()Ljava/lang/String;",
+      "digest": "48144a8f14b9396e4b60000c1f875c4690832fdfbdb2589927b212251241d270"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ziZ",
+      "name": "<init>",
+      "descriptor": "()V",
+      "digest": "0196fc78c1fc3a2cfa7bcd2a8d1b939046930d7815311870fbd6662c23ce80d1"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ziZ",
+      "name": "ffA",
+      "descriptor": "(B)Lcom/bitwig/base/serial/jzG;",
+      "digest": "dfdeeb5c59c8e4aab65dd670d8785961ce3fd293232d0df60c934f492f14fc47"
+    },
+    {
+      "owner": "com/bitwig/base/serial/binary/ziZ",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "digest": "6a98742c1528b85869e71a774bbcf49de582684becb8fc6d7c6176f7c7d14c8d"
+    }
+  ]
+}

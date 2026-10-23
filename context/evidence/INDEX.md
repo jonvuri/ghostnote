@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-21
+updated: 2026-10-22
 ---
 
 # Evidence index
@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E338 | 9b.6g close-out: all roles resolve on both jars; conditional bounds for HashMap, collector, factory, command cores, and history hold but offline bounded admission does not converge; D52 adopts guarded runtime admission; no live work [K] (2026-10-22) | [open](experiments/e338-grid-doctor-614-offline-closeout.md) |
 | E337 | Exact operation links cover 36 executable contracts and nine fields on 6.1.4; managed-ID supplier has a second bootstrap; complete resolution and bounded admission remain refused [K] (2026-10-21) | [open](experiments/e337-grid-doctor-614-operation-bindings.md) |
 | E336 | Complete two-jar local member census finds changed membership getter; exact empty-array begin skips one wait; complete bindings and bounded admission remain unproved; no probe or live work [K] (2026-10-21) | [open](experiments/e336-grid-doctor-614-fixture-contracts.md) |
 | E335 | 6.1.4 receiver trace finds a descriptor predicate override, ancestor allocation, and a nested event pump; fixed-command exclusion and history bounds unproved; no probe or live work [K] (2026-10-21) | [open](experiments/e335-grid-doctor-614-receiver-dispatch.md) |

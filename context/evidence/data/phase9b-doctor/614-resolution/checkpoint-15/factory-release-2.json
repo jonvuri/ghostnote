@@ -1,0 +1,4344 @@
+{
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "managedOwner": "com/bitwig/flt/document/core/master/device/Wxc",
+      "rows": [
+        {
+          "runtime": "BoW",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "EVI",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "HXj",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "Kdl",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "KzN",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                17,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "KzN",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "LSn",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "QY",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "Z2C",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "agh",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/DbL",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/EeT",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/FZ1",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Uqf",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/WAr",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Wxc",
+          "managed": true,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/mvZ",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/r2",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/rww",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/nitro/EMf",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "dkb",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "fMM",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "hef",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "jMO",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "jqf",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "llA",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "nnn",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "pAR",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "qOW",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "rNl",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "sdB",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "tqm",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "yhl",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ],
+                [
+                  "iYc",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/Wxc",
+                  "com/bitwig/flt/document/core/master/Svr",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "zFZ",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "a_",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/HEV",
+                "ffA",
+                "(Lcom/bitwig/ramona/core/HEV;Z)V"
+              ],
+              "bound": [
+                7,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/HEV",
+                  "ffA",
+                  "(Lcom/bitwig/ramona/core/HEV;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        }
+      ],
+      "guards": [
+        [
+          "BSW",
+          "cG3",
+          "Z"
+        ],
+        [
+          "BoO",
+          "NaF",
+          "Z"
+        ],
+        [
+          "BoW",
+          "NaF",
+          "Z"
+        ],
+        [
+          "C3V",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "DHY",
+          "Eyr",
+          "Z"
+        ],
+        [
+          "EVI",
+          "ffA",
+          "Z"
+        ],
+        [
+          "EiO",
+          "VEb",
+          "Z"
+        ],
+        [
+          "F1I",
+          "ZzB",
+          "Z"
+        ],
+        [
+          "GAQ",
+          "NaF",
+          "Z"
+        ],
+        [
+          "HJO",
+          "hhJ",
+          "Z"
+        ],
+        [
+          "HXj",
+          "Ode",
+          "Z"
+        ],
+        [
+          "HdP",
+          "QiZ",
+          "Z"
+        ],
+        [
+          "Hjt",
+          "zVi",
+          "Z"
+        ],
+        [
+          "IBF",
+          "kG",
+          "Z"
+        ],
+        [
+          "IbT",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "KHb",
+          "ffA",
+          "Z"
+        ],
+        [
+          "Kdl",
+          "ffA",
+          "Z"
+        ],
+        [
+          "KzN",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "LSn",
+          "NaF",
+          "Z"
+        ],
+        [
+          "LaB",
+          "wi2",
+          "Z"
+        ],
+        [
+          "MTu",
+          "zVi",
+          "Z"
+        ],
+        [
+          "OQO",
+          "YLA",
+          "Z"
+        ],
+        [
+          "Plh",
+          "kyi",
+          "Z"
+        ],
+        [
+          "QY",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "Qsh",
+          "OTd",
+          "Z"
+        ],
+        [
+          "TVk",
+          "NaF",
+          "Z"
+        ],
+        [
+          "TXU",
+          "OTd",
+          "Z"
+        ],
+        [
+          "UwT",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "Uwv",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "Xuo",
+          "SRu",
+          "Z"
+        ],
+        [
+          "YHE",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "Z2C",
+          "cG3",
+          "Z"
+        ],
+        [
+          "agh",
+          "ffA",
+          "Z"
+        ],
+        [
+          "apX",
+          "kG",
+          "Z"
+        ],
+        [
+          "bGh",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "bcf",
+          "wi2",
+          "Z"
+        ],
+        [
+          "bri",
+          "MkF",
+          "Z"
+        ],
+        [
+          "ccA",
+          "VGI",
+          "Z"
+        ],
+        [
+          "chX",
+          "Mkn",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CFZ",
+          "wi2",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "eFs",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "RFo",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/EeT",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/FZ1",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "Ozt",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "RR",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/UL",
+          "pvN",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Uqf",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/WAr",
+          "NaF",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/WTi",
+          "MDs",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Wxc",
+          "W2P",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/XSa",
+          "pvN",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/XuU",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Ymq",
+          "VoD",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/ar",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/bvn",
+          "ZzB",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/elb",
+          "NaF",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hwy",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/mvZ",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/pyQ",
+          "nQn",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/r2",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/rww",
+          "eOi",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/uWb",
+          "Uhv",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/uX1",
+          "kyi",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/ubQ",
+          "OTd",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/vWM",
+          "SRu",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/xts",
+          "eOi",
+          "Z"
+        ],
+        [
+          "com/bitwig/nitro/EMf",
+          "ffA",
+          "Z"
+        ],
+        [
+          "com/bitwig/nitro/VIN",
+          "W2P",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/HEV",
+          "b3M",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/ikl",
+          "tPr",
+          "Z"
+        ],
+        [
+          "dkb",
+          "eOi",
+          "Z"
+        ],
+        [
+          "eJ",
+          "eOi",
+          "Z"
+        ],
+        [
+          "ePy",
+          "eOi",
+          "Z"
+        ],
+        [
+          "fMM",
+          "ffA",
+          "Z"
+        ],
+        [
+          "hef",
+          "ffA",
+          "Z"
+        ],
+        [
+          "hsO",
+          "EbT",
+          "Z"
+        ],
+        [
+          "iGC",
+          "nrP",
+          "Z"
+        ],
+        [
+          "iYc",
+          "Bx",
+          "Z"
+        ],
+        [
+          "ipr",
+          "kyi",
+          "Z"
+        ],
+        [
+          "jBP",
+          "cG3",
+          "Z"
+        ],
+        [
+          "jMO",
+          "ffA",
+          "Z"
+        ],
+        [
+          "jm",
+          "kG",
+          "Z"
+        ],
+        [
+          "jqf",
+          "ffA",
+          "Z"
+        ],
+        [
+          "lfC",
+          "zVi",
+          "Z"
+        ],
+        [
+          "llA",
+          "ffA",
+          "Z"
+        ],
+        [
+          "nWl",
+          "kG",
+          "Z"
+        ],
+        [
+          "nZI",
+          "pvN",
+          "Z"
+        ],
+        [
+          "nen",
+          "OTd",
+          "Z"
+        ],
+        [
+          "nnn",
+          "wi2",
+          "Z"
+        ],
+        [
+          "pAR",
+          "NaF",
+          "Z"
+        ],
+        [
+          "pvr",
+          "kyi",
+          "Z"
+        ],
+        [
+          "qOW",
+          "ffA",
+          "Z"
+        ],
+        [
+          "rNl",
+          "ffA",
+          "Z"
+        ],
+        [
+          "rcf",
+          "ffA",
+          "Z"
+        ],
+        [
+          "ri3",
+          "aou",
+          "Z"
+        ],
+        [
+          "rrc",
+          "eJS",
+          "Z"
+        ],
+        [
+          "sdB",
+          "NaF",
+          "Z"
+        ],
+        [
+          "shw",
+          "YLA",
+          "Z"
+        ],
+        [
+          "tEM",
+          "QiZ",
+          "Z"
+        ],
+        [
+          "tqm",
+          "ffA",
+          "Z"
+        ],
+        [
+          "upo",
+          "ffA",
+          "Z"
+        ],
+        [
+          "vmi",
+          "QiZ",
+          "Z"
+        ],
+        [
+          "wky",
+          "kyi",
+          "Z"
+        ],
+        [
+          "xiZ",
+          "ZzB",
+          "Z"
+        ],
+        [
+          "yhl",
+          "ffA",
+          "Z"
+        ],
+        [
+          "ymH",
+          "kG",
+          "Z"
+        ],
+        [
+          "zFZ",
+          "NaF",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "managedOwner": "com/bitwig/flt/document/core/master/device/hpW",
+      "rows": [
+        {
+          "runtime": "BE2",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "BMo",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "BgP",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "CbC",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "EIm",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "FCo",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "Fot",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "HOU",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                15,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "HOU",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "Hgx",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "Imy",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "LX1",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "MLM",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "RuU",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "WXa",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "ZDH",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "aI",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "aL",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "bj1",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/AJD",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/OLR",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/OcA",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/RKg",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Rzi",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Wkj",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/hpW",
+          "managed": true,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/rSf",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                13,
+                1,
+                0
+              ],
+              "methods": [
+                [
+                  "K2G",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ],
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": [
+                [
+                  "com/bitwig/flt/document/core/master/device/hpW",
+                  "com/bitwig/flt/document/core/master/g2L",
+                  0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/riz",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/nitro/CcL",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "ehl",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "qZc",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "rOx",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "vAT",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        },
+        {
+          "runtime": "yII",
+          "managed": false,
+          "hooks": [
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "a_",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "a_",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            },
+            {
+              "slot": [
+                "com/bitwig/ramona/core/oDc",
+                "cfM",
+                "(Lcom/bitwig/ramona/core/oDc;Z)V"
+              ],
+              "bound": [
+                5,
+                0,
+                0
+              ],
+              "methods": [
+                [
+                  "com/bitwig/ramona/core/oDc",
+                  "cfM",
+                  "(Lcom/bitwig/ramona/core/oDc;Z)V"
+                ]
+              ],
+              "classTests": []
+            }
+          ]
+        }
+      ],
+      "guards": [
+        [
+          "BE2",
+          "IwV",
+          "Z"
+        ],
+        [
+          "BMo",
+          "cfM",
+          "Z"
+        ],
+        [
+          "BPB",
+          "hUR",
+          "Z"
+        ],
+        [
+          "BaJ",
+          "LaE",
+          "Z"
+        ],
+        [
+          "BgP",
+          "MRY",
+          "Z"
+        ],
+        [
+          "Bj",
+          "hbP",
+          "Z"
+        ],
+        [
+          "CKx",
+          "iHb",
+          "Z"
+        ],
+        [
+          "CSs",
+          "Hnt",
+          "Z"
+        ],
+        [
+          "CbC",
+          "cfM",
+          "Z"
+        ],
+        [
+          "EIm",
+          "cfM",
+          "Z"
+        ],
+        [
+          "EKl",
+          "hUR",
+          "Z"
+        ],
+        [
+          "FCo",
+          "cfM",
+          "Z"
+        ],
+        [
+          "Fot",
+          "cfM",
+          "Z"
+        ],
+        [
+          "HKN",
+          "wGc",
+          "Z"
+        ],
+        [
+          "HOU",
+          "FzB",
+          "Z"
+        ],
+        [
+          "Hgx",
+          "cfM",
+          "Z"
+        ],
+        [
+          "Hys",
+          "UNj",
+          "Z"
+        ],
+        [
+          "Imy",
+          "IwV",
+          "Z"
+        ],
+        [
+          "K2G",
+          "vlf",
+          "Z"
+        ],
+        [
+          "LKb",
+          "IwV",
+          "Z"
+        ],
+        [
+          "LX1",
+          "cfM",
+          "Z"
+        ],
+        [
+          "MKI",
+          "UNj",
+          "Z"
+        ],
+        [
+          "MLM",
+          "ODA",
+          "Z"
+        ],
+        [
+          "Mdi",
+          "Ucl",
+          "Z"
+        ],
+        [
+          "ORn",
+          "E3",
+          "Z"
+        ],
+        [
+          "Opy",
+          "hbP",
+          "Z"
+        ],
+        [
+          "OvB",
+          "FzB",
+          "Z"
+        ],
+        [
+          "PkC",
+          "cfM",
+          "Z"
+        ],
+        [
+          "Q",
+          "FzB",
+          "Z"
+        ],
+        [
+          "Qe",
+          "eLY",
+          "Z"
+        ],
+        [
+          "RuU",
+          "FzB",
+          "Z"
+        ],
+        [
+          "SUS",
+          "FzB",
+          "Z"
+        ],
+        [
+          "UqJ",
+          "hUR",
+          "Z"
+        ],
+        [
+          "WXa",
+          "IwV",
+          "Z"
+        ],
+        [
+          "Wcf",
+          "cfM",
+          "Z"
+        ],
+        [
+          "YZ1",
+          "Grk",
+          "Z"
+        ],
+        [
+          "ZDH",
+          "cfM",
+          "Z"
+        ],
+        [
+          "ZXe",
+          "MIO",
+          "Z"
+        ],
+        [
+          "ZzF",
+          "Hnt",
+          "Z"
+        ],
+        [
+          "aI",
+          "cfM",
+          "Z"
+        ],
+        [
+          "aJ",
+          "IwV",
+          "Z"
+        ],
+        [
+          "aL",
+          "cfM",
+          "Z"
+        ],
+        [
+          "aLw",
+          "BDm",
+          "Z"
+        ],
+        [
+          "aN",
+          "ucQ",
+          "Z"
+        ],
+        [
+          "bDH",
+          "Ucl",
+          "Z"
+        ],
+        [
+          "bU",
+          "Ucl",
+          "Z"
+        ],
+        [
+          "bV",
+          "MIO",
+          "Z"
+        ],
+        [
+          "bj1",
+          "TMF",
+          "Z"
+        ],
+        [
+          "by",
+          "hbP",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/AJD",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/BQF",
+          "lYc",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/BVs",
+          "ERO",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/CEE",
+          "wYK",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Dgc",
+          "PD3",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/GPn",
+          "FzB",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Hpk",
+          "IwV",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/JHr",
+          "FzB",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OLR",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/OcA",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Oez",
+          "MIO",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/PSD",
+          "MRY",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/RKg",
+          "IwV",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/RYd",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Rzi",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/Wkj",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/YSk",
+          "hbP",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/bbQ",
+          "UNj",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/cXR",
+          "lYc",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/gJi",
+          "TgI",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hgq",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hp",
+          "nVd",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/hpW",
+          "TtY",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/i2s",
+          "E1b",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/iYN",
+          "eLY",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/rSf",
+          "RDJ",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/riz",
+          "MRY",
+          "Z"
+        ],
+        [
+          "com/bitwig/flt/document/core/master/device/shB",
+          "TMF",
+          "Z"
+        ],
+        [
+          "com/bitwig/nitro/CcL",
+          "cfM",
+          "Z"
+        ],
+        [
+          "com/bitwig/nitro/f3y",
+          "TtY",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/AVL",
+          "jOH",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "xPh",
+          "Z"
+        ],
+        [
+          "dgY",
+          "E3",
+          "Z"
+        ],
+        [
+          "e3g",
+          "tp2",
+          "Z"
+        ],
+        [
+          "ehl",
+          "IwV",
+          "Z"
+        ],
+        [
+          "gK1",
+          "BNq",
+          "Z"
+        ],
+        [
+          "gez",
+          "TMF",
+          "Z"
+        ],
+        [
+          "jQA",
+          "cfM",
+          "Z"
+        ],
+        [
+          "jtV",
+          "MRY",
+          "Z"
+        ],
+        [
+          "kpJ",
+          "hUR",
+          "Z"
+        ],
+        [
+          "mXY",
+          "IwV",
+          "Z"
+        ],
+        [
+          "pcN",
+          "FzB",
+          "Z"
+        ],
+        [
+          "qZc",
+          "Hnt",
+          "Z"
+        ],
+        [
+          "rBL",
+          "ucQ",
+          "Z"
+        ],
+        [
+          "rOx",
+          "IwV",
+          "Z"
+        ],
+        [
+          "rXz",
+          "UNj",
+          "Z"
+        ],
+        [
+          "rce",
+          "TMF",
+          "Z"
+        ],
+        [
+          "tNn",
+          "UZr",
+          "Z"
+        ],
+        [
+          "to",
+          "sRk",
+          "Z"
+        ],
+        [
+          "uNj",
+          "UNj",
+          "Z"
+        ],
+        [
+          "vAT",
+          "cfM",
+          "Z"
+        ],
+        [
+          "vW",
+          "hUR",
+          "Z"
+        ],
+        [
+          "vfB",
+          "E3",
+          "Z"
+        ],
+        [
+          "vzR",
+          "lYc",
+          "Z"
+        ],
+        [
+          "wgp",
+          "iCS",
+          "Z"
+        ],
+        [
+          "wji",
+          "FzB",
+          "Z"
+        ],
+        [
+          "xVS",
+          "MRY",
+          "Z"
+        ],
+        [
+          "xqx",
+          "FzB",
+          "Z"
+        ],
+        [
+          "yII",
+          "cfM",
+          "Z"
+        ]
+      ]
+    }
+  ],
+  "elapsedMs": 9332.609834033065,
+  "peakRssBytes": 358940672,
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "conditions": [
+    "Only these exact 33 receiver classes are included.",
+    "The managed-owner argument is an exact module_contents object throughout the release walk.",
+    "The checked assertion flags must already be initialized and true.",
+    "This result covers the two hook bodies and managed predicate. It excludes collection, recursive traversal, disposal wrappers, and state stability."
+  ]
+}

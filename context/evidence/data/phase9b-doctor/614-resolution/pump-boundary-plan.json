@@ -1,0 +1,108 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace every direct call to the event-pump boundaries and project action dispatch. No exclusion is inferred from an incomplete scan.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "Hnt",
+      "descriptor": "()Ljava/lang/Object;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;)Z"
+    },
+    {
+      "owner": "der",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/g2L;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(LK2G;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "nmv",
+      "name": "MRY",
+      "descriptor": "(LK2G;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "owner": "nmv",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/AJH",
+      "name": "MRY",
+      "descriptor": "(LcQq;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "cQq",
+      "name": "Hnt",
+      "descriptor": "()Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/Set;)Z"
+    },
+    {
+      "kind": "method",
+      "owner": "der",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/g2L;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(LK2G;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "nmv",
+      "name": "MRY",
+      "descriptor": "(LK2G;ILjava/util/List;)Ljava/lang/Object;"
+    },
+    {
+      "kind": "method",
+      "owner": "nmv",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/ramona/core/OLR;ILjava/util/List;)Ljava/lang/Object;"
+    }
+  ]
+}

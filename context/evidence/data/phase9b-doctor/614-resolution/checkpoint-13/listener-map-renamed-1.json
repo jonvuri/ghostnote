@@ -1,0 +1,157 @@
+{
+  "builds": [
+    {
+      "sha256": "23708ef4c362ed072410c5415857bddcbfdc71f26087760cf5158ef8bf4158d6",
+      "methods": [
+        {
+          "method": [
+            "R29561",
+            "r_cG3",
+            "(LR27749;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": null
+        },
+        {
+          "method": [
+            "R4142",
+            "r_W2P",
+            "(LR27749;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": null
+        },
+        {
+          "method": [
+            "R4142",
+            "r_pvN",
+            "(LR27749;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": null
+        },
+        {
+          "method": [
+            "R29096",
+            "r_NaF",
+            "(LR27749;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": null
+        }
+      ]
+    },
+    {
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "methods": [
+        {
+          "method": [
+            "R28977",
+            "r_Hnt",
+            "(LR4662;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": {
+            "kind": "null-guarded-fresh-hash-map-capacity-one",
+            "originalDigest": "9d53afcdd37c8783f651e59d78a91f92fc4947876dcadce6dc9b9352c1da4af2",
+            "field": [
+              "R28977",
+              "r_cfM",
+              "Ljava/util/HashMap;"
+            ],
+            "allocationOffset": 88,
+            "addedInstructions": 1,
+            "sourceConstructor": "()V",
+            "targetConstructor": "(I)V",
+            "targetCapacity": 1,
+            "limits": [
+              "Map growth, external constructor work, and concurrency remain separate.",
+              "This projection does not admit listener registration or callbacks."
+            ]
+          }
+        },
+        {
+          "method": [
+            "R31113",
+            "r_TtY",
+            "(LR4662;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": {
+            "kind": "null-guarded-fresh-hash-map-capacity-one",
+            "originalDigest": "9d53afcdd37c8783f651e59d78a91f92fc4947876dcadce6dc9b9352c1da4af2",
+            "field": [
+              "R31113",
+              "r_Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            "allocationOffset": 88,
+            "addedInstructions": 1,
+            "sourceConstructor": "()V",
+            "targetConstructor": "(I)V",
+            "targetCapacity": 1,
+            "limits": [
+              "Map growth, external constructor work, and concurrency remain separate.",
+              "This projection does not admit listener registration or callbacks."
+            ]
+          }
+        },
+        {
+          "method": [
+            "R31113",
+            "r_lYc",
+            "(LR4662;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": {
+            "kind": "null-guarded-fresh-hash-map-capacity-one",
+            "originalDigest": "9d53afcdd37c8783f651e59d78a91f92fc4947876dcadce6dc9b9352c1da4af2",
+            "field": [
+              "R31113",
+              "r_cfM",
+              "Ljava/util/HashMap;"
+            ],
+            "allocationOffset": 88,
+            "addedInstructions": 1,
+            "sourceConstructor": "()V",
+            "targetConstructor": "(I)V",
+            "targetCapacity": 1,
+            "limits": [
+              "Map growth, external constructor work, and concurrency remain separate.",
+              "This projection does not admit listener registration or callbacks."
+            ]
+          }
+        },
+        {
+          "method": [
+            "R26728",
+            "r_IwV",
+            "(LR4662;)V"
+          ],
+          "digest": "77dd18e56020bb91bd8d023cda6d29004758198164ef61bd2db92445f802009e",
+          "variant": {
+            "kind": "null-guarded-fresh-hash-map-capacity-one",
+            "originalDigest": "9d53afcdd37c8783f651e59d78a91f92fc4947876dcadce6dc9b9352c1da4af2",
+            "field": [
+              "R26728",
+              "r_MRY",
+              "Ljava/util/HashMap;"
+            ],
+            "allocationOffset": 88,
+            "addedInstructions": 1,
+            "sourceConstructor": "()V",
+            "targetConstructor": "(I)V",
+            "targetCapacity": 1,
+            "limits": [
+              "Map growth, external constructor work, and concurrency remain separate.",
+              "This projection does not admit listener registration or callbacks."
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "elapsedMs": 10556.144500034861,
+  "peakRssBytes": 223002624,
+  "boundedAdmission": false
+}

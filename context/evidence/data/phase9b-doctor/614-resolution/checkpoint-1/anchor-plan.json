@@ -1,0 +1,968 @@
+{
+  "format": "grid-doctor-source-anchors-v1",
+  "source": "E315",
+  "anchors": [
+    {
+      "source": [
+        "Gn",
+        "MbT",
+        "()Lcom/bitwig/flt/document/core/master/TqD;"
+      ],
+      "digest": "38517f26d61de9b7607ca7fbef82842267fd2c7a8646a4c6c7c6981842a8838d"
+    },
+    {
+      "source": [
+        "KSO",
+        "qlz",
+        "()Lcom/bitwig/flt/document/core/master/device/ar;"
+      ],
+      "digest": "7c8a68a370811389b05b5f35e0924644aaabeda1570853b6f73f1b571e787359"
+    },
+    {
+      "source": [
+        "MTu",
+        "GBx",
+        "()LECg;"
+      ],
+      "digest": "6ec3ab8aa87bbf4c5e4f8ffe4cbb13918cd6397c1f76aafa00d253adbd5d9f44"
+    },
+    {
+      "source": [
+        "QY",
+        "nwQ",
+        "()LiEc;"
+      ],
+      "digest": "37184cdd2750627ead29b735ca35cb5ba88a28b70edbff7c039f768689d8b9e7"
+    },
+    {
+      "source": [
+        "TNT",
+        "eOi",
+        "(Z)D"
+      ],
+      "digest": "e6893a402981a1d587b04086af23e7f503ed46227432706ef2f2eaf3e430f155"
+    },
+    {
+      "source": [
+        "TXU",
+        "ffA",
+        "(DDD)V"
+      ],
+      "digest": "b7451f094d5e3e83d1107ceba5f9520f2a9a2eb6e65bcf5414fc7e037d1ba267"
+    },
+    {
+      "source": [
+        "Tu",
+        "eOi",
+        "(II)V"
+      ],
+      "digest": "88c4fcef9bbe9c6a6778640cf4f7e485c7485ac833f29f126968759c8b3e6ebb"
+    },
+    {
+      "source": [
+        "Xuo",
+        "ffA",
+        "(ZZZ)V"
+      ],
+      "digest": "eac0c53ec43584a88380d52e4503a3b3d2069f0a70f956fe89ccd3b91b03a78b"
+    },
+    {
+      "source": [
+        "YJr",
+        "ffA",
+        "(DZ)V"
+      ],
+      "digest": "6aad41d20d776823cb537dc3933422cfc1c41643c45c2f801bed74d2d11b4f38"
+    },
+    {
+      "source": [
+        "ZRs",
+        "eOi",
+        "(DZ)V"
+      ],
+      "digest": "ce62c60f3ed5345aba22d0e2d5c94f3d5d663386df089721634787fdd1906173"
+    },
+    {
+      "source": [
+        "bcf",
+        "cG3",
+        "(LrNl;D)D"
+      ],
+      "digest": "3aae2c7b289e9ec00af522b24257fb00191ead172da1a6571b283d58da02b457"
+    },
+    {
+      "source": [
+        "cXZ",
+        "kyi",
+        "(Ljava/lang/String;)Z"
+      ],
+      "digest": "f7f3f11cc384ad12fcac85373c338ebe9c03d174065cc8c7245468488d79c9ee"
+    },
+    {
+      "source": [
+        "cYQ",
+        "ffA",
+        "(Ljava/lang/String;Ljava/lang/String;)Z"
+      ],
+      "digest": "f1b236ecc164f5eb29991e2f1d910c29250df9af14160de6e942cd9658fa681e"
+    },
+    {
+      "source": [
+        "cYs",
+        "MkF",
+        "()Lcom/bitwig/base/serial/ytV;"
+      ],
+      "digest": "557ad9a6e362ccf62de1154a7b75131cb9eb5b911f333f853437addae811ba7c"
+    },
+    {
+      "source": [
+        "ccA",
+        "eOi",
+        "(DJZZ)V"
+      ],
+      "digest": "53f103af3f56041e6581c9171e6d7ee01488c67f442ddd4a48902ee1f278e761"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Svr",
+        "cA_",
+        "()Ljava/lang/String;"
+      ],
+      "digest": "90afe853ff78cc7a8f839519559bc72cea4c094cbb7ae9182e34eeac97f9091a"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/YOT",
+        "kyi",
+        "()V"
+      ],
+      "digest": "737ce5d9b92171932b69862cd92cef5f5c20ecae430c3442da045b1d6409e6cd"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Ymq",
+        "ffA",
+        "(Ljava/util/UUID;Ljava/lang/String;Ljava/lang/String;)V"
+      ],
+      "digest": "117cd4fefdf61af05f80abfa6dce1dfe8138b19fb624bc4ce8444a02e4a3dc63"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/DtR",
+        "<init>",
+        "()V"
+      ],
+      "digest": "505ed07fec361205ffdc02333f87cc65eee1646ce37ba7ddda5e6b50eadaee09"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/Ibf",
+        "ffA",
+        "(LHHL;D)V"
+      ],
+      "digest": "1d29adef0778389dae218ee6d1c46200e7a200c381adbe68847377aaa4c61a09"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/S2E",
+        "gnZ",
+        "()Ljava/lang/String;"
+      ],
+      "digest": "1d6a2879131b6ffdc342c36064dcc0ef9548cd59dfbf433f44bbccf801caed0d"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/UL",
+        "<init>",
+        "()V"
+      ],
+      "digest": "ace31a8a227af6701d63d5e4ae814908365165beba2cfc2cf4d9c34b35109375"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/UZp",
+        "ffA",
+        "(Ljava/util/List;ZZ)V"
+      ],
+      "digest": "a37f660990919fa9215bc0e98f1338146de27daa943a5875cab38257d9e41fd9"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/XuU",
+        "eOi",
+        "(Z)V"
+      ],
+      "digest": "db5ef3cd13eba0be07338e6ac029c4d03179758dd16bfbd95d9c37c7a3b92501"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/ar",
+        "uEF",
+        "()Z"
+      ],
+      "digest": "1f51380567fadaaa9fb31669a80fea8959bf6f2d9a28b43acf87e8ddd15c2d0e"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/bvn",
+        "<init>",
+        "()V"
+      ],
+      "digest": "c5759e7a7ce8578ebe84a486f544a371a7a37b568138a83c9a07a1b901bdce44"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/mvZ",
+        "bc_",
+        "()V"
+      ],
+      "digest": "2185212e5cfd887471f943bad57e0535f298f845a92c98c86cadc3f7681fcb9c"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/uVZ",
+        "dwY",
+        "()V"
+      ],
+      "digest": "5db270a1fca09d4dfaf1266782d6042c6f148380aac139c44d206ffd14f223f1"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/ubQ",
+        "<init>",
+        "()V"
+      ],
+      "digest": "36b32e8e45c7a8739e2fc3542417a821f7d6540da215f4343a294af441b54481"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/xts",
+        "aS_",
+        "()LsZq;"
+      ],
+      "digest": "1df2d42db8f2d9c7f3ea0158247fbd1426d35a13df3b498e6b32eb606a4e42f0"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/yWH",
+        "ffA",
+        "(LQDo;I)LhEe;"
+      ],
+      "digest": "615f5bc05df798cd6347914985bd0ab2dee1825feae1ba924eaed048b3cebf21"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/hN",
+        "ap_",
+        "()LEg3;"
+      ],
+      "digest": "19d98e19aa7dfb4632ffb8eb93d5daffef872969089cfecdcfe4868760752196"
+    },
+    {
+      "source": [
+        "dkb",
+        "Ode",
+        "()Ldkb;"
+      ],
+      "digest": "63a205488f52048629e2cc776f213ab77ed2bf261257af1b8f9415956d0c084a"
+    },
+    {
+      "source": [
+        "iYc",
+        "ffA",
+        "(Lmls;LrpR;LZfX;)LrpR;"
+      ],
+      "digest": "94f5e75e4e1d4e735d7fd4556c6dd6a9ae180ca71da6f3bb74ccb44c73fa0616"
+    },
+    {
+      "source": [
+        "lfC",
+        "eOi",
+        "(IZLjava/lang/String;)V"
+      ],
+      "digest": "06a2d4db3d396db64f8dd913c76489a51b726cc9c94bfbf0812f38f6ff12a803"
+    },
+    {
+      "source": [
+        "mbe",
+        "ffA",
+        "(LGn;LdCC;)Z"
+      ],
+      "digest": "c8124202aadf885cc6d200746e325594c201df1488ff06a28085e442046d596c"
+    },
+    {
+      "source": [
+        "rjH",
+        "cG3",
+        "()I"
+      ],
+      "digest": "1ae0d084c36c7db851e69b8597f13903d6ae5c47da11fb630b6b9e61a5b2d7e2"
+    },
+    {
+      "source": [
+        "shw",
+        "<init>",
+        "()V"
+      ],
+      "digest": "07f3d499dda04b77108eba5d8a7361ef4c4abf62edb1fb0b55aaafc1b094aa9e"
+    },
+    {
+      "source": [
+        "tqm",
+        "eOi",
+        "(LuNh;LMUT;)V"
+      ],
+      "digest": "21b0977171c356fa0000984beabd359afe843cdc442b4ed9684c56835dbcdf86"
+    },
+    {
+      "source": [
+        "tyB",
+        "ffA",
+        "(LFPB;LFPB;)V"
+      ],
+      "digest": "f40fc9322163ef6886b65048c013644636586042d2a990214042e355b7580cf1"
+    },
+    {
+      "source": [
+        "uM3",
+        "YYI",
+        "()I"
+      ],
+      "digest": "c4db7145dbfad5e69bb8a9eb3402f79483af70420cedb77b94724564fa1fbcfb"
+    }
+  ],
+  "roleWitnesses": [
+    {
+      "source": [
+        "cYx",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;I)I"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "cb8710b69ffa339387de5199c4d45dcc8223766b1215d1457b3a2da755dfb7d9"
+    },
+    {
+      "source": [
+        "cZl",
+        "ffA",
+        "(LcYs;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;)Ljava/lang/String;"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "215c03cab0a4c367a2fd24be0cd39e62d057ce2f652079e06eb897bf06f62801"
+    },
+    {
+      "source": [
+        "cZv",
+        "ffA",
+        "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZLcZl;)V"
+      ],
+      "roles": [
+        "managed-id",
+        "managed-id",
+        "managed-id"
+      ],
+      "digest": "b5f9fa8dd90db86814d7156efa1e2315babfee2eb0a8a0fb000e46ab5a6b4827"
+    },
+    {
+      "source": [
+        "cZv",
+        "eOi",
+        "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZLcZl;)V"
+      ],
+      "roles": [
+        "managed-id",
+        "managed-id",
+        "managed-id"
+      ],
+      "digest": "eaf2baf0d9d541f5d169c2389bd65dce1addc14dd899d725df068ef2781025eb"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/DbL",
+        "kyi",
+        "(LqLM;)LFAO;"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "a1a5b2dfc5d59f82073b2afdf9f1bbefe0e4bfeeb15852902213672b82a8de81"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/DbL",
+        "bDr",
+        "()Lcom/bitwig/base/geom/WAr;"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "1908646ef3e95cbb031292f57879c0aec0bff46c58accdcfb6f58d64d56f61bb"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/DbL",
+        "aq_",
+        "()V"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "1bee0e499b36ec6b3841684259f5db884f5d0df9bf8c695de4770a4c000e2123"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/YYz",
+        "cG3",
+        "(Lcom/bitwig/flt/document/core/master/device/cbl;I)Ljava/util/List;"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "d2e352c5ef69618cf7ad4d5651b576c5c426356296bc2751e792085d2f900ed8"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/cbl",
+        "oNk",
+        "()V"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "375c70233384f3f6cd75399143932ebecc740a9dfcf4d9f69ca7241f2339403c"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/cbl",
+        "Ozt",
+        "()V"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "11ec6528052eed7c52321f0e00ebce228942fe0e09f37926ae4388e53fcc69b1"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/cbl",
+        "ffA",
+        "(II)Lcom/bitwig/flt/document/core/master/device/had;"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "334e07d00d93319b83e21bd144f5baf57e592dfdff7647c0a4c57b22a4231ebd"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/cbl",
+        "Kg",
+        "()V"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "596bf4376ae9af0eae9a710eec8f40461f952bbbd01a77541fa3df32de797bfe"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/cbl",
+        "GQZ",
+        "()V"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "465f51d9d8fa50d45200f0576b57005cf1a9ee014db6f49ef02717ca9a7c175d"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/gOr",
+        "ffA",
+        "(Ljava/util/Collection;II)Z"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "18d84c697bf57f31f6bcbc21f318b7e89b529b2ab12dd7a5ed7f4c113dcd0e43"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/gOr",
+        "ffA",
+        "(Lcom/bitwig/flt/document/core/master/device/DbL;Lcom/bitwig/flt/document/core/master/device/DbL;II)V"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "00c304d91144141df5427c93218090a6d6327a4b0fedc71eb943e0fd6ec2fd8d"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/gOr",
+        "cG3",
+        "(Lcom/bitwig/flt/document/core/master/device/DbL;Lcom/bitwig/flt/document/core/master/device/DbL;)V"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "5660ef859590154586ca05159e1a3750304b27786440d1664f6ed4048f778c67"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/gOr",
+        "ffA",
+        "(II)Lcom/bitwig/flt/document/core/master/device/had;"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "0d406845257878ebd664b7a79bc6bbe1df0e26fd385085a1315ae182ecc41274"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/xWk",
+        "eJS",
+        "()Ljava/util/List;"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "72524008f52127d9af381ca5973e536307173b62afef7a1e149928ba206fb784"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/UL",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;)I"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "b6ef51c3639b196cbf5d4ec6b36f2f812e12a362998354f088d8662b17bc3664"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ikl",
+        "ffA",
+        "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Z"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "e43097dec375bd13773d32097c1769908e7b0ba1035e159a550a189485fb0ae8"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ikl",
+        "kG",
+        "(Ljava/lang/String;Ljava/lang/String;Z)Z"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "2a4913245110a9bf4ba29351d7a4a2d3b6d8939ab7a4a2bd1441d563e42793c5"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ikl",
+        "ffA",
+        "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;)V"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "7017e360c47934d670d8372d98f058f39edd70fad8fef7b4a3411f2f41f6cf6b"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ikl",
+        "ICI",
+        "()V"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "934bdd674fcc5cb50ea0de11c656066628f05945634853e10c1b446c5816bddd"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ikl",
+        "cnN",
+        "(Z)Z"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "adb8501e55dac4454cdb7d0f6c2990d1d90c997a2cd78a3f9bae20eeb52a8b06"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;)V"
+      ],
+      "roles": [
+        "managed-id",
+        "managed-id"
+      ],
+      "digest": "0d97bda23416d9e1d6aec00fd0cfa27650bcd7e96ffe3d73c9184100a029de97"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;Z)V"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "61ba01605a53b50ac18843fc047e9e972a54928a15d32a1b35bd021265c15c83"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "NaF",
+        "(Lcom/bitwig/ramona/core/HEV;)V"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "4b3947c8499bf76989846fa6e1c04bb536c0c37ce42f5c6388c64c6917371791"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "kG",
+        "(Lcom/bitwig/ramona/core/HEV;)V"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "3b84db055291f7343e5b4f8f233797141bb99b994c5543fa3b05bb60bda0990a"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "eWy",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "491f62e8b5627b5495a3b2f6cb8c1121d01615db8fb786d4eace8e5b634ed2b9"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/uX1",
+        "zmC",
+        "()V"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "c20d43f20cda605b3c35d4e3491331ee66bf9d47d7fad918fd0b51812ec40cac"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ytV",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/ziZ;Z)Z"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "7c6db4b9a21be0b25f73ae5c83a79d4b07041c326b97ee4a644e964b9d15aff6"
+    },
+    {
+      "source": [
+        "daR",
+        "ffA",
+        "(LcXR;Lcom/bitwig/ramona/core/HEV;Ljava/lang/Object;)V"
+      ],
+      "roles": [
+        "journal-recording-edit"
+      ],
+      "digest": "315ac3e98dad6339a3f02adf482be438b642a0ecfed93211494c571419c5dd7f"
+    },
+    {
+      "source": [
+        "daR",
+        "ffA",
+        "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+      ],
+      "roles": [
+        "journal-recording-edit"
+      ],
+      "digest": "eade7246489b6dbcba0123111f5fda663a7203c19c7eead7acb9760a75f409a6"
+    },
+    {
+      "source": [
+        "daR",
+        "eOi",
+        "(LcYy;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;IZ)V"
+      ],
+      "roles": [
+        "journal-recording-edit"
+      ],
+      "digest": "4cbedb1bed6b52fb23e92424dceb03fe338c7234637a528a4a360106b569ff09"
+    },
+    {
+      "source": [
+        "daR",
+        "ffA",
+        "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;ZZ)V"
+      ],
+      "roles": [
+        "journal-recording-edit"
+      ],
+      "digest": "2fa3dcea4434c4c1e89a3a6538d48b1b8b6692c65cb962d3ec177cffebcc3ceb"
+    },
+    {
+      "source": [
+        "Gn",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "672ac1ef18a57fc7a05740cbcf23ab3acf9aa915a0fff49a5f79834208b44476"
+    },
+    {
+      "source": [
+        "QY",
+        "ffA",
+        "(LuNh;LMUT;)V"
+      ],
+      "roles": [
+        "boolean-command"
+      ],
+      "digest": "304748e6b3f0f71ccf1bb18a4263a5cc75cf2ce0e2be181143d584d8f667f8d1"
+    },
+    {
+      "source": [
+        "QY",
+        "QkY",
+        "()V"
+      ],
+      "roles": [
+        "boolean-command"
+      ],
+      "digest": "9931a3089cb0bf5bfc4f99e0197b79cd2022ae6a127b0aad6dd053988255cb90"
+    },
+    {
+      "source": [
+        "QY",
+        "ffA",
+        "(D)V"
+      ],
+      "roles": [
+        "boolean-command"
+      ],
+      "digest": "dfd7a673c185e65c7b1c4d4f103489f16fd7452b7f21aa73354c39bf0ceea0c7"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Svr",
+        "zZd",
+        "()Ljava/lang/String;"
+      ],
+      "roles": [
+        "engine-state"
+      ],
+      "digest": "cd40ee3b1cc406241dbebe4f0473eb5e1cc8f307345e5ea81375812ac295b74d"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Svr",
+        "Uhv",
+        "()Z"
+      ],
+      "roles": [
+        "engine-state"
+      ],
+      "digest": "3f32ca0e8046afc3f61caca85af2de33aef73733e64c2b70835f00ada38b29ed"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Svr",
+        "qXO",
+        "()V"
+      ],
+      "roles": [
+        "engine-state"
+      ],
+      "digest": "e8381bc54d0b369d68d4765cb1fc4b75bae2e721d0d79d5b2300470a5e480635"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/S2E",
+        "wi2",
+        "(Ljava/util/UUID;)Lcom/bitwig/flt/document/core/master/device/S2E;"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "051883b2360d35f0dd7612413ce0af9c83228826a41a28cd664863094b1dcfc7"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/TqD",
+        "wi2",
+        "(LbDP;)V"
+      ],
+      "roles": [
+        "boolean-command"
+      ],
+      "digest": "dba85cc7fbf55d95804fd32016a6d57e625c1f56bfa67fb3058a4e9431c728e4"
+    },
+    {
+      "source": [
+        "OQO",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "011ba0f41d39417c78394c5640ea1f2bada707b47928a8a2bea95f3014063484"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/XSa",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "c9dfb39a606dbb3d0e769c2a68957b42013c989b66379f564aa4bd92c8ef23d7"
+    },
+    {
+      "source": [
+        "DHY",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "295d36c96084869ce3f4af7ea751e9536a41e27e7091553cc4bb41be4ed7ae33"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/uX1",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "cfd9ee37ea6679af5510f5abd46f293b755fa5350a95a9767922377e21a11040"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/CFZ",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "ad1fe43e6fd4ec404697cafd689b1c5fce186eada1a02f696bcf1059839fcddf"
+    },
+    {
+      "source": [
+        "mls",
+        "ffA",
+        "(LrpR;)Ljava/lang/String;"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "8fb98a09ee986cc58c51edaf08cea4c4f5d846f8b153bff8866b926277e6d247"
+    },
+    {
+      "source": [
+        "JtC",
+        "cG3",
+        "(Lcom/bitwig/base/io/bnu;)Ljava/lang/Object;"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "ab0835d9b44bee5475a12283713dde42cba7904379efe38e970e1a783468eaf5"
+    },
+    {
+      "source": [
+        "hsO",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "ad1fe43e6fd4ec404697cafd689b1c5fce186eada1a02f696bcf1059839fcddf"
+    },
+    {
+      "source": [
+        "Jfu",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "95aaf670cedbfa4268f30f505048d632961b4cbad591f1a04d607a2c090e809f"
+    },
+    {
+      "source": [
+        "qdg",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "95aaf670cedbfa4268f30f505048d632961b4cbad591f1a04d607a2c090e809f"
+    },
+    {
+      "source": [
+        "Ys",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "c9dfb39a606dbb3d0e769c2a68957b42013c989b66379f564aa4bd92c8ef23d7"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/ilU",
+        "ffA",
+        "(Lcom/bitwig/flt/document/core/master/device/ar;I)I"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "687c72f8ee598f9478808f1e3be08737b4ab965ad59beb67437b12719081b9cc"
+    },
+    {
+      "source": [
+        "bcf",
+        "eOi",
+        "(D)V"
+      ],
+      "roles": [
+        "native-value-setter"
+      ],
+      "digest": "d87eca3240da2cb0314a133c8f4bd9bd35cd853b270a39e47d7200e33a4bfd61"
+    }
+  ]
+}

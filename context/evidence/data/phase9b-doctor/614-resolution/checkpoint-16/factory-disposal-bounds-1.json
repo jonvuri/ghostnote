@@ -1,0 +1,4590 @@
+{
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "rows": [
+        {
+          "runtime": "BoW",
+          "wrapperInstructionBound": 115,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 15,
+          "mapFields": [
+            [
+              "HJO",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HJO",
+              "Mkn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HJO",
+              "nrP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HJO",
+              "Ode",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HJO",
+              "jBn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HJO",
+              "MDs",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "UwT",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xiZ",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ePy",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "EVI",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "BoO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "HXj",
+          "wrapperInstructionBound": 111,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 16,
+          "mapFields": [
+            [
+              "iGC",
+              "Ode",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "jBn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "MDs",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "Fmu",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "NCM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "RSP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "RDR",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "iGC",
+              "eWy",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "apX",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "apX",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "Kdl",
+          "wrapperInstructionBound": 58,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 8,
+          "mapFields": [
+            [
+              "IBF",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "IBF",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "KzN",
+          "wrapperInstructionBound": 22,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "Plh",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jBP",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "LSn",
+          "wrapperInstructionBound": 93,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 13,
+          "mapFields": [
+            [
+              "Qsh",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Qsh",
+              "hhJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Qsh",
+              "Mkn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Qsh",
+              "zVi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Qsh",
+              "ZzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "IbT",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "IbT",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "QY",
+          "wrapperInstructionBound": 109,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 14,
+          "mapFields": [
+            [
+              "ccA",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EiO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ri3",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "Z2C",
+          "wrapperInstructionBound": 86,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 11,
+          "mapFields": [
+            [
+              "nZI",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "nZI",
+              "QiZ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "eJ",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wky",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wky",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "agh",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "TVk",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/DbL",
+          "wrapperInstructionBound": 23,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 3,
+          "mapFields": [
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/EeT",
+          "wrapperInstructionBound": 23,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 3,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/elb",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/elb",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/elb",
+              "kG",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/FZ1",
+          "wrapperInstructionBound": 17,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/XSa",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/XSa",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Uqf",
+          "wrapperInstructionBound": 41,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 6,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "pvN",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "QiZ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "MkF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "SRu",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/CFZ",
+              "W2P",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/WAr",
+          "wrapperInstructionBound": 68,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 8,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EiO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ri3",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Wxc",
+          "wrapperInstructionBound": 176,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 26,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/Ymq",
+              "W2P",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Ymq",
+              "YLA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "W2P",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "asI",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "EbT",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "VoD",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "YLA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "iUG",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "eJS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "OTd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/vWM",
+              "hhJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "kG",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "pvN",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "QiZ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/pyQ",
+              "MkF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/mvZ",
+          "wrapperInstructionBound": 97,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 12,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/UL",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/UL",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/UL",
+              "QiZ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/UL",
+              "MkF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bvn",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EiO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ri3",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/r2",
+          "wrapperInstructionBound": 29,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/uX1",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/uX1",
+              "kG",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/uX1",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/uX1",
+              "pvN",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/rww",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/uWb",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/nitro/EMf",
+          "wrapperInstructionBound": 0,
+          "wrapperMethods": 0,
+          "mapRemoveCalls": 0,
+          "mapFields": [],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "dkb",
+          "wrapperInstructionBound": 152,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 22,
+          "mapFields": [
+            [
+              "lfC",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "ZzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "nrP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "Ode",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "jBn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "MDs",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "Fmu",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "NCM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "RSP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "RDR",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "eWy",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "zad",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "pfb",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "Zdu",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "rdo",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "lfC",
+              "nQn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EiO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ri3",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "fMM",
+          "wrapperInstructionBound": 88,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 13,
+          "mapFields": [
+            [
+              "HdP",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "OTd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "hhJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "Mkn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "zVi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "ZzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "HdP",
+              "nrP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "hef",
+          "wrapperInstructionBound": 17,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "jm",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jm",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "jMO",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "Uwv",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Uwv",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jm",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jm",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "jqf",
+          "wrapperInstructionBound": 75,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 10,
+          "mapFields": [
+            [
+              "ymH",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ymH",
+              "VoD",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ymH",
+              "YLA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "GAQ",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "hsO",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "llA",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "bGh",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "bGh",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jm",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jm",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "nnn",
+          "wrapperInstructionBound": 69,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 9,
+          "mapFields": [
+            [
+              "tEM",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "apX",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "apX",
+              "wi2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "pAR",
+          "wrapperInstructionBound": 85,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 10,
+          "mapFields": [
+            [
+              "nWl",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "UwT",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xiZ",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ePy",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "qOW",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "BSW",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "rNl",
+          "wrapperInstructionBound": 47,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 7,
+          "mapFields": [
+            [
+              "OQO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "hhJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "Mkn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "nrP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "Ode",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "jBn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OQO",
+              "MDs",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "sdB",
+          "wrapperInstructionBound": 87,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 12,
+          "mapFields": [
+            [
+              "vmi",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vmi",
+              "OTd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vmi",
+              "hhJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vmi",
+              "Mkn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "IbT",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "IbT",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "tqm",
+          "wrapperInstructionBound": 163,
+          "wrapperMethods": 7,
+          "mapRemoveCalls": 18,
+          "mapFields": [
+            [
+              "ipr",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ipr",
+              "dRD",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ipr",
+              "dwY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ipr",
+              "neE",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ccA",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "shw",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EiO",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ri3",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 2,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "yhl",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "pvr",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "DHY",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "zFZ",
+          "wrapperInstructionBound": 121,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 16,
+          "mapFields": [
+            [
+              "chX",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "nrP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "Ode",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "jBn",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "MDs",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "Fmu",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "chX",
+              "NCM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "UwT",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xiZ",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ePy",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "ffA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "eOi",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "cG3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "Uhv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "NaF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rrc",
+              "kyi",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        }
+      ],
+      "maximumWrapperInstructions": 176,
+      "maximumMapRemovals": 26,
+      "maximumListenerRemovals": 2
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "rows": [
+        {
+          "runtime": "BE2",
+          "wrapperInstructionBound": 87,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 12,
+          "mapFields": [
+            [
+              "vfB",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vfB",
+              "hbP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vfB",
+              "Grk",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vfB",
+              "tp2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OvB",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OvB",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "BMo",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "Hys",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "BgP",
+          "wrapperInstructionBound": 152,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 22,
+          "mapFields": [
+            [
+              "Mdi",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "MIO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "iCS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "ODA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "vpw",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "ERO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "ejd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "uWE",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "dEI",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "Z1C",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "dnz",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "OzW",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "HL",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "MJ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "kFU",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Mdi",
+              "E1b",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "tNn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "gK1",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "CbC",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "mXY",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "EIm",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "ZzF",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "FCo",
+          "wrapperInstructionBound": 58,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 8,
+          "mapFields": [
+            [
+              "UqJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "UqJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "Fot",
+          "wrapperInstructionBound": 88,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 13,
+          "mapFields": [
+            [
+              "dgY",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "hbP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "Grk",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "tp2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "Ucl",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "MIO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "dgY",
+              "iCS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "HOU",
+          "wrapperInstructionBound": 22,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "uNj",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CSs",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "Hgx",
+          "wrapperInstructionBound": 163,
+          "wrapperMethods": 7,
+          "mapRemoveCalls": 18,
+          "mapFields": [
+            [
+              "rXz",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rXz",
+              "Scv",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rXz",
+              "jhH",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rXz",
+              "jFL",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "tNn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "gK1",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 2,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "Imy",
+          "wrapperInstructionBound": 85,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 10,
+          "mapFields": [
+            [
+              "BPB",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Q",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ZXe",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xVS",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "LX1",
+          "wrapperInstructionBound": 17,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "vW",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vW",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "MLM",
+          "wrapperInstructionBound": 111,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 16,
+          "mapFields": [
+            [
+              "wgp",
+              "ODA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "vpw",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "ERO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "ejd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "uWE",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "dEI",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "Z1C",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "wgp",
+              "dnz",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "kpJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "kpJ",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "RuU",
+          "wrapperInstructionBound": 109,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 14,
+          "mapFields": [
+            [
+              "aLw",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aLw",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "rBL",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "tNn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "gK1",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "WXa",
+          "wrapperInstructionBound": 93,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 13,
+          "mapFields": [
+            [
+              "Bj",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Bj",
+              "Grk",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Bj",
+              "tp2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Bj",
+              "Ucl",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Bj",
+              "MIO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OvB",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "OvB",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "ZDH",
+          "wrapperInstructionBound": 75,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 10,
+          "mapFields": [
+            [
+              "EKl",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EKl",
+              "nVd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "EKl",
+              "ucQ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "LKb",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "CKx",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "aI",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "aJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "aL",
+          "wrapperInstructionBound": 47,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 7,
+          "mapFields": [
+            [
+              "aN",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "Grk",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "tp2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "iCS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "ODA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "vpw",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "aN",
+              "ERO",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "bj1",
+          "wrapperInstructionBound": 69,
+          "wrapperMethods": 3,
+          "mapRemoveCalls": 9,
+          "mapFields": [
+            [
+              "ORn",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "kpJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "kpJ",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/AJD",
+          "wrapperInstructionBound": 41,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 6,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "lYc",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "E3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "wGc",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "eLY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/shB",
+              "TtY",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/OLR",
+          "wrapperInstructionBound": 17,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 2,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/BQF",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/BQF",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/OcA",
+          "wrapperInstructionBound": 29,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/bbQ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bbQ",
+              "hUR",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bbQ",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/bbQ",
+              "lYc",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/RKg",
+          "wrapperInstructionBound": 68,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 8,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "tNn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "gK1",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Rzi",
+          "wrapperInstructionBound": 23,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 3,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/Hpk",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Hpk",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Hpk",
+              "hUR",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/Wkj",
+          "wrapperInstructionBound": 97,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 12,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/cXR",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/cXR",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/cXR",
+              "E3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/cXR",
+              "wGc",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/Oez",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "tNn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "gK1",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/hpW",
+          "wrapperInstructionBound": 176,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 26,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/hp",
+              "TtY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/hp",
+              "ucQ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "TtY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "fJR",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "iHb",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "nVd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "ucQ",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "qoU",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "LaE",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "hbP",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/iYN",
+              "Grk",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "hUR",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "lYc",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "E3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "com/bitwig/flt/document/core/master/device/i2s",
+              "wGc",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/rSf",
+          "wrapperInstructionBound": 23,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 3,
+          "mapFields": [
+            [
+              "to",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "to",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/flt/document/core/master/device/riz",
+          "wrapperInstructionBound": 11,
+          "wrapperMethods": 1,
+          "mapRemoveCalls": 1,
+          "mapFields": [
+            [
+              "com/bitwig/flt/document/core/master/device/GPn",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "com/bitwig/nitro/CcL",
+          "wrapperInstructionBound": 0,
+          "wrapperMethods": 0,
+          "mapRemoveCalls": 0,
+          "mapFields": [],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "ehl",
+          "wrapperInstructionBound": 121,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 16,
+          "mapFields": [
+            [
+              "e3g",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "iCS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "ODA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "vpw",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "ERO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "ejd",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "e3g",
+              "uWE",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Q",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ZXe",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xVS",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "qZc",
+          "wrapperInstructionBound": 86,
+          "wrapperMethods": 4,
+          "mapRemoveCalls": 11,
+          "mapFields": [
+            [
+              "vzR",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vzR",
+              "E3",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "jtV",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "MKI",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "MKI",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "rOx",
+          "wrapperInstructionBound": 115,
+          "wrapperMethods": 5,
+          "mapRemoveCalls": 15,
+          "mapFields": [
+            [
+              "YZ1",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "YZ1",
+              "tp2",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "YZ1",
+              "iCS",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "YZ1",
+              "ODA",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "YZ1",
+              "vpw",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "YZ1",
+              "ERO",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "Q",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "ZXe",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "xVS",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "Hnt",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "FzB",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "IwV",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "BaJ",
+              "UNj",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "vAT",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "SUS",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "SUS",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vW",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vW",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        },
+        {
+          "runtime": "yII",
+          "wrapperInstructionBound": 34,
+          "wrapperMethods": 2,
+          "mapRemoveCalls": 4,
+          "mapFields": [
+            [
+              "pcN",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "pcN",
+              "TMF",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vW",
+              "cfM",
+              "Ljava/util/HashMap;"
+            ],
+            [
+              "vW",
+              "MRY",
+              "Ljava/util/HashMap;"
+            ]
+          ],
+          "listenerRemoveCalls": 0,
+          "keyMethods": [
+            {
+              "slot": [
+                "hashCode",
+                "()I"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            },
+            {
+              "slot": [
+                "equals",
+                "(Ljava/lang/Object;)Z"
+              ],
+              "declarations": [],
+              "externalParent": "java/lang/Object"
+            }
+          ]
+        }
+      ],
+      "maximumWrapperInstructions": 176,
+      "maximumMapRemovals": 26,
+      "maximumListenerRemovals": 2
+    }
+  ],
+  "elapsedMs": 9248.612291004974,
+  "peakRssBytes": 326909952,
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "conditions": [
+    "These counts exclude base disposal, map bodies, listener removal callees, and assertion initialization.",
+    "The objects must have the exact recorded factory classes.",
+    "Each non-null static map must be an exact stable HashMap with an admitted size.",
+    "The external Object methods and native identity hashing remain separate dependencies."
+  ]
+}

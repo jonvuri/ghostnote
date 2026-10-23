@@ -1,0 +1,486 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned context and journal callback investigation. No runtime admission.",
+  "methods": [
+    {
+      "owner": "dfI",
+      "name": "Hnt",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "ucQ",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "fJR",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Z)V"
+    },
+    {
+      "owner": "com/bitwig/flt/app/OcA",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/flt/app/TL;Lcom/bitwig/flt/document/core/master/g2L;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/IPO",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;I)Lcom/bitwig/ramona/core/XKG;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "Hnt",
+      "descriptor": "(Ljava/lang/String;)Lcom/bitwig/ramona/core/SUv;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/SUv",
+      "name": "<init>",
+      "descriptor": "(Ljava/lang/String;I)V"
+    },
+    {
+      "owner": "dhu",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;LdfI;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;Lcom/bitwig/ramona/core/IPO;)Lcom/bitwig/ramona/core/XKG;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/SUv",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/util/Set;Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/SUv",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "Hnt",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Z)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;LdfE;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "UNj",
+      "descriptor": "()LdfE;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/g2L;Ljava/io/File;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "<init>",
+      "descriptor": "(Ljava/io/File;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Lder;Ljava/io/File;)Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "MRY",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/g2L;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/Throwable;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "FzB",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/CuM;Z)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(LdeZ;)Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/core/oDc;)Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "IwV",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/tj2",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "ODA",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "Hnt",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/g2L;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "lYc",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/Kiy;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "tp2",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/WBo;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "Ucl",
+      "descriptor": "()Lcom/bitwig/flt/document/core/master/g2L;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "Hnt",
+      "descriptor": "()Lcom/bitwig/ramona/core/vna;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "MIO",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "cfM",
+      "descriptor": "(LDnP;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "cfM",
+      "descriptor": "(Lfoz;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "MRY",
+      "descriptor": "(Lfoz;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "cs_",
+      "descriptor": "()Lcom/bitwig/ramona/core/oDc;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "ng_",
+      "descriptor": "()LdeS;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "nh_",
+      "descriptor": "()Lcom/bitwig/ramona/core/OLR;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "ct_",
+      "descriptor": "()Ldev;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "clone",
+      "descriptor": "()Ljava/lang/Object;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/JYc",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "vpw",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "ERO",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/g2L",
+      "name": "zab",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "<init>",
+      "descriptor": "(LdfE;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/FB1;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "MRY",
+      "descriptor": "()LFXB;"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "cfM",
+      "descriptor": "(LiFt;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/function/Consumer;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "IwV",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "wGc",
+      "descriptor": "()I"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/qxu",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;LdfE;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/String;II)V"
+    },
+    {
+      "owner": "TCA",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "TCA",
+      "name": "MRY",
+      "descriptor": "(Liu1;)V"
+    },
+    {
+      "owner": "TCA",
+      "name": "nVd",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "TCA",
+      "name": "cfM",
+      "descriptor": "(LcpI;)Z"
+    },
+    {
+      "owner": "npm",
+      "name": "ucQ",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "npm",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "npm",
+      "name": "<init>",
+      "descriptor": "(LCzc;)V"
+    },
+    {
+      "owner": "npm",
+      "name": "MRY",
+      "descriptor": "(Liu1;)V"
+    },
+    {
+      "owner": "jso",
+      "name": "<init>",
+      "descriptor": "(Lnpm;)V"
+    },
+    {
+      "owner": "jso",
+      "name": "cfM",
+      "descriptor": "(Liu1;)V"
+    },
+    {
+      "owner": "RGd",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "RGd",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "RGd",
+      "name": "cfM",
+      "descriptor": "(LGlQ;)V"
+    },
+    {
+      "owner": "RGd",
+      "name": "cfM",
+      "descriptor": "(Liu1;)V"
+    },
+    {
+      "owner": "RGd",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "thz",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "thz",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/Object;)V"
+    },
+    {
+      "owner": "thz",
+      "name": "Hnt",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "dfI",
+      "name": "MIO",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dfI",
+      "name": "tp2",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "dqr",
+      "name": "runAsNextEvent",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "dpN",
+      "name": "runAsNextEvent",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "MJ",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "ERO",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/Rzi",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/XKG;)V"
+    },
+    {
+      "owner": "dqr",
+      "name": "E3",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "WWV",
+      "name": "Hnt",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/g2L",
+      "name": "WVl",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "TT",
+      "name": "fireEvent",
+      "descriptor": "(Ljava/lang/Object;)V"
+    },
+    {
+      "owner": "dfT",
+      "name": "MRY",
+      "descriptor": "(Z)Ljava/util/List;"
+    },
+    {
+      "owner": "dfT",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/ArrayList;ZLjava/util/concurrent/Semaphore;)V"
+    },
+    {
+      "owner": "dfI",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    },
+    {
+      "owner": "AUY",
+      "name": "a_",
+      "descriptor": "(Ljava/lang/Runnable;)V"
+    }
+  ],
+  "slots": [],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "FzB",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/Kiy",
+      "name": "cfM",
+      "descriptor": "(LpYi;Z)V"
+    }
+  ]
+}

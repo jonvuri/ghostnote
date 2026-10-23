@@ -1,0 +1,9245 @@
+{
+  "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+  "bounds": [
+    {
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "factory": {
+        "owner": "R8635",
+        "name": "r_E3",
+        "descriptor": "(LR11331;)LR11347;",
+        "flags": 1,
+        "codeBytes": 10,
+        "classSha256": "bb1d34b1958192d724e4e56362e6e9c9e6931012953a99f474e2c5a9ff02cdcd",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 6,
+            "opcode": 183,
+            "owner": "R11400",
+            "name": "<init>",
+            "descriptor": "(LR11331;LR8635;)V"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 187,
+            "args": [
+              0,
+              6
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "R11400"
+            }
+          },
+          {
+            "offset": 3,
+            "opcode": 89,
+            "args": []
+          },
+          {
+            "offset": 4,
+            "opcode": 43,
+            "args": []
+          },
+          {
+            "offset": 5,
+            "opcode": 42,
+            "args": []
+          },
+          {
+            "offset": 6,
+            "opcode": 183,
+            "args": [
+              0,
+              32
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "R11400",
+              "name": "<init>",
+              "descriptor": "(LR11331;LR8635;)V"
+            }
+          },
+          {
+            "offset": 9,
+            "opcode": 176,
+            "args": []
+          }
+        ]
+      },
+      "constructors": [
+        {
+          "owner": "R11400",
+          "name": "<init>",
+          "descriptor": "(LR11331;LR8635;)V",
+          "flags": 1,
+          "codeBytes": 40,
+          "classSha256": "0d578b3ee56cf3dbebd9163d0478f31d372f9075267bd072c2d4946ec5f61c29",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 8,
+              "opcode": 154,
+              "target": 34
+            },
+            {
+              "offset": 12,
+              "opcode": 198,
+              "target": 19
+            },
+            {
+              "offset": 16,
+              "opcode": 167,
+              "target": 20
+            },
+            {
+              "offset": 23,
+              "opcode": 154,
+              "target": 34
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11347",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            },
+            {
+              "offset": 5,
+              "opcode": 178,
+              "owner": "R11400",
+              "name": "r_cfM",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 20,
+              "opcode": 184,
+              "owner": "R19071",
+              "name": "r_MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 30,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 36,
+              "opcode": 181,
+              "owner": "R11400",
+              "name": "r_FzB",
+              "descriptor": "LR8635;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                25
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11347",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 178,
+              "args": [
+                0,
+                15
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11400",
+                "name": "r_cfM",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 8,
+              "opcode": 154,
+              "args": [
+                0,
+                26
+              ]
+            },
+            {
+              "offset": 11,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 12,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 15,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 16,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 19,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 20,
+              "opcode": 184,
+              "args": [
+                0,
+                16
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R19071",
+                "name": "r_MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 23,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 26,
+              "opcode": 187,
+              "args": [
+                0,
+                10
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 29,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 30,
+              "opcode": 183,
+              "args": [
+                0,
+                35
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 33,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 34,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 36,
+              "opcode": 181,
+              "args": [
+                0,
+                13
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11400",
+                "name": "r_FzB",
+                "descriptor": "LR8635;"
+              }
+            },
+            {
+              "offset": 39,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11347",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 6,
+          "classSha256": "fd8a511b4ff3dfffdf1400056514fa51c930e2963bcc30167fdac8f9c878226e",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11320",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                9
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11320",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11320",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 6,
+          "classSha256": "6a900777566b151826e365ed29bc1733093d9e0731edb5072475938b1cfc615b",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11360",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                12
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11360",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11360",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 39,
+          "classSha256": "2bcf556c5a3cf70cc600fcb9c8ffe1bcc57020a87b6018bfe20e45dfd18fe206",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 7,
+              "opcode": 154,
+              "target": 33
+            },
+            {
+              "offset": 11,
+              "opcode": 198,
+              "target": 18
+            },
+            {
+              "offset": 15,
+              "opcode": 167,
+              "target": 19
+            },
+            {
+              "offset": 22,
+              "opcode": 154,
+              "target": 33
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 183,
+              "owner": "R11405",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 4,
+              "opcode": 178,
+              "owner": "R11360",
+              "name": "r_Hnt",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 19,
+              "opcode": 184,
+              "owner": "R19071",
+              "name": "r_MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 29,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 35,
+              "opcode": 181,
+              "owner": "R11360",
+              "name": "r_MRY",
+              "descriptor": "LR11331;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 183,
+              "args": [
+                0,
+                17
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11405",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 178,
+              "args": [
+                0,
+                14
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_Hnt",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 7,
+              "opcode": 154,
+              "args": [
+                0,
+                26
+              ]
+            },
+            {
+              "offset": 10,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 11,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 14,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 15,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 18,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 19,
+              "opcode": 184,
+              "args": [
+                0,
+                16
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R19071",
+                "name": "r_MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 22,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 25,
+              "opcode": 187,
+              "args": [
+                0,
+                9
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 28,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 29,
+              "opcode": 183,
+              "args": [
+                0,
+                28
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 32,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 33,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 34,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 181,
+              "args": [
+                0,
+                15
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_MRY",
+                "descriptor": "LR11331;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11405",
+          "name": "<init>",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 5,
+          "classSha256": "9acae5ecaa43fcbc4625707477a6f1aa9d86bde4f5974be7008600ccc1f18ddd",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 183,
+              "owner": "java/lang/Object",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 183,
+              "args": [
+                0,
+                89
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Object",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "requiredTrueFlags": [
+        [
+          "R11360",
+          "r_Hnt",
+          "Z"
+        ],
+        [
+          "R11400",
+          "r_cfM",
+          "Z"
+        ],
+        [
+          "R11405",
+          "r_jOH",
+          "Z"
+        ]
+      ],
+      "initializers": [
+        {
+          "owner": "R11400",
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "flags": 8,
+          "codeBytes": 17,
+          "classSha256": "0d578b3ee56cf3dbebd9163d0478f31d372f9075267bd072c2d4946ec5f61c29",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 5,
+              "opcode": 154,
+              "target": 12
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "target": 13
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 182,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "owner": "R11400",
+              "name": "r_cfM",
+              "descriptor": "Z"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 18,
+              "args": [
+                3
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "R11400"
+              }
+            },
+            {
+              "offset": 2,
+              "opcode": 182,
+              "args": [
+                0,
+                36
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Class",
+                "name": "desiredAssertionStatus",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 8,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 12,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "args": [
+                0,
+                15
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11400",
+                "name": "r_cfM",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11360",
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "flags": 8,
+          "codeBytes": 17,
+          "classSha256": "2bcf556c5a3cf70cc600fcb9c8ffe1bcc57020a87b6018bfe20e45dfd18fe206",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 5,
+              "opcode": 154,
+              "target": 12
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "target": 13
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 182,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "owner": "R11360",
+              "name": "r_Hnt",
+              "descriptor": "Z"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 18,
+              "args": [
+                5
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "R11360"
+              }
+            },
+            {
+              "offset": 2,
+              "opcode": 182,
+              "args": [
+                0,
+                29
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Class",
+                "name": "desiredAssertionStatus",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 8,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 12,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "args": [
+                0,
+                14
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_Hnt",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11405",
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "flags": 8,
+          "codeBytes": 27,
+          "classSha256": "9acae5ecaa43fcbc4625707477a6f1aa9d86bde4f5974be7008600ccc1f18ddd",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 5,
+              "opcode": 154,
+              "target": 12
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "target": 13
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 182,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "owner": "R11405",
+              "name": "r_jOH",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 20,
+              "opcode": 183,
+              "owner": "java/lang/ThreadLocal",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 23,
+              "opcode": 179,
+              "owner": "R11405",
+              "name": "r_MRY",
+              "descriptor": "Ljava/lang/ThreadLocal;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 18,
+              "args": [
+                12
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "R11405"
+              }
+            },
+            {
+              "offset": 2,
+              "opcode": 182,
+              "args": [
+                0,
+                83
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Class",
+                "name": "desiredAssertionStatus",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 8,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 12,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "args": [
+                0,
+                42
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11405",
+                "name": "r_jOH",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 187,
+              "args": [
+                0,
+                29
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/ThreadLocal"
+              }
+            },
+            {
+              "offset": 19,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 20,
+              "opcode": 183,
+              "args": [
+                0,
+                92
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/ThreadLocal",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 23,
+              "opcode": 179,
+              "args": [
+                0,
+                41
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11405",
+                "name": "r_MRY",
+                "descriptor": "Ljava/lang/ThreadLocal;"
+              }
+            },
+            {
+              "offset": 26,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "objectAllocations": 1,
+      "constructorInstructionBound": 34,
+      "vendorConstructorCalls": 5,
+      "externalCalls": [
+        [
+          "java/lang/Object",
+          "<init>",
+          "()V"
+        ]
+      ],
+      "limits": [
+        "The bound excludes class initialization and the external Object constructor.",
+        "Every assertion field must be initialized and true before the native walk.",
+        "The ancestor walk needs a separate depth and cycle guard."
+      ],
+      "boundedAdmission": false,
+      "writeAuthority": false
+    },
+    {
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "factory": {
+        "owner": "R8636",
+        "name": "r_cfM",
+        "descriptor": "(LR11331;)LR11346;",
+        "flags": 1,
+        "codeBytes": 10,
+        "classSha256": "181f9b6bd4d98eaf6917e014c4e08d4f7d76ef05ef4234853f1c928a55056979",
+        "exceptionHandlers": [],
+        "branches": [],
+        "references": [
+          {
+            "offset": 6,
+            "opcode": 183,
+            "owner": "R11346",
+            "name": "<init>",
+            "descriptor": "(LR11331;LR8636;)V"
+          }
+        ],
+        "instructions": [
+          {
+            "offset": 0,
+            "opcode": 187,
+            "args": [
+              0,
+              12
+            ],
+            "constant": {
+              "tag": 7,
+              "value": "R11346"
+            }
+          },
+          {
+            "offset": 3,
+            "opcode": 89,
+            "args": []
+          },
+          {
+            "offset": 4,
+            "opcode": 43,
+            "args": []
+          },
+          {
+            "offset": 5,
+            "opcode": 42,
+            "args": []
+          },
+          {
+            "offset": 6,
+            "opcode": 183,
+            "args": [
+              0,
+              46
+            ],
+            "constant": {
+              "tag": 10,
+              "owner": "R11346",
+              "name": "<init>",
+              "descriptor": "(LR11331;LR8636;)V"
+            }
+          },
+          {
+            "offset": 9,
+            "opcode": 176,
+            "args": []
+          }
+        ]
+      },
+      "constructors": [
+        {
+          "owner": "R11346",
+          "name": "<init>",
+          "descriptor": "(LR11331;LR8636;)V",
+          "flags": 1,
+          "codeBytes": 11,
+          "classSha256": "23da973b0c73cd293affcba270ae8823b6e10938fcf33f60cb20144a47405c7c",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11347",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            },
+            {
+              "offset": 7,
+              "opcode": 181,
+              "owner": "R11346",
+              "name": "r_cfM",
+              "descriptor": "LR8636;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                10
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11347",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 6,
+              "opcode": 44,
+              "args": []
+            },
+            {
+              "offset": 7,
+              "opcode": 181,
+              "args": [
+                0,
+                9
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11346",
+                "name": "r_cfM",
+                "descriptor": "LR8636;"
+              }
+            },
+            {
+              "offset": 10,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11347",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 6,
+          "classSha256": "fd8a511b4ff3dfffdf1400056514fa51c930e2963bcc30167fdac8f9c878226e",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11320",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                9
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11320",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11320",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 6,
+          "classSha256": "6a900777566b151826e365ed29bc1733093d9e0731edb5072475938b1cfc615b",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 183,
+              "owner": "R11360",
+              "name": "<init>",
+              "descriptor": "(LR11331;)V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 2,
+              "opcode": 183,
+              "args": [
+                0,
+                12
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11360",
+                "name": "<init>",
+                "descriptor": "(LR11331;)V"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11360",
+          "name": "<init>",
+          "descriptor": "(LR11331;)V",
+          "flags": 4,
+          "codeBytes": 39,
+          "classSha256": "2bcf556c5a3cf70cc600fcb9c8ffe1bcc57020a87b6018bfe20e45dfd18fe206",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 7,
+              "opcode": 154,
+              "target": 33
+            },
+            {
+              "offset": 11,
+              "opcode": 198,
+              "target": 18
+            },
+            {
+              "offset": 15,
+              "opcode": 167,
+              "target": 19
+            },
+            {
+              "offset": 22,
+              "opcode": 154,
+              "target": 33
+            }
+          ],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 183,
+              "owner": "R11405",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 4,
+              "opcode": 178,
+              "owner": "R11360",
+              "name": "r_Hnt",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 19,
+              "opcode": 184,
+              "owner": "R19071",
+              "name": "r_MRY",
+              "descriptor": "(Z)Z"
+            },
+            {
+              "offset": 29,
+              "opcode": 183,
+              "owner": "java/lang/AssertionError",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 35,
+              "opcode": 181,
+              "owner": "R11360",
+              "name": "r_MRY",
+              "descriptor": "LR11331;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 183,
+              "args": [
+                0,
+                17
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R11405",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 178,
+              "args": [
+                0,
+                14
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_Hnt",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 7,
+              "opcode": 154,
+              "args": [
+                0,
+                26
+              ]
+            },
+            {
+              "offset": 10,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 11,
+              "opcode": 198,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 14,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 15,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 18,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 19,
+              "opcode": 184,
+              "args": [
+                0,
+                16
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "R19071",
+                "name": "r_MRY",
+                "descriptor": "(Z)Z"
+              }
+            },
+            {
+              "offset": 22,
+              "opcode": 154,
+              "args": [
+                0,
+                11
+              ]
+            },
+            {
+              "offset": 25,
+              "opcode": 187,
+              "args": [
+                0,
+                9
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/AssertionError"
+              }
+            },
+            {
+              "offset": 28,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 29,
+              "opcode": 183,
+              "args": [
+                0,
+                28
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/AssertionError",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 32,
+              "opcode": 191,
+              "args": []
+            },
+            {
+              "offset": 33,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 34,
+              "opcode": 43,
+              "args": []
+            },
+            {
+              "offset": 35,
+              "opcode": 181,
+              "args": [
+                0,
+                15
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_MRY",
+                "descriptor": "LR11331;"
+              }
+            },
+            {
+              "offset": 38,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11405",
+          "name": "<init>",
+          "descriptor": "()V",
+          "flags": 1,
+          "codeBytes": 5,
+          "classSha256": "9acae5ecaa43fcbc4625707477a6f1aa9d86bde4f5974be7008600ccc1f18ddd",
+          "exceptionHandlers": [],
+          "branches": [],
+          "references": [
+            {
+              "offset": 1,
+              "opcode": 183,
+              "owner": "java/lang/Object",
+              "name": "<init>",
+              "descriptor": "()V"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 42,
+              "args": []
+            },
+            {
+              "offset": 1,
+              "opcode": 183,
+              "args": [
+                0,
+                89
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Object",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 4,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "requiredTrueFlags": [
+        [
+          "R11360",
+          "r_Hnt",
+          "Z"
+        ],
+        [
+          "R11405",
+          "r_jOH",
+          "Z"
+        ]
+      ],
+      "initializers": [
+        {
+          "owner": "R11360",
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "flags": 8,
+          "codeBytes": 17,
+          "classSha256": "2bcf556c5a3cf70cc600fcb9c8ffe1bcc57020a87b6018bfe20e45dfd18fe206",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 5,
+              "opcode": 154,
+              "target": 12
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "target": 13
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 182,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "owner": "R11360",
+              "name": "r_Hnt",
+              "descriptor": "Z"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 18,
+              "args": [
+                5
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "R11360"
+              }
+            },
+            {
+              "offset": 2,
+              "opcode": 182,
+              "args": [
+                0,
+                29
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Class",
+                "name": "desiredAssertionStatus",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 8,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 12,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "args": [
+                0,
+                14
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11360",
+                "name": "r_Hnt",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        },
+        {
+          "owner": "R11405",
+          "name": "<clinit>",
+          "descriptor": "()V",
+          "flags": 8,
+          "codeBytes": 27,
+          "classSha256": "9acae5ecaa43fcbc4625707477a6f1aa9d86bde4f5974be7008600ccc1f18ddd",
+          "exceptionHandlers": [],
+          "branches": [
+            {
+              "offset": 5,
+              "opcode": 154,
+              "target": 12
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "target": 13
+            }
+          ],
+          "references": [
+            {
+              "offset": 2,
+              "opcode": 182,
+              "owner": "java/lang/Class",
+              "name": "desiredAssertionStatus",
+              "descriptor": "()Z"
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "owner": "R11405",
+              "name": "r_jOH",
+              "descriptor": "Z"
+            },
+            {
+              "offset": 20,
+              "opcode": 183,
+              "owner": "java/lang/ThreadLocal",
+              "name": "<init>",
+              "descriptor": "()V"
+            },
+            {
+              "offset": 23,
+              "opcode": 179,
+              "owner": "R11405",
+              "name": "r_MRY",
+              "descriptor": "Ljava/lang/ThreadLocal;"
+            }
+          ],
+          "instructions": [
+            {
+              "offset": 0,
+              "opcode": 18,
+              "args": [
+                12
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "R11405"
+              }
+            },
+            {
+              "offset": 2,
+              "opcode": 182,
+              "args": [
+                0,
+                83
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/Class",
+                "name": "desiredAssertionStatus",
+                "descriptor": "()Z"
+              }
+            },
+            {
+              "offset": 5,
+              "opcode": 154,
+              "args": [
+                0,
+                7
+              ]
+            },
+            {
+              "offset": 8,
+              "opcode": 4,
+              "args": []
+            },
+            {
+              "offset": 9,
+              "opcode": 167,
+              "args": [
+                0,
+                4
+              ]
+            },
+            {
+              "offset": 12,
+              "opcode": 3,
+              "args": []
+            },
+            {
+              "offset": 13,
+              "opcode": 179,
+              "args": [
+                0,
+                42
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11405",
+                "name": "r_jOH",
+                "descriptor": "Z"
+              }
+            },
+            {
+              "offset": 16,
+              "opcode": 187,
+              "args": [
+                0,
+                29
+              ],
+              "constant": {
+                "tag": 7,
+                "value": "java/lang/ThreadLocal"
+              }
+            },
+            {
+              "offset": 19,
+              "opcode": 89,
+              "args": []
+            },
+            {
+              "offset": 20,
+              "opcode": 183,
+              "args": [
+                0,
+                92
+              ],
+              "constant": {
+                "tag": 10,
+                "owner": "java/lang/ThreadLocal",
+                "name": "<init>",
+                "descriptor": "()V"
+              }
+            },
+            {
+              "offset": 23,
+              "opcode": 179,
+              "args": [
+                0,
+                41
+              ],
+              "constant": {
+                "tag": 9,
+                "owner": "R11405",
+                "name": "r_MRY",
+                "descriptor": "Ljava/lang/ThreadLocal;"
+              }
+            },
+            {
+              "offset": 26,
+              "opcode": 177,
+              "args": []
+            }
+          ]
+        }
+      ],
+      "objectAllocations": 1,
+      "constructorInstructionBound": 32,
+      "vendorConstructorCalls": 5,
+      "externalCalls": [
+        [
+          "java/lang/Object",
+          "<init>",
+          "()V"
+        ]
+      ],
+      "limits": [
+        "The bound excludes class initialization and the external Object constructor.",
+        "Every assertion field must be initialized and true before the native walk.",
+        "The ancestor walk needs a separate depth and cycle guard."
+      ],
+      "boundedAdmission": false,
+      "writeAuthority": false
+    }
+  ],
+  "contracts": {
+    "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+    "matched": [
+      {
+        "source": [
+          "com/bitwig/ramona/core/yTf",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          "R11320",
+          "<init>",
+          "(LR11331;)V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "2ebaf38f95569aa4b4e9797aeb7bc16681ecf458a247429cafdff32179fb3db6",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/fBS",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          "R11347",
+          "<init>",
+          "(LR11331;)V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "2ebaf38f95569aa4b4e9797aeb7bc16681ecf458a247429cafdff32179fb3db6",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/hN",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          "R11360",
+          "<clinit>",
+          "()V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "5e7fdd3d148d1446e3edee0a02b3d39d993e19f210cb554dd3ed1e886ef082ac",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/hN",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          "R11360",
+          "<init>",
+          "(LR11331;)V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "d0cb13449534d220a1b0edfcf6c91dbafe35745891ba6b021c0dbda488adb651",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/scI",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          "R11400",
+          "<clinit>",
+          "()V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "5e7fdd3d148d1446e3edee0a02b3d39d993e19f210cb554dd3ed1e886ef082ac",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/scI",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;LcYz;)V"
+        ],
+        "target": [
+          "R11400",
+          "<init>",
+          "(LR11331;LR8635;)V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "828fd7cfd86d0848ed59e5255fbed739bd619a9ea65cfce2bed552f9bcd07329",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/ikl",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          "R11405",
+          "<clinit>",
+          "()V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "2acd2fa766df921c8b79cba2e9d7a0ff3a6c2e558d96657ce870bab93c6c7aed",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/ikl",
+          "<init>",
+          "()V"
+        ],
+        "target": [
+          "R11405",
+          "<init>",
+          "()V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "825c447eff5b590112fad04cc134fdf77f2b27bf66aea68a336afc77363a244b",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "cYz",
+          "QiZ",
+          "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/fBS;"
+        ],
+        "target": [
+          "R8635",
+          "r_E3",
+          "(LR11331;)LR11347;"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "07dc756ebce2c3cc1ea0f68754f07605decd7556a5af51bced7023074b60cb7e",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "cYy",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/UZp;"
+        ],
+        "target": [
+          "R8636",
+          "r_cfM",
+          "(LR11331;)LR11346;"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "cebeceb46749e1e0c422f52a2ad4277a0f595ba0a1093c5522ff9a5dcb76326f",
+        "unresolvedDeclarations": [],
+        "round": 0
+      },
+      {
+        "source": [
+          "com/bitwig/ramona/core/UZp",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;LcYy;)V"
+        ],
+        "target": [
+          "R11346",
+          "<init>",
+          "(LR11331;LR8636;)V"
+        ],
+        "contract": "exact-local-contract",
+        "digest": "7ece344de00ed0b82b09ab9def36ed644ec612d58161fb44aeb6d30d5097b2db",
+        "unresolvedDeclarations": [],
+        "round": 1
+      }
+    ],
+    "unmatched": [],
+    "typeBindings": {
+      "Hjt": "R22561",
+      "KgN": "R2459",
+      "LG": "R28258",
+      "Lqu": "R4124",
+      "SdO": "R27612",
+      "cJT": "R19071",
+      "cJv": "R19149",
+      "cNL": "R18865",
+      "cXV": "R8612",
+      "cYF": "R8630",
+      "cYH": "R8573",
+      "cYx": "R8637",
+      "cYz": "R8635",
+      "cZl": "R8592",
+      "cZv": "R8581",
+      "com/bitwig/base/geom/ziZ": "R17711",
+      "com/bitwig/flt/document/core/master/B3E": "R15313",
+      "com/bitwig/flt/document/core/master/device/DbL": "R14729",
+      "com/bitwig/flt/document/core/master/device/NDn": "R14681",
+      "com/bitwig/flt/document/core/master/device/NHx": "R15147",
+      "com/bitwig/flt/document/core/master/device/Net": "R15041",
+      "com/bitwig/flt/document/core/master/device/QHo": "R15141",
+      "com/bitwig/flt/document/core/master/device/RHk": "R14807",
+      "com/bitwig/flt/document/core/master/device/SwV": "R15001",
+      "com/bitwig/flt/document/core/master/device/Wxc": "R14808",
+      "com/bitwig/flt/document/core/master/device/YYz": "R15115",
+      "com/bitwig/flt/document/core/master/device/cbl": "R14948",
+      "com/bitwig/flt/document/core/master/device/gOr": "R15066",
+      "com/bitwig/flt/document/core/master/device/had": "R15055",
+      "com/bitwig/flt/document/core/master/device/rmP": "R14974",
+      "com/bitwig/flt/document/core/master/device/xWk": "R15105",
+      "com/bitwig/ramona/core/HEV": "R11331",
+      "com/bitwig/ramona/core/Ibf": "R11355",
+      "com/bitwig/ramona/core/UL": "R11319",
+      "com/bitwig/ramona/core/ikl": "R11405",
+      "com/bitwig/ramona/core/nAR": "R11404",
+      "com/bitwig/ramona/core/oQq": "R11313",
+      "com/bitwig/ramona/core/toM": "R11335",
+      "com/bitwig/ramona/core/uX1": "R11365",
+      "com/bitwig/ramona/core/wfl": "R11389",
+      "com/bitwig/ramona/core/xlb": "R11337",
+      "com/bitwig/ramona/core/ytV": "R11356",
+      "com/bitwig/ramona/core/ziZ": "R11399",
+      "com/bitwig/ramona/serial/vWM": "R11025",
+      "com/bitwig/ramona/serial/ytV": "R11028",
+      "com/bitwig/ramona/serial/ziZ": "R11054",
+      "daR": "R8448",
+      "jas": "R18999",
+      "llL": "R22868",
+      "oYU": "R3802",
+      "qOs": "R29024",
+      "xQx": "R1140",
+      "QY": "R27375",
+      "iEc": "R22176",
+      "com/bitwig/ramona/core/syr": "R11334",
+      "zVP": "R25924",
+      "Xuo": "R27693",
+      "TNT": "R1031",
+      "cYQ": "R8561",
+      "com/bitwig/flt/document/core/master/device/S2E": "R15154",
+      "com/bitwig/flt/document/core/master/device/mvZ": "R14937",
+      "JFK": "R26317",
+      "Kdl": "R30436",
+      "LaB": "R4480",
+      "FEG": "R8511",
+      "ri3": "R4566",
+      "DHY": "R1482",
+      "dkb": "R31249",
+      "mbe": "R27246",
+      "Gn": "R31250",
+      "dCC": "R398",
+      "tqm": "R29823",
+      "uNh": "R26051",
+      "MUT": "R2426",
+      "ipr": "R2002",
+      "bcf": "R1982",
+      "rpR": "R1674",
+      "qDn": "R3598",
+      "YJr": "R162",
+      "ccA": "R24869",
+      "qLb": "R3894",
+      "nST": "R28821",
+      "hsO": "R31113",
+      "TXU": "R28099",
+      "ITE": "R2691",
+      "cXZ": "R8608",
+      "cYs": "R8642",
+      "com/bitwig/base/geom/jzG": "R17692",
+      "cYu": "R8640",
+      "iYc": "R29268",
+      "com/bitwig/flt/document/core/master/device/WAr": "R14985",
+      "com/bitwig/flt/document/core/master/device/Kdw": "R15005",
+      "com/bitwig/flt/document/core/master/YOT": "R15232",
+      "com/bitwig/flt/document/core/master/device/Ymq": "R14809",
+      "SgA": "R2836",
+      "com/bitwig/flt/document/core/master/device/DtR": "R14820",
+      "com/bitwig/flt/document/core/master/device/ziZ": "R15131",
+      "com/bitwig/ramona/core/OEf": "R11397",
+      "com/bitwig/ramona/core/hN": "R11360",
+      "lfC": "R28630",
+      "umJ": "R3027",
+      "QAi": "R7478",
+      "Jfu": "R4303",
+      "JtC": "R30193",
+      "eSS": "R31361",
+      "com/bitwig/flt/document/core/master/Svr": "R14623",
+      "g2m": "R29007",
+      "rez": "R21451",
+      "MHV": "R29068",
+      "zOY": "R6703",
+      "com/bitwig/ramona/core/scI": "R11400",
+      "y1O": "R2052",
+      "com/bitwig/ramona/core/FZ1": "R11371",
+      "rNl": "R24918",
+      "ubF": "R29627",
+      "OQO": "R24811",
+      "com/bitwig/flt/document/core/master/device/ar": "R14811",
+      "EBi": "R25946",
+      "Tu": "R4020",
+      "WDu": "R30274",
+      "com/bitwig/ramona/serial/GCp": "R11021",
+      "EzU": "R20127",
+      "yAC": "R27600",
+      "Qtf": "R477",
+      "SCi": "R1579",
+      "ILB": "R26381",
+      "com/bitwig/base/geom/Of": "R17712",
+      "com/bitwig/flt/document/core/master/Ymq": "R15452",
+      "com/bitwig/flt/document/core/master/device/UZp": "R14677",
+      "com/bitwig/flt/document/core/master/device/bnu": "R14663",
+      "com/bitwig/flt/document/core/master/device/hwy": "R14984",
+      "com/bitwig/flt/document/core/master/device/OEf": "R15116",
+      "com/bitwig/flt/document/core/master/device/xts": "R15000",
+      "com/bitwig/ramona/core/yTf": "R11320",
+      "com/bitwig/ramona/core/fBS": "R11347",
+      "JUx": "R25513",
+      "KSO": "R28524",
+      "Xin": "R2662",
+      "YHE": "R761",
+      "ZwV": "R20794",
+      "zrk": "R5281",
+      "pzY": "R26954",
+      "rHF": "R27041",
+      "rjH": "R28698",
+      "com/bitwig/flt/document/core/master/device/XuU": "R15057",
+      "qOW": "R30673",
+      "com/bitwig/flt/document/core/master/device/ilU": "R15016",
+      "nen": "R20074",
+      "shw": "R2111",
+      "BDU": "R29413",
+      "EiO": "R1589",
+      "vST": "R30524",
+      "ZRs": "R21348",
+      "fkV": "R26289",
+      "IBF": "R26728",
+      "UFk": "R27280",
+      "com/bitwig/flt/document/core/master/device/Ibf": "R15101",
+      "com/bitwig/flt/document/core/master/device/XSa": "R15150",
+      "com/bitwig/flt/document/core/master/device/yWH": "R14680",
+      "com/bitwig/flt/document/core/master/device/vWM": "R14799",
+      "com/bitwig/flt/document/core/master/device/UL": "R14892",
+      "qdg": "R27631",
+      "BSW": "R25509",
+      "a": "R3316",
+      "uM3": "R1174",
+      "k1f": "R25923",
+      "tyB": "R31583",
+      "com/bitwig/flt/document/core/master/device/uVZ": "R14997",
+      "com/bitwig/flt/document/core/master/device/WTi": "R15148",
+      "com/bitwig/flt/document/core/master/device/ubQ": "R14923",
+      "EXF": "R22358",
+      "MTu": "R21668",
+      "IXs": "R29671",
+      "GAQ": "R28977",
+      "MmR": "R24622",
+      "F1I": "R21615",
+      "com/bitwig/flt/document/core/master/device/pyQ": "R14805",
+      "com/bitwig/flt/document/core/master/device/bvn": "R15006",
+      "com/bitwig/flt/document/core/master/device/ytV": "R14933",
+      "com/bitwig/flt/document/core/master/device/Dnj": "R14914",
+      "com/bitwig/flt/document/core/master/device/aI3": "R14693",
+      "EvB": "R26962",
+      "PAl": "R28907",
+      "com/bitwig/flt/document/core/master/device/jzG": "R14954",
+      "com/bitwig/flt/document/core/master/device/Ct": "R15069",
+      "PAA": "R30705",
+      "D1G": "R27450",
+      "Hki": "R4072",
+      "abs": "R564",
+      "Ece": "R4998",
+      "xYe": "R25764",
+      "axj": "R706",
+      "fru": "R26707",
+      "rOk": "R1104",
+      "zVe": "R30335",
+      "yhl": "R31336",
+      "qFU": "R30325",
+      "UVN": "R25986",
+      "CrZ": "R1238",
+      "Vfr": "R31063",
+      "nQZ": "R2864",
+      "RM": "R29587",
+      "com/bitwig/flt/document/core/master/device/DCg": "R14928",
+      "com/bitwig/flt/document/core/master/device/Zjp": "R14898",
+      "com/bitwig/flt/document/core/master/device/ddc": "R14987",
+      "com/bitwig/flt/document/core/master/device/euX": "R15013",
+      "com/bitwig/flt/document/core/master/device/IYr": "R14837",
+      "com/bitwig/flt/document/core/master/device/lCY": "R14904",
+      "com/bitwig/flt/document/core/master/device/esS": "R14973",
+      "com/bitwig/flt/document/core/master/device/Jym": "R14833",
+      "com/bitwig/flt/document/core/master/device/YAD": "R14724",
+      "com/bitwig/flt/document/core/master/device/zXf": "R15032",
+      "com/bitwig/flt/document/core/master/device/liz": "R15045",
+      "com/bitwig/flt/document/core/master/device/GA": "R15054",
+      "com/bitwig/flt/document/core/master/device/hqz": "R14940",
+      "com/bitwig/flt/document/core/master/device/iBG": "R14753",
+      "vNR": "R28871",
+      "uLs": "R3105",
+      "QgB": "R28050",
+      "com/bitwig/flt/document/core/master/device/dbF": "R14775",
+      "com/bitwig/flt/document/core/master/device/B3E": "R15044",
+      "elR": "R4070",
+      "Gmh": "R28082",
+      "com/bitwig/flt/document/core/master/device/WZo": "R14992",
+      "com/bitwig/flt/document/core/master/device/GCp": "R14725",
+      "com/bitwig/flt/document/core/master/device/HVJ": "R14828",
+      "com/bitwig/flt/document/core/master/device/uqc": "R14719",
+      "com/bitwig/flt/document/core/master/device/Grz": "R15002",
+      "com/bitwig/flt/document/core/master/device/U1E": "R14702",
+      "com/bitwig/flt/document/core/master/device/P1t": "R14942",
+      "com/bitwig/flt/document/core/master/device/EiB": "R14694",
+      "com/bitwig/flt/document/core/master/device/OA": "R14919",
+      "com/bitwig/flt/document/core/master/device/QVE": "R15137",
+      "Gwj": "R27702",
+      "Aot": "R2869",
+      "zdT": "R4143",
+      "com/bitwig/flt/document/core/master/device/shO": "R15007",
+      "com/bitwig/flt/document/core/master/device/UvS": "R15039",
+      "BDc": "R4573",
+      "ji": "R7860",
+      "c3U": "R3898",
+      "FfG": "R31405",
+      "Rsz": "R26107",
+      "gmh": "R2939",
+      "Ngv": "R4634",
+      "WTB": "R29937",
+      "YoM": "R29089",
+      "gGL": "R409",
+      "ftf": "R1305",
+      "eXl": "R24068",
+      "cYK": "R8568",
+      "cYc": "R8605",
+      "cYm": "R8648",
+      "cXT": "R8614",
+      "mge": "R789",
+      "cYL": "R8566",
+      "cYy": "R8636",
+      "MMV": "R25236",
+      "aOS": "R25130",
+      "agh": "R25077",
+      "XYf": "R24971",
+      "HiU": "R24705",
+      "hdr": "R24280",
+      "ayk": "R24174",
+      "uaT": "R21191",
+      "z2V": "R20925",
+      "Fev": "R20606",
+      "fUy": "R20500",
+      "UWD": "R22728",
+      "CiL": "R22622",
+      "hVV": "R22410",
+      "uHg": "R22304",
+      "Q3r": "R22198",
+      "Hxf": "R22092",
+      "Zcl": "R22039",
+      "OYS": "R21933",
+      "ovU": "R18418",
+      "fpL": "R27993",
+      "C3V": "R514",
+      "zY2": "R31373",
+      "com/bitwig/flt/document/core/master/device/xuq": "R15074",
+      "com/bitwig/flt/document/core/master/device/sEo": "R14691",
+      "com/bitwig/flt/document/core/master/device/S1R": "R14795",
+      "com/bitwig/flt/document/core/master/device/Zis": "R15139",
+      "com/bitwig/flt/document/core/master/device/Bzc": "R15160",
+      "dhi": "R27503",
+      "com/bitwig/flt/document/core/master/device/AR": "R14685",
+      "mn": "R29589",
+      "com/bitwig/flt/document/core/master/device/hwb": "R14781",
+      "enM": "R29203",
+      "com/bitwig/flt/document/core/master/device/UAn": "R15130",
+      "Qlr": "R4601",
+      "s2W": "R27286",
+      "Cp": "R30088",
+      "whD": "R26886",
+      "g3C": "R19675",
+      "com/bitwig/ramona/core/UZp": "R11346"
+    },
+    "memberBindings": [
+      {
+        "source": [
+          9,
+          "Gn",
+          "cG3",
+          "Lcom/bitwig/flt/document/core/master/Svr;"
+        ],
+        "target": [
+          9,
+          "R31250",
+          "r_Hnt",
+          "LR14623;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "QAi",
+          "eOi",
+          "Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          9,
+          "R7478",
+          "r_MRY",
+          "LR11331;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "Xuo",
+          "SRu",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R27693",
+          "r_eLY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "YJr",
+          "GC",
+          "Lrez;"
+        ],
+        "target": [
+          9,
+          "R162",
+          "r_nfq",
+          "LR21451;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "YJr",
+          "JD1",
+          "Ljava/util/List;"
+        ],
+        "target": [
+          9,
+          "R162",
+          "r_iW2",
+          "Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "YJr",
+          "Kep",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R162",
+          "r_uEz",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "YJr",
+          "Ye3",
+          "LzOY;"
+        ],
+        "target": [
+          9,
+          "R162",
+          "r_tSS",
+          "LR6703;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cNL",
+          "cG3",
+          "LcNL;"
+        ],
+        "target": [
+          9,
+          "R18865",
+          "r_Hnt",
+          "LR18865;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cXV",
+          "NaF",
+          "[LcYF;"
+        ],
+        "target": [
+          9,
+          "R8612",
+          "r_IwV",
+          "[LR8630;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cXV",
+          "ffA",
+          "I"
+        ],
+        "target": [
+          9,
+          "R8612",
+          "r_cfM",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cXZ",
+          "ffA",
+          "Ljava/lang/String;"
+        ],
+        "target": [
+          9,
+          "R8608",
+          "r_cfM",
+          "Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cYs",
+          "ffA",
+          "I"
+        ],
+        "target": [
+          9,
+          "R8642",
+          "r_cfM",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "EbT",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_iHb",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "Ode",
+          "I"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_vpw",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "Uhv",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_FzB",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "W2P",
+          "Ljava/util/Map;"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_TtY",
+          "Ljava/util/Map;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "YLA",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_qoU",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cZl",
+          "ffA",
+          "Ljava/util/Map;"
+        ],
+        "target": [
+          9,
+          "R8592",
+          "r_cfM",
+          "Ljava/util/Map;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "ccA",
+          "VGI",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R24869",
+          "r_BDm",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "ccA",
+          "nrP",
+          "LMTu;"
+        ],
+        "target": [
+          9,
+          "R24869",
+          "r_iCS",
+          "LR21668;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/Svr",
+          "Xg",
+          "LcYQ;"
+        ],
+        "target": [
+          9,
+          "R14623",
+          "r_XTb",
+          "LR8561;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "YRi",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15452",
+          "r_Dys",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "YYI",
+          "LrjH;"
+        ],
+        "target": [
+          9,
+          "R15452",
+          "r_xlY",
+          "LR28698;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "D1G",
+          "I"
+        ],
+        "target": [
+          9,
+          "R14820",
+          "r_BDm",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "RFo",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R14820",
+          "r_TgI",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "dRD",
+          "I"
+        ],
+        "target": [
+          9,
+          "R14820",
+          "r_jhH",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "NaF",
+          "Ljava/util/List;"
+        ],
+        "target": [
+          9,
+          "R15147",
+          "r_IwV",
+          "Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "kG",
+          "Ljava/util/Map;"
+        ],
+        "target": [
+          9,
+          "R15147",
+          "r_hUR",
+          "Ljava/util/Map;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "wi2",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15147",
+          "r_TMF",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "EbT",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15041",
+          "r_iHb",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "Ozt",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15116",
+          "r_PD3",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "cG3",
+          "Ljava/util/UUID;"
+        ],
+        "target": [
+          9,
+          "R15116",
+          "r_Hnt",
+          "Ljava/util/UUID;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "kyi",
+          "Lcom/bitwig/flt/document/core/master/device/XuU;"
+        ],
+        "target": [
+          9,
+          "R15116",
+          "r_UNj",
+          "LR15057;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "rdo",
+          "LqOW;"
+        ],
+        "target": [
+          9,
+          "R15116",
+          "r_BNq",
+          "LR30673;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "RR",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15141",
+          "r_wYK",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "TCl",
+          "B"
+        ],
+        "target": [
+          9,
+          "R15141",
+          "r_sut",
+          "B"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "oIa",
+          "B"
+        ],
+        "target": [
+          9,
+          "R15141",
+          "r_fFM",
+          "B"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "kyi",
+          "Lcom/bitwig/flt/document/core/master/device/yWH;"
+        ],
+        "target": [
+          9,
+          "R14892",
+          "r_UNj",
+          "LR14680;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "pvN",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R14892",
+          "r_lYc",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "W2P",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15066",
+          "r_TtY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "pvN",
+          "LcZv;"
+        ],
+        "target": [
+          9,
+          "R15066",
+          "r_lYc",
+          "LR8581;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/flt/document/core/master/device/ilU",
+          "eOi",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R15016",
+          "r_MRY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/HEV",
+          "NaF",
+          "Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          9,
+          "R11331",
+          "r_IwV",
+          "LR11331;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/HEV",
+          "b3M",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11331",
+          "r_xPh",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/HEV",
+          "cG3",
+          "I"
+        ],
+        "target": [
+          9,
+          "R11331",
+          "r_Hnt",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "MkF",
+          "Ljava/util/Set;"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_wGc",
+          "Ljava/util/Set;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "NaF",
+          "Ljava/lang/String;"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_IwV",
+          "Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "QiZ",
+          "I"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_E3",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "SRu",
+          "Ljava/util/Stack;"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_eLY",
+          "Ljava/util/Stack;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "Uhv",
+          "Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_FzB",
+          "LR11365;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "cG3",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_Hnt",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "eOi",
+          "Lcom/bitwig/ramona/core/ytV;"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_MRY",
+          "LR11356;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "kyi",
+          "I"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_UNj",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "pvN",
+          "I"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_lYc",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/Ibf",
+          "wi2",
+          "I"
+        ],
+        "target": [
+          9,
+          "R11355",
+          "r_TMF",
+          "I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ikl",
+          "tPr",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11405",
+          "r_jOH",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/uX1",
+          "NaF",
+          "Lcom/bitwig/ramona/core/UL;"
+        ],
+        "target": [
+          9,
+          "R11365",
+          "r_UNj",
+          "LR11319;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/uX1",
+          "ZzB",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11365",
+          "r_dnz",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/uX1",
+          "eOi",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11365",
+          "r_MRY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/uX1",
+          "wi2",
+          "Ljava/util/List;"
+        ],
+        "target": [
+          9,
+          "R11365",
+          "r_lYc",
+          "Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/xlb",
+          "cG3",
+          "Ljava/util/Set;"
+        ],
+        "target": [
+          9,
+          "R11337",
+          "r_Hnt",
+          "Ljava/util/Set;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/xlb",
+          "eOi",
+          "Ljava/lang/String;"
+        ],
+        "target": [
+          9,
+          "R11337",
+          "r_MRY",
+          "Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/xlb",
+          "ffA",
+          "Ljava/lang/String;"
+        ],
+        "target": [
+          9,
+          "R11337",
+          "r_cfM",
+          "Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ytV",
+          "SRu",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11356",
+          "r_eLY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ytV",
+          "W2P",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11356",
+          "r_TtY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ytV",
+          "eOi",
+          "Lcom/bitwig/ramona/core/Ibf;"
+        ],
+        "target": [
+          9,
+          "R11356",
+          "r_MRY",
+          "LR11355;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ytV",
+          "ffA",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11356",
+          "r_cfM",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/vWM",
+          "NaF",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11025",
+          "r_IwV",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/vWM",
+          "Uhv",
+          "Lcom/bitwig/ramona/serial/vWM;"
+        ],
+        "target": [
+          9,
+          "R11025",
+          "r_FzB",
+          "LR11025;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/vWM",
+          "cG3",
+          "Lcom/bitwig/ramona/serial/vWM;"
+        ],
+        "target": [
+          9,
+          "R11025",
+          "r_Hnt",
+          "LR11025;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/vWM",
+          "ffA",
+          "Lcom/bitwig/ramona/serial/ziZ;"
+        ],
+        "target": [
+          9,
+          "R11025",
+          "r_cfM",
+          "LR11054;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/ytV",
+          "eOi",
+          "Lcom/bitwig/ramona/serial/ziZ;"
+        ],
+        "target": [
+          9,
+          "R11028",
+          "r_MRY",
+          "LR11054;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/serial/ytV",
+          "ffA",
+          "Lcom/bitwig/ramona/serial/ziZ;"
+        ],
+        "target": [
+          9,
+          "R11028",
+          "r_cfM",
+          "LR11054;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "MkF",
+          "LcZv;"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_wGc",
+          "LR8581;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "NaF",
+          "LcZv;"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_IwV",
+          "LR8581;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "QiZ",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_E3",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "Uhv",
+          "LcZl;"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_FzB",
+          "LR8592;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "eOi",
+          "Lcom/bitwig/ramona/core/ziZ;"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_MRY",
+          "LR11399;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "ffA",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_cfM",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "kG",
+          "LcZv;"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_hUR",
+          "LR8581;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "daR",
+          "pvN",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8448",
+          "r_lYc",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "g2m",
+          "ffA",
+          "Lg2m;"
+        ],
+        "target": [
+          9,
+          "R29007",
+          "r_cfM",
+          "LR29007;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "mbe",
+          "eOi",
+          "Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          9,
+          "R27246",
+          "r_MRY",
+          "LR11331;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "nST",
+          "ffA",
+          "LTu;"
+        ],
+        "target": [
+          9,
+          "R28821",
+          "r_cfM",
+          "LR4020;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "rjH",
+          "Uhv",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R28698",
+          "r_FzB",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "rjH",
+          "cG3",
+          "LrjH;"
+        ],
+        "target": [
+          9,
+          "R28698",
+          "r_Hnt",
+          "LR28698;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "rjH",
+          "eOi",
+          "LrjH;"
+        ],
+        "target": [
+          9,
+          "R28698",
+          "r_MRY",
+          "LR28698;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "rjH",
+          "ffA",
+          "LrjH;"
+        ],
+        "target": [
+          9,
+          "R28698",
+          "r_cfM",
+          "LR28698;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "rjH",
+          "wi2",
+          "[LrjH;"
+        ],
+        "target": [
+          9,
+          "R28698",
+          "r_TMF",
+          "[LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "DHY",
+          "eOi",
+          "(LLaB;)V"
+        ],
+        "target": [
+          10,
+          "R1482",
+          "r_MRY",
+          "(LR4480;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "EBi",
+          "Uhv",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R25946",
+          "r_FzB",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "EBi",
+          "cG3",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R25946",
+          "r_Hnt",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "FEG",
+          "eOi",
+          "(Ljava/lang/String;)LFEG;"
+        ],
+        "target": [
+          10,
+          "R8511",
+          "r_MRY",
+          "(Ljava/lang/String;)LR8511;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Gn",
+          "dC_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R31250",
+          "r_ix_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Hjt",
+          "IpW",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R22561",
+          "r_bax",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Hjt",
+          "eOi",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R22561",
+          "r_MRY",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Hjt",
+          "ffA",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R22561",
+          "r_cfM",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Kdl",
+          "eOi",
+          "(LJFK;)LKdl;"
+        ],
+        "target": [
+          10,
+          "R30436",
+          "r_MRY",
+          "(LR26317;)LR30436;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "KgN",
+          "ffA",
+          "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R2459",
+          "r_cfM",
+          "(LR8573;LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Lqu",
+          "asI",
+          "()LxQx;"
+        ],
+        "target": [
+          10,
+          "R4124",
+          "r_fJR",
+          "()LR1140;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "MHV",
+          "KE3",
+          "()LcYz;"
+        ],
+        "target": [
+          10,
+          "R29068",
+          "r_wuu",
+          "()LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "OQO",
+          "MkF",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24811",
+          "r_wGc",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "OQO",
+          "iUG",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24811",
+          "r_qoU",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QAi",
+          "pvN",
+          "()Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R7478",
+          "r_lYc",
+          "()LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "IpW",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_bax",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "eOi",
+          "(Z)V"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_MRY",
+          "(Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "ffA",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_cfM",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "ffA",
+          "(Ljava/lang/String;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;)V"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_cfM",
+          "(Ljava/lang/String;LR11331;LR11399;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "hoE",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_RpC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "nrP",
+          "()Lcom/bitwig/ramona/core/syr;"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_iCS",
+          "()LR11334;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "QY",
+          "nwQ",
+          "()LiEc;"
+        ],
+        "target": [
+          10,
+          "R27375",
+          "r_JqA",
+          "()LR22176;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "SgA",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;I)I"
+        ],
+        "target": [
+          10,
+          "R2836",
+          "r_cfM",
+          "(LR11331;I)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TNT",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R1031",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TNT",
+          "eOi",
+          "(Z)D"
+        ],
+        "target": [
+          10,
+          "R1031",
+          "r_MRY",
+          "(Z)D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TXU",
+          "ARn",
+          "()LrNl;"
+        ],
+        "target": [
+          10,
+          "R28099",
+          "r_jHi",
+          "()LR24918;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TXU",
+          "d_",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R28099",
+          "r_d_",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Tu",
+          "ffA",
+          "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R4020",
+          "r_cfM",
+          "(LR8573;LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "WDu",
+          "Uhv",
+          "()LcYz;"
+        ],
+        "target": [
+          10,
+          "R30274",
+          "r_FzB",
+          "()LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "NaF",
+          "(Z)V"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_IwV",
+          "(Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "eOi",
+          "(Z)V"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_MRY",
+          "(Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "nrP",
+          "()Lcom/bitwig/ramona/core/syr;"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_iCS",
+          "()LR11334;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "E3w",
+          "()Lrez;"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_MxZ",
+          "()LR21451;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "Fyc",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_AeR",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "Mkn",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_tp2",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "NaF",
+          "(Lrez;)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_IwV",
+          "(LR21451;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "cG3",
+          "(I)Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_Hnt",
+          "(I)LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "dC_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_ix_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;I)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_MRY",
+          "(LR11331;I)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "ffA",
+          "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;Z)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_cfM",
+          "(LR8635;LR11331;LR11331;Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "gw_",
+          "()LMHV;"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_gE_",
+          "()LR29068;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "kG",
+          "(Lrez;)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_hUR",
+          "(LR21451;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "kyi",
+          "(Lrez;)V"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_UNj",
+          "(LR21451;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "YJr",
+          "pvN",
+          "(Lcom/bitwig/ramona/core/FZ1;)I"
+        ],
+        "target": [
+          10,
+          "R162",
+          "r_lYc",
+          "(LR11371;)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "ARn",
+          "()LrNl;"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_jHi",
+          "()LR24918;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "IpW",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_bax",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "d_",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_d_",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "eOi",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_MRY",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "eOi",
+          "(LuNh;LMUT;)V"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_MRY",
+          "(LR26051;LR2426;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "ffA",
+          "(Ljava/lang/String;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;)V"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_cfM",
+          "(Ljava/lang/String;LR11331;LR11399;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "ffA",
+          "(LuNh;LMUT;)V"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_cfM",
+          "(LR26051;LR2426;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "bcf",
+          "hoE",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R1982",
+          "r_RpC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cJT",
+          "Uhv",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R19071",
+          "r_FzB",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cJT",
+          "eOi",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R19071",
+          "r_MRY",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cJT",
+          "ffA",
+          "(ZLjava/lang/String;)Z"
+        ],
+        "target": [
+          10,
+          "R19071",
+          "r_cfM",
+          "(ZLjava/lang/String;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cJv",
+          "kyi",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R19149",
+          "r_UNj",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXV",
+          "ciZ",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R8612",
+          "r_oZd",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXV",
+          "pea",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R8612",
+          "r_ej",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXV",
+          "qv1",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R8612",
+          "r_ACD",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXZ",
+          "lSJ",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R8608",
+          "r_WVl",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYF",
+          "Mkn",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8630",
+          "r_tp2",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYF",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8630",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYF",
+          "nM_",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8630",
+          "r_nW_",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYH",
+          "Ode",
+          "()LcNL;"
+        ],
+        "target": [
+          10,
+          "R8573",
+          "r_ODA",
+          "()LR18865;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYH",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;I)Lcom/bitwig/ramona/core/FZ1;"
+        ],
+        "target": [
+          10,
+          "R8573",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYH",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;Ljava/util/List;Ljava/lang/String;)V"
+        ],
+        "target": [
+          10,
+          "R8573",
+          "r_cfM",
+          "(LR11331;Ljava/util/List;Ljava/lang/String;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYH",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)I"
+        ],
+        "target": [
+          10,
+          "R8573",
+          "r_TMF",
+          "(LR11331;)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYQ",
+          "ffA",
+          "(Ljava/lang/String;Ljava/lang/String;)Z"
+        ],
+        "target": [
+          10,
+          "R8561",
+          "r_cfM",
+          "(Ljava/lang/String;Ljava/lang/String;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYs",
+          "QiZ",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R8642",
+          "r_E3",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYx",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;I)I"
+        ],
+        "target": [
+          10,
+          "R8637",
+          "r_cfM",
+          "(LR11331;I)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYx",
+          "qv1",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R8637",
+          "r_ACD",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "Mkn",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_tp2",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "Ode",
+          "()LcNL;"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_ODA",
+          "()LR18865;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "EbT",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_nVd",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "Fmu",
+          "()Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_Z1C",
+          "()LR11365;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "IeI",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_SQN",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "Mkn",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_iCS",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "OTd",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_tp2",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "Ode",
+          "()LdaR;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_ejd",
+          "()LR8448;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "RCa",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_z3I",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "asI",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_iHb",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "eJS",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_hbP",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "ffA",
+          "(LcYF;Lcom/bitwig/ramona/core/HEV;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_cfM",
+          "(LR8630;LR11331;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/Ibf;)LdaR;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_cfM",
+          "(LR11355;)LR8448;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/ikl;)LcZl;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_cfM",
+          "(LR11405;)LR8592;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "jBn",
+          "()LcZv;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_uWE",
+          "()LR8581;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "nrP",
+          "()Lcom/bitwig/ramona/core/Ibf;"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_ERO",
+          "()LR11355;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZl",
+          "xFs",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8592",
+          "r_Esj",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZv",
+          "Uhv",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8581",
+          "r_FzB",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZv",
+          "ffA",
+          "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;ZZLcZl;)V"
+        ],
+        "target": [
+          10,
+          "R8581",
+          "r_cfM",
+          "(LR8635;LR11331;LR11331;ZZLR8592;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZv",
+          "iUG",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8581",
+          "r_qoU",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZv",
+          "kG",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8581",
+          "r_hUR",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cZv",
+          "kyi",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8581",
+          "r_UNj",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ccA",
+          "aGJ",
+          "()LMTu;"
+        ],
+        "target": [
+          10,
+          "R24869",
+          "r_SVQ",
+          "()LR21668;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ccA",
+          "eOi",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R24869",
+          "r_MRY",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ccA",
+          "ffA",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R24869",
+          "r_cfM",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ccA",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R24869",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ccA",
+          "kyi",
+          "(D)V"
+        ],
+        "target": [
+          10,
+          "R24869",
+          "r_UNj",
+          "(D)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/base/geom/ziZ",
+          "Uhv",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R17711",
+          "r_FzB",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/base/geom/ziZ",
+          "cG3",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R17711",
+          "r_Hnt",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/base/geom/ziZ",
+          "ffA",
+          "(I)V"
+        ],
+        "target": [
+          10,
+          "R17711",
+          "r_cfM",
+          "(I)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/B3E",
+          "ffA",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R15313",
+          "r_cfM",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Svr",
+          "AAO",
+          "()LrjH;"
+        ],
+        "target": [
+          10,
+          "R14623",
+          "r_EUG",
+          "()LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Svr",
+          "ARn",
+          "(Z)V"
+        ],
+        "target": [
+          10,
+          "R14623",
+          "r_Ai",
+          "(Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Svr",
+          "jnZ",
+          "()LcYQ;"
+        ],
+        "target": [
+          10,
+          "R14623",
+          "r_kAs",
+          "()LR8561;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Svr",
+          "qXO",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R14623",
+          "r_a3g",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Svr",
+          "zTs",
+          "()LrjH;"
+        ],
+        "target": [
+          10,
+          "R14623",
+          "r_QWG",
+          "()LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "AAO",
+          "()LrjH;"
+        ],
+        "target": [
+          10,
+          "R15452",
+          "r_EUG",
+          "()LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "ARn",
+          "(Z)V"
+        ],
+        "target": [
+          10,
+          "R15452",
+          "r_Ai",
+          "(Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R15452",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/Ymq",
+          "zTs",
+          "()LrjH;"
+        ],
+        "target": [
+          10,
+          "R15452",
+          "r_QWG",
+          "()LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "Fuu",
+          "()Lcom/bitwig/flt/document/core/master/device/cbl;"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_jG",
+          "()LR14948;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "SJM",
+          "()Lcom/bitwig/flt/document/core/master/device/gOr;"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_sut",
+          "()LR15066;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "cI_",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_FzB",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "ffA",
+          "(Lcom/bitwig/flt/document/core/master/device/Wxc;)Lcom/bitwig/flt/document/core/master/device/DbL;"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_cfM",
+          "(LR14808;)LR14729;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "kyi",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_UNj",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "pfb",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_HL",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "pvN",
+          "(Ljava/util/UUID;)Lcom/bitwig/flt/document/core/master/device/DbL;"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_lYc",
+          "(Ljava/util/UUID;)LR14729;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DbL",
+          "rdo",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14729",
+          "r_E1b",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "cI_",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14820",
+          "r_FzB",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R14820",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/DtR",
+          "kyi",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14820",
+          "r_UNj",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "a_",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_a_",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "cG3",
+          "(Ljava/lang/String;)LKgN;"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_Hnt",
+          "(Ljava/lang/String;)LR2459;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "eFs",
+          "()Lcom/bitwig/flt/document/core/master/device/YYz;"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_eej",
+          "()LR15115;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "eJS",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "pFs",
+          "()LKgN;"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_TgI",
+          "()LR2459;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/NHx",
+          "vl",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R15147",
+          "r_uva",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "cG3",
+          "(LHjt;)V"
+        ],
+        "target": [
+          10,
+          "R15041",
+          "r_Hnt",
+          "(LR22561;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "eOi",
+          "(LHjt;)V"
+        ],
+        "target": [
+          10,
+          "R15041",
+          "r_MRY",
+          "(LR22561;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "eOi",
+          "(LHjt;DZLjas;Lcom/bitwig/flt/document/core/master/device/NDn;)V"
+        ],
+        "target": [
+          10,
+          "R15041",
+          "r_MRY",
+          "(LR22561;DZLR18999;LR14681;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "ffA",
+          "(LHjt;DZLjas;Lcom/bitwig/flt/document/core/master/device/NDn;)V"
+        ],
+        "target": [
+          10,
+          "R15041",
+          "r_cfM",
+          "(LR22561;DZLR18999;LR14681;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Net",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R15041",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "ARn",
+          "()Lcom/bitwig/flt/document/core/master/device/XuU;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_kIh",
+          "()LR15057;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "Dzj",
+          "()Lcom/bitwig/flt/document/core/master/device/XuU;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_AU3",
+          "()LR15057;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "IbC",
+          "()Lcom/bitwig/flt/document/core/master/device/ilU;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_wIw",
+          "()LR15016;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "MuN",
+          "()LqOW;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_ai3",
+          "()LR30673;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "VEb",
+          "()Ljava/util/UUID;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_kFU",
+          "()Ljava/util/UUID;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "YQ",
+          "()LqOW;"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_JhA",
+          "()LR30673;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "ao_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_ap_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_Hnt",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "cG3",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_Hnt",
+          "(LR11021;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "dRD",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_jhH",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/OEf",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R15116",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R15141",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "pfb",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R15141",
+          "r_HL",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "rdo",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R15141",
+          "r_E1b",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/S2E",
+          "gnZ",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R15154",
+          "r_YxM",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "D1G",
+          "()Lcom/bitwig/flt/document/core/master/device/yWH;"
+        ],
+        "target": [
+          10,
+          "R14892",
+          "r_Scv",
+          "()LR14680;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "eOi",
+          "(La;)V"
+        ],
+        "target": [
+          10,
+          "R14892",
+          "r_MRY",
+          "(LR3316;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "ffA",
+          "(La;)V"
+        ],
+        "target": [
+          10,
+          "R14892",
+          "r_cfM",
+          "(LR3316;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UL",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R14892",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/XuU",
+          "ffA",
+          "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R15057",
+          "r_cfM",
+          "(LR8573;LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/YYz",
+          "EbT",
+          "()LcYz;"
+        ],
+        "target": [
+          10,
+          "R15115",
+          "r_iHb",
+          "()LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ar",
+          "WKy",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14811",
+          "r_vdx",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ar",
+          "dRD",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R14811",
+          "r_jhH",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ar",
+          "qON",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R14811",
+          "r_JJY",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/cbl",
+          "eJS",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R14948",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/cbl",
+          "ffA",
+          "(II)Lcom/bitwig/flt/document/core/master/device/had;"
+        ],
+        "target": [
+          10,
+          "R14948",
+          "r_cfM",
+          "(II)LR15055;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/cbl",
+          "ffA",
+          "(Ljava/util/List;)V"
+        ],
+        "target": [
+          10,
+          "R14948",
+          "r_cfM",
+          "(Ljava/util/List;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "aJp",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_Bpn",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "eJS",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "eOi",
+          "(Ljava/lang/String;)V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_MRY",
+          "(Ljava/lang/String;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "ffA",
+          "(II)Lcom/bitwig/flt/document/core/master/device/had;"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_cfM",
+          "(II)LR15055;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "ffA",
+          "(Lcom/bitwig/flt/document/core/master/device/DbL;)V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_cfM",
+          "(LR14729;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "ffA",
+          "(Lcom/bitwig/flt/document/core/master/device/DbL;IIZLcom/bitwig/flt/document/core/master/device/SwV;)V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_cfM",
+          "(LR14729;IIZLR15001;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "ffA",
+          "(Ljava/util/Collection;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_cfM",
+          "(Ljava/util/Collection;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "ffA",
+          "(Ljava/util/Collection;IIZLcom/bitwig/flt/document/core/master/device/RHk;)V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_cfM",
+          "(Ljava/util/Collection;IIZLR14807;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "hhJ",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_tp2",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/gOr",
+          "vl",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R15066",
+          "r_uva",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/had",
+          "Fuu",
+          "()Lcom/bitwig/flt/document/core/master/device/cbl;"
+        ],
+        "target": [
+          10,
+          "R15055",
+          "r_jG",
+          "()LR14948;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/had",
+          "NaF",
+          "(Ljava/lang/Class;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R15055",
+          "r_IwV",
+          "(Ljava/lang/Class;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/had",
+          "qON",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R15055",
+          "r_JJY",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ilU",
+          "RDR",
+          "()LcYz;"
+        ],
+        "target": [
+          10,
+          "R15016",
+          "r_Z1C",
+          "()LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ilU",
+          "SRu",
+          "()LcYz;"
+        ],
+        "target": [
+          10,
+          "R15016",
+          "r_eLY",
+          "()LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ilU",
+          "ffA",
+          "(Lcom/bitwig/flt/document/core/master/device/ar;I)I"
+        ],
+        "target": [
+          10,
+          "R15016",
+          "r_cfM",
+          "(LR14811;I)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/mvZ",
+          "JD1",
+          "()LJFK;"
+        ],
+        "target": [
+          10,
+          "R14937",
+          "r_x3t",
+          "()LR26317;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/mvZ",
+          "bc_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R14937",
+          "r_bl_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/mvZ",
+          "eOi",
+          "(LLaB;)V"
+        ],
+        "target": [
+          10,
+          "R14937",
+          "r_MRY",
+          "(LR4480;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/rmP",
+          "ffA",
+          "(Ljava/util/Collection;)Lcom/bitwig/flt/document/core/master/device/cbl;"
+        ],
+        "target": [
+          10,
+          "R14974",
+          "r_cfM",
+          "(Ljava/util/Collection;)LR14948;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/xWk",
+          "eJS",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R15105",
+          "r_Grk",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "I_",
+          "()Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_J_",
+          "()LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "J_",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_K_",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "WKy",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_vdx",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "a_",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_a_",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "ao_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_ap_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_Hnt",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "cG3",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_Hnt",
+          "(LR11021;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "dC_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_ix_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "dpx",
+          "(Ljava/lang/String;)Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_tB1",
+          "(Ljava/lang/String;)Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "eOi",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_MRY",
+          "(LR11021;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "ffA",
+          "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_cfM",
+          "(LR8573;LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "ffA",
+          "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;Z)V"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_cfM",
+          "(LR8635;LR11331;LR11331;Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "mSv",
+          "()Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_ULc",
+          "()LR11365;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/HEV",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R11331",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "<init>",
+          "(Ljava/lang/String;I)V"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "<init>",
+          "(Ljava/lang/String;I)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "NaF",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_IwV",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "Uhv",
+          "()Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_FzB",
+          "()LR11365;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "cG3",
+          "(Ljava/util/Set;)Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_Hnt",
+          "(Ljava/util/Set;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "eOi",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_MRY",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "eOi",
+          "(Ljava/util/Set;)Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_MRY",
+          "(Ljava/util/Set;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "ffA",
+          "()LdaR;"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_cfM",
+          "()LR8448;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "ffA",
+          "(Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/ytV;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;Z)Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_cfM",
+          "(Ljava/lang/String;Ljava/lang/String;LR11356;LR11331;LR11399;Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "ffA",
+          "(Ljava/util/Set;)Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_cfM",
+          "(Ljava/util/Set;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "ffA",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_cfM",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "kG",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_hUR",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/Ibf",
+          "kyi",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11355",
+          "r_UNj",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/UL",
+          "ffA",
+          "(I)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R11319",
+          "r_cfM",
+          "(I)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "I_",
+          "()Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_J_",
+          "()LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "J_",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_K_",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "NaF",
+          "(Ljava/lang/Class;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_IwV",
+          "(Ljava/lang/Class;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "cnN",
+          "(Z)Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_UAr",
+          "(Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "ffA",
+          "(Ljava/lang/String;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;)V"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_cfM",
+          "(Ljava/lang/String;LR11331;LR11399;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "ffA",
+          "(Ljava/lang/String;Ljava/util/Set;)Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_cfM",
+          "(Ljava/lang/String;Ljava/util/Set;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "ffA",
+          "(Ljava/lang/String;[Lcom/bitwig/ramona/core/wfl;)Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_cfM",
+          "(Ljava/lang/String;[LR11389;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "hoE",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_RpC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "kh3",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_xmC",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "mSv",
+          "()Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "r_ULc",
+          "()LR11365;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/oQq",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)Z"
+        ],
+        "target": [
+          10,
+          "R11313",
+          "r_Hnt",
+          "(LR11331;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/oQq",
+          "ffA",
+          "(Ljava/lang/Iterable;)Z"
+        ],
+        "target": [
+          10,
+          "R11313",
+          "r_cfM",
+          "(Ljava/lang/Iterable;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/toM",
+          "eOi",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11335",
+          "r_MRY",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/toM",
+          "ffA",
+          "()Ljava/util/Set;"
+        ],
+        "target": [
+          10,
+          "R11335",
+          "r_cfM",
+          "()Ljava/util/Set;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/toM",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/toM;)Z"
+        ],
+        "target": [
+          10,
+          "R11335",
+          "r_cfM",
+          "(LR11335;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "MDs",
+          "()Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_ejd",
+          "()Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "MkF",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_eLY",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "NaF",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_IwV",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "Ode",
+          "()Lcom/bitwig/ramona/core/Ibf;"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_vpw",
+          "()LR11355;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "ffA",
+          "(I)Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_cfM",
+          "(I)LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/uX1",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/ikl;)Lcom/bitwig/ramona/core/uX1;"
+        ],
+        "target": [
+          10,
+          "R11365",
+          "r_cfM",
+          "(LR11405;)LR11365;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ytV",
+          "ffA",
+          "()Lcom/bitwig/ramona/core/toM;"
+        ],
+        "target": [
+          10,
+          "R11356",
+          "r_cfM",
+          "()LR11335;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ytV",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/ziZ;Z)Z"
+        ],
+        "target": [
+          10,
+          "R11356",
+          "r_cfM",
+          "(LR11331;Ljava/lang/String;Ljava/lang/String;LR11399;Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/serial/vWM",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11025",
+          "<clinit>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/serial/vWM",
+          "ffA",
+          "(LcYF;Lcom/bitwig/ramona/core/HEV;)Z"
+        ],
+        "target": [
+          10,
+          "R11025",
+          "r_cfM",
+          "(LR8630;LR11331;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "dCC",
+          "cG3",
+          "(LGn;Lcom/bitwig/ramona/core/HEV;)Z"
+        ],
+        "target": [
+          10,
+          "R398",
+          "r_Hnt",
+          "(LR31250;LR11331;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "MkF",
+          "()LcZv;"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_eLY",
+          "()LR8581;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "NaF",
+          "()LcZv;"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_UNj",
+          "()LR8581;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "YLA",
+          "()LcZv;"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_Hnt",
+          "()LR8581;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "eOi",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_MRY",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "ffA",
+          "()LcZl;"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_cfM",
+          "()LR8592;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "ffA",
+          "(LcYF;)Z"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_cfM",
+          "(LR8630;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "ffA",
+          "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;ZZ)V"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_cfM",
+          "(LR8635;LR11331;LR11331;ZZ)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "ffA",
+          "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/ziZ;Z)V"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_cfM",
+          "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;LR11331;LR11399;Z)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "ffA",
+          "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Z)Z"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_cfM",
+          "(Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;Z)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "kG",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_TMF",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "kyi",
+          "()LcZv;"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_hUR",
+          "()LR8581;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "daR",
+          "wi2",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R8448",
+          "r_lYc",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "dkb",
+          "Ode",
+          "()Ldkb;"
+        ],
+        "target": [
+          10,
+          "R31249",
+          "r_ODA",
+          "()LR31249;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "dkb",
+          "cG3",
+          "(Ljava/lang/String;)Ldkb;"
+        ],
+        "target": [
+          10,
+          "R31249",
+          "r_Hnt",
+          "(Ljava/lang/String;)LR31249;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "iYc",
+          "ao_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R29268",
+          "r_ap_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "iYc",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R29268",
+          "r_Hnt",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "iYc",
+          "cG3",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        "target": [
+          10,
+          "R29268",
+          "r_Hnt",
+          "(LR11021;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ipr",
+          "eOi",
+          "(LuNh;LMUT;)V"
+        ],
+        "target": [
+          10,
+          "R2002",
+          "r_MRY",
+          "(LR26051;LR2426;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ipr",
+          "ffA",
+          "(LuNh;LMUT;)V"
+        ],
+        "target": [
+          10,
+          "R2002",
+          "r_cfM",
+          "(LR26051;LR2426;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "llL",
+          "ffA",
+          "(Ljava/util/List;LLG;)V"
+        ],
+        "target": [
+          10,
+          "R22868",
+          "r_cfM",
+          "(Ljava/util/List;LR28258;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "llL",
+          "ffA",
+          "(Ljava/util/List;Ljava/util/Collection;)V"
+        ],
+        "target": [
+          10,
+          "R22868",
+          "r_cfM",
+          "(Ljava/util/List;Ljava/util/Collection;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "mbe",
+          "ffA",
+          "(LGn;LdCC;)Z"
+        ],
+        "target": [
+          10,
+          "R27246",
+          "r_cfM",
+          "(LR31250;LR398;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "nST",
+          "Mkn",
+          "()LTu;"
+        ],
+        "target": [
+          10,
+          "R28821",
+          "r_tp2",
+          "()LR4020;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "nST",
+          "Ode",
+          "()LTu;"
+        ],
+        "target": [
+          10,
+          "R28821",
+          "r_ODA",
+          "()LR4020;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "nST",
+          "ZzB",
+          "()LWDu;"
+        ],
+        "target": [
+          10,
+          "R28821",
+          "r_MIO",
+          "()LR30274;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "nST",
+          "ao_",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R28821",
+          "r_ap_",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "nST",
+          "eOi",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        "target": [
+          10,
+          "R28821",
+          "r_MRY",
+          "(LR11021;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "oYU",
+          "ffA",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R3802",
+          "r_cfM",
+          "(Ljava/lang/String;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "oYU",
+          "ffA",
+          "(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R3802",
+          "r_cfM",
+          "(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "qOW",
+          "ffA",
+          "(LcYH;Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R30673",
+          "r_cfM",
+          "(LR8573;LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "qOs",
+          "ffA",
+          "(I)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R29024",
+          "r_cfM",
+          "(I)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rNl",
+          "MkF",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24918",
+          "r_wGc",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rNl",
+          "iUG",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24918",
+          "r_qoU",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rez",
+          "equals",
+          "(Ljava/lang/Object;)Z"
+        ],
+        "target": [
+          10,
+          "R21451",
+          "r_equals",
+          "(Ljava/lang/Object;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ri3",
+          "JD1",
+          "()LJFK;"
+        ],
+        "target": [
+          10,
+          "R4566",
+          "r_x3t",
+          "()LR26317;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rjH",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R28698",
+          "<clinit>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rjH",
+          "kyi",
+          "()[LrjH;"
+        ],
+        "target": [
+          10,
+          "R28698",
+          "r_UNj",
+          "()[LR28698;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "tqm",
+          "eOi",
+          "(LuNh;LMUT;)V"
+        ],
+        "target": [
+          10,
+          "R29823",
+          "r_MRY",
+          "(LR26051;LR2426;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ubF",
+          "eOi",
+          "(DDD)D"
+        ],
+        "target": [
+          10,
+          "R29627",
+          "r_MRY",
+          "(DDD)D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "xQx",
+          "ffA",
+          "(Ljava/util/UUID;)Lcom/bitwig/flt/document/core/master/device/Wxc;"
+        ],
+        "target": [
+          10,
+          "R1140",
+          "r_cfM",
+          "(Ljava/util/UUID;)LR14808;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "zOY",
+          "fireValueChanged",
+          "(Ly1O;Ljava/lang/Object;Ljava/lang/Object;)V"
+        ],
+        "target": [
+          10,
+          "R6703",
+          "r_fireValueChanged",
+          "(LR2052;Ljava/lang/Object;Ljava/lang/Object;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "zVP",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/syr;)LzVP;"
+        ],
+        "target": [
+          10,
+          "R25924",
+          "r_cfM",
+          "(LR11334;)LR25924;"
+        ]
+      },
+      {
+        "source": [
+          11,
+          "SdO",
+          "jBn",
+          "()Ljava/lang/String;"
+        ],
+        "target": [
+          11,
+          "R27612",
+          "r_vpw",
+          "()Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          11,
+          "com/bitwig/ramona/serial/ziZ",
+          "ffA",
+          "(LcYF;Lcom/bitwig/ramona/core/HEV;)Z"
+        ],
+        "target": [
+          11,
+          "R11054",
+          "r_cfM",
+          "(LR8630;LR11331;)Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ziZ",
+          "zmC",
+          "()Lcom/bitwig/flt/document/core/master/device/ytV;"
+        ],
+        "target": [
+          10,
+          "R15131",
+          "r_BNq",
+          "()LR14933;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/ziZ",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15131",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/bnu",
+          "jBn",
+          "()Lcom/bitwig/flt/document/core/master/device/jzG;"
+        ],
+        "target": [
+          10,
+          "R14663",
+          "r_Z1C",
+          "()LR14954;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/bnu",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14663",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ovU",
+          "EbT",
+          "()LD1G;"
+        ],
+        "target": [
+          10,
+          "R18418",
+          "r_iHb",
+          "()LR27450;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ovU",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R18418",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "fpL",
+          "EbT",
+          "()Labs;"
+        ],
+        "target": [
+          10,
+          "R27993",
+          "r_iHb",
+          "()LR564;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "fpL",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R27993",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ipr",
+          "pvN",
+          "()LEce;"
+        ],
+        "target": [
+          10,
+          "R2002",
+          "r_MIO",
+          "()LR4998;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "ipr",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R2002",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "C3V",
+          "Ode",
+          "()LqFU;"
+        ],
+        "target": [
+          10,
+          "R514",
+          "r_ODA",
+          "()LR30325;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "C3V",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R514",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "pvN",
+          "()LVfr;"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_MIO",
+          "()LR31063;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Xuo",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R27693",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "zY2",
+          "wi2",
+          "()LRM;"
+        ],
+        "target": [
+          10,
+          "R31373",
+          "r_lYc",
+          "()LR29587;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "zY2",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R31373",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TXU",
+          "pfb",
+          "()LxYe;"
+        ],
+        "target": [
+          10,
+          "R28099",
+          "r_MJ",
+          "()LR25764;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "TXU",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R28099",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/xuq",
+          "Zdu",
+          "()Lcom/bitwig/flt/document/core/master/device/Zjp;"
+        ],
+        "target": [
+          10,
+          "R15074",
+          "r_BNq",
+          "()LR14898;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/xuq",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15074",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/sEo",
+          "ZzB",
+          "()Lcom/bitwig/flt/document/core/master/device/IYr;"
+        ],
+        "target": [
+          10,
+          "R14691",
+          "r_MIO",
+          "()LR14837;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/sEo",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14691",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/S1R",
+          "OQW",
+          "()Lcom/bitwig/flt/document/core/master/device/Jym;"
+        ],
+        "target": [
+          10,
+          "R14795",
+          "r_x3t",
+          "()LR14833;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/S1R",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14795",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Zis",
+          "Ode",
+          "()Lcom/bitwig/flt/document/core/master/device/GA;"
+        ],
+        "target": [
+          10,
+          "R15139",
+          "r_ODA",
+          "()LR15054;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Zis",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15139",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Bzc",
+          "nQn",
+          "()Lcom/bitwig/flt/document/core/master/device/iBG;"
+        ],
+        "target": [
+          10,
+          "R15160",
+          "r_Nnn",
+          "()LR14753;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Bzc",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15160",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "dhi",
+          "TBO",
+          "()LuLs;"
+        ],
+        "target": [
+          10,
+          "R27503",
+          "r_Zyp",
+          "()LR3105;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "dhi",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R27503",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/AR",
+          "ZzB",
+          "()Lcom/bitwig/flt/document/core/master/device/B3E;"
+        ],
+        "target": [
+          10,
+          "R14685",
+          "r_ODA",
+          "()LR15044;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/AR",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14685",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "mn",
+          "IbC",
+          "()LGmh;"
+        ],
+        "target": [
+          10,
+          "R29589",
+          "r_zxZ",
+          "()LR28082;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "mn",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R29589",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "Mch",
+          "()Lcom/bitwig/flt/document/core/master/device/WZo;"
+        ],
+        "target": [
+          10,
+          "R15141",
+          "r_Dah",
+          "()LR14992;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/QHo",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15141",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Ymq",
+          "EmT",
+          "()Lcom/bitwig/flt/document/core/master/device/HVJ;"
+        ],
+        "target": [
+          10,
+          "R14809",
+          "r_gfw",
+          "()LR14828;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Ymq",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14809",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/xWk",
+          "tZH",
+          "()Lcom/bitwig/flt/document/core/master/device/Grz;"
+        ],
+        "target": [
+          10,
+          "R15105",
+          "r_Cuu",
+          "()LR15002;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/xWk",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15105",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Kdw",
+          "fTC",
+          "()Lcom/bitwig/flt/document/core/master/device/U1E;"
+        ],
+        "target": [
+          10,
+          "R15005",
+          "r_AeR",
+          "()LR14702;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/Kdw",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15005",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/hwb",
+          "Ode",
+          "()Lcom/bitwig/flt/document/core/master/device/OA;"
+        ],
+        "target": [
+          10,
+          "R14781",
+          "r_ODA",
+          "()LR14919;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/hwb",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R14781",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "lfC",
+          "Ozt",
+          "()LGwj;"
+        ],
+        "target": [
+          10,
+          "R28630",
+          "r_PD3",
+          "()LR27702;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "lfC",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R28630",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "enM",
+          "EbT",
+          "()LzdT;"
+        ],
+        "target": [
+          10,
+          "R29203",
+          "r_iHb",
+          "()LR4143;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "enM",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R29203",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UAn",
+          "ZzB",
+          "()Lcom/bitwig/flt/document/core/master/device/UvS;"
+        ],
+        "target": [
+          10,
+          "R15130",
+          "r_ODA",
+          "()LR15039;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/flt/document/core/master/device/UAn",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R15130",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Qlr",
+          "EbT",
+          "()Lji;"
+        ],
+        "target": [
+          10,
+          "R4601",
+          "r_iHb",
+          "()LR7860;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Qlr",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R4601",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "s2W",
+          "VGI",
+          "()LFfG;"
+        ],
+        "target": [
+          10,
+          "R27286",
+          "r_jFL",
+          "()LR31405;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "s2W",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R27286",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Cp",
+          "VEb",
+          "()LWTB;"
+        ],
+        "target": [
+          10,
+          "R30088",
+          "r_vpw",
+          "()LR29937;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Cp",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R30088",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "whD",
+          "eJS",
+          "()LgGL;"
+        ],
+        "target": [
+          10,
+          "R26886",
+          "r_LaE",
+          "()LR409;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "whD",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R26886",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "g3C",
+          "EbT",
+          "()LeXl;"
+        ],
+        "target": [
+          10,
+          "R19675",
+          "r_iHb",
+          "()LR24068;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "g3C",
+          "mW_",
+          "()LcYx;"
+        ],
+        "target": [
+          10,
+          "R19675",
+          "r_ng_",
+          "()LR8637;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXT",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Boolean;"
+        ],
+        "target": [
+          10,
+          "R8614",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Boolean;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXT",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8614",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYK",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/String;"
+        ],
+        "target": [
+          10,
+          "R8568",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/String;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYK",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8568",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYL",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/util/UUID;"
+        ],
+        "target": [
+          10,
+          "R8566",
+          "r_TMF",
+          "(LR11331;)Ljava/util/UUID;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYL",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8566",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYc",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Double;"
+        ],
+        "target": [
+          10,
+          "R8605",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Double;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYc",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8605",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYm",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Integer;"
+        ],
+        "target": [
+          10,
+          "R8648",
+          "r_TMF",
+          "(LR11331;)Ljava/lang/Integer;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYm",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8648",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/util/List;"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_Hnt",
+          "(LR11331;)Ljava/util/List;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "QiZ",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_E3",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cXV",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/FZ1;I)I"
+        ],
+        "target": [
+          10,
+          "R8612",
+          "r_MRY",
+          "(LR11371;I)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)I"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_TMF",
+          "(LR11331;)I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;I)Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_cfM",
+          "(LR11331;I)LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;I)Lcom/bitwig/ramona/core/FZ1;"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "cG3",
+          "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/FZ1;"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_Hnt",
+          "(LR11331;)LR11371;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;)Ljava/lang/Object;"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_MRY",
+          "(LR11331;)Ljava/lang/Object;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cYz",
+          "ffA",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8635",
+          "r_cfM",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "wi2",
+          "(Lcom/bitwig/ramona/core/HEV;)I"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_TMF",
+          "(LR11331;)I"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "cYz",
+          "eOi",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R8635",
+          "r_MRY",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "eOi",
+          "(Lcom/bitwig/ramona/core/HEV;I)Lcom/bitwig/ramona/core/FZ1;"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_MRY",
+          "(LR11331;I)LR11371;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "MMV",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R25236",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "agh",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R25077",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rNl",
+          "Fmu",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R24918",
+          "r_ejd",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "rNl",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24918",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "hdr",
+          "MkF",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R24280",
+          "r_wGc",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "hdr",
+          "QiZ",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R24280",
+          "r_E3",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "hdr",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R24280",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "uaT",
+          "wi2",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R21191",
+          "r_TMF",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "uaT",
+          "kyi",
+          "()I"
+        ],
+        "target": [
+          10,
+          "R21191",
+          "r_UNj",
+          "()I"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "uaT",
+          "Fmu",
+          "()Z"
+        ],
+        "target": [
+          10,
+          "R21191",
+          "r_ejd",
+          "()Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "uaT",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R21191",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Fev",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R20606",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "UWD",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R22728",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "hVV",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R22410",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "Zcl",
+          "NCM",
+          "()D"
+        ],
+        "target": [
+          10,
+          "R22039",
+          "r_uWE",
+          "()D"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/yTf",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11320",
+          "<init>",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/fBS",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11347",
+          "<init>",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/hN",
+          "cG3",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11360",
+          "r_Hnt",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/hN",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11360",
+          "<clinit>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/hN",
+          "eOi",
+          "Lcom/bitwig/ramona/core/HEV;"
+        ],
+        "target": [
+          9,
+          "R11360",
+          "r_MRY",
+          "LR11331;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/hN",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;)V"
+        ],
+        "target": [
+          10,
+          "R11360",
+          "<init>",
+          "(LR11331;)V"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/scI",
+          "ffA",
+          "Z"
+        ],
+        "target": [
+          9,
+          "R11400",
+          "r_cfM",
+          "Z"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/scI",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11400",
+          "<clinit>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/scI",
+          "Uhv",
+          "LcYz;"
+        ],
+        "target": [
+          9,
+          "R11400",
+          "r_FzB",
+          "LR8635;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/scI",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;LcYz;)V"
+        ],
+        "target": [
+          10,
+          "R11400",
+          "<init>",
+          "(LR11331;LR8635;)V"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/ikl",
+          "eOi",
+          "Ljava/lang/ThreadLocal;"
+        ],
+        "target": [
+          9,
+          "R11405",
+          "r_MRY",
+          "Ljava/lang/ThreadLocal;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "<clinit>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "<clinit>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/ikl",
+          "<init>",
+          "()V"
+        ],
+        "target": [
+          10,
+          "R11405",
+          "<init>",
+          "()V"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYz",
+          "QiZ",
+          "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/fBS;"
+        ],
+        "target": [
+          10,
+          "R8635",
+          "r_E3",
+          "(LR11331;)LR11347;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "cYy",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;)Lcom/bitwig/ramona/core/UZp;"
+        ],
+        "target": [
+          10,
+          "R8636",
+          "r_cfM",
+          "(LR11331;)LR11346;"
+        ]
+      },
+      {
+        "source": [
+          9,
+          "com/bitwig/ramona/core/UZp",
+          "ffA",
+          "LcYy;"
+        ],
+        "target": [
+          9,
+          "R11346",
+          "r_cfM",
+          "LR8636;"
+        ]
+      },
+      {
+        "source": [
+          10,
+          "com/bitwig/ramona/core/UZp",
+          "<init>",
+          "(Lcom/bitwig/ramona/core/HEV;LcYy;)V"
+        ],
+        "target": [
+          10,
+          "R11346",
+          "<init>",
+          "(LR11331;LR8636;)V"
+        ]
+      }
+    ],
+    "work": {
+      "comparisons": 13,
+      "instructions": 107
+    },
+    "completeTable": false,
+    "boundedAdmission": false,
+    "writeAuthority": false
+  },
+  "boundedAdmission": false,
+  "writeAuthority": false,
+  "inputHashes": {
+    "symbols": "662e0988f8a7bfeae5e2c3d8fed9ce31e240d15b70bf8ee129681e4c6cf47b4d",
+    "properties": "df042ac23b99865328ce32f25326578061914664c2c8ca32523cfa4d17b77702",
+    "slots": "91d729ef3162f37c3c6745eb6623c6e69836f3b6db3b5c08c9defbedd583f29b"
+  },
+  "elapsedMs": 9097.614,
+  "peakRssBytes": 341524480
+}

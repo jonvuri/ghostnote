@@ -1532,3 +1532,367 @@ The scan retains 133 code classes. Its report is 1,095,413 bytes.
 Variant traces retain 12 unique methods for the source comparison and 24
 for the target comparison. All declared bounds hold. The live path is
 unchanged. No comparable per-call regression or new product cost follows.
+
+## 9b.6g descriptor and dependency resolution — model before implementation
+
+Reuse E336's complete census and reproduce E337's operation bindings from
+both jars. Check input hashes before use. Do not repeat the global census
+when its inputs are unchanged. Keep the existing per-jar limits, 120-second
+scan deadline, 768 MiB RSS threshold, and 256 retained code classes.
+
+Extend bindings with explicit inheritance, descriptor, and operation edges.
+Keep at most 256 source contract classes, 100,000 method comparisons,
+2,000,000 normalized instructions, 128 rounds, 16,384 declaration lookups,
+and 4,000,000 hierarchy edges per focused pass. A separate streamed anchor
+scan can inspect at most 1,000,000 methods and 16,000,000 instructions.
+Retain at most 512 trace methods and 16,000 dependency edges per report.
+Limit each report to 8 MiB. These limits cause refusal; they are not OS caps.
+
+Keep unsupported bootstraps and variants separate from the strict comparator.
+Read JDK classes as data. Record their artifact hashes and initialization
+requirements. No vendor class initialization, host call, native command,
+deployment, attempt, or cache write is part of the offline checks. A local
+contract or descriptor constructor does not prove a runtime receiver.
+Complete resolution and bounded admission remain probe preparation gates.
+The live model remains E315/E316. Product budgets and descriptions do not
+change during this offline work.
+
+The 9b.6g backward command check stores a bounded index of direct vendor
+method references. It does not load classes. Limit the index to 1,000,000
+sites and 128 MiB of packed edge storage. Reuse the 1,000,000-method,
+16,000,000-instruction, 120-second, and 768 MiB process limits. Limit the
+backward search to 16,384 edges, 4,000,000 hierarchy steps, and 512 retained
+method traces. A possible virtual path does not prove a runtime call.
+Dynamic, reflection, native, and external calls remain explicit limits.
+
+The fixed-read data-flow check uses the same instruction, call-edge, time,
+and RSS limits. It retains at most 64 active call frames, 1,024 method
+contexts per property, and 100,000 visited states per build. Each frame has
+at most 64 local slots and 64 stack values. Each method has at most 4,096
+visited or queued states. It refuses a back edge, recursion, an exception
+handler, an unsupported operation, or an unknown vendor receiver. Static
+descriptor identities, property IDs, and assertion fields are explicit
+runtime conditions. External calls remain separate dependencies.
+
+The owned-relationship check uses the same data-flow limits. It permits at
+most 128 descriptor rows and 4,096 properties. It uses a null display key
+and a fresh output list. Filter assertion candidates from field metadata,
+then validate at most 256 initializers. Keep the 512-method report limit.
+Property parent identities are runtime conditions. Collection operations,
+ownership membership, recursive traversal, and disposal need separate bounds.
+
+The conditional disposal-wrapper check permits at most 128 map-removal
+blocks or leading false-flag guards per method. It keeps the existing
+128-level hierarchy limit and 512-method trace limit. Each report states
+only the local instruction and call bounds. Superclass work, child
+dispatch, map size, key behavior, flag stability, and tracker mode remain
+separate conditions. This check sends no host call and admits no disposal.
+
+The fixed module-file check reads each source file as data. Limit each file
+to 1 MiB, each string to 64 KiB, each collection to 4,096 entries, each tree
+to 4,096 objects, nesting to 64 levels, and parser work to 100,000 values.
+Require the traced header, codec, and type forms. Refuse an unsupported form,
+truncated input, or trailing object data. Use the existing jar, scan, time,
+RSS, and report limits. Serialized objects are not runtime objects. Their
+constructors, default children, migrations, and factory callbacks require
+separate checks before a factory call can be admitted.
+
+The fixed Nitro data check uses the same offline jar and process limits.
+Limit the encoded program to 1 MiB. Read at most eight literal key arrays,
+256 bytes per key, and 16,384 initializer instructions. Require a separate
+codec-route contract. Limit the decoded token stream to 512 node occurrences,
+4,096 values, 64 nesting levels, 64 KiB per string, and 512 registry entries.
+Refuse debug-location streams and unsupported tokens. Parsing does not run
+constructors, semantic analysis, compilation, or cache access. Equal decoded
+bytes do not prove equivalent runtime compilation or bounded host work.
+
+A targeted package comparison can extend these anchors. Keep at most 10,000
+method keys, compare batches of at most 512 methods, and retain the existing
+256-class code cache. Bound aggregate work to 1,000,000 method comparisons
+and 16,000,000 instructions. Keep the 120-second deadline, 768 MiB RSS
+threshold, and 8 MiB report limit. A matched local method is a trace input;
+it does not prove dispatch, initialization, or a complete compiler path.
+
+The explicit dynamic-payload comparison retains the complete factory,
+implementation handle, method types, capture signature, and concat recipe.
+It supports the traced standard metafactory and constant-recipe concat
+forms only. Limit concat payloads to 256 constants. Keep the package
+comparison limits above. The strict comparator remains unchanged.
+An explicit provider applies only to its requested comparison. A payload
+match does not prove runtime linkage or callback execution.
+
+The assertion variant check permits one field-to-private-getter change
+inside an excluded assertion block. Require the initialized-true flag
+contract on both builds. Keep all other instructions and control flow
+equal. Refuse handlers, subroutines, switches, extra changes, and an
+external branch into the excluded block or its condition. Limit each
+method to 4,096 instructions. This conditional check does not admit an
+enabled assertion, initialize a class, or call the getter.
+
+The conditional contract projection uses the same 4,096-instruction limit
+and at most 128 assertion guards per method. It removes a guarded block
+only under its initialized-true flag condition. Refuse a handler or an
+outside branch into the condition or block. Retain branches to the guard
+entry and map them to its exit. Excluded references supply no member
+bindings. Record the guard fields with each matched conditional contract.
+
+Descriptor constructor selection follows at most 128 explicit constructor
+calls per catalog row, for at most 128 rows. Limit each constructor to
+4,096 instructions. Accept only a `this` receiver and a prefix of literal
+or local argument loads before its parent call. Reject effects in that
+prefix, handlers, cycles, and an external parent other than Object. Use
+the selected signatures on both jars when checking property constructors.
+This selects a call path; it does not bound the complete constructor body.
+
+The generated descriptor registration check follows at most 128 parent
+methods per receiver. Each method has at most 4,096 instructions. The full
+chain has at most 100,000 instructions and 4,096 registrations. Accept only
+a parent call and fixed getter or field registrations through the supplied
+final append method. Resolve getters on the concrete descriptor. This check
+counts registration calls. Getter effects, property initialization, append
+effects, and runtime provenance require separate checks.
+An explicit attribute target can permit the fixed `not_engine=true` call.
+Record each such call. Its target body and map growth remain separate from
+the registration count.
+
+The empty descriptor-list check reuses a complete field-reference scan.
+Require one private final field assignment to a fresh empty `ArrayList`.
+Permit only immediate `List.isEmpty` and `List.iterator` reads. Refuse a
+field handle or an unresolved reference from a possible receiver subtype.
+Each selected method must fit the existing 4,096-instruction bound. Runtime
+initialization, exact collection type, and reflective or native mutation
+remain separate conditions.
+
+The invariant scalar reads add `Long.valueOf` to the boxing dependencies.
+The fixed JDK extraction set now has 33 classes. It adds `Long`, its cache
+class, `Number`, and the `ArrayList` iterator. Retain the boxing constructor,
+emptiness, iterator, iteration, and modification-check methods. Keep the
+existing extraction, file, report, and memory limits. Cache initialization
+and VM archive behavior are separate conditions.
+The constructor color helper also needs `Math.min/max(float, float)`.
+Retain these methods and `Float.floatToRawIntBits`. VM intrinsics and class
+initialization remain separate from the vendor instruction count.
+The global object-listener map also needs `IdentityHashMap`. Retain its
+lookup, null-key, hash, index, initialization, and mutation helpers. These
+methods are class data only. Capacity, monitor waits, concurrent changes,
+and native identity hashing remain separate conditions.
+
+The read interpreter also computes a normal-path cost on its acyclic state
+graph. Count each vendor call, including repeated calls to a cached analysis
+result. Take a separate maximum for instructions, vendor calls, and external
+calls across branches. Use an iterative graph pass. Keep the existing state
+and context limits. Refuse a path above 2,000,000 vendor instructions or
+16,000 vendor or external calls. These counts exclude class initialization,
+external method bodies, and exception paths. They are not host timings or
+complete command bounds.
+
+Two explicit constructor variants keep the strict comparator unchanged.
+The map variant permits one fresh `LinkedHashMap(1)` assignment in a
+straight-line constructor of at most 4,096 instructions. Compare all other
+operations with the source constructor. Map capacity and resize costs remain
+separate. The holder variant permits one private final field assignment to
+a fresh holder. Require an `Object` parent, one private reference field, no
+class initializer or finalizer, and a three-instruction constructor. Count
+one extra object and its constructor. Do not infer equal storage or admit
+later holder operations from this projection.
+
+An explicit static-instance guard can select a non-null descriptor-property
+getter path. Permit at most 128 such guards per read analysis. Check the
+field declaration, static access, and instance type. Record each guard used.
+An absent guard retains the cold path. This analysis does not observe the
+field, initialize its class, or prove that its value remains unchanged.
+
+The direct constructor cost check accepts at most 128 roots, 512 methods,
+64 active frames, 2,000,000 instructions, and 16,000 call sites. It sums
+selected instructions and repeated direct calls on acyclic paths. A forward
+branch can overestimate the cost because both arms are counted. Refuse
+back edges, recursion, handlers, synchronized methods, explicit monitors,
+arrays, and virtual calls. Record external calls and dynamic sites as open
+dependencies. Count explicit object allocations separately from these sites.
+Class initialization, bootstrap work, external bodies, and exception paths
+are outside this partial bound. This check does not admit a constructor.
+
+An instance-field read condition can describe at most 128 exact receiver
+and field pairs per read analysis. Check the declared instance field and
+receiver ancestry. Accept only an exact reference, null reference, or an
+integer or boolean value of the correct type. Do not replace property-ID
+or property-parent inputs with such a condition. Record each condition used.
+A null `instanceof` result is zero. Other unresolved instance tests retain
+both branches. These conditions do not prove runtime values or stability.
+
+The descriptor invariant root check accepts one method of at most 4,096
+instructions. Check the two array loops, their index increments, field
+identities, call signatures, and exits. An explicit empty-list condition
+excludes the expression branch. Refuse handlers that cover the selected
+path. Report the root cost as 33 + 12P + 15L instructions, P + 2L vendor
+calls, and one external list query. P and L are the two array lengths.
+Callee bodies, array contents, stable lengths, and external work remain
+separate requirements. This partial count does not grant admission.
+
+Constructor flag provenance follows at most 128 explicit parent or sibling
+constructor calls, with at most 4,096 instructions per body. Track argument
+loads, literals, and static references in the constructor-call prefix.
+Require one direct assignment to the selected final integer field. Refuse
+changed argument locals, ambiguous stores, unsupported prefixes, and cycles.
+This proves a constructor input relation only. Caller values, initialization,
+and reflective or native mutation remain separate conditions.
+
+For one property allocation witness, inspect at most 4,096 caller
+instructions and 128 prefix instructions. Require a direct constructor
+call and a literal final argument. Reject branches into the allocation
+prefix, handlers over it, or a flag origin in another argument position.
+Keep allocation and constructor provenance together in the report.
+
+The history ancestor check accepts one exact loop of 18 instructions.
+Check each call signature, local slot, branch target, and return. A stable
+chain of D wrappers costs at most 7 + 11D instructions and 1 + 4D vendor
+calls in this method. This count excludes the callee bodies. A true
+relationship predicate can exit early. Require separate bounds for the
+chain depth, wrapper identities, getter dispatch, and concurrent changes.
+Refuse handlers, synchronization, changed control flow, and extra work.
+This local loop check does not establish a runtime chain or admit a command.
+
+The lazy listener-map variant inspects at most 4,096 instructions in one
+method. Accept one null-guarded fresh `HashMap(1)` stored in the same private
+static field. Project only its literal and constructor signature to the
+default-constructor form. Preserve all other tokens and branch destinations.
+Refuse handlers, back edges, subroutines, switches, extra matching sites,
+or branches into the allocation. Record the one added instruction and the
+different capacity input. Map growth, external calls, and thread ownership
+need separate bounds. This variant does not admit registration or callbacks.
+
+The initialized disposal flag check accepts at most 128 forward blocks in
+one method of at most 4,096 instructions. Each block reads its own boolean
+field, optionally obtains a listener owner, removes its own final listener,
+and clears that same boolean field. It then calls the superclass disposal
+method. Count 11 instructions and two calls per enabled block; a disabled
+block costs three instructions. Getter bodies, exact listener owners,
+listener storage, tracking mode, and superclass disposal remain separate.
+Do not use the existing false-field projection for an initialized true flag.
+
+The listener-removal check accepts two fixed storage forms. The old form
+has a private list field. The new form has a private object field for one
+listener or a list. Check all non-assertion instructions, branch targets,
+field aliases, and List calls. The new tracking prefix must use a direct
+static boolean getter. Require that flag to remain false. Inspect at most
+4,096 instructions. Count all forward branch bodies and retained assertion
+checks. On the checked jars, the local bounds are 16 old instructions and
+43 new instructions. The new mode getter adds two instructions. List bodies,
+listener identity, capacity, growth, and concurrent changes remain separate.
+Do not infer storage identity or general listener equality across the forms.
+
+The read data-flow check can opt into concrete class tests. Require an exact
+concrete vendor receiver and a vendor class target. A positive result needs
+a superclass match. A negative result needs a complete superclass chain to
+`java/lang/Object`. Keep interface targets, external targets, unknown values,
+and incomplete negative chains unresolved. Retain at most 128 resolved class
+tests per flow. Keep the existing hierarchy, instruction, and state limits.
+This option is off for the earlier read reports.
+
+A named local comparison can exclude recognized disabled-assertion blocks.
+Keep this operation separate from the strict comparator. Limit the source
+to 4,096 instructions. Retain method access and all remaining instructions,
+references, and branch targets. Rebase forward and backward branches. Refuse
+handlers, subroutines, switches, entered assertion bodies, and invalid targets.
+Record both initialized true fields. An equal projected body is conditional
+and does not admit its callees or an enabled assertion path.
+
+The HashMap removal check reads the four extracted runtime classes as data
+and pins their SHA-256 values. Limit each class file to 1 MiB and each of
+the 18 selected methods to 4,096 instructions. Refuse handlers, switches,
+subroutines, wide branches, a second loop header in one method, and any
+reachable throw, static store, interface call, dynamic call, or monitor on
+the pruned paths. Require the `HashMap.class` form of the TreeNode
+assertion initializer as a specific contract; the generic recognizer is
+unchanged. A longest-path pass on the loop-free graph gives the per-frame
+and per-iteration work. Each loop has a checked progress argument. For a
+bucket of N nodes and tree height H, one removal costs at most 160 + 29N
+instructions and 7 + N frames in a linked bucket, or 719 + 110N + 308H
+instructions, 14 + 6N + 4H frames, and N - 1 Node allocations in a tree
+bucket. Each call makes one native identity hash. The conditions are an
+exact `HashMap` receiver, a stable valid table and tree, non-null keys
+that use `Object` identity and do not implement `Comparable`, an
+initialized true assertion flag, and no concurrent change. Native hash
+latency, runtime class identity, and other map iterations remain separate.
+The check runs in about 100 ms with a report under 16 KiB. Its mechanical
+confirmation covers 51,725 inert cases in under 30 s and 36 MiB.
+
+The factory closure walk builds a direct-reference index of the 6.1.4 jar
+as data and classifies the warm module route into a branch table. Keep the
+120-second, 768 MiB, and 8 MiB limits. Permit at most 512 methods per
+closure group, a walk depth of 40, 4,096 states per method, and 512
+interpreter steps per boolean assignment. A group above the method limit
+is refused and stays open; the `b_:Hgx` group was refused on this run.
+The walk assumes true assertion flags, initialized lazy singletons, a
+closed world without reflection or proxies, and merged receiver values
+across paths. The nitro compile-guard contract checks all 128 boolean
+assignments in the two guard bodies. The measured run took 9.8 s, 571 MiB
+peak RSS, and an 89 KiB report. A branch classified as excluded or bounded
+is conditional on the stated witness; an open branch retains its wait,
+monitor, file, or dispatch dependency. No branch admits the factory call.
+
+The history growth check pins 50 exact 6.1.4 bodies, 1,242 instructions in
+total, with build-independent digests. Limit each body to 4,096
+instructions. Refuse switches, subroutines, wide branches, a handler outside
+its range, and any unbound vendor type. The check runs in under 1 s. Its
+inert model runs at most 20,000 cases, 2,000,000 instructions per call,
+and 64 frames; the recorded run used 394 cases, 23 s, 115 MiB, and a
+47 KiB report. For one history hook with H helper records, S total helper
+set entries, N total helper table slots, and D parent depth, the vendor
+cost is at most 8 + 64H + 59S + 13N + 12SD instructions and the JDK cost
+at most 35 + 64H + 8S. The 13N term adds table capacity to E334's
+H + S × D model; capacity does not shrink under iterator removal. With an
+entry gate that requires an empty helper list and a null pending helper,
+each hook costs a constant 8, 5, or 5 vendor instructions. That gate needs
+two new edit-document field roles on the new build. The global property
+listener map is an existing monitor with 22 entry sites; listener dispatch
+runs under it, so its wait stays an open condition. The 6.0.6 build has
+no helper set, so the model applies to the new build only.
+
+The owned collector check resolves the null-key collector that the base
+disposal traversal and walk call on both builds. Its field-site scan
+streams every class with a name prefilter that includes the owner and all
+subclasses; an owner-only prefilter is unsound because a reference can
+name a subclass. Keep at most 4,096 field sites, 256 invocation sites
+(20,000 for listener callers), 200,000 list-store sites, 4,096 BFS keys,
+a 128-level superclass walk, 4,096 instructions per body, and a JDK bound
+depth of 32 that refuses undeclared back edges, switches, dynamic calls,
+monitors, and subroutines. Limit the serialized tree check to 4,096 nodes
+and depth 64. Use a 115-second per-jar deadline. The recorded runs took
+about 55 s and 224 MiB per build, 145 s for the renamed pair, and 33 s and
+425 MiB for the listener scan, with reports under 1 MiB. For one exact
+receiver with P strong properties and K returned children, one collector
+call costs at most 18 + 17P own vendor instructions plus the recorded
+getter and read bounds; the worst receiver (`module_contents`, P = 8)
+costs at most 550 vendor instructions, 59 calls, 2,291 + 39K JDK
+instructions, 182 JDK calls, and 38 allocations. Over the tree model's
+Q = N + M + R collector calls the JDK cost is at most
+2430N + 2332M + 2430R - 98. The conditions are the 33 exact receiver
+classes, initialized true assertion flags, initialized descriptors, a
+final strong-property array, stable exact `ArrayList` and `LinkedHashMap`
+storage, and no reflective or native writes. The serialized Amplify tree
+has one managed node, so M = 1 and R = N - 1 hold for the serialized data
+only. A runtime guard needs one extra collection pass before disposal.
+The mode-writer scan finds two writers of the volatile tracking flag, both
+reachable only through the `agent_debug` client behind the
+`testing-features` configuration; the writer stays retained.
+
+The command closure check builds an exact-dispatch core for 13 fixed
+command roots on each jar. A call enters the core only with an exact
+receiver (`this`, a fresh allocation, a lambda, or a field whose every
+in-jar writer stores a fresh allocation) or exactly one hierarchy target.
+Every other site is a listed frontier edge. Keep at most 1,000,000 indexed
+sites, 16,384 edges and 4,096 nodes per closure, 256 retained code classes,
+a chain length of 128, eight producer hops, the 120-second deadline, 768 MiB
+RSS, and the 8 MiB report limit. Run each jar in separate processes; the
+recorded phases took 31 s to 80 s each and at most 389 MiB. Cores hold 20
+to 1,302 methods and 6 to 390 frontier sites. No ping, manager push or pop,
+or manager-switch label is in any core on either build. The default lock
+collector returns the shared empty static set, and the other fixed
+commands use explicit empty arrays or the invalidating delete collector,
+so no fixed command reaches the lock wait. The 6.1.4 validation tail adds
+one observer notification that 6.0.6 lacks; its fan-out is open. Frontier
+edges, pending runnables at close, listener counts, and the replay worker
+failure remain open or parity limits. An optional document pin requires
+the project document class and the same manager at entry; the doctor does
+not yet check these in its witness. No command is admitted by this check.

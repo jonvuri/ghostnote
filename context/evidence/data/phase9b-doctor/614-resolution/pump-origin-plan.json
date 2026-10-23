@@ -1,0 +1,31 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace the UI action base slot and protocol method receive helper. No reachability exclusion is inferred.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "ril",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "cYw",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "ril",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "cYw",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V"
+    }
+  ]
+}

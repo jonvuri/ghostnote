@@ -159,9 +159,11 @@ Sessions:
   event dispatch. E335 finds descriptor overrides and a nested event pump.
   E336 completes the local role census and traces the changed membership
   getter and lock construction. E337 links operation contracts and nine
-  fields, and traces the managed-ID bootstraps. Session 9b.6g must complete
-  resolution and bounded admission before new probe preparation.
-  Record changed symbols and logic separately. Step 2 remains incomplete.
+  fields, and traces the managed-ID bootstraps. E338 closes 9b.6g: all
+  roles resolve on both jars, but complete offline bounded admission does
+  not converge. D52 adopts guarded runtime admission. Session 9b.6h
+  prepares the guarded doctor. Record changed symbols and logic
+  separately. Step 2 remains incomplete.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
   descriptions bump and the usual tool-addition consumers.
@@ -935,7 +937,9 @@ records 53 missing strict type roles and 76 blocked member roles. The
 boolean candidate's ancestor trace shows added fields and methods. No live
 attempt or deployment occurs. E332 then traces changed command contracts
 in 9b.6a. E333–E337 record the later contract and admission refusals.
-Continue with 9b.6g below before steps 3–5.
+[E338](../../evidence/experiments/e338-grid-doctor-614-offline-closeout.md)
+closes the offline work under [D52](../../decisions/d52-grid-upgrade-admission-policy.md).
+Continue with 9b.6h below for steps 3–5.
 
 **Entry ready.** [E330](../../evidence/experiments/e330-update-audit-614-acceptance.md)
 accepts the normal-product audit on 6.1.4 and records the jar fingerprint,
@@ -1487,6 +1491,52 @@ an intermediate trace does not require a separate E record.
    the repository procedure. Do not defer ready preparation to another
    session merely because offline resolution has finished.
 
+**Outcome (2026-10-22).** The session ends under its second stop rule.
+[E338](../../evidence/experiments/e338-grid-doctor-614-offline-closeout.md)
+records complete resolution on both jars and the conditional bounds of
+checkpoints 1–17. Offline bounded admission of every command path does not
+converge: each closure opened a wider frontier, and cache warmness, pending
+state, listener counts, actual document and context classes, and table
+capacity are runtime facts. [D52](../../decisions/d52-grid-upgrade-admission-policy.md)
+replaces that criterion with guarded runtime admission. The work list below
+is closed; its open rows become 9b.6h guards or 9b.7 tooling. The evidence,
+checkpoints, and diagnostic modules stay.
+
+**9b.6g work list (closed by E338).** Entry files are recorded in the
+[entry inventory](../../evidence/data/phase9b-doctor/614-resolution/entry-inventory.json).
+E337 supplies diagnostic inputs only. No role is accepted from a type input.
+[Checkpoint 16](../../evidence/data/phase9b-doctor/614-resolution/checkpoint-16/README.md)
+records the factory disposal wrappers and conditional tree bounds.
+[Checkpoint 17](../../evidence/data/phase9b-doctor/614-resolution/checkpoint-17/README.md)
+records the HashMap removal bound, owned collector bounds, factory closure
+branch table, command closure cores, and history growth formulas.
+The [2026-10-22 agent handoff](9b6g-agent-handoff-2026-10-22.md) records
+the user-requested pause, remaining dependencies, and work after checkpoint 16.
+Its preservation supplement retains the latest HashMap models and runtime
+comparison. It does not establish bounded admission or session completion.
+Checkpoint 15 records browsing call exclusions, listener storage, and release hooks.
+Checkpoint 14 records resource receiver exclusions and initialized disposal.
+Checkpoint 13 records listener maps, JDK lookup costs, and ancestor allocation.
+Checkpoint 12 records relationship flags and the ancestor-loop check.
+Checkpoint 11 records the generated port descriptors and their invariant costs.
+Checkpoint 10 records the instance-read conditions and the root loop check.
+
+| Work | Evidence and dependency | Next check | State |
+| --- | --- | --- | --- |
+| Boolean, decimal, destination, source, native-device, nitro, and child-object types; value, cable, and boolean commands | E337 inputs plus source anchors | All 55 types and 76 symbolic members validate on both jars. Finish command admission. | Symbolic checks pass |
+| Device, position, named, property, domain, project, engine, display, selection, focus, and helper types | Eight source anchors and nine source role witnesses | Both complete renamed models retain all identities and local role contracts with unrelated additions. Finish command-trace integration. | Symbolic checks pass |
+| Initialization, remote, selection, selected-modules, focus, connected, and inactive fields | Exact operation witnesses and lookup checks | All 16 fields bind. Retain access, signature, and receiver tests. | Symbolic checks pass |
+| Name, UUID, height, and recording ambiguity; eleven truncated pools | Complete counts and concrete value-setter override | All identities bind without selection from retained samples. | Symbolic checks pass |
+| Managed ID and both bootstraps | Exact supplier, handles, method types, and concat recipe | Local contracts pass. Check the disabled-assertion guard and external initialization requirements. | Admission active |
+| Disposal, recording access, and membership variants | Explicit local variants; bundled JDK class data; checkpoint 17 mode-writer scan | Local contracts pass. The volatile tracking flag has two writers, both reachable only through the `agent_debug` client behind the `testing-features` configuration. The writer stays retained. The old build has no mode. Complete runtime provenance and a task-atomicity or configuration guard. | Admission active |
+| Five abstract roles and fixed receiver contracts | 30 captured descriptor pairs, 454 captured properties, 49 combined capture and factory descriptor types, and ten domain descriptor pairs | All captured properties and 1,137 source registrations bind on both jars. The 369 direct invariant reads have 450 matching local contracts. The 53 descriptor getters have 106 matching contracts. Root array-loop costs pass on both real and renamed jars. Aggregate costs cover 780 value properties and one lock under explicit conditions. Finish object invariants, array stability, ancestor flags, and live context guards. Earlier renamed-model checks remain separate from the larger read set. | Active |
+| Factory template, hidden children, and disposal targets | Both bundled Amplify files; bounded codec and binary reader; descriptor registry traces; checkpoint 17 collector, HashMap, and factory closure reports | Earlier results stand (see checkpoints 5–16). Checkpoint 17 adds: one HashMap removal costs at most 160 + 29N linked or 719 + 110N + 308H tree instructions under exact-receiver and identity-key conditions; the null-key collector allocates a fresh `ArrayList` and costs at most 550 vendor and 2,291 + 39K JDK instructions on the worst of the 33 receivers; the serialized tree has one managed node, so M = 1 holds for serialized data only; the warm module route hits its UUID cache only after an earlier load in the same process, so the first call in a fresh process is cold and compiles; the compile skip is decidable from the copied Nitro lists; both browsing setters are excluded for the fixed command path; the `b_:Hgx` closure group was refused at the 512-method limit; the clone can wait without a timeout when the calling thread has no scoped queue. Close the cold first-call condition, the refused group, the clone queue wait, the Hgx listener single-object form, and the runtime tree guard. | Active |
+| Normal commands, replay, close, disposal, and failure paths | Helper and ping incoming scans; bounded backward index; checkpoint 17 exact-dispatch cores for 13 roots on both jars | No ping, manager push or pop, or manager-switch label is in any core. No fixed command reaches the lock wait: the default collector returns the shared empty static set, three commands pass empty arrays, and delete invalidates before any wait. Replay handler tables match across builds; a replay worker failure hangs the document thread on both builds and is a parity limit. The 6.1.4 validation tail adds one observer notification. Close the frontier edges (listener fire sites, `Runnable` and `Supplier` parameters, `oDc.ng_`, iterators), pending runnables at close, and listener counts. Add the document-manager and project-document class checks to the doctor witness. | Active |
+| History, capacity, depth, pending helpers, and wrapper growth | E334 H + S × D; E335 allocation; checkpoint 17 exact dfI/dgJ bodies and inert model | Earlier predicate and ancestor results stand. Checkpoint 17 pins 50 exact 6.1.4 bodies. One history hook costs at most 8 + 64H + 59S + 13N + 12SD vendor instructions; the 13N term is table capacity, which iterator removal never shrinks. Doctor objects with a false relationship predicate add nothing to the helper list, pending slot, or retained set. No true schema predicate lies on the checked parent chain. The global property listener map has 22 monitor entry sites with listener dispatch under the lock; its wait stays open. An entry gate that requires an empty helper list and a null pending helper makes each hook constant; it needs two new edit-document field roles. Close the relationships above `native_device` and the count of final-flag removal events per fixed command. | Active |
+| Complete resilience and integration gates | 319 new unit tests; 387 offline tests pass and 30 integration tests skip; six structural mutations and one read-dependency mutation refused | Finish complete command-trace and two-build integrated checks. Rerun earlier field scans that used an owner-only prefilter; a reference can name a subclass. Extend `runtime_dependencies` with `java/util/Collection` and the list helper methods that the history model stubs. Structural tests do not prove bounded admission. | Active |
+| Driver, resources, build guard, marker, attempt policy, and deployment | 9b.6 steps 3–4; E315/E316 | Prepare and test only after complete resolution and bounded admission pass. | Gated |
+| Runtime entry guards and new roles | Checkpoint 17 reports | Define the new-build roles and witness checks that the offline bounds require: edit-document helper list and pending helper (empty and null), the document-manager equality and project-document class in the witness, a read-only pending-list role, and the pre-disposal owned-tree guard (exact classes, one managed node, node and depth limits). Each adds a host read; model its cost under the ledger before implementation. | Planned |
+
 **Completion and stop rules.** End the offline session at one of these
 reviewable outcomes:
 
@@ -1517,3 +1567,76 @@ gates. A need for runtime evidence does not authorize a partial table, native
 write, or new probe deployment before its existing preparation gates pass.
 Do not repeat the accepted 6.0.6 doctor or the 9a audio flow. Step 2 stays
 open until the explicit two-build result; 9b.7 owns product cache enforcement.
+
+### Session 9b.6h — Guarded doctor on 6.1.4
+
+**Source.** [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
+[E338](../../evidence/experiments/e338-grid-doctor-614-offline-closeout.md),
+[checkpoint 17](../../evidence/data/phase9b-doctor/614-resolution/checkpoint-17/README.md),
+[E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md),
+E315, the [symbol manifest](9b-grid-symbol-manifest.md), the
+[performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md),
+and the 9b.6 steps 3–5 above. Keep the 9b.6 and 9b.6a safety criteria.
+E330 remains the last verified live state. The 9b.6g diagnostic modules
+under `brain/src/probes/grid_doctor/` are the trace tools for this session.
+
+**Objective.** Prepare, deploy, and run the consent-gated doctor on 6.1.4
+under D52: offline resolution, a body-change report, bounded traces of the
+changed bodies only, runtime entry guards, and the live self-test with
+per-call timing. End at the operator replacement gate, then at the doctor
+result. Prefer deterministic offline checks; add a guard where a runtime
+fact decides; use fixtures and agent traces where safety needs them.
+
+**Work.**
+
+1. **Body-change report.** Compare the exact bodies of the complete role
+   set on 6.0.6 and 6.1.4 with the existing digests and contracts. List
+   each body whose logic changed, not only its name. Known changes: the
+   validation tail observer notification, the pending-add assertion, the
+   membership getter, the disposal tracking tail, recording access, the
+   managed-ID bootstraps, listener storage, and the helper set. Record the
+   report under a new evidence directory.
+2. **Changed-body decisions.** For each changed body, answer one question:
+   same operation and effects on the fixed doctor path, or a new wait,
+   monitor, queue, compile, or callback. Use the exact-dispatch core and
+   bounded trace tools. Map each new effect to a guard in item 3 or to a
+   timed live step. Do not reopen the universal closure.
+3. **Runtime entry guards.** Read-only checks before each native command,
+   each with a modeled host cost under the ledger and a call-budget update:
+   the same manager and project-document class in the witness; the
+   edit-document helper list empty and pending helper null (two new field
+   roles); the pending-list role empty; the tracking flag false; an
+   owned-tree check before disposal (exact classes in the 33-class set,
+   one managed node, node and depth limits). Treat the cold first factory
+   call as a timed, consented live step; the compile is unavoidable on the
+   first add in a process. Keep every existing guard.
+4. **Driver and probe.** Adapt the pinned driver, candidate resources,
+   exact host and jar guard, deliberate build marker, and first-attempt
+   policy for the 6.1.4 fingerprint. Preserve V20 and its old attempt and
+   cache bytes. Test wrong build, duplicate attempt, incomplete roles,
+   uncertain-write retention, and exact old-record preservation. Keep
+   paired independent readback and complete-pass cache admission.
+5. **Deploy and run.** Build with `copyProbeExtension`, request full
+   operator controller replacement, run hello, verify the fresh profile
+   and markers, obtain fresh save-first scratch consent, verify project,
+   target, selection, and competing clients, then run one doctor pass.
+   Compare per-call costs with E316. Never repeat an uncertain command.
+   Record the E result, the exact final state, and the cache outcome.
+6. **Toolkit consolidation (can move to 9b.7).** Classify the 98 diagnostic
+   modules: reusable tools (`scan`, `ownership.method_trace`,
+   `read_dataflow`, `conditional_contracts`, `constructor_bounds`,
+   `call_paths`, `bounded_trace`, `command_closure`, `runtime_dependencies`,
+   `renamed_fixture`, `mutated_fixture`, the inert JDK models) and
+   per-build diagnostics (the `fixed_*`, `*_variants`, `*_contracts`,
+   `factory_closure`, `history_growth`, `owned_collectors`, `listener_*`
+   families). Keep the tools and their tests; archive the diagnostic glue
+   with its checkpoint snapshot. Verify every `/tmp/gn-9b6g-*` file against
+   the checkpoint manifests, then delete the temporary copies. Extend
+   `runtime_dependencies` and recheck owner-only prefilter scans only if a
+   changed-body trace needs them.
+
+**Acceptance.** A complete 6.1.4 doctor result with the guard set, the
+body-change report, and per-call timing; or a traced and measured reason
+it cannot pass under D52. Close step 2 only with the explicit two-build
+result. Product cache enforcement, the deterministic upgrade tool, and
+public descriptions remain in 9b.7.

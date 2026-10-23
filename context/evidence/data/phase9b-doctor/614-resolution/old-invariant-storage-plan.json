@@ -1,0 +1,20 @@
+{
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "purpose": "Trace the private descriptor expression list. No runtime state is observed.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "cXV",
+      "name": "ffA",
+      "descriptor": "(Lcom/bitwig/ramona/core/HEV;)V"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "field",
+      "owner": "cXV",
+      "name": "MkF",
+      "descriptor": "Ljava/util/List;"
+    }
+  ]
+}

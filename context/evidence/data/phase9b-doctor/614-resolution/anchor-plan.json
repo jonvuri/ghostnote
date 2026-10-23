@@ -1,0 +1,171 @@
+{
+  "format": "grid-doctor-source-anchors-v1",
+  "source": "E315",
+  "anchors": [
+    {
+      "source": [
+        "QY",
+        "nwQ",
+        "()LiEc;"
+      ],
+      "digest": "37184cdd2750627ead29b735ca35cb5ba88a28b70edbff7c039f768689d8b9e7"
+    },
+    {
+      "source": [
+        "TNT",
+        "eOi",
+        "(Z)D"
+      ],
+      "digest": "e6893a402981a1d587b04086af23e7f503ed46227432706ef2f2eaf3e430f155"
+    },
+    {
+      "source": [
+        "cYQ",
+        "ffA",
+        "(Ljava/lang/String;Ljava/lang/String;)Z"
+      ],
+      "digest": "f1b236ecc164f5eb29991e2f1d910c29250df9af14160de6e942cd9658fa681e"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/S2E",
+        "gnZ",
+        "()Ljava/lang/String;"
+      ],
+      "digest": "1d6a2879131b6ffdc342c36064dcc0ef9548cd59dfbf433f44bbccf801caed0d"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/mvZ",
+        "bc_",
+        "()V"
+      ],
+      "digest": "2185212e5cfd887471f943bad57e0535f298f845a92c98c86cadc3f7681fcb9c"
+    },
+    {
+      "source": [
+        "dkb",
+        "Ode",
+        "()Ldkb;"
+      ],
+      "digest": "63a205488f52048629e2cc776f213ab77ed2bf261257af1b8f9415956d0c084a"
+    },
+    {
+      "source": [
+        "mbe",
+        "ffA",
+        "(LGn;LdCC;)Z"
+      ],
+      "digest": "c8124202aadf885cc6d200746e325594c201df1488ff06a28085e442046d596c"
+    },
+    {
+      "source": [
+        "tqm",
+        "eOi",
+        "(LuNh;LMUT;)V"
+      ],
+      "digest": "21b0977171c356fa0000984beabd359afe843cdc442b4ed9684c56835dbcdf86"
+    }
+  ],
+  "roleWitnesses": [
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/gOr",
+        "ffA",
+        "(II)Lcom/bitwig/flt/document/core/master/device/had;"
+      ],
+      "roles": [
+        "height"
+      ],
+      "digest": "0d406845257878ebd664b7a79bc6bbe1df0e26fd385085a1315ae182ecc41274"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/xWk",
+        "eJS",
+        "()Ljava/util/List;"
+      ],
+      "roles": [
+        "members"
+      ],
+      "digest": "72524008f52127d9af381ca5973e536307173b62afef7a1e149928ba206fb784"
+    },
+    {
+      "source": [
+        "com/bitwig/ramona/core/ytV",
+        "ffA",
+        "(Lcom/bitwig/ramona/core/HEV;Ljava/lang/String;Ljava/lang/String;Lcom/bitwig/ramona/core/ziZ;Z)Z"
+      ],
+      "roles": [
+        "recording"
+      ],
+      "digest": "7c6db4b9a21be0b25f73ae5c83a79d4b07041c326b97ee4a644e964b9d15aff6"
+    },
+    {
+      "source": [
+        "daR",
+        "ffA",
+        "(LcYz;Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/core/HEV;ZZ)V"
+      ],
+      "roles": [
+        "journal-recording-edit"
+      ],
+      "digest": "2fa3dcea4434c4c1e89a3a6538d48b1b8b6692c65cb962d3ec177cffebcc3ceb"
+    },
+    {
+      "source": [
+        "Gn",
+        "dC_",
+        "()V"
+      ],
+      "roles": [
+        "disposal"
+      ],
+      "digest": "672ac1ef18a57fc7a05740cbcf23ab3acf9aa915a0fff49a5f79834208b44476"
+    },
+    {
+      "source": [
+        "QY",
+        "ffA",
+        "(D)V"
+      ],
+      "roles": [
+        "boolean-command"
+      ],
+      "digest": "dfd7a673c185e65c7b1c4d4f103489f16fd7452b7f21aa73354c39bf0ceea0c7"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/Svr",
+        "qXO",
+        "()V"
+      ],
+      "roles": [
+        "engine-state"
+      ],
+      "digest": "e8381bc54d0b369d68d4765cb1fc4b75bae2e721d0d79d5b2300470a5e480635"
+    },
+    {
+      "source": [
+        "com/bitwig/flt/document/core/master/device/ilU",
+        "ffA",
+        "(Lcom/bitwig/flt/document/core/master/device/ar;I)I"
+      ],
+      "roles": [
+        "managed-id"
+      ],
+      "digest": "687c72f8ee598f9478808f1e3be08737b4ab965ad59beb67437b12719081b9cc"
+    },
+    {
+      "source": [
+        "bcf",
+        "eOi",
+        "(D)V"
+      ],
+      "roles": [
+        "native-value-setter"
+      ],
+      "digest": "d87eca3240da2cb0314a133c8f4bd9bd35cd853b270a39e47d7200e33a4bfd61"
+    }
+  ]
+}

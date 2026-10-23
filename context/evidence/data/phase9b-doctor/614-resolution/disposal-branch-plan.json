@@ -1,0 +1,29 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned disposal branch and callback investigation. No admission.",
+  "methods": [
+    {
+      "owner": "com/bitwig/ramona/core/oDc",
+      "name": "ix_",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "to",
+      "name": "ix_",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "thz",
+      "name": "cfM",
+      "descriptor": "(Ljava/lang/Object;)V"
+    }
+  ],
+  "slots": [
+    {
+      "receiverBase": "com/bitwig/ramona/core/oDc",
+      "name": "I_",
+      "descriptor": "()Z"
+    }
+  ],
+  "targets": []
+}

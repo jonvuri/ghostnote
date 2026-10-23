@@ -1,0 +1,97 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "rows": [
+    {
+      "className": "audio_destination_atom",
+      "propertyName": "source",
+      "id": 7125,
+      "source": [
+        "com/bitwig/flt/document/core/master/device/Zb1",
+        "fJR",
+        "()LdeU;"
+      ],
+      "call": {
+        "offset": 30,
+        "constructor": {
+          "tag": 10,
+          "owner": "deU",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ZI)V"
+        },
+        "lastIntArgument": 411,
+        "bit32": false
+      }
+    },
+    {
+      "className": "module",
+      "propertyName": "device_contents",
+      "id": 406,
+      "source": [
+        "com/bitwig/flt/document/core/master/device/QWa",
+        "TtY",
+        "()LdeU;"
+      ],
+      "call": {
+        "offset": 30,
+        "constructor": {
+          "tag": 10,
+          "owner": "deU",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ZI)V"
+        },
+        "lastIntArgument": 409,
+        "bit32": false
+      }
+    },
+    {
+      "className": "module_contents",
+      "propertyName": "child_components",
+      "id": 173,
+      "source": [
+        "com/bitwig/flt/document/core/master/device/M2Y",
+        "NC",
+        "()LdeT;"
+      ],
+      "call": {
+        "offset": 31,
+        "constructor": {
+          "tag": 10,
+          "owner": "deT",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ILjava/lang/Integer;I)V"
+        },
+        "lastIntArgument": 392,
+        "bit32": false
+      }
+    },
+    {
+      "className": "module_grid",
+      "propertyName": "auxiliary_devices",
+      "id": 6428,
+      "source": [
+        "com/bitwig/flt/document/core/master/device/PMp",
+        "wGc",
+        "()LdeT;"
+      ],
+      "call": {
+        "offset": 31,
+        "constructor": {
+          "tag": 10,
+          "owner": "deT",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;ILder;Lder;LcUb;Ljava/lang/String;ILjava/lang/Integer;I)V"
+        },
+        "lastIntArgument": 409,
+        "bit32": false
+      }
+    }
+  ],
+  "elapsedMs": 3980.4298329981975,
+  "peakRssBytes": 182370304,
+  "limits": [
+    "Literal constructor arguments only. Constructor forwarding and actual field values need independent checks.",
+    "The capture does not include all ancestors or all generated properties."
+  ],
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

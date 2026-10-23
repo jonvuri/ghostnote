@@ -2,8 +2,8 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E330 accepts the normal-product update audit. E337 links operation contracts and nine fields on 6.1.4. Next is sustained 9b.6g work through offline resolution and probe preparation, with explicit completion and blocker rules.
-updated: 2026-10-21
+status: E338 closes the 9b.6g offline work; D52 adopts guarded runtime admission. Next is 9b.6h, the guarded doctor on 6.1.4.
+updated: 2026-10-22
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 next: ../phase-10/README.md

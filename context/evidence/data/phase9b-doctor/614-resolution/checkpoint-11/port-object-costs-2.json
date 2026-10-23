@@ -1,0 +1,180 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "rows": [
+    {
+      "name": "audio_port",
+      "id": 242,
+      "valueCount": 9,
+      "objectInvariant": [
+        "com/bitwig/ramona/core/oDc",
+        "ar_",
+        "()V"
+      ],
+      "descriptorGetterBound": [
+        5,
+        1,
+        0
+      ],
+      "normalObjectInvariantBound": {
+        "vendorInstructions": 985,
+        "vendorCalls": 143,
+        "externalCalls": 10,
+        "explicitObjects": 9
+      },
+      "requiredStaticDescriptors": [
+        [
+          "oV",
+          "cfM",
+          "LoV;"
+        ]
+      ],
+      "assertionGuards": [
+        [
+          "CKx",
+          "iHb",
+          "Z"
+        ],
+        [
+          "FCo",
+          "cfM",
+          "Z"
+        ],
+        [
+          "Nbv",
+          "FzB",
+          "Z"
+        ],
+        [
+          "UqJ",
+          "hUR",
+          "Z"
+        ],
+        [
+          "ZLs",
+          "TMF",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/AVL",
+          "jOH",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "xPh",
+          "Z"
+        ],
+        [
+          "der",
+          "hbP",
+          "Z"
+        ],
+        [
+          "gez",
+          "TMF",
+          "Z"
+        ],
+        [
+          "wji",
+          "FzB",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "name": "nitro_event_port",
+      "id": 1809,
+      "valueCount": 11,
+      "objectInvariant": [
+        "com/bitwig/ramona/core/oDc",
+        "ar_",
+        "()V"
+      ],
+      "descriptorGetterBound": [
+        5,
+        1,
+        0
+      ],
+      "normalObjectInvariantBound": {
+        "vendorInstructions": 1197,
+        "vendorCalls": 174,
+        "externalCalls": 12,
+        "explicitObjects": 11
+      },
+      "requiredStaticDescriptors": [
+        [
+          "Ykp",
+          "cfM",
+          "LYkp;"
+        ]
+      ],
+      "assertionGuards": [
+        [
+          "CKx",
+          "iHb",
+          "Z"
+        ],
+        [
+          "EKl",
+          "hUR",
+          "Z"
+        ],
+        [
+          "LKb",
+          "IwV",
+          "Z"
+        ],
+        [
+          "Ykp",
+          "MRY",
+          "Z"
+        ],
+        [
+          "ZDH",
+          "cfM",
+          "Z"
+        ],
+        [
+          "ZLs",
+          "TMF",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/AVL",
+          "jOH",
+          "Z"
+        ],
+        [
+          "com/bitwig/ramona/core/oDc",
+          "xPh",
+          "Z"
+        ],
+        [
+          "der",
+          "hbP",
+          "Z"
+        ],
+        [
+          "gez",
+          "TMF",
+          "Z"
+        ],
+        [
+          "wby",
+          "FzB",
+          "Z"
+        ]
+      ]
+    }
+  ],
+  "elapsedMs": 4284.766791970469,
+  "peakRssBytes": 179732480,
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "conditions": [
+    "All value-path and descriptor-root conditions remain required.",
+    "The registered array contents must be exact and stable; the expression list must stay empty.",
+    "External method bodies, class initialization, and exception paths remain separate.",
+    "These counts do not include generated-port construction, setters, or attachment."
+  ]
+}

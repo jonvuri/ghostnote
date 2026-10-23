@@ -1,0 +1,20 @@
+{
+  "rows": [
+    {
+      "owner": "com/bitwig/flt/document/core/master/DhK",
+      "types": {
+        "com/bitwig/flt/document/core/master/DhK": "com/bitwig/flt/document/core/master/QfF",
+        "cYt": "deO",
+        "com/bitwig/nitro/s3E": "com/bitwig/nitro/kj2",
+        "com/bitwig/flt/document/core/master/B3E": "com/bitwig/flt/document/core/master/NcW",
+        "mge": "weV",
+        "ae": "gB",
+        "bF": "ib",
+        "cJv": "cPJ"
+      }
+    }
+  ],
+  "elapsedMs": 8017.293750017416,
+  "peakRssBytes": 320323584,
+  "boundedAdmission": false
+}

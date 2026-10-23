@@ -1,0 +1,1874 @@
+{
+  "result": "refused",
+  "reason": "runtime-receiver-and-command-closure-unproved",
+  "completeTable": false,
+  "boundedAdmission": false,
+  "writeAuthority": false,
+  "slots": [],
+  "methods": [
+    {
+      "owner": "ril",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V",
+      "flags": 17,
+      "codeBytes": 67,
+      "classSha256": "ce645be9172e38b669627562ff13d7ee0f434e3e3aed1fbce50ea4970e3b00c9",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "target": 14
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "target": 15
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "target": 29
+        },
+        {
+          "offset": 32,
+          "opcode": 154,
+          "target": 61
+        },
+        {
+          "offset": 39,
+          "opcode": 154,
+          "target": 46
+        },
+        {
+          "offset": 43,
+          "opcode": 167,
+          "target": 47
+        },
+        {
+          "offset": 50,
+          "opcode": 154,
+          "target": 61
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "ril",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 29,
+          "opcode": 178,
+          "owner": "ril",
+          "name": "cfM",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 36,
+          "opcode": 182,
+          "owner": "ril",
+          "name": "rGR",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 47,
+          "opcode": 184,
+          "owner": "cPJ",
+          "name": "UNj",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 57,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 63,
+          "opcode": 182,
+          "owner": "ril",
+          "name": "UNj",
+          "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "ril",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 154,
+          "args": [
+            0,
+            26
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 184,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 21,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 183,
+          "args": [
+            0,
+            22
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 178,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "ril",
+            "name": "cfM",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 154,
+          "args": [
+            0,
+            29
+          ]
+        },
+        {
+          "offset": 35,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 182,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ril",
+            "name": "rGR",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 39,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 42,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 43,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 46,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 184,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cPJ",
+            "name": "UNj",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 50,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 53,
+          "opcode": 187,
+          "args": [
+            0,
+            8
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 56,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 183,
+          "args": [
+            0,
+            22
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 60,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 62,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 63,
+          "opcode": 182,
+          "args": [
+            0,
+            29
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ril",
+            "name": "UNj",
+            "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+          }
+        },
+        {
+          "offset": 66,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "ril",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V",
+      "flags": 1028,
+      "codeBytes": 0,
+      "classSha256": "ce645be9172e38b669627562ff13d7ee0f434e3e3aed1fbce50ea4970e3b00c9",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [],
+      "instructions": []
+    },
+    {
+      "owner": "cYw",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;Lcom/bitwig/ramona/core/oDc;)V",
+      "flags": 4,
+      "codeBytes": 81,
+      "classSha256": "17331118f0605409c8cd8a29bf7da479b4956f270017b62715c21241a6e9c4bb",
+      "exceptionHandlers": [
+        [
+          0,
+          15,
+          18,
+          22
+        ]
+      ],
+      "branches": [
+        {
+          "offset": 15,
+          "opcode": 167,
+          "target": 32
+        },
+        {
+          "offset": 33,
+          "opcode": 199,
+          "target": 53
+        },
+        {
+          "offset": 57,
+          "opcode": 153,
+          "target": 73
+        },
+        {
+          "offset": 70,
+          "opcode": 167,
+          "target": 80
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "ng_",
+          "descriptor": "()LdeS;"
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "owner": "cYw",
+          "name": "MRY",
+          "descriptor": "I"
+        },
+        {
+          "offset": 8,
+          "opcode": 182,
+          "owner": "deS",
+          "name": "cfM",
+          "descriptor": "(I)LdeN;"
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;Ljava/lang/Throwable;)V"
+        },
+        {
+          "offset": 41,
+          "opcode": 180,
+          "owner": "cYw",
+          "name": "MRY",
+          "descriptor": "I"
+        },
+        {
+          "offset": 49,
+          "opcode": 183,
+          "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "hUR",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "owner": "cYw",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;Ldfd;Lcom/bitwig/ramona/core/oDc;)V"
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "owner": "cYw",
+          "name": "cfM",
+          "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/core/oDc",
+            "name": "ng_",
+            "descriptor": "()LdeS;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "cYw",
+            "name": "MRY",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 182,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deS",
+            "name": "cfM",
+            "descriptor": "(I)LdeN;"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 192,
+          "args": [
+            0,
+            18
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "deV"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 78,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 167,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 18,
+          "opcode": 58,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 187,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/ramona/protocol/InvalidRequestException"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 24,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Expected a operation or signal"
+          }
+        },
+        {
+          "offset": 26,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 183,
+          "args": [
+            0,
+            48
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;Ljava/lang/Throwable;)V"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 199,
+          "args": [
+            0,
+            20
+          ]
+        },
+        {
+          "offset": 36,
+          "opcode": 187,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/ramona/protocol/InvalidRequestException"
+          }
+        },
+        {
+          "offset": 39,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 40,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 180,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "cYw",
+            "name": "MRY",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 44,
+          "opcode": 186,
+          "args": [
+            0,
+            72,
+            0,
+            0
+          ],
+          "constant": {
+            "tag": 18,
+            "name": "makeConcatWithConstants",
+            "descriptor": "(I)Ljava/lang/String;",
+            "bootstrapIndex": 0
+          },
+          "bootstrap": {
+            "handle": {
+              "tag": 15,
+              "kind": 6,
+              "target": {
+                "tag": 10,
+                "owner": "java/lang/invoke/StringConcatFactory",
+                "name": "makeConcatWithConstants",
+                "descriptor": "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;"
+              }
+            },
+            "arguments": [
+              {
+                "tag": 8,
+                "value": "No operation or signal found with id \u0001"
+              }
+            ]
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 183,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 53,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 54,
+          "opcode": 182,
+          "args": [
+            0,
+            56
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "hUR",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 57,
+          "opcode": 153,
+          "args": [
+            0,
+            16
+          ]
+        },
+        {
+          "offset": 60,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 62,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 63,
+          "opcode": 192,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "dfd"
+          }
+        },
+        {
+          "offset": 66,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 67,
+          "opcode": 182,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cYw",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;Ldfd;Lcom/bitwig/ramona/core/oDc;)V"
+          }
+        },
+        {
+          "offset": 70,
+          "opcode": 167,
+          "args": [
+            0,
+            10
+          ]
+        },
+        {
+          "offset": 73,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 75,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 76,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cYw",
+            "name": "cfM",
+            "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V"
+          }
+        },
+        {
+          "offset": 80,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "cYw",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V",
+      "flags": 2,
+      "codeBytes": 169,
+      "classSha256": "17331118f0605409c8cd8a29bf7da479b4956f270017b62715c21241a6e9c4bb",
+      "exceptionHandlers": [
+        [
+          92,
+          113,
+          116,
+          14
+        ]
+      ],
+      "branches": [
+        {
+          "offset": 12,
+          "opcode": 159,
+          "target": 45
+        },
+        {
+          "offset": 77,
+          "opcode": 153,
+          "target": 154
+        },
+        {
+          "offset": 113,
+          "opcode": 167,
+          "target": 151
+        },
+        {
+          "offset": 151,
+          "opcode": 167,
+          "target": 70
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 182,
+          "owner": "cYw",
+          "name": "wGc",
+          "descriptor": "()I"
+        },
+        {
+          "offset": 9,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "UNj",
+          "descriptor": "()I"
+        },
+        {
+          "offset": 20,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "WVl",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 24,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "ng_",
+          "descriptor": "()LdeS;"
+        },
+        {
+          "offset": 27,
+          "opcode": 182,
+          "owner": "deS",
+          "name": "uYs",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 31,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "UNj",
+          "descriptor": "()I"
+        },
+        {
+          "offset": 41,
+          "opcode": 183,
+          "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 51,
+          "opcode": 183,
+          "owner": "java/util/ArrayList",
+          "name": "<init>",
+          "descriptor": "(I)V"
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "owner": "cYw",
+          "name": "E3",
+          "descriptor": "()Ljava/util/List;"
+        },
+        {
+          "offset": 63,
+          "opcode": 185,
+          "owner": "java/util/List",
+          "name": "iterator",
+          "descriptor": "()Ljava/util/Iterator;"
+        },
+        {
+          "offset": 72,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "hasNext",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 82,
+          "opcode": 185,
+          "owner": "java/util/Iterator",
+          "name": "next",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 95,
+          "opcode": 182,
+          "owner": "ddU",
+          "name": "MRY",
+          "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 104,
+          "opcode": 185,
+          "owner": "java/util/List",
+          "name": "add",
+          "descriptor": "(Ljava/lang/Object;)Z"
+        },
+        {
+          "offset": 123,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "WVl",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 127,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/core/oDc",
+          "name": "ng_",
+          "descriptor": "()LdeS;"
+        },
+        {
+          "offset": 130,
+          "opcode": 182,
+          "owner": "deS",
+          "name": "uYs",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 139,
+          "opcode": 182,
+          "owner": "com/bitwig/ramona/protocol/InvalidProtocolValueException",
+          "name": "getLocalizedMessage",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 147,
+          "opcode": 183,
+          "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 160,
+          "opcode": 182,
+          "owner": "cYw",
+          "name": "Z1C",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 163,
+          "opcode": 185,
+          "owner": "com/bitwig/ramona/protocol/Dgc",
+          "name": "cfM",
+          "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 182,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cYw",
+            "name": "wGc",
+            "descriptor": "()I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 54,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 182,
+          "args": [
+            0,
+            54
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "UNj",
+            "descriptor": "()I"
+          }
+        },
+        {
+          "offset": 12,
+          "opcode": 159,
+          "args": [
+            0,
+            33
+          ]
+        },
+        {
+          "offset": 15,
+          "opcode": 187,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/ramona/protocol/InvalidRequestException"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 19,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 182,
+          "args": [
+            0,
+            55
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "WVl",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 24,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/core/oDc",
+            "name": "ng_",
+            "descriptor": "()LdeS;"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 182,
+          "args": [
+            0,
+            52
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deS",
+            "name": "uYs",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 30,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 182,
+          "args": [
+            0,
+            54
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "UNj",
+            "descriptor": "()I"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 36,
+          "opcode": 186,
+          "args": [
+            0,
+            75,
+            0,
+            0
+          ],
+          "constant": {
+            "tag": 18,
+            "name": "makeConcatWithConstants",
+            "descriptor": "(Ljava/lang/String;Ljava/lang/String;II)Ljava/lang/String;",
+            "bootstrapIndex": 3
+          },
+          "bootstrap": {
+            "handle": {
+              "tag": 15,
+              "kind": 6,
+              "target": {
+                "tag": 10,
+                "owner": "java/lang/invoke/StringConcatFactory",
+                "name": "makeConcatWithConstants",
+                "descriptor": "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;"
+              }
+            },
+            "arguments": [
+              {
+                "tag": 8,
+                "value": "Incorrect number of arguments sent for operation \u0001 in class \u0001: expected \u0001 but received \u0001"
+              }
+            ]
+          }
+        },
+        {
+          "offset": 41,
+          "opcode": 183,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 44,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 187,
+          "args": [
+            0,
+            25
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/util/ArrayList"
+          }
+        },
+        {
+          "offset": 48,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 49,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 51,
+          "opcode": 183,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/ArrayList",
+            "name": "<init>",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 54,
+          "opcode": 58,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 56,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 54,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 59,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 182,
+          "args": [
+            0,
+            32
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cYw",
+            "name": "E3",
+            "descriptor": "()Ljava/util/List;"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 185,
+          "args": [
+            0,
+            71,
+            1,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "java/util/List",
+            "name": "iterator",
+            "descriptor": "()Ljava/util/Iterator;"
+          }
+        },
+        {
+          "offset": 68,
+          "opcode": 58,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 70,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 72,
+          "opcode": 185,
+          "args": [
+            0,
+            68,
+            1,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "java/util/Iterator",
+            "name": "hasNext",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 153,
+          "args": [
+            0,
+            77
+          ]
+        },
+        {
+          "offset": 80,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 82,
+          "opcode": 185,
+          "args": [
+            0,
+            69,
+            1,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "java/util/Iterator",
+            "name": "next",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 87,
+          "opcode": 192,
+          "args": [
+            0,
+            16
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "ddU"
+          }
+        },
+        {
+          "offset": 90,
+          "opcode": 58,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 92,
+          "opcode": 25,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 94,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 95,
+          "opcode": 182,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "ddU",
+            "name": "MRY",
+            "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;)Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 98,
+          "opcode": 58,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 100,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 102,
+          "opcode": 25,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 104,
+          "opcode": 185,
+          "args": [
+            0,
+            70,
+            2,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "java/util/List",
+            "name": "add",
+            "descriptor": "(Ljava/lang/Object;)Z"
+          }
+        },
+        {
+          "offset": 109,
+          "opcode": 87,
+          "args": []
+        },
+        {
+          "offset": 110,
+          "opcode": 132,
+          "args": [
+            6,
+            1
+          ]
+        },
+        {
+          "offset": 113,
+          "opcode": 167,
+          "args": [
+            0,
+            38
+          ]
+        },
+        {
+          "offset": 116,
+          "opcode": 58,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 118,
+          "opcode": 187,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "com/bitwig/ramona/protocol/InvalidRequestException"
+          }
+        },
+        {
+          "offset": 121,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 122,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 123,
+          "opcode": 182,
+          "args": [
+            0,
+            55
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "WVl",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 126,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 127,
+          "opcode": 182,
+          "args": [
+            0,
+            44
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/core/oDc",
+            "name": "ng_",
+            "descriptor": "()LdeS;"
+          }
+        },
+        {
+          "offset": 130,
+          "opcode": 182,
+          "args": [
+            0,
+            52
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deS",
+            "name": "uYs",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 133,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 135,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 136,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 137,
+          "opcode": 25,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 139,
+          "opcode": 182,
+          "args": [
+            0,
+            46
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/protocol/InvalidProtocolValueException",
+            "name": "getLocalizedMessage",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 142,
+          "opcode": 186,
+          "args": [
+            0,
+            76,
+            0,
+            0
+          ],
+          "constant": {
+            "tag": 18,
+            "name": "makeConcatWithConstants",
+            "descriptor": "(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;",
+            "bootstrapIndex": 4
+          },
+          "bootstrap": {
+            "handle": {
+              "tag": 15,
+              "kind": 6,
+              "target": {
+                "tag": 10,
+                "owner": "java/lang/invoke/StringConcatFactory",
+                "name": "makeConcatWithConstants",
+                "descriptor": "(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;"
+              }
+            },
+            "arguments": [
+              {
+                "tag": 8,
+                "value": "Invalid argument sent for operation \u0001 in class \u0001 at position \u0001: \u0001"
+              }
+            ]
+          }
+        },
+        {
+          "offset": 147,
+          "opcode": 183,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/protocol/InvalidRequestException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 150,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 151,
+          "opcode": 167,
+          "args": [
+            255,
+            175
+          ]
+        },
+        {
+          "offset": 154,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 155,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 156,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 157,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 159,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 160,
+          "opcode": 182,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "cYw",
+            "name": "Z1C",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 163,
+          "opcode": 185,
+          "args": [
+            0,
+            66,
+            5,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "com/bitwig/ramona/protocol/Dgc",
+            "name": "cfM",
+            "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+          }
+        },
+        {
+          "offset": 168,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "classes": {
+    "ril": {
+      "sha256": "ce645be9172e38b669627562ff13d7ee0f434e3e3aed1fbce50ea4970e3b00c9",
+      "parent": "jbX",
+      "interfaces": [
+        "cFw"
+      ],
+      "flags": 1057
+    },
+    "cYw": {
+      "sha256": "17331118f0605409c8cd8a29bf7da479b4956f270017b62715c21241a6e9c4bb",
+      "parent": "cYx",
+      "interfaces": [
+        "cVR"
+      ],
+      "flags": 33
+    }
+  },
+  "sites": [
+    {
+      "caller": "ril",
+      "method": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V",
+      "offset": 63,
+      "opcode": 182,
+      "target": {
+        "tag": 10,
+        "owner": "ril",
+        "name": "UNj",
+        "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+      },
+      "resolution": {
+        "status": "declaration",
+        "owner": "ril",
+        "flags": 1028
+      }
+    },
+    {
+      "caller": "cYw",
+      "method": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;Lcom/bitwig/ramona/core/oDc;)V",
+      "offset": 77,
+      "opcode": 182,
+      "target": {
+        "tag": 10,
+        "owner": "cYw",
+        "name": "cfM",
+        "descriptor": "(Lcom/bitwig/ramona/protocol/Dgc;LdeV;Lcom/bitwig/ramona/core/oDc;)V"
+      },
+      "resolution": {
+        "status": "declaration",
+        "owner": "cYw",
+        "flags": 2
+      }
+    }
+  ],
+  "methodHandles": [],
+  "unresolvedReferences": [],
+  "work": {
+    "classes": 31627,
+    "methods": 393713,
+    "instructions": 6574509,
+    "sites": 2,
+    "traces": 4,
+    "hierarchy_edges": 355,
+    "lookups": 46
+  },
+  "coverage": {
+    "requiredTypes": 55,
+    "requiredMembers": 76,
+    "validatedNewTableMembers": 0
+  },
+  "limitsOfEvidence": [
+    "The explicit plan is investigation input, not a reusable role selector.",
+    "A symbolic declaration is not a runtime virtual receiver or reachable-path proof.",
+    "Interface lookup, external callers, reflection, and native callbacks remain unproved.",
+    "No command closure, history growth bound, or tracking-mode exclusion is established.",
+    "No runtime descriptor, history, or mode is measured. No live table is emitted."
+  ],
+  "input": {
+    "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+    "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+    "counts": {
+      "jarBytes": 35778607,
+      "entries": 31655,
+      "classes": 31627,
+      "classBytes": 71461507,
+      "members": 466601,
+      "defaultPackageClasses": 24702
+    },
+    "retainedCodeClasses": 4,
+    "limits": {
+      "jar_bytes": 67108864,
+      "entries": 50000,
+      "classes": 40000,
+      "class_bytes": 1048576,
+      "total_bytes": 134217728,
+      "members": 1000000,
+      "depth": 128,
+      "code_classes": 256,
+      "call_work": 4096,
+      "call_depth": 2,
+      "rss": 805306368,
+      "seconds": 120
+    }
+  },
+  "inputHashes": {
+    "seed": "35fab625b6f132990355f9ab71019e64bb22afe04321a980dab2c94f929c1c18",
+    "plan": "01e8b3f2e7a8372163059bd43a43f9aac4032a3d8de7e6729ae79fd60c5e5d8f"
+  },
+  "limits": {
+    "methods": 1000000,
+    "instructions": 16000000,
+    "sites": 16000,
+    "traces": 512,
+    "report_bytes": 8388608,
+    "hierarchy_edges": 4000000,
+    "lookups": 16384
+  },
+  "elapsedMs": 9985.213,
+  "peakRssBytes": 179503104
+}

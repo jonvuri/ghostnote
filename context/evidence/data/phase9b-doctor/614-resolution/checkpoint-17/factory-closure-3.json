@@ -1,0 +1,3310 @@
+{
+ "result": "refused",
+ "reason": "factory-route-closure-incomplete",
+ "boundedAdmission": false,
+ "runtimeClassesInitialized": 0,
+ "writeAuthority": false,
+ "jar": {
+  "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f"
+ },
+ "scope": "6.1.4 actual jar only; 6.0.6 and renamed fixtures not traced in this report",
+ "conditions": [
+  "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+  "Closed-world bytecode: no reflection, Proxy, generated classes, or native callbacks into these paths.",
+  "Lazy static descriptor singletons initialized (walker prunes static ifnonnull lazy-init arms).",
+  "Receiver precision is flow-merged per instruction site.",
+  "A passing local check is a conditional result, not admission."
+ ],
+ "branchTable": [
+  {
+   "id": "W1",
+   "path": "rSf.lYc(UUID) -> iJW.fJR() -> Xa.QuY()",
+   "classification": "bounded",
+   "conditions": [
+    "iJW.MRY is non-null; its single writer is iJW#cfM#(LXa;)V@104.",
+    "Closed-world dispatch: no generated Xa implementation."
+   ],
+   "witness": {
+    "dispatchTargets": [
+     "com/bitwig/flt/app/TL",
+     "qf"
+    ],
+    "inheritors": "MVg, app/RKg, gJi and testing/CuM inherit TL.QuY",
+    "getters": {
+     "TL.QuY": "getfield TL.kIh",
+     "qf.QuY": "getfield qf.tp2"
+    }
+   },
+   "bound": {
+    "instructions": "3 (fJR) + 2 (QuY getter)",
+    "vendorCalls": 2
+   }
+  },
+  {
+   "id": "W2",
+   "path": "vDL construction",
+   "classification": "bounded",
+   "conditions": [
+    "TL.kIh and qf.tp2 are each assigned once in their constructors."
+   ],
+   "witness": {
+    "vDL.<init>": "GDf.<init>(Hpk, true, capacity)",
+    "GDf.<init>(Hpk,Z,I)": "passes lconst_0 TTL",
+    "capacity": {
+     "TL": 200,
+     "qf": 20
+    },
+    "allocations": [
+     "com/bitwig/flt/app/TL#<init>#([Ljava/lang/String;[Ljava/lang/String;)V@217",
+     "qf#<init>#(Ljava/io/File;I[Ljava/lang/String;)V@102"
+    ]
+   },
+   "bound": {
+    "cloneFlag": true,
+    "ttlMillis": 0,
+    "capacityC": "200 for TL family, 20 for qf"
+   }
+  },
+  {
+   "id": "W3",
+   "path": "vDL.cfM(UUID): synchronized(vDL.Hnt) { Hnt.get(uuid) }",
+   "classification": "open",
+   "conditions": [
+    "The UUID map is a HashMap from vDL.<init>.",
+    "Map users: vDL#MRY#(Lcom/bitwig/base/io/z2y;Ldevice/hpW;)V, vDL#cfM#(Lcom/bitwig/base/io/z2y;Ldevice/hpW;)V, vDL#cfM#(Ljava/util/UUID;)Ldevice/hpW;"
+   ],
+   "bound": {
+    "mapSize": "|vDL.Hnt| <= |GDf.FzB| <= C before each insertion completes (put only in the add callback after the capacity loop)"
+   },
+   "reason": "monitor: existing vendor monitor vDL.Hnt; contention from the add callback vDL.cfM(z2y,hpW) (nested inside the GDf.FzB monitor) and the remove callback vDL.MRY(z2y,hpW). JDK HashMap.get and UUID.hashCode/equals bodies are not modeled."
+  },
+  {
+   "id": "W4",
+   "path": "UUID cache hit condition",
+   "classification": "open",
+   "conditions": [
+    "Key: java.util.UUID a6cd650b-c4de-46c6-8741-c07a0a9bfec2 (UUID.equals by value).",
+    "A hit returns the cached template object stored by the add callback vDL.cfM(z2y,hpW): key = template.iYN.MRY (bundled root property device_UUID 6369 = a6cd650bc4de46c68741c07a0a9bfec2 in both bundled files).",
+    "Hit iff an earlier load in this process completed GDf.IwV(z2y) insertion (capacity C > 0) and no later remove callback ran for that template.",
+    "TTL zero can still hit: TTL only gates the FJj timer at GDf.IwV@377-406; FJj is allocated only there.",
+    "The hit path reads no file, makes no lastModified/length check, and does not update eKv.IwV access time; LRU age is the load time."
+   ],
+   "reason": "runtime state: the first factory call in a fresh process misses. No existing fixed-doctor read observes vDL.Hnt or GDf.FzB.",
+   "evidence": {
+    "removeCallbackCallers": [
+     "dij#MRY#(Lcom/bitwig/base/io/z2y;Ldevice/SaG;)V@65",
+     "GDf#cfM#()V@71",
+     "GDf#IwV#(Lcom/bitwig/base/io/z2y;)Ljava/lang/Object;@130",
+     "GDf#UNj#(Lcom/bitwig/base/io/z2y;)V@133",
+     "ovx#MRY#(Lcom/bitwig/base/io/z2y;Ldevice/CcL;)V@65",
+     "vDL#MRY#(Lcom/bitwig/base/io/z2y;Ldevice/hpW;)V@65"
+    ],
+    "clearCallers": [
+     [
+      "GDf",
+      "dij#cfM#()V"
+     ],
+     [
+      "HoH",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "Ihk",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "LYs",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "P3x",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "Tff",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "Une",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "WjS",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "Wwd",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "dij",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "gL",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "gN",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "gO",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "kJx",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "kzN",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "oiT",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "s2h",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "vcq",
+      "com/bitwig/flt/app/TL#KAS#()V"
+     ],
+     [
+      "vcq",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ],
+     [
+      "w3D",
+      "com/bitwig/flt/app/TL#pvS#()V"
+     ]
+    ],
+    "FJjAllocations": [
+     "GDf#IwV#(Lcom/bitwig/base/io/z2y;)Ljava/lang/Object;@386"
+    ],
+    "GDf.UNj(z2y)callers": [
+     "FJj#run#()V@8",
+     "GDf#IwV#()V@112"
+    ],
+    "GDf.IwV()callers": [
+     "GDf#IwV#(Lcom/bitwig/base/io/z2y;)Ljava/lang/Object;@327"
+    ]
+   }
+  },
+  {
+   "id": "W5",
+   "path": "UUID-entry removal routes for vDL",
+   "classification": "bounded",
+   "conditions": [
+    "vDL TTL = 0 (W2).",
+    "GDf.cfM() clear is invoked only by dij.cfM (a different GDf subclass); TL.KAS/pvS clear other caches, not vDL.",
+    "No reflection or method-handle call of GDf.cfM()/UNj."
+   ],
+   "witness": {
+    "excluded": [
+     "FJj timer route GDf.UNj(z2y) (TTL 0)",
+     "GDf.cfM() clear (no vDL receiver site)"
+    ],
+    "retained": [
+     "capacity eviction GDf.IwV() when a new file insertion finds |FzB| >= C (disposes the LRU template through AOm.ix_)",
+     "stale replacement in GDf.IwV(z2y) for the same z2y key (only on a miss path)"
+    ]
+   },
+   "bound": {
+    "entryLifetime": "until C further distinct template files are loaded through GDf.IwV(z2y) after it in LRU order, or the process ends"
+   }
+  },
+  {
+   "id": "W6",
+   "path": "GDf.MRY(Object): clone decision",
+   "classification": "bounded",
+   "conditions": [
+    "GDf.Hnt is final and true for both vDL instances (W2).",
+    "vDL inherits GDf.cfM(Object)=iconst_1 ireturn."
+   ],
+   "witness": {
+    "path": "checkcast oDc; oDc.cfM(RKg.FzB) -> bbQ.cfM().cfM(obj, policy); zjj.cfM(clone); return clone",
+    "appliesTo": "both hit and miss results"
+   },
+   "bound": {
+    "ownInstructions": 23
+   }
+  },
+  {
+   "id": "W7",
+   "path": "Template stability during clone",
+   "classification": "open",
+   "conditions": [
+    "No monitor is held while the template is cloned (W3 releases vDL.Hnt before GDf.MRY)."
+   ],
+   "reason": "concurrency: another thread can evict and dispose (AOm.ix_) or recompile the shared template during the clone. Requires single-thread use of TL.kIh or a proof that no other loader runs."
+  },
+  {
+   "id": "W8",
+   "path": "Cold miss: iJW.cfM(UUID) -> Xa.MRY(UUID) file; new z2y; GDf.Hnt(z2y) -> GDf.IwV(z2y)",
+   "classification": "open",
+   "conditions": [
+    "Taken whenever W4 misses, including the first call in a process."
+   ],
+   "reason": "file access (File.lastModified, File.length, Uev.UNj().cfM(File) read and deserialize), external interface dispatch Xa.MRY(UUID), monitors GDf.FzB and the per-key lock from GDf.IwV.computeIfAbsent (indy Function), deserialization der.cfM(Jkg,rsB) and unconditional compile BgP.cfM(rsB)->cfM(false,false,true), capacity eviction that disposes another template, and the nested add callback.",
+   "evidence": {
+    "GDf.IwV(z2y)handlers": [
+     [
+      54,
+      111,
+      142,
+      0
+     ],
+     [
+      112,
+      139,
+      142,
+      0
+     ],
+     [
+      142,
+      147,
+      142,
+      0
+     ],
+     [
+      158,
+      178,
+      181,
+      0
+     ],
+     [
+      181,
+      186,
+      181,
+      0
+     ],
+     [
+      203,
+      231,
+      241,
+      0
+     ],
+     [
+      235,
+      238,
+      241,
+      0
+     ],
+     [
+      241,
+      246,
+      241,
+      0
+     ],
+     [
+      310,
+      366,
+      369,
+      0
+     ],
+     [
+      369,
+      374,
+      369,
+      0
+     ],
+     [
+      417,
+      431,
+      434,
+      0
+     ],
+     [
+      434,
+      439,
+      434,
+      0
+     ],
+     [
+      195,
+      234,
+      448,
+      0
+     ],
+     [
+      235,
+      447,
+      448,
+      0
+     ],
+     [
+      448,
+      453,
+      448,
+      0
+     ]
+    ],
+    "vDL.cfM(z2y)handlers": [
+     [
+      37,
+      41,
+      42,
+      5
+     ]
+    ],
+    "failure": "a load exception is wrapped in sQv; the per-key lock object stays in GDf.IwV (the remove at 409-431 is skipped); no cache entry is added"
+   }
+  },
+  {
+   "id": "C1",
+   "path": "Nitro list copy in the clone",
+   "classification": "bounded",
+   "conditions": [
+    "RKg.FzB policy: relationship copied iff deZ.hbP() = (deZ.FzB & 8) != 0; list children always cloned (RKg.cfM(bnq,OLR) = true).",
+    "Descriptor flags are those traced in relationship-flags-1 (field deZ.FzB on 6.1.4)."
+   ],
+   "witness": {
+    "QZn.cfM(BgP,I,List)": {
+     "9972": "BgP.iHb",
+     "15756": "BgP.nVd",
+     "15757": "BgP.ucQ"
+    },
+    "flags": {
+     "nitro_inputs 15756": 264,
+     "nitro_outputs 15757": 264,
+     "generated ports 228/229": 385
+    },
+    "bit8": {
+     "264": true,
+     "385": false
+    }
+   },
+   "bound": {
+    "copiedListSize": "|clone.nVd| = |template.nVd|, |clone.ucQ| = |template.ucQ| when the template lists are stable during the clone",
+    "Amplify": "3 inputs (thru, in, stereoize) + 1 output (out) in both bundled files"
+   }
+  },
+  {
+   "id": "C2",
+   "path": "BgP clone callbacks: bbQ.Hnt -> clone.b_(orig) -> BgP.b_ -> Mdi/K2G.b_ -> woZ -> BgP.bl_, then BgP.Pgx",
+   "classification": "bounded",
+   "conditions": [
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Fresh clone: BgP.<init> sets dEI=false and does not write ERO (null). ERO writers: BgP#cfM#(Lcom/bitwig/nitro/FDA;Lcom/bitwig/nitro/CHR;ZLjava/util/List;Ljava/util/List;Lcom/bitwig/nitro/ESe;Z)V@233, BgP#SQN#(Z)V@10, BgP#Hnt#(Z)V@14.",
+    "BBT() is iconst_0."
+   ],
+   "witness": {
+    "S": "Guv()+wYK() > 0 where Guv=|nVd| (null=0) and wYK=|ucQ|",
+    "guardContract": {
+     "bl_": "compile <=> !S && (IwV != null || (hUR && FzB != null)); ports <=> S || (compile && ERO != null after compile)",
+     "Pgx": "compile <=> !dEI && !S && (hUR || IwV != null); dEI := true when dEI is false",
+     "skip": "S = Guv() + wYK() > 0 excludes both compile calls",
+     "assignments": 128,
+     "conditions": [
+      "Assertion-disabled flags are initialized true.",
+      "BBT() is the constant-false body iconst_0, ireturn.",
+      "Guv() and wYK() return the copied nitro input and output list sizes.",
+      "The receiver is a fresh clone: ERO is null on entry."
+     ],
+     "boundedAdmission": false,
+     "runtimeClassesInitialized": 0
+    }
+   },
+   "bound": {
+    "nonemptyPath": "no compile in bl_ or Pgx; |nVd| input ports and |ucQ| output ports built through BgP.cfM(gez)/MRY(gez); FCo/ZDH constructors 51/57 vendor instructions and 7 vendor calls each (port-constructors-1)"
+   }
+  },
+  {
+   "id": "C3",
+   "path": "Decidability and witness of the compile skip",
+   "classification": "open",
+   "conditions": [
+    "The skip needs only S > 0 on the copied lists.",
+    "The fixed doctor reads 15756/15757 (bound in all-properties-3: QZn.Ucl/QZn.MIO) only on the returned clone, after the callbacks ran.",
+    "Template list writers: Mdi.jG@BgP.cfM(FDA..)@313 and Mdi.wZs@368 (compile completion clears and refills), QZn list/insert setters."
+   ],
+   "reason": "state not observed before the call: the cached template is not read by the fixed doctor; a post-call S>0 read is a post hoc witness, not a guard. Template lists can be cleared by an in-flight compile completion from the cold load unless compile completion and clone are serialized on one thread.",
+   "evidence": {
+    "listClearCallers": {
+     "jG": [
+      [
+       "BgP#cfM#(Lcom/bitwig/nitro/FDA;Lcom/bitwig/nitro/CHR;ZLjava/util/List;Ljava/util/List;Lcom/bitwig/nitro/ESe;Z)V",
+       313
+      ]
+     ],
+     "wZs": [
+      [
+       "BgP#cfM#(Lcom/bitwig/nitro/FDA;Lcom/bitwig/nitro/CHR;ZLjava/util/List;Ljava/util/List;Lcom/bitwig/nitro/ESe;Z)V",
+       368
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "C4",
+   "path": "zjj.cfM(clone)",
+   "classification": "open",
+   "conditions": [
+    "Creates one zp3 visitor and calls zjj.cfM(oDc,null,Irb)."
+   ],
+   "reason": "unknown interface dispatch: Irb.visit/Irb.cfM (22 implementations), oDc.ng_ (2818 targets) over the clone tree; traversal size depends on the runtime clone tree."
+  },
+  {
+   "id": "B1",
+   "path": "bbQ clone context and cleanup",
+   "classification": "open",
+   "conditions": [
+    "Handler table (empty list = no handler): {\"bbQ.cfMcom/bitwig/ramona/core/bbQ\": [], \"bbQ.Hntcom/bitwig/ramona/core/bbQ\": [], \"bbQ.FzBcom/bitwig/ramona/core/bbQ\": [], \"bbQ.MRYcom/bitwig/ramona/core/bbQ\": [], \"YFZ.cfMcom/bitwig/ramona/core/YFZ\": [], \"YFZ.MRYcom/bitwig/ramona/core/YFZ\": [], \"YFZ.Hntcom/bitwig/ramona/core/YFZ\": [], \"oDc.VT1com/bitwig/ramona/core/oDc\": [], \"oDc.vqJcom/bitwig/ramona/core/oDc\": [], \"oDc.PWmcom/bitwig/ramona/core/oDc\": [], \"der.cfMder\": [[61, 107, 113, 0], [113, 115, 113, 0], [130, 139, 142, 33]], \"dpN.MRYdpN\": [[302, 307, 310, 330]]}",
+    "bbQ.FzB ThreadLocal holds YFZ; users: com/bitwig/ramona/core/YFZ#MRY#()V, com/bitwig/ramona/core/YFZ#cfM#()V, com/bitwig/ramona/core/bbQ#<clinit>#()V, com/bitwig/ramona/core/bbQ#cfM#()Lcom/bitwig/ramona/core/bbQ;. YFZ.cfM installs it at dpN.MRY(eoG)@191; YFZ.MRY removes it at @335; dpN.MRY has only handler [302,307) on the OOI.cfM() true path.",
+    "Clone order in bbQ.cfM(Collection,RKg): TMF=true; IwV=roots; oDc.VT1 (+1 on ThreadLocal<Integer> qc1)@134; copy; Hnt() reverse b_ callbacks; FzB() reverse al_ callbacks (only hpW has ak_()=true); oDc.vqJ (-1)@234; per-root fqW(); TMF=false. Cleanup bbQ.MRY() (null IwV, clear both cQA(50) maps, clear lists) only at bbQ.cfM(oDc,RKg)@84."
+   ],
+   "bound": {
+    "retainedObjectsAfterFailure": "one bbQ with two cQA maps and two lists of at most the partially cloned node count; one leaked counter increment per failed clone"
+   },
+   "reason": "failure effect: no general finally. An exception between offsets 134 and 234 leaves the per-thread oDc counter permanently incremented: oDc.PWm() stays true, so later oDc.G_() on that thread skips nqu() for I_()-true objects (PWm users: com/bitwig/ramona/core/bbQ#Hnt#()V, com/bitwig/ramona/core/oDc#G_#()V, com/bitwig/ramona/core/oDc#a_#(Lcom/bitwig/ramona/core/oDc;)V, com/bitwig/ramona/core/oDc#vpw#(Lcom/bitwig/ramona/core/oDc;)V, com/bitwig/ramona/core/oDc#vqJ#()V). der.cfM(Jkg,rsB) restores its own increment in a handler; nothing repairs a leaked clone increment. An exception after 234 or in fqW leaves TMF=true and both maps/lists filled; a fresh bbQ is garbage, but a YFZ-owned bbQ stays referenced by YFZ.Hnt (YFZ.Hnt then returns a fresh bbQ per clone because TMF is true) until YFZ.MRY at dpN.MRY@335, which an event failure outside the OOI handler skips. Partial clones stay reachable from these maps. Retain the uncertain-state latch; never retry."
+  },
+  {
+   "id": "R1",
+   "path": "rSf.<init> -> CEE.<init> -> JXO...",
+   "classification": "open",
+   "conditions": [
+    "factory-constructor-census-1 lists the module 1902 chain."
+   ],
+   "reason": "unmapped: rSf (module 1902) is not one of the 30 constructor-bounds-2 roots; its direct constructor closure has no bound artifact."
+  },
+  {
+   "id": "R2",
+   "path": "rSf.MRY(hpW)",
+   "classification": "open",
+   "conditions": [
+    "Sets a fresh UUID.randomUUID (external SecureRandom), contents relationship, name, hQm/wuu/IwV(hpW.uva())/MYI.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 47} open dispatch sites, 1 monitor kinds, 7 dynamic sites; see groups['rSf.MRY(hpW)'] for the exact lists.",
+   "evidence": {
+    "methods": 124,
+    "instructionsReached": 2883,
+    "allocationMap": {
+     "com/bitwig/ramona/core/CbE": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped",
+     "com/bitwig/ramona/core/SYo": "unmapped",
+     "KVP": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 5
+    },
+    "dynamicSites": {
+     "indy:run(Lcom/bitwig/flt/document/core/master/device/Dgc;LK2G;)Ljava/lang/Runnable;": 1,
+     "indy:run(Lcom/bitwig/flt/document/core/master/device/Dgc;I)Ljava/lang/Runnable;": 1,
+     "indy:accept()Ljava/util/function/Consumer;": 1,
+     "indy:run(LuPp;)Ljava/lang/Runnable;": 1,
+     "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+     "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1,
+     "indy:run(Lcom/bitwig/ramona/core/AVL;Ljava/lang/Runnable;)Ljava/lang/Runnable;": 1
+    },
+    "async": [
+     "com/bitwig/ramona/core/AVL.hUR -> QYb.runAtEndOfCurrentEvent",
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+     "dfI.MRY -> java/lang/ThreadLocal.get",
+     "dfI.fFs -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "R3",
+   "path": "rSf.G_() -> hgq.G_ -> oDc.G_ (Dgc.ap_, I_() && !PWm() -> nqu) -> rSf.pYg",
+   "classification": "open",
+   "conditions": [
+    "Creates the default children; nqu runs only while oDc.PWm() is false (see B1).",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 23} open dispatch sites, 1 monitor kinds, 5 dynamic sites; see groups['rSf.G_() -> hgq.G_ -> oDc.G_ (Dgc.ap_, I_() && !PWm() -> nqu) -> rSf.pYg'] for the exact lists.",
+   "evidence": {
+    "methods": 121,
+    "instructionsReached": 2121,
+    "allocationMap": {
+     "EIm": [
+      1661,
+      "browsing_session_state",
+      26,
+      4
+     ],
+     "device/OLR": [
+      1961,
+      "auxiliary_device_remote_controls",
+      27,
+      5
+     ],
+     "mKX": "unmapped",
+     "com/bitwig/ramona/core/lBQ": "unmapped",
+     "device/riz": [
+      1958,
+      "remote_controls_page_group",
+      15,
+      3
+     ],
+     "com/bitwig/ramona/core/IQl": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 1
+    },
+    "dynamicSites": {
+     "indy:test(Ljava/util/List;)Ljava/util/function/Predicate;": 1,
+     "indy:accept()Ljava/util/function/Consumer;": 1,
+     "indy:visit()Lcom/bitwig/ramona/core/Irb;": 1,
+     "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+     "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1
+    },
+    "async": [
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "C5",
+   "path": "zjj.cfM(clone) closure",
+   "classification": "open",
+   "conditions": [
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 4} open dispatch sites, 0 monitor kinds, 1 dynamic sites; see groups['zjj.cfM(clone) closure'] for the exact lists.",
+   "evidence": {
+    "methods": 6,
+    "instructionsReached": 74,
+    "allocationMap": {
+     "com/bitwig/ramona/core/zp3": "unmapped"
+    },
+    "monitors": {},
+    "dynamicSites": {
+     "indy:accept(Lcom/bitwig/ramona/core/oDc;Ldfb;Lcom/bitwig/ramona/core/Irb;Ljava/lang/String;)Ljava/util/function/Consumer;": 1
+    },
+    "async": []
+   }
+  },
+  {
+   "id": "C6:BgP",
+   "path": "reverse callback b_:BgP",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "BgP.cfM(ZZZ) compile calls are stopped; they are excluded only under C2 S>0.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 51} open dispatch sites, 1 monitor kinds, 2 dynamic sites; see groups['reverse callback b_:BgP'] for the exact lists.",
+   "evidence": {
+    "methods": 234,
+    "instructionsReached": 4858,
+    "allocationMap": {
+     "ZDH": [
+      "port",
+      "ZDH",
+      57,
+      7
+     ],
+     "com/bitwig/base/io/DlD": "unmapped",
+     "vta": "unmapped",
+     "com/bitwig/ramona/core/brd": "unmapped",
+     "FCo": [
+      "port",
+      "FCo",
+      51,
+      7
+     ],
+     "com/bitwig/ramona/core/sQv": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 7
+    },
+    "dynamicSites": {
+     "indy:makeConcatWithConstants(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;": 1,
+     "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 6
+    },
+    "async": [
+     "FDA.MRY -> com/bitwig/base/io/cXR.cfM",
+     "com/bitwig/base/io/cXR.cfM -> com/bitwig/base/io/cXR.cfM",
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "C6:BMo",
+   "path": "reverse callback b_:BMo",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {} open dispatch sites, 0 monitor kinds, 0 dynamic sites; see groups['reverse callback b_:BMo'] for the exact lists.",
+   "evidence": {
+    "methods": 4,
+    "instructionsReached": 11,
+    "allocationMap": {},
+    "monitors": {},
+    "dynamicSites": {},
+    "async": []
+   }
+  },
+  {
+   "id": "C6:Hgx",
+   "path": "reverse callback b_:Hgx",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_."
+   ],
+   "reason": "closure-method-limit or walk refusal: closure-method-limit"
+  },
+  {
+   "id": "C6:hpW",
+   "path": "reverse callback b_:device/hpW",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {} open dispatch sites, 0 monitor kinds, 0 dynamic sites; see groups['reverse callback b_:device/hpW'] for the exact lists.",
+   "evidence": {
+    "methods": 5,
+    "instructionsReached": 22,
+    "allocationMap": {},
+    "monitors": {},
+    "dynamicSites": {},
+    "async": []
+   }
+  },
+  {
+   "id": "C6:RKg",
+   "path": "reverse callback b_:device/RKg",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 24} open dispatch sites, 1 monitor kinds, 5 dynamic sites; see groups['reverse callback b_:device/RKg'] for the exact lists.",
+   "evidence": {
+    "methods": 100,
+    "instructionsReached": 2026,
+    "allocationMap": {
+     "FCo": [
+      "port",
+      "FCo",
+      51,
+      7
+     ],
+     "com/bitwig/ramona/core/sQv": "unmapped",
+     "com/bitwig/ramona/core/brd": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+    },
+    "dynamicSites": {
+     "indy:accept()Ljava/util/function/Consumer;": 1,
+     "indy:apply()Ljava/util/function/Function;": 1,
+     "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+     "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1,
+     "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 2
+    },
+    "async": [
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "C6:Wkj",
+   "path": "reverse callback b_:device/Wkj",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 37} open dispatch sites, 1 monitor kinds, 2 dynamic sites; see groups['reverse callback b_:device/Wkj'] for the exact lists.",
+   "evidence": {
+    "methods": 156,
+    "instructionsReached": 3067,
+    "allocationMap": {
+     "FCo": [
+      "port",
+      "FCo",
+      51,
+      7
+     ],
+     "dgk": "unmapped",
+     "com/bitwig/ramona/core/sQv": "unmapped",
+     "com/bitwig/ramona/core/brd": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 5
+    },
+    "dynamicSites": {
+     "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 4,
+     "indy:makeConcatWithConstants(Ljava/lang/String;)Ljava/lang/String;": 1
+    },
+    "async": [
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+     "device/PSD.aT_ -> device/cXR.aT_"
+    ]
+   }
+  },
+  {
+   "id": "C6:OcA",
+   "path": "reverse callback b_:device/OcA",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 8} open dispatch sites, 0 monitor kinds, 1 dynamic sites; see groups['reverse callback b_:device/OcA'] for the exact lists.",
+   "evidence": {
+    "methods": 15,
+    "instructionsReached": 237,
+    "allocationMap": {},
+    "monitors": {},
+    "dynamicSites": {
+     "indy:typeSwitch(Lcom/bitwig/flt/document/core/master/device/BVs;I)I": 1
+    },
+    "async": []
+   }
+  },
+  {
+   "id": "C6:RuU",
+   "path": "reverse callback b_:RuU",
+   "classification": "open",
+   "conditions": [
+    "Only these eight Amplify/port classes override oDc.b_ with a non-empty body; the other classes resolve to the empty oDc.b_.",
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 25} open dispatch sites, 1 monitor kinds, 2 dynamic sites; see groups['reverse callback b_:RuU'] for the exact lists.",
+   "evidence": {
+    "methods": 107,
+    "instructionsReached": 2181,
+    "allocationMap": {
+     "AxG": "unmapped",
+     "com/bitwig/ramona/core/lBQ": "unmapped",
+     "dgk": "unmapped",
+     "com/bitwig/ramona/core/brd": "unmapped",
+     "com/bitwig/ramona/core/sQv": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+    },
+    "dynamicSites": {
+     "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 1,
+     "indy:makeConcatWithConstants(Ljava/lang/String;)Ljava/lang/String;": 1
+    },
+    "async": [
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "C7",
+   "path": "reverse al_ callback for hpW (the only class with ak_()=true)",
+   "classification": "open",
+   "conditions": [
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 40} open dispatch sites, 1 monitor kinds, 5 dynamic sites; see groups['reverse al_ callback for hpW (the only class with ak_()=true)'] for the exact lists.",
+   "evidence": {
+    "methods": 134,
+    "instructionsReached": 3233,
+    "allocationMap": {
+     "QBQ": "unmapped",
+     "sOE": "unmapped",
+     "Fot": [
+      1680,
+      "panel",
+      57,
+      5
+     ],
+     "MLM": [
+      1681,
+      "grid_panel_item",
+      75,
+      9
+     ],
+     "com/bitwig/ramona/core/brd": "unmapped",
+     "com/bitwig/ramona/core/CbE": "unmapped",
+     "com/bitwig/ramona/core/ESe": "unmapped"
+    },
+    "monitors": {
+     "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+    },
+    "dynamicSites": {
+     "indy:run(Lcom/bitwig/flt/document/core/master/device/BVs;)Ljava/lang/Runnable;": 1,
+     "indy:accept()Ljava/util/function/Consumer;": 1,
+     "indy:run(LsOE;)Ljava/lang/Runnable;": 1,
+     "indy:run(LHKN;LdeZ;)Ljava/lang/Runnable;": 1,
+     "indy:run(Lcom/bitwig/ramona/core/AVL;Ljava/lang/Runnable;)Ljava/lang/Runnable;": 1
+    },
+    "async": [
+     "QBQ.<init> -> java/lang/Thread.currentThread",
+     "com/bitwig/ramona/core/AVL.TMF -> QYb.runAtEndOfCurrentEvent",
+     "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+     "oOM.MRY -> java/lang/ThreadLocal.get",
+     "oOM.cfM -> java/lang/ThreadLocal.get"
+    ]
+   }
+  },
+  {
+   "id": "C8",
+   "path": "root fqW() after counter decrement",
+   "classification": "open",
+   "conditions": [
+    "Assertion-disabled flags are initialized true; assertion branches are excluded only under that condition.",
+    "Lazy static descriptor singletons (static ifnonnull) are taken as initialized.",
+    "Receivers are exact for this and new objects; other virtual sites are monomorphic in the closed world or retained."
+   ],
+   "reason": "retained edges: {'open-dispatch': 5} open dispatch sites, 0 monitor kinds, 0 dynamic sites; see groups['root fqW() after counter decrement'] for the exact lists.",
+   "evidence": {
+    "methods": 9,
+    "instructionsReached": 249,
+    "allocationMap": {},
+    "monitors": {},
+    "dynamicSites": {},
+    "async": []
+   }
+  },
+  {
+   "id": "C9",
+   "path": "hpW clone al_ -> BVs.al_ -> BVs.wZs: N_() == null ? QBQ.run(lambda) : tSS()",
+   "classification": "open",
+   "conditions": [
+    "AVL.N_() returns oOM.cfM(), the top of the calling thread queue deque, not a document queue.",
+    "QBQ.run runs inline only when the current queue isScoped(); QYb.isScoped() defaults to false and QBQ overrides it to true."
+   ],
+   "witness": {
+    "excludedIf": "the calling thread has a current queue (N_() != null): tSS() path, no temporary queue"
+   },
+   "reason": "thread state not proved: with no current queue the clone creates a temporary QBQ with a fresh sOE parallel task handler, processes the event and next events, then closes every LQR through sOE.cfM() -> LQR.cfM(), which waits on Future.get() without timeout (A2). With a non-scoped current queue (for example dpN.Esj after oOM.cfM(QYb) at dpN.MRY@184) the same temporary queue is created. Only a scoped current queue runs the lambda inline. The fixed doctor thread and queue state are item 4 work."
+  },
+  {
+   "id": "C10",
+   "path": "Pgx hash block: BBT() && !UNj -> Hnt = BgP.hUR(IwV) -> FDA.Hnt -> base/io/cXR Reader",
+   "classification": "excluded",
+   "conditions": [
+    "BBT() body is iconst_0, ireturn (checked)."
+   ],
+   "witness": {
+    "branch": "Pgx@50 ifeq on BBT() is always taken; the UNj/hUR block at 53-69 is not executed",
+    "walkerNote": "the bounded walker does not fold this constant, so b_:BgP lists the reader edge as reachable"
+   }
+  },
+  {
+   "id": "C11",
+   "path": "Port descriptor lists Bpn()/iW2() allocate vta descriptor helpers",
+   "classification": "open",
+   "conditions": [
+    "vta.FzB/Hnt static factories are reached from BgP.Bpn@91 and BgP.iW2@160 under S>0."
+   ],
+   "reason": "unmapped: vta allocations are not in constructor-bounds-2 or port-constructors-1; the walker does not evaluate the double_precision 10071 branch that selects FCo for the port objects."
+  },
+  {
+   "id": "S1",
+   "path": "EIm holder setter device/Ac.Nnn (Runnable from Ac.Ucl via eos.cfM(Collection,true,Runnable))",
+   "classification": "excluded",
+   "conditions": [
+    "Closed world: no reflection or generated lambda outside the listed handles.",
+    "Ac/ISf/mjS chain incoming sets: {\"device/Ac#Ucl#()V\": [[\"device/mjS#MRY#()V\", 99], [\"device/Ac#tp2#()V\", 218]], \"device/Ac#tp2#()V\": [[\"device/Ac#dnz#()V\", 47]], \"device/Ac#dnz#()V\": [[\"device/ISf#jFL#()V\", 11]], \"device/ISf#jFL#()V\": [[\"device/IPO#Lcd#()V\", 22]], \"device/IPO#Lcd#()V\": [[\"device/ztR#MRY#(Ldevice/ISf;ILjava/util/List;)Ljava/lang/Object;\", 413]], \"device/ISf#Lcd#()V\": [[\"aXC#cfM#(LaXu;)V\", 36], [\"device/ztR#MRY#(Ldevice/ISf;ILjava/util/List;)Ljava/lang/Object;\", 413]], \"device/mjS#MRY#()V\": [[\"com/bitwig/flt/app/z2y#MRY#()V\", 1], [\"com/bitwig/flt/app/FDA#MRY#()V\", 1], [\"com/bitwig/flt/app/CIa#MRY#()V\", 1], [\"qw#MRY#()V\", 1], [\"aAA#MRY#()V\", 1], [\"cDE#MRY#()V\", 27], [\"cEN#MRY#()V\", 1], [\"cES#MRY#()V\", 1], [\"com/bitwig/flt/document/core/master/sy#MRY#()V\", 1], [\"com/bitwig/flt/document/core/master/JAL#MRY#()V\", 1], [\"LmR#MRY#()V\", 1], [\"com/bitwig/flt/packaging/manager/sal#MRY#()V\", 1], [\"com/bitwig/flt/packaging/manager/ATx#MRY#()V\", 1], [\"ank#MRY#()V\", 1], [\"any#MRY#()V\", 1], [\"CuM#MRY#()V\", 1], [\"WzZ#MRY#()V\", 1], [\"FUR#MRY#()V\", 1], [\"pzf#cfM#()V\", 140]]}",
+    "mjS is allocated only in device/Ac#cfM#(Lcom/bitwig/flt/document/core/master/g2L;Ljava/util/List;)V; iok (Runnable to Ac.dnz) only in device/Ac#FzB#()V.",
+    "aXC (ISf.Lcd via FAu) has no allocation site; reflection-only.",
+    "Fixed doctor issues descriptor actions only through deV.cfM with deV id 951 (item 4 ping); no live tracking or UI browser session interacts during the sequence."
+   ],
+   "witness": {
+    "onlyDispatchEntry": "der.MRY(OLR,I,List) is invoked only by deV#cfM#(Lcom/bitwig/ramona/core/oDc;Ljava/util/List;)Ljava/lang/Object; with key deV.E3() (final id); callers of deV.cfM: eIS#UNj#(Lcom/bitwig/ramona/core/oDc;)V, cQq#cfM#(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V, dfn#cfM#(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V, com/bitwig/ramona/core/cuN#cfM#(Ljava/util/List;)Ljava/lang/Object;",
+    "actionArm": "ztR.MRY(ISf,I,List) lookupswitch key 5446 -> ISf.Lcd -> IPO.Lcd -> ISf.jFL -> Ac.dnz -> Ac.tp2 -> Ac.Ucl",
+    "fixedKey": "951 != 5446",
+    "factoryRoute": "no browsing-chain class method appears in the walked groups [\"al_:hpW\", \"b_:BMo\", \"b_:BgP\", \"b_:RuU\", \"b_:device/OcA\", \"b_:device/RKg\", \"b_:device/Wkj\", \"b_:device/hpW\", \"fqW:hpW\", \"rSf.G_()\", \"rSf.MRY(hpW)\", \"zjj.cfM(clone)\"]; refused groups remain open: [\"b_:Hgx\"]"
+   }
+  },
+  {
+   "id": "S2",
+   "path": "EIm holder setter device/g2L.wGc (from g2L.ejd)",
+   "classification": "excluded",
+   "conditions": [
+    "Incoming sets: {\"device/g2L#wGc#()V\": [[\"device/g2L#ejd#()V\", 47]], \"device/g2L#ejd#()V\": [[\"device/nZA#Coi#()V\", 11]], \"device/nZA#Coi#()V\": [[\"device/vz3#ODA#()V\", 22]], \"device/vz3#ODA#()V\": [[\"device/kj2#cfM#(Ldevice/nZA;ILjava/util/List;)Ljava/lang/Object;\", 163]], \"device/nZA#ODA#()V\": [[\"aXP#cfM#(LaXu;)V\", 36], [\"device/kj2#cfM#(Ldevice/nZA;ILjava/util/List;)Ljava/lang/Object;\", 163]]}",
+    "OOI (Runnable to g2L.ejd) is allocated only in device/g2L#FzB#()V (an existing g2L).",
+    "aXP (nZA.ODA via Uyp) has no allocation site; reflection-only.",
+    "g2L.ejd calls wGc only when g2L.lYc (tad) is non-null; vz3.E3 must hold a g2L."
+   ],
+   "witness": {
+    "actionArm": "kj2.cfM(nZA,I,List) lookupswitch key 6632 -> nZA.ODA -> vz3.ODA -> nZA.Coi -> vz3.E3.ejd -> wGc",
+    "fixedKey": "951 != 6632",
+    "factoryRoute": "same group check as S1; refused groups remain open: [\"b_:Hgx\"]"
+   }
+  },
+  {
+   "id": "S3",
+   "path": "Browsing setters through an existing browser session object or reflection",
+   "classification": "open",
+   "conditions": [
+    "Ac and g2L are abstract; a pre-existing session (ISf.d3() Ac or vz3.E3 g2L) can run iok/OOI Runnables or mjS.MRY callbacks on the event thread.",
+    "Method handles to these methods: [[\"device/iok\", \"device/Ac\", \"dnz\", \"()V\"], [\"device/Ac\", \"device/Ac\", \"Nnn\", \"()V\"], [\"device/OOI\", \"device/g2L\", \"ejd\", \"()V\"]]"
+   ],
+   "reason": "external/UI state: a user or browser session started before or during the fixed sequence is not excluded by bytecode; needs a state witness (no active session on the target chain) and stability through the sequence. Reflection-only aXC/aXP instantiation is also retained."
+  },
+  {
+   "id": "A1",
+   "path": "Async route dpN -> cXR -> TL (base/async/CuM task queue)",
+   "classification": "open",
+   "conditions": [
+    "cXR allocated only in dpN#<init>#(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V; TL (default package) only in cXR#MRY#(LQYb;Lcom/bitwig/base/async/pYi;)LTL;.",
+    "TL.cfM/MRY start and stop a PSD activity tracker around CuM.cfM()/MRY()."
+   ],
+   "reason": "Cancellation CuM.cfM(Object) only increments the WzZ AtomicInteger generation. It does not interrupt the executor thread, remove the map entry, or call CuM.MRY(). A started worker checks the generation once before Callable.call (offset 8) and runs call() to completion; completion is posted with QYb.asyncExec and returns early on a generation mismatch (offset 169) or a replaced WzZ, without callback, map removal, or CuM.MRY(). Worker handler [12,43)->46 catches Exception only; an Error posts no completion. Therefore a generation change or a cancel call proves neither termination nor completion of the callable or its side effects."
+  },
+  {
+   "id": "A2",
+   "path": "LQR CompletableFuture queue",
+   "classification": "open",
+   "conditions": [
+    "LQR allocated only in sOE#cfM#(Lcom/bitwig/base/async/pYi;)LLQR;."
+   ],
+   "reason": "Future.cancel(true) on a CompletableFuture does not interrupt; the worker lambda checks Huq.cfM identity only before call() and then completes the old future; a replaced or cancelled future does not stop running work. LQR.cfM() close waits on each Future.get() without timeout; a cancelled future throws CancellationException, which neither handler [121,144)->147/166 catches, so the close loop can stop with entries already cleared. An Error in the worker (handler type cp#9 only) leaves the future incomplete and the close wait unbounded."
+  },
+  {
+   "id": "A3",
+   "path": "Does the fixed factory route enter the async route?",
+   "classification": "open",
+   "conditions": [
+    "Warm hit with S>0 (W4, C2): no walked group calls CuM.cfM(Object,Callable,oRV) or LQR.cfM(Object,Callable,oRV) directly; queue/file references found: {\"rSf.MRY(hpW)\": [\"com/bitwig/ramona/core/AVL.hUR -> QYb.runAtEndOfCurrentEvent\", \"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\", \"dfI.MRY -> java/lang/ThreadLocal.get\", \"dfI.fFs -> java/lang/ThreadLocal.get\"], \"rSf.G_()\": [\"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\"], \"zjj.cfM(clone)\": [], \"b_:BgP\": [\"FDA.MRY -> com/bitwig/base/io/cXR.cfM\", \"com/bitwig/base/io/cXR.cfM -> com/bitwig/base/io/cXR.cfM\", \"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\"], \"b_:BMo\": [], \"b_:device/hpW\": [], \"b_:device/RKg\": [\"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\"], \"b_:device/Wkj\": [\"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\", \"device/PSD.aT_ -> device/cXR.aT_\"], \"b_:device/OcA\": [], \"b_:RuU\": [\"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\"], \"al_:hpW\": [\"QBQ.<init> -> java/lang/Thread.currentThread\", \"com/bitwig/ramona/core/AVL.TMF -> QYb.runAtEndOfCurrentEvent\", \"com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get\", \"oOM.MRY -> java/lang/ThreadLocal.get\", \"oOM.cfM -> java/lang/ThreadLocal.get\"], \"fqW:hpW\": []}"
+   ],
+   "witness": {
+    "excludedArms": "compile calls BgP.cfM(ZZZ) in bl_/Pgx are not executed when S>0 (C2)"
+   },
+   "reason": "retained edges: C9 can create a temporary QBQ whose close waits on LQR futures; the cold miss (W8) always compiles the template (BgP.cfM(rsB) -> cfM(false,false,true)) and enters the compiler/FDA cache and task queues; the warm path has open dispatch leaves (C4-C8, R2-R3) and runAtEndOfCurrentEvent deferrals that are not closed. No witness excludes a cold miss for the first call in a process."
+  }
+ ],
+ "groups": {
+  "rSf.MRY(hpW)": {
+   "methods": 124,
+   "instructionsReached": 2883,
+   "allocations": {
+    "com/bitwig/ramona/core/CbE": 1,
+    "com/bitwig/ramona/core/ESe": 1,
+    "com/bitwig/ramona/core/SYo": 1,
+    "java/util/ArrayDeque": 1,
+    "KVP": 2
+   },
+   "allocationMap": {
+    "com/bitwig/ramona/core/CbE": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped",
+    "com/bitwig/ramona/core/SYo": "unmapped",
+    "KVP": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 5
+   },
+   "dynamicSites": {
+    "indy:run(Lcom/bitwig/flt/document/core/master/device/Dgc;LK2G;)Ljava/lang/Runnable;": 1,
+    "indy:run(Lcom/bitwig/flt/document/core/master/device/Dgc;I)Ljava/lang/Runnable;": 1,
+    "indy:accept()Ljava/util/function/Consumer;": 1,
+    "indy:run(LuPp;)Ljava/lang/Runnable;": 1,
+    "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+    "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1,
+    "indy:run(Lcom/bitwig/ramona/core/AVL;Ljava/lang/Runnable;)Ljava/lang/Runnable;": 1
+   },
+   "asyncFileOrQueueRefs": [
+    "com/bitwig/ramona/core/AVL.hUR -> QYb.runAtEndOfCurrentEvent",
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+    "dfI.MRY -> java/lang/ThreadLocal.get",
+    "dfI.fFs -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "dfI.MRY",
+     [
+      [
+       80,
+       86,
+       93,
+       0
+      ],
+      [
+       93,
+       95,
+       93,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       261,
+       326,
+       329,
+       0
+      ],
+      [
+       329,
+       334,
+       329,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       175,
+       238,
+       241,
+       0
+      ],
+      [
+       241,
+       246,
+       241,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       124,
+       187,
+       190,
+       0
+      ],
+      [
+       190,
+       195,
+       190,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       124,
+       187,
+       190,
+       0
+      ],
+      [
+       190,
+       195,
+       190,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "device/OCK.TtY()LdeU;",
+     "targets": 10,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/AVL.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 32,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.getClass()Ljava/lang/Class;",
+     "targets": 2818,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "foz.eventOccurred(Ljava/lang/Object;)V",
+     "targets": 208,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfd;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Fot.cfM()I",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Fot.cU_()I",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "deZ.FzB(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 20,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.IwV(Lcom/bitwig/ramona/core/oDc;Z",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeU;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeH;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/bnq.iHb()Ldfb;",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.nVd()Z",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.ng_()LdeS;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "deS.UNj(Lcom/bitwig/ramona/core/OLR;I",
+     "targets": 953,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeOneToOneRelationship(LdeU;Lcom/bitwig/ramona/core/",
+     "targets": 9,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(LdeH;Lcom/bitwig/ramona/core/",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.E3(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/AVL.N_()LQYb;",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "QYb.runAtEndOfCurrentEvent(Ljava/lang/Runnable;)V",
+     "targets": 10,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.signalFired(Ldfd;Lcom/bitwig/ramona/core/",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/Dgc.wIw()Lcom/bitwig/flt/document/cor",
+     "targets": 7,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 47
+   },
+   "stopped": []
+  },
+  "rSf.G_()": {
+   "methods": 121,
+   "instructionsReached": 2121,
+   "allocations": {
+    "java/util/ArrayList": 6,
+    "EIm": 1,
+    "com/bitwig/flt/document/core/master/device/OLR": 1,
+    "mKX": 1,
+    "com/bitwig/ramona/core/lBQ": 1,
+    "com/bitwig/flt/document/core/master/device/riz": 1,
+    "com/bitwig/ramona/core/IQl": 1,
+    "java/util/ArrayDeque": 1
+   },
+   "allocationMap": {
+    "EIm": [
+     1661,
+     "browsing_session_state",
+     26,
+     4
+    ],
+    "device/OLR": [
+     1961,
+     "auxiliary_device_remote_controls",
+     27,
+     5
+    ],
+    "mKX": "unmapped",
+    "com/bitwig/ramona/core/lBQ": "unmapped",
+    "device/riz": [
+     1958,
+     "remote_controls_page_group",
+     15,
+     3
+    ],
+    "com/bitwig/ramona/core/IQl": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 1
+   },
+   "dynamicSites": {
+    "indy:test(Ljava/util/List;)Ljava/util/function/Predicate;": 1,
+    "indy:accept()Ljava/util/function/Consumer;": 1,
+    "indy:visit()Lcom/bitwig/ramona/core/Irb;": 1,
+    "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+    "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1
+   },
+   "asyncFileOrQueueRefs": [
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       175,
+       238,
+       241,
+       0
+      ],
+      [
+       241,
+       246,
+       241,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 5
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/Irb.cfM(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 22,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/OCK.eLY()LdeU;",
+     "targets": 4,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/MVg.hUR()Ljava/lang/String;",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.getClass()Ljava/lang/Class;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldep;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldep;Lcom/bitwig/ramona/core/",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.ng_()LdeS;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/Irb.cfM(Ldfb;Lcom/bitwig/ramona/core/",
+     "targets": 22,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 23
+   },
+   "stopped": []
+  },
+  "zjj.cfM(clone)": {
+   "methods": 6,
+   "instructionsReached": 74,
+   "allocations": {
+    "com/bitwig/ramona/core/zp3": 1
+   },
+   "allocationMap": {
+    "com/bitwig/ramona/core/zp3": "unmapped"
+   },
+   "monitors": {},
+   "dynamicSites": {
+    "indy:accept(Lcom/bitwig/ramona/core/oDc;Ldfb;Lcom/bitwig/ramona/core/Irb;Ljava/lang/String;)Ljava/util/function/Consumer;": 1
+   },
+   "asyncFileOrQueueRefs": [],
+   "handlers": [],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/Irb.visit(Ljava/lang/Object;)V",
+     "targets": 22,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.ng_()LdeS;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/Irb.cfM(Ldfb;Lcom/bitwig/ramona/core/",
+     "targets": 22,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 4
+   },
+   "stopped": []
+  },
+  "b_:BgP": {
+   "methods": 234,
+   "instructionsReached": 4858,
+   "allocations": {
+    "java/lang/IllegalStateException": 2,
+    "java/io/ByteArrayInputStream": 1,
+    "java/util/ArrayList": 7,
+    "java/lang/StringBuilder": 1,
+    "java/io/IOException": 1,
+    "ZDH": 1,
+    "java/lang/IllegalArgumentException": 2,
+    "com/bitwig/base/io/DlD": 1,
+    "java/io/InputStreamReader": 1,
+    "vta": 1,
+    "com/bitwig/ramona/core/brd": 1,
+    "FCo": 1,
+    "com/bitwig/ramona/core/sQv": 2,
+    "com/bitwig/ramona/core/ESe": 6
+   },
+   "allocationMap": {
+    "ZDH": [
+     "port",
+     "ZDH",
+     57,
+     7
+    ],
+    "com/bitwig/base/io/DlD": "unmapped",
+    "vta": "unmapped",
+    "com/bitwig/ramona/core/brd": "unmapped",
+    "FCo": [
+     "port",
+     "FCo",
+     51,
+     7
+    ],
+    "com/bitwig/ramona/core/sQv": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 7
+   },
+   "dynamicSites": {
+    "indy:makeConcatWithConstants(Ljava/lang/String;ILjava/lang/String;)Ljava/lang/String;": 1,
+    "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 6
+   },
+   "asyncFileOrQueueRefs": [
+    "FDA.MRY -> com/bitwig/base/io/cXR.cfM",
+    "com/bitwig/base/io/cXR.cfM -> com/bitwig/base/io/cXR.cfM",
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "BgP.hUR",
+     [
+      [
+       9,
+       16,
+       17,
+       97
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/base/io/oDc.cfM",
+     [
+      [
+       49,
+       53,
+       56,
+       3
+      ],
+      [
+       0,
+       49,
+       61,
+       0
+      ],
+      [
+       63,
+       67,
+       70,
+       3
+      ],
+      [
+       61,
+       63,
+       61,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       225,
+       290,
+       293,
+       0
+      ],
+      [
+       293,
+       298,
+       293,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       201,
+       264,
+       267,
+       0
+      ],
+      [
+       267,
+       272,
+       267,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       201,
+       264,
+       267,
+       0
+      ],
+      [
+       267,
+       272,
+       267,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 8
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "nyh.equals(Ljava/lang/Object;)Z",
+     "targets": 1,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "CKx.vpw()LZLs;",
+     "targets": 18,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "cOu.ordinal()I",
+     "targets": 1,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Gca.cfM(LpPb;II)V",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "UqJ.MIO()LNbv;",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "FDA.cfM(Ljava/io/InputStream;)Ljava/i",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/base/io/OLR.cfM(Ljava/io/Reader;)Ljava/io/Rea",
+     "targets": 4,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToInsertItem(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "gez.iHb()Ljava/lang/String;",
+     "targets": 14,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 51
+   },
+   "stopped": [
+    "BgP.Pgx@112",
+    "BgP.bl_@47"
+   ]
+  },
+  "b_:BMo": {
+   "methods": 4,
+   "instructionsReached": 11,
+   "allocations": {},
+   "allocationMap": {},
+   "monitors": {},
+   "dynamicSites": {},
+   "asyncFileOrQueueRefs": [],
+   "handlers": [],
+   "openLeaves": [],
+   "openLeafKinds": {},
+   "stopped": []
+  },
+  "b_:Hgx": {
+   "refused": "closure-method-limit"
+  },
+  "b_:device/hpW": {
+   "methods": 5,
+   "instructionsReached": 22,
+   "allocations": {},
+   "allocationMap": {},
+   "monitors": {},
+   "dynamicSites": {},
+   "asyncFileOrQueueRefs": [],
+   "handlers": [],
+   "openLeaves": [],
+   "openLeafKinds": {},
+   "stopped": []
+  },
+  "b_:device/RKg": {
+   "methods": 100,
+   "instructionsReached": 2026,
+   "allocations": {
+    "FCo": 1,
+    "java/lang/IllegalArgumentException": 1,
+    "java/util/ArrayList": 2,
+    "com/bitwig/ramona/core/sQv": 1,
+    "com/bitwig/ramona/core/brd": 1,
+    "com/bitwig/ramona/core/ESe": 1
+   },
+   "allocationMap": {
+    "FCo": [
+     "port",
+     "FCo",
+     51,
+     7
+    ],
+    "com/bitwig/ramona/core/sQv": "unmapped",
+    "com/bitwig/ramona/core/brd": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+   },
+   "dynamicSites": {
+    "indy:accept()Ljava/util/function/Consumer;": 1,
+    "indy:apply()Ljava/util/function/Function;": 1,
+    "indy:test(Ljava/lang/Class;)Ljava/util/function/Predicate;": 1,
+    "indy:apply(Ljava/lang/Class;)Ljava/util/function/Function;": 1,
+    "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 2
+   },
+   "asyncFileOrQueueRefs": [
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       201,
+       264,
+       267,
+       0
+      ],
+      [
+       267,
+       272,
+       267,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       225,
+       290,
+       293,
+       0
+      ],
+      [
+       293,
+       298,
+       293,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "AlY.equals(Ljava/lang/Object;)Z",
+     "targets": 1,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/JXO.ifN()Lcom/bitwig/flt/document/cor",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.getClass()Ljava/lang/Class;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Gca.cfM(LpPb;II)V",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToInsertItem(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 24
+   },
+   "stopped": []
+  },
+  "b_:device/Wkj": {
+   "methods": 156,
+   "instructionsReached": 3067,
+   "allocations": {
+    "FCo": 1,
+    "dgk": 1,
+    "java/lang/IllegalArgumentException": 1,
+    "java/util/ArrayList": 3,
+    "com/bitwig/ramona/core/sQv": 1,
+    "com/bitwig/ramona/core/brd": 1,
+    "com/bitwig/ramona/core/ESe": 4
+   },
+   "allocationMap": {
+    "FCo": [
+     "port",
+     "FCo",
+     51,
+     7
+    ],
+    "dgk": "unmapped",
+    "com/bitwig/ramona/core/sQv": "unmapped",
+    "com/bitwig/ramona/core/brd": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 5
+   },
+   "dynamicSites": {
+    "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 4,
+    "indy:makeConcatWithConstants(Ljava/lang/String;)Ljava/lang/String;": 1
+   },
+   "asyncFileOrQueueRefs": [
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+    "device/PSD.aT_ -> device/cXR.aT_"
+   ],
+   "handlers": [
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       201,
+       264,
+       267,
+       0
+      ],
+      [
+       267,
+       272,
+       267,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       225,
+       290,
+       293,
+       0
+      ],
+      [
+       293,
+       298,
+       293,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 5
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "CKx.vpw()LZLs;",
+     "targets": 18,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "AlY.equals(Ljava/lang/Object;)Z",
+     "targets": 1,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/JXO.ifN()Lcom/bitwig/flt/document/cor",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.getClass()Ljava/lang/Class;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Gca.cfM(LpPb;II)V",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToInsertItem(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "gez.iHb()Ljava/lang/String;",
+     "targets": 14,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 37
+   },
+   "stopped": []
+  },
+  "b_:device/OcA": {
+   "methods": 15,
+   "instructionsReached": 237,
+   "allocations": {},
+   "allocationMap": {},
+   "monitors": {},
+   "dynamicSites": {
+    "indy:typeSwitch(Lcom/bitwig/flt/document/core/master/device/BVs;I)I": 1
+   },
+   "asyncFileOrQueueRefs": [],
+   "handlers": [],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "device/xlG.rGz()Z",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.getClass()Ljava/lang/Class;",
+     "targets": 2818,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/OLR.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/Mwz.rGz()Z",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/AVL.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 32,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 8
+   },
+   "stopped": []
+  },
+  "b_:RuU": {
+   "methods": 107,
+   "instructionsReached": 2181,
+   "allocations": {
+    "AxG": 1,
+    "com/bitwig/ramona/core/lBQ": 1,
+    "dgk": 1,
+    "java/lang/IllegalArgumentException": 2,
+    "java/util/ArrayList": 3,
+    "com/bitwig/ramona/core/brd": 1,
+    "com/bitwig/ramona/core/sQv": 1,
+    "com/bitwig/ramona/core/ESe": 1
+   },
+   "allocationMap": {
+    "AxG": "unmapped",
+    "com/bitwig/ramona/core/lBQ": "unmapped",
+    "dgk": "unmapped",
+    "com/bitwig/ramona/core/brd": "unmapped",
+    "com/bitwig/ramona/core/sQv": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+   },
+   "dynamicSites": {
+    "indy:makeConcatWithConstants(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;": 1,
+    "indy:makeConcatWithConstants(Ljava/lang/String;)Ljava/lang/String;": 1
+   },
+   "asyncFileOrQueueRefs": [
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       225,
+       290,
+       293,
+       0
+      ],
+      [
+       293,
+       298,
+       293,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       201,
+       264,
+       267,
+       0
+      ],
+      [
+       267,
+       272,
+       267,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Gca.cfM(LpPb;II)V",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "nyh.equals(Ljava/lang/Object;)Z",
+     "targets": 1,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "LKb.uWE()Lwby;",
+     "targets": 15,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToInsertItem(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldez;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 25
+   },
+   "stopped": []
+  },
+  "al_:hpW": {
+   "methods": 134,
+   "instructionsReached": 3233,
+   "allocations": {
+    "QBQ": 1,
+    "java/util/ArrayList": 8,
+    "sOE": 1,
+    "Fot": 1,
+    "MLM": 1,
+    "java/util/HashMap": 1,
+    "java/lang/IllegalArgumentException": 2,
+    "java/util/LinkedHashMap": 1,
+    "com/bitwig/ramona/core/brd": 1,
+    "com/bitwig/ramona/core/CbE": 1,
+    "com/bitwig/ramona/core/ESe": 1
+   },
+   "allocationMap": {
+    "QBQ": "unmapped",
+    "sOE": "unmapped",
+    "Fot": [
+     1680,
+     "panel",
+     57,
+     5
+    ],
+    "MLM": [
+     1681,
+     "grid_panel_item",
+     75,
+     9
+    ],
+    "com/bitwig/ramona/core/brd": "unmapped",
+    "com/bitwig/ramona/core/CbE": "unmapped",
+    "com/bitwig/ramona/core/ESe": "unmapped"
+   },
+   "monitors": {
+    "('static', ('com/bitwig/ramona/core/oDc', 'UNj', 'Ljava/util/Map;'))": 3
+   },
+   "dynamicSites": {
+    "indy:run(Lcom/bitwig/flt/document/core/master/device/BVs;)Ljava/lang/Runnable;": 1,
+    "indy:accept()Ljava/util/function/Consumer;": 1,
+    "indy:run(LsOE;)Ljava/lang/Runnable;": 1,
+    "indy:run(LHKN;LdeZ;)Ljava/lang/Runnable;": 1,
+    "indy:run(Lcom/bitwig/ramona/core/AVL;Ljava/lang/Runnable;)Ljava/lang/Runnable;": 1
+   },
+   "asyncFileOrQueueRefs": [
+    "QBQ.<init> -> java/lang/Thread.currentThread",
+    "com/bitwig/ramona/core/AVL.TMF -> QYb.runAtEndOfCurrentEvent",
+    "com/bitwig/ramona/core/oDc.PWm -> java/lang/ThreadLocal.get",
+    "oOM.MRY -> java/lang/ThreadLocal.get",
+    "oOM.cfM -> java/lang/ThreadLocal.get"
+   ],
+   "handlers": [
+    [
+     "QBQ.processSingleEvent",
+     [
+      [
+       115,
+       120,
+       127,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       225,
+       290,
+       293,
+       0
+      ],
+      [
+       293,
+       298,
+       293,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       172,
+       235,
+       238,
+       0
+      ],
+      [
+       238,
+       243,
+       238,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.vpw",
+     [
+      [
+       171,
+       176,
+       196,
+       0
+      ]
+     ]
+    ],
+    [
+     "com/bitwig/ramona/core/oDc.cfM",
+     [
+      [
+       261,
+       326,
+       329,
+       0
+      ],
+      [
+       329,
+       334,
+       329,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 4
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.J_()Lcom/bitwig/ramona/core/oDc;",
+     "targets": 31,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.iterator()Ljava/util/Iterator;",
+     "targets": 1,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.I_()Z",
+     "targets": 14,
+     "sites": 3
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "Gca.cfM(LpPb;II)V",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "device/zSs.LaE()Lcom/bitwig/flt/document/cor",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "eOU.fireValueChanged(LrMe;Ljava/lang/Object;Ljava/",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.MRY(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 7,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.vpw(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 2,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "QYb.isScoped()Z",
+     "targets": 22,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToInsertItem(LdeT;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeAttributeValue(Ldfg;Lcom/bitwig/ramona/core/",
+     "targets": 8,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.addAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/eD.removeAll(Ljava/util/Collection;)Z",
+     "targets": 1,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.Hnt(Lcom/bitwig/ramona/core/oDc;Z",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.IwV(Lcom/bitwig/ramona/core/oDc;Z",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.cfM(LdeU;Lcom/bitwig/ramona/core/",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.ng_()LdeS;",
+     "targets": 2818,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "deS.UNj(Lcom/bitwig/ramona/core/OLR;I",
+     "targets": 953,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/BrJ.aboutToChangeOneToOneRelationship(LdeU;Lcom/bitwig/ramona/core/",
+     "targets": 9,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/AVL.N_()LQYb;",
+     "targets": 3,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "QYb.runAtEndOfCurrentEvent(Ljava/lang/Runnable;)V",
+     "targets": 10,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 40
+   },
+   "stopped": []
+  },
+  "fqW:hpW": {
+   "methods": 9,
+   "instructionsReached": 249,
+   "allocations": {
+    "java/util/ArrayList": 2
+   },
+   "allocationMap": {},
+   "monitors": {},
+   "dynamicSites": {},
+   "asyncFileOrQueueRefs": [],
+   "handlers": [
+    [
+     "com/bitwig/ramona/core/oDc.nqu",
+     [
+      [
+       48,
+       117,
+       137,
+       0
+      ],
+      [
+       137,
+       139,
+       137,
+       0
+      ]
+     ]
+    ]
+   ],
+   "openLeaves": [
+    {
+     "kind": "open-dispatch",
+     "target": "dfb.cfM(Lcom/bitwig/ramona/core/oDc;L",
+     "targets": 3,
+     "sites": 2
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.nqu()V",
+     "targets": 2,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.hUR(Lcom/bitwig/ramona/core/oDc;)",
+     "targets": 21,
+     "sites": 1
+    },
+    {
+     "kind": "open-dispatch",
+     "target": "com/bitwig/ramona/core/oDc.ng_()LdeS;",
+     "targets": 2818,
+     "sites": 1
+    }
+   ],
+   "openLeafKinds": {
+    "open-dispatch": 5
+   },
+   "stopped": []
+  }
+ },
+ "work": {
+  "classes": 31627,
+  "methods": 376278,
+  "instructions": 6574509
+ },
+ "limits": {
+  "seconds": 120,
+  "rss": 805306368,
+  "report_bytes": 8388608,
+  "trace_methods": 512,
+  "edges": 16000,
+  "walk_states": 4096,
+  "walk_depth": 40
+ },
+ "elapsedMs": 9800.94,
+ "peakRssBytes": 571375616
+}

@@ -1,0 +1,579 @@
+{
+  "classSha256": {
+    "java/util/HashMap": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+    "java/util/HashMap$Node": "ffc2f06a400ada9d8a8bbfbbf83eae6c7301758c0f2f4648503390b9cd32b443",
+    "java/util/HashMap$TreeNode": "19e6f7bced45bba1f39b74eac13c7825b3e82d75745c2afb63e8b595abfbda6a",
+    "java/lang/Object": "a7dd9da566cd7a4a15275c67d286a7d40bfe5c75b0f0d0a60a194a4a1b006839"
+  },
+  "contractBounds": {
+    "linkedBucket": {
+      "instructions": "160 + 29*N | 160 + 29*N",
+      "jdkFrames": "7 + 1*N | 7 + 1*N",
+      "nativeIdentityHash": "1 | 1",
+      "allocations": "0 | 0"
+    },
+    "treeBucket": {
+      "instructions": "719 + 110*N + 308*H | 411 + 418*N",
+      "jdkFrames": "14 + 6*N + 4*H | 10 + 10*N",
+      "nativeIdentityHash": "1 | 1",
+      "allocations": "-1 + 1*N | -1 + 1*N"
+    }
+  },
+  "perIterationOwnInstructions": {
+    "removeNode linked step (115->168)": 23,
+    "root parent step (2->15)": 8,
+    "find visit (3->167, or frame entry and exit)": 54,
+    "untreeify step (7->47)": 18,
+    "removeTreeNode successor step (185->200)": 8,
+    "balanceDeletion iteration (0->112/278/332/489)": 116
+  },
+  "cases": {
+    "model2Single": 4798,
+    "model2Repeated": 495,
+    "rbSingle": 27456,
+    "rbRepeated": 13840,
+    "colorInvalidStress": 5136
+  },
+  "totalCases": 51725,
+  "stress": {
+    "completed": 5136
+  },
+  "backEdgesFired": {
+    "valid": {
+      "balanceDeletion@278": 25777,
+      "balanceDeletion@489": 25539,
+      "find@167": 213275,
+      "removeNode@168": 87536,
+      "removeTreeNode@200": 18001,
+      "root@15": 149010,
+      "untreeify@47": 3010
+    },
+    "stress": {
+      "balanceDeletion@112": 1010,
+      "balanceDeletion@278": 2634,
+      "balanceDeletion@332": 770,
+      "balanceDeletion@489": 2744,
+      "find@167": 75978,
+      "removeTreeNode@200": 632,
+      "root@15": 126640,
+      "untreeify@47": 108896
+    }
+  },
+  "backEdgesNeverFired": {
+    "valid": [
+      "balanceDeletion@112",
+      "balanceDeletion@332"
+    ],
+    "stress": [
+      "removeNode@168"
+    ]
+  },
+  "balanceDeletionArms": {
+    "valid": {
+      "leftFinalRotateLeft": 6257,
+      "leftInnerRotateRight": 910,
+      "leftRecolorAdvance": 19520,
+      "leftRedSiblingRotate": 3905,
+      "leftRootAssign": 6257,
+      "returnRed": 19476,
+      "returnRoot": 13544,
+      "rightFinalRotateRight": 6310,
+      "rightInnerRotateLeft": 1265,
+      "rightRecolorAdvance": 19229,
+      "rightRedSiblingRotate": 3087,
+      "rightRootAssign": 6310
+    },
+    "stress": {
+      "leftFinalRotateLeft": 96,
+      "leftInnerRotateRight": 58,
+      "leftNullSiblingAdvance": 1010,
+      "leftRecolorAdvance": 2538,
+      "leftRedSiblingRotate": 100,
+      "leftRootAssign": 96,
+      "returnRed": 512,
+      "returnRoot": 1244,
+      "rightFinalRotateRight": 50,
+      "rightInnerRotateLeft": 20,
+      "rightNullSiblingAdvance": 770,
+      "rightRecolorAdvance": 2694,
+      "rightRedSiblingRotate": 86,
+      "rightRootAssign": 50
+    }
+  },
+  "balanceDeletionArmsNeverRun": {
+    "valid": [
+      "leftNullSiblingAdvance",
+      "returnParentless",
+      "rightNullSiblingAdvance"
+    ],
+    "stress": [
+      "returnParentless"
+    ]
+  },
+  "maxima": {
+    "frames:valid": {
+      "remove": 1,
+      "hash": 1,
+      "removeNode": 1,
+      "equals": 128,
+      "afterNodeRemoval": 1,
+      "removeTreeNode": 1,
+      "getTreeNode": 1,
+      "root": 2,
+      "find": 64,
+      "untreeify": 1,
+      "replacementNode": 9,
+      "<init>": 18,
+      "comparableClassFor": 63,
+      "balanceDeletion": 1,
+      "moveRootToFront": 1,
+      "rotateRight": 2,
+      "rotateLeft": 2
+    },
+    "perFrameBackEdges:valid": {
+      "hash": 0,
+      "removeNode": 62,
+      "remove": 0,
+      "equals": 0,
+      "afterNodeRemoval": 0,
+      "removeTreeNode": 6,
+      "root": 9,
+      "find": 11,
+      "getTreeNode": 0,
+      "<init>": 0,
+      "replacementNode": 0,
+      "untreeify": 9,
+      "comparableClassFor": 0,
+      "balanceDeletion": 6,
+      "moveRootToFront": 0,
+      "rotateRight": 0,
+      "rotateLeft": 0
+    },
+    "findVisits:valid": {
+      "max": 127
+    },
+    "findDepth:valid": {
+      "max": 12
+    },
+    "rotationsPerCall:valid": {
+      "max": 3
+    },
+    "treeAllocations:valid": {
+      "max": 9
+    },
+    "treeAllocationsN:valid": {
+      "1": 0,
+      "3": 2,
+      "7": 6,
+      "15": 0,
+      "31": 0,
+      "63": 0,
+      "127": 0,
+      "6": 5,
+      "5": 4,
+      "4": 3,
+      "30": 0,
+      "29": 0,
+      "28": 0,
+      "27": 0,
+      "26": 0,
+      "25": 0,
+      "24": 0,
+      "23": 0,
+      "22": 0,
+      "21": 0,
+      "20": 0,
+      "19": 0,
+      "18": 0,
+      "17": 0,
+      "16": 0,
+      "14": 0,
+      "13": 0,
+      "12": 0,
+      "11": 0,
+      "10": 9,
+      "9": 8,
+      "8": 7,
+      "126": 0,
+      "125": 0,
+      "124": 0,
+      "123": 0,
+      "122": 0,
+      "121": 0,
+      "120": 0,
+      "119": 0,
+      "118": 0,
+      "117": 0,
+      "116": 0,
+      "115": 0,
+      "114": 0,
+      "113": 0,
+      "112": 0,
+      "111": 0,
+      "110": 0,
+      "109": 0,
+      "108": 0,
+      "107": 0,
+      "106": 0,
+      "105": 0,
+      "104": 0,
+      "103": 0,
+      "102": 0,
+      "101": 0,
+      "100": 0,
+      "99": 0,
+      "98": 0,
+      "97": 0,
+      "96": 0,
+      "95": 0,
+      "94": 0,
+      "93": 0,
+      "92": 0,
+      "91": 0,
+      "90": 0,
+      "89": 0,
+      "88": 0,
+      "87": 0,
+      "86": 0,
+      "85": 0,
+      "84": 0,
+      "83": 0,
+      "82": 0,
+      "81": 0,
+      "80": 0,
+      "79": 0,
+      "78": 0,
+      "77": 0,
+      "76": 0,
+      "75": 0,
+      "74": 0,
+      "73": 0,
+      "72": 0,
+      "71": 0,
+      "70": 0,
+      "69": 0,
+      "68": 0,
+      "67": 0,
+      "66": 0,
+      "65": 0,
+      "64": 0,
+      "62": 0,
+      "61": 0,
+      "60": 0,
+      "59": 0,
+      "58": 0,
+      "57": 0,
+      "56": 0,
+      "55": 0,
+      "54": 0,
+      "53": 0,
+      "52": 0,
+      "51": 0,
+      "50": 0,
+      "49": 0,
+      "48": 0,
+      "47": 0,
+      "46": 0,
+      "45": 0,
+      "44": 0,
+      "43": 0,
+      "42": 0,
+      "41": 0,
+      "40": 0,
+      "39": 0,
+      "38": 0,
+      "37": 0,
+      "36": 0,
+      "35": 0,
+      "34": 0,
+      "33": 0,
+      "32": 0,
+      "2": 1
+    },
+    "balanceDeletionBackMinusHeight:valid": {
+      "value": 0
+    },
+    "frames:stress": {
+      "remove": 1,
+      "hash": 1,
+      "removeNode": 1,
+      "getTreeNode": 1,
+      "find": 23,
+      "equals": 65,
+      "removeTreeNode": 1,
+      "untreeify": 1,
+      "replacementNode": 63,
+      "<init>": 126,
+      "afterNodeRemoval": 1,
+      "root": 2,
+      "comparableClassFor": 22,
+      "balanceDeletion": 1,
+      "moveRootToFront": 1,
+      "rotateLeft": 2,
+      "rotateRight": 1
+    },
+    "perFrameBackEdges:stress": {
+      "hash": 0,
+      "equals": 0,
+      "find": 63,
+      "getTreeNode": 0,
+      "removeNode": 0,
+      "remove": 0,
+      "<init>": 0,
+      "replacementNode": 0,
+      "untreeify": 63,
+      "removeTreeNode": 9,
+      "afterNodeRemoval": 0,
+      "root": 52,
+      "comparableClassFor": 0,
+      "balanceDeletion": 12,
+      "moveRootToFront": 0,
+      "rotateLeft": 0,
+      "rotateRight": 0
+    },
+    "findVisits:stress": {
+      "max": 64
+    },
+    "findDepth:stress": {
+      "max": 8
+    },
+    "rotationsPerCall:stress": {
+      "max": 3
+    },
+    "treeAllocations:stress": {
+      "max": 63
+    },
+    "treeAllocationsN:stress": {
+      "2": 1,
+      "3": 2,
+      "5": 4,
+      "8": 7,
+      "13": 12,
+      "21": 20,
+      "34": 33,
+      "55": 54,
+      "64": 63
+    },
+    "balanceDeletionBackMinusHeight:stress": {
+      "value": 0
+    }
+  },
+  "worst": {
+    "linked:valid:instructions": {
+      "category": "model2Single",
+      "N": 64,
+      "H": 0,
+      "actual": 1859,
+      "boundWithHeight": 2016,
+      "boundNOnly": 2016
+    },
+    "linked:valid:jdkFrames": {
+      "category": "model2Single",
+      "N": 64,
+      "H": 0,
+      "actual": 67,
+      "boundWithHeight": 71,
+      "boundNOnly": 71
+    },
+    "linked:valid:nativeIdentityHash": {
+      "category": "model2Single",
+      "N": 0,
+      "H": 0,
+      "actual": 1,
+      "boundWithHeight": 1,
+      "boundNOnly": 1
+    },
+    "linked:valid:allocations": {
+      "category": "model2Single",
+      "N": 0,
+      "H": 0,
+      "actual": 0,
+      "boundWithHeight": 0,
+      "boundNOnly": 0
+    },
+    "tree:valid:instructions": {
+      "category": "rbRepeated",
+      "N": 127,
+      "H": 11,
+      "actual": 7277,
+      "boundWithHeight": 18077,
+      "boundNOnly": 53497
+    },
+    "tree:valid:jdkFrames": {
+      "category": "rbRepeated",
+      "N": 127,
+      "H": 11,
+      "actual": 266,
+      "boundWithHeight": 820,
+      "boundNOnly": 1280
+    },
+    "tree:valid:nativeIdentityHash": {
+      "category": "model2Single",
+      "N": 1,
+      "H": 0,
+      "actual": 1,
+      "boundWithHeight": 1,
+      "boundNOnly": 1
+    },
+    "tree:valid:allocations": {
+      "category": "rbRepeated",
+      "N": 10,
+      "H": 3,
+      "actual": 9,
+      "boundWithHeight": 9,
+      "boundNOnly": 9
+    },
+    "tree:stress:instructions": {
+      "category": "colorInvalidStress",
+      "N": 64,
+      "H": 63,
+      "actual": 6331,
+      "boundWithHeight": 27163,
+      "boundNOnly": 27163
+    },
+    "tree:stress:jdkFrames": {
+      "category": "colorInvalidStress",
+      "N": 64,
+      "H": 63,
+      "actual": 263,
+      "boundWithHeight": 650,
+      "boundNOnly": 650
+    },
+    "tree:stress:nativeIdentityHash": {
+      "category": "colorInvalidStress",
+      "N": 2,
+      "H": 1,
+      "actual": 1,
+      "boundWithHeight": 1,
+      "boundNOnly": 1
+    },
+    "tree:stress:allocations": {
+      "category": "colorInvalidStress",
+      "N": 64,
+      "H": 63,
+      "actual": 63,
+      "boundWithHeight": 63,
+      "boundNOnly": 63
+    }
+  },
+  "highestBoundRatio": {
+    "linked:valid:instructions": {
+      "ratio": 0.9221,
+      "N": 64,
+      "H": 0,
+      "actual": 1859,
+      "bound": 2016,
+      "category": "model2Single"
+    },
+    "linked:valid:jdkFrames": {
+      "ratio": 0.9437,
+      "N": 64,
+      "H": 0,
+      "actual": 67,
+      "bound": 71,
+      "category": "model2Single"
+    },
+    "linked:valid:nativeIdentityHash": {
+      "ratio": 1.0,
+      "N": 0,
+      "H": 0,
+      "actual": 1,
+      "bound": 1,
+      "category": "model2Single"
+    },
+    "linked:valid:allocations": {
+      "ratio": 1.0,
+      "N": 0,
+      "H": 0,
+      "actual": 0,
+      "bound": 0,
+      "category": "model2Single"
+    },
+    "tree:valid:instructions": {
+      "ratio": 0.4354,
+      "N": 127,
+      "H": 6,
+      "actual": 7200,
+      "bound": 16537,
+      "category": "model2Single"
+    },
+    "tree:valid:jdkFrames": {
+      "ratio": 0.6047,
+      "N": 10,
+      "H": 3,
+      "actual": 52,
+      "bound": 86,
+      "category": "rbRepeated"
+    },
+    "tree:valid:nativeIdentityHash": {
+      "ratio": 1.0,
+      "N": 1,
+      "H": 0,
+      "actual": 1,
+      "bound": 1,
+      "category": "model2Single"
+    },
+    "tree:valid:allocations": {
+      "ratio": 1.0,
+      "N": 1,
+      "H": 0,
+      "actual": 0,
+      "bound": 0,
+      "category": "model2Single"
+    },
+    "tree:stress:instructions": {
+      "ratio": 0.4206,
+      "N": 21,
+      "H": 7,
+      "actual": 2181,
+      "bound": 5185,
+      "category": "colorInvalidStress"
+    },
+    "tree:stress:jdkFrames": {
+      "ratio": 0.6369,
+      "N": 21,
+      "H": 7,
+      "actual": 107,
+      "bound": 168,
+      "category": "colorInvalidStress"
+    },
+    "tree:stress:nativeIdentityHash": {
+      "ratio": 1.0,
+      "N": 2,
+      "H": 1,
+      "actual": 1,
+      "bound": 1,
+      "category": "colorInvalidStress"
+    },
+    "tree:stress:allocations": {
+      "ratio": 1.0,
+      "N": 2,
+      "H": 1,
+      "actual": 1,
+      "bound": 1,
+      "category": "colorInvalidStress"
+    }
+  },
+  "timingMs": {
+    "model2": 2261.5,
+    "rbSingle": 14082.1,
+    "rbRepeated": 6521.2,
+    "stress": 5891.3
+  },
+  "elapsedMs": 28770.9,
+  "peakRssBytes": 35274752,
+  "boundedAdmission": false,
+  "runtimeClassesInitialized": 0,
+  "conditions": [
+    "The receiver class is exactly java.util.HashMap; replacementNode and afterNodeRemoval are overridable.",
+    "The table, bucket list, and tree links are stable and valid: finite acyclic next lists, consistent parent, left, right, and prev links, and one node type per bucket.",
+    "Keys are non-null, do not implement Comparable, and use Object.hashCode and Object.equals (identity).",
+    "TreeNode is initialized and TreeNode.$assertionsDisabled is true.",
+    "No other thread modifies the map during the call.",
+    "Capacity does not add work to one removal; only one bucket is read.",
+    "Native identity hash latency is separate from the instruction bound.",
+    "The class bytes match the pinned SHA-256 values; the live runtime identity is a separate check.",
+    "The bound counts bytecode instructions and JDK frames, not time.",
+    "Color-invalid stress trees are outside the conditions; they check that the structural loop bounds still hold when the run completes."
+  ]
+}

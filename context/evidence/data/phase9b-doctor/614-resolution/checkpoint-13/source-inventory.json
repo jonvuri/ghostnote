@@ -1,0 +1,407 @@
+[
+  {
+    "path": "brain/src/probes/grid_doctor/admission.py",
+    "sha256": "5d337b40598290c034435d4b00206ac36a293f139c7e6c36f3e25e7aa5e4c47c",
+    "bytes": 10008
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/assertion_guards.py",
+    "sha256": "e53ea88e8bc3667b4846e704279baf8b5dbe1d89ef51f5feaa1ce1cbab7a5a7a",
+    "bytes": 2517
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/assertion_variants.py",
+    "sha256": "a1ac58f50ab9f6b5db32c7c03cb8a322fa382679a3fe75a4bbdd5b6d8d3eea00",
+    "bytes": 4458
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/bootstrap_contracts.py",
+    "sha256": "1062e85b89419e2e6e65bc8dc249ec43fd1a521e14345fbfc8528d06db7e74a8",
+    "bytes": 10582
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/bounded_trace.py",
+    "sha256": "b74d752363febbd7150bf9716f871149f92f52b1c93252060d0377d8b6d3a931",
+    "bytes": 2487
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/call_paths.py",
+    "sha256": "1f8457bbc4119f95737334e2e599544a65f882ec210b9232633f6092f38577f9",
+    "bytes": 6725
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/callee_contracts.py",
+    "sha256": "936c33b1682bfc81138dbf5f791a554f68051935af8d69ad084dac0d43114c8a",
+    "bytes": 5663
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/conditional_contracts.py",
+    "sha256": "6bc46ded54be14158e14dc339b2e591131f7bf37311701bfac7dfa3782b9f110",
+    "bytes": 2261
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/constructor_bounds.py",
+    "sha256": "63fec70f058e0dbde5430f461fe5ae2f4838c18c0374be63d9ab103577d3bf06",
+    "bytes": 5755
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/constructor_flags.py",
+    "sha256": "1f0ef947d8bcd5331c8f3b50ed87482d8a5a875bf097e8155f3d1733dc48ffa6",
+    "bytes": 9877
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/constructor_paths.py",
+    "sha256": "1c5616715663f29b2e6aaec54e7a1aacd8a2b004e8769b3ea950dca027670c65",
+    "bytes": 2879
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/constructor_variants.py",
+    "sha256": "5e390ccd64596d2294481be2c0be4e3e1740d9183ea17bd3bbcb10ce3a469047",
+    "bytes": 5150
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/contracts.py",
+    "sha256": "81e234bc76c495b354e2e9981f0bc1639f0a1d7f8a7dc73b046b22887bd6f34a",
+    "bytes": 4898
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/descriptor_builders.py",
+    "sha256": "f97e57ce6aeaace7bcdd62603ba4f68c8efd2d18cd52d2f240f770169933735d",
+    "bytes": 6241
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/descriptor_resolution.py",
+    "sha256": "cd4bd5a94a6428b2c5935be503abf4821b197811e96b440b18dc82bda86e9e86",
+    "bytes": 21264
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/diagnose.py",
+    "sha256": "ed536af89086b94cbb18f27ca51b3f116488937e472f92aa34b3f08d2687c9cb",
+    "bytes": 9659
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/dispatch_paths.py",
+    "sha256": "a4a4489de36bf191d29114579949a6b929e513dc109ce160f9be39bc639cefa0",
+    "bytes": 9006
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/disposal_wrappers.py",
+    "sha256": "9175e975ac9d59f176e5004f26b8367781b722661d5ed37acf2e2a5044283925",
+    "bytes": 10626
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/domain_contracts.py",
+    "sha256": "c99279d1a191b6136918ec057d1dedfc7214430eba6062f7d71069033d5b68fe",
+    "bytes": 3721
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/domain_paths.py",
+    "sha256": "386dfe1ea18b8bfc6ee4b164d79af3a8ffad457d74a8a4ee6283b970bfe4350e",
+    "bytes": 6716
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/dynamic_contracts.py",
+    "sha256": "8405a88a9d259924c0297211ed942fdd1a3429ce19744e0a48b8bf0e9ef8fea6",
+    "bytes": 7470
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/empty_storage.py",
+    "sha256": "493d99f95078366c13f005ec03d236479f5de4ce70d1f775e2b8e737e7bea73a",
+    "bytes": 4786
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/explicit_variants.py",
+    "sha256": "ea52da8735aefe97a29e59aca151889be052c9fd8d0ab89b43eb7530671eb646",
+    "bytes": 6502
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/fixed_descriptors.py",
+    "sha256": "0c1997ece0fc951d51f040ec0e203b75de0a8115ac1850bc7271ba7a4f7d3efb",
+    "bytes": 7178
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/fixed_dispatch.py",
+    "sha256": "4c832b20c85274499d4a70b0b7988f9f2b00df6da30153f84e7cf1f8c305eec7",
+    "bytes": 4765
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/fixed_read_checkpoint.py",
+    "sha256": "67774c12543d4fc6717e18e3f32dc60d7dabc52ed8b5ead1d7618360ea45ca9a",
+    "bytes": 5875
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/history_ancestor.py",
+    "sha256": "fffa3f14653fa5c5ab0c3229ed50f8f3c2c5cc10989a7c25d19d2c205f4afffd",
+    "bytes": 2474
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/invariant_root.py",
+    "sha256": "1fb9d050331b50dfc22d0aba2eb1ef3d4ea50ac25333b71ddac83a613dc3eb91",
+    "bytes": 4429
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/listener_map_variant.py",
+    "sha256": "e739f1e4db147ab2f6c44b8e93cae932444d2dd895e0663c2b9d00b33ba39f9c",
+    "bytes": 3441
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/migrate.py",
+    "sha256": "9557b8c3220b1868021279f89b6886ee59fc7647cd766dd54ae9ec378341721e",
+    "bytes": 17908
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/module_file.py",
+    "sha256": "02a4cd26a7ac9643186f4a24b08c8a030f8b9114ad1147335bd71dbff6d55131",
+    "bytes": 12873
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/mutated_fixture.py",
+    "sha256": "38dd02a290d03edbd27ace4d6e52d9d989f190d8f115857d307e55e6900a9f95",
+    "bytes": 4068
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/nitro_data.py",
+    "sha256": "62f5f5efda88bb7cba326f21bdc2e9b8bb9fa119805028bfc9ed89c355ad9a82",
+    "bytes": 7174
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/owned_flow.py",
+    "sha256": "267349ea3b28a01a5c9bdb19b0a039e9966cfed74283144c55d74470f786ff5f",
+    "bytes": 11276
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/ownership.py",
+    "sha256": "9fb4b3a4aa071a797f6de45df5706276d2d82a6982b5176a2ec7144b6f8a3952",
+    "bytes": 11241
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/property_contracts.py",
+    "sha256": "487ca5c19944cbc20182ebe514d3252e00e8a68ebd271b0ca758881e94d82b1b",
+    "bytes": 16907
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/read_dataflow.py",
+    "sha256": "80bc10b1b8be213750b00ee39594325eafa8d4141329d000c0316e1d9b544680",
+    "bytes": 22164
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/receiver_trace.py",
+    "sha256": "78966bdf1714b611f5aa722f188d402c36027308afbedb5218a27dd06447fcd3",
+    "bytes": 10490
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/renamed_fixture.py",
+    "sha256": "32ef76b3511553ca6652d7088c57b335e9d3774ce162b9f6f559dc2c35e90808",
+    "bytes": 5326
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/role_bindings.py",
+    "sha256": "0a6babd6d7130303f0856634a54f3a6f793005ed61c07949be2ef1b365c01de3",
+    "bytes": 14993
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/role_contracts.py",
+    "sha256": "ae7389a35aaaa83dcf8cd94a7f203cad65ffe5db7fc49daff800e62a0532b899",
+    "bytes": 11860
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/role_variants.py",
+    "sha256": "87fc0a7d2d85718e4ed2a8d9444f06c8edfa1d2c39583cf78714824490bc1d9e",
+    "bytes": 6441
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/runtime_dependencies.py",
+    "sha256": "9066f7769e043247f55935c6f898aadc3e616fa8b24f8dee39ab956b695bf273",
+    "bytes": 5637
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_admission.py",
+    "sha256": "de700bff5e531addaacf82950cdf9e466cada65bf47a22b464e7adbe49c2b611",
+    "bytes": 9694
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_assertion_guards.py",
+    "sha256": "3255a4e7b6cb74e76e25edc5f25f5a8df2653bf51b18ccfe0da3cc7dd6d0bf98",
+    "bytes": 2219
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_assertion_variants.py",
+    "sha256": "a207b91a9bc7e63f7e794befe8ed1d9e152febe39b548bae92792eb61998a7c1",
+    "bytes": 3392
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_bootstrap_contracts.py",
+    "sha256": "aa2e27bd7ed311d7d58f354c24fa4463141374ee7c5eee5338dc7d5d9bdc22e6",
+    "bytes": 5399
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_call_paths.py",
+    "sha256": "63072d1fa70f6e8d3c89c9788299d431ccba738d7494d62350a18a3cbec0312c",
+    "bytes": 3659
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_callee_contracts.py",
+    "sha256": "468ee63fdba86d30d23b75991a6d01adaed150fc207aeca9efa43b198b8ae337",
+    "bytes": 3939
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_conditional_contracts.py",
+    "sha256": "76a3fa8ee0e88775b611ce27c22e4c33f7247114c8eda2dd2c8ccaf5eb2fc136",
+    "bytes": 2807
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_constructor_bounds.py",
+    "sha256": "1b291add9787efcf4ca76f4bd74d901a7d6f75fea7c449534e868960f314d3b6",
+    "bytes": 4634
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_constructor_flags.py",
+    "sha256": "20407722b97b80da53ffbff1d6925cb65eb29bb52474b5b14e8c1660b9cc3ad4",
+    "bytes": 7713
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_constructor_paths.py",
+    "sha256": "a4083021de1d5badb0b35afa14765bbdf83f0392a1031da8bb0560b7e177a1f2",
+    "bytes": 3315
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_constructor_variants.py",
+    "sha256": "36fa0b16f4987b251029e5dc85c9129389d2681b8806020576a03dfc8850020e",
+    "bytes": 6158
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_contracts.py",
+    "sha256": "43606352fc0f873810f3bdc7c5f8455b8e1cafe2c2e80fe07c5156d0f0d31a6c",
+    "bytes": 7679
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_descriptor_builders.py",
+    "sha256": "565722a422d8e9b3c0f1eed41b659e4099971a3203daa291069c86b1ee381eec",
+    "bytes": 5524
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_descriptor_resolution.py",
+    "sha256": "80feb3885fd40a716c7ea29fd9365cd7596a936886bef009f70e84aec6fc4bdb",
+    "bytes": 6045
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_diagnose.py",
+    "sha256": "9ec43deff03e8ed2541ff41fb58491988b260d14b189d1440a5f0b84dbf46e75",
+    "bytes": 2784
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_dispatch_paths.py",
+    "sha256": "d8477b4f84510ab1e1efac668c6c1543411915b79ebaab8cce3245d6943d3fc3",
+    "bytes": 2593
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_disposal_wrappers.py",
+    "sha256": "d331606208e82872846b3b3fd61fbd0a0565dafa8ff7863fda0547c5450f8565",
+    "bytes": 5423
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_domain_paths.py",
+    "sha256": "cbd0bb03052655c555e271544428d42927d268cd575031c4e4ba15916d3268ea",
+    "bytes": 2539
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_dynamic_contracts.py",
+    "sha256": "2974d219b060bcbfba99a6aac2c0452ce814f528cabb41886a8935ac37e382ce",
+    "bytes": 5910
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_empty_storage.py",
+    "sha256": "ccb822bdebe612ffb0af4de1bf0adc8672f2c12b9b1ad23bfb05d2e81398a540",
+    "bytes": 5349
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_explicit_variants.py",
+    "sha256": "1ffd4b330e28a74feaf478ba4c349c1a980e2778609786728da8ac3adb92c323",
+    "bytes": 2281
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_fixture_trace.py",
+    "sha256": "de34f1cee8e20e61b77f95da543ceffd9583cd875dc1f96104e43c14795216bf",
+    "bytes": 4881
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_history_ancestor.py",
+    "sha256": "c25bc6a1bab69a09de88c015307d9106d0ff74108336858d514200e266dff1d1",
+    "bytes": 6146
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_instance_reads.py",
+    "sha256": "c72aded924be79ee384bbf31ed1e20dea170a4ce3e7d12a3be3ff3bea1150663",
+    "bytes": 6265
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_invariant_root.py",
+    "sha256": "a50c9a263ff94f549bd60e3d24599685d59f4a4d092bef2f29488f7fec2ee02c",
+    "bytes": 7396
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_listener_map_variant.py",
+    "sha256": "8eeaea0185789293e21aad2a3ec4e9ebd0186469241e815190021d2ece284509",
+    "bytes": 4253
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_module_file.py",
+    "sha256": "d55083cb17a2f48d7deb0ca6290c88f40953ed7b82983f5f701a02dbe14fe74c",
+    "bytes": 5888
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_nitro_data.py",
+    "sha256": "4e476c3266ecf1069cc714291176f20305aa65c87cfe3f427fdaa0966adcc0fc",
+    "bytes": 5538
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_owned_flow.py",
+    "sha256": "d3955141130b6caead9bf4a76d4cf4c425ab6aa40bef2c739678b1b13e2cf915",
+    "bytes": 2866
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_ownership.py",
+    "sha256": "46cf025d406a366e6884fb8241c0fe4c397bc150d5674a1ca9a207b4acd79c91",
+    "bytes": 7574
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_property_contracts.py",
+    "sha256": "53fce90893a6c6b8a06ccc7d12c4169ea4cb2b3497d0cf8ea6e775060450e108",
+    "bytes": 4977
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_read_dataflow.py",
+    "sha256": "d928837b53b47b699b77f9d4193d2218edecfe646d0982fd2cb726b917225e81",
+    "bytes": 11889
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_receiver_trace.py",
+    "sha256": "1b875f7831df97673cd3aaa7c1856d4d0d0e11805cc72aa84c239f795cdd2e5c",
+    "bytes": 11180
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_resolve.py",
+    "sha256": "0c1c8875b3066cfadfc3abc90b725ea85c284f37fe7f4d9815b9552796149b29",
+    "bytes": 1944
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_role_bindings.py",
+    "sha256": "6f2ac92e3014ca43abad878ee96f74fe1b209062556680eff75c95c0fb845c60",
+    "bytes": 10998
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_role_contracts.py",
+    "sha256": "b4e99e7e85649b5bf08c706c4030d412c4954dfb3ea84f32129d0bf0ec1227ae",
+    "bytes": 7497
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/test_wrapper_bounds.py",
+    "sha256": "9b7cc72668eaba128c3d84043609f966a3ea33b237d9618e49d807fe8513ffaf",
+    "bytes": 3143
+  },
+  {
+    "path": "brain/src/probes/grid_doctor/wrapper_bounds.py",
+    "sha256": "bd2e4b1aa4bf49a764995dc45c5b8ceed7ab26f9ce2519c0155bb2e765e7bce3",
+    "bytes": 7946
+  }
+]

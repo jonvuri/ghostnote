@@ -1,0 +1,83 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Pinned default and delete collector checks; context construction entry. No runtime admission.",
+  "methods": [
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "<init>",
+      "descriptor": "(Ljava/lang/String;I)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "<clinit>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/BKi",
+      "name": "cfM",
+      "descriptor": "()Lcom/bitwig/ramona/core/kJI;"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/BKi",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "<init>",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "Hnt",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/kJI",
+      "name": "MRY",
+      "descriptor": "()Z"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/hLr",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/flt/document/core/master/device/Vzt;Ljava/util/List;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/hLr",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;)V"
+    },
+    {
+      "owner": "com/bitwig/flt/document/core/master/device/Vzt",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;Ljava/util/List;)V"
+    }
+  ],
+  "slots": [],
+  "targets": [
+    {
+      "kind": "field",
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "cfM",
+      "descriptor": "Lcom/bitwig/ramona/core/kJI;"
+    },
+    {
+      "kind": "field",
+      "owner": "com/bitwig/ramona/core/XKG",
+      "name": "MRY",
+      "descriptor": "Lcom/bitwig/ramona/core/WzZ;"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/document/core/master/device/Vzt",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/ramona/core/kJI;Ljava/util/List;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/flt/app/OcA",
+      "name": "<init>",
+      "descriptor": "(Lcom/bitwig/flt/app/TL;Lcom/bitwig/flt/document/core/master/g2L;)V"
+    }
+  ]
+}

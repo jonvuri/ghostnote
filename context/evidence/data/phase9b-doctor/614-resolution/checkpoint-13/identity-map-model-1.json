@@ -1,0 +1,27 @@
+{
+  "inputSha256": "f8cf50ba465d00de3748939bdc8dd52d38a169890ec4cec16093089cc3ef374b",
+  "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+  "cases": 10920,
+  "exactBoundCases": 5586,
+  "maxInstructionsObserved": 1557,
+  "bound": {
+    "nonnullKeyFound": {
+      "constant": 45,
+      "perCollision": 24
+    },
+    "nonnullKeyAbsent": {
+      "constant": 43,
+      "perCollision": 24
+    },
+    "nativeIdentityHashCalls": 1
+  },
+  "elapsedMs": 2089.891291980166,
+  "boundedAdmission": false,
+  "runtimeClassesInitialized": 0,
+  "conditions": [
+    "These tests interpret extracted class data with an inert identity-hash stub.",
+    "The table must be stable, valid, have a power-of-two length, and contain an empty key slot.",
+    "The query is non-null. Collision count is bounded by the number of existing entries.",
+    "Native hashing, synchronization waits, concurrent changes, and actual entry limits are not measured."
+  ]
+}

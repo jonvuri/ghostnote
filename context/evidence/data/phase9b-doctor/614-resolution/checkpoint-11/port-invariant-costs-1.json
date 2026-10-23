@@ -1,0 +1,412 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "paths": [
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "channel_count",
+      "propertyId": 372,
+      "propertyClass": "dez",
+      "cost": {
+        "vendorInstructions": 105,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "oversampling",
+      "propertyId": 13324,
+      "propertyClass": "dez",
+      "cost": {
+        "vendorInstructions": 105,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "name",
+      "propertyId": 498,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "description",
+      "propertyId": 4741,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "decorated_name",
+      "propertyId": 499,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "is_inport",
+      "propertyId": 500,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "is_optional",
+      "propertyId": 1384,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "exclude_from_graph",
+      "propertyId": 7174,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "propertyName": "managed_object_ID",
+      "propertyId": 14,
+      "propertyClass": "deH",
+      "cost": {
+        "vendorInstructions": 114,
+        "vendorCalls": 18,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "data_type",
+      "propertyId": 6514,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "event_data_size",
+      "propertyId": 6538,
+      "propertyClass": "deH",
+      "cost": {
+        "vendorInstructions": 117,
+        "vendorCalls": 19,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "is_value_port",
+      "propertyId": 7023,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "oversampling",
+      "propertyId": 13326,
+      "propertyClass": "dez",
+      "cost": {
+        "vendorInstructions": 105,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "name",
+      "propertyId": 498,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "description",
+      "propertyId": 4741,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "decorated_name",
+      "propertyId": 499,
+      "propertyClass": "dfg",
+      "cost": {
+        "vendorInstructions": 109,
+        "vendorCalls": 17,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "is_inport",
+      "propertyId": 500,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "is_optional",
+      "propertyId": 1384,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "exclude_from_graph",
+      "propertyId": 7174,
+      "propertyClass": "dep",
+      "cost": {
+        "vendorInstructions": 58,
+        "vendorCalls": 9,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "propertyName": "managed_object_ID",
+      "propertyId": 14,
+      "propertyClass": "deH",
+      "cost": {
+        "vendorInstructions": 123,
+        "vendorCalls": 19,
+        "externalCalls": 1,
+        "perChildInstructions": 0,
+        "perChildExternalCalls": 0,
+        "explicitObjects": 1,
+        "iteratorAllocations": 0
+      }
+    }
+  ],
+  "localMethods": [
+    {
+      "method": [
+        "dez",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "selectedInstructions": 10,
+      "guards": [
+        [
+          "dez",
+          "cfM",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "method": [
+        "den",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "selectedInstructions": 6,
+      "guards": [
+        [
+          "den",
+          "MRY",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "method": [
+        "deZ",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "selectedInstructions": 13,
+      "guards": [
+        [
+          "deZ",
+          "IwV",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "method": [
+        "dfg",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "selectedInstructions": 14,
+      "guards": [
+        [
+          "dfg",
+          "cfM",
+          "Z"
+        ]
+      ]
+    },
+    {
+      "method": [
+        "deH",
+        "hUR",
+        "(Lcom/bitwig/ramona/core/oDc;)V"
+      ],
+      "selectedInstructions": 12,
+      "guards": [
+        [
+          "deH",
+          "cfM",
+          "Z"
+        ]
+      ]
+    }
+  ],
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "conditions": [
+    "Exact initialized descriptors, property identities, and disabled assertion flags.",
+    "N bounds each fresh relationship output list. The constant sum includes one loop body and can overestimate.",
+    "Exact list implementations and stable source collections require separate guards.",
+    "External bodies, root descriptor loops, lock properties, class initialization, and failure paths remain separate."
+  ],
+  "elapsedMs": 4035.363624978345,
+  "peakRssBytes": 178962432
+}

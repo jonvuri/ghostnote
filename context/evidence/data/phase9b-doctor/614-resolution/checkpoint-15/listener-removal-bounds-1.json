@@ -1,0 +1,195 @@
+{
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "bound": {
+        "method": [
+          "rHF",
+          "removeListener",
+          "(LNpn;)V"
+        ],
+        "storageField": [
+          "rHF",
+          "mListeners",
+          "Ljava/util/List;"
+        ],
+        "storageForm": "list",
+        "assertionGuard": [
+          "rHF",
+          "$assertionsDisabled",
+          "Z"
+        ],
+        "mode": null,
+        "ownInstructionBound": 16,
+        "vendorCallBound": 0,
+        "listRemoveCallBound": 1,
+        "listIsEmptyCallBound": 0,
+        "explicitAllocations": 0,
+        "boundedAdmission": false,
+        "runtimeObserved": false,
+        "conditions": [
+          "The assertion field must already be initialized and true.",
+          "The tracking field, if present, must remain false.",
+          "Storage must remain null, one non-List listener, or an exact ArrayList.",
+          "The query must be non-null and use Object.equals.",
+          "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+          "Storage identity and capacity are not equivalent between forms.",
+          "A failure propagates. Do not retry an uncertain removal."
+        ]
+      }
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "bound": {
+        "method": [
+          "TT",
+          "removeListener",
+          "(Lfoz;)V"
+        ],
+        "storageField": [
+          "TT",
+          "mListeners",
+          "Ljava/lang/Object;"
+        ],
+        "storageForm": "single-or-list",
+        "assertionGuard": [
+          "TT",
+          "$assertionsDisabled",
+          "Z"
+        ],
+        "mode": {
+          "getter": [
+            "apd",
+            "Hnt",
+            "()Z"
+          ],
+          "requiredFalseField": [
+            "apd",
+            "Hnt",
+            "Z"
+          ],
+          "getterInstructions": 2,
+          "excludedRecordingCall": {
+            "tag": 10,
+            "owner": "apd",
+            "name": "MRY",
+            "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)V"
+          }
+        },
+        "ownInstructionBound": 43,
+        "vendorCallBound": 1,
+        "listRemoveCallBound": 1,
+        "listIsEmptyCallBound": 1,
+        "explicitAllocations": 0,
+        "boundedAdmission": false,
+        "runtimeObserved": false,
+        "conditions": [
+          "The assertion field must already be initialized and true.",
+          "The tracking field, if present, must remain false.",
+          "Storage must remain null, one non-List listener, or an exact ArrayList.",
+          "The query must be non-null and use Object.equals.",
+          "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+          "Storage identity and capacity are not equivalent between forms.",
+          "A failure propagates. Do not retry an uncertain removal."
+        ]
+      }
+    },
+    {
+      "sha256": "23708ef4c362ed072410c5415857bddcbfdc71f26087760cf5158ef8bf4158d6",
+      "bound": {
+        "method": [
+          "R2020",
+          "r_removeListener",
+          "(LR27749;)V"
+        ],
+        "storageField": [
+          "R2020",
+          "r_mListeners",
+          "Ljava/util/List;"
+        ],
+        "storageForm": "list",
+        "assertionGuard": [
+          "R2020",
+          "r_$assertionsDisabled",
+          "Z"
+        ],
+        "mode": null,
+        "ownInstructionBound": 16,
+        "vendorCallBound": 0,
+        "listRemoveCallBound": 1,
+        "listIsEmptyCallBound": 0,
+        "explicitAllocations": 0,
+        "boundedAdmission": false,
+        "runtimeObserved": false,
+        "conditions": [
+          "The assertion field must already be initialized and true.",
+          "The tracking field, if present, must remain false.",
+          "Storage must remain null, one non-List listener, or an exact ArrayList.",
+          "The query must be non-null and use Object.equals.",
+          "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+          "Storage identity and capacity are not equivalent between forms.",
+          "A failure propagates. Do not retry an uncertain removal."
+        ]
+      }
+    },
+    {
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "bound": {
+        "method": [
+          "R27041",
+          "r_removeListener",
+          "(LR4662;)V"
+        ],
+        "storageField": [
+          "R27041",
+          "r_mListeners",
+          "Ljava/lang/Object;"
+        ],
+        "storageForm": "single-or-list",
+        "assertionGuard": [
+          "R27041",
+          "r_$assertionsDisabled",
+          "Z"
+        ],
+        "mode": {
+          "getter": [
+            "R23293",
+            "r_Hnt",
+            "()Z"
+          ],
+          "requiredFalseField": [
+            "R23293",
+            "r_Hnt",
+            "Z"
+          ],
+          "getterInstructions": 2,
+          "excludedRecordingCall": {
+            "tag": 10,
+            "owner": "R23293",
+            "name": "r_MRY",
+            "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)V"
+          }
+        },
+        "ownInstructionBound": 43,
+        "vendorCallBound": 1,
+        "listRemoveCallBound": 1,
+        "listIsEmptyCallBound": 1,
+        "explicitAllocations": 0,
+        "boundedAdmission": false,
+        "runtimeObserved": false,
+        "conditions": [
+          "The assertion field must already be initialized and true.",
+          "The tracking field, if present, must remain false.",
+          "Storage must remain null, one non-List listener, or an exact ArrayList.",
+          "The query must be non-null and use Object.equals.",
+          "List size, capacity, JDK bodies, and native array copies need separate bounds.",
+          "Storage identity and capacity are not equivalent between forms.",
+          "A failure propagates. Do not retry an uncertain removal."
+        ]
+      }
+    }
+  ],
+  "elapsedMs": 20378.05512500927,
+  "peakRssBytes": 215646208,
+  "boundedAdmission": false
+}

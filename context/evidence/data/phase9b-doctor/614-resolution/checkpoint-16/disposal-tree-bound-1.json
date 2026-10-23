@@ -1,0 +1,126 @@
+{
+  "inputs": {
+    "gn-9b6g-disposal-tree-model-1.json": "164d99c31656bfad41ad4f8e69d3ce8ca1fec18a4e692bfc0af822669bf1d587",
+    "gn-9b6g-factory-release-2.json": "18479de588f869f6bfd2a29db81f910e95d7e3ddc4989ed1725e584134db5606"
+  },
+  "builds": [
+    {
+      "build": 0,
+      "ownTraversalInstructions": {
+        "N": 34,
+        "M": 17,
+        "R": 37,
+        "constant": -10
+      },
+      "hookInstructionBounds": [
+        7,
+        17
+      ],
+      "hookVendorCallBounds": [
+        0,
+        1
+      ],
+      "withPredicateHooksAndFalseTracker": {
+        "instructions": {
+          "N": 36,
+          "M": 19,
+          "R": 61,
+          "constant": -10
+        },
+        "vendorCalls": {
+          "N": 3,
+          "M": 3,
+          "R": 5,
+          "constant": -1
+        }
+      },
+      "collectorsAndIterators": {
+        "N": 1,
+        "M": 1,
+        "R": 1
+      },
+      "hasNextCalls": {
+        "N": 2,
+        "M": 1,
+        "R": 2,
+        "constant": -1
+      },
+      "nextCalls": {
+        "N": 1,
+        "R": 1,
+        "constant": -1
+      }
+    },
+    {
+      "build": 1,
+      "ownTraversalInstructions": {
+        "N": 36,
+        "M": 17,
+        "R": 37,
+        "constant": -10
+      },
+      "hookInstructionBounds": [
+        5,
+        15
+      ],
+      "hookVendorCallBounds": [
+        0,
+        1
+      ],
+      "withPredicateHooksAndFalseTracker": {
+        "instructions": {
+          "N": 41,
+          "M": 19,
+          "R": 57,
+          "constant": -10
+        },
+        "vendorCalls": {
+          "N": 4,
+          "M": 3,
+          "R": 5,
+          "constant": -1
+        }
+      },
+      "collectorsAndIterators": {
+        "N": 1,
+        "M": 1,
+        "R": 1
+      },
+      "hasNextCalls": {
+        "N": 2,
+        "M": 1,
+        "R": 2,
+        "constant": -1
+      },
+      "nextCalls": {
+        "N": 1,
+        "R": 1,
+        "constant": -1
+      }
+    }
+  ],
+  "definitions": {
+    "N": "Number of nodes in the nonempty owned tree.",
+    "M": "Number of managed nodes.",
+    "R": "Sum of strict descendants below each managed node.",
+    "C": "Sum of immediate children below each managed node.",
+    "D": "Maximum root-to-leaf edge depth."
+  },
+  "derivation": [
+    "Base disposal visits N nodes and N - 1 child edges.",
+    "A managed node runs one unregister walk. Those walks enter R descendants.",
+    "Walk edges contribute C visits; recursive release edges contribute R - C visits. Their 14-instruction terms sum to 14R.",
+    "There are N + M managed-predicate calls. Each checked predicate costs two instructions.",
+    "Both hooks run for each release visit. Use the per-slot maximum from all 33 checked receiver classes.",
+    "The new false tracking tail costs three instructions per node.",
+    "R is at most N times D. A separate entry guard can enforce M at most one, which implies R at most N - 1."
+  ],
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "exclusions": [
+    "Disposal wrappers and their delegates, HashMap and listener bodies.",
+    "Owned collection bodies and JDK iterator bodies.",
+    "Class initialization, native execution, concurrent mutation, and failure latency.",
+    "No N, M, D, map capacity, or listener limit is admitted by this report."
+  ]
+}

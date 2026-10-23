@@ -1,0 +1,2265 @@
+{
+  "inputs": {
+    "old-arm64": {
+      "sha256": "a8bff2e78b6e6499f91015cd167ecd535bd1149fbc1c470f1c77598395fc5206",
+      "imageSha256": "ca997e4e695f869b3a18a025d5fdfa2f6789c649633369608a47b9252de6ce6a",
+      "elapsedMs": 540.081,
+      "peakRssBytes": 37388288
+    },
+    "old-x64": {
+      "sha256": "7ec948cde64a42f6be3549535c35ba36a7d61c6feca54daf0ac7b1c27aec9b6c",
+      "imageSha256": "0f0f7c076dc9e8af91da0ec2f5eac60fd02e7c5d50df1e8b2873f60045304068",
+      "elapsedMs": 534.248,
+      "peakRssBytes": 41566208
+    },
+    "new-arm64": {
+      "sha256": "c6c03e5a4dca88be9ec8e2282dd596bea3845924194146377267742a87474fb2",
+      "imageSha256": "2c41602621cb66d2211ab7ba34c0a8a5dfd624c6a26160e3da9a0a2c33ffa9a9",
+      "elapsedMs": 536.787,
+      "peakRssBytes": 37273600
+    },
+    "new-x64": {
+      "sha256": "4a21681eb1e9c94b1b2dcf8f5aef74549ccca9298cc514b3dfe783e72b8ea702",
+      "imageSha256": "3540490d761294ef5fdbab40a765acc1ea4c36a36a14856d58c63ee22e6d2482",
+      "elapsedMs": 523.354,
+      "peakRssBytes": 39976960
+    }
+  },
+  "comparisons": [
+    {
+      "source": "old-arm64",
+      "target": "old-x64",
+      "classes": 31,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "new-arm64",
+      "target": "new-x64",
+      "classes": 31,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "old-arm64",
+      "target": "new-arm64",
+      "classes": 31,
+      "different": [
+        "java/lang/ref/ReferenceQueue"
+      ],
+      "missing": []
+    }
+  ],
+  "methods": [
+    {
+      "owner": "java/lang/Number",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 5,
+      "classSha256": "d00d27182a4afc2c39e8cbd73f9a987957131ca2cdeb4fa652e4dfc9394e13ee",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Long",
+      "name": "valueOf",
+      "descriptor": "(J)Ljava/lang/Long;",
+      "flags": 9,
+      "codeBytes": 40,
+      "classSha256": "bc1ad0688b5164da0d7ffc74796d7998dc17f04da1685a8b8897d6716b93aec5",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 9,
+          "opcode": 155,
+          "target": 31
+        },
+        {
+          "offset": 17,
+          "opcode": 157,
+          "target": 31
+        }
+      ],
+      "references": [
+        {
+          "offset": 20,
+          "opcode": 178,
+          "owner": "java/lang/Long$LongCache",
+          "name": "cache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 36,
+          "opcode": 183,
+          "owner": "java/lang/Long",
+          "name": "<init>",
+          "descriptor": "(J)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 17,
+          "args": [
+            0,
+            128
+          ]
+        },
+        {
+          "offset": 3,
+          "opcode": 61,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 30,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 20,
+          "args": [
+            0,
+            224
+          ],
+          "constant": {
+            "tag": 5,
+            "value": "ffffffffffffff80"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 155,
+          "args": [
+            0,
+            22
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 30,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 20,
+          "args": [
+            0,
+            226
+          ],
+          "constant": {
+            "tag": 5,
+            "value": "000000000000007f"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 157,
+          "args": [
+            0,
+            14
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 178,
+          "args": [
+            0,
+            228
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "cache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 30,
+          "args": []
+        },
+        {
+          "offset": 24,
+          "opcode": 136,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 17,
+          "args": [
+            0,
+            128
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 187,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Long"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 30,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 183,
+          "args": [
+            0,
+            234
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Long",
+            "name": "<init>",
+            "descriptor": "(J)V"
+          }
+        },
+        {
+          "offset": 39,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Long",
+      "name": "<init>",
+      "descriptor": "(J)V",
+      "flags": 1,
+      "codeBytes": 10,
+      "classSha256": "bc1ad0688b5164da0d7ffc74796d7998dc17f04da1685a8b8897d6716b93aec5",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Number",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "owner": "java/lang/Long",
+          "name": "value",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            1,
+            11
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Number",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 31,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "args": [
+            1,
+            14
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long",
+            "name": "value",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Long",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 10,
+      "classSha256": "bc1ad0688b5164da0d7ffc74796d7998dc17f04da1685a8b8897d6716b93aec5",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 184,
+          "owner": "java/lang/Class",
+          "name": "getPrimitiveClass",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+        },
+        {
+          "offset": 6,
+          "opcode": 179,
+          "owner": "java/lang/Long",
+          "name": "TYPE",
+          "descriptor": "Ljava/lang/Class;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 19,
+          "args": [
+            1,
+            84
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "long"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 184,
+          "args": [
+            1,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "getPrimitiveClass",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 6,
+          "opcode": 179,
+          "args": [
+            1,
+            92
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long",
+            "name": "TYPE",
+            "descriptor": "Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Long$LongCache",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 5,
+      "classSha256": "bce363fce98cfa7e1916930a94f2f0331c1e077d6ebb496b6bd537a400020e00",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Long$LongCache",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 104,
+      "classSha256": "bce363fce98cfa7e1916930a94f2f0331c1e077d6ebb496b6bd537a400020e00",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 154,
+          "target": 12
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "target": 13
+        },
+        {
+          "offset": 28,
+          "opcode": 199,
+          "target": 75
+        },
+        {
+          "offset": 46,
+          "opcode": 162,
+          "target": 71
+        },
+        {
+          "offset": 68,
+          "opcode": 167,
+          "target": 43
+        },
+        {
+          "offset": 84,
+          "opcode": 154,
+          "target": 103
+        },
+        {
+          "offset": 92,
+          "opcode": 159,
+          "target": 103
+        }
+      ],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 182,
+          "owner": "java/lang/Class",
+          "name": "desiredAssertionStatus",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "owner": "java/lang/Long$LongCache",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 22,
+          "opcode": 184,
+          "owner": "jdk/internal/misc/CDS",
+          "name": "initializeFromArchive",
+          "descriptor": "(Ljava/lang/Class;)V"
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "owner": "java/lang/Long$LongCache",
+          "name": "archivedCache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 61,
+          "opcode": 183,
+          "owner": "java/lang/Long",
+          "name": "<init>",
+          "descriptor": "(J)V"
+        },
+        {
+          "offset": 72,
+          "opcode": 179,
+          "owner": "java/lang/Long$LongCache",
+          "name": "archivedCache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 75,
+          "opcode": 178,
+          "owner": "java/lang/Long$LongCache",
+          "name": "archivedCache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 78,
+          "opcode": 179,
+          "owner": "java/lang/Long$LongCache",
+          "name": "cache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 81,
+          "opcode": 178,
+          "owner": "java/lang/Long$LongCache",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 87,
+          "opcode": 178,
+          "owner": "java/lang/Long$LongCache",
+          "name": "cache",
+          "descriptor": "[Ljava/lang/Long;"
+        },
+        {
+          "offset": 99,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 18,
+          "args": [
+            7
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Long"
+          }
+        },
+        {
+          "offset": 2,
+          "opcode": 182,
+          "args": [
+            0,
+            9
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 17,
+          "args": [
+            1,
+            0
+          ]
+        },
+        {
+          "offset": 19,
+          "opcode": 59,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 18,
+          "args": [
+            16
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Long$LongCache"
+          }
+        },
+        {
+          "offset": 22,
+          "opcode": 184,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "jdk/internal/misc/CDS",
+            "name": "initializeFromArchive",
+            "descriptor": "(Ljava/lang/Class;)V"
+          }
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "archivedCache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 199,
+          "args": [
+            0,
+            47
+          ]
+        },
+        {
+          "offset": 31,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 32,
+          "opcode": 189,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Long"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 20,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 5,
+            "value": "ffffffffffffff80"
+          }
+        },
+        {
+          "offset": 39,
+          "opcode": 65,
+          "args": []
+        },
+        {
+          "offset": 40,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 54,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 43,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 45,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 162,
+          "args": [
+            0,
+            25
+          ]
+        },
+        {
+          "offset": 49,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 52,
+          "opcode": 187,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Long"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 32,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 92,
+          "args": []
+        },
+        {
+          "offset": 58,
+          "opcode": 10,
+          "args": []
+        },
+        {
+          "offset": 59,
+          "opcode": 97,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 65,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 183,
+          "args": [
+            0,
+            33
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Long",
+            "name": "<init>",
+            "descriptor": "(J)V"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 65,
+          "opcode": 132,
+          "args": [
+            4,
+            1
+          ]
+        },
+        {
+          "offset": 68,
+          "opcode": 167,
+          "args": [
+            255,
+            231
+          ]
+        },
+        {
+          "offset": 71,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 72,
+          "opcode": 179,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "archivedCache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 75,
+          "opcode": 178,
+          "args": [
+            0,
+            27
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "archivedCache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 78,
+          "opcode": 179,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "cache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 81,
+          "opcode": 178,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 84,
+          "opcode": 154,
+          "args": [
+            0,
+            19
+          ]
+        },
+        {
+          "offset": 87,
+          "opcode": 178,
+          "args": [
+            0,
+            36
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Long$LongCache",
+            "name": "cache",
+            "descriptor": "[Ljava/lang/Long;"
+          }
+        },
+        {
+          "offset": 90,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 91,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 92,
+          "opcode": 159,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 95,
+          "opcode": 187,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 98,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 99,
+          "opcode": 183,
+          "args": [
+            0,
+            41
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 102,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 103,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 12,
+      "classSha256": "ced82748f64749102ee41bce4e281ebbca3a65a8b0f50283211e7197e7919cc7",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractList",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "owner": "java/util/ArrayList",
+          "name": "DEFAULTCAPACITY_EMPTY_ELEMENTDATA",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "owner": "java/util/ArrayList",
+          "name": "elementData",
+          "descriptor": "[Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractList",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 178,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "DEFAULTCAPACITY_EMPTY_ELEMENTDATA",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "args": [
+            0,
+            9
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "elementData",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList",
+      "name": "isEmpty",
+      "descriptor": "()Z",
+      "flags": 1,
+      "codeBytes": 13,
+      "classSha256": "ced82748f64749102ee41bce4e281ebbca3a65a8b0f50283211e7197e7919cc7",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 4,
+          "opcode": 154,
+          "target": 11
+        },
+        {
+          "offset": 8,
+          "opcode": 167,
+          "target": 12
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "size",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            48
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 7,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList",
+      "name": "iterator",
+      "descriptor": "()Ljava/util/Iterator;",
+      "flags": 1,
+      "codeBytes": 9,
+      "classSha256": "ced82748f64749102ee41bce4e281ebbca3a65a8b0f50283211e7197e7919cc7",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 5,
+          "opcode": 183,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "<init>",
+          "descriptor": "(Ljava/util/ArrayList;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 187,
+          "args": [
+            1,
+            11
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/util/ArrayList$Itr"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 183,
+          "args": [
+            1,
+            13
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "<init>",
+            "descriptor": "(Ljava/util/ArrayList;)V"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 15,
+      "classSha256": "ced82748f64749102ee41bce4e281ebbca3a65a8b0f50283211e7197e7919cc7",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 179,
+          "owner": "java/util/ArrayList",
+          "name": "EMPTY_ELEMENTDATA",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 11,
+          "opcode": 179,
+          "owner": "java/util/ArrayList",
+          "name": "DEFAULTCAPACITY_EMPTY_ELEMENTDATA",
+          "descriptor": "[Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 189,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Object"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 179,
+          "args": [
+            0,
+            15
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "EMPTY_ELEMENTDATA",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 189,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Object"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 179,
+          "args": [
+            0,
+            39
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "DEFAULTCAPACITY_EMPTY_ELEMENTDATA",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList$Itr",
+      "name": "<init>",
+      "descriptor": "(Ljava/util/ArrayList;)V",
+      "flags": 0,
+      "codeBytes": 31,
+      "classSha256": "ec64dad401c25b482cd731ebefe6964f099de1566227635eb14720728ea9d325",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 184,
+          "owner": "java/util/Objects",
+          "name": "requireNonNull",
+          "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 11,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 16,
+          "opcode": 181,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "lastRet",
+          "descriptor": "I"
+        },
+        {
+          "offset": 21,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 24,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 27,
+          "opcode": 181,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "expectedModCount",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 184,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/Objects",
+            "name": "requireNonNull",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 6,
+          "opcode": 87,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 183,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 2,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 181,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "lastRet",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 180,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 180,
+          "args": [
+            0,
+            23
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 181,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "expectedModCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 30,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList$Itr",
+      "name": "hasNext",
+      "descriptor": "()Z",
+      "flags": 1,
+      "codeBytes": 20,
+      "classSha256": "ec64dad401c25b482cd731ebefe6964f099de1566227635eb14720728ea9d325",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 11,
+          "opcode": 159,
+          "target": 18
+        },
+        {
+          "offset": 15,
+          "opcode": 167,
+          "target": 19
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "cursor",
+          "descriptor": "I"
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "size",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "cursor",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "args": [
+            0,
+            34
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 159,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 18,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 19,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList$Itr",
+      "name": "next",
+      "descriptor": "()Ljava/lang/Object;",
+      "flags": 1,
+      "codeBytes": 66,
+      "classSha256": "ec64dad401c25b482cd731ebefe6964f099de1566227635eb14720728ea9d325",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 17,
+          "opcode": 161,
+          "target": 28
+        },
+        {
+          "offset": 39,
+          "opcode": 161,
+          "target": 50
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 182,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "checkForComodification",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "cursor",
+          "descriptor": "I"
+        },
+        {
+          "offset": 11,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 14,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "size",
+          "descriptor": "I"
+        },
+        {
+          "offset": 24,
+          "opcode": 183,
+          "owner": "java/util/NoSuchElementException",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 29,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 32,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "elementData",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "owner": "java/util/ConcurrentModificationException",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 54,
+          "opcode": 181,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "cursor",
+          "descriptor": "I"
+        },
+        {
+          "offset": 61,
+          "opcode": 181,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "lastRet",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 182,
+          "args": [
+            0,
+            37
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "checkForComodification",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "cursor",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 60,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 180,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 180,
+          "args": [
+            0,
+            34
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 17,
+          "opcode": 161,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 187,
+          "args": [
+            0,
+            40
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/util/NoSuchElementException"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 24,
+          "opcode": 183,
+          "args": [
+            0,
+            42
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/NoSuchElementException",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 28,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 180,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 180,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "elementData",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 77,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 38,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 161,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 42,
+          "opcode": 187,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/util/ConcurrentModificationException"
+          }
+        },
+        {
+          "offset": 45,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 183,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/ConcurrentModificationException",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 52,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 53,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 54,
+          "opcode": 181,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "cursor",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 57,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 58,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 59,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 90,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 181,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "lastRet",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 65,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/ArrayList$Itr",
+      "name": "checkForComodification",
+      "descriptor": "()V",
+      "flags": 16,
+      "codeBytes": 23,
+      "classSha256": "ec64dad401c25b482cd731ebefe6964f099de1566227635eb14720728ea9d325",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 11,
+          "opcode": 159,
+          "target": 22
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "this$0",
+          "descriptor": "Ljava/util/ArrayList;"
+        },
+        {
+          "offset": 4,
+          "opcode": 180,
+          "owner": "java/util/ArrayList",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "owner": "java/util/ArrayList$Itr",
+          "name": "expectedModCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 18,
+          "opcode": 183,
+          "owner": "java/util/ConcurrentModificationException",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "this$0",
+            "descriptor": "Ljava/util/ArrayList;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 180,
+          "args": [
+            0,
+            23
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 180,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/ArrayList$Itr",
+            "name": "expectedModCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 159,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 187,
+          "args": [
+            0,
+            47
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/util/ConcurrentModificationException"
+          }
+        },
+        {
+          "offset": 17,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 183,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/ConcurrentModificationException",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 22,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "runtimeClassesInitialized": 0,
+  "boundedAdmission": false
+}

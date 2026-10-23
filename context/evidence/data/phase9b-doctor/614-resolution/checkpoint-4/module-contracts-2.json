@@ -1,0 +1,169 @@
+{
+  "matched": [
+    {
+      "source": [
+        "com/bitwig/base/serial/file/syr",
+        "cG3",
+        "()LIYr;"
+      ],
+      "target": [
+        "com/bitwig/base/serial/file/lBQ",
+        "Hnt",
+        "()LFDA;"
+      ],
+      "digest": "ac46f7a9553e901983e885a0b03738fb970e322975161e98c2b168107cae5410"
+    },
+    {
+      "source": [
+        "nAR",
+        "<init>",
+        "([BI)V"
+      ],
+      "target": [
+        "Mld",
+        "<init>",
+        "([BI)V"
+      ],
+      "digest": "b5068c04911ec2d794110cbc8e91a0ed21960d712b1cbacc881374e35c4fc278"
+    },
+    {
+      "source": [
+        "nAR",
+        "ffA",
+        "(Ljava/io/InputStream;)Ljava/io/InputStream;"
+      ],
+      "target": [
+        "Mld",
+        "cfM",
+        "(Ljava/io/InputStream;)Ljava/io/InputStream;"
+      ],
+      "digest": "ba2ccca90a4b6178877e938bfe5f4b911151b13fa028a7984c8dbb2b6df83f9c"
+    },
+    {
+      "source": [
+        "nAR",
+        "ffA",
+        "(Ljava/io/OutputStream;)Ljava/io/OutputStream;"
+      ],
+      "target": [
+        "Mld",
+        "cfM",
+        "(Ljava/io/OutputStream;)Ljava/io/OutputStream;"
+      ],
+      "digest": "bc062f3b2c34e5918438c4e279df18e09ca0d12e89b885b3074d147ffe0accb5"
+    },
+    {
+      "source": [
+        "nAR",
+        "<clinit>",
+        "()V"
+      ],
+      "target": [
+        "Mld",
+        "<clinit>",
+        "()V"
+      ],
+      "digest": "5e7fdd3d148d1446e3edee0a02b3d39d993e19f210cb554dd3ed1e886ef082ac"
+    },
+    {
+      "source": [
+        "xFg",
+        "<init>",
+        "(Ljava/io/InputStream;LHaV;)V"
+      ],
+      "target": [
+        "iyW",
+        "<init>",
+        "(Ljava/io/InputStream;LXKG;)V"
+      ],
+      "digest": "bacc0240afa1f925339b60f2111c946cee275c4170535b767a15e74f0a7b3c8c"
+    },
+    {
+      "source": [
+        "xFg",
+        "read",
+        "()I"
+      ],
+      "target": [
+        "iyW",
+        "read",
+        "()I"
+      ],
+      "digest": "406a6573c1dafe39f2ace5f7f7f6d7d37fd000b7fc69a286f35b6e7d22904fe0"
+    },
+    {
+      "source": [
+        "HaV",
+        "<init>",
+        "([B[B)V"
+      ],
+      "target": [
+        "XKG",
+        "<init>",
+        "([B[B)V"
+      ],
+      "digest": "1cca68a7ad27a108b97254b950e86fc3b91537d6e85f94530d5c40499be8399d"
+    },
+    {
+      "source": [
+        "HaV",
+        "ffA",
+        "(B)B"
+      ],
+      "target": [
+        "XKG",
+        "cfM",
+        "(B)B"
+      ],
+      "digest": "adb698bd890191812352c26525baf689df95403e50c4e2a5259ac4c39dbf264e"
+    },
+    {
+      "source": [
+        "HaV",
+        "eOi",
+        "(B)B"
+      ],
+      "target": [
+        "XKG",
+        "MRY",
+        "(B)B"
+      ],
+      "digest": "9bd1e601192acf7f0a81f80fb166621ec7554d3217f1dc9987709dc70e2d90f9"
+    },
+    {
+      "source": [
+        "HaV",
+        "ffA",
+        "(BI)B"
+      ],
+      "target": [
+        "XKG",
+        "cfM",
+        "(BI)B"
+      ],
+      "digest": "9fe315c681ad3dfd12ffd02497d40677ff3a8e4d2c6ef821563b65f1fbe44f1f"
+    },
+    {
+      "sourceClass": "com/bitwig/base/serial/binary/ar",
+      "targetClass": "com/bitwig/base/serial/binary/hgq",
+      "methodCount": 42,
+      "contractMultisetEqual": true
+    },
+    {
+      "sourceClass": "com/bitwig/base/serial/binary/ilU",
+      "targetClass": "com/bitwig/base/serial/binary/OCK",
+      "methodCount": 2,
+      "contractMultisetEqual": true
+    },
+    {
+      "sourceClass": "com/bitwig/base/serial/binary/ziZ",
+      "targetClass": "com/bitwig/base/serial/binary/CuM",
+      "methodCount": 3,
+      "contractMultisetEqual": true
+    }
+  ],
+  "elapsedMs": 8082.03400002094,
+  "peakRssBytes": 316751872,
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

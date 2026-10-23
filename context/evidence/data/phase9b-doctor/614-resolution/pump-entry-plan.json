@@ -1,0 +1,53 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace the four generic action entry callers. No fixed command exclusion is inferred.",
+  "slots": [],
+  "methods": [
+    {
+      "owner": "eIS",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "owner": "dfn",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+    },
+    {
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+    },
+    {
+      "owner": "com/bitwig/ramona/core/cuN",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/List;)Ljava/lang/Object;"
+    }
+  ],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "eIS",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/ramona/core/oDc;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "dfn",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+    },
+    {
+      "kind": "method",
+      "owner": "cQq",
+      "name": "cfM",
+      "descriptor": "(LdeV;Lcom/bitwig/ramona/core/oDc;Ljava/util/List;Z)V"
+    },
+    {
+      "kind": "method",
+      "owner": "com/bitwig/ramona/core/cuN",
+      "name": "cfM",
+      "descriptor": "(Ljava/util/List;)Ljava/lang/Object;"
+    }
+  ]
+}

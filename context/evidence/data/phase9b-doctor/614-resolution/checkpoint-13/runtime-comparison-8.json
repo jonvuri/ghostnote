@@ -1,0 +1,5654 @@
+{
+  "inputs": {
+    "old-arm64": {
+      "sha256": "0e87736748534b631cea485f1d68cbf82a5a09d36e9397f74de46f209af3139b",
+      "imageSha256": "ca997e4e695f869b3a18a025d5fdfa2f6789c649633369608a47b9252de6ce6a",
+      "elapsedMs": 533.097,
+      "peakRssBytes": 39649280
+    },
+    "old-x64": {
+      "sha256": "afa77366122dddc55a6f52d758b7c072e4c40109d85b8226ee8b2cc473efc57a",
+      "imageSha256": "0f0f7c076dc9e8af91da0ec2f5eac60fd02e7c5d50df1e8b2873f60045304068",
+      "elapsedMs": 534.936,
+      "peakRssBytes": 36585472
+    },
+    "new-arm64": {
+      "sha256": "f8cf50ba465d00de3748939bdc8dd52d38a169890ec4cec16093089cc3ef374b",
+      "imageSha256": "2c41602621cb66d2211ab7ba34c0a8a5dfd624c6a26160e3da9a0a2c33ffa9a9",
+      "elapsedMs": 531.101,
+      "peakRssBytes": 36192256
+    },
+    "new-x64": {
+      "sha256": "fdb2ecf163192731d32ef7525e05bf2f27a619c1a3e6e51b9cfe3ae5482c9255",
+      "imageSha256": "3540490d761294ef5fdbab40a765acc1ea4c36a36a14856d58c63ee22e6d2482",
+      "elapsedMs": 535.437,
+      "peakRssBytes": 35176448
+    }
+  },
+  "comparisons": [
+    {
+      "source": "old-arm64",
+      "target": "old-x64",
+      "classes": 33,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "new-arm64",
+      "target": "new-x64",
+      "classes": 33,
+      "different": [],
+      "missing": []
+    },
+    {
+      "source": "old-arm64",
+      "target": "new-arm64",
+      "classes": 33,
+      "different": [
+        "java/lang/ref/ReferenceQueue"
+      ],
+      "missing": []
+    }
+  ],
+  "methods": [
+    {
+      "owner": "java/lang/Float",
+      "name": "floatToRawIntBits",
+      "descriptor": "(F)I",
+      "flags": 265,
+      "codeBytes": 0,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [],
+      "instructions": []
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "max",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 6,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 184,
+          "owner": "java/lang/Math",
+          "name": "max",
+          "descriptor": "(FF)F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 184,
+          "args": [
+            0,
+            110
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Math",
+            "name": "max",
+            "descriptor": "(FF)F"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "min",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 6,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 184,
+          "owner": "java/lang/Math",
+          "name": "min",
+          "descriptor": "(FF)F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 184,
+          "args": [
+            0,
+            114
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Math",
+            "name": "min",
+            "descriptor": "(FF)F"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Float",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 25,
+      "classSha256": "b4ca71c3e48611a1a794e9c5c25e9ac3f51322944da5a355b9a09496415821af",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 154,
+          "target": 12
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "target": 13
+        }
+      ],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 182,
+          "owner": "java/lang/Class",
+          "name": "desiredAssertionStatus",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "owner": "java/lang/Float",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "java/lang/Class",
+          "name": "getPrimitiveClass",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+        },
+        {
+          "offset": 21,
+          "opcode": 179,
+          "owner": "java/lang/Float",
+          "name": "TYPE",
+          "descriptor": "Ljava/lang/Class;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Float"
+          }
+        },
+        {
+          "offset": 2,
+          "opcode": 182,
+          "args": [
+            0,
+            131
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "args": [
+            0,
+            89
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Float",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 18,
+          "args": [
+            137
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "float"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            0,
+            139
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "getPrimitiveClass",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 179,
+          "args": [
+            0,
+            143
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Float",
+            "name": "TYPE",
+            "descriptor": "Ljava/lang/Class;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 2,
+      "codeBytes": 5,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            5
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "max",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 46,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 153,
+          "target": 8
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 37,
+          "opcode": 155,
+          "target": 44
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "target": 45
+        }
+      ],
+      "references": [
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 153,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "args": [
+            0,
+            23
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 32,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 155,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 40,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 44,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "min",
+      "descriptor": "(FF)F",
+      "flags": 9,
+      "codeBytes": 46,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 153,
+          "target": 8
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "target": 34
+        },
+        {
+          "offset": 37,
+          "opcode": 157,
+          "target": 44
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "target": 45
+        }
+      ],
+      "references": [
+        {
+          "offset": 21,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 153,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 154,
+          "args": [
+            0,
+            23
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 149,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 154,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 178,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 148,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 154,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 32,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 174,
+          "args": []
+        },
+        {
+          "offset": 34,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 150,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 157,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 40,
+          "opcode": 34,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 44,
+          "opcode": 35,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 174,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/lang/Math",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 36,
+      "classSha256": "3d74a41026374d784cb082e7903111ba798f7a5a14eae112b8ba894d71911d1c",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 154,
+          "target": 12
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "target": 13
+        }
+      ],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 182,
+          "owner": "java/lang/Class",
+          "name": "desiredAssertionStatus",
+          "descriptor": "()Z"
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "$assertionsDisabled",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "floatToRawIntBits",
+          "descriptor": "(F)I"
+        },
+        {
+          "offset": 23,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroFloatBits",
+          "descriptor": "J"
+        },
+        {
+          "offset": 29,
+          "opcode": 184,
+          "owner": "java/lang/Double",
+          "name": "doubleToRawLongBits",
+          "descriptor": "(D)J"
+        },
+        {
+          "offset": 32,
+          "opcode": 179,
+          "owner": "java/lang/Math",
+          "name": "negativeZeroDoubleBits",
+          "descriptor": "J"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 18,
+          "args": [
+            1
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Math"
+          }
+        },
+        {
+          "offset": 2,
+          "opcode": 182,
+          "args": [
+            1,
+            105
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Class",
+            "name": "desiredAssertionStatus",
+            "descriptor": "()Z"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 179,
+          "args": [
+            0,
+            243
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "$assertionsDisabled",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 19,
+          "args": [
+            1,
+            111
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "80000000"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "floatToRawIntBits",
+            "descriptor": "(F)I"
+          }
+        },
+        {
+          "offset": 22,
+          "opcode": 133,
+          "args": []
+        },
+        {
+          "offset": 23,
+          "opcode": 179,
+          "args": [
+            0,
+            170
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroFloatBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 26,
+          "opcode": 20,
+          "args": [
+            1,
+            112
+          ],
+          "constant": {
+            "tag": 6,
+            "value": "8000000000000000"
+          }
+        },
+        {
+          "offset": 29,
+          "opcode": 184,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Double",
+            "name": "doubleToRawLongBits",
+            "descriptor": "(D)J"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 179,
+          "args": [
+            0,
+            174
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Math",
+            "name": "negativeZeroDoubleBits",
+            "descriptor": "J"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "(IF)V",
+      "flags": 1,
+      "codeBytes": 17,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(IF)V"
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 13,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 183,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(IF)V"
+          }
+        },
+        {
+          "offset": 6,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "flags": 1,
+      "codeBytes": 16,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 2,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(I)V"
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 12,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 183,
+          "args": [
+            0,
+            84
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 5,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 15,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/LinkedHashMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 15,
+      "classSha256": "7ee17e5e95072c49fb0ffd690bd5a9c69fa3dc7cbfb6253345dd44fea1c82a02",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "putMode",
+          "descriptor": "I"
+        },
+        {
+          "offset": 11,
+          "opcode": 181,
+          "owner": "java/util/LinkedHashMap",
+          "name": "accessOrder",
+          "descriptor": "Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            87
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 181,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "putMode",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 181,
+          "args": [
+            0,
+            64
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/LinkedHashMap",
+            "name": "accessOrder",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 14,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "tableSizeFor",
+      "descriptor": "(I)I",
+      "flags": 24,
+      "codeBytes": 32,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 10,
+          "opcode": 156,
+          "target": 17
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "target": 31
+        },
+        {
+          "offset": 20,
+          "opcode": 161,
+          "target": 28
+        },
+        {
+          "offset": 25,
+          "opcode": 167,
+          "target": 31
+        }
+      ],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 184,
+          "owner": "java/lang/Integer",
+          "name": "numberOfLeadingZeros",
+          "descriptor": "(I)I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 2,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 100,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 184,
+          "args": [
+            0,
+            34
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Integer",
+            "name": "numberOfLeadingZeros",
+            "descriptor": "(I)I"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 124,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 60,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 156,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 167,
+          "args": [
+            0,
+            17
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 18,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 161,
+          "args": [
+            0,
+            8
+          ]
+        },
+        {
+          "offset": 23,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 25,
+          "opcode": 167,
+          "args": [
+            0,
+            6
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "(IF)V",
+      "flags": 1,
+      "codeBytes": 98,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 156,
+          "target": 35
+        },
+        {
+          "offset": 38,
+          "opcode": 164,
+          "target": 44
+        },
+        {
+          "offset": 47,
+          "opcode": 158,
+          "target": 57
+        },
+        {
+          "offset": 54,
+          "opcode": 153,
+          "target": 84
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "owner": "java/lang/StringBuilder",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(I)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "toString",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "owner": "java/lang/IllegalArgumentException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 51,
+          "opcode": 184,
+          "owner": "java/lang/Float",
+          "name": "isNaN",
+          "descriptor": "(F)Z"
+        },
+        {
+          "offset": 65,
+          "opcode": 183,
+          "owner": "java/lang/StringBuilder",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 74,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(F)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "toString",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 80,
+          "opcode": 183,
+          "owner": "java/lang/IllegalArgumentException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 86,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "loadFactor",
+          "descriptor": "F"
+        },
+        {
+          "offset": 91,
+          "opcode": 184,
+          "owner": "java/util/HashMap",
+          "name": "tableSizeFor",
+          "descriptor": "(I)I"
+        },
+        {
+          "offset": 94,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "threshold",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 156,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 187,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalArgumentException"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 187,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/StringBuilder"
+          }
+        },
+        {
+          "offset": 15,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "args": [
+            0,
+            53
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 18,
+          "args": [
+            54
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Illegal initial capacity: "
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "args": [
+            0,
+            56
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "args": [
+            0,
+            60
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(I)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "toString",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "args": [
+            0,
+            67
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalArgumentException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 38,
+          "opcode": 164,
+          "args": [
+            0,
+            6
+          ]
+        },
+        {
+          "offset": 41,
+          "opcode": 18,
+          "args": [
+            42
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 43,
+          "opcode": 60,
+          "args": []
+        },
+        {
+          "offset": 44,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 11,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 150,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 158,
+          "args": [
+            0,
+            10
+          ]
+        },
+        {
+          "offset": 50,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 184,
+          "args": [
+            0,
+            70
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Float",
+            "name": "isNaN",
+            "descriptor": "(F)Z"
+          }
+        },
+        {
+          "offset": 54,
+          "opcode": 153,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 57,
+          "opcode": 187,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalArgumentException"
+          }
+        },
+        {
+          "offset": 60,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 187,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/StringBuilder"
+          }
+        },
+        {
+          "offset": 64,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 65,
+          "opcode": 183,
+          "args": [
+            0,
+            53
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 68,
+          "opcode": 18,
+          "args": [
+            76
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Illegal load factor: "
+          }
+        },
+        {
+          "offset": 70,
+          "opcode": 182,
+          "args": [
+            0,
+            56
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 182,
+          "args": [
+            0,
+            78
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(F)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "toString",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 80,
+          "opcode": 183,
+          "args": [
+            0,
+            67
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalArgumentException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 83,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 84,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 85,
+          "opcode": 36,
+          "args": []
+        },
+        {
+          "offset": 86,
+          "opcode": 181,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "loadFactor",
+            "descriptor": "F"
+          }
+        },
+        {
+          "offset": 89,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 91,
+          "opcode": 184,
+          "args": [
+            0,
+            85
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "tableSizeFor",
+            "descriptor": "(I)I"
+          }
+        },
+        {
+          "offset": 94,
+          "opcode": 181,
+          "args": [
+            0,
+            88
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "threshold",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "flags": 1,
+      "codeBytes": 8,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 183,
+          "owner": "java/util/HashMap",
+          "name": "<init>",
+          "descriptor": "(IF)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 18,
+          "args": [
+            92
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "3f400000"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 183,
+          "args": [
+            0,
+            93
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/HashMap",
+            "name": "<init>",
+            "descriptor": "(IF)V"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/HashMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 11,
+      "classSha256": "d4a69e8224388ad9758c7a76d740b2aefa8b2f6a6f71ded7dc42be0a14d7371d",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/HashMap",
+          "name": "loadFactor",
+          "descriptor": "F"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            43
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 18,
+          "args": [
+            92
+          ],
+          "constant": {
+            "tag": 4,
+            "value": "3f400000"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            81
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/HashMap",
+            "name": "loadFactor",
+            "descriptor": "F"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/AbstractMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 4,
+      "codeBytes": 5,
+      "classSha256": "3d4750a8f368d0f2ab934d531e34547f82f0892961a9ae6c710fac89704aabe0",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "maskNull",
+      "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+      "flags": 10,
+      "codeBytes": 12,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 1,
+          "opcode": 199,
+          "target": 10
+        },
+        {
+          "offset": 7,
+          "opcode": 167,
+          "target": 11
+        }
+      ],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 178,
+          "owner": "java/util/IdentityHashMap",
+          "name": "NULL_KEY",
+          "descriptor": "Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 199,
+          "args": [
+            0,
+            9
+          ]
+        },
+        {
+          "offset": 4,
+          "opcode": 178,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "NULL_KEY",
+            "descriptor": "Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 10,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "<init>",
+      "descriptor": "()V",
+      "flags": 1,
+      "codeBytes": 11,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "init",
+          "descriptor": "(I)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 16,
+          "args": [
+            32
+          ]
+        },
+        {
+          "offset": 7,
+          "opcode": 182,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "init",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "<init>",
+      "descriptor": "(I)V",
+      "flags": 1,
+      "codeBytes": 44,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 5,
+          "opcode": 156,
+          "target": 35
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 183,
+          "owner": "java/util/AbstractMap",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "owner": "java/lang/StringBuilder",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "append",
+          "descriptor": "(I)Ljava/lang/StringBuilder;"
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "owner": "java/lang/StringBuilder",
+          "name": "toString",
+          "descriptor": "()Ljava/lang/String;"
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "owner": "java/lang/IllegalArgumentException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 37,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "capacity",
+          "descriptor": "(I)I"
+        },
+        {
+          "offset": 40,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "init",
+          "descriptor": "(I)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 183,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/AbstractMap",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 156,
+          "args": [
+            0,
+            30
+          ]
+        },
+        {
+          "offset": 8,
+          "opcode": 187,
+          "args": [
+            0,
+            17
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalArgumentException"
+          }
+        },
+        {
+          "offset": 11,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 187,
+          "args": [
+            0,
+            19
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/StringBuilder"
+          }
+        },
+        {
+          "offset": 15,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 183,
+          "args": [
+            0,
+            21
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 18,
+          "args": [
+            22
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "expectedMaxSize is negative: "
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 182,
+          "args": [
+            0,
+            24
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(Ljava/lang/String;)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 25,
+          "opcode": 182,
+          "args": [
+            0,
+            28
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "append",
+            "descriptor": "(I)Ljava/lang/StringBuilder;"
+          }
+        },
+        {
+          "offset": 28,
+          "opcode": 182,
+          "args": [
+            0,
+            31
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/StringBuilder",
+            "name": "toString",
+            "descriptor": "()Ljava/lang/String;"
+          }
+        },
+        {
+          "offset": 31,
+          "opcode": 183,
+          "args": [
+            0,
+            35
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalArgumentException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 34,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 37,
+          "opcode": 184,
+          "args": [
+            0,
+            38
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "capacity",
+            "descriptor": "(I)I"
+          }
+        },
+        {
+          "offset": 40,
+          "opcode": 182,
+          "args": [
+            0,
+            13
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "init",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 43,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "init",
+      "descriptor": "(I)V",
+      "flags": 2,
+      "codeBytes": 11,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 7,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 5,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 104,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 189,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Object"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 181,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "<init>",
+      "descriptor": "(Ljava/util/Map;)V",
+      "flags": 1,
+      "codeBytes": 24,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 185,
+          "owner": "java/util/Map",
+          "name": "size",
+          "descriptor": "()I"
+        },
+        {
+          "offset": 15,
+          "opcode": 183,
+          "owner": "java/util/IdentityHashMap",
+          "name": "<init>",
+          "descriptor": "(I)V"
+        },
+        {
+          "offset": 20,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "putAll",
+          "descriptor": "(Ljava/util/Map;)V"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 185,
+          "args": [
+            0,
+            55,
+            1,
+            0
+          ],
+          "constant": {
+            "tag": 11,
+            "owner": "java/util/Map",
+            "name": "size",
+            "descriptor": "()I"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 135,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 20,
+          "args": [
+            0,
+            61
+          ],
+          "constant": {
+            "tag": 6,
+            "value": "3ff199999999999a"
+          }
+        },
+        {
+          "offset": 13,
+          "opcode": 107,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 142,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 183,
+          "args": [
+            0,
+            63
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "<init>",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 19,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 20,
+          "opcode": 182,
+          "args": [
+            0,
+            65
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "putAll",
+            "descriptor": "(Ljava/util/Map;)V"
+          }
+        },
+        {
+          "offset": 23,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "size",
+      "descriptor": "()I",
+      "flags": 1,
+      "codeBytes": 5,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "isEmpty",
+      "descriptor": "()Z",
+      "flags": 1,
+      "codeBytes": 13,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 4,
+          "opcode": 154,
+          "target": 11
+        },
+        {
+          "offset": 8,
+          "opcode": 167,
+          "target": 12
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 154,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 7,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "hash",
+      "descriptor": "(Ljava/lang/Object;I)I",
+      "flags": 10,
+      "codeBytes": 18,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "java/lang/System",
+          "name": "identityHashCode",
+          "descriptor": "(Ljava/lang/Object;)I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 184,
+          "args": [
+            0,
+            72
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/System",
+            "name": "identityHashCode",
+            "descriptor": "(Ljava/lang/Object;)I"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 61,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 7,
+          "opcode": 120,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 16,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 120,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 100,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 100,
+          "args": []
+        },
+        {
+          "offset": 16,
+          "opcode": 126,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "nextKeyIndex",
+      "descriptor": "(II)I",
+      "flags": 10,
+      "codeBytes": 15,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 4,
+          "opcode": 162,
+          "target": 13
+        },
+        {
+          "offset": 10,
+          "opcode": 167,
+          "target": 14
+        }
+      ],
+      "references": [],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 5,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 162,
+          "args": [
+            0,
+            9
+          ]
+        },
+        {
+          "offset": 7,
+          "opcode": 26,
+          "args": []
+        },
+        {
+          "offset": 8,
+          "opcode": 5,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "get",
+      "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+      "flags": 1,
+      "codeBytes": 60,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 31,
+          "opcode": 166,
+          "target": 41
+        },
+        {
+          "offset": 43,
+          "opcode": 199,
+          "target": 48
+        },
+        {
+          "offset": 57,
+          "opcode": 167,
+          "target": 22
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "maskNull",
+          "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "hash",
+          "descriptor": "(Ljava/lang/Object;I)I"
+        },
+        {
+          "offset": 52,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "nextKeyIndex",
+          "descriptor": "(II)I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 184,
+          "args": [
+            0,
+            78
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "maskNull",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 77,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 78,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 54,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "args": [
+            0,
+            82
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "hash",
+            "descriptor": "(Ljava/lang/Object;I)I"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 54,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 22,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 23,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 25,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 26,
+          "opcode": 58,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 25,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 30,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 166,
+          "args": [
+            0,
+            10
+          ]
+        },
+        {
+          "offset": 34,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 37,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 38,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 40,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 25,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 43,
+          "opcode": 199,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 46,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 50,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 52,
+          "opcode": 184,
+          "args": [
+            0,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "nextKeyIndex",
+            "descriptor": "(II)I"
+          }
+        },
+        {
+          "offset": 55,
+          "opcode": 54,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 57,
+          "opcode": 167,
+          "args": [
+            255,
+            221
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "put",
+      "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+      "flags": 1,
+      "codeBytes": 137,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 32,
+          "opcode": 198,
+          "target": 73
+        },
+        {
+          "offset": 38,
+          "opcode": 166,
+          "target": 61
+        },
+        {
+          "offset": 70,
+          "opcode": 167,
+          "target": 24
+        },
+        {
+          "offset": 90,
+          "opcode": 164,
+          "target": 105
+        },
+        {
+          "offset": 99,
+          "opcode": 153,
+          "target": 105
+        },
+        {
+          "offset": 102,
+          "opcode": 167,
+          "target": 5
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "maskNull",
+          "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "hash",
+          "descriptor": "(Ljava/lang/Object;I)I"
+        },
+        {
+          "offset": 65,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "nextKeyIndex",
+          "descriptor": "(II)I"
+        },
+        {
+          "offset": 74,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        },
+        {
+          "offset": 96,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "resize",
+          "descriptor": "(I)Z"
+        },
+        {
+          "offset": 107,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 112,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 132,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 184,
+          "args": [
+            0,
+            78
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "maskNull",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 78,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 58,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 11,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 14,
+          "opcode": 54,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 16,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 17,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 19,
+          "opcode": 184,
+          "args": [
+            0,
+            82
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "hash",
+            "descriptor": "(Ljava/lang/Object;I)I"
+          }
+        },
+        {
+          "offset": 22,
+          "opcode": 54,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 24,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 26,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 29,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 30,
+          "opcode": 58,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 32,
+          "opcode": 198,
+          "args": [
+            0,
+            41
+          ]
+        },
+        {
+          "offset": 35,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 37,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 38,
+          "opcode": 166,
+          "args": [
+            0,
+            23
+          ]
+        },
+        {
+          "offset": 41,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 43,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 45,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 47,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 58,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 50,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 52,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 54,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 55,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 57,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 58,
+          "opcode": 25,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 60,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 61,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 63,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 65,
+          "opcode": 184,
+          "args": [
+            0,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "nextKeyIndex",
+            "descriptor": "(II)I"
+          }
+        },
+        {
+          "offset": 68,
+          "opcode": 54,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 70,
+          "opcode": 167,
+          "args": [
+            255,
+            210
+          ]
+        },
+        {
+          "offset": 73,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 78,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 79,
+          "opcode": 54,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 81,
+          "opcode": 21,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 83,
+          "opcode": 21,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 85,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 86,
+          "opcode": 120,
+          "args": []
+        },
+        {
+          "offset": 87,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 88,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 90,
+          "opcode": 164,
+          "args": [
+            0,
+            15
+          ]
+        },
+        {
+          "offset": 93,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 94,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 96,
+          "opcode": 182,
+          "args": [
+            0,
+            90
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "resize",
+            "descriptor": "(I)Z"
+          }
+        },
+        {
+          "offset": 99,
+          "opcode": 153,
+          "args": [
+            0,
+            6
+          ]
+        },
+        {
+          "offset": 102,
+          "opcode": 167,
+          "args": [
+            255,
+            159
+          ]
+        },
+        {
+          "offset": 105,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 106,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 107,
+          "opcode": 180,
+          "args": [
+            0,
+            94
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 110,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 111,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 112,
+          "opcode": 181,
+          "args": [
+            0,
+            94
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 115,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 117,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 119,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 120,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 121,
+          "opcode": 25,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 123,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 125,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 126,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 127,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 128,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 129,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 130,
+          "opcode": 21,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 132,
+          "opcode": 181,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 135,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 136,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "resize",
+      "descriptor": "(I)Z",
+      "flags": 2,
+      "codeBytes": 153,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 17,
+          "opcode": 160,
+          "target": 41
+        },
+        {
+          "offset": 26,
+          "opcode": 160,
+          "target": 39
+        },
+        {
+          "offset": 44,
+          "opcode": 161,
+          "target": 49
+        },
+        {
+          "offset": 62,
+          "opcode": 162,
+          "target": 145
+        },
+        {
+          "offset": 73,
+          "opcode": 198,
+          "target": 139
+        },
+        {
+          "offset": 109,
+          "opcode": 198,
+          "target": 123
+        },
+        {
+          "offset": 120,
+          "opcode": 167,
+          "target": 104
+        },
+        {
+          "offset": 142,
+          "opcode": 167,
+          "target": 58
+        }
+      ],
+      "references": [
+        {
+          "offset": 5,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 21,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        },
+        {
+          "offset": 35,
+          "opcode": 183,
+          "owner": "java/lang/IllegalStateException",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;)V"
+        },
+        {
+          "offset": 99,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "hash",
+          "descriptor": "(Ljava/lang/Object;I)I"
+        },
+        {
+          "offset": 115,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "nextKeyIndex",
+          "descriptor": "(II)I"
+        },
+        {
+          "offset": 148,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 27,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 5,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 104,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 61,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 180,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 8,
+          "opcode": 78,
+          "args": []
+        },
+        {
+          "offset": 9,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 54,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 13,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 15,
+          "opcode": 18,
+          "args": [
+            97
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "40000000"
+          }
+        },
+        {
+          "offset": 17,
+          "opcode": 160,
+          "args": [
+            0,
+            24
+          ]
+        },
+        {
+          "offset": 20,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 21,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 24,
+          "opcode": 18,
+          "args": [
+            98
+          ],
+          "constant": {
+            "tag": 3,
+            "value": "1fffffff"
+          }
+        },
+        {
+          "offset": 26,
+          "opcode": 160,
+          "args": [
+            0,
+            13
+          ]
+        },
+        {
+          "offset": 29,
+          "opcode": 187,
+          "args": [
+            0,
+            99
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/IllegalStateException"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 33,
+          "opcode": 18,
+          "args": [
+            101
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "Capacity exhausted."
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 183,
+          "args": [
+            0,
+            103
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/IllegalStateException",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;)V"
+          }
+        },
+        {
+          "offset": 38,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 39,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 40,
+          "opcode": 172,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 43,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 44,
+          "opcode": 161,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 47,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 48,
+          "opcode": 172,
+          "args": []
+        },
+        {
+          "offset": 49,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 189,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Object"
+          }
+        },
+        {
+          "offset": 53,
+          "opcode": 58,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 55,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 54,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 58,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 60,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 62,
+          "opcode": 162,
+          "args": [
+            0,
+            83
+          ]
+        },
+        {
+          "offset": 65,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 66,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 68,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 69,
+          "opcode": 58,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 71,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 73,
+          "opcode": 198,
+          "args": [
+            0,
+            66
+          ]
+        },
+        {
+          "offset": 76,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 77,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 79,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 80,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 81,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 82,
+          "opcode": 58,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 84,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 85,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 87,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 88,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 89,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 21,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 92,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 93,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 94,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 95,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 96,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 98,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 99,
+          "opcode": 184,
+          "args": [
+            0,
+            82
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "hash",
+            "descriptor": "(Ljava/lang/Object;I)I"
+          }
+        },
+        {
+          "offset": 102,
+          "opcode": 54,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 104,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 106,
+          "opcode": 21,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 108,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 109,
+          "opcode": 198,
+          "args": [
+            0,
+            14
+          ]
+        },
+        {
+          "offset": 112,
+          "opcode": 21,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 114,
+          "opcode": 28,
+          "args": []
+        },
+        {
+          "offset": 115,
+          "opcode": 184,
+          "args": [
+            0,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "nextKeyIndex",
+            "descriptor": "(II)I"
+          }
+        },
+        {
+          "offset": 118,
+          "opcode": 54,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 120,
+          "opcode": 167,
+          "args": [
+            255,
+            240
+          ]
+        },
+        {
+          "offset": 123,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 125,
+          "opcode": 21,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 127,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 129,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 130,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 132,
+          "opcode": 21,
+          "args": [
+            9
+          ]
+        },
+        {
+          "offset": 134,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 135,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 136,
+          "opcode": 25,
+          "args": [
+            8
+          ]
+        },
+        {
+          "offset": 138,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 139,
+          "opcode": 132,
+          "args": [
+            6,
+            2
+          ]
+        },
+        {
+          "offset": 142,
+          "opcode": 167,
+          "args": [
+            255,
+            172
+          ]
+        },
+        {
+          "offset": 145,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 146,
+          "opcode": 25,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 148,
+          "opcode": 181,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 151,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 152,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "remove",
+      "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+      "flags": 1,
+      "codeBytes": 102,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 31,
+          "opcode": 166,
+          "target": 83
+        },
+        {
+          "offset": 85,
+          "opcode": 199,
+          "target": 90
+        },
+        {
+          "offset": 99,
+          "opcode": 167,
+          "target": 22
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "maskNull",
+          "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "table",
+          "descriptor": "[Ljava/lang/Object;"
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "hash",
+          "descriptor": "(Ljava/lang/Object;I)I"
+        },
+        {
+          "offset": 36,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 41,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "modCount",
+          "descriptor": "I"
+        },
+        {
+          "offset": 46,
+          "opcode": 180,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        },
+        {
+          "offset": 51,
+          "opcode": 181,
+          "owner": "java/util/IdentityHashMap",
+          "name": "size",
+          "descriptor": "I"
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "closeDeletion",
+          "descriptor": "(I)V"
+        },
+        {
+          "offset": 94,
+          "opcode": 184,
+          "owner": "java/util/IdentityHashMap",
+          "name": "nextKeyIndex",
+          "descriptor": "(II)I"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 184,
+          "args": [
+            0,
+            78
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "maskNull",
+            "descriptor": "(Ljava/lang/Object;)Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 77,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 180,
+          "args": [
+            0,
+            51
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "table",
+            "descriptor": "[Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 78,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 11,
+          "opcode": 190,
+          "args": []
+        },
+        {
+          "offset": 12,
+          "opcode": 54,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 14,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 15,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 17,
+          "opcode": 184,
+          "args": [
+            0,
+            82
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "hash",
+            "descriptor": "(Ljava/lang/Object;I)I"
+          }
+        },
+        {
+          "offset": 20,
+          "opcode": 54,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 22,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 23,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 25,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 26,
+          "opcode": 58,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 28,
+          "opcode": 25,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 30,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 31,
+          "opcode": 166,
+          "args": [
+            0,
+            52
+          ]
+        },
+        {
+          "offset": 34,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 35,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 36,
+          "opcode": 180,
+          "args": [
+            0,
+            94
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 39,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 40,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 41,
+          "opcode": 181,
+          "args": [
+            0,
+            94
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "modCount",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 44,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 45,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 46,
+          "opcode": 180,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 49,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 50,
+          "opcode": 100,
+          "args": []
+        },
+        {
+          "offset": 51,
+          "opcode": 181,
+          "args": [
+            0,
+            69
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "size",
+            "descriptor": "I"
+          }
+        },
+        {
+          "offset": 54,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 55,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 57,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 58,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 59,
+          "opcode": 50,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 58,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 62,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 63,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 65,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 66,
+          "opcode": 96,
+          "args": []
+        },
+        {
+          "offset": 67,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 68,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 69,
+          "opcode": 45,
+          "args": []
+        },
+        {
+          "offset": 70,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 72,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 73,
+          "opcode": 83,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 75,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 77,
+          "opcode": 182,
+          "args": [
+            0,
+            136
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "closeDeletion",
+            "descriptor": "(I)V"
+          }
+        },
+        {
+          "offset": 80,
+          "opcode": 25,
+          "args": [
+            7
+          ]
+        },
+        {
+          "offset": 82,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 83,
+          "opcode": 25,
+          "args": [
+            6
+          ]
+        },
+        {
+          "offset": 85,
+          "opcode": 199,
+          "args": [
+            0,
+            5
+          ]
+        },
+        {
+          "offset": 88,
+          "opcode": 1,
+          "args": []
+        },
+        {
+          "offset": 89,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 90,
+          "opcode": 21,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 92,
+          "opcode": 21,
+          "args": [
+            4
+          ]
+        },
+        {
+          "offset": 94,
+          "opcode": 184,
+          "args": [
+            0,
+            86
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "nextKeyIndex",
+            "descriptor": "(II)I"
+          }
+        },
+        {
+          "offset": 97,
+          "opcode": 54,
+          "args": [
+            5
+          ]
+        },
+        {
+          "offset": 99,
+          "opcode": 167,
+          "args": [
+            255,
+            179
+          ]
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "remove",
+      "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Z",
+      "flags": 1,
+      "codeBytes": 7,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 3,
+          "opcode": 182,
+          "owner": "java/util/IdentityHashMap",
+          "name": "removeMapping",
+          "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Z"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 2,
+          "opcode": 44,
+          "args": []
+        },
+        {
+          "offset": 3,
+          "opcode": 182,
+          "args": [
+            0,
+            249
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/util/IdentityHashMap",
+            "name": "removeMapping",
+            "descriptor": "(Ljava/lang/Object;Ljava/lang/Object;)Z"
+          }
+        },
+        {
+          "offset": 6,
+          "opcode": 172,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "java/util/IdentityHashMap",
+      "name": "<clinit>",
+      "descriptor": "()V",
+      "flags": 8,
+      "codeBytes": 11,
+      "classSha256": "52ed4966b1f44161c19fd38ca1edc9ebe5dda0791420a98b4ae3cf9b800469ad",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 4,
+          "opcode": 183,
+          "owner": "java/lang/Object",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 7,
+          "opcode": 179,
+          "owner": "java/util/IdentityHashMap",
+          "name": "NULL_KEY",
+          "descriptor": "Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 187,
+          "args": [
+            0,
+            49
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/Object"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 4,
+          "opcode": 183,
+          "args": [
+            0,
+            252
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/Object",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 179,
+          "args": [
+            0,
+            1
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/util/IdentityHashMap",
+            "name": "NULL_KEY",
+            "descriptor": "Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 177,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "runtimeClassesInitialized": 0,
+  "boundedAdmission": false
+}

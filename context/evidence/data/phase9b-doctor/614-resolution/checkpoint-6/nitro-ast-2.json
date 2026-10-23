@@ -1,0 +1,770 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "decodedSha256": "1555ae9419bee4f98d043e0a1ea4a2fd079c7353492ba375c704d57f3e2148e3",
+  "registry": {
+    "0": "com/bitwig/nitro/ComponentDeclaration",
+    "1": "com/bitwig/nitro/StructureDeclaration",
+    "2": "com/bitwig/nitro/StaticAssertDeclaration",
+    "3": "com/bitwig/nitro/ProcessBlockDeclaration",
+    "4": "com/bitwig/nitro/VariableDeclaration",
+    "5": "com/bitwig/nitro/TypeAliasDeclaration",
+    "6": "com/bitwig/nitro/FunctionDeclaration",
+    "7": "com/bitwig/nitro/ConstantDeclaration",
+    "8": "com/bitwig/nitro/PostEventsBlockDeclaration",
+    "126": "com/bitwig/nitro/PostProcessBlockDeclaration",
+    "9": "com/bitwig/nitro/PortDeclaration",
+    "10": "com/bitwig/nitro/StartBlockDeclaration",
+    "11": "com/bitwig/nitro/EnumDeclaration",
+    "114": "com/bitwig/nitro/EnumEntryDeclaration",
+    "12": "com/bitwig/nitro/PropertyDeclaration",
+    "13": "com/bitwig/nitro/FunctionArgumentDeclaration",
+    "14": "com/bitwig/nitro/ConstantStringDeclaration",
+    "15": "com/bitwig/nitro/TemplateValueParameterDeclaration",
+    "16": "com/bitwig/nitro/TemplateTypeParameterDeclaration",
+    "17": "com/bitwig/nitro/InitBlockDeclaration",
+    "18": "com/bitwig/nitro/StopBlockDeclaration",
+    "147": "com/bitwig/nitro/ResetBlockDeclaration",
+    "20": "com/bitwig/nitro/ShouldProcessBlockDeclaration",
+    "21": "com/bitwig/nitro/ImportDeclaration",
+    "22": "com/bitwig/nitro/MacroDeclaration",
+    "23": "com/bitwig/nitro/TemplateDeclaration",
+    "133": "com/bitwig/nitro/PreProcessBlockDeclaration",
+    "24": "com/bitwig/nitro/EnumType",
+    "25": "com/bitwig/nitro/StringType",
+    "26": "com/bitwig/nitro/FunctionType",
+    "27": "com/bitwig/nitro/VoidType",
+    "28": "com/bitwig/nitro/BooleanType",
+    "29": "com/bitwig/nitro/Int8Type",
+    "30": "com/bitwig/nitro/UInt8Type",
+    "31": "com/bitwig/nitro/Int16Type",
+    "32": "com/bitwig/nitro/UInt16Type",
+    "33": "com/bitwig/nitro/Int32Type",
+    "34": "com/bitwig/nitro/UInt32Type",
+    "35": "com/bitwig/nitro/Int64Type",
+    "36": "com/bitwig/nitro/UInt64Type",
+    "37": "com/bitwig/nitro/Float32Type",
+    "38": "com/bitwig/nitro/Float64Type",
+    "39": "com/bitwig/nitro/PointerType",
+    "40": "com/bitwig/nitro/ArrayType",
+    "41": "com/bitwig/nitro/VectorType",
+    "42": "com/bitwig/nitro/NamedType",
+    "43": "com/bitwig/nitro/TemplateInstanceType",
+    "116": "com/bitwig/nitro/IntegerLiteralType",
+    "117": "com/bitwig/nitro/FloatLiteralType",
+    "118": "com/bitwig/nitro/InputEventPortType",
+    "119": "com/bitwig/nitro/OutputEventPortType",
+    "120": "com/bitwig/nitro/InputValuePortType",
+    "121": "com/bitwig/nitro/OutputValuePortType",
+    "122": "com/bitwig/nitro/InputAudioPortType",
+    "123": "com/bitwig/nitro/OutputAudioPortType",
+    "124": "com/bitwig/nitro/ReferenceType",
+    "125": "com/bitwig/nitro/TypeDereferenceType",
+    "129": "com/bitwig/nitro/TypeSwitchType",
+    "44": "com/bitwig/nitro/WhileStatement",
+    "45": "com/bitwig/nitro/AssertStatement",
+    "46": "com/bitwig/nitro/TrapStatement",
+    "47": "com/bitwig/nitro/EmptyStatement",
+    "48": "com/bitwig/nitro/BlockStatement",
+    "49": "com/bitwig/nitro/SendStatement",
+    "50": "com/bitwig/nitro/SendEmplaceStatement",
+    "51": "com/bitwig/nitro/TriggerSendStatement",
+    "52": "com/bitwig/nitro/DoWhileStatement",
+    "53": "com/bitwig/nitro/AssignStatement",
+    "54": "com/bitwig/nitro/BreakStatement",
+    "55": "com/bitwig/nitro/CaseStatement",
+    "56": "com/bitwig/nitro/DefaultCaseStatement",
+    "57": "com/bitwig/nitro/ForStatement",
+    "58": "com/bitwig/nitro/IfStatement",
+    "59": "com/bitwig/nitro/ReturnStatement",
+    "60": "com/bitwig/nitro/SwitchStatement",
+    "61": "com/bitwig/nitro/ContinueStatement",
+    "131": "com/bitwig/nitro/StaticAssertStatement",
+    "145": "com/bitwig/nitro/PrintlnStatement",
+    "62": "com/bitwig/nitro/CallExpression",
+    "63": "com/bitwig/nitro/ShuffleVectorExpression",
+    "64": "com/bitwig/nitro/ConditionalExpression",
+    "65": "com/bitwig/nitro/PreIncrementExpression",
+    "66": "com/bitwig/nitro/PostIncrementExpression",
+    "67": "com/bitwig/nitro/PreDecrementExpression",
+    "68": "com/bitwig/nitro/PostDecrementExpression",
+    "69": "com/bitwig/nitro/BangExpression",
+    "70": "com/bitwig/nitro/UnaryMinusExpression",
+    "71": "com/bitwig/nitro/NotExpression",
+    "72": "com/bitwig/nitro/CastExpression",
+    "73": "com/bitwig/nitro/SizeofTypeExpression",
+    "74": "com/bitwig/nitro/MacroCallExpression",
+    "75": "com/bitwig/nitro/ARShiftExpression",
+    "76": "com/bitwig/nitro/OrExpression",
+    "77": "com/bitwig/nitro/XorExpression",
+    "78": "com/bitwig/nitro/LShiftExpression",
+    "79": "com/bitwig/nitro/LRShiftExpression",
+    "80": "com/bitwig/nitro/DivExpression",
+    "81": "com/bitwig/nitro/ModExpression",
+    "82": "com/bitwig/nitro/EqExpression",
+    "83": "com/bitwig/nitro/GTExpression",
+    "84": "com/bitwig/nitro/LEqExpression",
+    "85": "com/bitwig/nitro/LTExpression",
+    "86": "com/bitwig/nitro/NEqExpression",
+    "87": "com/bitwig/nitro/GEqExpression",
+    "88": "com/bitwig/nitro/AndAndExpression",
+    "89": "com/bitwig/nitro/OrOrExpression",
+    "90": "com/bitwig/nitro/AndExpression",
+    "115": "com/bitwig/nitro/AddExpression",
+    "91": "com/bitwig/nitro/SubExpression",
+    "92": "com/bitwig/nitro/MulExpression",
+    "93": "com/bitwig/nitro/IdentifierExpression",
+    "94": "com/bitwig/nitro/StringValueExpression",
+    "95": "com/bitwig/nitro/TypeValueExpression",
+    "96": "com/bitwig/nitro/VectorValueExpression",
+    "97": "com/bitwig/nitro/BooleanValueExpression",
+    "98": "com/bitwig/nitro/IntegerValueExpression",
+    "99": "com/bitwig/nitro/FloatValueExpression",
+    "101": "com/bitwig/nitro/ArrayValueExpression",
+    "102": "com/bitwig/nitro/ArrayAccessExpression",
+    "103": "com/bitwig/nitro/TemplateInstanceExpression",
+    "104": "com/bitwig/nitro/ArrayFillExpression",
+    "105": "com/bitwig/nitro/MemberAccessExpression",
+    "106": "com/bitwig/nitro/SelectExpression",
+    "127": "com/bitwig/nitro/BitCastExpression",
+    "128": "com/bitwig/nitro/EnumValueExpression",
+    "132": "com/bitwig/nitro/ZeroInitValueExpression",
+    "134": "com/bitwig/nitro/AndAndReduceExpression",
+    "135": "com/bitwig/nitro/OrOrReduceExpression",
+    "136": "com/bitwig/nitro/AddReduceExpression",
+    "137": "com/bitwig/nitro/MulReduceExpression",
+    "142": "com/bitwig/nitro/PointerDereferenceExpression",
+    "143": "com/bitwig/nitro/NullPointerExpression",
+    "144": "com/bitwig/nitro/AddressOfExpression",
+    "146": "com/bitwig/nitro/IsFpClassExpression",
+    "148": "com/bitwig/nitro/LikelyExpression",
+    "107": "com/bitwig/nitro/Annotation",
+    "108": "com/bitwig/nitro/StringAnnotation",
+    "109": "com/bitwig/nitro/MaxAnnotation",
+    "110": "com/bitwig/nitro/MinAnnotation",
+    "130": "com/bitwig/nitro/CompressAnnotation",
+    "111": "com/bitwig/nitro/NitroFile",
+    "112": "com/bitwig/nitro/TemplateTypeParameter",
+    "113": "com/bitwig/nitro/TemplateValueParameter",
+    "138": "com/bitwig/nitro/StaticSpecifier",
+    "139": "com/bitwig/nitro/ConstSpecifier",
+    "149": "com/bitwig/nitro/ConstExprSpecifier",
+    "140": "com/bitwig/nitro/AlignAsSpecifier",
+    "141": "com/bitwig/nitro/MonoSpecifier"
+  },
+  "nodeCount": 75,
+  "types": {
+    "com/bitwig/nitro/NitroFile": 1,
+    "com/bitwig/nitro/ComponentDeclaration": 1,
+    "com/bitwig/nitro/PortDeclaration": 4,
+    "com/bitwig/nitro/InputAudioPortType": 2,
+    "com/bitwig/nitro/VectorType": 2,
+    "com/bitwig/nitro/Float32Type": 11,
+    "com/bitwig/nitro/IntegerValueExpression": 10,
+    "com/bitwig/nitro/IntegerLiteralType": 10,
+    "com/bitwig/nitro/InputValuePortType": 1,
+    "com/bitwig/nitro/BooleanType": 1,
+    "com/bitwig/nitro/Annotation": 1,
+    "com/bitwig/nitro/OutputAudioPortType": 1,
+    "com/bitwig/nitro/CompressAnnotation": 1,
+    "com/bitwig/nitro/AndAndExpression": 1,
+    "com/bitwig/nitro/IdentifierExpression": 8,
+    "com/bitwig/nitro/ProcessBlockDeclaration": 1,
+    "com/bitwig/nitro/BlockStatement": 1,
+    "com/bitwig/nitro/AssignStatement": 1,
+    "com/bitwig/nitro/ConditionalExpression": 1,
+    "com/bitwig/nitro/MulExpression": 3,
+    "com/bitwig/nitro/VectorValueExpression": 1,
+    "com/bitwig/nitro/CastExpression": 8,
+    "com/bitwig/nitro/UnaryMinusExpression": 4
+  },
+  "strings": [
+    "attenuate",
+    "thru",
+    "",
+    "in",
+    "stereoize",
+    "@block_optim",
+    "out",
+    "@compress"
+  ],
+  "root": {
+    "offset": 1,
+    "id": 111,
+    "class": "com/bitwig/nitro/NitroFile",
+    "data": [
+      [
+        {
+          "offset": 9,
+          "id": 0,
+          "class": "com/bitwig/nitro/ComponentDeclaration",
+          "data": [
+            "attenuate",
+            [
+              {
+                "offset": 31,
+                "id": 9,
+                "class": "com/bitwig/nitro/PortDeclaration",
+                "data": [
+                  {
+                    "offset": 34,
+                    "id": 122,
+                    "class": "com/bitwig/nitro/InputAudioPortType",
+                    "data": [
+                      {
+                        "offset": 37,
+                        "id": 41,
+                        "class": "com/bitwig/nitro/VectorType",
+                        "data": [
+                          {
+                            "offset": 40,
+                            "id": 37,
+                            "class": "com/bitwig/nitro/Float32Type",
+                            "data": []
+                          },
+                          {
+                            "offset": 44,
+                            "id": 98,
+                            "class": "com/bitwig/nitro/IntegerValueExpression",
+                            "data": [
+                              {
+                                "offset": 47,
+                                "id": 116,
+                                "class": "com/bitwig/nitro/IntegerLiteralType",
+                                "data": []
+                              },
+                              8
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "thru",
+                  null,
+                  "",
+                  null,
+                  null
+                ],
+                "annotations": []
+              },
+              {
+                "offset": 87,
+                "id": 9,
+                "class": "com/bitwig/nitro/PortDeclaration",
+                "data": [
+                  {
+                    "offset": 90,
+                    "id": 122,
+                    "class": "com/bitwig/nitro/InputAudioPortType",
+                    "data": [
+                      {
+                        "offset": 93,
+                        "id": 37,
+                        "class": "com/bitwig/nitro/Float32Type",
+                        "data": []
+                      }
+                    ]
+                  },
+                  "in",
+                  null,
+                  "",
+                  null,
+                  null
+                ],
+                "annotations": []
+              },
+              {
+                "offset": 120,
+                "id": 9,
+                "class": "com/bitwig/nitro/PortDeclaration",
+                "data": [
+                  {
+                    "offset": 123,
+                    "id": 120,
+                    "class": "com/bitwig/nitro/InputValuePortType",
+                    "data": [
+                      {
+                        "offset": 126,
+                        "id": 28,
+                        "class": "com/bitwig/nitro/BooleanType",
+                        "data": []
+                      }
+                    ]
+                  },
+                  "stereoize",
+                  null,
+                  "",
+                  null,
+                  null
+                ],
+                "annotations": [
+                  {
+                    "offset": 159,
+                    "id": 107,
+                    "class": "com/bitwig/nitro/Annotation",
+                    "data": [
+                      "@block_optim"
+                    ]
+                  }
+                ]
+              },
+              {
+                "offset": 181,
+                "id": 9,
+                "class": "com/bitwig/nitro/PortDeclaration",
+                "data": [
+                  {
+                    "offset": 184,
+                    "id": 123,
+                    "class": "com/bitwig/nitro/OutputAudioPortType",
+                    "data": [
+                      {
+                        "offset": 187,
+                        "id": 41,
+                        "class": "com/bitwig/nitro/VectorType",
+                        "data": [
+                          {
+                            "offset": 190,
+                            "id": 37,
+                            "class": "com/bitwig/nitro/Float32Type",
+                            "data": []
+                          },
+                          {
+                            "offset": 194,
+                            "id": 98,
+                            "class": "com/bitwig/nitro/IntegerValueExpression",
+                            "data": [
+                              {
+                                "offset": 197,
+                                "id": 116,
+                                "class": "com/bitwig/nitro/IntegerLiteralType",
+                                "data": []
+                              },
+                              8
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "out",
+                  null,
+                  "",
+                  null,
+                  null
+                ],
+                "annotations": [
+                  {
+                    "offset": 235,
+                    "id": 130,
+                    "class": "com/bitwig/nitro/CompressAnnotation",
+                    "data": [
+                      "@compress",
+                      null,
+                      {
+                        "offset": 253,
+                        "id": 88,
+                        "class": "com/bitwig/nitro/AndAndExpression",
+                        "data": [
+                          {
+                            "offset": 256,
+                            "id": 93,
+                            "class": "com/bitwig/nitro/IdentifierExpression",
+                            "data": [
+                              "thru"
+                            ]
+                          },
+                          {
+                            "offset": 265,
+                            "id": 93,
+                            "class": "com/bitwig/nitro/IdentifierExpression",
+                            "data": [
+                              "in"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "offset": 277,
+                "id": 3,
+                "class": "com/bitwig/nitro/ProcessBlockDeclaration",
+                "data": [
+                  {
+                    "offset": 280,
+                    "id": 48,
+                    "class": "com/bitwig/nitro/BlockStatement",
+                    "data": [
+                      [],
+                      [],
+                      [
+                        {
+                          "offset": 300,
+                          "id": 53,
+                          "class": "com/bitwig/nitro/AssignStatement",
+                          "data": [
+                            {
+                              "offset": 303,
+                              "id": 93,
+                              "class": "com/bitwig/nitro/IdentifierExpression",
+                              "data": [
+                                "out"
+                              ]
+                            },
+                            {
+                              "offset": 312,
+                              "id": 64,
+                              "class": "com/bitwig/nitro/ConditionalExpression",
+                              "data": [
+                                {
+                                  "offset": 315,
+                                  "id": 93,
+                                  "class": "com/bitwig/nitro/IdentifierExpression",
+                                  "data": [
+                                    "stereoize"
+                                  ]
+                                },
+                                {
+                                  "offset": 324,
+                                  "id": 92,
+                                  "class": "com/bitwig/nitro/MulExpression",
+                                  "data": [
+                                    {
+                                      "offset": 327,
+                                      "id": 92,
+                                      "class": "com/bitwig/nitro/MulExpression",
+                                      "data": [
+                                        {
+                                          "offset": 330,
+                                          "id": 93,
+                                          "class": "com/bitwig/nitro/IdentifierExpression",
+                                          "data": [
+                                            "thru"
+                                          ]
+                                        },
+                                        {
+                                          "offset": 339,
+                                          "id": 93,
+                                          "class": "com/bitwig/nitro/IdentifierExpression",
+                                          "data": [
+                                            "in"
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "offset": 349,
+                                      "id": 96,
+                                      "class": "com/bitwig/nitro/VectorValueExpression",
+                                      "data": [
+                                        [
+                                          {
+                                            "offset": 357,
+                                            "id": 72,
+                                            "class": "com/bitwig/nitro/CastExpression",
+                                            "data": [
+                                              {
+                                                "offset": 360,
+                                                "id": 98,
+                                                "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 363,
+                                                    "id": 116,
+                                                    "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                    "data": []
+                                                  },
+                                                  1
+                                                ]
+                                              },
+                                              {
+                                                "offset": 377,
+                                                "id": 37,
+                                                "class": "com/bitwig/nitro/Float32Type",
+                                                "data": []
+                                              },
+                                              false
+                                            ]
+                                          },
+                                          {
+                                            "offset": 383,
+                                            "id": 70,
+                                            "class": "com/bitwig/nitro/UnaryMinusExpression",
+                                            "data": [
+                                              {
+                                                "offset": 386,
+                                                "id": 72,
+                                                "class": "com/bitwig/nitro/CastExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 389,
+                                                    "id": 98,
+                                                    "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                    "data": [
+                                                      {
+                                                        "offset": 392,
+                                                        "id": 116,
+                                                        "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                        "data": []
+                                                      },
+                                                      1
+                                                    ]
+                                                  },
+                                                  {
+                                                    "offset": 406,
+                                                    "id": 37,
+                                                    "class": "com/bitwig/nitro/Float32Type",
+                                                    "data": []
+                                                  },
+                                                  false
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "offset": 413,
+                                            "id": 72,
+                                            "class": "com/bitwig/nitro/CastExpression",
+                                            "data": [
+                                              {
+                                                "offset": 416,
+                                                "id": 98,
+                                                "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 419,
+                                                    "id": 116,
+                                                    "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                    "data": []
+                                                  },
+                                                  1
+                                                ]
+                                              },
+                                              {
+                                                "offset": 433,
+                                                "id": 37,
+                                                "class": "com/bitwig/nitro/Float32Type",
+                                                "data": []
+                                              },
+                                              false
+                                            ]
+                                          },
+                                          {
+                                            "offset": 439,
+                                            "id": 70,
+                                            "class": "com/bitwig/nitro/UnaryMinusExpression",
+                                            "data": [
+                                              {
+                                                "offset": 442,
+                                                "id": 72,
+                                                "class": "com/bitwig/nitro/CastExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 445,
+                                                    "id": 98,
+                                                    "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                    "data": [
+                                                      {
+                                                        "offset": 448,
+                                                        "id": 116,
+                                                        "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                        "data": []
+                                                      },
+                                                      1
+                                                    ]
+                                                  },
+                                                  {
+                                                    "offset": 462,
+                                                    "id": 37,
+                                                    "class": "com/bitwig/nitro/Float32Type",
+                                                    "data": []
+                                                  },
+                                                  false
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "offset": 469,
+                                            "id": 72,
+                                            "class": "com/bitwig/nitro/CastExpression",
+                                            "data": [
+                                              {
+                                                "offset": 472,
+                                                "id": 98,
+                                                "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 475,
+                                                    "id": 116,
+                                                    "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                    "data": []
+                                                  },
+                                                  1
+                                                ]
+                                              },
+                                              {
+                                                "offset": 489,
+                                                "id": 37,
+                                                "class": "com/bitwig/nitro/Float32Type",
+                                                "data": []
+                                              },
+                                              false
+                                            ]
+                                          },
+                                          {
+                                            "offset": 495,
+                                            "id": 70,
+                                            "class": "com/bitwig/nitro/UnaryMinusExpression",
+                                            "data": [
+                                              {
+                                                "offset": 498,
+                                                "id": 72,
+                                                "class": "com/bitwig/nitro/CastExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 501,
+                                                    "id": 98,
+                                                    "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                    "data": [
+                                                      {
+                                                        "offset": 504,
+                                                        "id": 116,
+                                                        "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                        "data": []
+                                                      },
+                                                      1
+                                                    ]
+                                                  },
+                                                  {
+                                                    "offset": 518,
+                                                    "id": 37,
+                                                    "class": "com/bitwig/nitro/Float32Type",
+                                                    "data": []
+                                                  },
+                                                  false
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "offset": 525,
+                                            "id": 72,
+                                            "class": "com/bitwig/nitro/CastExpression",
+                                            "data": [
+                                              {
+                                                "offset": 528,
+                                                "id": 98,
+                                                "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 531,
+                                                    "id": 116,
+                                                    "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                    "data": []
+                                                  },
+                                                  1
+                                                ]
+                                              },
+                                              {
+                                                "offset": 545,
+                                                "id": 37,
+                                                "class": "com/bitwig/nitro/Float32Type",
+                                                "data": []
+                                              },
+                                              false
+                                            ]
+                                          },
+                                          {
+                                            "offset": 551,
+                                            "id": 70,
+                                            "class": "com/bitwig/nitro/UnaryMinusExpression",
+                                            "data": [
+                                              {
+                                                "offset": 554,
+                                                "id": 72,
+                                                "class": "com/bitwig/nitro/CastExpression",
+                                                "data": [
+                                                  {
+                                                    "offset": 557,
+                                                    "id": 98,
+                                                    "class": "com/bitwig/nitro/IntegerValueExpression",
+                                                    "data": [
+                                                      {
+                                                        "offset": 560,
+                                                        "id": 116,
+                                                        "class": "com/bitwig/nitro/IntegerLiteralType",
+                                                        "data": []
+                                                      },
+                                                      1
+                                                    ]
+                                                  },
+                                                  {
+                                                    "offset": 574,
+                                                    "id": 37,
+                                                    "class": "com/bitwig/nitro/Float32Type",
+                                                    "data": []
+                                                  },
+                                                  false
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "offset": 584,
+                                  "id": 92,
+                                  "class": "com/bitwig/nitro/MulExpression",
+                                  "data": [
+                                    {
+                                      "offset": 587,
+                                      "id": 93,
+                                      "class": "com/bitwig/nitro/IdentifierExpression",
+                                      "data": [
+                                        "thru"
+                                      ]
+                                    },
+                                    {
+                                      "offset": 596,
+                                      "id": 93,
+                                      "class": "com/bitwig/nitro/IdentifierExpression",
+                                      "data": [
+                                        "in"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            false
+                          ]
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                "annotations": []
+              }
+            ]
+          ],
+          "annotations": []
+        }
+      ]
+    ]
+  },
+  "work": 139,
+  "elapsedMs": 3980.5435000453144,
+  "peakRssBytes": 177209344,
+  "boundedAdmission": false,
+  "limits": [
+    "Traced token stream only; constructor reader order and semantic compilation remain separate.",
+    "No vendor class is initialized."
+  ]
+}

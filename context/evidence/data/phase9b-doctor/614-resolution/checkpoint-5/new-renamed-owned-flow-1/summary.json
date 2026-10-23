@@ -1,0 +1,52 @@
+{
+  "inputs": {
+    "symbols": "662e0988f8a7bfeae5e2c3d8fed9ce31e240d15b70bf8ee129681e4c6cf47b4d",
+    "catalog": "dcef54c1fb524e21353493ed635430accbb9a646121d0c233638beb4a195cf82",
+    "properties": "51c530c2a1031785dbb03d89b9bd4ca03c640b33f22ae4dc31ee3a38ebe67860",
+    "read_callees": "21d2b4e16b092985d84a08afa34583ab1c3dba7d4c996af640bd87e36f78585e"
+  },
+  "outputs": {
+    "collectors-0": {
+      "sha256": "e4c2472f1dd13353f7eb9e9993be5db7d30bbe764db6053ad2249d78285613f8",
+      "bytes": 1515659
+    },
+    "contracts-0": {
+      "sha256": "80e894d9163fdfca0fc345f9cfd871f39c1c32679e0210b3c904773404d00e34",
+      "bytes": 441543
+    },
+    "collectors-1": {
+      "sha256": "9dc9b6f4bafb7fab3434e4e6b0c0072abc3f2f6c7a8a8a1eb01aa0e3a0597702",
+      "bytes": 1418495
+    },
+    "contracts-1": {
+      "sha256": "f713ad62c931c7efb2753392d5eeba8984947c7bd12b98bc7929dc142e9baf9b",
+      "bytes": 383731
+    }
+  },
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "paths": 142,
+      "methods": 174,
+      "work": {
+        "instructions": 7254,
+        "states": 7254,
+        "calls": 1223
+      }
+    },
+    {
+      "sha256": "ae29e627246fa89eb35a1c11e2c2623026bd84185f161b3b19b813b9508dde7e",
+      "paths": 142,
+      "methods": 174,
+      "work": {
+        "instructions": 7254,
+        "states": 7254,
+        "calls": 1288
+      }
+    }
+  ],
+  "elapsedMs": 10314.054,
+  "peakRssBytes": 370245632,
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

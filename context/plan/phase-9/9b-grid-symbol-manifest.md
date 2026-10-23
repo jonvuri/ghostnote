@@ -2,8 +2,8 @@
 title: 9b — Grid symbol manifest
 kind: note
 state: active
-status: E316 passes all 76 V20 roles on 6.0.6. E337 links 36 executable contracts and nine fields on 6.1.4; complete resolution and bounded admission remain incomplete.
-updated: 2026-10-21
+status: E316 passes all 76 V20 roles on 6.0.6. E338 resolves all 55 type roles, 76 member roles, and 16 fields on 6.1.4 offline; D52 governs admission. 9b.6h adds the guard roles.
+updated: 2026-10-22
 parent: 9b-grid-breadth-discovery-and-build-out.md
 ---
 

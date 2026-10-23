@@ -1,0 +1,70 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "purpose": "Trace module cache mutation routes. A warm entry alone gives no admission.",
+  "methods": [
+    {
+      "owner": "vDL",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/document/core/master/device/hpW;)V"
+    },
+    {
+      "owner": "vDL",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/document/core/master/device/hpW;)V"
+    },
+    {
+      "owner": "GDf",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "GDf",
+      "name": "IwV",
+      "descriptor": "()V"
+    },
+    {
+      "owner": "GDf",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;)V"
+    }
+  ],
+  "slots": [],
+  "targets": [
+    {
+      "kind": "method",
+      "owner": "vDL",
+      "name": "cfM",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/document/core/master/device/hpW;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "vDL",
+      "name": "MRY",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;Lcom/bitwig/flt/document/core/master/device/hpW;)V"
+    },
+    {
+      "kind": "method",
+      "owner": "GDf",
+      "name": "cfM",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "GDf",
+      "name": "IwV",
+      "descriptor": "()V"
+    },
+    {
+      "kind": "method",
+      "owner": "GDf",
+      "name": "UNj",
+      "descriptor": "(Lcom/bitwig/base/io/z2y;)V"
+    },
+    {
+      "kind": "field",
+      "owner": "vDL",
+      "name": "Hnt",
+      "descriptor": "Ljava/util/Map;"
+    }
+  ]
+}

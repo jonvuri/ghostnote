@@ -1,0 +1,128 @@
+{
+  "assertionVariant": {
+    "sourceGuard": [
+      "qOW",
+      "ffA",
+      "Z"
+    ],
+    "targetGuard": [
+      "EIm",
+      "cfM",
+      "Z"
+    ],
+    "guardRange": [
+      3,
+      17
+    ],
+    "changedInstruction": 6,
+    "conditionalTokenDigest": "45426fe21cd576c1ee227753829d249f81559cc7c2a0be7be855a0629d1d1daa",
+    "condition": "Both guard fields must already be initialized and true.",
+    "runtimeValuesObserved": false,
+    "boundedAdmission": false,
+    "limits": [
+      "This check does not compare the getter body or admit an enabled assertion.",
+      "Other calls, initialization, and mutation bounds remain separate."
+    ]
+  },
+  "pairs": [
+    {
+      "pair": [
+        [
+          "cXV",
+          "ffA",
+          "(Lcom/bitwig/ramona/core/HEV;Lcom/bitwig/ramona/serial/vWM;Lcom/bitwig/base/serial/mvZ;Lcom/bitwig/ramona/serial/hwy;)V"
+        ],
+        [
+          "der",
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;Lcom/bitwig/ramona/serial/iYN;Lcom/bitwig/base/serial/Wkj;Lcom/bitwig/ramona/serial/RYd;)V"
+        ]
+      ],
+      "digests": [
+        "fecf9e15afd3d6a70c8f4bda06a653aa5531ba147e588161a5505fda51860370",
+        "fecf9e15afd3d6a70c8f4bda06a653aa5531ba147e588161a5505fda51860370"
+      ],
+      "counts": [
+        147,
+        147
+      ],
+      "differences": [],
+      "merge": "reference-alias-conflict",
+      "conflicts": [],
+      "reverseConflicts": [
+        [
+          1,
+          [
+            10,
+            "com/bitwig/ramona/core/HEV",
+            "UBl",
+            "()Z"
+          ],
+          [
+            10,
+            "com/bitwig/ramona/core/oDc",
+            "xmC",
+            "()Z"
+          ],
+          [
+            10,
+            "com/bitwig/ramona/core/HEV",
+            "kh3",
+            "()Z"
+          ]
+        ]
+      ]
+    },
+    {
+      "pair": [
+        [
+          "qOW",
+          "ffA",
+          "(Lcom/bitwig/ramona/serial/GCp;)V"
+        ],
+        [
+          "EIm",
+          "cfM",
+          "(Lcom/bitwig/ramona/serial/rsB;)V"
+        ]
+      ],
+      "digests": [
+        "5d07427b15ebb7d4a0d7134dd61db7a125527aeebab63d1c8c91618aa5b69341",
+        "3c37f49b729efa56fed3b405b00f645664c2cba2963984f301337d62491bcd83"
+      ],
+      "counts": [
+        25,
+        25
+      ],
+      "differences": [
+        [
+          6,
+          [
+            180,
+            [
+              9,
+              "self",
+              "member-2",
+              "Ltype-3;"
+            ],
+            []
+          ],
+          [
+            182,
+            [
+              10,
+              "self",
+              "member-2",
+              "()Ltype-3;"
+            ],
+            []
+          ]
+        ]
+      ],
+      "merge": "contract-difference"
+    }
+  ],
+  "elapsedMs": 8043.70908398414,
+  "peakRssBytes": 329416704,
+  "boundedAdmission": false
+}

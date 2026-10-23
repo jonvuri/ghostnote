@@ -1,0 +1,465 @@
+{
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "methods": [
+    {
+      "owner": "com/bitwig/flt/document/core/master/Ljp",
+      "name": "Yt",
+      "descriptor": "()LdeV;",
+      "flags": 1,
+      "codeBytes": 78,
+      "classSha256": "d5475997a572727dd4d7153d476b25c4fafee8f984abf73acac0ecea1d39cbb4",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 3,
+          "opcode": 199,
+          "target": 43
+        },
+        {
+          "offset": 46,
+          "opcode": 154,
+          "target": 74
+        },
+        {
+          "offset": 52,
+          "opcode": 198,
+          "target": 59
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "target": 60
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "target": 74
+        }
+      ],
+      "references": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "DxJ",
+          "descriptor": "LdeV;"
+        },
+        {
+          "offset": 15,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "cfM",
+          "descriptor": "Lcom/bitwig/flt/document/core/master/Ljp;"
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "owner": "com/bitwig/ramona/type/pHd",
+          "name": "IwV",
+          "descriptor": "()Lcom/bitwig/ramona/type/pHd;"
+        },
+        {
+          "offset": 26,
+          "opcode": 183,
+          "owner": "deV",
+          "name": "<init>",
+          "descriptor": "(Ljava/lang/String;ILder;Lcom/bitwig/ramona/type/Rzi;[LdeW;Z)V"
+        },
+        {
+          "offset": 29,
+          "opcode": 179,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "DxJ",
+          "descriptor": "LdeV;"
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "DxJ",
+          "descriptor": "LdeV;"
+        },
+        {
+          "offset": 37,
+          "opcode": 178,
+          "owner": "java/lang/Boolean",
+          "name": "TRUE",
+          "descriptor": "Ljava/lang/Boolean;"
+        },
+        {
+          "offset": 40,
+          "opcode": 182,
+          "owner": "deV",
+          "name": "cfM",
+          "descriptor": "(Ljava/lang/String;Ljava/lang/Object;)V"
+        },
+        {
+          "offset": 43,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "MRY",
+          "descriptor": "Z"
+        },
+        {
+          "offset": 49,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "DxJ",
+          "descriptor": "LdeV;"
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "owner": "com/bitwig/flt/document/core/master/NcW",
+          "name": "cfM",
+          "descriptor": "(Z)Z"
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "owner": "java/lang/AssertionError",
+          "name": "<init>",
+          "descriptor": "()V"
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "owner": "com/bitwig/flt/document/core/master/Ljp",
+          "name": "DxJ",
+          "descriptor": "LdeV;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 178,
+          "args": [
+            2,
+            44
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "DxJ",
+            "descriptor": "LdeV;"
+          }
+        },
+        {
+          "offset": 3,
+          "opcode": 199,
+          "args": [
+            0,
+            40
+          ]
+        },
+        {
+          "offset": 6,
+          "opcode": 187,
+          "args": [
+            1,
+            167
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "deV"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 10,
+          "opcode": 18,
+          "args": [
+            235
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "ping"
+          }
+        },
+        {
+          "offset": 12,
+          "opcode": 17,
+          "args": [
+            3,
+            183
+          ]
+        },
+        {
+          "offset": 15,
+          "opcode": 178,
+          "args": [
+            2,
+            152
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "cfM",
+            "descriptor": "Lcom/bitwig/flt/document/core/master/Ljp;"
+          }
+        },
+        {
+          "offset": 18,
+          "opcode": 184,
+          "args": [
+            8,
+            4
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/ramona/type/pHd",
+            "name": "IwV",
+            "descriptor": "()Lcom/bitwig/ramona/type/pHd;"
+          }
+        },
+        {
+          "offset": 21,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 22,
+          "opcode": 189,
+          "args": [
+            1,
+            168
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "deW"
+          }
+        },
+        {
+          "offset": 25,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 26,
+          "opcode": 183,
+          "args": [
+            8,
+            16
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "<init>",
+            "descriptor": "(Ljava/lang/String;ILder;Lcom/bitwig/ramona/type/Rzi;[LdeW;Z)V"
+          }
+        },
+        {
+          "offset": 29,
+          "opcode": 179,
+          "args": [
+            2,
+            44
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "DxJ",
+            "descriptor": "LdeV;"
+          }
+        },
+        {
+          "offset": 32,
+          "opcode": 178,
+          "args": [
+            2,
+            44
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "DxJ",
+            "descriptor": "LdeV;"
+          }
+        },
+        {
+          "offset": 35,
+          "opcode": 18,
+          "args": [
+            225
+          ],
+          "constant": {
+            "tag": 8,
+            "value": "not_engine"
+          }
+        },
+        {
+          "offset": 37,
+          "opcode": 178,
+          "args": [
+            3,
+            177
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "java/lang/Boolean",
+            "name": "TRUE",
+            "descriptor": "Ljava/lang/Boolean;"
+          }
+        },
+        {
+          "offset": 40,
+          "opcode": 182,
+          "args": [
+            8,
+            17
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "deV",
+            "name": "cfM",
+            "descriptor": "(Ljava/lang/String;Ljava/lang/Object;)V"
+          }
+        },
+        {
+          "offset": 43,
+          "opcode": 178,
+          "args": [
+            2,
+            88
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "MRY",
+            "descriptor": "Z"
+          }
+        },
+        {
+          "offset": 46,
+          "opcode": 154,
+          "args": [
+            0,
+            28
+          ]
+        },
+        {
+          "offset": 49,
+          "opcode": 178,
+          "args": [
+            2,
+            44
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "DxJ",
+            "descriptor": "LdeV;"
+          }
+        },
+        {
+          "offset": 52,
+          "opcode": 198,
+          "args": [
+            0,
+            7
+          ]
+        },
+        {
+          "offset": 55,
+          "opcode": 4,
+          "args": []
+        },
+        {
+          "offset": 56,
+          "opcode": 167,
+          "args": [
+            0,
+            4
+          ]
+        },
+        {
+          "offset": 59,
+          "opcode": 3,
+          "args": []
+        },
+        {
+          "offset": 60,
+          "opcode": 184,
+          "args": [
+            5,
+            20
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "com/bitwig/flt/document/core/master/NcW",
+            "name": "cfM",
+            "descriptor": "(Z)Z"
+          }
+        },
+        {
+          "offset": 63,
+          "opcode": 154,
+          "args": [
+            0,
+            11
+          ]
+        },
+        {
+          "offset": 66,
+          "opcode": 187,
+          "args": [
+            1,
+            195
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/AssertionError"
+          }
+        },
+        {
+          "offset": 69,
+          "opcode": 89,
+          "args": []
+        },
+        {
+          "offset": 70,
+          "opcode": 183,
+          "args": [
+            8,
+            38
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/AssertionError",
+            "name": "<init>",
+            "descriptor": "()V"
+          }
+        },
+        {
+          "offset": 73,
+          "opcode": 191,
+          "args": []
+        },
+        {
+          "offset": 74,
+          "opcode": 178,
+          "args": [
+            2,
+            44
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "com/bitwig/flt/document/core/master/Ljp",
+            "name": "DxJ",
+            "descriptor": "LdeV;"
+          }
+        },
+        {
+          "offset": 77,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "boundedAdmission": false
+}

@@ -1,0 +1,315 @@
+{
+  "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "root": [
+    "EIm",
+    "LaE",
+    "()LivQ;"
+  ],
+  "requiredInstanceFields": [
+    {
+      "receiver": [
+        "ref",
+        "EIm",
+        "object"
+      ],
+      "field": [
+        "EIm",
+        "IwV",
+        "LmKX;"
+      ],
+      "value": [
+        "ref",
+        "mKX",
+        "holder"
+      ]
+    },
+    {
+      "receiver": [
+        "ref",
+        "mKX",
+        "holder"
+      ],
+      "field": [
+        "mKX",
+        "cfM",
+        "Ljava/lang/Object;"
+      ],
+      "value": [
+        "null",
+        "Ljava/lang/Object;",
+        null
+      ]
+    }
+  ],
+  "typeTests": [
+    "java/lang/ref/SoftReference"
+  ],
+  "returned": [
+    [
+      "null",
+      "Ljava/lang/Object;",
+      null
+    ]
+  ],
+  "cost": {
+    "vendorInstructions": 14,
+    "vendorCalls": 1,
+    "externalCalls": 0
+  },
+  "external": [],
+  "methods": [
+    {
+      "owner": "EIm",
+      "name": "LaE",
+      "descriptor": "()LivQ;",
+      "flags": 2,
+      "codeBytes": 11,
+      "classSha256": "47fd9a5d11e1502b9c6b6e26054b53a3e9bf00bd565dd3faedb9f587c7d97e32",
+      "exceptionHandlers": [],
+      "branches": [],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "EIm",
+          "name": "IwV",
+          "descriptor": "LmKX;"
+        },
+        {
+          "offset": 4,
+          "opcode": 182,
+          "owner": "mKX",
+          "name": "cfM",
+          "descriptor": "()Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            30
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "EIm",
+            "name": "IwV",
+            "descriptor": "LmKX;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 182,
+          "args": [
+            0,
+            75
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "mKX",
+            "name": "cfM",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 7,
+          "opcode": 192,
+          "args": [
+            0,
+            18
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "ivQ"
+          }
+        },
+        {
+          "offset": 10,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    },
+    {
+      "owner": "mKX",
+      "name": "cfM",
+      "descriptor": "()Ljava/lang/Object;",
+      "flags": 1,
+      "codeBytes": 28,
+      "classSha256": "c515bea5b5455d52641c6099dc4be5369742a0ec0a9434981b46c59a58318dbe",
+      "exceptionHandlers": [],
+      "branches": [
+        {
+          "offset": 9,
+          "opcode": 153,
+          "target": 23
+        }
+      ],
+      "references": [
+        {
+          "offset": 1,
+          "opcode": 180,
+          "owner": "mKX",
+          "name": "cfM",
+          "descriptor": "Ljava/lang/Object;"
+        },
+        {
+          "offset": 13,
+          "opcode": 180,
+          "owner": "mKX",
+          "name": "cfM",
+          "descriptor": "Ljava/lang/Object;"
+        },
+        {
+          "offset": 19,
+          "opcode": 182,
+          "owner": "java/lang/ref/SoftReference",
+          "name": "get",
+          "descriptor": "()Ljava/lang/Object;"
+        },
+        {
+          "offset": 24,
+          "opcode": 180,
+          "owner": "mKX",
+          "name": "cfM",
+          "descriptor": "Ljava/lang/Object;"
+        }
+      ],
+      "instructions": [
+        {
+          "offset": 0,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 1,
+          "opcode": 180,
+          "args": [
+            0,
+            4
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "mKX",
+            "name": "cfM",
+            "descriptor": "Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 4,
+          "opcode": 76,
+          "args": []
+        },
+        {
+          "offset": 5,
+          "opcode": 43,
+          "args": []
+        },
+        {
+          "offset": 6,
+          "opcode": 193,
+          "args": [
+            0,
+            2
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/ref/SoftReference"
+          }
+        },
+        {
+          "offset": 9,
+          "opcode": 153,
+          "args": [
+            0,
+            14
+          ]
+        },
+        {
+          "offset": 12,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 13,
+          "opcode": 180,
+          "args": [
+            0,
+            4
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "mKX",
+            "name": "cfM",
+            "descriptor": "Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 16,
+          "opcode": 192,
+          "args": [
+            0,
+            2
+          ],
+          "constant": {
+            "tag": 7,
+            "value": "java/lang/ref/SoftReference"
+          }
+        },
+        {
+          "offset": 19,
+          "opcode": 182,
+          "args": [
+            0,
+            7
+          ],
+          "constant": {
+            "tag": 10,
+            "owner": "java/lang/ref/SoftReference",
+            "name": "get",
+            "descriptor": "()Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 22,
+          "opcode": 176,
+          "args": []
+        },
+        {
+          "offset": 23,
+          "opcode": 42,
+          "args": []
+        },
+        {
+          "offset": 24,
+          "opcode": 180,
+          "args": [
+            0,
+            4
+          ],
+          "constant": {
+            "tag": 9,
+            "owner": "mKX",
+            "name": "cfM",
+            "descriptor": "Ljava/lang/Object;"
+          }
+        },
+        {
+          "offset": 27,
+          "opcode": 176,
+          "args": []
+        }
+      ]
+    }
+  ],
+  "boundedAdmission": false,
+  "runtimeObserved": false,
+  "elapsedMs": 4064.6626250236295,
+  "peakRssBytes": 175521792
+}

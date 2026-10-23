@@ -2,46 +2,49 @@
 title: Current state
 kind: status
 state: active
-updated: 2026-10-21
+updated: 2026-10-22
 phase: phase-9-overlap-investigation
-session: 9b6g-doctor-614-descriptor-bootstrap
+session: 9b6h-guarded-doctor-614
 ---
 
 ## Next session
 
-**Start [9b.6g: sustained offline resolution and probe preparation](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6g--descriptor-anchors-and-bootstrap-contracts).**
-[E337](evidence/experiments/e337-grid-doctor-614-operation-bindings.md) records
-9b.6f's measured offline refusal. The shared procedure links 36 executable
-contracts, nine fields, and 25 type inputs on 6.1.4. It covers all 76 member
-roles but does not produce a complete table. Seven fields and all five
-abstract dispatch contracts remain unbound. Disposal, membership, recording
-access, and managed ID remain refused.
+**Start [9b.6h: guarded doctor on 6.1.4](plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6h--guarded-doctor-on-614).**
+[D52](decisions/d52-grid-upgrade-admission-policy.md) settles the upgrade
+admission policy: offline structural resolution stays required; complete
+offline bounded admission is replaced by a body-change report, bounded
+traces of changed bodies only, runtime entry guards, and the consent-gated
+doctor with per-call timing. [E338](evidence/experiments/e338-grid-doctor-614-offline-closeout.md)
+closes 9b.6g: all 55 type roles, 76 member roles, and 16 fields resolve on
+both jars; the conditional bounds of checkpoints 1–17 stand; no command has
+offline bounded admission, and that criterion does not converge.
 
-Read E337's [report](evidence/data/phase9b-doctor/614-bindings/bindings.json),
-E336–E331, E315/E316, the symbol manifest, and the performance ledger.
-The managed-ID assertion supplier reaches a second bootstrap, descriptor
-dispatch, and reporting helpers. No comparator variant is admitted.
-E336's empty-array begin excludes one wait only. Runtime receivers, ping
-reachability, full command closure, and history growth remain unproved.
-Use one work list in 9b.6g. Continue through role resolution, bounded
-admission, complete resilience tests, and driver/probe preparation. New
-trace findings and diagnostic refusals are checkpoints. Stop at the ready
-probe's operator replacement gate, a concrete external blocker, or a
-demonstrated incompatibility that requires a scope decision. Complete
-independent offline work before a blocker handoff. Keep interrupted work
-under 9b.6g; do not create another session for the same remaining tasks.
+Read D52, E338, [checkpoint 17](evidence/data/phase9b-doctor/614-resolution/checkpoint-17/README.md),
+E316, E315, the symbol manifest, the performance ledger, and the 9b.6
+steps 3–5. Work items 1–3 (body-change report, changed-body decisions,
+runtime guards with modeled host cost) are offline and come first. Items
+4–5 (driver, probe, deployment, operator replacement, consent, one doctor
+pass) follow. Item 6 (toolkit consolidation and `/tmp` cleanup after
+manifest hash verification) can move to 9b.7. The 98 diagnostic modules
+under `brain/src/probes/grid_doctor/` are the trace tools; the
+[2026-10-22 handoff](plan/phase-9/9b6g-agent-handoff-2026-10-22.md) gives
+tool navigation and artifact recovery.
 
-Complete resolution and bounded admission are required before driver or
-probe preparation. Keep the strict comparator and original selectors.
-V20 still requires 6.0.6 and E313's specific retry record. Controller
-replacement is an operator action. Fresh scratch consent and project
-verification remain required before the new-build doctor. E330 grants no
-native write authority. Step 2 stays open; 9b.7 owns product cache enforcement.
-Do not repeat the accepted 6.0.6 doctor or the 9a audio flow.
+Retained limits to cover by guard or timing, not proof: the `agent_debug`
+tracking-mode writer, the global property listener monitor, generic
+listener registrations on the Hgx chain, the replay worker hang (parity on
+both builds), the 6.1.4 validation observer notification, and the cold
+first factory call in a fresh process. Keep the strict comparator and
+original selectors. V20 still requires 6.0.6 and E313's specific retry
+record. Controller replacement is an operator action. Fresh scratch
+consent and project verification remain required before the new-build
+doctor. E330 grants no native write authority. Step 2 stays open; 9b.7
+owns product cache enforcement and the upgrade tool. Do not repeat the
+accepted 6.0.6 doctor or the 9a audio flow.
 
 ## Deployment and live state
 
-Last verified in E330. E331–E337 make no live request.
+Last verified in E330. E331–E337 and the 9b.6g checkpoints make no live request.
 
 - App: `/Applications/Bitwig Studio.app`, **6.1.4**, API 25.
 - Jar SHA-256: `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`.
@@ -70,6 +73,14 @@ checks were not exhaustive. Do not modify backups or donor sources.
 
 ## Material to preserve
 
+- [E338](evidence/experiments/e338-grid-doctor-614-offline-closeout.md) and its
+  [preservation check](evidence/data/phase9b-doctor/614-resolution/preservation.json):
+  224 entry files unchanged.
+- 9b.6g [checkpoints 1–17](evidence/data/phase9b-doctor/614-resolution/)
+  and the [handoff supplement](evidence/data/phase9b-doctor/614-resolution/handoff-2026-10-22/README.md):
+  diagnostic source snapshots, development archives, selected reports, and
+  the immutable [entry inventory](evidence/data/phase9b-doctor/614-resolution/entry-inventory.json).
+  Do not regenerate the entry inventory.
 - E337's operation bindings, variant traces, tests, development attempts, and
   [preservation check](evidence/data/phase9b-doctor/614-bindings/preservation.json).
   No new-build candidate, attempt, cache, or deployment exists.

@@ -1,0 +1,2422 @@
+{
+  "sourceReceivers": [
+    {
+      "receiver": "MMV",
+      "descriptor": "aOS",
+      "name": "biquad_value_type",
+      "id": 237,
+      "canonicalRuntime": "MMV",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "MMV",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "icZ",
+          "mW_",
+          "()LcYx;"
+        ],
+        [
+          "icZ",
+          "wi2",
+          "()LaOS;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "agh",
+      "descriptor": "XYf",
+      "name": "boolean_value_type",
+      "id": 198,
+      "canonicalRuntime": "agh",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "agh",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "TVk",
+          "QiZ",
+          "()LXYf;"
+        ],
+        [
+          "TVk",
+          "mW_",
+          "()LcYx;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "rNl",
+      "descriptor": "HiU",
+      "name": "decimal_value_type",
+      "id": 123,
+      "canonicalRuntime": "rNl",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "rNl",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "OQO",
+          "mW_",
+          "()LcYx;"
+        ],
+        [
+          "OQO",
+          "yTF",
+          "()LHiU;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "hdr",
+      "descriptor": "ayk",
+      "name": "indexed_value_type",
+      "id": 155,
+      "canonicalRuntime": "hdr",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "hdr",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "N1h",
+          "Ode",
+          "()Layk;"
+        ],
+        [
+          "N1h",
+          "mW_",
+          "()LcYx;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "uaT",
+      "descriptor": "z2V",
+      "name": "integer_value_type",
+      "id": 143,
+      "canonicalRuntime": "uaT",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "uaT",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "wwq",
+          "Mkn",
+          "()Lz2V;"
+        ],
+        [
+          "wwq",
+          "mW_",
+          "()LcYx;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "Fev",
+      "descriptor": "fUy",
+      "name": "music_scale_value_type",
+      "id": 5336,
+      "canonicalRuntime": "Fev",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "Fev",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "BkG",
+          "mW_",
+          "()LcYx;"
+        ],
+        [
+          "BkG",
+          "zVi",
+          "()LfUy;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "UWD",
+      "descriptor": "CiL",
+      "name": "sound_value_type",
+      "id": 272,
+      "canonicalRuntime": "UWD",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "UWD",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "UMe",
+          "Fmu",
+          "()LCiL;"
+        ],
+        [
+          "UMe",
+          "mW_",
+          "()LcYx;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "hVV",
+      "descriptor": "uHg",
+      "name": "string_value_type",
+      "id": 284,
+      "canonicalRuntime": "hVV",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "hVV",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "NyP",
+          "mW_",
+          "()LcYx;"
+        ],
+        [
+          "NyP",
+          "zVi",
+          "()LuHg;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "Q3r",
+      "descriptor": "Hxf",
+      "name": "tempo_value_type",
+      "id": 904,
+      "canonicalRuntime": "Q3r",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "rNl",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "gAV",
+          "mW_",
+          "()LcYx;"
+        ],
+        [
+          "gAV",
+          "wCG",
+          "()LHxf;"
+        ]
+      ],
+      "runtimeObserved": false
+    },
+    {
+      "receiver": "Zcl",
+      "descriptor": "OYS",
+      "name": "time_signature_value_type",
+      "id": 275,
+      "canonicalRuntime": "Zcl",
+      "exactCanonicalRuntime": true,
+      "extentDeclaration": {
+        "status": "declaration",
+        "owner": "Zcl",
+        "flags": 1
+      },
+      "getterChain": [
+        [
+          "TMw",
+          "Mkn",
+          "()LOYS;"
+        ],
+        [
+          "TMw",
+          "mW_",
+          "()LcYx;"
+        ]
+      ],
+      "runtimeObserved": false
+    }
+  ],
+  "builds": [
+    {
+      "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+      "rows": [
+        {
+          "name": "biquad_value_type",
+          "id": 237,
+          "sourceRuntime": "MMV",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "aOS",
+              "runtimeClass": "MMV",
+              "constructor": {
+                "owner": "aOS",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "e3326c41e3f58e93902127d89eaab42ea6c181b20a1e023b2ef79aafbbcfdb17",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "nlX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "biquad_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      237
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      38
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "nlX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "aOS",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "e3326c41e3f58e93902127d89eaab42ea6c181b20a1e023b2ef79aafbbcfdb17",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      4
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "MMV"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "boolean_value_type",
+          "id": 198,
+          "sourceRuntime": "agh",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "XYf",
+              "runtimeClass": "agh",
+              "constructor": {
+                "owner": "XYf",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "11117d2624c8b97e2ad9eb368029b2a1f7281d921fafa2b924dd1770d938e338",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "nlX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "boolean_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      198
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      91
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "nlX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "XYf",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "11117d2624c8b97e2ad9eb368029b2a1f7281d921fafa2b924dd1770d938e338",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      15
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "agh"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "decimal_value_type",
+          "id": 123,
+          "sourceRuntime": "rNl",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "HiU",
+              "runtimeClass": "rNl",
+              "constructor": {
+                "owner": "HiU",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 9,
+                "classSha256": "efd29e4974709df7480d9d04d6c24c73368216a248117626f6d637282c47f7b0",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 5,
+                    "opcode": 183,
+                    "owner": "Tt2",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "decimal_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 16,
+                    "args": [
+                      123
+                    ]
+                  },
+                  {
+                    "offset": 5,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      112
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "Tt2",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 8,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "HiU",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "efd29e4974709df7480d9d04d6c24c73368216a248117626f6d637282c47f7b0",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      41
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "rNl"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "indexed_value_type",
+          "id": 155,
+          "sourceRuntime": "hdr",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "ayk",
+              "runtimeClass": "hdr",
+              "constructor": {
+                "owner": "ayk",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "6014f3c4b9664cedf6e1631505647d11a120ca84528e9bff056922d66354bfdf",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "nlX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      7
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "indexed_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      155
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      142
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "nlX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "ayk",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "6014f3c4b9664cedf6e1631505647d11a120ca84528e9bff056922d66354bfdf",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      33
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "hdr"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "integer_value_type",
+          "id": 143,
+          "sourceRuntime": "uaT",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "z2V",
+              "runtimeClass": "uaT",
+              "constructor": {
+                "owner": "z2V",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "5478b281a1d7504e6bb7ff402be37d4838ee0c97e7b352382b0e1c5fd145c37c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "Tt2",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      6
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "integer_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      143
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      65
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "Tt2",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "z2V",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "5478b281a1d7504e6bb7ff402be37d4838ee0c97e7b352382b0e1c5fd145c37c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      40
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "uaT"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "music_scale_value_type",
+          "id": 5336,
+          "sourceRuntime": "Fev",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "fUy",
+              "runtimeClass": "Fev",
+              "constructor": {
+                "owner": "fUy",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "3172972cde0e70adca6c9a4009b6f6352f6561cfaabc192d6d3c402d71f4477f",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "Tt2",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "music_scale_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      20,
+                      216
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      10
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "Tt2",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "fUy",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "3172972cde0e70adca6c9a4009b6f6352f6561cfaabc192d6d3c402d71f4477f",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "Fev"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "sound_value_type",
+          "id": 272,
+          "sourceRuntime": "UWD",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "CiL",
+              "runtimeClass": "UWD",
+              "constructor": {
+                "owner": "CiL",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "79c5c4952a949a8860f89c641a6d552e514d171c8e5139bb1f63cc06ed23e20f",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "biK",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "sound_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      16
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      14
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "biK",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "CiL",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "79c5c4952a949a8860f89c641a6d552e514d171c8e5139bb1f63cc06ed23e20f",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      4
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "UWD"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "string_value_type",
+          "id": 284,
+          "sourceRuntime": "hVV",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "uHg",
+              "runtimeClass": "hVV",
+              "constructor": {
+                "owner": "uHg",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "c5b033677ddefe482db1d82f23cb23100109b5f0adfc4c9ff1b9712ce8d04995",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "nlX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "string_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      28
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      10
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "nlX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "uHg",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "c5b033677ddefe482db1d82f23cb23100109b5f0adfc4c9ff1b9712ce8d04995",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "hVV"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "tempo_value_type",
+          "id": 904,
+          "sourceRuntime": "Q3r",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "Hxf",
+              "runtimeClass": "Q3r",
+              "constructor": {
+                "owner": "Hxf",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "4e092710c057624ae0cc865e2e87ea0fdb3398dc6f03f2acd2aea8db2a247258",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "HiU",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "tempo_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      3,
+                      136
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      8
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "HiU",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "Hxf",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "4e092710c057624ae0cc865e2e87ea0fdb3398dc6f03f2acd2aea8db2a247258",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      5
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "Q3r"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "time_signature_value_type",
+          "id": 275,
+          "sourceRuntime": "Zcl",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "OYS",
+              "runtimeClass": "Zcl",
+              "constructor": {
+                "owner": "OYS",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "12cb1388352de3b54f96f9764a30e96320c20a910e9d6b46a69e1c762c6843b0",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "nlX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      8
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "time_signature_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      19
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      74
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "nlX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "OYS",
+                "name": "cG3",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "12cb1388352de3b54f96f9764a30e96320c20a910e9d6b46a69e1c762c6843b0",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      13
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "Zcl"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        }
+      ],
+      "methodsScanned": 383673,
+      "instructionsDecoded": 78600,
+      "boundedAdmission": false,
+      "writeAuthority": false
+    },
+    {
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "rows": [
+        {
+          "name": "biquad_value_type",
+          "id": 237,
+          "sourceRuntime": "MMV",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "aH",
+              "runtimeClass": "aF",
+              "constructor": {
+                "owner": "aH",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "87a39eb80951ee300f183e6b104e33c2cae20ceb5a2b88c19b6284749a890b59",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "biquad_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      237
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      34
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "aH",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "87a39eb80951ee300f183e6b104e33c2cae20ceb5a2b88c19b6284749a890b59",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      4
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "aF"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "boolean_value_type",
+          "id": 198,
+          "sourceRuntime": "agh",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "aK",
+              "runtimeClass": "aI",
+              "constructor": {
+                "owner": "aK",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "ba6620349925220f6d025a2c95efb2b9a1403666d875f3f4febc3a4344bf5ee5",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "boolean_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      198
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      75
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "aK",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "ba6620349925220f6d025a2c95efb2b9a1403666d875f3f4febc3a4344bf5ee5",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      13
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "aI"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "decimal_value_type",
+          "id": 123,
+          "sourceRuntime": "rNl",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "aP",
+              "runtimeClass": "aL",
+              "constructor": {
+                "owner": "aP",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 9,
+                "classSha256": "00f343aa10f08b283926fefc0807326a658a6924a3b215bb0c781a5d9862d0be",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 5,
+                    "opcode": 183,
+                    "owner": "bz",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "decimal_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 16,
+                    "args": [
+                      123
+                    ]
+                  },
+                  {
+                    "offset": 5,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      177
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bz",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 8,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "aP",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "00f343aa10f08b283926fefc0807326a658a6924a3b215bb0c781a5d9862d0be",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      19
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "aL"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "indexed_value_type",
+          "id": 155,
+          "sourceRuntime": "hdr",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "aZ",
+              "runtimeClass": "aX",
+              "constructor": {
+                "owner": "aZ",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "66882d6cf286672e3b70d2895ed2d5066ec43d15543348fd2a4d6fe3a13db24c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      7
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "indexed_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      155
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      123
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "aZ",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "66882d6cf286672e3b70d2895ed2d5066ec43d15543348fd2a4d6fe3a13db24c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      20
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "aX"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "integer_value_type",
+          "id": 143,
+          "sourceRuntime": "uaT",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bi",
+              "runtimeClass": "bd",
+              "constructor": {
+                "owner": "bi",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "e06c623aca89e17daa5a736fd119081d561ca7e458b03ed398cd1d5a0955368a",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bz",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      6
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "integer_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      0,
+                      143
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      144
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bz",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bi",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "e06c623aca89e17daa5a736fd119081d561ca7e458b03ed398cd1d5a0955368a",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      20
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bd"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "music_scale_value_type",
+          "id": 5336,
+          "sourceRuntime": "Fev",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bq",
+              "runtimeClass": "bo",
+              "constructor": {
+                "owner": "bq",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "c4f68b19c937c1a75f4662931ef05aa8a78cd6f73a8c0617844e70431ab0d445",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bz",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "music_scale_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      20,
+                      216
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      14
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bz",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bq",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "c4f68b19c937c1a75f4662931ef05aa8a78cd6f73a8c0617844e70431ab0d445",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bo"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "sound_value_type",
+          "id": 272,
+          "sourceRuntime": "UWD",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bC",
+              "runtimeClass": "bA",
+              "constructor": {
+                "owner": "bC",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "b72e6307c7c9f6716dfb8952c50e4c18f18de1cc4607ffb0c8eba9c2d796650b",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bm",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "sound_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      16
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      14
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bm",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bC",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "b72e6307c7c9f6716dfb8952c50e4c18f18de1cc4607ffb0c8eba9c2d796650b",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bA"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "string_value_type",
+          "id": 284,
+          "sourceRuntime": "hVV",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bI",
+              "runtimeClass": "bG",
+              "constructor": {
+                "owner": "bI",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "c1af5046003eab5f50eb74ed592cf85c9ddd808dc44ad693d75abcea2461a8d9",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "string_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      28
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      14
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bI",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "c1af5046003eab5f50eb74ed592cf85c9ddd808dc44ad693d75abcea2461a8d9",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      3
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bG"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "tempo_value_type",
+          "id": 904,
+          "sourceRuntime": "Q3r",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bM",
+              "runtimeClass": "bK",
+              "constructor": {
+                "owner": "bM",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "6f83f095df2d1c4f552eee47125c0e9a6a61cca2b0cb562c196edbe78afe8809",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "aP",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      1
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "tempo_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      3,
+                      136
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      8
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "aP",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bM",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "6f83f095df2d1c4f552eee47125c0e9a6a61cca2b0cb562c196edbe78afe8809",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      4
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bK"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        },
+        {
+          "name": "time_signature_value_type",
+          "id": 275,
+          "sourceRuntime": "Zcl",
+          "count": 1,
+          "status": "unique-constructor-and-class-getter",
+          "matches": [
+            {
+              "descriptor": "bP",
+              "runtimeClass": "bN",
+              "constructor": {
+                "owner": "bP",
+                "name": "<init>",
+                "descriptor": "()V",
+                "flags": 2,
+                "codeBytes": 10,
+                "classSha256": "ec221f6de1d780df540c2b632e354f942d6f37a3d242b3ef4c7aac9c3704f83c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "owner": "bX",
+                    "name": "<init>",
+                    "descriptor": "(Ljava/lang/String;I)V"
+                  }
+                ],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 42,
+                    "args": []
+                  },
+                  {
+                    "offset": 1,
+                    "opcode": 18,
+                    "args": [
+                      8
+                    ],
+                    "constant": {
+                      "tag": 8,
+                      "value": "time_signature_value_type"
+                    }
+                  },
+                  {
+                    "offset": 3,
+                    "opcode": 17,
+                    "args": [
+                      1,
+                      19
+                    ]
+                  },
+                  {
+                    "offset": 6,
+                    "opcode": 183,
+                    "args": [
+                      0,
+                      59
+                    ],
+                    "constant": {
+                      "tag": 10,
+                      "owner": "bX",
+                      "name": "<init>",
+                      "descriptor": "(Ljava/lang/String;I)V"
+                    }
+                  },
+                  {
+                    "offset": 9,
+                    "opcode": 177,
+                    "args": []
+                  }
+                ]
+              },
+              "classGetter": {
+                "owner": "bP",
+                "name": "Hnt",
+                "descriptor": "()Ljava/lang/Class;",
+                "flags": 1,
+                "codeBytes": 3,
+                "classSha256": "ec221f6de1d780df540c2b632e354f942d6f37a3d242b3ef4c7aac9c3704f83c",
+                "exceptionHandlers": [],
+                "branches": [],
+                "references": [],
+                "instructions": [
+                  {
+                    "offset": 0,
+                    "opcode": 18,
+                    "args": [
+                      11
+                    ],
+                    "constant": {
+                      "tag": 7,
+                      "value": "bN"
+                    }
+                  },
+                  {
+                    "offset": 2,
+                    "opcode": 176,
+                    "args": []
+                  }
+                ]
+              }
+            }
+          ],
+          "runtimeObserved": false
+        }
+      ],
+      "methodsScanned": 393713,
+      "instructionsDecoded": 80844,
+      "boundedAdmission": false,
+      "writeAuthority": false
+    }
+  ]
+}
