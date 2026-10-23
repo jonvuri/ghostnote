@@ -1946,6 +1946,53 @@ established cause. The pass did not complete, so no teardown, core, or
 whole-pass figure exists. All admitted bounds held on the measured calls.
 Product budgets, descriptions, and latency claims are unchanged.
 
+## 9b.6j owned-tree census and third guarded pass — model before implementation
+
+The third pass keeps the 9b.6i command, read, task, and wire budgets.
+The guard set grows from 33 to 36 exact classes. Preparation adds three
+class loads without initialization. The disposal check keeps its 256-node
+and 12-level limits. A shared rule accepts inert class names in the harness;
+the live adapter supplies each object's exact class and owner. This adds
+one class-name function call per node, with no added reflective host call.
+The third-pass policy reads seven preserved records, nine prior receipts,
+one inspection, and one `rig.stats` result. Each JSON policy input is at
+most 128 KiB. The 39-call baseline check is unchanged.
+
+The offline census reads each jar as data under the existing 120-second
+jar limit and 768 MiB RSS limit. It caps each receiver at 4,096 reached
+methods, static depth at six, helper depth at two, and output at 2 MiB.
+The class worklist is capped at 128 entries. These are investigation
+limits, not a proof of all runtime objects. The live exact-class guard
+still refuses any class outside the derived set. Compare each third-pass
+command with E316, E339, and E340. Do not repeat an uncertain command.
+
+[E341](../evidence/experiments/e341-grid-doctor-614-owned-tree-preparation.md)
+reproduces the census in 5,667.749 ms on 6.0.6 and 5,839.649 ms on 6.1.4.
+Peak process RSS is 195,231,744 and 208,322,560 bytes; both run in one
+process. Resource preparation takes 5,582.541 ms and 189,775,872 bytes
+peak RSS. The new guard resource is 9,140 bytes (378 more than E339).
+At E341, the baseline check sends 39 calls and the live pass has not run.
+
+[E342](../evidence/experiments/e342-grid-doctor-614-acceptance.md) completes
+the third pass: 543 calls, 14,989.423 ms summed wire time, 16,255 ms from
+attempt record to cache, and 57 doctor document tasks. The 76 roles and
+all preserved-state checks pass. The baseline after replacement adds
+39 read calls; the guard-metadata check adds two; final verification adds
+seven. None of these creates a scratch object or sends a native command.
+
+Entry-field guards take 1.076 ms first and 0.013–0.071 ms later. The disposal
+guard accepts 77 nodes, one managed node, and depth five. Native disposal
+takes 0.678 ms (E316: 0.550 ms, +23.2 percent); the whole disposal document
+task takes 3.192 ms. The owned-tree traversal is outside both the native
+timer and the entry-field `guardNanos`; no separate traversal time exists.
+Ten native samples exceed E316 by more than 20 percent, two exceed E339,
+and four exceed E340. Causes remain unknown; no command is repeated and
+no stable performance bound is claimed. Total doctor document work is
+305.507 ms. Maximum command task time is 37.238 ms, maximum command queue
+time is 0.181 ms, and all-task heap samples peak at 685,768,704 bytes.
+D53's ordinary-reply recording adds at most 4 KiB of local input and no
+host call. Product call budgets and public descriptions do not change.
+
 ## 9b.6i recovered baseline and second guarded pass — model before implementation
 
 The second pass keeps the 9b.6h model: 16 native command requests, 38

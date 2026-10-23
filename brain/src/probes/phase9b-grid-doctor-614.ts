@@ -3,9 +3,11 @@
  * The V20 driver (phase9b-grid-doctor.ts) stays pinned to 6.0.6 and its E313 retry record.
  * This driver uses its own candidate directory, first-attempt policy, guard receipt checks,
  * and timing comparison. A durable attempt file prevents automatic retries.
- * Argv: <new absolute output directory> <consent>. This is a live writer.
+ * Argv: <new absolute output directory> <internal consent token> [--operator-reply <actual reply>].
+ * Obtain ordinary approval for the stated scope. Do not ask the operator to repeat a token. This is a live writer.
  * 9b.6i adds one explicit second pass after E339's uncertain mapping removal and the operator's restart:
  * <output> <second-pass consent> --second-pass-after-uncertain-write <attempt-6 evidence directory>.
+ * 9b.6j adds one third pass with --third-pass-after-owned-tree-refusal <second-pass evidence directory>.
  */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -28,7 +30,7 @@ export const GUARD_CHECKS = ['projectDocumentClass', 'sameManager', 'helperList'
 export const OWNED_TREE_NODES = 77;
 const ROOT = join(import.meta.dirname, '../../..');
 export const DATA = join(ROOT, 'context/evidence/data/phase9b-doctor');
-export const CANDIDATE_DIRECTORY = join(DATA, '614-guarded');
+export const CANDIDATE_DIRECTORY = join(DATA, '614-census/prepared');
 export const ATTEMPTS = join(ROOT, '.local/grid-doctor');
 const OLD_KEY = 'fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a';
 /** The 6.0.6 records in the attempt directory and their committed copies (relative to DATA). */
@@ -45,7 +47,8 @@ export const REFUSED_PREFLIGHT_ERRORS = ['BridgeError: Internal error: unsupport
 export type Timing = { action: string; nativeCommandNanos: number };
 export type TimingRow = { action: string; e316Nanos: number | null; v21Nanos: number;
   percentChange: number | null; over20Percent: boolean;
-  e339Nanos: number | null; percentChangeE339: number | null; over20PercentE339: boolean };
+  e339Nanos: number | null; percentChangeE339: number | null; over20PercentE339: boolean;
+  e340Nanos: number | null; percentChangeE340: number | null; over20PercentE340: boolean };
 
 const sha256 = (bytes: Buffer | string) => createHash('sha256').update(bytes).digest('hex');
 const load = (path: string): Wire => {
@@ -68,7 +71,7 @@ const attemptName = (key: string, ordinal: number) => `${key}.attempt${ordinal =
 /**
  * 9b.6i: the explicit second pass after the sixth 9b.6h attempt left the mapping removal uncertain and the
  * operator restarted Bitwig. It is the one planned exception to the one-attempt rule on the 6.1.4
- * fingerprint. The host keeps its pinned consent token (CONSENT) at bind; this string is the operator's answer.
+ * fingerprint. The host keeps CONSENT at bind. These strings are internal scope tokens, not required operator wording.
  */
 export const SECOND_PASS_POLICY = '9b.6i-second-pass-after-uncertain-write-v1';
 export const SECOND_PASS_CONSENT = 'I saved first. Bitwig was restarted after the sixth 6.1.4 attempt, and the read-only baseline check passed. I consent to one second guarded scratch doctor pass on the 6.1.4 fingerprint under the 9b.6i exception, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.';
@@ -78,6 +81,71 @@ export const PRIOR_614_RECORDS: [string, string][] = [1, 2, 3, 4, 5, 6].map(ordi
   const name = attemptName(PRIOR_614_KEY, ordinal); return [name, `614-second-pass/prior-attempts/${name}`];
 });
 export const secondPassName = (key: string) => `${key}.second-pass.attempt.json`;
+export const THIRD_PASS_POLICY = '9b.6j-third-pass-after-owned-tree-refusal-v1';
+export const THIRD_PASS_CONSENT = 'I saved first. Bitwig was restarted after the second 6.1.4 pass, and the read-only baseline check passed. I consent to one third guarded scratch doctor pass on the 6.1.4 fingerprint under the 9b.6j exception, with the revised owned-tree guard, boolean and mapping checks, and the cold first factory call. A failed check can require a Bitwig restart.';
+export const thirdPassName = (key: string) => `${key}.third-pass.attempt.json`;
+export const THIRD_PASS_PRIOR_RECORDS: [string, string][] = [...PRIOR_614_RECORDS,
+  [secondPassName(PRIOR_614_KEY), '614-second-pass/second-pass-attempt-record.json']];
+export const SECOND_PASS_COMMANDS = [
+  'preset-0-stage-0-command.json', 'preset-0-stage-1-command.json',
+  'preset-1-stage-0-command.json', 'preset-1-stage-1-command.json',
+  ...[0, 1, 2, 3, 4].map(stage => `preset-2-stage-${stage}-command.json`),
+];
+
+/** Require the seven preserved records and the exact E340 stop before a third pass. */
+export function requireThirdPassAdmission(directory: string, key: string, evidence: string,
+  hostStartedMs: number, data = DATA, priorRecords = THIRD_PASS_PRIOR_RECORDS): string[] {
+  assert.ok(!existsSync(join(directory, `${key}.accepted.json`)), 'already-accepted');
+  assert.ok(!existsSync(join(directory, thirdPassName(key))), 'third-pass-already-recorded');
+  assert.equal(priorRecords.length, 7, 'seven-prior-records-required');
+  assert.deepEqual(readdirSync(directory).filter(name => name.startsWith(`${key}.`)).sort(),
+    priorRecords.map(([name]) => name).sort(), 'unexpected-prior-records');
+  const hashes = priorRecords.map(([local, committed]) => {
+    assert.ok(statSync(join(directory, local)).size <= 128 * 1024, 'doctor-input-limit');
+    assert.ok(statSync(join(data, committed)).size <= 128 * 1024, 'doctor-input-limit');
+    const bytes = readFileSync(join(directory, local));
+    assert.ok(bytes.equals(readFileSync(join(data, committed))), `prior-record-changed:${local}`);
+    return sha256(bytes);
+  });
+  const last = load(join(directory, priorRecords[6]![0]));
+  assert.equal(last.output, evidence, 'second-pass-evidence-mismatch');
+  assert.equal(last.policy, SECOND_PASS_POLICY, 'second-pass-policy');
+  assert.equal(last.marker, MARKER); assert.equal(last.hostVersion, HOST_VERSION); assert.equal(last.writeAuthority, false);
+  const files = readdirSync(evidence);
+  assert.deepEqual(files.filter(name => /^preset-\d+-stage-\d+-command\.json$/.test(name)).sort(),
+    SECOND_PASS_COMMANDS, 'second-pass-command-receipts');
+  assert.deepEqual(files.filter(name => /^preset-\d+-inspection\.json$/.test(name)),
+    ['preset-2-inspection.json'], 'second-pass-inspection');
+  assert.ok(!files.includes('accepted.json') && !files.includes('results.json'), 'prior-pass-completed');
+  // Compare the evidence bytes with E340. Filenames alone do not prove the stop.
+  for (const name of [...SECOND_PASS_COMMANDS, 'preset-2-inspection.json', 'exit.json', 'failure.json']) {
+    for (const path of [join(evidence, name), join(data, '614-second-pass/live-v21-second-pass', name)])
+      assert.ok(statSync(path).size <= 128 * 1024, 'doctor-input-limit');
+    assert.ok(readFileSync(join(evidence, name)).equals(readFileSync(join(data, '614-second-pass/live-v21-second-pass', name))),
+      `second-pass-evidence-changed:${name}`);
+  }
+  const exit = load(join(evidence, 'exit.json')), failure = load(join(evidence, 'failure.json'));
+  assert.equal(exit.completedPresets, 2); assert.equal(exit.uncertain, true);
+  assert.equal(typeof exit.scratch, 'string'); assert.equal(failure.scratch, exit.scratch); assert.equal(failure.uncertain, true);
+  assert.equal(failure.error, 'BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: doctor-owned-tree-class:wKx');
+  const inspection = load(join(evidence, 'preset-2-inspection.json'));
+  assert.equal(inspection.snapshot.ownedObjects, OWNED_TREE_NODES);
+  const started = Date.parse(last.started);
+  assert.ok(Number.isFinite(started) && Number.isFinite(hostStartedMs) && hostStartedMs > started,
+    'host-not-restarted-after-second-pass');
+  return hashes;
+}
+
+/** Create one third-pass record. Never change a prior record. */
+export function recordThirdPassAttempt(directory: string, key: string, fingerprint: string, consent: string,
+  evidence: string, hostStartedMs: number, details: Wire, data = DATA, priorRecords = THIRD_PASS_PRIOR_RECORDS) {
+  assert.equal(consent, THIRD_PASS_CONSENT, 'third-pass-consent-required');
+  const priorAttemptSha256 = requireThirdPassAdmission(directory, key, evidence, hostStartedMs, data, priorRecords);
+  writeFileSync(join(directory, thirdPassName(key)), JSON.stringify({ ...details, fingerprint, consent,
+    hostConsentToken: CONSENT, policy: THIRD_PASS_POLICY, priorAttempts: priorRecords.map(([local]) => local),
+    priorAttemptSha256, secondPassEvidence: evidence, hostStartedMs, marker: MARKER, hostVersion: HOST_VERSION,
+    started: new Date().toISOString(), writeAuthority: false }, null, 2) + '\n', { flag: 'wx' });
+}
 /** The command receipts and the inspection that the sixth attempt's evidence must contain, and nothing later. */
 export const UNCERTAIN_EVIDENCE_COMMANDS = ['preset-0-stage-0-command.json', 'preset-0-stage-1-command.json',
   'preset-1-stage-0-command.json'];
@@ -117,7 +185,7 @@ export function requireSecondPassAdmission(directory: string, key: string, uncer
     'host-not-restarted-after-uncertain-write');
   return hashes;
 }
-/** Record the second pass. The consent is the operator's exact answer; the host token stays CONSENT. */
+/** Record the second pass and its internal scope token. Keep the actual operator reply in details or linked evidence. */
 export function recordSecondPassAttempt(directory: string, key: string, fingerprint: string, consent: string,
   uncertainEvidence: string, hostStartedMs: number, details: Wire, data = DATA, priorRecords = PRIOR_614_RECORDS) {
   assert.equal(consent, SECOND_PASS_CONSENT, 'second-pass-consent-required');
@@ -168,7 +236,7 @@ export function requireRefusedPreflights(directory: string, key: string, priorEv
   });
 }
 
-/** Record the retry as the next numbered attempt. Both consent strings are the operator's exact answers. */
+/** Record the retry and its internal scope tokens. Ordinary operator approval supplies authorization. */
 export function recordRetryAttempt(directory: string, key: string, fingerprint: string, consent: string,
   retryConsent: string, priorEvidence: string[], details: Wire) {
   assert.equal(consent, CONSENT, 'guarded-pass-consent-required');
@@ -209,7 +277,7 @@ export function requireCandidate(candidate: Wire, selectors: Wire, guards: Wire)
   assert.equal(guards.fields.length, 5);
   assert.deepEqual(guards.fields.map((f: Wire) => f.role).sort(), [...GUARD_FIELD_ROLES].sort());
   for (const f of guards.fields) assert.ok(['empty', 'null', 'false'].includes(f.check), 'guard-check');
-  assert.equal(guards.ownedTree.classes.length, 33);
+  assert.equal(guards.ownedTree.classes.length, 36);
   const managed = guards.ownedTree.classes.filter((c: Wire) => c.managed === true).map((c: Wire) => c.name);
   assert.equal(managed.length, 1, 'one-managed-class');
   assert.deepEqual(guards.ownedTree.managed, managed); assert.equal(guards.ownedTree.managedNodes, 1);
@@ -304,9 +372,10 @@ export async function runDoctorCase(request: Request, target: Wire, candidate: W
 
 export type PrepareContext = {
   attempts: string; key: string; fingerprint: string; consent: string; selectorSha256: string;
-  guardsSha256: string; candidateSha256: string; output: string; data?: string;
+  guardsSha256: string; candidateSha256: string; output: string; data?: string; operatorReply?: string;
   retry?: { priorEvidence: string[]; retryConsent: string };
   secondPass?: { uncertainEvidence: string };
+  thirdPass?: { secondPassEvidence: string };
 };
 /** Check the host and the prepared doctor, then record the first attempt. */
 export async function prepareDoctor(request: Request, save: (name: string, value: unknown) => void,
@@ -320,14 +389,20 @@ export async function prepareDoctor(request: Request, save: (name: string, value
   assert.equal(prepared.metadata.members, 76); assert.equal(prepared.metadata.types, 55);
   assert.equal(prepared.used, false); assert.equal(prepared.failed, false);
   if (context.retry) { assert.equal(prepared.phase, 0, 'retry-needs-unused-doctor'); assert.equal(prepared.bound, false); }
-  if (context.secondPass) { assert.equal(prepared.phase, 0, 'second-pass-needs-unused-doctor'); assert.equal(prepared.bound, false); }
+  if (context.secondPass || context.thirdPass) { assert.equal(prepared.phase, 0, 'second-pass-needs-unused-doctor'); assert.equal(prepared.bound, false); }
   const g = prepared.guards;
   assert.equal(g?.format, GUARD_FORMAT); assert.equal(g.types, 1); assert.equal(g.fields, 5);
-  assert.equal(g.ownedTreeClasses, 33);
+  assert.equal(g.ownedTreeClasses, 36);
   assert.equal(g.guardsSha256, context.guardsSha256, 'host-guards-differ');
   assert.equal(g.candidateSha256, context.candidateSha256, 'host-candidate-differs');
-  const details = { host, output: context.output, guardsSha256: context.guardsSha256, candidateSha256: context.candidateSha256 };
-  if (context.secondPass) {
+  const details = { host, output: context.output, guardsSha256: context.guardsSha256, candidateSha256: context.candidateSha256,
+    ...(context.operatorReply === undefined ? {} : { operatorReply: context.operatorReply }) };
+  assert.ok([context.retry, context.secondPass, context.thirdPass].filter(Boolean).length <= 1, 'attempt-policy-conflict');
+  if (context.thirdPass) {
+    const stats = await request('rig.stats');
+    recordThirdPassAttempt(context.attempts, context.key, context.fingerprint, context.consent,
+      context.thirdPass.secondPassEvidence, stats.initEpochMs, { ...details, hostStats: stats }, context.data);
+  } else if (context.secondPass) {
     // The host start time proves the restart after the uncertain write. It is read, never inferred.
     const stats = await request('rig.stats');
     assert.ok(Number.isFinite(stats.initEpochMs) && stats.initEpochMs > 0, 'host-start-unknown');
@@ -340,6 +415,7 @@ export async function prepareDoctor(request: Request, save: (name: string, value
 
 export const E316_SAMPLE = join(DATA, 'live-v20');
 export const E339_SAMPLE = join(DATA, '614-guarded/live-v21-attempt-6');
+export const E340_SAMPLE = join(DATA, '614-second-pass/live-v21-second-pass');
 /** Read the native command receipts of a recorded pass, in preset and stage order. */
 export function loadCommandSample(directory: string): Timing[] {
   const pattern = /^preset-(\d+)-stage-(\d+)-command\.json$/;
@@ -355,32 +431,50 @@ export const loadE316Sample = (directory = E316_SAMPLE) => loadCommandSample(dir
 /** The E339 attempt-6 sample (V21 on 6.1.4): boolean enable, boolean restore, and the uncertain mapping removal. */
 export const loadE339Sample = (directory = E339_SAMPLE) => loadCommandSample(directory);
 
-/** Compare command times with the E316 sample and the E339 attempt-6 sample. The result is data; it is not a gate. */
-export function compareTiming(baseline: Timing[], current: Timing[], priorAttempt: Timing[] = []): TimingRow[] {
+/** Compare command times with E316, E339, and E340. The result is data, not an admission gate. */
+export function compareTiming(baseline: Timing[], current: Timing[], priorAttempt: Timing[] = [], secondPass: Timing[] = []): TimingRow[] {
   const prior = new Map(baseline.map(r => [r.action, r.nativeCommandNanos]));
   const attempt = new Map(priorAttempt.map(r => [r.action, r.nativeCommandNanos]));
+  const second = new Map(secondPass.map(r => [r.action, r.nativeCommandNanos]));
   const change = (reference: number | undefined, value: number) =>
     reference && reference > 0 ? (value - reference) / reference * 100 : null;
   return current.map(({ action, nativeCommandNanos }) => {
-    const e316 = prior.get(action), e339 = attempt.get(action);
+    const e316 = prior.get(action), e339 = attempt.get(action), e340 = second.get(action);
+    const percentChangeE340 = change(e340, nativeCommandNanos);
     const percentChange = change(e316, nativeCommandNanos), percentChangeE339 = change(e339, nativeCommandNanos);
     return { action, e316Nanos: e316 ?? null, v21Nanos: nativeCommandNanos, percentChange,
       over20Percent: percentChange !== null && percentChange > 20,
-      e339Nanos: e339 ?? null, percentChangeE339, over20PercentE339: percentChangeE339 !== null && percentChangeE339 > 20 };
+      e339Nanos: e339 ?? null, percentChangeE339, over20PercentE339: percentChangeE339 !== null && percentChangeE339 > 20,
+      e340Nanos: e340 ?? null, percentChangeE340, over20PercentE340: percentChangeE340 !== null && percentChangeE340 > 20 };
   });
 }
 
+/** Retain an ordinary reply as evidence. Authorization comes from the conversation, not a text matcher. */
+export function operatorReplyArgument(input: string[]): { argv: string[]; operatorReply?: string } {
+  const argv = [...input], index = argv.indexOf('--operator-reply');
+  if (index === -1) return { argv };
+  assert.equal(argv.lastIndexOf('--operator-reply'), index, 'duplicate-operator-reply');
+  const operatorReply = argv[index + 1];
+  assert.ok(typeof operatorReply === 'string' && operatorReply.trim().length > 0
+    && Buffer.byteLength(operatorReply) <= 4096, 'operator-reply-required');
+  argv.splice(index, 2);
+  return { argv, operatorReply };
+}
+
 async function main() {
-  const argv = process.argv.slice(2);
+  const { argv, operatorReply } = operatorReplyArgument(process.argv.slice(2));
   const [output, consent, flag] = argv;
-  assert.ok([2, 4, 5].includes(argv.length), 'argv: <output> <consent> [--retry-after-refused-preflight <prior evidence dirs, comma separated> <retry consent>] | [--second-pass-after-uncertain-write <uncertain evidence dir>]');
+  assert.ok([2, 4, 5].includes(argv.length), 'argv: <output> <consent> [--retry-after-refused-preflight <prior evidence dirs, comma separated> <retry consent>] | [--second-pass-after-uncertain-write <uncertain evidence dir>] | [--third-pass-after-owned-tree-refusal <second-pass evidence dir>]');
   assert.ok(output && isAbsolute(output));
   const retry = argv.length === 5 ? { priorEvidence: argv[3]!.split(','), retryConsent: argv[4]! } : undefined;
-  const secondPass = argv.length === 4 ? { uncertainEvidence: argv[3]! } : undefined;
+  const secondPass = argv.length === 4 && flag === '--second-pass-after-uncertain-write' ? { uncertainEvidence: argv[3]! } : undefined;
+  const thirdPass = argv.length === 4 && flag === '--third-pass-after-owned-tree-refusal' ? { secondPassEvidence: argv[3]! } : undefined;
+  if (argv.length === 4) assert.ok(secondPass || thirdPass, 'unknown-pass-policy');
+  if (thirdPass) assert.ok(isAbsolute(thirdPass.secondPassEvidence));
   if (retry) { assert.equal(flag, '--retry-after-refused-preflight'); assert.ok(retry.priorEvidence.every(isAbsolute)); assert.equal(retry.retryConsent, RETRY_CONSENT); }
   if (secondPass) { assert.equal(flag, '--second-pass-after-uncertain-write'); assert.ok(isAbsolute(secondPass.uncertainEvidence)); }
-  // The second pass records the operator's new answer; every other form records the pinned consent.
-  assert.equal(consent, secondPass ? SECOND_PASS_CONSENT : CONSENT);
+  // Scope tokens are internal. The operator can approve the stated scope in ordinary language.
+  assert.equal(consent, thirdPass ? THIRD_PASS_CONSENT : secondPass ? SECOND_PASS_CONSENT : CONSENT);
   const candidateBytes = readFileSync(join(CANDIDATE_DIRECTORY, 'candidate.json'));
   const guardsBytes = readFileSync(join(CANDIDATE_DIRECTORY, 'guards.json'));
   const candidate = load(join(CANDIDATE_DIRECTORY, 'candidate.json'));
@@ -402,11 +496,11 @@ async function main() {
   };
   mkdirSync(ATTEMPTS, { recursive: true });
   const key = sha256(fingerprint);
-  const e316 = loadE316Sample(), e339 = loadE339Sample();
+  const e316 = loadE316Sample(), e339 = loadE339Sample(), e340 = loadCommandSample(E340_SAMPLE);
   await runSurvey(['gn-grid-spike', output, join(DATA, 'plan.json')], {
     marker: MARKER, stopOnRefusal: true, budget: { calls: 1500, milliseconds: 900_000, bytes: 64 * 1024 * 1024 },
     prepare: (request, save) => prepareDoctor(request, save, { attempts: ATTEMPTS, key, fingerprint, consent: consent!,
-      selectorSha256: candidate.selectorSha256, guardsSha256, candidateSha256, output, retry, secondPass }),
+      selectorSha256: candidate.selectorSha256, guardsSha256, candidateSha256, output, retry, secondPass, thirdPass, operatorReply }),
     run: (request, target, c, save) => runDoctorCase(request, target, { ...c, types: candidate.types }, save, fingerprint, groups[c.case]!),
     async complete(request, results, before, after) {
       assert.deepEqual(after, before);
@@ -415,14 +509,15 @@ async function main() {
       requireOldRecordsPreserved(ATTEMPTS);
       const accepted = { fingerprint, selectorSha256: candidate.selectorSha256, hostVersion: HOST_VERSION,
         marker: MARKER, guardsSha256, candidateSha256, retry: retry ?? null,
+        thirdPass: thirdPass ? { ...thirdPass, policy: THIRD_PASS_POLICY } : null,
         secondPass: secondPass ? { ...secondPass, policy: SECOND_PASS_POLICY } : null, verdict: 'accepted', roles: results, teardown: state,
         baselineVerified: true, completed: new Date().toISOString(), evidence: output, writeAuthority: false };
       // This cache is research evidence. Product paths do not consume it.
       writeFileSync(join(ATTEMPTS, `${key}.accepted.json`), JSON.stringify(accepted, null, 2) + '\n', { flag: 'wx' });
       writeFileSync(join(output, 'accepted.json'), JSON.stringify(accepted, null, 2) + '\n', { flag: 'wx' });
-      const rows = compareTiming(e316, results.flatMap(r => r.timings as Timing[]), e339);
+      const rows = compareTiming(e316, results.flatMap(r => r.timings as Timing[]), e339, e340);
       writeFileSync(join(output, 'timing-comparison.json'), JSON.stringify({ baseline: 'E316 live-v20',
-        priorAttempt: 'E339 live-v21-attempt-6', threshold: 20, gate: false, rows }, null, 2) + '\n', { flag: 'wx' });
+        priorAttempt: 'E339 live-v21-attempt-6', secondPass: 'E340 live-v21-second-pass', threshold: 20, gate: false, rows }, null, 2) + '\n', { flag: 'wx' });
     },
   });
 }

@@ -1,0 +1,52 @@
+{
+  "schema": "ghostnote-track-mixer-set/1",
+  "applied": true,
+  "effects": [
+    {
+      "changeId": "7e9331cd-a03a-4112-91b8-5fbf4aa4d2af",
+      "target": {
+        "trackIds": [
+          "0c94d983-0564-47b2-8e7f-50ef4f9895d1"
+        ]
+      },
+      "summary": "Set 1 mixer field(s) on 1 track(s).",
+      "fidelity": "exact"
+    }
+  ],
+  "readback": {
+    "status": "verified",
+    "tracks": [
+      {
+        "trackId": "0c94d983-0564-47b2-8e7f-50ef4f9895d1",
+        "name": "gn-9b-write-aa63fe2f-1e89-43ea-a492-64ff0b100962",
+        "fields": {
+          "mute": {
+            "status": "verified",
+            "requested": true,
+            "value": true
+          }
+        }
+      }
+    ]
+  },
+  "next": {
+    "revert": {
+      "tool": "revert_change",
+      "changeId": "7e9331cd-a03a-4112-91b8-5fbf4aa4d2af"
+    }
+  },
+  "warnings": [
+    {
+      "code": "immediate-playback",
+      "message": "Each mixer change is audible at once if the transport plays."
+    }
+  ],
+  "timing": {
+    "totalMs": 242
+  },
+  "target": {
+    "trackIds": [
+      "0c94d983-0564-47b2-8e7f-50ef4f9895d1"
+    ]
+  }
+}

@@ -2,8 +2,8 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E337 links 36 executable contracts and nine fields on 6.1.4. Complete bindings and bounded admission remain unproved. Next is sustained 9b.6g work through probe preparation or a concrete external blocker.
-updated: 2026-10-21
+status: E342 completes the 6.1.4 guarded doctor. E316 and E342 close step 2 with passes on both builds. Next is 9b.7, product cache enforcement and toolkit consolidation.
+updated: 2026-10-23
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
 ---
@@ -107,6 +107,11 @@ all Grid paths; a list of module families the read path handles.
 
 ## Step 2 — Build symbol discovery
 
+**Complete for the fixed research scope.** [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md)
+passes on 6.0.6. [E342](../../evidence/experiments/e342-grid-doctor-614-acceptance.md)
+passes on 6.1.4 under D52. Each covers all 76 roles, teardown, independent
+readback, and preserved state. Product cache enforcement remains in 9b.7.
+
 Question: on a new Bitwig build, can Ghostnote re-resolve the Grid symbols at
 runtime, validate them with a consent-gated self-test on a scratch track, and
 cache the result per build fingerprint?
@@ -162,11 +167,37 @@ Sessions:
   fields, and traces the managed-ID bootstraps. E338 closes 9b.6g: all
   roles resolve on both jars, but complete offline bounded admission does
   not converge. D52 adopts guarded runtime admission. Session 9b.6h
-  prepares the guarded doctor. Record changed symbols and logic
-  separately. Step 2 remains incomplete.
+  prepares the guarded doctor. E340 identifies the missing owned-tree class.
+  E341 prepares the corrected guard. E342 passes all roles on 6.1.4 and
+  closes the two-build research result. Changed symbols and logic are
+  recorded separately.
 - **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
-  descriptions bump and the usual tool-addition consumers.
+  descriptions bump and the usual tool-addition consumers. Sources: E316,
+  [E342](../../evidence/experiments/e342-grid-doctor-614-acceptance.md),
+  [D52](../../decisions/d52-grid-upgrade-admission-policy.md), and
+  [D53](../../decisions/d53-ordinary-operator-consent.md). Consolidate the
+  reusable diagnostic toolkit and remove the session-owned `/tmp` files
+  after their evidence is preserved. Use ordinary operator consent and
+  keep internal scope tokens separate from the actual reply.
+
+  Include one lightweight offline upgrade rehearsal as an acceptance check.
+  Run the consolidated tool in an isolated workspace with the accepted
+  6.0.6 baseline, the 6.1.4 jar as an unknown candidate, and documented
+  general rules. Exclude saved 6.1.4 answers: caches, resolved tables,
+  checkpoint reports, and prior verdicts. Use the current tools; an old
+  commit is not required. Check that the tool derives the candidate
+  fingerprint, resolves roles, reports body changes, and derives the
+  owned-class inventory, or gives a specific reason for refusal. Record
+  the command, inputs, result, and any manual steps in the session evidence.
+  Fix dependencies on excluded files that prevent this workflow.
+
+  Keep this check small. Reuse existing offline tests; do not reconstruct
+  the research history or repeat the accepted live doctor. This rehearsal
+  checks reproducibility without saved answers. It is not a blind test:
+  the tools already reflect what we learned from 6.1.4. Test the same
+  workflow on the next available minor version during its upgrade session;
+  that is the stronger test of reuse and does not block 9b.7.
 
 Notes: both installs load the same archive from
 `~/Documents/Bitwig Studio/Extensions`; the jar-hash gate makes that safe.
@@ -1703,6 +1734,14 @@ the toolkit consolidation, the `/tmp` cleanup, and public descriptions.
 
 ### Session 9b.6j — Owned-tree census and third guarded pass
 
+**Complete.** [E341](../../evidence/experiments/e341-grid-doctor-614-owned-tree-preparation.md)
+records preparation. [E342](../../evidence/experiments/e342-grid-doctor-614-acceptance.md)
+records the accepted third pass: all 76 roles, 16 commands, 19 readback
+pairs, teardown, and preserved state pass. E316 and E342 close step 2.
+Keep all eight 6.1.4 attempts and the cache. Do not run the accepted doctor
+again. D53 replaces prescribed operator wording with ordinary approval;
+internal driver tokens and all runtime guards remain.
+
 **Source.** [E340](../../evidence/experiments/e340-grid-doctor-614-second-guarded-pass.md),
 its `614-second-pass/` evidence, the seven attempt records under
 `.local/grid-doctor/`, [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
@@ -1723,7 +1762,7 @@ one-attempt rule for the 6.1.4 fingerprint after the 9b.6i second pass.
    reads through the owned-tree rule. Keep the exact-class, single
    managed-node, node, and depth checks. Build with `copyProbeExtension`
    and record the archive hash.
-3. **Third pass policy.** Add a third-pass argument and consent string to
+3. **Third pass policy.** Add a third-pass argument and internal scope token to
    the V21 driver that requires the seven records byte-equal to committed
    copies, the second-pass evidence with exactly the nine E340 command
    receipts and one inspection, and a host start after the second pass.

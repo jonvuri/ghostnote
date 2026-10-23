@@ -18,6 +18,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E342 | 9b.6j third guarded pass accepted on 6.1.4: 76 roles, 16 commands, 19 independent pairs, disposal, both Undo stages, teardown, and preserved state pass; research cache written; E316 plus E342 close the two-build check; D53 removes prescribed operator wording [K] (2026-10-23) | [open](experiments/e342-grid-doctor-614-acceptance.md) |
+| E341 | 9b.6j preparation: 36 corresponding owned-tree classes on both builds, revised guard and third-pass policy tested and deployed; baseline preserved; controller replacement and live pass pending [K] (2026-10-23) | [open](experiments/e341-grid-doctor-614-owned-tree-preparation.md) |
 | E340 | 9b.6i second guarded doctor pass on 6.1.4: boolean and mapping cases pass with guards and paired readback, core passes 5 of 12 commands, the disposal entry guard refuses on an unpinned owned-tree class (wKx); recovered by restart; no cache [K] (2026-10-23) | [open](experiments/e340-grid-doctor-614-second-guarded-pass.md) |
 | E339 | 9b.6h guarded doctor on 6.1.4: body-change report, D52 guards, V21 probe; boolean case passes with guards, mapping removal ran once as an uncertain write on a pinned fixture rule; recovered by restart; no cache [K] (2026-10-23) | [open](experiments/e339-grid-doctor-614-guarded-attempt.md) |
 | E338 | 9b.6g close-out: all roles resolve on both jars; conditional bounds for HashMap, collector, factory, command cores, and history hold but offline bounded admission does not converge; D52 adopts guarded runtime admission; no live work [K] (2026-10-22) | [open](experiments/e338-grid-doctor-614-offline-closeout.md) |

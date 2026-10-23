@@ -1,0 +1,24 @@
+
+> ghostnote-brain@0.0.1 test
+> tsx --test "src/**/*.test.ts"
+
+node:net:1918
+      const error = new UVExceptionWithHostPort(rval, 'listen', address, port);
+                    ^
+
+Error: listen EPERM: operation not permitted /var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/tsx-501/13097.pipe
+    at Server.setupListenHandle [as _listen2] (node:net:1918:21)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2119:5)
+    at file:///Users/jonvuri/Development/ghostnote/brain/node_modules/tsx/dist/cli.mjs:53:31472
+    at new Promise (<anonymous>)
+    at createIpcServer (file:///Users/jonvuri/Development/ghostnote/brain/node_modules/tsx/dist/cli.mjs:53:31450)
+    at async file:///Users/jonvuri/Development/ghostnote/brain/node_modules/tsx/dist/cli.mjs:55:500 {
+  code: 'EPERM',
+  errno: -1,
+  syscall: 'listen',
+  address: '/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/tsx-501/13097.pipe',
+  port: -1
+}
+
+Node.js v24.11.1

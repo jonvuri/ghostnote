@@ -1,0 +1,46 @@
+{
+  "commands": 16,
+  "guardNanos": [
+    1076167,
+    15000,
+    40292,
+    12667,
+    13500,
+    71167,
+    39084,
+    16042,
+    34292,
+    28542,
+    16750,
+    13458,
+    59333,
+    40458,
+    42833,
+    25167
+  ],
+  "over20E316": [
+    "boolean-enable",
+    "value-restore",
+    "cable-connect",
+    "cable-disconnect",
+    "factory-dispose",
+    "delete-connect",
+    "delete",
+    "undo-delete",
+    "delete-disconnect",
+    "attach"
+  ],
+  "over20E339": [
+    "boolean-restore",
+    "mapping-remove"
+  ],
+  "over20E340": [
+    "boolean-restore",
+    "value-set",
+    "cable-connect",
+    "cable-disconnect"
+  ],
+  "maxCommandDocumentTaskNanos": 37238208,
+  "maxCommandQueueNanos": 181375,
+  "maxCommandHeapAfter": 679477248
+}

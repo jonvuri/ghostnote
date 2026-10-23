@@ -2,7 +2,10 @@
 
 The output is candidate metadata for the research probe. It grants no write
 authority. Every pin is verified against the jar as data. No vendor class is
-loaded or initialized, and no host request is sent.
+loaded or initialized, and no host request is sent. The owned-tree classes
+come from the checkpoint-17 collector report (9b.6h) or from an owned-census
+report (9b.6j). An earlier candidate can be reused byte for byte when this
+scan reproduces its table.
 """
 import argparse
 import copy
@@ -136,11 +139,29 @@ def verify_disposal_call(jar, types, pin, table_rows):
         raise Refusal('guard-disposal-tail-call-missing')
 
 
+CENSUS_FORMAT = 'grid-doctor-owned-census-v1'
+
+
+def owned_tree_rows(jar, plan, report):
+    """Owned-tree class rows from a collector report (9b.6h) or a census report (9b.6j)."""
+    if report.get('format') == CENSUS_FORMAT:
+        if report['jarSha256'] != jar.sha256 or report['result'] != 'complete-over-approximation':
+            raise Refusal('guard-census-report')
+        if report['checks']['pinnedMissing'] or not report['checks']['pinnedReceiversCovered'] \
+                or not report['checks']['detachedReadCovered'] or report['checks']['refusedClassCovered'] is not True \
+                or report['checks']['classCount'] != len(report['classes']) \
+                or not 1 <= len(report['classes']) <= 64:
+            raise Refusal('guard-census-checks')
+        return [{'runtime': c['name'], 'className': c['className'], 'classId': c['classId'],
+                 'managed': c['classId'] == plan['managedClassId']} for c in report['classes']]
+    build = next(b for b in report['builds'] if b['sha256'] == jar.sha256)
+    return build['receivers']
+
+
 def owned_tree(jar, plan, report_path):
     report = json.loads(report_path.read_bytes())
-    build = next(b for b in report['builds'] if b['sha256'] == jar.sha256)
     classes, managed = [], []
-    for r in build['receivers']:
+    for r in owned_tree_rows(jar, plan, report):
         name = r['runtime']
         if name not in jar.classes:
             raise Refusal('guard-owned-class-absent:' + name)
@@ -155,6 +176,19 @@ def owned_tree(jar, plan, report_path):
     return {'classes': classes, 'managed': managed, 'managedNodes': plan['managedNodes'],
             'maxNodes': plan['maxNodes'], 'maxDepth': plan['maxDepth'],
             'source': plan['source'], 'reportSha256': sha256(report_path.read_bytes())}
+
+
+def reused_candidate(directory, jar, selectors_bytes, types, rows, verdict):
+    """Reuse the prepared candidate bytes of an earlier session when they match this scan."""
+    candidate_bytes = (directory / 'candidate.json').read_bytes()
+    prior_selectors = (directory / 'selectors.json').read_bytes()
+    candidate = json.loads(candidate_bytes)
+    if prior_selectors != selectors_bytes or candidate['selectorSha256'] != sha256(selectors_bytes):
+        raise Refusal('guard-reused-selectors-differ')
+    if candidate['jarSha256'] != jar.sha256 or candidate['types'] != types or candidate['members'] != rows \
+            or candidate['verdict'] != verdict or candidate['result'] != 'pass':
+        raise Refusal('guard-reused-candidate-differs')
+    return candidate_bytes
 
 
 def prepare(args, root):
@@ -219,6 +253,9 @@ def prepare(args, root):
         tree = owned_tree(jar, plan['ownedTree'], args.collector_report)
         jar.check()
         selectors_bytes = (json.dumps(selectors, indent=2) + '\n').encode()
+        if args.candidate_directory is not None:
+            candidate_bytes = reused_candidate(args.candidate_directory, jar, selectors_bytes, types, rows, verdict)
+            return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
         stat = args.jar.stat()
         candidate = {'result': 'pass', 'jarSha256': jar.sha256, 'jarPath': str(args.jar.resolve()),
                      'jarMtimeNs': stat.st_mtime_ns, 'jarMtimeNsText': str(stat.st_mtime_ns),
@@ -234,20 +271,24 @@ def prepare(args, root):
                                 'variants': selectors['variants'], 'hostVersion': '6.1.4'},
                      'bridgeCalls': 0, 'nativeCommands': 0, 'vendorClassesInitialized': 0}
         candidate_bytes = (json.dumps(candidate, indent=2) + '\n').encode()
-        guards = {'format': 'grid-doctor-guards-v1', 'jarSha256': jar.sha256,
-                  'candidateSha256': sha256(candidate_bytes), 'planSha256': sha256(raw['plan']),
-                  'types': guard_types, 'fields': guard_fields, 'ownedTree': tree,
-                  'writeAuthority': False, 'bridgeCalls': 0, 'vendorClassesInitialized': 0}
-        guards_bytes = (json.dumps(guards, indent=2) + '\n').encode()
-        for name, value in (('candidate', candidate_bytes), ('selectors', selectors_bytes), ('guards', guards_bytes)):
-            if len(value) > MAX_RESOURCE:
-                raise Refusal('guard-resource-limit:' + name)
-        if time.perf_counter() - start > MAX_SECONDS:
-            raise Refusal('guard-deadline')
-        return {'candidate': candidate_bytes, 'selectors': selectors_bytes, 'guards': guards_bytes}
+        return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
     finally:
         if jar is not None:
             jar.close()
+
+
+def finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes):
+    guards = {'format': 'grid-doctor-guards-v1', 'jarSha256': jar.sha256,
+              'candidateSha256': sha256(candidate_bytes), 'planSha256': sha256(raw['plan']),
+              'types': guard_types, 'fields': guard_fields, 'ownedTree': tree,
+              'writeAuthority': False, 'bridgeCalls': 0, 'vendorClassesInitialized': 0}
+    guards_bytes = (json.dumps(guards, indent=2) + '\n').encode()
+    for name, value in (('candidate', candidate_bytes), ('selectors', selectors_bytes), ('guards', guards_bytes)):
+        if len(value) > MAX_RESOURCE:
+            raise Refusal('guard-resource-limit:' + name)
+    if time.perf_counter() - start > MAX_SECONDS:
+        raise Refusal('guard-deadline')
+    return {'candidate': candidate_bytes, 'selectors': selectors_bytes, 'guards': guards_bytes}
 
 
 def main():
@@ -255,22 +296,25 @@ def main():
     parser.add_argument('--jar', type=Path, required=True)
     parser.add_argument('--symbols', type=Path, required=True)
     parser.add_argument('--plan', type=Path, required=True)
-    parser.add_argument('--collector-report', type=Path, required=True)
+    parser.add_argument('--collector-report', type=Path, required=True,
+                        help='checkpoint-17 collector report (9b.6h) or an owned-census report (9b.6j)')
+    parser.add_argument('--candidate-directory', type=Path, default=None,
+                        help='reuse the candidate and selectors bytes of an earlier preparation')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[4]
     outputs = {name: args.output / f'{name}.json' for name in ('candidate', 'selectors', 'guards')}
     if any(p.exists() for p in outputs.values()):
         raise Refusal('guard-output-exists')
+    start = time.perf_counter()
     produced = prepare(args, root)
     args.output.mkdir(parents=True, exist_ok=True)
     for name, path in outputs.items():
         with path.open('xb') as stream:
             stream.write(produced[name])
     summary = {name: {'bytes': len(value), 'sha256': sha256(value)} for name, value in produced.items()}
-    candidate = json.loads(produced['candidate'])
-    summary['scanElapsedMs'] = candidate['scanElapsedMs']
-    summary['peakRssBytes'] = candidate['peakRssBytes']
+    summary['scanElapsedMs'] = round((time.perf_counter() - start) * 1000, 3)
+    summary['peakRssBytes'] = rss_bytes()
     guards = json.loads(produced['guards'])
     summary['guardCounts'] = {'types': len(guards['types']), 'fields': len(guards['fields']),
                               'ownedTreeClasses': len(guards['ownedTree']['classes'])}

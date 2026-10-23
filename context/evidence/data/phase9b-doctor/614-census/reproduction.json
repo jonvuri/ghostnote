@@ -1,0 +1,18 @@
+[
+  {
+    "build": "606",
+    "reportSha256": "fdece18af7c183ba20d415fa99d7d3854b024734ac67289470a2ad4383ea65ce",
+    "canonicalResultsReproduced": true,
+    "classes": 36,
+    "elapsedMs": 5667.749,
+    "peakRssBytes": 195231744
+  },
+  {
+    "build": "614",
+    "reportSha256": "bfde9de65eaa7d33b3380886ff8ea6c5bdce443028fb9b9e6b267e98fd82c9ad",
+    "canonicalResultsReproduced": true,
+    "classes": 36,
+    "elapsedMs": 5839.649,
+    "peakRssBytes": 208322560
+  }
+]

@@ -5,6 +5,16 @@ comments. Keep sentences concise, direct, and easy to read. When you already
 change a document or comment, correct unclear prose in the part that you touch.
 Do not start an unrelated rewrite.
 
+## Operator instructions and consent
+
+State any required operator action directly. If a planned check needs
+consent, describe its scope and material risk, then accept an ordinary
+answer such as "Saved, go ahead." Do not ask the operator to repeat a
+prescribed sentence or internal driver token. Keep the actual reply in the
+session evidence. Existing authorization carries forward within its scope;
+do not ask for it again. See
+[D53](context/decisions/d53-ordinary-operator-consent.md).
+
 ## Reload the Bitwig controller extension
 
 Always defer controller replacement in Bitwig Settings to the operator. Do not

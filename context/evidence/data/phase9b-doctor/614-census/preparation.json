@@ -1,0 +1,20 @@
+{
+  "resources": {
+    "candidate": {
+      "sha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+      "bytes": 28052
+    },
+    "selectors": {
+      "sha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+      "bytes": 49832
+    },
+    "guards": {
+      "sha256": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819",
+      "bytes": 9140
+    }
+  },
+  "scanElapsedMs": 5582.541,
+  "peakRssBytes": 189775872,
+  "reproduced": true,
+  "candidateAndSelectorsByteEqualToE339": true
+}

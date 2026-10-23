@@ -1,0 +1,9 @@
+{
+  "operatorReply": "Saved, go ahead",
+  "authorized": true,
+  "savedFirst": true,
+  "scope": "One third guarded doctor pass on temporary scratch tracks, with playback stopped. A failed check can require restarting Bitwig.",
+  "policy": "9b.6j-third-pass-after-owned-tree-refusal-v1",
+  "driverConsentToken": "I saved first. Bitwig was restarted after the second 6.1.4 pass, and the read-only baseline check passed. I consent to one third guarded scratch doctor pass on the 6.1.4 fingerprint under the 9b.6j exception, with the revised owned-tree guard, boolean and mapping checks, and the cold first factory call. A failed check can require a Bitwig restart.",
+  "note": "The operator explicitly requested ordinary consent. The driver token encodes the authorized scope; it is not a verbatim operator reply."
+}

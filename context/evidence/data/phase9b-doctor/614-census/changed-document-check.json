@@ -1,0 +1,14 @@
+{
+  "files": [
+    "brain/src/probes/grid_doctor/README.md",
+    "context/NOW.md",
+    "context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md",
+    "context/evidence/INDEX.md",
+    "context/plan/ROADMAP.md",
+    "context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md",
+    "context/evidence/experiments/e341-grid-doctor-614-owned-tree-preparation.md"
+  ],
+  "errors": [],
+  "passed": true,
+  "fullContextCheck": "18 pre-existing missing frontmatter errors; no broken links reported"
+}

@@ -1,0 +1,29 @@
+✔ the recorded E339 recovery check and the 9b.6i check pass the baseline rules and agree (0.934125ms)
+✔ the baseline rules refuse scratch residue, an unmuted control, a used doctor, or a changed control (2.603875ms)
+✔ the first attempt requires consent, refuses any earlier record, and cannot repeat (6.866209ms)
+✔ the 6.0.6 records must stay byte-equal to their committed copies (2.334709ms)
+✔ the 6.1.4 candidate requires all roles, the one variant, and the guard metadata (2.198667ms)
+✔ prepare refuses a 6.0.6 host before doctorPrepare or an attempt write (1.557875ms)
+✔ an uncertain command is inspected once and never repeated or released (0.387625ms)
+✔ a failed or incomplete guard receipt refuses before the next stage (0.498667ms)
+✔ timing comparison reports percent change and the 20 percent flag as data (4.942292ms)
+✔ a retry is admitted only after a refused preflight with no scratch write and no bind (6.080625ms)
+✔ breadth snapshot rules use the resolved 6.1.4 runtime names, not the 6.0.6 names (1.178125ms)
+✔ the mapping fixture rules accept the 6.1.4 removal transform from the attempt-6 captures (4.588875ms)
+✔ the second pass is admitted only on the six unchanged records, the uncertain evidence, and a restarted host (7.803667ms)
+✔ the committed copies of the six 9b.6h records name the attempt-6 evidence and refuse the retry policy (2.985625ms)
+✔ third-pass admission keeps all seven records and requires the exact E340 stop (23.001375ms)
+✔ E340 timing compares all nine completed commands and reports increases as data (0.951875ms)
+✔ a revised pass requires explicit consent, preserves the original record, and cannot repeat (4.982625ms)
+✔ candidate metadata requires all roles, invariants, and no prior live authority (0.906333ms)
+✔ acceptance requires every unique role and clean teardown (0.696459ms)
+✔ counter proof requires a transition and preserved zero long-edit and lock counters (2.271167ms)
+✔ an uncertain command is inspected once and never repeated or released (0.410417ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 415.326792

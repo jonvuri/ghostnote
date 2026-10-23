@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "initialization": "2026-10-23T15:09:24.138Z",
+  "guards": {
+    "format": "grid-doctor-guards-v1",
+    "types": 1,
+    "fields": 5,
+    "ownedTreeClasses": 36,
+    "guardsSha256": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819",
+    "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+    "validationNanos": 1362916,
+    "writeAuthority": false
+  },
+  "priorHashes": [
+    "a8e0c214b5fe5f50981eb124bd5f07df5294f5ffad172bf283939241ef0123b4",
+    "9fdafd9d3883ca2a03f9a4eab7fe9101056814b15364cf5297d37382a628a266",
+    "68882ca6a6baad5ef929a701fdc8a7acaa7e68a6f723f49470d977a560e1662b",
+    "0da357be387eb66990fee20ea4b0c80653eea794525f36c6b8713c683583d228",
+    "35a43ebb375bcd7e0721593261b7befb98a790a0d01a2c3ba8acd1b170264b80",
+    "7b709f390effb8af3e3796799fab7a217312413e38c2a314b81febe069c63db2",
+    "dd8d2ac75a797d6d315fec4c56d773d2fb6e0f456b2b906e28ca6c079a368386"
+  ],
+  "attemptCreated": false,
+  "nativeCommands": 0
+}

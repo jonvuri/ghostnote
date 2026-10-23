@@ -1,0 +1,175 @@
+{
+  "format": "grid-doctor-guard-plan-v1",
+  "purpose": "Explicit 6.1.4 pins for the D52 runtime entry guards, revised in 9b.6j: the owned-tree classes come from the offline owned-tree census (E341) instead of the checkpoint-17 receivers. Each pin is verified against the jar and its traced evidence before use. Pins are build-specific inputs, not reusable selectors.",
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "evidence": {
+    "helper-list": "checkpoint-17/history-growth-4.json historyFieldSites: Z1C read by the edit hooks and cleanup",
+    "pending-helper": "checkpoint-17/history-growth-4.json historyFieldSites: dEI get/put in IwV and the cleanup",
+    "pending-list": "checkpoint-17/command-closure-2.json labels pending-add (dfI.cfM(Runnable,Z)) and pending-run (dfI.ucQ())",
+    "disposal-tracking-flag": "E333/E338: the disposal tail thz.cfM(Object) drains a global queue when its volatile flag is true",
+    "listener-tracking-flag": "checkpoint-17/collection-conditions-21.json builds[1].removal.mode: apd.Hnt must remain false",
+    "project-document": "checkpoint-17/command-closure-2.json pinned.new.close.pins: dhu.FzB is pinned to master/tj2",
+    "owned-tree": "614-census/census-614.json classes: 36 exact classes of the fresh Amplify owned tree (61 serialized objects plus the init-created objects), one managed class; the 33 checkpoint-17 receivers plus boolean_port, double_audio_port, and continuous_parameter_port (E340 refused on wKx)"
+  },
+  "types": {
+    "project-document": {
+      "name": "com/bitwig/flt/document/core/master/tj2",
+      "parentRole": "edit-document",
+      "pinnedBy": {
+        "journalField": [
+          "dhu",
+          "FzB",
+          "LdfI;"
+        ]
+      }
+    }
+  },
+  "fields": [
+    {
+      "role": "helper-list",
+      "declaringRole": "edit-document",
+      "name": "Z1C",
+      "descriptor": "Ljava/util/List;",
+      "flags": 18,
+      "check": "empty",
+      "readers": [
+        [
+          "cfM",
+          "(Lcom/bitwig/ramona/core/oDc;LdfT;)V"
+        ],
+        [
+          "UNj",
+          "(Lcom/bitwig/ramona/core/oDc;)V"
+        ],
+        [
+          "hUR",
+          "(Lcom/bitwig/ramona/core/oDc;)V"
+        ],
+        [
+          "wGc",
+          "()V"
+        ]
+      ]
+    },
+    {
+      "role": "pending-helper",
+      "declaringRole": "edit-document",
+      "name": "dEI",
+      "descriptor": "LdgJ;",
+      "flags": 2,
+      "check": "null",
+      "readers": [
+        [
+          "IwV",
+          "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+        ],
+        [
+          "wGc",
+          "()V"
+        ],
+        [
+          "E3",
+          "()V"
+        ]
+      ],
+      "writers": [
+        [
+          "IwV",
+          "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+        ],
+        [
+          "wGc",
+          "()V"
+        ]
+      ]
+    },
+    {
+      "role": "pending-list",
+      "declaringRole": "edit-document",
+      "name": "LaE",
+      "descriptor": "Ljava/util/List;",
+      "flags": 18,
+      "check": "empty",
+      "readers": [
+        [
+          "cfM",
+          "(Ljava/lang/Runnable;Z)V"
+        ],
+        [
+          "ucQ",
+          "()V"
+        ]
+      ],
+      "listCalls": {
+        "cfM(Ljava/lang/Runnable;Z)V": [
+          "add"
+        ],
+        "ucQ()V": [
+          "size",
+          "get",
+          "clear"
+        ]
+      }
+    },
+    {
+      "role": "disposal-tracking-flag",
+      "declaring": "thz",
+      "name": "Hnt",
+      "descriptor": "Z",
+      "flags": 74,
+      "check": "false",
+      "static": true,
+      "readers": [
+        [
+          "cfM",
+          "(Ljava/lang/Object;)V"
+        ]
+      ],
+      "calledFromRole": "disposal",
+      "writers": [
+        [
+          "cfM",
+          "()V"
+        ],
+        [
+          "MRY",
+          "()V"
+        ]
+      ]
+    },
+    {
+      "role": "listener-tracking-flag",
+      "declaring": "apd",
+      "name": "Hnt",
+      "descriptor": "Z",
+      "flags": 74,
+      "check": "false",
+      "static": true,
+      "readers": [
+        [
+          "Hnt",
+          "()Z"
+        ]
+      ],
+      "writers": [
+        [
+          "cfM",
+          "()V"
+        ],
+        [
+          "MRY",
+          "()V"
+        ]
+      ]
+    }
+  ],
+  "ownedTree": {
+    "source": "614-census/census-614.json",
+    "managedClassId": 1904,
+    "managedNodes": 1,
+    "maxNodes": 256,
+    "maxDepth": 12,
+    "sourceFormat": "grid-doctor-owned-census-v1"
+  },
+  "revision": "9b.6j"
+}

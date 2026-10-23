@@ -1,0 +1,12 @@
+{
+  "format": "grid-doctor-preservation-v1",
+  "session": "9b.6j-complete",
+  "inventory": "context/evidence/data/phase9b-doctor/614-resolution/entry-inventory.json",
+  "checked": 224,
+  "missing": [],
+  "changed": [
+    "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension"
+  ],
+  "result": "differs",
+  "note": "The deployed probe changed in E341. The third pass passed, removed its scratch tracks, and preserved the live baseline. Prior attempt/cache files remain unchanged."
+}

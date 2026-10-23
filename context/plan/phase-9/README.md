@@ -2,8 +2,8 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E339 completes the 9b.6h guarded-doctor preparation on 6.1.4; the boolean case passes with the D52 guards, the mapping removal ran once as an uncertain write, and the operator recovered by restart. Next is 9b.6i, the recovered baseline and the second guarded pass.
-updated: 2026-10-22
+status: E342 accepts the 6.1.4 guarded doctor. E316 and E342 close the two-build research check. Next is 9b.7, product cache enforcement and toolkit consolidation.
+updated: 2026-10-23
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 next: ../phase-10/README.md

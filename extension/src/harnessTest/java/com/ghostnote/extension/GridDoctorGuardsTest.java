@@ -20,7 +20,7 @@ final class GridDoctorGuardsTest {
         GridDoctorGuards guards = new GridDoctorGuards(loader, jar, table, guardsBytes, candidateBytes);
         JsonObject metadata = guards.metadata();
         if (metadata.get("fields").getAsInt() != 5 || metadata.get("types").getAsInt() != 1
-                || metadata.get("ownedTreeClasses").getAsInt() != 33 || metadata.get("writeAuthority").getAsBoolean()
+                || metadata.get("ownedTreeClasses").getAsInt() != 36 || metadata.get("writeAuthority").getAsBoolean()
                 || !metadata.get("guardsSha256").getAsString().equals(GridDoctorGuards.sha256(guardsBytes)))
             throw new AssertionError("guard metadata");
         checks++;
@@ -51,6 +51,43 @@ final class GridDoctorGuardsTest {
         refuses(() -> guards.ownedTree(List.of(new Object()), o -> null));
         List<Object> many = new ArrayList<>(); for (int i = 0; i < 257; i++) many.add(new Object());
         refuses(() -> guards.ownedTree(many, o -> null));
+        replayOwnedTree(guards, source, loader, jar, table, candidateBytes);
         return checks;
     }
+    /** Replay the projected E340 rows. These rows are not the full 77-object ownership census. */
+    static void replayOwnedTree(GridDoctorGuards guards, JsonObject resource, ClassLoader loader, Path jar,
+            GridDoctorSymbols table, byte[] candidateBytes) throws Exception {
+        Path evidence = Path.of("../context/evidence/data/phase9b-doctor/614-second-pass/live-v21-second-pass");
+        for (String file : List.of("preset-2-stage-5-read-0.json", "preset-2-stage-5-read-1.json", "preset-2-inspection.json")) {
+            JsonObject snapshot = JsonParser.parseString(Files.readString(evidence.resolve(file)))
+                .getAsJsonObject().getAsJsonObject("snapshot");
+            if (snapshot.get("ownedObjects").getAsInt() != 77) throw new AssertionError("E340 owned count");
+            List<String> names = new ArrayList<>();
+            for (JsonElement node : snapshot.getAsJsonArray("detached"))
+                names.add(node.getAsJsonObject().get("runtimeClass").getAsString().replace('.', '/'));
+            guards.ownedTree(names, name -> name, name -> null); checks++;
+            // E340's projection omits ports. Add each new port class as a separate inert regression input.
+            for (String added : List.of("wKx", "dgk", "vta")) {
+                List<String> withPort = new ArrayList<>(names); withPort.add(added);
+                guards.ownedTree(withPort, name -> name, name -> null); checks++;
+            }
+            List<String> unknown = new ArrayList<>(names); unknown.add("unknown");
+            refuses(() -> guards.ownedTree(unknown, name -> name, name -> null));
+            String managed = resource.getAsJsonObject("ownedTree").getAsJsonArray("managed").get(0).getAsString();
+            List<String> duplicate = new ArrayList<>(names); duplicate.add(managed);
+            refuses(() -> guards.ownedTree(duplicate, name -> name, name -> null));
+            List<String> absent = names.stream().filter(name -> !name.equals(managed)).toList();
+            refuses(() -> guards.ownedTree(absent, name -> name, name -> null));
+            refuses(() -> guards.ownedTree(names, name -> name, name -> name));
+        }
+        byte[] oldBytes = Files.readAllBytes(Path.of("../context/evidence/data/phase9b-doctor/614-guarded/guards.json"));
+        GridDoctorGuards old = new GridDoctorGuards(loader, jar, table, oldBytes, candidateBytes);
+        String managed = resource.getAsJsonObject("ownedTree").getAsJsonArray("managed").get(0).getAsString();
+        refuses(() -> old.ownedTree(List.of(managed, "wKx"), name -> name, name -> null));
+        List<String> maximum = new ArrayList<>(Collections.nCopies(255, "wKx")); maximum.add(managed);
+        guards.ownedTree(maximum, name -> name, name -> null); checks++;
+        maximum.add("wKx");
+        refuses(() -> guards.ownedTree(maximum, name -> name, name -> null));
+    }
+
 }

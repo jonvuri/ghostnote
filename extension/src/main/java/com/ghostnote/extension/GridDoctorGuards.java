@@ -125,17 +125,23 @@ public final class GridDoctorGuards {
         JsonObject r = new JsonObject(); r.addProperty("passed", true); r.add("checks", checks);
         r.addProperty("guardNanos", System.nanoTime() - start); return r;
     }
-    public interface Owner { Object owner(Object object) throws Exception; }
+    interface TreeOwner<T> { T owner(T object) throws Exception; }
+    public interface Owner extends TreeOwner<Object> {}
     /** Exact-class and single-managed-node checks on a proved owned tree before disposal. */
     public JsonObject ownedTree(List<Object> owned, Owner owner) throws Exception {
+        return ownedTree(owned, object -> object.getClass().getName().replace('.', '/'), owner);
+    }
+    /** Use the same rule for live objects and inert capture rows. */
+    <T> JsonObject ownedTree(List<T> owned, java.util.function.Function<T, String> className,
+            TreeOwner<T> owner) throws Exception {
         if (owned.isEmpty() || owned.size() > maxNodes) throw new IllegalStateException("doctor-owned-tree-size");
         int managed = 0, depth = 0;
-        for (Object object : owned) {
-            String name = object.getClass().getName().replace('.', '/');
+        for (T object : owned) {
+            String name = className.apply(object);
             if (!ownedClasses.contains(name)) throw new IllegalStateException("doctor-owned-tree-class:" + name);
             if (managedClasses.contains(name)) managed++;
             int level = 0;
-            for (Object parent = owner.owner(object); parent != null; parent = owner.owner(parent))
+            for (T parent = owner.owner(object); parent != null; parent = owner.owner(parent))
                 if (++level > maxDepth) throw new IllegalStateException("doctor-owned-tree-depth");
             depth = Math.max(depth, level);
         }

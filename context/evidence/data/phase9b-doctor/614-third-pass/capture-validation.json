@@ -1,0 +1,105 @@
+{
+  "pairs": [
+    {
+      "preset": 0,
+      "stage": 0,
+      "equal": true
+    },
+    {
+      "preset": 0,
+      "stage": 1,
+      "equal": true
+    },
+    {
+      "preset": 0,
+      "stage": 2,
+      "equal": true
+    },
+    {
+      "preset": 1,
+      "stage": 0,
+      "equal": true
+    },
+    {
+      "preset": 1,
+      "stage": 1,
+      "equal": true
+    },
+    {
+      "preset": 1,
+      "stage": 2,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 0,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 1,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 2,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 3,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 4,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 5,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 6,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 7,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 8,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 9,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 10,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 11,
+      "equal": true
+    },
+    {
+      "preset": 2,
+      "stage": 12,
+      "equal": true
+    }
+  ],
+  "pairCount": 19,
+  "readCount": 38,
+  "allRoles": 76,
+  "commandReceipts": 16,
+  "allEntryGuardsPassed": true,
+  "preservedStateEqual": true
+}

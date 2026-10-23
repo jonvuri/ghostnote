@@ -1,0 +1,237 @@
+{
+  "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+  "selectorSha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+  "hostVersion": "6.1.4",
+  "marker": "9b-grid-doctor-v21",
+  "guardsSha256": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819",
+  "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+  "retry": null,
+  "thirdPass": {
+    "secondPassEvidence": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-second-pass/live-v21-second-pass",
+    "policy": "9b.6j-third-pass-after-owned-tree-refusal-v1"
+  },
+  "secondPass": null,
+  "verdict": "accepted",
+  "roles": [
+    {
+      "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+      "flavour": "Poly Grid",
+      "case": "boolean",
+      "verdict": "passed",
+      "pairedReadback": true,
+      "roles": [
+        "boolean-command"
+      ],
+      "commands": 2,
+      "reads": 6,
+      "timings": [
+        {
+          "action": "boolean-enable",
+          "nativeCommandNanos": 1895750
+        },
+        {
+          "action": "boolean-restore",
+          "nativeCommandNanos": 294291
+        }
+      ]
+    },
+    {
+      "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+      "flavour": "Poly Grid",
+      "case": "mapping",
+      "verdict": "passed",
+      "pairedReadback": true,
+      "roles": [
+        "remove-mapping",
+        "restore-mapping",
+        "target-domain",
+        "domain-extent"
+      ],
+      "commands": 2,
+      "reads": 6,
+      "timings": [
+        {
+          "action": "mapping-remove",
+          "nativeCommandNanos": 10509166
+        },
+        {
+          "action": "mapping-restore",
+          "nativeCommandNanos": 9682291
+        }
+      ]
+    },
+    {
+      "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+      "flavour": "Poly Grid",
+      "case": "core",
+      "verdict": "passed",
+      "pairedReadback": true,
+      "roles": [
+        "descriptor",
+        "class-id",
+        "name",
+        "properties",
+        "property-id",
+        "enabled-field",
+        "serialization-filter",
+        "filter-instance",
+        "scalar-read",
+        "child-count",
+        "child-read",
+        "native-value-setter",
+        "cable-source-getter",
+        "cable-source-setter",
+        "module-parent",
+        "module-delete",
+        "module-factory",
+        "owner",
+        "owned-children",
+        "disposed-flag",
+        "disposal",
+        "module-parent-2",
+        "instance-uuid",
+        "initialization-helper",
+        "remote-helper",
+        "members",
+        "hidden-count",
+        "x",
+        "y",
+        "width",
+        "height",
+        "context",
+        "recording",
+        "manager",
+        "document",
+        "display-key",
+        "journal-active",
+        "current-journal-edit",
+        "current-document-edit",
+        "replay-flag",
+        "replaying-flag",
+        "insert-label",
+        "begin",
+        "close",
+        "associate-edit",
+        "insert-body",
+        "frame-stack",
+        "instant-edits",
+        "long-edits",
+        "lock-count",
+        "lock-set",
+        "journal-map",
+        "associated-edit",
+        "display-map",
+        "selection-state",
+        "selected-modules",
+        "focus",
+        "focus-target",
+        "managed-id",
+        "registered-lookup",
+        "engine-state",
+        "connection",
+        "connected-state",
+        "inactive-state",
+        "undo-head",
+        "undo-available",
+        "undo-command",
+        "document-undo-enabled",
+        "document-manager",
+        "journal-replay-head",
+        "journal-recording-edit"
+      ],
+      "commands": 12,
+      "reads": 26,
+      "timings": [
+        {
+          "action": "value-set",
+          "nativeCommandNanos": 3207333
+        },
+        {
+          "action": "value-restore",
+          "nativeCommandNanos": 1112750
+        },
+        {
+          "action": "cable-connect",
+          "nativeCommandNanos": 6306250
+        },
+        {
+          "action": "cable-disconnect",
+          "nativeCommandNanos": 4197291
+        },
+        {
+          "action": "factory-create",
+          "nativeCommandNanos": 1664542
+        },
+        {
+          "action": "factory-dispose",
+          "nativeCommandNanos": 677792
+        },
+        {
+          "action": "delete-connect",
+          "nativeCommandNanos": 4959458
+        },
+        {
+          "action": "delete",
+          "nativeCommandNanos": 17830792
+        },
+        {
+          "action": "undo-delete",
+          "nativeCommandNanos": 8763833
+        },
+        {
+          "action": "delete-disconnect",
+          "nativeCommandNanos": 4393416
+        },
+        {
+          "action": "attach",
+          "nativeCommandNanos": 29849792
+        },
+        {
+          "action": "undo-attach",
+          "nativeCommandNanos": 728625
+        }
+      ]
+    }
+  ],
+  "teardown": {
+    "completed": 12,
+    "reads": 2,
+    "attempted": true,
+    "locked": false,
+    "released": true,
+    "failure": "",
+    "inspections": 0,
+    "phase": 3,
+    "failed": false,
+    "marker": "9b-grid-doctor-v21",
+    "bound": false,
+    "busy": false,
+    "used": true,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "foreignOwner": false,
+    "metadata": {
+      "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+      "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "selectorSha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+      "members": 76,
+      "types": 55,
+      "validationNanos": 37690583,
+      "writeAuthority": false
+    },
+    "guards": {
+      "format": "grid-doctor-guards-v1",
+      "types": 1,
+      "fields": 5,
+      "ownedTreeClasses": 36,
+      "guardsSha256": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819",
+      "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+      "validationNanos": 1362916,
+      "writeAuthority": false
+    }
+  },
+  "baselineVerified": true,
+  "completed": "2026-10-23T15:16:44.598Z",
+  "evidence": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-third-pass/live-v21-third-pass",
+  "writeAuthority": false
+}

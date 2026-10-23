@@ -1,0 +1,19 @@
+{
+  "files": [
+    "AGENTS.md",
+    "brain/src/probes/grid_doctor/README.md",
+    "context/NOW.md",
+    "context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md",
+    "context/decisions/INDEX.md",
+    "context/decisions/d53-ordinary-operator-consent.md",
+    "context/evidence/INDEX.md",
+    "context/evidence/experiments/e341-grid-doctor-614-owned-tree-preparation.md",
+    "context/evidence/experiments/e342-grid-doctor-614-acceptance.md",
+    "context/plan/ROADMAP.md",
+    "context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md",
+    "context/plan/phase-9/README.md"
+  ],
+  "passed": true,
+  "errors": [],
+  "existingContextHeaderErrors": 18
+}

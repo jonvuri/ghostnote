@@ -1,0 +1,23 @@
+✔ the first attempt requires consent, refuses any earlier record, and cannot repeat (6.570833ms)
+✔ the 6.0.6 records must stay byte-equal to their committed copies (1.156375ms)
+✔ the 6.1.4 candidate requires all roles, the one variant, and the guard metadata (1.895708ms)
+✔ prepare refuses a 6.0.6 host before doctorPrepare or an attempt write (1.08925ms)
+✔ an uncertain command is inspected once and never repeated or released (0.328791ms)
+✔ a failed or incomplete guard receipt refuses before the next stage (0.444125ms)
+✔ timing comparison reports percent change and the 20 percent flag as data (3.532292ms)
+✔ a retry is admitted only after a refused preflight with no scratch write and no bind (5.466ms)
+✔ breadth snapshot rules use the resolved 6.1.4 runtime names, not the 6.0.6 names (1.120958ms)
+✔ the mapping fixture rules accept the 6.1.4 removal transform from the attempt-6 captures (4.302ms)
+✔ the second pass is admitted only on the six unchanged records, the uncertain evidence, and a restarted host (7.843084ms)
+✔ the committed copies of the six 9b.6h records name the attempt-6 evidence and refuse the retry policy (2.115625ms)
+✔ third-pass admission keeps all seven records and requires the exact E340 stop (26.364292ms)
+✔ E340 timing compares all nine completed commands and reports increases as data (0.501667ms)
+✔ ordinary operator replies are retained without requiring a prescribed phrase (0.331ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 428.45825

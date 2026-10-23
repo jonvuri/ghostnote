@@ -1,0 +1,11 @@
+{
+  "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "sha256": "e9a31bb89c0fd050b38696256199fa04e0e533361ed6b08cc8fb28c8502592a4",
+  "bytes": 859341,
+  "mtimeNs": 1792767415799643110,
+  "bundledResources": {
+    "candidate": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+    "selectors": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+    "guards": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "case": "boolean",
+  "commands": 2,
+  "reads": 2,
+  "locked": false,
+  "finished": true,
+  "inspections": 0,
+  "failure": "",
+  "phase": 1,
+  "failed": false,
+  "marker": "9b-grid-doctor-v21",
+  "bound": false,
+  "busy": false,
+  "used": true,
+  "timeoutLocked": false,
+  "nativeUnfinished": false,
+  "foreignOwner": false,
+  "metadata": {
+    "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+    "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+    "selectorSha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+    "members": 76,
+    "types": 55,
+    "validationNanos": 37690583,
+    "writeAuthority": false
+  },
+  "guards": {
+    "format": "grid-doctor-guards-v1",
+    "types": 1,
+    "fields": 5,
+    "ownedTreeClasses": 36,
+    "guardsSha256": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819",
+    "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+    "validationNanos": 1362916,
+    "writeAuthority": false
+  }
+}

@@ -3,6 +3,8 @@ import copy
 import json
 from pathlib import Path
 import unittest
+import tempfile
+from types import SimpleNamespace
 
 from grid_symbols.scan import Refusal
 from grid_doctor import guarded_candidate as g
@@ -104,6 +106,44 @@ class GuardedCandidateTest(unittest.TestCase):
         self.assertFalse(guards['writeAuthority'])
         self.assertFalse(candidate['verdict']['writeAuthority'])
         self.assertEqual(candidate['verdict']['liveValidation'], 'not-run')
+
+    def test_reuse_requires_the_same_resolved_table_and_selectors(self):
+        source = DATA / '614-guarded'
+        candidate_bytes = (source / 'candidate.json').read_bytes()
+        selectors_bytes = (source / 'selectors.json').read_bytes()
+        candidate = json.loads(candidate_bytes)
+        jar = SimpleNamespace(sha256=candidate['jarSha256'])
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)
+            (target / 'candidate.json').write_bytes(candidate_bytes)
+            (target / 'selectors.json').write_bytes(selectors_bytes)
+            def reuse():
+                return g.reused_candidate(target, jar, selectors_bytes, candidate['types'],
+                                          candidate['members'], candidate['verdict'])
+            self.assertEqual(reuse(), candidate_bytes)
+            changed = copy.deepcopy(candidate)
+            changed['members'][0]['name'] = 'other'
+            (target / 'candidate.json').write_text(json.dumps(changed))
+            with self.assertRaisesRegex(Refusal, 'candidate-differs'):
+                reuse()
+            (target / 'candidate.json').write_bytes(candidate_bytes)
+            (target / 'selectors.json').write_bytes(selectors_bytes + b' ')
+            with self.assertRaisesRegex(Refusal, 'selectors-differ'):
+                reuse()
+
+    def test_revised_resources_keep_the_candidate_and_change_only_the_owned_set(self):
+        prior, current = DATA / '614-guarded', DATA / '614-census/prepared'
+        for name in ('candidate.json', 'selectors.json'):
+            self.assertEqual((prior / name).read_bytes(), (current / name).read_bytes())
+        old = json.loads((prior / 'guards.json').read_bytes())
+        new = json.loads((current / 'guards.json').read_bytes())
+        for key in ('types', 'fields', 'candidateSha256', 'jarSha256'):
+            self.assertEqual(old[key], new[key])
+        for key in ('managed', 'managedNodes', 'maxNodes', 'maxDepth'):
+            self.assertEqual(old['ownedTree'][key], new['ownedTree'][key])
+        self.assertEqual(len(new['ownedTree']['classes']), 36)
+        self.assertEqual(new['ownedTree']['reportSha256'], g.sha256((DATA / '614-census/census-614.json').read_bytes()))
+        self.assertEqual(new['planSha256'], g.sha256((DATA / '614-census/guard-plan.json').read_bytes()))
 
 
 if __name__ == '__main__':

@@ -1,5 +1,19 @@
 # Grid doctor on 6.0.6
 
+## Operator consent
+
+State required actions directly: save first and keep playback stopped.
+Describe the planned scratch test and the possibility of a restart. Accept
+an ordinary answer such as "Saved, go ahead." Do not ask the operator to
+repeat a constant from the driver. Consent constants are internal scope
+tokens. Record the actual reply separately, or use `--operator-reply` on
+the 6.1.4 driver. This option records evidence; it does not infer permission
+from text. Existing authorization carries forward within its scope.
+[D53](../../../../context/decisions/d53-ordinary-operator-consent.md)
+applies to the procedures below, including their historical examples.
+
+## Completed 6.0.6 procedure
+
 The V20 pass is complete in
 [E316](../../../../context/evidence/experiments/e316-grid-doctor-606-acceptance.md).
 Keep both attempt records and the accepted cache. Do not run V20 again.
@@ -52,7 +66,8 @@ node --import tsx src/probes/phase9b-grid-doctor.ts \
   'I saved first. I consent to one revised V20 scratch doctor pass on the same fingerprint, including boolean and mapping checks. A failed check can require a Bitwig restart.'
 ```
 
-The consent argument records the actual operator answer. The fixed plan
+The consent argument is an internal scope token. Record the actual
+operator answer separately. The fixed plan
 creates three new muted scratch tracks in sequence, never together.
 A complete new-table acceptance requires all three cases and teardown.
 
@@ -323,7 +338,8 @@ pending helper, the empty pending list, and the two false tracking flags
 before each native command, and the exact-class owned tree before disposal.
 
 The V21 driver requires host version 6.1.4, the marker `9b-grid-doctor-v21`,
-and the exact consent string in its source. Run it from `brain/` with a new
+and the internal consent token in its source. Obtain ordinary approval for
+the stated scope, then run it from `brain/` with a new
 absolute evidence directory:
 
 ```sh
@@ -371,7 +387,8 @@ node --import tsx src/probes/phase9b-grid-doctor-614-rehearsal.ts /absolute/new/
 
 Then deploy the built probe with `copyProbeExtension`, ask for full
 controller replacement, run `npm run probe:hello`, and obtain the
-operator's exact second-pass answer (`SECOND_PASS_CONSENT` in the driver).
+operator's ordinary approval for the second pass. The driver uses
+`SECOND_PASS_CONSENT` as its internal scope token.
 Run from `brain/` with a new absolute evidence directory and the
 attempt-6 evidence directory:
 
@@ -406,3 +423,78 @@ PYTHONPATH=$PWD/brain/src/probes python3 -B -m grid_doctor.preservation \
 
 Continue with
 [9b.6j](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6j--owned-tree-census-and-third-guarded-pass).
+
+## 6.1.4 owned-tree census and third pass (9b.6j)
+
+[E341](../../../../context/evidence/experiments/e341-grid-doctor-614-owned-tree-preparation.md)
+records preparation recovered from an interrupted Claude Code session.
+The census derives 36 corresponding classes on both builds. It adds the
+continuous parameter port (`vPq` / `wKx`), boolean port (`FEG` / `dgk`),
+and double audio port (`tqA` / `vta`). The set includes conditional init
+paths. The live guard still checks each exact class, one managed node,
+at most 256 nodes, and depth at most 12.
+
+Run the census once per build. Use the paths in each report's `inputs`
+under `614-census/`; the old read is in E316's `captures.zip`, with its
+hash in `capture-manifest.json`. Extract it to a new file. All report paths
+must be new. No vendor class is initialized.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.owned_census census \
+  --jar '<jar for this build>' \
+  --symbols context/evidence/data/phase9b-doctor/614-resolution/checkpoint-2/symbols.json \
+  --collector-report context/evidence/data/phase9b-doctor/614-resolution/checkpoint-17/collection-conditions-17.json \
+  --module-report '<checkpoint-4 module-old-2.json or module-new-2.json>' \
+  --read '<E316 or E340 core stage-5 read>' \
+  --report /absolute/new/census.json
+```
+
+Add `--refused-class wKx` for 6.1.4. Compare the two reports with the
+`compare --old <606 report> --new <614 report> --report <new path>`
+subcommand. The result is an offline candidate set, not runtime acceptance.
+The E340 capture projects only some owned objects. The Java harness replays
+that projection and checks each added port class as a separate inert input.
+It does not claim to replay all 77 owned objects.
+
+Prepare the new guard resource without changing the E339 resources:
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.guarded_candidate \
+  --jar '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar' \
+  --symbols context/evidence/data/phase9b-doctor/614-resolution/checkpoint-2/symbols.json \
+  --plan context/evidence/data/phase9b-doctor/614-census/guard-plan.json \
+  --collector-report context/evidence/data/phase9b-doctor/614-census/census-614.json \
+  --candidate-directory context/evidence/data/phase9b-doctor/614-guarded \
+  --output /absolute/new/prepared
+```
+
+The extension bundles `614-census/prepared/guards.json`. The candidate and
+selectors remain byte-equal to E339. The driver expects 36 owned classes
+and the new guard hash. It adds
+`--third-pass-after-owned-tree-refusal <E340 second-pass evidence directory>`
+and uses `THIRD_PASS_CONSENT` as its internal scope token. Obtain ordinary
+approval after save-first confirmation and the fresh baseline check. Record
+the actual answer with `--operator-reply '<actual reply>'` or linked evidence.
+The bind uses the existing host consent token.
+
+Admission requires all seven local 6.1.4 records to match their committed
+copies, exactly nine E340 receipts and one inspection, the E340 refusal,
+a host start after that pass, and no cache or third-pass record. The driver
+creates `<key>.third-pass.attempt.json` exclusively. A retry or another
+second pass still refuses. Do not edit a record to enable a run.
+
+Before the third pass, obtain full controller replacement from the operator,
+then run `npm run probe:hello` and the read-only baseline check. Require the
+probe profile, 118 methods, hash `2e939035ea90b8b0`, marker
+`9b-grid-doctor-v21`, and fresh initialization. Doctor preparation must show
+guard hash `d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819`.
+Send each operator question in a separate turn. Compare command timing with
+E316, E339, and E340. The cache still requires all roles, teardown, both
+control reads, and preserved state. Never repeat an uncertain command.
+
+
+[E342](../../../../context/evidence/experiments/e342-grid-doctor-614-acceptance.md)
+completes the third pass: all 76 roles, 16 commands, 19 readback pairs,
+teardown, and preserved state pass. The 6.1.4 cache exists. Do not run the
+accepted doctor again. Continue with 9b.7; product cache enforcement is
+not implemented by this research cache.

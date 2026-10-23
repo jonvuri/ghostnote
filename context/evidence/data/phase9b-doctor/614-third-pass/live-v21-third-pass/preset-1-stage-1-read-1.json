@@ -1,0 +1,747 @@
+{
+  "marker": "9b-grid-doctor-v21",
+  "session": "d1a3814c-e23b-44df-a98f-2a83f33e2853",
+  "snapshot": {
+    "fixture": {
+      "modules": [
+        {
+          "id": "13291",
+          "uuid": "560220ef-3e01-4356-907f-48fd5013eb65",
+          "name": "Audio Out",
+          "type": "af7b5503-c955-489e-9461-164107d56bb6",
+          "x": 15,
+          "y": 1
+        },
+        {
+          "id": "13461",
+          "uuid": "fbb0945c-44a5-4960-b052-3a286ffdc93c",
+          "name": "High-pass",
+          "type": "052cbe38-8ace-4ded-a4a9-de80a9f5fcea",
+          "x": 9,
+          "y": 1
+        },
+        {
+          "id": "13527",
+          "uuid": "404279c7-a869-4393-9b99-96f1fc479a15",
+          "name": "Amp ENV",
+          "type": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+          "x": 10,
+          "y": 1
+        },
+        {
+          "id": "13931",
+          "uuid": "18266c74-f83f-4cba-9adf-328211fdc624",
+          "name": "Gate In",
+          "type": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+          "x": -6,
+          "y": 1
+        },
+        {
+          "id": "13989",
+          "uuid": "9a1542a2-04cc-4d91-af86-a778d1c1adf3",
+          "name": "Dice",
+          "type": "9f66c3b9-ca9b-4b62-8792-73fbec6464a4",
+          "x": -5,
+          "y": 1
+        },
+        {
+          "id": "14067",
+          "uuid": "4ef8a0d3-005a-42e0-bfcb-11012c7943f6",
+          "name": "Attenuate",
+          "type": "cfc56753-defc-4324-8a68-bf747ff45508",
+          "x": -4,
+          "y": 1
+        },
+        {
+          "id": "14153",
+          "uuid": "c714a543-31f8-4a24-8afe-0facce8fe086",
+          "name": "Noise",
+          "type": "33344afa-c8fb-450f-8e82-65fd242a7837",
+          "x": 0,
+          "y": 2
+        },
+        {
+          "id": "14208",
+          "uuid": "9583e0ff-4ac8-4065-975d-14b4cb899763",
+          "name": "Mixer",
+          "type": "839e96da-cda4-45ce-b5a1-e0a40a176968",
+          "x": 1,
+          "y": -2
+        },
+        {
+          "id": "14767",
+          "uuid": "4ab3cab1-42d0-41ef-8308-9dff69243ee4",
+          "name": "Mod ENV",
+          "type": "7e09068b-fee5-457e-afe4-7017661ebbd3",
+          "x": -6,
+          "y": -2
+        },
+        {
+          "id": "15171",
+          "uuid": "3cbd89f8-e4b1-4d12-99e5-3d02205540c7",
+          "name": "Pulse",
+          "type": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+          "x": -3,
+          "y": -2
+        },
+        {
+          "id": "15534",
+          "uuid": "463e7317-51a0-49ff-8c30-2cceea7e2bff",
+          "name": "Pulse",
+          "type": "10c3be1f-ceb4-4bbc-bf35-af11285e58e0",
+          "x": -3,
+          "y": 0
+        },
+        {
+          "id": "15897",
+          "uuid": "afde6542-bafa-4f1a-b29b-6fffcf824668",
+          "name": "Sawtooth",
+          "type": "4ae6d37a-5412-4691-aa8b-261e94e60c59",
+          "x": -3,
+          "y": 2
+        },
+        {
+          "id": "16265",
+          "uuid": "5a82a675-e763-405b-bb38-f4ee3bd7ed3c",
+          "name": "Steps",
+          "type": "80d4de64-0ebc-4bb8-b448-74e57240f4a9",
+          "x": -13,
+          "y": 0
+        },
+        {
+          "id": "16548",
+          "uuid": "754c2ec2-8325-4360-b5ac-bdc6cd0ea352",
+          "name": "Modulator Out",
+          "type": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+          "x": -9,
+          "y": 0,
+          "atoms": [
+            {
+              "id": "16552",
+              "class": "audio_destination_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.Wkj",
+              "fields": {
+                "7123": "Signal In",
+                "7124": "IN",
+                "7125": [
+                  "17599"
+                ],
+                "7234": 0
+              }
+            },
+            {
+              "id": "16557",
+              "class": "modulation_source_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.xMq",
+              "fields": {
+                "3616": [
+                  "16564",
+                  "16566"
+                ],
+                "3639": "",
+                "3640": "SOURCE",
+                "11497": []
+              },
+              "input": {
+                "id": "16559",
+                "ports": [
+                  {
+                    "248": [
+                      "16569"
+                    ],
+                    "249": 0,
+                    "250": "",
+                    "6443": 0,
+                    "id": "16561"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "16569",
+              "class": "nitro_atom",
+              "runtimeClass": "BgP",
+              "fields": {}
+            }
+          ]
+        },
+        {
+          "id": "16590",
+          "uuid": "eea6be91-5520-4cac-ba29-ecc6d77a226b",
+          "name": "Steps",
+          "type": "80d4de64-0ebc-4bb8-b448-74e57240f4a9",
+          "x": -13,
+          "y": 1
+        },
+        {
+          "id": "16873",
+          "uuid": "0ace4a9f-58ab-4360-a095-3b301eb552ce",
+          "name": "Modulator Out",
+          "type": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+          "x": -9,
+          "y": 1
+        },
+        {
+          "id": "16915",
+          "uuid": "1be84592-e180-4a35-a0df-0322d8ed36d9",
+          "name": "Gates",
+          "type": "8d644ad7-8d77-4f05-a36e-04a57f719635",
+          "x": -13,
+          "y": -1
+        },
+        {
+          "id": "17160",
+          "uuid": "f82f699b-78a5-4575-9abb-ca41e32beb8c",
+          "name": "Merge",
+          "type": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+          "x": -10,
+          "y": -2
+        },
+        {
+          "id": "17445",
+          "uuid": "4ea79655-ed31-4249-840f-9cc19fc0a78d",
+          "name": "Gate In",
+          "type": "4e00fda6-20f6-45a9-9d7e-02867cf09b82",
+          "x": -11,
+          "y": -2
+        },
+        {
+          "id": "17503",
+          "uuid": "f85a2271-2be0-4ade-bcaa-fe6d1eff3a5e",
+          "name": "seq/key",
+          "type": "c0281e6e-3d55-4e86-8c9b-0ce8cf3db67d",
+          "x": -11,
+          "y": -3
+        },
+        {
+          "id": "17595",
+          "uuid": "eb3b68bd-5d67-4d93-a0cd-172bbf0b32d6",
+          "name": "Multiply",
+          "type": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+          "x": -10,
+          "y": 0
+        },
+        {
+          "id": "17642",
+          "uuid": "e0735874-61be-4f13-b9ee-969b97c9d9b3",
+          "name": "Multiply",
+          "type": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+          "x": -10,
+          "y": 1
+        },
+        {
+          "id": "17689",
+          "uuid": "09ce1c09-f7f6-4ea4-a4a6-dd7a9cf7e124",
+          "name": "Cutoff Mod",
+          "type": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+          "x": -14,
+          "y": 0
+        },
+        {
+          "id": "17782",
+          "uuid": "24c71a13-ed12-42c3-bd83-98715fa230fa",
+          "name": "Reso Mod",
+          "type": "0565644e-7e9f-45bf-bc34-8df52b5d7d80",
+          "x": -14,
+          "y": 1
+        },
+        {
+          "id": "17822",
+          "uuid": "304fd202-97e0-4ec7-93f8-617b76caa19d",
+          "name": "Lowpass",
+          "type": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+          "x": 4,
+          "y": -2,
+          "atoms": [
+            {
+              "id": "17839",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Cutoff/Center Frequency",
+                "701": "CUTOFF",
+                "712": 15,
+                "3615": [
+                  "19138"
+                ]
+              }
+            },
+            {
+              "id": "17845",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Resonance",
+                "701": "RESONANCE",
+                "712": 0,
+                "3615": [
+                  "16887",
+                  "18910"
+                ]
+              }
+            },
+            {
+              "id": "17851",
+              "class": "audio_destination_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.Wkj",
+              "fields": {
+                "7123": "Signal In",
+                "7124": "IN",
+                "7125": [
+                  "14242"
+                ],
+                "7234": 0
+              }
+            },
+            {
+              "id": "17856",
+              "class": "audio_source_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.RKg",
+              "fields": {
+                "3639": "Signal Out",
+                "3640": "OUT"
+              },
+              "input": {
+                "id": "17858",
+                "ports": [
+                  {
+                    "248": [
+                      "17861"
+                    ],
+                    "249": 0,
+                    "250": "",
+                    "6443": 0,
+                    "id": "17860"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "17861",
+              "class": "nitro_atom",
+              "runtimeClass": "BgP",
+              "fields": {}
+            },
+            {
+              "id": "17896",
+              "class": "audio_destination_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.Wkj",
+              "fields": {
+                "7123": "Cutoff In",
+                "7124": "MOD_IN",
+                "7125": [],
+                "7234": 0
+              }
+            },
+            {
+              "id": "17901",
+              "class": "device_input_proxy_atom",
+              "runtimeClass": "com.bitwig.flt.document.core.master.device.Kiy",
+              "fields": {}
+            },
+            {
+              "id": "17905",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Key Tracking Amount",
+                "701": "KEYTRACK",
+                "712": 0.8899999999999999,
+                "3615": []
+              }
+            },
+            {
+              "id": "17911",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Cutoff Modulation Amount",
+                "701": "CUTOFF_MOD",
+                "712": 0.2999999999999995,
+                "3615": []
+              }
+            },
+            {
+              "id": "17917",
+              "class": "indexed_value_atom",
+              "runtimeClass": "Lig",
+              "fields": {
+                "374": "Filter Mode",
+                "457": 0,
+                "701": "TYPE",
+                "3615": [],
+                "6928": 0
+              }
+            },
+            {
+              "id": "17927",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Drive",
+                "701": "DRIVE",
+                "712": 1,
+                "3615": []
+              }
+            },
+            {
+              "id": "17933",
+              "class": "decimal_value_atom",
+              "runtimeClass": "rce",
+              "fields": {
+                "374": "Resonance Limit",
+                "701": "Q_LIMIT",
+                "712": 16,
+                "3615": []
+              }
+            }
+          ]
+        },
+        {
+          "id": "18054",
+          "uuid": "792ed224-b310-4ce5-b9c2-32613c4d3e5d",
+          "name": "Bandpass",
+          "type": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+          "x": 4,
+          "y": 0
+        },
+        {
+          "id": "18286",
+          "uuid": "0dd98cca-dbdd-4e9e-9c97-6f4e3b241868",
+          "name": "Highpass",
+          "type": "2ddd3d4f-04b9-4ad5-a6f7-08e01df14c0f",
+          "x": 4,
+          "y": 2
+        },
+        {
+          "id": "18518",
+          "uuid": "2b535faf-9429-4d74-9b51-8a2b36f18bf3",
+          "name": "Filter Blender",
+          "type": "c10b5ffa-0d10-4005-ad49-a39253ee26eb",
+          "x": 8,
+          "y": 0
+        },
+        {
+          "id": "18803",
+          "uuid": "a525b7e9-060a-42df-8f09-0ad06f2cd33f",
+          "name": "Blend Filter",
+          "type": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+          "x": 7,
+          "y": -1
+        },
+        {
+          "id": "18896",
+          "uuid": "1226f8ab-7dde-4ba1-a017-bccff988a1f5",
+          "name": "Modulator Out",
+          "type": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+          "x": 8,
+          "y": -3
+        },
+        {
+          "id": "18938",
+          "uuid": "dfe76c1c-e47b-4bf8-b8f7-1bf8be3e525b",
+          "name": "Mst Reso",
+          "type": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+          "x": 7,
+          "y": -3
+        },
+        {
+          "id": "19031",
+          "uuid": "1b74c6b8-4322-4af9-82ac-b82dc1b86f55",
+          "name": "Mst Cutoff",
+          "type": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+          "x": 7,
+          "y": -2
+        },
+        {
+          "id": "19124",
+          "uuid": "2ef85ad9-ea97-4e69-b566-b1fb63be9d05",
+          "name": "Modulator Out",
+          "type": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+          "x": 9,
+          "y": -2
+        },
+        {
+          "id": "19166",
+          "uuid": "d9c085eb-1e9e-48c9-801f-fbcd57984662",
+          "name": "High-pass",
+          "type": "052cbe38-8ace-4ded-a4a9-de80a9f5fcea",
+          "x": 0,
+          "y": 1
+        },
+        {
+          "id": "19232",
+          "uuid": "a5b4ff15-0634-4bc2-bfd7-ed932638b6ae",
+          "name": "AM/RM",
+          "type": "e1d4fdf5-057e-4c83-869e-db4ee322e4ce",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "id": "19296",
+          "uuid": "2b48c946-2c22-4d9f-8530-93ba3cf82b39",
+          "name": "Modulator Out",
+          "type": "098ad9c6-b4c9-4ec1-887f-eaf588611056",
+          "x": -4,
+          "y": 0
+        },
+        {
+          "id": "19334",
+          "uuid": "572f9a49-77c1-405f-bffa-1e60e940bea9",
+          "name": "Multiply",
+          "type": "4a945068-35ff-469f-bc17-fda5d32b7baa",
+          "x": -5,
+          "y": 0
+        },
+        {
+          "id": "19381",
+          "uuid": "deb1519b-7e04-48e1-9db7-cecd7df96fed",
+          "name": "ENV Amnt",
+          "type": "1faa5baf-6cdf-406a-b0e4-89b67501d982",
+          "x": -6,
+          "y": 0
+        },
+        {
+          "id": "19474",
+          "uuid": "64c464b2-d9f7-430b-b51e-9922dabb1bfa",
+          "name": "Attenuate",
+          "type": "cfc56753-defc-4324-8a68-bf747ff45508",
+          "x": -4,
+          "y": 2
+        },
+        {
+          "id": "19560",
+          "uuid": "6a84a0c6-3c0a-46dc-8fa3-36febfededfa",
+          "name": "Dice",
+          "type": "9f66c3b9-ca9b-4b62-8792-73fbec6464a4",
+          "x": -5,
+          "y": 2
+        },
+        {
+          "id": "19638",
+          "uuid": "8bac3299-f86c-4319-bd48-516070e89c36",
+          "name": "Attenuate",
+          "type": "cfc56753-defc-4324-8a68-bf747ff45508",
+          "x": -4,
+          "y": 3
+        },
+        {
+          "id": "19724",
+          "uuid": "08254086-b3c6-492f-aff2-b7c5698a5be7",
+          "name": "Dice",
+          "type": "9f66c3b9-ca9b-4b62-8792-73fbec6464a4",
+          "x": -5,
+          "y": 3
+        },
+        {
+          "id": "19802",
+          "uuid": "b931cf02-c9be-465d-8ed9-6f6b437c0a68",
+          "name": "SEMtex - the pad machine",
+          "type": "b297dabd-144e-4106-b8da-15d08fa6b124",
+          "x": -7,
+          "y": -5
+        },
+        {
+          "id": "19852",
+          "uuid": "014ee7c7-f1b3-474c-84a9-905d80e05c96",
+          "name": "Multimode filter - switch, blend, morph",
+          "type": "b297dabd-144e-4106-b8da-15d08fa6b124",
+          "x": 2,
+          "y": -5
+        },
+        {
+          "id": "19902",
+          "uuid": "415e257c-ab26-4419-ab97-d7a23adf8342",
+          "name": "Add",
+          "type": "57a6f72c-db9d-4a96-bc4b-d6a2bb8b656a",
+          "x": 8,
+          "y": -1
+        },
+        {
+          "id": "19949",
+          "uuid": "80a7ab28-8c99-40eb-872c-1651b31db742",
+          "name": "Morph On",
+          "type": "5d016b16-be9c-4735-b9df-a533ee72528b",
+          "x": 8,
+          "y": -2
+        },
+        {
+          "id": "19997",
+          "uuid": "8b7bc461-ec98-4986-8e6d-76d9b37a8ea8",
+          "name": "Morphing filter",
+          "type": "b297dabd-144e-4106-b8da-15d08fa6b124",
+          "x": 6,
+          "y": -5
+        },
+        {
+          "id": "20047",
+          "uuid": "71c9bae8-d749-4b85-a3d5-c9faa946d468",
+          "name": "Very old-school sound",
+          "type": "b297dabd-144e-4106-b8da-15d08fa6b124",
+          "x": -3,
+          "y": -5
+        },
+        {
+          "id": "20097",
+          "uuid": "37fd3063-bc2e-42fb-af1c-d2e7fd131b3e",
+          "name": "Attenuate",
+          "type": "cfc56753-defc-4324-8a68-bf747ff45508",
+          "x": 13,
+          "y": 1
+        },
+        {
+          "id": "20183",
+          "uuid": "cad1108b-5aff-49e0-8f8d-998b26415431",
+          "name": "VU Meter",
+          "type": "08d55d78-9240-43b9-9fe3-acde57ac1e60",
+          "x": 14,
+          "y": 1
+        }
+      ],
+      "mappings": {
+        "16564": {
+          "3611": 129,
+          "3638": true,
+          "11338": "LINEAR",
+          "11481": true,
+          "11503": [],
+          "11509": false,
+          "11913": false,
+          "source": "16557",
+          "reference": {
+            "65": [
+              "18071"
+            ],
+            "4913": [
+              "18054"
+            ],
+            "4914": "CONTENTS/CUTOFF",
+            "4922": "Cutoff/Center Frequency",
+            "4923": "SEMtex Motion Seq » Bandpass",
+            "4924": true,
+            "id": "16565"
+          }
+        },
+        "16566": {
+          "3611": 129,
+          "3638": true,
+          "11338": "LINEAR",
+          "11481": true,
+          "11503": [],
+          "11509": false,
+          "11913": false,
+          "source": "16557",
+          "reference": {
+            "65": [
+              "18303"
+            ],
+            "4913": [
+              "18286"
+            ],
+            "4914": "CONTENTS/CUTOFF",
+            "4922": "Cutoff/Center Frequency",
+            "4923": "SEMtex Motion Seq » Highpass",
+            "4924": true,
+            "id": "16567"
+          }
+        },
+        "16887": {
+          "3611": 0.11999999999999973,
+          "3638": true,
+          "11338": "LINEAR",
+          "11481": true,
+          "11503": [],
+          "11509": false,
+          "11913": false,
+          "source": "16882",
+          "reference": {
+            "65": [
+              "17845"
+            ],
+            "4913": [
+              "17822"
+            ],
+            "4914": "CONTENTS/RESONANCE",
+            "4922": "Resonance",
+            "4923": "SEMtex Motion Seq » Lowpass",
+            "4924": true,
+            "id": "16888"
+          }
+        },
+        "18910": {
+          "3611": 0.9800000000000002,
+          "3638": true,
+          "11338": "LINEAR",
+          "11481": true,
+          "11503": [],
+          "11509": false,
+          "11913": false,
+          "source": "18905",
+          "reference": {
+            "65": [
+              "17845"
+            ],
+            "4913": [
+              "17822"
+            ],
+            "4914": "CONTENTS/RESONANCE",
+            "4922": "Resonance",
+            "4923": "SEMtex Motion Seq » Lowpass",
+            "4924": true,
+            "id": "18911"
+          }
+        },
+        "19138": {
+          "3611": 129,
+          "3638": true,
+          "11338": "LINEAR",
+          "11481": true,
+          "11503": [],
+          "11509": false,
+          "11913": false,
+          "source": "19133",
+          "reference": {
+            "65": [
+              "17839"
+            ],
+            "4913": [
+              "17822"
+            ],
+            "4914": "CONTENTS/CUTOFF",
+            "4922": "Cutoff/Center Frequency",
+            "4923": "SEMtex Motion Seq » Lowpass",
+            "4924": true,
+            "id": "19139"
+          }
+        }
+      }
+    },
+    "witness": {
+      "editIdle": true,
+      "parentsVerified": true,
+      "engineActive": true,
+      "selection": {
+        "present": true,
+        "selected": []
+      }
+    }
+  },
+  "metrics": {
+    "descriptorWork": 1517,
+    "snapshotNanos": 580584
+  },
+  "queueNanos": 65416,
+  "documentTaskNanos": 1085917,
+  "heapBefore": 482344960,
+  "heapAfter": 482344960,
+  "status": {
+    "case": "mapping",
+    "commands": 1,
+    "reads": 2,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 22516583
+}

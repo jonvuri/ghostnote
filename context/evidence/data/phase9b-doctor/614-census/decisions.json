@@ -1,0 +1,509 @@
+{
+  "format": "grid-doctor-owned-census-decisions-v1",
+  "source": "D52, E339, E340",
+  "classSetsEqual": true,
+  "addedClasses": [
+    {
+      "old": "FEG",
+      "new": "dgk",
+      "className": "boolean_port",
+      "classId": 98,
+      "creationSites": [
+        {
+          "for": "com/bitwig/flt/document/core/master/device/Wkj",
+          "in": [
+            "com/bitwig/flt/document/core/master/device/Wkj",
+            "bl_",
+            "()V"
+          ],
+          "via": [
+            "dgk",
+            "MRY",
+            "(Ljava/lang/String;)Ldgk;"
+          ],
+          "store": [
+            "com/bitwig/flt/document/core/master/device/Wkj",
+            "MRY",
+            "(Lgez;)V",
+            "gez"
+          ]
+        },
+        {
+          "for": "RuU",
+          "in": [
+            "RuU",
+            "bl_",
+            "()V"
+          ],
+          "via": [
+            "dgk",
+            "cfM",
+            "(Lnyh;)Ldgk;"
+          ],
+          "store": [
+            "RuU",
+            "cfM",
+            "(Lgez;)V",
+            "gez"
+          ]
+        },
+        {
+          "for": "RuU",
+          "in": [
+            "RuU",
+            "bl_",
+            "()V"
+          ],
+          "via": [
+            "dgk",
+            "MRY",
+            "(Lnyh;)Ldgk;"
+          ],
+          "store": [
+            "RuU",
+            "cfM",
+            "(Lgez;)V",
+            "gez"
+          ]
+        }
+      ],
+      "oldDisposalChain": [
+        {
+          "declaring": "fkV",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "EXF.dC_()V",
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "fkV.J_()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "GAQ",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "GAQ.J_()Z",
+            "LaB.dC_()V",
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "hsO",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "hsO.J_()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/HEV",
+          "instructions": 61,
+          "bodyDigest": "be8b1b767f5e2f53a59616cb8461cb3db6c295f3573292832ff33929aca8c2a2",
+          "flags": 1,
+          "calls": [
+            "cJT.eOi(Z)Z",
+            "com/bitwig/ramona/core/HEV.H_()Z",
+            "com/bitwig/ramona/core/HEV.J_()Z",
+            "com/bitwig/ramona/core/HEV.MkF(Z)V",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "com/bitwig/ramona/core/HEV.dpx(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/HEV.kh3()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;"
+          ]
+        }
+      ],
+      "newDisposalChain": [
+        {
+          "declaring": "WlT",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "WlT.K_()Z",
+            "bGz.ix_()V",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "LKb",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "LKb.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "gez.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "CKx",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "CKx.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/oDc",
+          "instructions": 63,
+          "bodyDigest": "f6bbb08d84c32a6eeca68257c9b9793fc8addefb6f9a6a527eb83d663b52757c",
+          "flags": 1,
+          "calls": [
+            "cQi.MRY(Z)Z",
+            "com/bitwig/ramona/core/oDc.I_()Z",
+            "com/bitwig/ramona/core/oDc.K_()Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "com/bitwig/ramona/core/oDc.tB1(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/oDc.wGc(Z)V",
+            "com/bitwig/ramona/core/oDc.xmC()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;",
+            "thz.cfM(Ljava/lang/Object;)V"
+          ]
+        }
+      ],
+      "bodyParity": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "decision": "The added class uses the same disposal overrides. Only the known base tracking tail differs. Keep the D52 tracking-flag entry guard and measure disposal once in the third pass."
+    },
+    {
+      "old": "vPq",
+      "new": "wKx",
+      "className": "continuous_parameter_port",
+      "classId": 92,
+      "creationSites": [
+        {
+          "for": "Hgx",
+          "in": [
+            "rce",
+            "bl_",
+            "()V"
+          ],
+          "via": [
+            "wKx",
+            "cfM",
+            "(Ljava/lang/String;Lnyh;)LwKx;"
+          ],
+          "store": [
+            "rce",
+            "MRY",
+            "(Lgez;)V",
+            "gez"
+          ]
+        }
+      ],
+      "oldDisposalChain": [
+        {
+          "declaring": "MZm",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "MZm.J_()Z",
+            "YHE.dC_()V",
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "IBF",
+          "instructions": 29,
+          "bodyDigest": "965c005ad241f6c13a8e7fa49f27f4ff36d03200f394b8830b180fdbe9a51008",
+          "flags": 1,
+          "calls": [
+            "IBF.J_()Z",
+            "LaB.dC_()V",
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "hsO",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "hsO.J_()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/HEV",
+          "instructions": 61,
+          "bodyDigest": "be8b1b767f5e2f53a59616cb8461cb3db6c295f3573292832ff33929aca8c2a2",
+          "flags": 1,
+          "calls": [
+            "cJT.eOi(Z)Z",
+            "com/bitwig/ramona/core/HEV.H_()Z",
+            "com/bitwig/ramona/core/HEV.J_()Z",
+            "com/bitwig/ramona/core/HEV.MkF(Z)V",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "com/bitwig/ramona/core/HEV.dpx(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/HEV.kh3()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;"
+          ]
+        }
+      ],
+      "newDisposalChain": [
+        {
+          "declaring": "v1U",
+          "instructions": 23,
+          "bodyDigest": "dfaca915eaabf51bc80343979d0cc55c6131b195ce772d7ee1041f51379bde44",
+          "flags": 1,
+          "calls": [
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;",
+            "v1U.K_()Z",
+            "wji.ix_()V"
+          ]
+        },
+        {
+          "declaring": "UqJ",
+          "instructions": 29,
+          "bodyDigest": "965c005ad241f6c13a8e7fa49f27f4ff36d03200f394b8830b180fdbe9a51008",
+          "flags": 1,
+          "calls": [
+            "UqJ.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "gez.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "CKx",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "CKx.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/oDc",
+          "instructions": 63,
+          "bodyDigest": "f6bbb08d84c32a6eeca68257c9b9793fc8addefb6f9a6a527eb83d663b52757c",
+          "flags": 1,
+          "calls": [
+            "cQi.MRY(Z)Z",
+            "com/bitwig/ramona/core/oDc.I_()Z",
+            "com/bitwig/ramona/core/oDc.K_()Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "com/bitwig/ramona/core/oDc.tB1(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/oDc.wGc(Z)V",
+            "com/bitwig/ramona/core/oDc.xmC()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;",
+            "thz.cfM(Ljava/lang/Object;)V"
+          ]
+        }
+      ],
+      "bodyParity": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "decision": "The added class uses the same disposal overrides. Only the known base tracking tail differs. Keep the D52 tracking-flag entry guard and measure disposal once in the third pass."
+    },
+    {
+      "old": "tqA",
+      "new": "vta",
+      "className": "double_audio_port",
+      "classId": 1840,
+      "creationSites": [
+        {
+          "for": "BgP",
+          "in": [
+            "BgP",
+            "iW2",
+            "()Ljava/util/List;"
+          ],
+          "via": [
+            "vta",
+            "Hnt",
+            "(Ljava/lang/String;LWgD;Lnyh;)Lvta;"
+          ],
+          "store": [
+            "java/util/List",
+            "add",
+            "(Ljava/lang/Object;)Z",
+            "collection-add"
+          ]
+        },
+        {
+          "for": "BgP",
+          "in": [
+            "BgP",
+            "Bpn",
+            "()Ljava/util/List;"
+          ],
+          "via": [
+            "vta",
+            "FzB",
+            "(Ljava/lang/String;LWgD;Lnyh;)Lvta;"
+          ],
+          "store": [
+            "java/util/List",
+            "add",
+            "(Ljava/lang/Object;)Z",
+            "collection-add"
+          ]
+        }
+      ],
+      "oldDisposalChain": [
+        {
+          "declaring": "IBF",
+          "instructions": 29,
+          "bodyDigest": "965c005ad241f6c13a8e7fa49f27f4ff36d03200f394b8830b180fdbe9a51008",
+          "flags": 1,
+          "calls": [
+            "IBF.J_()Z",
+            "LaB.dC_()V",
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "hsO",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "com/bitwig/flt/document/core/master/B3E.ffA(Z)Z",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "hsO.J_()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/HEV",
+          "instructions": 61,
+          "bodyDigest": "be8b1b767f5e2f53a59616cb8461cb3db6c295f3573292832ff33929aca8c2a2",
+          "flags": 1,
+          "calls": [
+            "cJT.eOi(Z)Z",
+            "com/bitwig/ramona/core/HEV.H_()Z",
+            "com/bitwig/ramona/core/HEV.J_()Z",
+            "com/bitwig/ramona/core/HEV.MkF(Z)V",
+            "com/bitwig/ramona/core/HEV.dC_()V",
+            "com/bitwig/ramona/core/HEV.dpx(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/HEV.kh3()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;"
+          ]
+        }
+      ],
+      "newDisposalChain": [
+        {
+          "declaring": "UqJ",
+          "instructions": 29,
+          "bodyDigest": "965c005ad241f6c13a8e7fa49f27f4ff36d03200f394b8830b180fdbe9a51008",
+          "flags": 1,
+          "calls": [
+            "UqJ.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "gez.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "CKx",
+          "instructions": 53,
+          "bodyDigest": "8258c42c6e7cfe8b766f0601a00c1bec4f100316a8782a4ebef818231157b1bb",
+          "flags": 1,
+          "calls": [
+            "CKx.K_()Z",
+            "com/bitwig/flt/document/core/master/NcW.cfM(Z)Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object;"
+          ]
+        },
+        {
+          "declaring": "com/bitwig/ramona/core/oDc",
+          "instructions": 63,
+          "bodyDigest": "f6bbb08d84c32a6eeca68257c9b9793fc8addefb6f9a6a527eb83d663b52757c",
+          "flags": 1,
+          "calls": [
+            "cQi.MRY(Z)Z",
+            "com/bitwig/ramona/core/oDc.I_()Z",
+            "com/bitwig/ramona/core/oDc.K_()Z",
+            "com/bitwig/ramona/core/oDc.ix_()V",
+            "com/bitwig/ramona/core/oDc.tB1(Ljava/lang/String;)Ljava/util/List;",
+            "com/bitwig/ramona/core/oDc.wGc(Z)V",
+            "com/bitwig/ramona/core/oDc.xmC()Z",
+            "java/lang/AssertionError.<init>()V",
+            "java/util/Iterator.hasNext()Z",
+            "java/util/Iterator.next()Ljava/lang/Object;",
+            "java/util/List.iterator()Ljava/util/Iterator;",
+            "thz.cfM(Ljava/lang/Object;)V"
+          ]
+        }
+      ],
+      "bodyParity": [
+        true,
+        true,
+        false
+      ],
+      "decision": "The added class uses the same disposal overrides. Only the known base tracking tail differs. Keep the D52 tracking-flag entry guard and measure disposal once in the third pass."
+    }
+  ],
+  "limits": [
+    "The class set includes conditional initialization paths. It is an over-approximation for the fixed Amplify fixture.",
+    "The E340 detached projection is not the full 77-object tree. The harness replays the projection and tests the three added classes as separate inert inputs.",
+    "The bounded scan is not a proof of all possible runtime objects. The live guard refuses any other exact class.",
+    "No third live command or new disposal timing sample has run."
+  ],
+  "writeAuthority": false
+}

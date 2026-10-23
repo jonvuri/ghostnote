@@ -1,0 +1,9 @@
+{
+  "tracksEqual": true,
+  "mixerEqual": true,
+  "selectionEqual": true,
+  "attemptToCacheMs": 16255,
+  "documentTasks": 57,
+  "documentTaskTotalNanos": 305507337,
+  "maxHeapAfterBytes": 685768704
+}

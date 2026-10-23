@@ -9,7 +9,8 @@ import {
   RETRY_CONSENT, REFUSED_PREFLIGHT_ERRORS, DATA, CANDIDATE_DIRECTORY, OLD_RECORDS,
   SECOND_PASS_CONSENT, SECOND_PASS_POLICY, PRIOR_614_KEY, PRIOR_614_RECORDS, UNCERTAIN_EVIDENCE_COMMANDS,
   UNCERTAIN_EVIDENCE_INSPECTION, requireSecondPassAdmission, recordSecondPassAttempt, secondPassName, loadE339Sample,
-  E339_SAMPLE,
+  operatorReplyArgument, E339_SAMPLE, E340_SAMPLE, loadCommandSample, THIRD_PASS_CONSENT, THIRD_PASS_POLICY,
+  THIRD_PASS_PRIOR_RECORDS, requireThirdPassAdmission, recordThirdPassAttempt, thirdPassName, SECOND_PASS_COMMANDS,
 } from './phase9b-grid-doctor-614.js';
 import { CORE_ACTIONS } from './phase9b-grid-doctor.js';
 import type { Wire } from './phase9b-grid-survey-read.js';
@@ -162,15 +163,15 @@ test('timing comparison reports percent change and the 20 percent flag as data',
     [{ action: 'a', nativeCommandNanos: 100 }, { action: 'c', nativeCommandNanos: 2 }]);
   assert.deepEqual(rows, [
     { action: 'a', e316Nanos: 100, v21Nanos: 130, percentChange: 30, over20Percent: true,
-      e339Nanos: 100, percentChangeE339: 30, over20PercentE339: true },
+      e339Nanos: 100, percentChangeE339: 30, over20PercentE339: true, e340Nanos: null, percentChangeE340: null, over20PercentE340: false },
     { action: 'b', e316Nanos: 200, v21Nanos: 220, percentChange: 10, over20Percent: false,
-      e339Nanos: null, percentChangeE339: null, over20PercentE339: false },
+      e339Nanos: null, percentChangeE339: null, over20PercentE339: false, e340Nanos: null, percentChangeE340: null, over20PercentE340: false },
     { action: 'c', e316Nanos: null, v21Nanos: 1, percentChange: null, over20Percent: false,
-      e339Nanos: 2, percentChangeE339: -50, over20PercentE339: false },
+      e339Nanos: 2, percentChangeE339: -50, over20PercentE339: false, e340Nanos: null, percentChangeE340: null, over20PercentE340: false },
   ]);
   assert.deepEqual(compareTiming([], [{ action: 'a', nativeCommandNanos: 1 }]),
     [{ action: 'a', e316Nanos: null, v21Nanos: 1, percentChange: null, over20Percent: false,
-      e339Nanos: null, percentChangeE339: null, over20PercentE339: false }]);
+      e339Nanos: null, percentChangeE339: null, over20PercentE339: false, e340Nanos: null, percentChangeE340: null, over20PercentE340: false }]);
   const sample = loadE316Sample();
   assert.deepEqual(sample.map(r => r.action),
     ['boolean-enable', 'boolean-restore', 'mapping-remove', 'mapping-restore', ...CORE_ACTIONS]);
@@ -351,4 +352,77 @@ test('the committed copies of the six 9b.6h records name the attempt-6 evidence 
     assert.throws(() => requireRefusedPreflights(attempts, PRIOR_614_KEY, records.map(r => r.record.output)), /refused-preflight-limit/);
     assert.throws(() => requireRefusedPreflights(attempts, PRIOR_614_KEY, records.slice(0, 5).map(r => r.record.output)), /retry-already-recorded/);
   } finally { rmSync(attempts, { recursive: true, force: true }); }
+});
+
+test('third-pass admission keeps all seven records and requires the exact E340 stop', () => {
+  const root = temp(), attempts = join(root, 'attempts'), data = join(root, 'data'), evidence = join(root, 'evidence');
+  mkdirSync(attempts); mkdirSync(data); mkdirSync(evidence);
+  const records: [string, string][] = THIRD_PASS_PRIOR_RECORDS.map(([name], i) => [name, `record-${i}.json`]);
+  const canonical = join(data, '614-second-pass/live-v21-second-pass'); mkdirSync(canonical, { recursive: true });
+  const last = JSON.parse(readFileSync(join(DATA, THIRD_PASS_PRIOR_RECORDS[6]![1]), 'utf8'));
+  const started = Date.parse(last.started), key = PRIOR_614_KEY;
+  try {
+    for (let i = 0; i < records.length; i++) {
+      const bytes = i === 6 ? Buffer.from(JSON.stringify({ ...last, output: evidence }))
+        : readFileSync(join(DATA, THIRD_PASS_PRIOR_RECORDS[i]![1]));
+      writeFileSync(join(attempts, records[i]![0]), bytes); writeFileSync(join(data, records[i]![1]), bytes);
+    }
+    for (const name of [...SECOND_PASS_COMMANDS, 'preset-2-inspection.json', 'failure.json', 'exit.json']) {
+      copyFileSync(join(E340_SAMPLE, name), join(evidence, name)); copyFileSync(join(E340_SAMPLE, name), join(canonical, name));
+    }
+    const admit = (time = started + 1) => requireThirdPassAdmission(attempts, key, evidence, time, data, records);
+    assert.equal(admit().length, 7);
+    assert.throws(() => admit(started), /host-not-restarted-after-second-pass/);
+    assert.throws(() => admit(Number.NaN), /host-not-restarted-after-second-pass/);
+    assert.throws(() => requireSecondPassAdmission(attempts, key, evidence, started + 1), /second-pass-already-recorded/);
+    assert.throws(() => requireRefusedPreflights(attempts, key, records.map(() => evidence)), /refused-preflight-limit/);
+    for (const [name] of records) {
+      const path = join(attempts, name), bytes = readFileSync(path);
+      writeFileSync(path, Buffer.concat([bytes, Buffer.from(' ')]));
+      assert.throws(() => admit(), /prior-record-changed/); writeFileSync(path, bytes);
+    }
+    for (const name of SECOND_PASS_COMMANDS) {
+      const path = join(evidence, name), bytes = readFileSync(path);
+      rmSync(path); assert.throws(() => admit(), /second-pass-command-receipts/);
+      writeFileSync(path, '{}'); assert.throws(() => admit(), /second-pass-evidence-changed/); writeFileSync(path, bytes);
+    }
+    writeFileSync(join(evidence, 'preset-2-stage-5-command.json'), '{}');
+    assert.throws(() => admit(), /second-pass-command-receipts/); rmSync(join(evidence, 'preset-2-stage-5-command.json'));
+    writeFileSync(join(evidence, 'preset-1-inspection.json'), '{}');
+    assert.throws(() => admit(), /second-pass-inspection/); rmSync(join(evidence, 'preset-1-inspection.json'));
+    assert.throws(() => recordThirdPassAttempt(attempts, key, 'f', SECOND_PASS_CONSENT, evidence, started + 1, {}, data, records),
+      /third-pass-consent-required/);
+    recordThirdPassAttempt(attempts, key, 'f', THIRD_PASS_CONSENT, evidence, started + 1, { output: '/third', operatorReply: 'Saved, go ahead' }, data, records);
+    const record = JSON.parse(readFileSync(join(attempts, thirdPassName(key)), 'utf8'));
+    assert.equal(record.policy, THIRD_PASS_POLICY); assert.equal(record.hostConsentToken, CONSENT);
+    assert.equal(record.priorAttemptSha256.length, 7); assert.equal(record.output, '/third');
+    assert.equal(record.operatorReply, 'Saved, go ahead');
+    assert.throws(() => admit(), /third-pass-already-recorded/);
+    assert.throws(() => recordFirstAttempt(attempts, key, 'f', CONSENT, {}), /attempt-already-recorded/);
+    for (const [name, committed] of records) assert.ok(readFileSync(join(attempts, name)).equals(readFileSync(join(data, committed))));
+    rmSync(join(attempts, thirdPassName(key))); writeFileSync(join(attempts, `${key}.accepted.json`), '{}');
+    assert.throws(() => admit(), /already-accepted/);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test('E340 timing compares all nine completed commands and reports increases as data', () => {
+  const sample = loadCommandSample(E340_SAMPLE);
+  assert.deepEqual(sample.map(r => r.action), ['boolean-enable', 'boolean-restore', 'mapping-remove', 'mapping-restore', ...CORE_ACTIONS.slice(0, 5)]);
+  const rows = compareTiming([], sample.map(r => ({ ...r, nativeCommandNanos: r.nativeCommandNanos * 1.3 })), [], sample);
+  assert.ok(rows.every(r => r.over20PercentE340 && Math.abs(r.percentChangeE340! - 30) < 0.0001));
+});
+
+
+test('ordinary operator replies are retained without requiring a prescribed phrase', () => {
+  const command = ['/new/output', THIRD_PASS_CONSENT, '--third-pass-after-owned-tree-refusal', '/prior'];
+  for (const reply of ['Saved, go ahead', 'Yes, run that test.', 'Saved. Playback is stopped; proceed.']) {
+    const input = [...command, '--operator-reply', reply];
+    assert.deepEqual(operatorReplyArgument(input), { argv: command, operatorReply: reply });
+    assert.equal(input.length, 6);
+  }
+  assert.deepEqual(operatorReplyArgument(command), { argv: command });
+  for (const reply of ['', '   ', 'x'.repeat(4097)])
+    assert.throws(() => operatorReplyArgument([...command, '--operator-reply', reply]), /operator-reply-required/);
+  assert.throws(() => operatorReplyArgument([...command, '--operator-reply']), /operator-reply-required/);
+  assert.throws(() => operatorReplyArgument([...command, '--operator-reply', 'yes', '--operator-reply', 'yes']), /duplicate-operator-reply/);
 });

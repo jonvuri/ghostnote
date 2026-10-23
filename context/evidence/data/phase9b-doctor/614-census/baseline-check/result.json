@@ -1,0 +1,13 @@
+{
+  "verdict": "baseline-confirmed",
+  "calls": 39,
+  "project": "gn-grid-spike",
+  "tracks": [
+    "grid-probe",
+    "FX 1",
+    "Master"
+  ],
+  "initialization": "2026-10-23T13:54:52.195Z",
+  "priorCheck": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-second-pass/recovery/baseline-check-2/baseline-check.json",
+  "priorAgrees": true
+}
