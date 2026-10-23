@@ -7,6 +7,9 @@ import {
   requireCandidate, requireOldRecordsPreserved, recordFirstAttempt, prepareDoctor, runDoctorCase, compareTiming,
   loadE316Sample, requireGuardReceipt, requireRefusedPreflights, recordRetryAttempt, MARKER, CONSENT, HOST_VERSION,
   RETRY_CONSENT, REFUSED_PREFLIGHT_ERRORS, DATA, CANDIDATE_DIRECTORY, OLD_RECORDS,
+  SECOND_PASS_CONSENT, SECOND_PASS_POLICY, PRIOR_614_KEY, PRIOR_614_RECORDS, UNCERTAIN_EVIDENCE_COMMANDS,
+  UNCERTAIN_EVIDENCE_INSPECTION, requireSecondPassAdmission, recordSecondPassAttempt, secondPassName, loadE339Sample,
+  E339_SAMPLE,
 } from './phase9b-grid-doctor-614.js';
 import { CORE_ACTIONS } from './phase9b-grid-doctor.js';
 import type { Wire } from './phase9b-grid-survey-read.js';
@@ -155,16 +158,27 @@ test('a failed or incomplete guard receipt refuses before the next stage', async
 test('timing comparison reports percent change and the 20 percent flag as data', () => {
   const rows = compareTiming(
     [{ action: 'a', nativeCommandNanos: 100 }, { action: 'b', nativeCommandNanos: 200 }],
-    [{ action: 'a', nativeCommandNanos: 130 }, { action: 'b', nativeCommandNanos: 220 }, { action: 'c', nativeCommandNanos: 1 }]);
+    [{ action: 'a', nativeCommandNanos: 130 }, { action: 'b', nativeCommandNanos: 220 }, { action: 'c', nativeCommandNanos: 1 }],
+    [{ action: 'a', nativeCommandNanos: 100 }, { action: 'c', nativeCommandNanos: 2 }]);
   assert.deepEqual(rows, [
-    { action: 'a', e316Nanos: 100, v21Nanos: 130, percentChange: 30, over20Percent: true },
-    { action: 'b', e316Nanos: 200, v21Nanos: 220, percentChange: 10, over20Percent: false },
-    { action: 'c', e316Nanos: null, v21Nanos: 1, percentChange: null, over20Percent: false },
+    { action: 'a', e316Nanos: 100, v21Nanos: 130, percentChange: 30, over20Percent: true,
+      e339Nanos: 100, percentChangeE339: 30, over20PercentE339: true },
+    { action: 'b', e316Nanos: 200, v21Nanos: 220, percentChange: 10, over20Percent: false,
+      e339Nanos: null, percentChangeE339: null, over20PercentE339: false },
+    { action: 'c', e316Nanos: null, v21Nanos: 1, percentChange: null, over20Percent: false,
+      e339Nanos: 2, percentChangeE339: -50, over20PercentE339: false },
   ]);
+  assert.deepEqual(compareTiming([], [{ action: 'a', nativeCommandNanos: 1 }]),
+    [{ action: 'a', e316Nanos: null, v21Nanos: 1, percentChange: null, over20Percent: false,
+      e339Nanos: null, percentChangeE339: null, over20PercentE339: false }]);
   const sample = loadE316Sample();
   assert.deepEqual(sample.map(r => r.action),
     ['boolean-enable', 'boolean-restore', 'mapping-remove', 'mapping-restore', ...CORE_ACTIONS]);
   assert.ok(sample.every(r => Number.isFinite(r.nativeCommandNanos) && r.nativeCommandNanos > 0));
+  // E339 attempt 6: the boolean pair and the uncertain mapping removal, nothing later.
+  const attempt = loadE339Sample();
+  assert.deepEqual(attempt.map(r => r.action), ['boolean-enable', 'boolean-restore', 'mapping-remove']);
+  assert.deepEqual(attempt.map(r => r.nativeCommandNanos), [1_593_125, 236_875, 4_077_541]);
 });
 
 test('a retry is admitted only after a refused preflight with no scratch write and no bind', () => {
@@ -234,4 +248,107 @@ test('breadth snapshot rules use the resolved 6.1.4 runtime names, not the 6.0.6
   validateSnapshot(read.snapshot, read.snapshot, 'boolean', 0, runtime);
   assert.throws(() => validateSnapshot(read.snapshot, read.snapshot, 'boolean', 0, PINNED_606), /'RuU' !== 'QY'/);
   assert.throws(() => validateSnapshot(read.snapshot, read.snapshot, 'boolean', 0), /'RuU' !== 'QY'/);
+});
+
+test('the mapping fixture rules accept the 6.1.4 removal transform from the attempt-6 captures', () => {
+  const candidate = JSON.parse(readFileSync(join(CANDIDATE_DIRECTORY, 'candidate.json'), 'utf8'));
+  const runtime = fixtureRuntime(candidate);
+  const snapshot = (name: string) => JSON.parse(readFileSync(join(E339_SAMPLE, `${name}.json`), 'utf8')).snapshot;
+  const initial = snapshot('preset-1-stage-0-read-0'), pair = snapshot('preset-1-stage-0-read-1');
+  const removed = snapshot('preset-1-inspection');
+  assert.deepEqual(pair, initial, 'attempt-6-pair');
+  validateSnapshot(initial, pair, 'mapping', 0, runtime);
+  // The inspection read after the uncertain removal is the exact stage-1 transform with an unchanged witness.
+  validateSnapshot(initial, removed, 'mapping', 1, runtime);
+  assert.equal(Object.keys(removed.fixture.mappings).length, Object.keys(initial.fixture.mappings).length - 1);
+  assert.throws(() => validateSnapshot(initial, initial, 'mapping', 1, runtime), /strictly equal|deep-equal/);
+  assert.throws(() => validateSnapshot(initial, removed, 'mapping', 0, runtime), /deep-equal/);
+  // The 6.0.6 pin refuses the first read; that is the attempt-6 refusal, now covered offline.
+  assert.throws(() => validateSnapshot(initial, pair, 'mapping', 0, PINNED_606), /xMq'[\s\S]*NDn'/);
+  assert.throws(() => validateSnapshot(initial, pair, 'mapping', 0), /xMq'[\s\S]*NDn'/);
+  // The boolean captures pass every stage with the resolved names.
+  const boolean = (stage: number, i: number) => snapshot(`preset-0-stage-${stage}-read-${i}`);
+  const first = boolean(0, 0);
+  for (let stage = 0; stage <= 2; stage++) for (let i = 0; i < 2; i++) validateSnapshot(first, boolean(stage, i), 'boolean', stage, runtime);
+});
+
+test('the second pass is admitted only on the six unchanged records, the uncertain evidence, and a restarted host', () => {
+  const root = mkdtempSync(join(tmpdir(), 'grid-doctor-second-pass-'));
+  const attempts = join(root, 'attempts'), data = join(root, 'data'), evidence = join(root, 'uncertain');
+  mkdirSync(attempts); mkdirSync(evidence); mkdirSync(join(data, 'prior'), { recursive: true });
+  const key = 'k', started = '2026-10-23T04:02:17.972Z', restarted = Date.parse(started) + 60_000;
+  const priorRecords: [string, string][] = [1, 2, 3, 4, 5, 6].map(n => [`${key}.attempt${n === 1 ? '' : `-${n}`}.json`, `prior/${n}.json`]);
+  const write = (dir: string, name: string, value: unknown) => writeFileSync(join(dir, name), JSON.stringify(value));
+  try {
+    for (const [local, committed] of priorRecords) {
+      const record = { output: local.endsWith('-6.json') ? evidence : join(root, local), marker: MARKER, hostVersion: HOST_VERSION,
+        writeAuthority: false, started };
+      write(attempts, local, record); write(data, committed, record);
+    }
+    write(evidence, 'exit.json', { scratch: 'scratch-id', uncertain: true, completedPresets: 1 });
+    write(evidence, 'failure.json', { error: 'breadth-mapping-atom-class', scratch: 'scratch-id', uncertain: true });
+    for (const name of UNCERTAIN_EVIDENCE_COMMANDS) write(evidence, name, {});
+    write(evidence, UNCERTAIN_EVIDENCE_INSPECTION, {});
+    const admit = (ms = restarted) => requireSecondPassAdmission(attempts, key, evidence, ms, data, priorRecords);
+    assert.equal(admit().length, 6);
+    // The retry policy refuses these records as a reason to run: the limit and the command receipts.
+    assert.throws(() => requireRefusedPreflights(attempts, key, priorRecords.map(([local]) => join(root, local))), /refused-preflight-limit/);
+    assert.throws(() => admit(Date.parse(started)), /host-not-restarted-after-uncertain-write/);
+    assert.throws(() => admit(Number.NaN), /host-not-restarted-after-uncertain-write/);
+    assert.throws(() => requireSecondPassAdmission(attempts, key, join(root, 'other'), restarted, data, priorRecords), /uncertain-evidence-mismatch/);
+    assert.throws(() => requireSecondPassAdmission(attempts, key, evidence, restarted, data, priorRecords.slice(0, 5)), /six-prior-records-required/);
+    const sixth = join(attempts, priorRecords[5]![0]), bytes = readFileSync(sixth);
+    const changed = Buffer.from(bytes); changed[0] = changed[0]! ^ 1; writeFileSync(sixth, changed);
+    assert.throws(() => admit(), /prior-record-changed/);
+    rmSync(sixth); assert.throws(() => admit(), /prior-record-missing/);
+    writeFileSync(sixth, bytes); assert.equal(admit().length, 6, 'a refusal does not repair');
+    write(evidence, 'exit.json', { scratch: null, uncertain: true, completedPresets: 1 });
+    assert.throws(() => admit(), /prior-scratch-not-retained/);
+    write(evidence, 'exit.json', { scratch: 'scratch-id', uncertain: false, completedPresets: 1 });
+    assert.throws(() => admit(), /prior-pass-not-uncertain/);
+    write(evidence, 'exit.json', { scratch: 'scratch-id', uncertain: true, completedPresets: 1 });
+    write(evidence, 'preset-1-stage-1-command.json', {});
+    assert.throws(() => admit(), /prior-command-receipts/);
+    rmSync(join(evidence, 'preset-1-stage-1-command.json'));
+    write(evidence, 'results.json', []); assert.throws(() => admit(), /prior-pass-completed/); rmSync(join(evidence, 'results.json'));
+    rmSync(join(evidence, UNCERTAIN_EVIDENCE_INSPECTION)); assert.throws(() => admit(), /prior-inspection-missing/);
+    write(evidence, UNCERTAIN_EVIDENCE_INSPECTION, {});
+    assert.throws(() => recordSecondPassAttempt(attempts, key, 'f', CONSENT, evidence, restarted, {}, data, priorRecords), /second-pass-consent-required/);
+    assert.throws(() => recordSecondPassAttempt(attempts, key, 'f', RETRY_CONSENT, evidence, restarted, {}, data, priorRecords), /second-pass-consent-required/);
+    assert.equal(existsSync(join(attempts, secondPassName(key))), false);
+    recordSecondPassAttempt(attempts, key, 'f', SECOND_PASS_CONSENT, evidence, restarted, { output: '/x' }, data, priorRecords);
+    const record = JSON.parse(readFileSync(join(attempts, secondPassName(key)), 'utf8'));
+    assert.equal(record.consent, SECOND_PASS_CONSENT); assert.equal(record.hostConsentToken, CONSENT);
+    assert.equal(record.policy, SECOND_PASS_POLICY); assert.equal(record.priorAttemptSha256.length, 6);
+    assert.deepEqual(record.priorAttempts, priorRecords.map(([local]) => local));
+    assert.equal(record.uncertainEvidence, evidence); assert.equal(record.hostStartedMs, restarted);
+    assert.equal(record.writeAuthority, false); assert.equal(record.output, '/x');
+    assert.ok(readFileSync(sixth).equals(bytes), 'prior records unchanged');
+    assert.throws(() => admit(), /second-pass-already-recorded/);
+    assert.throws(() => recordFirstAttempt(attempts, key, 'f', CONSENT, {}), /attempt-already-recorded/);
+    rmSync(join(attempts, secondPassName(key))); writeFileSync(join(attempts, `${key}.accepted.json`), '{}');
+    assert.throws(() => admit(), /already-accepted/);
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test('the committed copies of the six 9b.6h records name the attempt-6 evidence and refuse the retry policy', () => {
+  assert.equal(PRIOR_614_RECORDS.length, 6);
+  const records = PRIOR_614_RECORDS.map(([local, committed]) => ({ local, record: JSON.parse(readFileSync(join(DATA, committed), 'utf8')) }));
+  for (const { local, record } of records) {
+    assert.ok(local.startsWith(`${PRIOR_614_KEY}.attempt`)); assert.equal(record.marker, MARKER);
+    assert.equal(record.hostVersion, HOST_VERSION); assert.equal(record.writeAuthority, false); assert.equal(record.consent, CONSENT);
+  }
+  const sixth = records[5]!.record;
+  assert.equal(sixth.priorAttemptSha256.length, 5); assert.equal(sixth.retryConsent, RETRY_CONSENT);
+  assert.ok(sixth.output.endsWith('/614-guarded/live-v21-attempt-6'));
+  // On the machine that holds the evidence, the full admission passes with a later host start and the retry policy refuses.
+  if (!existsSync(sixth.output)) return;
+  const attempts = mkdtempSync(join(tmpdir(), 'grid-doctor-prior-'));
+  try {
+    for (const [local, committed] of PRIOR_614_RECORDS) copyFileSync(join(DATA, committed), join(attempts, local));
+    assert.equal(requireSecondPassAdmission(attempts, PRIOR_614_KEY, sixth.output, Date.parse(sixth.started) + 1).length, 6);
+    assert.throws(() => requireSecondPassAdmission(attempts, PRIOR_614_KEY, sixth.output, Date.parse(sixth.started)), /host-not-restarted/);
+    assert.throws(() => requireRefusedPreflights(attempts, PRIOR_614_KEY, records.map(r => r.record.output)), /refused-preflight-limit/);
+    assert.throws(() => requireRefusedPreflights(attempts, PRIOR_614_KEY, records.slice(0, 5).map(r => r.record.output)), /retry-already-recorded/);
+  } finally { rmSync(attempts, { recursive: true, force: true }); }
 });

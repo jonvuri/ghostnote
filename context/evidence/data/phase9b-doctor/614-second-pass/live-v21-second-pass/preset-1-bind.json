@@ -1,0 +1,19 @@
+{
+  "marker": "9b-grid-doctor-v21",
+  "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f",
+  "metrics": {},
+  "queueNanos": 105625,
+  "documentTaskNanos": 1150625,
+  "heapBefore": 494927872,
+  "heapAfter": 494927872,
+  "status": {
+    "case": "mapping",
+    "commands": 0,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 25275750
+}

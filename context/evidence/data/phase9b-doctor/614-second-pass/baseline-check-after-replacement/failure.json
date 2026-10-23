@@ -1,0 +1,3 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: baseline-differs-from-prior-check\n+ actual - expected\n... Skipped lines\n\n  {\n    control: {\n      additions: [],\n      cables: [\n        {\n...\n      project: 'gn-grid-spike',\n+     revision: 1,\n-     revision: 2,\n      slotIndex: -1,\n      slotProject: '',\n      trackIndex: -1\n    },\n    status: {\n"
+}

@@ -1,0 +1,12 @@
+{
+  "format": "grid-doctor-preservation-v1",
+  "session": "9b.6i",
+  "inventory": "context/evidence/data/phase9b-doctor/614-resolution/entry-inventory.json",
+  "checked": 224,
+  "missing": [],
+  "changed": [
+    "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension"
+  ],
+  "result": "differs",
+  "note": "The one changed entry is the deployed extension archive, replaced on purpose by the 9b.6i probe deployment (deployment.txt)."
+}

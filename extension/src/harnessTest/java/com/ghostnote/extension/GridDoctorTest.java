@@ -67,6 +67,7 @@ public final class GridDoctorTest {
             if (table.type("project-root") == table.type("edit-document")) throw new AssertionError("receiver alias");
             new GridAttachmentSymbols.Symbols(table); new GridEngineSymbols.Symbols(table); new GridBreadthCommands(table);
             tests++;
+            replay614Captures(new GridBreadthCommands(table));
             tests += GridDoctorGuardsTest.run(loader, jar, table);
             JsonObject wrongMtime = candidate.deepCopy(); wrongMtime.addProperty("jarMtimeNs", 0);
             refuses(() -> new GridDoctorSymbols(loader, jar, wrongMtime, rules));
@@ -77,5 +78,60 @@ public final class GridDoctorTest {
             catch (NoSuchMethodException expected) { tests++; }
         }
         System.out.println("Grid doctor: " + tests + " checks pass. No vendor initialization or live command.");
+    }
+    /**
+     * 9b.6i: the E339 attempt-6 captures replay through the breadth protocol with the runtime names resolved
+     * from the installed jar. The 6.0.6 pin must refuse the same captures with the attempt-6 failure.
+     */
+    static void replay614Captures(GridBreadthCommands commands) throws Exception {
+        Path captures = Path.of("../context/evidence/data/phase9b-doctor/614-guarded/live-v21-attempt-6");
+        GridBreadthRules.Runtime runtime = GridBreadthRules.Runtime.of(commands);
+        if (!runtime.booleanAtom().equals("RuU")
+                || !runtime.sourceAtom().equals("com.bitwig.flt.document.core.master.device.xMq"))
+            throw new AssertionError("resolved 6.1.4 runtime names");
+        tests++;
+        JsonObject[] booleanReads = { snapshot(captures, "preset-0-stage-0-read-0"), snapshot(captures, "preset-0-stage-0-read-1"),
+            snapshot(captures, "preset-0-stage-1-read-0"), snapshot(captures, "preset-0-stage-1-read-1"),
+            snapshot(captures, "preset-0-stage-2-read-0"), snapshot(captures, "preset-0-stage-2-read-1") };
+        replay("boolean", runtime, booleanReads, 2); tests++;
+        // The inspection after the uncertain removal is the stage-1 readback that attempt 6 never reached.
+        JsonObject[] mappingReads = { snapshot(captures, "preset-1-stage-0-read-0"), snapshot(captures, "preset-1-stage-0-read-1"),
+            snapshot(captures, "preset-1-inspection"), snapshot(captures, "preset-1-inspection") };
+        replay("mapping", runtime, mappingReads, 1); tests++;
+        expectRefusal(() -> replay("mapping", GridBreadthRules.Runtime.PINNED_606, mappingReads, 1), "breadth-mapping-atom-class");
+        expectRefusal(() -> replay("boolean", GridBreadthRules.Runtime.PINNED_606, booleanReads, 2), "breadth-gates-phase-atom");
+        // A stage-1 read that still holds the mapping, or the removed state before the command, refuses.
+        JsonObject[] unchanged = { mappingReads[0], mappingReads[1], mappingReads[0], mappingReads[0] };
+        expectRefusal(() -> replay("mapping", runtime, unchanged, 1), "breadth-fixture-readback-differs");
+        JsonObject[] early = { mappingReads[0], mappingReads[2], mappingReads[2], mappingReads[2] };
+        expectRefusal(() -> replay("mapping", runtime, early, 1), "breadth-fixture-readback-differs");
+    }
+    static void expectRefusal(Work work, String reason) throws Exception {
+        tests++;
+        try { work.run(); } catch (IllegalStateException refusal) {
+            if (reason.equals(refusal.getMessage())) return;
+            throw new AssertionError("expected " + reason + ", got " + refusal.getMessage());
+        }
+        throw new AssertionError("expected refusal " + reason);
+    }
+    static JsonObject snapshot(Path directory, String name) throws Exception {
+        return JsonParser.parseString(Files.readString(directory.resolve(name + ".json"))).getAsJsonObject().getAsJsonObject("snapshot");
+    }
+    /** Replay a captured pass: each stage reads one captured pair, and a command moves to the next captured stage. */
+    static void replay(String kind, GridBreadthRules.Runtime runtime, JsonObject[] reads, int commands) throws Exception {
+        GridBreadthProtocol protocol = new GridBreadthProtocol(kind, runtime);
+        int[] stage = {0};
+        GridBreadthProtocol.Host host = new GridBreadthProtocol.Host() {
+            int read;
+            public JsonObject read() { return reads[Math.min(2 * stage[0] + (read++ % 2), reads.length - 1)].deepCopy(); }
+            public void admit(String action) {}
+            public void command(String action) { stage[0]++; read = 0; }
+        };
+        for (int i = 0; i < commands; i++) {
+            protocol.read(host); protocol.read(host);
+            protocol.command(protocol.action(), host, () -> {});
+        }
+        protocol.read(host); protocol.read(host);
+        if (commands == 2) protocol.release(false);
     }
 }

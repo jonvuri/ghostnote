@@ -1,0 +1,175 @@
+[
+  {
+    "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+    "flavour": "Poly Grid",
+    "case": "boolean",
+    "verdict": "survey-read-disagrees",
+    "surveyVerdict": "incomplete-read-recorded",
+    "paired": true,
+    "expectedModules": 19,
+    "schemas": 26,
+    "captures": 5,
+    "additions": [
+      {
+        "className": "wavetable_oscillator_atom",
+        "runtimeClass": "w3V",
+        "fields": [
+          6194,
+          607,
+          608,
+          11163,
+          11164,
+          11165,
+          11157,
+          11389,
+          11570,
+          11581,
+          11572,
+          15445,
+          15447
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "modulation_source_atom",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.xMq",
+        "fields": [
+          6194,
+          607,
+          608,
+          10378,
+          3639,
+          3640,
+          5452
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "transport_component",
+        "runtimeClass": "uUS",
+        "fields": [
+          6194,
+          10070
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "component_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.OcA",
+        "fields": [
+          612,
+          614,
+          615
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "modulation_source_atom_display_settings",
+        "runtimeClass": "qwW",
+        "fields": [
+          5455
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "desktop_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Rzi",
+        "fields": [
+          17,
+          18,
+          19
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "inport_connection",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.AJD",
+        "fields": [
+          248,
+          249,
+          6443
+        ],
+        "removedAbsentFields": []
+      }
+    ]
+  },
+  {
+    "presetPath": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+    "flavour": "Poly Grid",
+    "case": "mapping",
+    "verdict": "survey-read-disagrees",
+    "surveyVerdict": "incomplete-read-recorded",
+    "paired": true,
+    "expectedModules": 50,
+    "schemas": 22,
+    "captures": 5,
+    "additions": [
+      {
+        "className": "modulation_source_atom",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.xMq",
+        "fields": [
+          6194,
+          607,
+          608,
+          10378,
+          3639,
+          3640,
+          5452
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "component_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.OcA",
+        "fields": [
+          612,
+          614,
+          615
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "modulation_source_atom_display_settings",
+        "runtimeClass": "qwW",
+        "fields": [
+          5455
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "desktop_settings",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.Rzi",
+        "fields": [
+          17,
+          18,
+          19
+        ],
+        "removedAbsentFields": []
+      },
+      {
+        "className": "inport_connection",
+        "runtimeClass": "com.bitwig.flt.document.core.master.device.AJD",
+        "fields": [
+          248,
+          249,
+          6443
+        ],
+        "removedAbsentFields": []
+      }
+    ]
+  },
+  {
+    "presetPath": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+    "flavour": "Poly Grid",
+    "case": "core",
+    "verdict": "passed",
+    "surveyVerdict": "projected-read-agrees",
+    "paired": true,
+    "moduleCount": 4,
+    "expectedModules": 4,
+    "projectedAudioCableCount": 2,
+    "schemas": 19,
+    "captures": 2,
+    "additions": []
+  }
+]

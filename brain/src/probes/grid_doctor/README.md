@@ -339,3 +339,70 @@ refused before any native command, and the sixth as an uncertain write
 after the mapping removal. No seventh attempt is admitted by the driver.
 Do not remove or edit any attempt record to enable a run. A new pass needs
 its own session, consent, and an explicit exception recorded in the plan.
+
+## 6.1.4 second guarded pass (9b.6i)
+
+Session 9b.6i is the one planned exception to the one-attempt rule on the
+6.1.4 fingerprint, after the sixth 9b.6h attempt left the mapping removal
+uncertain and the operator restarted Bitwig. Keep all six attempt records
+and their committed copies under `614-second-pass/prior-attempts/`
+byte-equal. The driver refuses the second pass when any record changes.
+
+Confirm the recovered baseline first. The check is read-only: no scratch
+track, no doctor bind, no native command. The output directory must not
+exist. The optional second argument compares the check with a prior check.
+
+```sh
+node --import tsx src/probes/phase9b-grid-doctor-614-baseline.ts \
+  /absolute/new/output-directory \
+  /absolute/prior/baseline-check.json
+```
+
+Rehearse the read paths on the installed build before any doctor consent.
+The rehearsal makes one muted scratch track per fixture in sequence,
+inserts the preset, reads it with the survey reader, and deletes the
+track with readback; the control read runs before and after. The operator
+must save first and allow the scratch tracks. A survey cap is a recorded
+verdict, not a refusal.
+
+```sh
+node --import tsx src/probes/phase9b-grid-doctor-614-rehearsal.ts /absolute/new/output-directory
+```
+
+Then deploy the built probe with `copyProbeExtension`, ask for full
+controller replacement, run `npm run probe:hello`, and obtain the
+operator's exact second-pass answer (`SECOND_PASS_CONSENT` in the driver).
+Run from `brain/` with a new absolute evidence directory and the
+attempt-6 evidence directory:
+
+```sh
+node --import tsx src/probes/phase9b-grid-doctor-614.ts /absolute/new/evidence-directory \
+  '<second-pass consent>' --second-pass-after-uncertain-write \
+  /absolute/path/to/614-guarded/live-v21-attempt-6
+```
+
+The driver admits the pass only when no cache and no second-pass record
+exist, the six records are byte-equal to their copies, the sixth record
+names the attempt-6 evidence, that evidence holds exactly the three E339
+command receipts with the retained scratch track and one inspection, and
+the host started after the sixth attempt (`rig.stats`). It creates
+`<fingerprint-hash>.second-pass.attempt.json` with exclusive creation; the
+host bind keeps its pinned consent token. A complete pass writes the
+matching `.accepted.json` after all 76 roles, teardown, both control
+reads, and the preserved-state check. The product does not consume it.
+
+[E340](../../../../context/evidence/experiments/e340-grid-doctor-614-second-guarded-pass.md)
+records the second pass: the boolean and mapping cases pass, the core case
+passes five commands, and the disposal entry guard refuses on the owned-tree
+class `wKx`. Seven 6.1.4 records exist; the driver refuses a retry and a
+second second-pass. The preservation check is reproducible from the
+repository root; the report path must not exist:
+
+```sh
+PYTHONPATH=$PWD/brain/src/probes python3 -B -m grid_doctor.preservation \
+  --inventory context/evidence/data/phase9b-doctor/614-resolution/entry-inventory.json \
+  --session <session> --report /absolute/new/preservation.json
+```
+
+Continue with
+[9b.6j](../../../../context/plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#session-9b6j--owned-tree-census-and-third-guarded-pass).

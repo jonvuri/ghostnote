@@ -1945,3 +1945,55 @@ Each is one sample; the enable increase and the removal decrease have no
 established cause. The pass did not complete, so no teardown, core, or
 whole-pass figure exists. All admitted bounds held on the measured calls.
 Product budgets, descriptions, and latency claims are unchanged.
+
+## 9b.6i recovered baseline and second guarded pass — model before implementation
+
+The second pass keeps the 9b.6h model: 16 native command requests, 38
+independent reads, three binds, 57 doctor document tasks, and the D52 entry
+guard before each command. No wire method, task, poll, or product call
+budget changes; the probe profile keeps 118 methods and hash
+`2e939035ea90b8b0`. The deployed archive is the 9b.6h build with the
+complete `GridBreadthRules.Runtime` fix; its bundled resources are
+unchanged. The second-pass admission adds one `rig.stats` read in the
+prepare step and local file reads: six attempt records of at most
+2,140 bytes each, their committed copies, and one directory listing of the
+attempt-6 evidence. Per-command samples are compared with E316 and with
+the three E339 attempt-6 samples; a change over 20 percent is recorded
+with its action and is never a gate or a reason to repeat a command.
+
+The read-only baseline check sends about 39 sequential wire calls: the
+hello triple, `revision.get`, `track.list`, `selection.status`, the reader
+and doctor status, `host.info`, one cursor point with settle polls, the
+control survey read (bind, 19 schemas, two captures, status, release), the
+selection again, `track.mixer`, and the status again. That is about one
+second of wire time under the existing survey limits; the two control
+captures are about 70 KB each. No scratch track, doctor bind, or native
+command. It repeats the E339 recovery check, which sent 35 calls.
+
+The rehearsal uses the shared scratch survey on the three fixed fixtures
+in sequence: one structural track stage (about 23 calls, 420 ms), one
+mixer write, one preset insertion with its poll, two cursor points, one
+survey read (bind, at most 64 schemas, two captures, release), and one
+delete stage. Each fixture costs about 80–140 calls; the two control
+reads add 24 calls each. The driver budget is 600 calls, 600 s, and 32 MiB
+of evidence. The survey caps of E302 can refuse the 50-module SEMtex read
+(`schema-child-limit`); a cap is recorded as data. There is no doctor
+bind, breadth bind, native command, or new host method.
+
+[E340](../evidence/experiments/e340-grid-doctor-614-second-guarded-pass.md)
+measures the session. The baseline check sends 39 calls each time (three
+runs, about one second of wire time each). The rehearsal sends 562 calls
+in 16.0 s of wire time; the two stock fixtures stop at the survey caps
+after five captures each. The second pass sends 435 calls in 11.6 s of
+wire time before the disposal guard refuses. Samples (one each): boolean
+enable 2.044 ms (E316 1.262, +62.1 percent; E339 1.593, +28.3 percent),
+boolean restore 0.242 ms, mapping removal 13.952 ms (E316 19.897, −29.9
+percent; E339 4.078, +242.2 percent), mapping restoration 19.540 ms (E316
+12.892, +51.6 percent), value set 2.506 ms (−19.7 percent), value restore
+1.385 ms (+115.8 percent), cable connect 4.787 ms (+40.0 percent), cable
+disconnect 1.205 ms (−8.1 percent), detached factory 1.793 ms (−32.5
+percent). Entry guards cost 0.468 ms on the first command and 0.013–0.123
+ms after. The disposal ownership pass found 77 objects before the
+exact-class refusal; the refusal cost is inside the failed request. No
+cause is established for the changes; no command was repeated. Product
+budgets, descriptions, and latency claims are unchanged.

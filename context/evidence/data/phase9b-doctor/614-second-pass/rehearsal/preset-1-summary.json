@@ -1,0 +1,100 @@
+{
+  "complete": false,
+  "errors": [
+    "unsupported-value:iok",
+    "unsupported-value:iok",
+    "node:147:java.lang.IllegalStateException: schema-work-or-time-limit",
+    "schema-work-or-time-limit"
+  ],
+  "partialNodes": 148,
+  "paired": true,
+  "additions": [
+    {
+      "className": "modulation_source_atom",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.xMq",
+      "fields": [
+        6194,
+        607,
+        608,
+        10378,
+        3639,
+        3640,
+        5452
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "component_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.OcA",
+      "fields": [
+        612,
+        614,
+        615
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "modulation_source_atom_display_settings",
+      "runtimeClass": "qwW",
+      "fields": [
+        5455
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "desktop_settings",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.Rzi",
+      "fields": [
+        17,
+        18,
+        19
+      ],
+      "removedAbsentFields": []
+    },
+    {
+      "className": "inport_connection",
+      "runtimeClass": "com.bitwig.flt.document.core.master.device.AJD",
+      "fields": [
+        248,
+        249,
+        6443
+      ],
+      "removedAbsentFields": []
+    }
+  ],
+  "schemas": 22,
+  "captures": 5,
+  "path": [
+    {
+      "parentClass": "native_device",
+      "propertyId": 406,
+      "propertyName": "device_contents",
+      "index": 0
+    },
+    {
+      "parentClass": "device_contents",
+      "propertyId": 173,
+      "propertyName": "child_components",
+      "index": 7
+    }
+  ],
+  "measurements": [
+    {
+      "queryWork": 4098,
+      "graphWork": 779,
+      "bytes": 100334,
+      "documentMs": 9.372167,
+      "heapUsedBefore": 876609536,
+      "heapUsedAfter": 880803840
+    },
+    {
+      "queryWork": 4098,
+      "graphWork": 779,
+      "bytes": 100334,
+      "documentMs": 13.399042,
+      "heapUsedBefore": 882900992,
+      "heapUsedAfter": 887095296
+    }
+  ],
+  "verdict": "incomplete-read-recorded"
+}

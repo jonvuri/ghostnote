@@ -1,0 +1,43 @@
+{
+  "marker": "9b-grid-doctor-v21",
+  "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+  "receipt": {
+    "nativeCommandNanos": 1793167,
+    "commandReturned": true,
+    "guards": {
+      "passed": true,
+      "checks": {
+        "projectDocumentClass": true,
+        "sameManager": true,
+        "helperList": true,
+        "pendingHelper": true,
+        "pendingList": true,
+        "disposalTrackingFalse": true,
+        "listenerTrackingFalse": true
+      },
+      "guardNanos": 12792
+    },
+    "action": "factory-create",
+    "readback": "pending-independent-pair"
+  },
+  "metrics": {
+    "graphReadNanos": 582750,
+    "graphWork": 278,
+    "queryWork": 1606,
+    "snapshotNanos": 1346667
+  },
+  "queueNanos": 66417,
+  "documentTaskNanos": 3529125,
+  "heapBefore": 627048448,
+  "heapAfter": 629145600,
+  "status": {
+    "completed": 5,
+    "reads": 0,
+    "attempted": true,
+    "locked": false,
+    "released": false,
+    "failure": "",
+    "inspections": 0
+  },
+  "completionNanos": 23209625
+}

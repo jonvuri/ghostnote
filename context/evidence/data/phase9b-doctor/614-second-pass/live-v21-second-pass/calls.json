@@ -1,0 +1,4249 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 25.983750000000015,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 19.183208000000036,
+      "bytes": 1802
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 23.77354200000002,
+      "bytes": 2498
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 22.07745799999998,
+      "bytes": 119
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 23.92566599999998,
+      "bytes": 154
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorPrepare"
+      },
+      "ms": 66.407084,
+      "bytes": 826
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 6.133791000000031,
+      "bytes": 2498
+    },
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 22.146792000000005,
+      "bytes": 155
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 24.561374999999998,
+      "bytes": 154
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.372000000000014,
+      "bytes": 381
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 23.902292000000045,
+      "bytes": 1802
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.99858400000005,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.2577500000001,
+      "bytes": 381
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 0,
+            "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+          },
+          {
+            "trackIndex": 1,
+            "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+          },
+          {
+            "trackIndex": 2,
+            "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+          }
+        ]
+      },
+      "ms": 23.302542000000017,
+      "bytes": 814
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 24.32041700000002,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 25.444124999999985,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.02395899999999,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 1
+      },
+      "ms": 24.202083000000016,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.587415999999962,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.172708000000057,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.709042000000068,
+      "bytes": 126
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 2
+      },
+      "ms": 24.98945900000001,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.405874999999924,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.82224999999994,
+      "bytes": 126
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.671749999999975,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.98870799999986,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.474084000000175,
+      "bytes": 381
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 24.516083999999864,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.29666700000007,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.140749999999798,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.64170799999988,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "bind",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid"
+      },
+      "ms": 48.1490409999999,
+      "bytes": 284
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [],
+        "schemaHeaders": {
+          "fields": [
+            406
+          ],
+          "limit": 256
+        }
+      },
+      "ms": 47.21391700000004,
+      "bytes": 7737
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [
+            173
+          ],
+          "limit": 256
+        }
+      },
+      "ms": 48.94766700000014,
+      "bytes": 11769
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "read",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "projection": {
+          "module_grid": [
+            6428
+          ],
+          "module": [
+            15,
+            404,
+            406,
+            6679,
+            6680,
+            6977
+          ],
+          "module_contents": [
+            6369,
+            6370,
+            173
+          ],
+          "audio_source_atom": [
+            3639,
+            3640
+          ],
+          "audio_destination_atom": [
+            7123,
+            7124,
+            7125,
+            7234
+          ],
+          "bipolar_toggleable_decimal_value_atom": [
+            701,
+            374,
+            712,
+            949,
+            6406
+          ],
+          "decimal_value_atom": [
+            701,
+            374,
+            712,
+            949
+          ],
+          "boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "button_boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "integer_value_atom": [
+            701,
+            374,
+            828,
+            957
+          ],
+          "indexed_value_atom": [
+            701,
+            374,
+            457,
+            955,
+            6928
+          ],
+          "boolean_panel_value": [
+            6387,
+            6386
+          ],
+          "nitro_atom": [
+            14
+          ],
+          "device_input_proxy_atom": [
+            9794
+          ],
+          "device_audio_output_proxy_atom": [
+            9817
+          ],
+          "audio_voice_sum_atom": [
+            14
+          ],
+          "polyphonic_observer_atom": [
+            14
+          ]
+        }
+      },
+      "ms": 48.024875000000065,
+      "bytes": 36109
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "read",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "projection": {
+          "module_grid": [
+            6428
+          ],
+          "module": [
+            15,
+            404,
+            406,
+            6679,
+            6680,
+            6977
+          ],
+          "module_contents": [
+            6369,
+            6370,
+            173
+          ],
+          "audio_source_atom": [
+            3639,
+            3640
+          ],
+          "audio_destination_atom": [
+            7123,
+            7124,
+            7125,
+            7234
+          ],
+          "bipolar_toggleable_decimal_value_atom": [
+            701,
+            374,
+            712,
+            949,
+            6406
+          ],
+          "decimal_value_atom": [
+            701,
+            374,
+            712,
+            949
+          ],
+          "boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "button_boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "integer_value_atom": [
+            701,
+            374,
+            828,
+            957
+          ],
+          "indexed_value_atom": [
+            701,
+            374,
+            457,
+            955,
+            6928
+          ],
+          "boolean_panel_value": [
+            6387,
+            6386
+          ],
+          "nitro_atom": [
+            14
+          ],
+          "device_input_proxy_atom": [
+            9794
+          ],
+          "device_audio_output_proxy_atom": [
+            9817
+          ],
+          "audio_voice_sum_atom": [
+            14
+          ],
+          "polyphonic_observer_atom": [
+            14
+          ]
+        }
+      },
+      "ms": 48.06766700000003,
+      "bytes": 36109
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 46.57366699999989,
+      "bytes": 2908
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.76312500000017,
+      "bytes": 4858
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.90341699999999,
+      "bytes": 4263
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.88166699999988,
+      "bytes": 3562
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 2
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.54012499999999,
+      "bytes": 1777
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 3
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.00916599999982,
+      "bytes": 2138
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 6
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.0419159999999,
+      "bytes": 3490
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 8
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.577,
+      "bytes": 3562
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 9
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 49.85070799999994,
+      "bytes": 1811
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 13
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 50.269374999999854,
+      "bytes": 3777
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 17
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 45.8855410000001,
+      "bytes": 3563
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 1
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 1
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.795624999999745,
+      "bytes": 4254
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 1
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 2
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 49.54695899999979,
+      "bytes": 1319
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 1
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 44.96312499999976,
+      "bytes": 1465
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.809999999999945,
+      "bytes": 3837
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 8
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 46.8025419999999,
+      "bytes": 1322
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 9
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 46.205415999999786,
+      "bytes": 1930
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 23.952832999999828,
+      "bytes": 165
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "release",
+        "epoch": "d03836f8-7c9b-4348-8730-bc6e80179283"
+      },
+      "ms": 23.81270799999993,
+      "bytes": 16
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.135333000000173,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.610999999999876,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.672999999999774,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.71545900000001,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.566666999999597,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.181542000000263,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.259165999999823,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.52362499999981,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.316791000000194,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.63541699999996,
+      "bytes": 381
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.327166999999918,
+      "bytes": 381
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.create",
+            "params": {
+              "position": -1
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 0
+      },
+      "ms": 23.191249999999854,
+      "bytes": 134
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "0",
+        "pinned": false
+      },
+      "ms": 20.883500000000367,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "1",
+        "pinned": false
+      },
+      "ms": 20.91516700000011,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "2",
+        "pinned": false
+      },
+      "ms": 20.914749999999913,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "3",
+        "pinned": false
+      },
+      "ms": 20.914250000000266,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "4",
+        "pinned": false
+      },
+      "ms": 20.913708000000042,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "5",
+        "pinned": false
+      },
+      "ms": 20.913250000000062,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "6",
+        "pinned": false
+      },
+      "ms": 20.91274999999996,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "7",
+        "pinned": false
+      },
+      "ms": 20.912166999999954,
+      "bytes": 16
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.236167000000023,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.164290999999594,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.586416999999983,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 21.38570800000025,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 21.689582999999857,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.07425000000012,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.45858300000009,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.787541000000147,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.343916000000263,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.366625000000113,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 26.385874999999942,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.581333000000086,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.91733400000021,
+      "bytes": 493
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setName",
+            "params": {
+              "trackIndex": 1,
+              "name": "gn-9b-write-d01dec1c-7d6f-4923-a54a-3a2122a16610"
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 1
+      },
+      "ms": 23.626250000000255,
+      "bytes": 134
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.33395900000005,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.628541999999925,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 21.62041700000009,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.012250000000222,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.542500000000018,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.043583000000126,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.465375000000222,
+      "bytes": 207
+    },
+    {
+      "method": "selection.restoreMixer",
+      "params": {
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "expectedChannelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223",
+        "expectedRevision": 2
+      },
+      "ms": 24.789541999999983,
+      "bytes": 32
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.958874999999807,
+      "bytes": 207
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 22.599541000000045,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.773625000000266,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 27.470332999999755,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.828250000000025,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 20.012582999999722,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.351166999999805,
+      "bytes": 2060
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.09887499999968,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.149083000000246,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223"
+          }
+        ]
+      },
+      "ms": 23.617999999999938,
+      "bytes": 295
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.631667000000107,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.75891700000011,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.95854099999997,
+      "bytes": 535
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setMixer",
+            "params": {
+              "trackIndex": 1,
+              "expectedChannelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223",
+              "mute": true
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 2,
+        "expectedGeneration": "df3bf594-56b6-4d63-b4f9-cefab9541a9b",
+        "expectedProject": "gn-grid-spike",
+        "expectedSceneEpoch": 2
+      },
+      "ms": 24.850542000000132,
+      "bytes": 136
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.1423749999999,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.632874999999785,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 20.678583000000344,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 21.19808299999977,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223"
+          }
+        ]
+      },
+      "ms": 23.786000000000058,
+      "bytes": 294
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.518957999999657,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.905624999999873,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.4053329999997,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.837291999999707,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.227334000000155,
+      "bytes": 207
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223"
+          }
+        ]
+      },
+      "ms": 24.755999999999858,
+      "bytes": 294
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 1
+      },
+      "ms": 23.73958300000004,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 26.19570900000008,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 17.24545799999987,
+      "bytes": 126
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.756541000000198,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.33987500000012,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.537458000000242,
+      "bytes": 207
+    },
+    {
+      "method": "device.insertFile",
+      "params": {
+        "cursor": 0,
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/WT Parkour.bwpreset",
+        "expectedTrackChannelId": "e5f57e70-15f9-48fb-88a2-e92b61a66223",
+        "expectedDeviceNames": []
+      },
+      "ms": 24.7470000000003,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.63354199999958,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.907916999999543,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.63012500000059,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "1",
+        "trackIndex": 1
+      },
+      "ms": 24.319292000000132,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 24.732250000000022,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 19.14350000000013,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 22.939291000000594,
+      "bytes": 826
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.98108300000058,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "project": "gn-grid-spike",
+        "trackId": "e5f57e70-15f9-48fb-88a2-e92b61a66223",
+        "trackName": "gn-9b-write-d01dec1c-7d6f-4923-a54a-3a2122a16610",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "operation": "doctorBind",
+        "case": "boolean",
+        "consent": "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.",
+        "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+        "selectionRevision": 3
+      },
+      "ms": 46.57658300000003,
+      "bytes": 328
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 50.141750000000684,
+      "bytes": 5179
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 49.5644999999995,
+      "bytes": 5178
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a",
+        "action": "boolean-enable"
+      },
+      "ms": 47.01841700000023,
+      "bytes": 716
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 49.521999999999935,
+      "bytes": 5176
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 47.55200000000059,
+      "bytes": 5176
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a",
+        "action": "boolean-restore"
+      },
+      "ms": 47.636875000000146,
+      "bytes": 715
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 48.2260839999999,
+      "bytes": 5178
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 48.90437500000007,
+      "bytes": 5177
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRelease",
+        "session": "1b536e61-b29d-428b-aca9-e2242225845a"
+      },
+      "ms": 23.573499999999513,
+      "bytes": 925
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 23.757959000000483,
+      "bytes": 119
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.088582999999744,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.570999999999913,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.975916999999754,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.904625000000124,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.60895900000014,
+      "bytes": 535
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 25.2885839999999,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.945332999999664,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.312832999999955,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.734207999999853,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "1",
+        "trackIndex": 0
+      },
+      "ms": 23.214708000000428,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 23.950707999999395,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 21.22583299999951,
+      "bytes": 171
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.21129100000053,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.96374999999989,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 22.787916999999652,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.946584000000257,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.522750000000087,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 22.87012499999946,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.445708000000195,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.50041699999929,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.926000000000386,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.138332999999875,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.13420799999949,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.198624999999993,
+      "bytes": 535
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.delete",
+            "params": {
+              "trackIndex": 1
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 3
+      },
+      "ms": 24.395666999999776,
+      "bytes": 133
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "0",
+        "pinned": false
+      },
+      "ms": 22.934041999999863,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "1",
+        "pinned": false
+      },
+      "ms": 22.96137499999986,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "2",
+        "pinned": false
+      },
+      "ms": 22.959374999999454,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "3",
+        "pinned": false
+      },
+      "ms": 22.95875000000069,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "4",
+        "pinned": false
+      },
+      "ms": 22.958874999999352,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "5",
+        "pinned": false
+      },
+      "ms": 22.958999999999833,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "6",
+        "pinned": false
+      },
+      "ms": 22.959083000000646,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "7",
+        "pinned": false
+      },
+      "ms": 22.95812500000011,
+      "bytes": 16
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 21.0405839999994,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.190417000000707,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.27441699999963,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.846207999999933,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.94524999999976,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.716167000000496,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.775125000000116,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.16533299999992,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.008166999999958,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.479040999999597,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.506207999999788,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.105375000000095,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.597375000000284,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.53504199999952,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.24174999999923,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.936625000000276,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.696458999999777,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.93475000000035,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.189041999999972,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.17133300000023,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.451334000000315,
+      "bytes": 381
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.81841600000007,
+      "bytes": 381
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.create",
+            "params": {
+              "position": -1
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 4
+      },
+      "ms": 23.894792000000052,
+      "bytes": 133
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "0",
+        "pinned": false
+      },
+      "ms": 23.08179199999995,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "1",
+        "pinned": false
+      },
+      "ms": 23.116124999999556,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "2",
+        "pinned": false
+      },
+      "ms": 23.11620900000071,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "3",
+        "pinned": false
+      },
+      "ms": 23.116291000000274,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "4",
+        "pinned": false
+      },
+      "ms": 23.11633299999994,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "5",
+        "pinned": false
+      },
+      "ms": 23.116374999999607,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "6",
+        "pinned": false
+      },
+      "ms": 23.116417000000183,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "7",
+        "pinned": false
+      },
+      "ms": 23.116500000000087,
+      "bytes": 16
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.47541700000056,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.527500000000146,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.78283300000021,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.746957999999722,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.013625000000502,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.307792000000518,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.83720799999992,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.72149999999965,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.19312499999978,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.94029099999989,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.22362500000054,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.961167000000387,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.263875000000553,
+      "bytes": 493
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setName",
+            "params": {
+              "trackIndex": 1,
+              "name": "gn-9b-write-1d5dc163-d809-44e8-8ac3-e0052e2bc7a8"
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 5
+      },
+      "ms": 25.118916999999783,
+      "bytes": 134
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.770417000000634,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.169041999999536,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 21.114042000000154,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 21.464042000000518,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.079666999999972,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.346416999999747,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.794582999999875,
+      "bytes": 207
+    },
+    {
+      "method": "selection.restoreMixer",
+      "params": {
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "expectedChannelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658",
+        "expectedRevision": 4
+      },
+      "ms": 24.815416999999798,
+      "bytes": 32
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.50775000000067,
+      "bytes": 207
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 20.954165999999532,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.593042000000423,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.40454200000022,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.158457999999882,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.897917000000234,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.93987500000003,
+      "bytes": 2060
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.044707999999446,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.350874999999178,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658"
+          }
+        ]
+      },
+      "ms": 24.8182910000005,
+      "bytes": 295
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.566209000000526,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.718457999999373,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.17304200000035,
+      "bytes": 535
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setMixer",
+            "params": {
+              "trackIndex": 1,
+              "expectedChannelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658",
+              "mute": true
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 6,
+        "expectedGeneration": "df3bf594-56b6-4d63-b4f9-cefab9541a9b",
+        "expectedProject": "gn-grid-spike",
+        "expectedSceneEpoch": 2
+      },
+      "ms": 23.28858300000047,
+      "bytes": 135
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.361958999999842,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.5962499999996,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.597249999999804,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.100667000000612,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658"
+          }
+        ]
+      },
+      "ms": 23.100416000000223,
+      "bytes": 294
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.409375000000182,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.17883400000028,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.423000000000684,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.773333999999522,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 26.422207999999955,
+      "bytes": 207
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658"
+          }
+        ]
+      },
+      "ms": 24.524250000000393,
+      "bytes": 294
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 1
+      },
+      "ms": 23.560167000000547,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.78058299999975,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.575166000000536,
+      "bytes": 126
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.32483400000001,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.378834000000097,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.69866600000023,
+      "bytes": 207
+    },
+    {
+      "method": "device.insertFile",
+      "params": {
+        "cursor": 0,
+        "path": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/installed-packages/5.0/Bitwig/Essentials/Presets/Poly Grid/SEMtex Motion Seq.bwpreset",
+        "expectedTrackChannelId": "e3dd2633-2184-4368-bdc8-7b19c08d6658",
+        "expectedDeviceNames": []
+      },
+      "ms": 24.048416999999972,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.065749999999753,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.672583000000486,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 21.945542000000387,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "1",
+        "trackIndex": 1
+      },
+      "ms": 24.795124999999643,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 23.932833999999275,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 19.51850000000013,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 23.23450000000048,
+      "bytes": 925
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.951958999999988,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "project": "gn-grid-spike",
+        "trackId": "e3dd2633-2184-4368-bdc8-7b19c08d6658",
+        "trackName": "gn-9b-write-1d5dc163-d809-44e8-8ac3-e0052e2bc7a8",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "operation": "doctorBind",
+        "case": "mapping",
+        "consent": "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.",
+        "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+        "selectionRevision": 5
+      },
+      "ms": 50.44054199999937,
+      "bytes": 325
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 50.157750000000306,
+      "bytes": 11593
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 48.81658300000072,
+      "bytes": 11593
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f",
+        "action": "mapping-remove"
+      },
+      "ms": 69.7637080000004,
+      "bytes": 719
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 49.449124999999185,
+      "bytes": 11291
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 47.10541700000067,
+      "bytes": 11291
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f",
+        "action": "mapping-restore"
+      },
+      "ms": 48.87175000000025,
+      "bytes": 718
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 46.987042000000656,
+      "bytes": 11591
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 47.69891699999971,
+      "bytes": 11591
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRelease",
+        "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f"
+      },
+      "ms": 23.109834000000774,
+      "bytes": 925
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 24.300583999998707,
+      "bytes": 119
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.373250000000553,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.123875000001135,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.244791999999507,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.79554199999984,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.72187500000109,
+      "bytes": 535
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 23.238000000001193,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 23.568750000000364,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.677292000000307,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.725000000000364,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "1",
+        "trackIndex": 0
+      },
+      "ms": 22.394540999999663,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 24.122416000000158,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 17.61199999999917,
+      "bytes": 171
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.79529199999888,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.688124999998763,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.316374999998516,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.40400000000045,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.038375000000087,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.043792000000394,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.30999999999949,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.76458300000013,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.872416000000158,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.624166999999943,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.03191700000025,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 26.00812500000029,
+      "bytes": 535
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.delete",
+            "params": {
+              "trackIndex": 1
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 7
+      },
+      "ms": 24.073041999999987,
+      "bytes": 134
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "0",
+        "pinned": false
+      },
+      "ms": 3.056542000000263,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "1",
+        "pinned": false
+      },
+      "ms": 3.080041999999594,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "2",
+        "pinned": false
+      },
+      "ms": 3.0802919999987353,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "3",
+        "pinned": false
+      },
+      "ms": 3.080334000000221,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "4",
+        "pinned": false
+      },
+      "ms": 3.0804170000010345,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "5",
+        "pinned": false
+      },
+      "ms": 3.080540999999357,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "6",
+        "pinned": false
+      },
+      "ms": 3.0806249999986903,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "7",
+        "pinned": false
+      },
+      "ms": 3.0807500000009895,
+      "bytes": 16
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.04491699999926,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.294041000001016,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.60279100000116,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.175624999999854,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.421374999999898,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.32025000000067,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.84124999999949,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.9163750000007,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.073833000000377,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.279374999998254,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.867333000000144,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.010874999999942,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.015292000000045,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.684041000000434,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.70812500000102,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.539624999999432,
+      "bytes": 2060
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.87420799999927,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.298416999999972,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.712249999998676,
+      "bytes": 381
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.77900000000045,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.2448749999985,
+      "bytes": 381
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.009916999999405,
+      "bytes": 381
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.create",
+            "params": {
+              "position": -1
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 8
+      },
+      "ms": 23.043166999999812,
+      "bytes": 133
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "0",
+        "pinned": false
+      },
+      "ms": 22.612333999999464,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "1",
+        "pinned": false
+      },
+      "ms": 22.65650000000096,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "2",
+        "pinned": false
+      },
+      "ms": 22.65662499999962,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "3",
+        "pinned": false
+      },
+      "ms": 22.656667000001107,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "4",
+        "pinned": false
+      },
+      "ms": 22.656708000000435,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "5",
+        "pinned": false
+      },
+      "ms": 22.656874999998763,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "6",
+        "pinned": false
+      },
+      "ms": 22.65691599999991,
+      "bytes": 16
+    },
+    {
+      "method": "cursor.pin",
+      "params": {
+        "cursor": "7",
+        "pinned": false
+      },
+      "ms": 22.656958999999915,
+      "bytes": 16
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.41083400000025,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.795083000000886,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.038249999999607,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 20.981417000000874,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 21.262915999999677,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 25.308500000001004,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.677875000001222,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.14404099999956,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.37379200000032,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.681791999999405,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.158833999999842,
+      "bytes": 493
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.526041999999507,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.962665999999444,
+      "bytes": 493
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setName",
+            "params": {
+              "trackIndex": 1,
+              "name": "gn-9b-write-0912c91e-20ac-4064-a7fd-96668b522acc"
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 9
+      },
+      "ms": 23.202542000000903,
+      "bytes": 135
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.869291999999405,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.25195899999926,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 22.39720800000032,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 22.869125000001077,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.447416000000885,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.91020799999933,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.84741699999904,
+      "bytes": 207
+    },
+    {
+      "method": "selection.restoreMixer",
+      "params": {
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "expectedChannelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836",
+        "expectedRevision": 6
+      },
+      "ms": 24.27808300000106,
+      "bytes": 32
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 26.21850000000086,
+      "bytes": 207
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 22.051958999998533,
+      "bytes": 207
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.86645800000042,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.865125000000262,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.108791000000565,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 26.021042000000307,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.10070799999994,
+      "bytes": 2061
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.707875000000058,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.287374999999884,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836"
+          }
+        ]
+      },
+      "ms": 24.35924999999952,
+      "bytes": 295
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.531582999999955,
+      "bytes": 207
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.269790999998804,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 23.60699999999997,
+      "bytes": 535
+    },
+    {
+      "method": "batch.run",
+      "params": {
+        "ops": [
+          {
+            "method": "track.setMixer",
+            "params": {
+              "trackIndex": 1,
+              "expectedChannelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836",
+              "mute": true
+            }
+          }
+        ],
+        "verbose": true,
+        "ifRevision": 10,
+        "expectedGeneration": "df3bf594-56b6-4d63-b4f9-cefab9541a9b",
+        "expectedProject": "gn-grid-spike",
+        "expectedSceneEpoch": 2
+      },
+      "ms": 24.42224999999962,
+      "bytes": 136
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.897875000000568,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.44104100000004,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 20.200541000000158,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 20.430999999998676,
+      "bytes": 535
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836"
+          }
+        ]
+      },
+      "ms": 24.29741599999943,
+      "bytes": 294
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.1507500000007,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.722625000000335,
+      "bytes": 535
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.614125000000058,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.9385829999992,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 19.447040999999444,
+      "bytes": 207
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 1,
+            "channelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836"
+          }
+        ]
+      },
+      "ms": 23.530375000000276,
+      "bytes": 294
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 1
+      },
+      "ms": 23.49579199999971,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 25.04120800000055,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.84574999999859,
+      "bytes": 126
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 23.746791999999914,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.106583000000683,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.936165999999503,
+      "bytes": 207
+    },
+    {
+      "method": "device.insertFile",
+      "params": {
+        "cursor": 0,
+        "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset",
+        "expectedTrackChannelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836",
+        "expectedDeviceNames": []
+      },
+      "ms": 22.547915999999532,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 24.854833999999755,
+      "bytes": 126
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 22.902750000001106,
+      "bytes": 171
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "1",
+        "trackIndex": 1
+      },
+      "ms": 24.05645799999911,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 25.231708999999682,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 1
+      },
+      "ms": 21.184541999999055,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 23.537540999999692,
+      "bytes": 925
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 23.14300000000003,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "project": "gn-grid-spike",
+        "trackId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836",
+        "trackName": "gn-9b-write-0912c91e-20ac-4064-a7fd-96668b522acc",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "operation": "doctorBind",
+        "case": "core",
+        "consent": "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.",
+        "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+        "selectionRevision": 7
+      },
+      "ms": 49.97770900000069,
+      "bytes": 328
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 49.773291999999856,
+      "bytes": 36317
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 49.185708000000886,
+      "bytes": 36316
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "value-set"
+      },
+      "ms": 47.85716700000012,
+      "bytes": 746
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 48.603541000000405,
+      "bytes": 36315
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 50.78058299999975,
+      "bytes": 36315
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "value-restore"
+      },
+      "ms": 47.800459000000046,
+      "bytes": 752
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 50.50212500000089,
+      "bytes": 36314
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 44.67258299999958,
+      "bytes": 36315
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "cable-connect"
+      },
+      "ms": 54.15733399999954,
+      "bytes": 752
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 48.16070799999943,
+      "bytes": 36316
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 48.11283299999923,
+      "bytes": 36314
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "cable-disconnect"
+      },
+      "ms": 46.636875000000146,
+      "bytes": 753
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 49.13933299999917,
+      "bytes": 36313
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 46.330958999998984,
+      "bytes": 36313
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "factory-create"
+      },
+      "ms": 44.86399999999958,
+      "bytes": 751
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 46.81220900000153,
+      "bytes": 41898
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorRead",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 49.76741700000093,
+      "bytes": 41897
+    },
+    {
+      "method": "probe.gridModuleAttach",
+      "params": {
+        "operation": "doctorCommand",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0",
+        "action": "factory-dispose"
+      },
+      "ms": 48.585290999999415,
+      "error": "BridgeError: Internal error: grid-operation-failed:java.lang.IllegalStateException: doctor-owned-tree-class:wKx"
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 22.729541999999128,
+      "bytes": 1068
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorInspect",
+        "session": "1ef8b88f-40c6-494c-9fda-20e2d1c63ff0"
+      },
+      "ms": 48.285415999998804,
+      "bytes": 41956
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.504500000000917,
+      "bytes": 2061
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 24.664208000000144,
+      "bytes": 535
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 24.248583000000508,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 21.970542000000933,
+      "bytes": 118
+    }
+  ],
+  "count": 435,
+  "wireMs": 11627.022254
+}

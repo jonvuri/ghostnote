@@ -4,6 +4,8 @@
  * This driver uses its own candidate directory, first-attempt policy, guard receipt checks,
  * and timing comparison. A durable attempt file prevents automatic retries.
  * Argv: <new absolute output directory> <consent>. This is a live writer.
+ * 9b.6i adds one explicit second pass after E339's uncertain mapping removal and the operator's restart:
+ * <output> <second-pass consent> --second-pass-after-uncertain-write <attempt-6 evidence directory>.
  */
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -42,7 +44,8 @@ export const REFUSED_PREFLIGHT_ERRORS = ['BridgeError: Internal error: unsupport
   'AssertionError [ERR_ASSERTION]: baseline-control-disagrees'];
 export type Timing = { action: string; nativeCommandNanos: number };
 export type TimingRow = { action: string; e316Nanos: number | null; v21Nanos: number;
-  percentChange: number | null; over20Percent: boolean };
+  percentChange: number | null; over20Percent: boolean;
+  e339Nanos: number | null; percentChangeE339: number | null; over20PercentE339: boolean };
 
 const sha256 = (bytes: Buffer | string) => createHash('sha256').update(bytes).digest('hex');
 const load = (path: string): Wire => {
@@ -62,6 +65,68 @@ export function recordFirstAttempt(directory: string, key: string, fingerprint: 
 
 export const MAX_REFUSED_PREFLIGHTS = 6;
 const attemptName = (key: string, ordinal: number) => `${key}.attempt${ordinal === 1 ? '' : `-${ordinal}`}.json`;
+/**
+ * 9b.6i: the explicit second pass after the sixth 9b.6h attempt left the mapping removal uncertain and the
+ * operator restarted Bitwig. It is the one planned exception to the one-attempt rule on the 6.1.4
+ * fingerprint. The host keeps its pinned consent token (CONSENT) at bind; this string is the operator's answer.
+ */
+export const SECOND_PASS_POLICY = '9b.6i-second-pass-after-uncertain-write-v1';
+export const SECOND_PASS_CONSENT = 'I saved first. Bitwig was restarted after the sixth 6.1.4 attempt, and the read-only baseline check passed. I consent to one second guarded scratch doctor pass on the 6.1.4 fingerprint under the 9b.6i exception, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.';
+export const PRIOR_614_KEY = 'd0d92c1ea5a30fb6fca4975500ad1729736dead4807a7a05c3436f47c223c101';
+/** The six 9b.6h attempt records and their committed copies (relative to DATA). The local records must stay byte-equal. */
+export const PRIOR_614_RECORDS: [string, string][] = [1, 2, 3, 4, 5, 6].map(ordinal => {
+  const name = attemptName(PRIOR_614_KEY, ordinal); return [name, `614-second-pass/prior-attempts/${name}`];
+});
+export const secondPassName = (key: string) => `${key}.second-pass.attempt.json`;
+/** The command receipts and the inspection that the sixth attempt's evidence must contain, and nothing later. */
+export const UNCERTAIN_EVIDENCE_COMMANDS = ['preset-0-stage-0-command.json', 'preset-0-stage-1-command.json',
+  'preset-1-stage-0-command.json'];
+export const UNCERTAIN_EVIDENCE_INSPECTION = 'preset-1-inspection.json';
+/**
+ * Admit the second pass only when no cache and no second-pass record exist, all six prior records are present
+ * and byte-equal to their committed copies, the sixth record names the uncertain evidence, that evidence proves
+ * exactly the three E339 command receipts with the retained scratch track and one inspection, and the running
+ * host started after the sixth attempt. Returns each prior record's SHA-256. Records are never changed.
+ */
+export function requireSecondPassAdmission(directory: string, key: string, uncertainEvidence: string,
+  hostStartedMs: number, data = DATA, priorRecords = PRIOR_614_RECORDS): string[] {
+  assert.ok(!existsSync(join(directory, `${key}.accepted.json`)), 'already-accepted');
+  assert.ok(!existsSync(join(directory, secondPassName(key))), 'second-pass-already-recorded');
+  assert.equal(priorRecords.length, MAX_REFUSED_PREFLIGHTS, 'six-prior-records-required');
+  const hashes = priorRecords.map(([local, committed]) => {
+    const path = join(directory, local);
+    assert.ok(existsSync(path), `prior-record-missing:${local}`);
+    const bytes = readFileSync(path);
+    assert.ok(bytes.equals(readFileSync(join(data, committed))), `prior-record-changed:${local}`);
+    return sha256(bytes);
+  });
+  const last = JSON.parse(readFileSync(join(directory, priorRecords[priorRecords.length - 1]![0]), 'utf8'));
+  assert.equal(last.output, uncertainEvidence, 'uncertain-evidence-mismatch');
+  assert.equal(last.marker, MARKER); assert.equal(last.hostVersion, HOST_VERSION); assert.equal(last.writeAuthority, false);
+  const exit = load(join(uncertainEvidence, 'exit.json')), failure = load(join(uncertainEvidence, 'failure.json'));
+  assert.equal(exit.uncertain, true, 'prior-pass-not-uncertain');
+  assert.equal(typeof exit.scratch, 'string', 'prior-scratch-not-retained');
+  assert.equal(failure.uncertain, true, 'prior-failure-not-uncertain'); assert.equal(failure.scratch, exit.scratch, 'prior-scratch-differs');
+  const files = readdirSync(uncertainEvidence);
+  assert.deepEqual(files.filter(name => /^preset-\d+-stage-\d+-command\.json$/.test(name)).sort(), UNCERTAIN_EVIDENCE_COMMANDS,
+    'prior-command-receipts');
+  assert.ok(files.includes(UNCERTAIN_EVIDENCE_INSPECTION), 'prior-inspection-missing');
+  assert.ok(!files.includes('accepted.json') && !files.includes('results.json'), 'prior-pass-completed');
+  const started = Date.parse(last.started);
+  assert.ok(Number.isFinite(started) && Number.isFinite(hostStartedMs) && hostStartedMs > started,
+    'host-not-restarted-after-uncertain-write');
+  return hashes;
+}
+/** Record the second pass. The consent is the operator's exact answer; the host token stays CONSENT. */
+export function recordSecondPassAttempt(directory: string, key: string, fingerprint: string, consent: string,
+  uncertainEvidence: string, hostStartedMs: number, details: Wire, data = DATA, priorRecords = PRIOR_614_RECORDS) {
+  assert.equal(consent, SECOND_PASS_CONSENT, 'second-pass-consent-required');
+  const priorAttemptSha256 = requireSecondPassAdmission(directory, key, uncertainEvidence, hostStartedMs, data, priorRecords);
+  writeFileSync(join(directory, secondPassName(key)), JSON.stringify({ ...details, fingerprint, consent,
+    hostConsentToken: CONSENT, policy: SECOND_PASS_POLICY, priorAttempts: priorRecords.map(([local]) => local),
+    priorAttemptSha256, uncertainEvidence, hostStartedMs, marker: MARKER, hostVersion: HOST_VERSION,
+    started: new Date().toISOString(), writeAuthority: false }, null, 2) + '\n', { flag: 'wx' });
+}
 /**
  * Prior attempt records admit a retry only when every one of them proves that no scratch track was
  * created, no doctor bind happened, and the failure was a control-read jar refusal. The evidence
@@ -241,6 +306,7 @@ export type PrepareContext = {
   attempts: string; key: string; fingerprint: string; consent: string; selectorSha256: string;
   guardsSha256: string; candidateSha256: string; output: string; data?: string;
   retry?: { priorEvidence: string[]; retryConsent: string };
+  secondPass?: { uncertainEvidence: string };
 };
 /** Check the host and the prepared doctor, then record the first attempt. */
 export async function prepareDoctor(request: Request, save: (name: string, value: unknown) => void,
@@ -254,19 +320,28 @@ export async function prepareDoctor(request: Request, save: (name: string, value
   assert.equal(prepared.metadata.members, 76); assert.equal(prepared.metadata.types, 55);
   assert.equal(prepared.used, false); assert.equal(prepared.failed, false);
   if (context.retry) { assert.equal(prepared.phase, 0, 'retry-needs-unused-doctor'); assert.equal(prepared.bound, false); }
+  if (context.secondPass) { assert.equal(prepared.phase, 0, 'second-pass-needs-unused-doctor'); assert.equal(prepared.bound, false); }
   const g = prepared.guards;
   assert.equal(g?.format, GUARD_FORMAT); assert.equal(g.types, 1); assert.equal(g.fields, 5);
   assert.equal(g.ownedTreeClasses, 33);
   assert.equal(g.guardsSha256, context.guardsSha256, 'host-guards-differ');
   assert.equal(g.candidateSha256, context.candidateSha256, 'host-candidate-differs');
   const details = { host, output: context.output, guardsSha256: context.guardsSha256, candidateSha256: context.candidateSha256 };
-  if (context.retry) recordRetryAttempt(context.attempts, context.key, context.fingerprint, context.consent,
+  if (context.secondPass) {
+    // The host start time proves the restart after the uncertain write. It is read, never inferred.
+    const stats = await request('rig.stats');
+    assert.ok(Number.isFinite(stats.initEpochMs) && stats.initEpochMs > 0, 'host-start-unknown');
+    recordSecondPassAttempt(context.attempts, context.key, context.fingerprint, context.consent,
+      context.secondPass.uncertainEvidence, stats.initEpochMs, { ...details, hostStats: stats }, context.data);
+  } else if (context.retry) recordRetryAttempt(context.attempts, context.key, context.fingerprint, context.consent,
     context.retry.retryConsent, context.retry.priorEvidence, details);
   else recordFirstAttempt(context.attempts, context.key, context.fingerprint, context.consent, details);
 }
 
-/** Read the E316 command sample (V20 on 6.0.6), in preset and stage order. */
-export function loadE316Sample(directory = join(DATA, 'live-v20')): Timing[] {
+export const E316_SAMPLE = join(DATA, 'live-v20');
+export const E339_SAMPLE = join(DATA, '614-guarded/live-v21-attempt-6');
+/** Read the native command receipts of a recorded pass, in preset and stage order. */
+export function loadCommandSample(directory: string): Timing[] {
   const pattern = /^preset-(\d+)-stage-(\d+)-command\.json$/;
   return readdirSync(directory).flatMap(name => {
     const m = pattern.exec(name); return m ? [{ name, preset: Number(m[1]), stage: Number(m[2]) }] : [];
@@ -275,24 +350,37 @@ export function loadE316Sample(directory = join(DATA, 'live-v20')): Timing[] {
     return { action: receipt.action, nativeCommandNanos: receipt.nativeCommandNanos };
   });
 }
+/** The E316 command sample (V20 on 6.0.6). */
+export const loadE316Sample = (directory = E316_SAMPLE) => loadCommandSample(directory);
+/** The E339 attempt-6 sample (V21 on 6.1.4): boolean enable, boolean restore, and the uncertain mapping removal. */
+export const loadE339Sample = (directory = E339_SAMPLE) => loadCommandSample(directory);
 
-/** Compare V21 command times with the E316 sample. The result is data; it is not a gate. */
-export function compareTiming(baseline: Timing[], current: Timing[]): TimingRow[] {
+/** Compare command times with the E316 sample and the E339 attempt-6 sample. The result is data; it is not a gate. */
+export function compareTiming(baseline: Timing[], current: Timing[], priorAttempt: Timing[] = []): TimingRow[] {
   const prior = new Map(baseline.map(r => [r.action, r.nativeCommandNanos]));
+  const attempt = new Map(priorAttempt.map(r => [r.action, r.nativeCommandNanos]));
+  const change = (reference: number | undefined, value: number) =>
+    reference && reference > 0 ? (value - reference) / reference * 100 : null;
   return current.map(({ action, nativeCommandNanos }) => {
-    const e316 = prior.get(action);
-    const percentChange = e316 && e316 > 0 ? (nativeCommandNanos - e316) / e316 * 100 : null;
+    const e316 = prior.get(action), e339 = attempt.get(action);
+    const percentChange = change(e316, nativeCommandNanos), percentChangeE339 = change(e339, nativeCommandNanos);
     return { action, e316Nanos: e316 ?? null, v21Nanos: nativeCommandNanos, percentChange,
-      over20Percent: percentChange !== null && percentChange > 20 };
+      over20Percent: percentChange !== null && percentChange > 20,
+      e339Nanos: e339 ?? null, percentChangeE339, over20PercentE339: percentChangeE339 !== null && percentChangeE339 > 20 };
   });
 }
 
 async function main() {
-  const [output, consent, retryFlag, priorEvidence, retryConsent] = process.argv.slice(2);
-  assert.ok(process.argv.length === 4 || process.argv.length === 7, 'argv: <output> <consent> [--retry-after-refused-preflight <prior evidence dirs, comma separated> <retry consent>]');
-  assert.ok(output && isAbsolute(output)); assert.equal(consent, CONSENT);
-  const retry = process.argv.length === 7 ? { priorEvidence: priorEvidence!.split(','), retryConsent: retryConsent! } : undefined;
-  if (retry) { assert.equal(retryFlag, '--retry-after-refused-preflight'); assert.ok(retry.priorEvidence.every(isAbsolute)); assert.equal(retry.retryConsent, RETRY_CONSENT); }
+  const argv = process.argv.slice(2);
+  const [output, consent, flag] = argv;
+  assert.ok([2, 4, 5].includes(argv.length), 'argv: <output> <consent> [--retry-after-refused-preflight <prior evidence dirs, comma separated> <retry consent>] | [--second-pass-after-uncertain-write <uncertain evidence dir>]');
+  assert.ok(output && isAbsolute(output));
+  const retry = argv.length === 5 ? { priorEvidence: argv[3]!.split(','), retryConsent: argv[4]! } : undefined;
+  const secondPass = argv.length === 4 ? { uncertainEvidence: argv[3]! } : undefined;
+  if (retry) { assert.equal(flag, '--retry-after-refused-preflight'); assert.ok(retry.priorEvidence.every(isAbsolute)); assert.equal(retry.retryConsent, RETRY_CONSENT); }
+  if (secondPass) { assert.equal(flag, '--second-pass-after-uncertain-write'); assert.ok(isAbsolute(secondPass.uncertainEvidence)); }
+  // The second pass records the operator's new answer; every other form records the pinned consent.
+  assert.equal(consent, secondPass ? SECOND_PASS_CONSENT : CONSENT);
   const candidateBytes = readFileSync(join(CANDIDATE_DIRECTORY, 'candidate.json'));
   const guardsBytes = readFileSync(join(CANDIDATE_DIRECTORY, 'guards.json'));
   const candidate = load(join(CANDIDATE_DIRECTORY, 'candidate.json'));
@@ -314,11 +402,11 @@ async function main() {
   };
   mkdirSync(ATTEMPTS, { recursive: true });
   const key = sha256(fingerprint);
-  const e316 = loadE316Sample();
+  const e316 = loadE316Sample(), e339 = loadE339Sample();
   await runSurvey(['gn-grid-spike', output, join(DATA, 'plan.json')], {
     marker: MARKER, stopOnRefusal: true, budget: { calls: 1500, milliseconds: 900_000, bytes: 64 * 1024 * 1024 },
     prepare: (request, save) => prepareDoctor(request, save, { attempts: ATTEMPTS, key, fingerprint, consent: consent!,
-      selectorSha256: candidate.selectorSha256, guardsSha256, candidateSha256, output, retry }),
+      selectorSha256: candidate.selectorSha256, guardsSha256, candidateSha256, output, retry, secondPass }),
     run: (request, target, c, save) => runDoctorCase(request, target, { ...c, types: candidate.types }, save, fingerprint, groups[c.case]!),
     async complete(request, results, before, after) {
       assert.deepEqual(after, before);
@@ -326,14 +414,15 @@ async function main() {
       requireAccepted(results, roles, state);
       requireOldRecordsPreserved(ATTEMPTS);
       const accepted = { fingerprint, selectorSha256: candidate.selectorSha256, hostVersion: HOST_VERSION,
-        marker: MARKER, guardsSha256, candidateSha256, retry: retry ?? null, verdict: 'accepted', roles: results, teardown: state,
+        marker: MARKER, guardsSha256, candidateSha256, retry: retry ?? null,
+        secondPass: secondPass ? { ...secondPass, policy: SECOND_PASS_POLICY } : null, verdict: 'accepted', roles: results, teardown: state,
         baselineVerified: true, completed: new Date().toISOString(), evidence: output, writeAuthority: false };
       // This cache is research evidence. Product paths do not consume it.
       writeFileSync(join(ATTEMPTS, `${key}.accepted.json`), JSON.stringify(accepted, null, 2) + '\n', { flag: 'wx' });
       writeFileSync(join(output, 'accepted.json'), JSON.stringify(accepted, null, 2) + '\n', { flag: 'wx' });
-      const rows = compareTiming(e316, results.flatMap(r => r.timings as Timing[]));
+      const rows = compareTiming(e316, results.flatMap(r => r.timings as Timing[]), e339);
       writeFileSync(join(output, 'timing-comparison.json'), JSON.stringify({ baseline: 'E316 live-v20',
-        threshold: 20, gate: false, rows }, null, 2) + '\n', { flag: 'wx' });
+        priorAttempt: 'E339 live-v21-attempt-6', threshold: 20, gate: false, rows }, null, 2) + '\n', { flag: 'wx' });
     },
   });
 }

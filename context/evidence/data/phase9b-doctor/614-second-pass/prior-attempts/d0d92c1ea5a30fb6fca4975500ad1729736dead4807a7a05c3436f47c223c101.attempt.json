@@ -1,0 +1,19 @@
+{
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.1.4",
+    "javaVersion": "25.0.4.1",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "output": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/live-v21",
+  "guardsSha256": "92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5",
+  "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+  "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+  "consent": "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.",
+  "marker": "9b-grid-doctor-v21",
+  "hostVersion": "6.1.4",
+  "started": "2026-10-23T03:37:55.637Z",
+  "writeAuthority": false
+}

@@ -1,0 +1,99 @@
+{
+  "baseline": "E316 live-v20",
+  "priorAttempt": "E339 live-v21-attempt-6",
+  "threshold": 20,
+  "gate": false,
+  "note": "Written by the session after the refused disposal; the driver writes this file only on a complete pass.",
+  "rows": [
+    {
+      "action": "boolean-enable",
+      "e316Nanos": 1261541,
+      "v21Nanos": 2044334,
+      "percentChange": 62.050539776352885,
+      "over20Percent": true,
+      "e339Nanos": 1593125,
+      "percentChangeE339": 28.322259709690073,
+      "over20PercentE339": true
+    },
+    {
+      "action": "boolean-restore",
+      "e316Nanos": 256375,
+      "v21Nanos": 241667,
+      "percentChange": -5.736908824963432,
+      "over20Percent": false,
+      "e339Nanos": 236875,
+      "percentChangeE339": 2.023007915567282,
+      "over20PercentE339": false
+    },
+    {
+      "action": "mapping-remove",
+      "e316Nanos": 19897375,
+      "v21Nanos": 13951750,
+      "percentChange": -29.88145421192494,
+      "over20Percent": false,
+      "e339Nanos": 4077541,
+      "percentChangeE339": 242.16087588083113,
+      "over20PercentE339": true
+    },
+    {
+      "action": "mapping-restore",
+      "e316Nanos": 12892375,
+      "v21Nanos": 19540000,
+      "percentChange": 51.562454551624505,
+      "over20Percent": true,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    },
+    {
+      "action": "value-set",
+      "e316Nanos": 3121750,
+      "v21Nanos": 2506292,
+      "percentChange": -19.715159766156802,
+      "over20Percent": false,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    },
+    {
+      "action": "value-restore",
+      "e316Nanos": 642042,
+      "v21Nanos": 1385250,
+      "percentChange": 115.75691309914305,
+      "over20Percent": true,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    },
+    {
+      "action": "cable-connect",
+      "e316Nanos": 3418750,
+      "v21Nanos": 4786625,
+      "percentChange": 40.01096892138939,
+      "over20Percent": true,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    },
+    {
+      "action": "cable-disconnect",
+      "e316Nanos": 1310875,
+      "v21Nanos": 1205291,
+      "percentChange": -8.054467435872986,
+      "over20Percent": false,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    },
+    {
+      "action": "factory-create",
+      "e316Nanos": 2654792,
+      "v21Nanos": 1793167,
+      "percentChange": -32.45546167082016,
+      "over20Percent": false,
+      "e339Nanos": null,
+      "percentChangeE339": null,
+      "over20PercentE339": false
+    }
+  ]
+}

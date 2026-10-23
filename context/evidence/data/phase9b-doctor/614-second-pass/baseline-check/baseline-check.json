@@ -1,0 +1,430 @@
+{
+  "revision": {
+    "revision": 0,
+    "generation": "439daa40-ec0a-464e-8699-0816d5c1e90f",
+    "project": "gn-grid-spike",
+    "projectStatus": "marked",
+    "sceneEpoch": 2,
+    "sceneCount": 8,
+    "contentEpoch": 32768,
+    "unpinnedCursorTracks": [],
+    "contentEvents": [
+      {
+        "seq": 32745,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 104,
+        "filled": false
+      },
+      {
+        "seq": 32746,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 105,
+        "filled": false
+      },
+      {
+        "seq": 32747,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 106,
+        "filled": false
+      },
+      {
+        "seq": 32748,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 107,
+        "filled": false
+      },
+      {
+        "seq": 32749,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 108,
+        "filled": false
+      },
+      {
+        "seq": 32750,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 109,
+        "filled": false
+      },
+      {
+        "seq": 32751,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 110,
+        "filled": false
+      },
+      {
+        "seq": 32752,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 111,
+        "filled": false
+      },
+      {
+        "seq": 32753,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 112,
+        "filled": false
+      },
+      {
+        "seq": 32754,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 113,
+        "filled": false
+      },
+      {
+        "seq": 32755,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 114,
+        "filled": false
+      },
+      {
+        "seq": 32756,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 115,
+        "filled": false
+      },
+      {
+        "seq": 32757,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 116,
+        "filled": false
+      },
+      {
+        "seq": 32758,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 117,
+        "filled": false
+      },
+      {
+        "seq": 32759,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 118,
+        "filled": false
+      },
+      {
+        "seq": 32760,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 119,
+        "filled": false
+      },
+      {
+        "seq": 32761,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 120,
+        "filled": false
+      },
+      {
+        "seq": 32762,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 121,
+        "filled": false
+      },
+      {
+        "seq": 32763,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 122,
+        "filled": false
+      },
+      {
+        "seq": 32764,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 123,
+        "filled": false
+      },
+      {
+        "seq": 32765,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 124,
+        "filled": false
+      },
+      {
+        "seq": 32766,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 125,
+        "filled": false
+      },
+      {
+        "seq": 32767,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 126,
+        "filled": false
+      },
+      {
+        "seq": 32768,
+        "channelId": "",
+        "trackIndex": 255,
+        "slotIndex": 127,
+        "filled": false
+      }
+    ]
+  },
+  "tracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "grid-probe",
+        "position": 0,
+        "type": "Instrument",
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+      },
+      {
+        "index": 1,
+        "name": "FX 1",
+        "position": 1,
+        "type": "Effect",
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+      },
+      {
+        "index": 2,
+        "name": "Master",
+        "position": 2,
+        "type": "Master",
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+      }
+    ],
+    "count": 3,
+    "itemCount": 3,
+    "bankSize": 256
+  },
+  "selection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 2,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "status": {
+    "bound": false,
+    "busy": false,
+    "locked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-doctor-v21",
+    "foreignOwner": false
+  },
+  "doctor": {
+    "phase": 0,
+    "failed": false,
+    "marker": "9b-grid-doctor-v21",
+    "bound": false,
+    "busy": false,
+    "used": false,
+    "timeoutLocked": false,
+    "nativeUnfinished": false,
+    "foreignOwner": false
+  },
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.1.4",
+    "javaVersion": "25.0.4.1",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackPosition": 0,
+    "bankSize": 16
+  },
+  "control": {
+    "complete": true,
+    "moduleCount": 4,
+    "projectedAudioCableCount": 2,
+    "modules": [
+      {
+        "index": 0,
+        "uuid": "c65c703c-2d5f-4a09-9b14-1acdb43ce089",
+        "name": "Sine",
+        "typeUuid": "ca05aebd-ecaf-4d57-b0f6-c04ce81674c4"
+      },
+      {
+        "index": 1,
+        "uuid": "8f4c57aa-9adb-4873-81fe-d90050294cd2",
+        "name": "Amplify",
+        "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+      },
+      {
+        "index": 2,
+        "uuid": "eacebec9-ed3a-41ca-8467-8e817bdd9b4e",
+        "name": "Audio Out",
+        "typeUuid": "af7b5503-c955-489e-9461-164107d56bb6"
+      },
+      {
+        "index": 3,
+        "uuid": "f536612d-e7ee-4a73-9006-f0902882fd14",
+        "name": "Amplify",
+        "typeUuid": "a6cd650b-c4de-46c6-8741-c07a0a9bfec2"
+      }
+    ],
+    "cables": [
+      {
+        "sourceModule": 0,
+        "sourceNode": 5,
+        "destinationModule": 1,
+        "destinationNode": 29
+      },
+      {
+        "sourceModule": 1,
+        "sourceNode": 26,
+        "destinationModule": 2,
+        "destinationNode": 34
+      }
+    ],
+    "classes": [
+      "audio_destination_atom",
+      "audio_source_atom",
+      "audio_voice_sum_atom",
+      "bipolar_toggleable_decimal_value_atom",
+      "boolean_panel_value",
+      "boolean_value_atom",
+      "button_boolean_value_atom",
+      "decimal_value_atom",
+      "device_audio_output_proxy_atom",
+      "device_input_proxy_atom",
+      "indexed_value_atom",
+      "integer_value_atom",
+      "module",
+      "module_contents",
+      "module_grid",
+      "nitro_atom",
+      "polyphonic_observer_atom"
+    ],
+    "scope": "Explicit projection. Omitted fields and outer-device modulators are not covered.",
+    "paired": true,
+    "additions": [],
+    "schemas": 19,
+    "captures": 2,
+    "path": [
+      {
+        "parentClass": "native_device",
+        "propertyId": 406,
+        "propertyName": "device_contents",
+        "index": 0
+      },
+      {
+        "parentClass": "device_contents",
+        "propertyId": 173,
+        "propertyName": "child_components",
+        "index": 7
+      }
+    ],
+    "measurements": [
+      {
+        "queryWork": 1606,
+        "graphWork": 278,
+        "bytes": 35836,
+        "documentMs": 488.164,
+        "heapUsedBefore": 738197504,
+        "heapUsedAfter": 740294656
+      },
+      {
+        "queryWork": 1606,
+        "graphWork": 278,
+        "bytes": 35836,
+        "documentMs": 188.838792,
+        "heapUsedBefore": 740294656,
+        "heapUsedAfter": 742391808
+      }
+    ],
+    "verdict": "projected-read-agrees"
+  },
+  "selectionAfter": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 0,
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "changes": 0,
+    "revision": 2,
+    "slotProject": "",
+    "mixerProject": "gn-grid-spike",
+    "project": "gn-grid-spike"
+  },
+  "mixer": {
+    "tracks": [
+      {
+        "trackIndex": 0,
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": true,
+        "solo": false
+      },
+      {
+        "trackIndex": 1,
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+        "matches": true,
+        "type": "Effect",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 2,
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "matches": true,
+        "type": "Master",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      }
+    ]
+  },
+  "statusAfter": {
+    "bound": false,
+    "busy": false,
+    "locked": false,
+    "nativeUnfinished": false,
+    "marker": "9b-grid-doctor-v21",
+    "foreignOwner": false
+  },
+  "calls": 39
+}

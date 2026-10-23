@@ -1,0 +1,30 @@
+{
+  "host": {
+    "hostApiVersion": 25,
+    "hostProduct": "Bitwig Studio",
+    "hostVendor": "Bitwig",
+    "hostVersion": "6.1.4",
+    "javaVersion": "25.0.4.1",
+    "javaVendor": "Azul Systems, Inc."
+  },
+  "output": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/live-v21-attempt-4",
+  "guardsSha256": "92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5",
+  "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+  "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+  "consent": "I saved first. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint, including boolean and mapping checks and the cold first factory call. A failed check can require a Bitwig restart.",
+  "retryConsent": "No scratch track was created and the doctor was never bound in the refused preflight. I consent to one guarded scratch doctor pass on the 6.1.4 fingerprint as the single retry after that refusal.",
+  "priorAttemptSha256": [
+    "a8e0c214b5fe5f50981eb124bd5f07df5294f5ffad172bf283939241ef0123b4",
+    "9fdafd9d3883ca2a03f9a4eab7fe9101056814b15364cf5297d37382a628a266",
+    "68882ca6a6baad5ef929a701fdc8a7acaa7e68a6f723f49470d977a560e1662b"
+  ],
+  "priorEvidence": [
+    "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/live-v21",
+    "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/live-v21-retry",
+    "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-guarded/live-v21-attempt-3"
+  ],
+  "marker": "9b-grid-doctor-v21",
+  "hostVersion": "6.1.4",
+  "started": "2026-10-23T03:55:03.409Z",
+  "writeAuthority": false
+}

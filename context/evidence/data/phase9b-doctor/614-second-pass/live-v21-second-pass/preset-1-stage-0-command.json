@@ -1,0 +1,41 @@
+{
+  "marker": "9b-grid-doctor-v21",
+  "session": "ff7dc005-0e63-4b59-a58a-4304d462fd4f",
+  "receipt": {
+    "action": "mapping-remove",
+    "nativeCommandNanos": 13951750,
+    "commandReturned": true,
+    "readback": "pending-independent-pair",
+    "guards": {
+      "passed": true,
+      "checks": {
+        "projectDocumentClass": true,
+        "sameManager": true,
+        "helperList": true,
+        "pendingHelper": true,
+        "pendingList": true,
+        "disposalTrackingFalse": true,
+        "listenerTrackingFalse": true
+      },
+      "guardNanos": 122667
+    }
+  },
+  "metrics": {
+    "descriptorWork": 1567,
+    "snapshotNanos": 2987083
+  },
+  "queueNanos": 171166,
+  "documentTaskNanos": 25210209,
+  "heapBefore": 499122176,
+  "heapAfter": 505413632,
+  "status": {
+    "case": "mapping",
+    "commands": 1,
+    "reads": 0,
+    "locked": false,
+    "finished": false,
+    "inspections": 0,
+    "failure": ""
+  },
+  "completionNanos": 46708416
+}

@@ -1656,6 +1656,17 @@ public descriptions remain in 9b.7.
 
 ### Session 9b.6i — Recovered baseline and second guarded pass
 
+**Disposition.** Complete in
+[E340](../../evidence/experiments/e340-grid-doctor-614-second-guarded-pass.md).
+The baseline was confirmed by a committed read-only check, the read paths
+were rehearsed, the fixed probe was deployed, and the operator gave the
+second-pass consent. The boolean and mapping cases pass with guards and
+paired readback; the core case passes 5 of 12 commands; the disposal entry
+guard refuses before the native disposal on an owned-tree class (`wKx`)
+that the pinned 33-class set lacks. No cache exists. The operator
+recovered by restart. Step 2 stays open. Continue with
+[9b.6j](#session-9b6j--owned-tree-census-and-third-guarded-pass).
+
 **Source.** [E339](../../evidence/experiments/e339-grid-doctor-614-guarded-attempt.md),
 its `614-guarded/` evidence, the six attempt records under
 `.local/grid-doctor/`, [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
@@ -1689,3 +1700,42 @@ one-attempt rule for the 6.1.4 fingerprint, in the same form as 9b.5b.
 traced and measured reason it cannot pass under D52. Close step 2 only
 with the explicit two-build result. 9b.7 keeps product cache enforcement,
 the toolkit consolidation, the `/tmp` cleanup, and public descriptions.
+
+### Session 9b.6j — Owned-tree census and third guarded pass
+
+**Source.** [E340](../../evidence/experiments/e340-grid-doctor-614-second-guarded-pass.md),
+its `614-second-pass/` evidence, the seven attempt records under
+`.local/grid-doctor/`, [D52](../../decisions/d52-grid-upgrade-admission-policy.md),
+E339, E316, the [driver instructions](../../../brain/src/probes/grid_doctor/README.md),
+and the performance ledger. This session is the explicit exception to the
+one-attempt rule for the 6.1.4 fingerprint after the 9b.6i second pass.
+
+1. **Owned-tree census.** Derive the exact-class set of the fresh Amplify's
+   owned tree on 6.1.4 from bytecode that follows ancestor init methods and
+   static factories (`rce.bl_()` creates `wKx`; `BVs.Txc()` casts to it),
+   and compare with the 6.0.6 tree from the E316 pass (77 objects on both
+   builds). Trace the disposal body of each class that the current set
+   lacks with the body-change tools. Record the report under a new
+   evidence directory; keep the E339 guard plan and `guards.json` unchanged
+   as 9b.6h evidence.
+2. **Guard update.** Produce a new `guards.json` with the complete set, a
+   new guard hash, and the harness check that replays the E340 stage-5
+   reads through the owned-tree rule. Keep the exact-class, single
+   managed-node, node, and depth checks. Build with `copyProbeExtension`
+   and record the archive hash.
+3. **Third pass policy.** Add a third-pass argument and consent string to
+   the V21 driver that requires the seven records byte-equal to committed
+   copies, the second-pass evidence with exactly the nine E340 command
+   receipts and one inspection, and a host start after the second pass.
+   Keep the retry and second-pass policies refusing.
+4. **Run.** Confirm the baseline with the read-only check, ask for full
+   controller replacement, run hello, obtain fresh save-first consent, and
+   run one third pass. Compare timing with E316, E339, and E340. Never
+   repeat an uncertain command. Write the cache only after all 76 roles,
+   teardown, both control reads, and the preserved-state check.
+
+**Acceptance.** A complete 6.1.4 doctor result with the corrected guard
+set, or a traced and measured reason it cannot pass under D52. Close step 2
+only with the explicit two-build result. 9b.7 keeps product cache
+enforcement, the toolkit consolidation, the `/tmp` cleanup, and public
+descriptions.

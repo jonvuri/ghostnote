@@ -1,0 +1,12 @@
+9b.6i probe deployment 2026-10-23T13:21Z (local 08:21)
+task: ./gradlew copyProbeExtension (after ./gradlew check and gridDoctorTest: Grid doctor 108 checks pass)
+built:    c08544cd3486543aeb17735cc48423104ff2740321070c7283f8f500b303bcf8  extension/build/libs/ghostnote-0.0.1-probe.bwextension
+deployed: c08544cd3486543aeb17735cc48423104ff2740321070c7283f8f500b303bcf8  /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+bytes: 858498; built and deployed bytes equal (cmp); equal to /tmp/gn-9b6h-probe-built-5.bwextension (E339, built, not deployed)
+clean rebuild (./gradlew clean probeJar) reproduces the same hash; the harness-only test change does not enter the archive
+profile: phase-8-probe-v1; marker: 9b-grid-doctor-v21
+bundled resources equal 614-guarded files:
+  grid-doctor-candidate.json e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23
+  grid-doctor-selectors.json 0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853
+  grid-doctor-guards.json 92100a9c2e4ef873aacf9e5c5589b96ccfaddf7a188042197714ab671a13dbf5
+prior archive 4c2e738166473f15310fbf62e0e024e9f6f602bfad2d25733e3b16d7ea05d98a (E339 deployment 4) is replaced; the change is the complete GridBreadthRules.Runtime fix (compareFixture takes the resolved runtime). Controller replacement by the operator is required.

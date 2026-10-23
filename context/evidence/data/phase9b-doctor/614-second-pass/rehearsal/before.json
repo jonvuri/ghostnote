@@ -1,0 +1,109 @@
+{
+  "tracks": [
+    {
+      "index": 0,
+      "name": "grid-probe",
+      "position": 0,
+      "type": "Instrument",
+      "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+    },
+    {
+      "index": 1,
+      "name": "FX 1",
+      "position": 1,
+      "type": "Effect",
+      "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+    },
+    {
+      "index": 2,
+      "name": "Master",
+      "position": 2,
+      "type": "Master",
+      "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+    }
+  ],
+  "mixer": {
+    "tracks": [
+      {
+        "trackIndex": 0,
+        "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": true,
+        "solo": false
+      },
+      {
+        "trackIndex": 1,
+        "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+        "matches": true,
+        "type": "Effect",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 2,
+        "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+        "matches": true,
+        "type": "Master",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      }
+    ]
+  },
+  "devices": {
+    "c784d25c-b753-47ca-af8d-c83d11cfd990": {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Poly Grid",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+      "trackPosition": 0,
+      "bankSize": 16
+    },
+    "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4",
+      "trackPosition": 1,
+      "bankSize": 16
+    },
+    "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f": {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f",
+      "trackPosition": 2,
+      "bankSize": 16
+    }
+  },
+  "selection": {
+    "project": "gn-grid-spike",
+    "mixerChannelId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+    "trackIndex": -1,
+    "slotIndex": -1
+  }
+}

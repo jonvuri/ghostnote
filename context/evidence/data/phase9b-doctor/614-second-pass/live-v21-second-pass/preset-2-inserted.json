@@ -1,0 +1,20 @@
+{
+  "candidate": {
+    "case": "core",
+    "path": "/Users/jonvuri/Documents/Bitwig Studio/Library/Presets/Poly Grid/gn-grid-spike-baseline.bwpreset"
+  },
+  "devices": {
+    "devices": [
+      {
+        "index": 0,
+        "name": "Poly Grid",
+        "enabled": true
+      }
+    ],
+    "count": 1,
+    "itemCount": 1,
+    "trackChannelId": "a7d4fb3a-a2ff-4c08-95dd-01ae66d2a836",
+    "trackPosition": 1,
+    "bankSize": 16
+  }
+}

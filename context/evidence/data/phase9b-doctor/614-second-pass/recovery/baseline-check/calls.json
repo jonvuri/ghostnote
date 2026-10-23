@@ -1,0 +1,1243 @@
+{
+  "calls": [
+    {
+      "method": "contract.hello",
+      "params": {},
+      "ms": 7.664207999999974,
+      "bytes": 155
+    },
+    {
+      "method": "rig.info",
+      "params": {},
+      "ms": 24.303292,
+      "bytes": 1802
+    },
+    {
+      "method": "rig.stats",
+      "params": {},
+      "ms": 25.99141599999996,
+      "bytes": 2500
+    },
+    {
+      "method": "revision.get",
+      "params": {},
+      "ms": 24.93683299999998,
+      "bytes": 2060
+    },
+    {
+      "method": "track.list",
+      "params": {},
+      "ms": 25.408416000000045,
+      "bytes": 381
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 25.07716700000003,
+      "bytes": 207
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 24.86770800000005,
+      "bytes": 119
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "doctorStatus"
+      },
+      "ms": 24.63008400000001,
+      "bytes": 164
+    },
+    {
+      "method": "host.info",
+      "params": {},
+      "ms": 23.250417000000027,
+      "bytes": 154
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "ms": 27.027874999999995,
+      "bytes": 16
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 19.321207999999956,
+      "bytes": 171
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": 0
+      },
+      "ms": 20.460249999999974,
+      "bytes": 171
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "bind",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid"
+      },
+      "ms": 130.02854200000002,
+      "bytes": 285
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [],
+        "schemaHeaders": {
+          "fields": [
+            406
+          ],
+          "limit": 256
+        }
+      },
+      "ms": 50.89858400000003,
+      "bytes": 7736
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [
+            173
+          ],
+          "limit": 256
+        }
+      },
+      "ms": 48.24858300000005,
+      "bytes": 11769
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "read",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "projection": {
+          "module_grid": [
+            6428
+          ],
+          "module": [
+            15,
+            404,
+            406,
+            6679,
+            6680,
+            6977
+          ],
+          "module_contents": [
+            6369,
+            6370,
+            173
+          ],
+          "audio_source_atom": [
+            3639,
+            3640
+          ],
+          "audio_destination_atom": [
+            7123,
+            7124,
+            7125,
+            7234
+          ],
+          "bipolar_toggleable_decimal_value_atom": [
+            701,
+            374,
+            712,
+            949,
+            6406
+          ],
+          "decimal_value_atom": [
+            701,
+            374,
+            712,
+            949
+          ],
+          "boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "button_boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "integer_value_atom": [
+            701,
+            374,
+            828,
+            957
+          ],
+          "indexed_value_atom": [
+            701,
+            374,
+            457,
+            955,
+            6928
+          ],
+          "boolean_panel_value": [
+            6387,
+            6386
+          ],
+          "nitro_atom": [
+            14
+          ],
+          "device_input_proxy_atom": [
+            9794
+          ],
+          "device_audio_output_proxy_atom": [
+            9817
+          ],
+          "audio_voice_sum_atom": [
+            14
+          ],
+          "polyphonic_observer_atom": [
+            14
+          ]
+        }
+      },
+      "ms": 48.420875000000024,
+      "bytes": 36108
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "read",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "projection": {
+          "module_grid": [
+            6428
+          ],
+          "module": [
+            15,
+            404,
+            406,
+            6679,
+            6680,
+            6977
+          ],
+          "module_contents": [
+            6369,
+            6370,
+            173
+          ],
+          "audio_source_atom": [
+            3639,
+            3640
+          ],
+          "audio_destination_atom": [
+            7123,
+            7124,
+            7125,
+            7234
+          ],
+          "bipolar_toggleable_decimal_value_atom": [
+            701,
+            374,
+            712,
+            949,
+            6406
+          ],
+          "decimal_value_atom": [
+            701,
+            374,
+            712,
+            949
+          ],
+          "boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "button_boolean_value_atom": [
+            701,
+            374,
+            210,
+            953
+          ],
+          "integer_value_atom": [
+            701,
+            374,
+            828,
+            957
+          ],
+          "indexed_value_atom": [
+            701,
+            374,
+            457,
+            955,
+            6928
+          ],
+          "boolean_panel_value": [
+            6387,
+            6386
+          ],
+          "nitro_atom": [
+            14
+          ],
+          "device_input_proxy_atom": [
+            9794
+          ],
+          "device_audio_output_proxy_atom": [
+            9817
+          ],
+          "audio_voice_sum_atom": [
+            14
+          ],
+          "polyphonic_observer_atom": [
+            14
+          ]
+        }
+      },
+      "ms": 49.341416000000095,
+      "bytes": 36108
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.71083299999998,
+      "bytes": 2907
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.93212500000004,
+      "bytes": 4857
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.13341700000001,
+      "bytes": 4263
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 0
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.777708000000075,
+      "bytes": 3561
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 2
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.526582999999846,
+      "bytes": 1777
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 3
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 49.676917,
+      "bytes": 2138
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 6
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.842166000000134,
+      "bytes": 3491
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 8
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 46.19554199999993,
+      "bytes": 3563
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 9
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.00933299999997,
+      "bytes": 1812
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 13
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 49.166999999999916,
+      "bytes": 3778
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 0
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 17
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 48.052625000000035,
+      "bytes": 3564
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 1
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 1
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 51.70733300000006,
+      "bytes": 4255
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 1
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 2
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 43.474542000000156,
+      "bytes": 1319
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 1
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 49.28737500000011,
+      "bytes": 1465
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.08266600000002,
+      "bytes": 3835
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 8
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 47.37733299999991,
+      "bytes": 1323
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "schema",
+        "project": "gn-grid-spike",
+        "trackId": "c784d25c-b753-47ca-af8d-c83d11cfd990",
+        "trackName": "grid-probe",
+        "deviceIndex": 0,
+        "deviceName": "Poly Grid",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c",
+        "path": [
+          {
+            "parentClass": "native_device",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "device_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 7
+          },
+          {
+            "parentClass": "module_grid",
+            "propertyId": 6428,
+            "propertyName": "auxiliary_devices",
+            "index": 2
+          },
+          {
+            "parentClass": "module",
+            "propertyId": 406,
+            "propertyName": "device_contents",
+            "index": 0
+          },
+          {
+            "parentClass": "module_contents",
+            "propertyId": 173,
+            "propertyName": "child_components",
+            "index": 9
+          }
+        ],
+        "schemaHeaders": {
+          "fields": [],
+          "limit": 256
+        }
+      },
+      "ms": 46.78624999999988,
+      "bytes": 1930
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 23.64387499999998,
+      "bytes": 165
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "release",
+        "epoch": "07a1ce75-a775-4a89-9644-3920f632ac7c"
+      },
+      "ms": 24.278707999999824,
+      "bytes": 16
+    },
+    {
+      "method": "selection.status",
+      "params": {},
+      "ms": 29.042333999999983,
+      "bytes": 207
+    },
+    {
+      "method": "track.mixer",
+      "params": {
+        "tracks": [
+          {
+            "trackIndex": 0,
+            "channelId": "c784d25c-b753-47ca-af8d-c83d11cfd990"
+          },
+          {
+            "trackIndex": 1,
+            "channelId": "0c4835e2-1769-4ecc-9d03-cf0226bcb5a4"
+          },
+          {
+            "trackIndex": 2,
+            "channelId": "4d5bd19a-3a69-4a24-bbe5-9d1b3bef7a8f"
+          }
+        ]
+      },
+      "ms": 22.7934580000001,
+      "bytes": 814
+    },
+    {
+      "method": "probe.gridRead",
+      "params": {
+        "operation": "status"
+      },
+      "ms": 24.483874999999898,
+      "bytes": 119
+    }
+  ],
+  "count": 39,
+  "wireMs": 1540.858872
+}
