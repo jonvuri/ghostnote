@@ -2072,3 +2072,48 @@ resolution) takes 4,510.983 ms with 187,252,736 bytes peak RSS. The labeled
 continuation (traced table, body change, census, guards) takes
 11,310.502 ms with 338,280,448 bytes peak RSS. Product latency claims and
 every other call budget are unchanged.
+
+## Phase 11 Grid authoring — model before implementation
+
+[Phase 11](../plan/phase-11/README.md) adds three product tools on
+`agent-native-v1`. Wave one uses only the 76 doctor roles; no new native
+member, wait, or monitor is added. Each session measures its own path and
+replaces these expectations with rows above.
+
+**Primitives, from research.** One bounded descriptor capture takes about
+47 ms wire (E276 43.6–50.8; E304 median 47.4) and 0.1–15 ms document work,
+with at most 4,096 work units, one second of traversal, 64 modules, 256
+children per relationship, and a result under 1 MiB. Native commands take
+0.3–30 ms: value set about 3 ms, boolean 1–2 ms, cable connect 3–6 ms,
+disconnect 1–4 ms, factory 2–3 ms, attachment 22–30 ms, mapping remove
+4–20 ms, mapping restore 8–20 ms (E308, E316, E342). The jar hash of the
+admission gate is 15.6 ms cold and 0.05 ms memoized (E343). The E342 timing
+increases over E316 remain an unexplained research limit; product rows will
+be the first comparable product samples.
+
+**`list_grid_module_types`.** Offline catalog read; no host call. Budget:
+none.
+
+**`read_grid_modules`.** One revision mark and one `grid.read` document
+task: the product projection in one capture. Expected 2 host turns, about
+100 ms wire plus document work; a 31-module patch under 15 ms document and
+under 120 KiB (E302 broad captures reached 113 KB). The 83-module case
+refuses after the member count, before traversal. Budget row: `grid-read:
+mark 1, grid 1`. Heap: process deltas 0–4 MiB in E304; the 48 MiB planning
+allowance stays a planning figure.
+
+**`edit_grid_modules`.** One mark, the local gate, `grid.bind`, then per
+operation one pre-command capture, one command, and two independent
+readback captures, then `grid.release`. A one-operation call is about 7
+wire calls (about 170 ms wire floor at 24 ms per turn) and 4 document tasks,
+under 300 ms total. The 16-operation maximum is about 67 wire calls and 64
+document tasks, under 4 s, far under the D44 ceiling. `add_module` adds the
+factory and attachment commands and reads up to 64 rectangles inside the
+pre-command capture; one detached tree at most 256 objects and depth 12.
+`delete_module` adds one disconnect command and readback pair per outgoing
+consumer. Budget row: `grid-edit: mark 1, grid 3 + 3n` for n operations,
+fixed in 11b. Revert reuses the same path with the inverse operations.
+
+**Admitted limits.** 64 modules, 16 operations per call, one detached tree,
+one bind per call. A changed limit, a new host call, or a new native member
+needs a remeasurement and a stated cost in the E record.

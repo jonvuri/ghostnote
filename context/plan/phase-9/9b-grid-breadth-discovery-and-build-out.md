@@ -1,9 +1,9 @@
 ---
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
-state: active
-status: E342 completes the 6.1.4 guarded doctor on both builds. E343 completes 9b.7 with the product admission gate, check_grid_support, the offline upgrade tool, the toolkit classification, and the temporary-file cleanup. Next is step 3, build-out planning.
-updated: 2026-10-23
+state: complete
+status: All three steps are closed. E310 closes breadth, E316 and E342 close the two-build doctor, E343 closes 9b.7, and step 3 produced the Phase 11 Grid authoring plan on 2026-10-24.
+updated: 2026-10-24
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
 ---
@@ -212,6 +212,15 @@ normal profile.
 Exit: the doctor passes on both builds, or a recorded reason it cannot.
 
 ## Step 3 — Build-out planning
+
+**Complete.** The output is the [Phase 11 — Grid authoring plan](../phase-11/README.md)
+and its [ledger cost model](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation).
+The planning session settled four points: a new phase rather than 9c; no new
+obfuscated symbol in wave one, with later symbols batched into one doctor
+version; free-column or explicit placement that refuses when the simulated
+layout pass would move a module, with relocation as the first wave-two item;
+and mapping add and remove in wave one, with an amount change as remove and
+re-add. The original brief follows.
 
 No implementation in 9b. Use the step 1 and 2 results to decide: which verbs,
 module families, and Grid flavours to support; placement and overlap policy

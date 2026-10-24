@@ -1,9 +1,9 @@
 ---
 title: Phase 9 — Overlap investigation
 kind: plan
-state: active
-status: E342 accepts the 6.1.4 guarded doctor on both builds. E343 completes 9b.7 with the product admission gate, check_grid_support, and the offline upgrade tool. Next is 9b step 3, build-out planning.
-updated: 2026-10-23
+state: done
+status: Complete. 9b step 3 produced the Phase 11 Grid authoring plan on 2026-10-24. E342 accepts the 6.1.4 guarded doctor on both builds; E343 adds the product admission gate, check_grid_support, and the offline upgrade tool.
+updated: 2026-10-24
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md
 next: ../phase-10/README.md
@@ -19,7 +19,7 @@ Start with the [E299 close-out](../../evidence/experiments/e299-grid-spike-close
 for the verdict and limits.
 
 [9b — Grid breadth, build discovery, and build-out planning](9b-grid-breadth-discovery-and-build-out.md)
-is active. It has three steps: breadth dimensions that can break the 9a
+is complete. Its step 3 output is the [Phase 11 Grid authoring plan](../phase-11/README.md). It has three steps: breadth dimensions that can break the 9a
 model (knob-modulation inputs, stateful modules, the module catalog, FX and
 Note Grid, scale); runtime symbol discovery across Bitwig builds with a
 consent-gated self-test; then the real build-out plan. Sessions are lighter
