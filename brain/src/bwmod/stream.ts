@@ -1,14 +1,17 @@
 /**
- * Object-stream navigation — enough of BWFORMAT_SPEC §3/§4 to find and bound a
- * modulator object exactly.
+ * Read the object stream to find and bound a modulator object. See
+ * BWFORMAT_SPEC sections 3 and 4.
  *
- * A full recursive parse is impossible without Bitwig's Ramona schema (deep
- * lists inside a modulator's CONTENTS desync, spec §3.1), and it is not needed:
- * every edit locates a field by signature and snaps object bounds to the list
- * SENTINEL. The one hard rule (E11h, DECISIONS D1 invariant 1) is that a
- * modulator object ends at the byte before `00 00 00 03 00 00 00 00` — a
- * diff-derived bound can land 2 bytes INTO the sentinel and silently reject the
- * whole preset.
+ * A recursive codec does not require a complete field-name schema. The
+ * retained overlap checks parsed 46 donors and round-tripped 24 presets.
+ * See context/evidence/data/overlap-audit/offline-results.json and
+ * context/evidence/format/BWFORMAT_SPEC.md section 3.1.
+ *
+ * This editor uses the tested signature and sentinel boundaries. Each edit
+ * preserves the list sentinel and the sampled-reference rules. A modulator
+ * object ends before the next item or the list sentinel
+ * `00 00 00 03 00 00 00 00` (E11h, D1). A diff-derived bound can enter the
+ * sentinel and cause Bitwig to reject the preset.
  */
 import {
   CLASS_MODULATOR, FID, SENTINEL, TYPE, fail, fieldSig, isSentinel, readStr, valueSize,

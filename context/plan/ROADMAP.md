@@ -27,9 +27,10 @@ updated: 2026-10-24
 
 | Brief | State | Purpose |
 |---|---|---|
+| [feature breadth report](overlap/wave-3/report.html) | synthesis complete; vision selection planned | Matrices, evidence, dependencies, and possible sequences. [Next decision session](overlap/wave-3/vision-selection.md). No new implementation phase or priority order selected. |
 | [capability knowledge base](../archive/outcomes/KNOWLEDGE-BASE.md) | done 2026-08-15 | Minted [`evidence/capability/`](../evidence/capability/INDEX.md) and seeded it from host-API and `reference/BitX` facts |
 
-That detour changed no product behaviour. Phase 1 paused between sessions 3f-g
+The capability knowledge-base detour changed no product behavior. Phase 1 paused between sessions 3f-g
 and 3f-h while it ran, and resumed at 3f-h unchanged. Maintenance
 of the capability axis needs no standing plan: the rules are in
 [`context/README.md`](../README.md) and in the

@@ -2,7 +2,7 @@
 title: ghostnote context guide
 kind: index
 state: active
-updated: 2026-10-23
+updated: 2026-10-24
 ---
 
 # ghostnote context
@@ -28,6 +28,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Implement or audit a workstation module | [contracts](evidence/format/WORKSTATION_CONTRACTS.md) → [inventory](evidence/format/WORKSTATION_INTERFACES.md) → [seam blockers](evidence/format/WORKSTATION_SEAMS.md) → [verification costs](evidence/format/WORKSTATION_VERIFICATION.md) → named Phase 7 brief |
 | Work on the `.bwpreset` byte format | [format spec](evidence/format/BWFORMAT_SPEC.md) → [bwmod design](evidence/format/BWMOD_DESIGN.md) |
 | Review the roadmap | [roadmap](plan/ROADMAP.md) → relevant phase README |
+| Compare feature breadth and plan missing capabilities | [overlap workspace](plan/overlap/README.md) → [standalone inputs](plan/overlap/wave-3/README.md) |
 | Audit how the design evolved | Current decision → cited evidence → [archive](archive/README.md) |
 
 ## Authority order

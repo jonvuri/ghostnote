@@ -3,30 +3,42 @@ title: Current state
 kind: status
 state: active
 updated: 2026-10-24
-phase: phase-11-grid-authoring
-session: 11a-product-grid-read-and-catalog
+phase: overlap-planning
+session: wave-3-vision-selection
 ---
 
 ## Next session
 
-**Start [11a — Product Grid read and catalog](plan/phase-11/README.md#11a--product-grid-read-and-catalog).**
-Phase 9 is complete. The 9b step 3 planning session produced the
-[Phase 11 — Grid authoring plan](plan/phase-11/README.md) and its
-[ledger cost model](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation).
-Four settled points shape the phase: a new phase rather than 9c; wave one
-uses only the 76 doctor roles and adds no obfuscated symbol; new modules
-go to a free column or an explicit position and the write refuses when the
-simulated layout pass would move a module, with relocation as the first
-wave-two item; mapping add and remove are in wave one, with an amount
-change as remove and re-add.
+**Run [vision selection](plan/overlap/wave-3/vision-selection.md).** The
+[static synthesis report](plan/overlap/wave-3/report.html) is complete. It
+covers all 76 capability rows, 137 Ghostnote cells, 129 external cells, and
+58 work records. Its matrices, filters, source details, and possible sequences
+use the checked wave-3 data. The compact external matrix sorts projects by
+recorded capability density after Ghostnote. No new feature order or implementation brief is
+selected. Review the outcomes and D15/D49 context with the user, then plan
+only the work they select.
 
-11a adds `grid.read` to the normal profile, the canonical module catalog,
-`read_grid_modules`, and `list_grid_module_types`, with the subset test
-against `DOCTOR_ROLES`. Read the plan's sources, E302 and E304 for the
-read costs, `GridGraphRead`, and `GridBreadthRules` first. The live check
-needs the normal archive: `./gradlew copyExtension`, then operator
-controller replacement, then `npm run probe:hello`. 11a makes no Grid
-write; the first write tool is 11b.
+Baseline confirmed offline: 45 normal tools, descriptions v53, installed
+Bitwig 6.1.4. No host request ran. DL-6's current format-reference and parser
+comment corrections are complete; runtime logic and historical E/D records
+are unchanged. The report build and record checks pass. The context check
+still reports 18 pre-existing missing-frontmatter errors; no new link error
+remains. See [build and verification](plan/overlap/wave-3/report/README.md).
+
+The user's provisional preference favours capabilities, speed, and functional
+equivalence over perfect restoration. It is not an accepted contract change.
+The [report](plan/overlap/wave-3/report.html#vision) presents the choices;
+[dependencies](plan/overlap/wave-3/dependencies.md#provisional-user-statement-2026-10-24)
+retains the original statement. D15 and D49 remain in force.
+
+Phase 9 is complete. The next already-planned Grid implementation is
+[11a — Product Grid read and catalog](plan/phase-11/README.md#11a--product-grid-read-and-catalog).
+Keep the [Phase 11 scope](plan/phase-11/README.md) and
+[cost model](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation).
+Wave one uses only 76 admitted roles. Placement must preserve existing module
+positions. Mapping amount changes use remove and re-add. Before 11a live
+work, deploy the normal archive, get operator controller replacement, then
+run `npm run probe:hello`. 11a makes no Grid write.
 
 The independent [8i17 survey](plan/phase-8/8i17-midi-musical-navigation-survey.md)
 and Phase 10 remain on the [roadmap](plan/ROADMAP.md).
@@ -49,8 +61,15 @@ and Phase 10 remain on the [roadmap](plan/ROADMAP.md).
 
 ## Material to preserve
 
-- The Phase 11 plan, the ledger section, and the roadmap, Phase 9, and 9b
-  updates are staged for review, not committed.
+- The earlier overlap reorganization, review, wave-3 records, and external
+  register remain staged, not committed. This session adds the static report,
+  its source template and builder, the next decision-session plan, and current
+  reference corrections. The staged set includes prior sessions. Phase 11
+  was already committed at entry. Raw evidence and source records are preserved.
+- SM-7 still records the unmeasured Effect and Group creation routes and the
+  overstatement in `add_tracks`. No tool description changed. DP-6's prose now
+  agrees with its Candidate record: Control Deck has an action-based export
+  route, without saved-file or reload proof.
 - E343 and [`9b7-tool/`](evidence/data/phase9b-doctor/9b7-tool/), E342 and
   `614-third-pass/`, E341 and `614-census/`, E340 and `614-second-pass/`,
   E339 and `614-guarded/`, E338 and checkpoints 1–17, E331–E337, E316 and

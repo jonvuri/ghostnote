@@ -73,9 +73,9 @@ descriptions changed in this audit.
 | Control Deck ignored-delete reproduction | Returns success with both counts equal to 1 | The completion predicate accepts a delete that had no effect. Target selection/guards are stubbed as successful; this check isolates completion. |
 | Ghostnote focused tests | 123/123 pass; no skips | Existing bwmod/oracle, control identity, readback-failure, and call-budget tests pass. This is not the full product test suite. |
 
-The machine-readable [result](data/overlap-audit/offline-results.json) contains
+The machine-readable [result](../../../evidence/data/overlap-audit/offline-results.json) contains
 all preset and donor hashes, counts, clone revisions, and exact diagnostic
-errors. The [check script](data/overlap-audit/offline_checks.py) uses only local
+errors. The [check script](../../../evidence/data/overlap-audit/offline_checks.py) uses only local
 source and the Python standard library for these checks. It saves no preset,
 key, or decoded vendor definition.
 
@@ -93,7 +93,7 @@ From `brain/`:
 node --import tsx --test src/bwmod/bwmod.test.ts src/bwmod/oracle.test.ts src/surface/device-control-identity.test.ts src/surface/readback-unavailable.test.ts src/surface/call-budget.test.ts
 ```
 
-The [ignored-delete check](data/overlap-audit/controller_noop_delete.mjs) runs
+The [ignored-delete check](../../../evidence/data/overlap-audit/controller_noop_delete.mjs) runs
 the cloned handler in a VM with a host that ignores deletion.
 
 The full upstream Python suites were not run. The system Python has no pytest,
@@ -146,72 +146,72 @@ also refer to later functions in that file.
 | CD-select | Track and device selection guards | [reference/bitwig-control-deck/controller/ControlDeck.control.js:277](https://github.com/remymazmanian/bitwig-control-deck/blob/45933855dcbfd1bd130beea18dd3f02bf794a838/controller/ControlDeck.control.js#L277) |
 | CD-tests | Controller fake-host tests | [reference/bitwig-control-deck/test/controller.test.mjs:1](https://github.com/remymazmanian/bitwig-control-deck/blob/45933855dcbfd1bd130beea18dd3f02bf794a838/test/controller.test.mjs#L1) |
 | CD-tools | Registered MCP tools and input limits | [reference/bitwig-control-deck/src/index.mjs:55](https://github.com/remymazmanian/bitwig-control-deck/blob/45933855dcbfd1bd130beea18dd3f02bf794a838/src/index.mjs#L55) |
-| Checks | Checks | [context/evidence/OVERLAP_AUDIT_SOURCES.md](../../context/evidence/OVERLAP_AUDIT_SOURCES.md) |
-| D44 | D44 | [context/decisions/d44-long-writes-are-optimized-then-bounded.md](../decisions/d44-long-writes-are-optimized-then-bounded.md) |
+| Checks | Checks | [context/plan/overlap/wave-1/OVERLAP_AUDIT_SOURCES.md](OVERLAP_AUDIT_SOURCES.md) |
+| D44 | D44 | [context/decisions/d44-long-writes-are-optimized-then-bounded.md](../../../decisions/d44-long-writes-are-optimized-then-bounded.md) |
 | DAW | Selected clip reads and note setters | [reference/daw-mcp/bitwig-extension/src/main/java/com/pxaudio/bitwigmcp/handlers/ClipHandler.java:258](https://github.com/ptaczek/daw-mcp/blob/a30cbf62f8741265550fc2d638b0cd56559255e6/bitwig-extension/src/main/java/com/pxaudio/bitwigmcp/handlers/ClipHandler.java#L258) |
-| E124 | E124 | [context/evidence/experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md](experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md) |
-| E125 | E125 | [context/evidence/experiments/e125-audio-capture-composes-with-verified-file-analysis.md](experiments/e125-audio-capture-composes-with-verified-file-analysis.md) |
-| E232 | E232 | [context/evidence/experiments/e232-reader-row-binding.md](experiments/e232-reader-row-binding.md) |
-| E233 | E233 | [context/evidence/experiments/e233-pull-snapshot-references.md](experiments/e233-pull-snapshot-references.md) |
-| E234 | E234 | [context/evidence/experiments/e234-write-boundary-and-reader-hardening.md](experiments/e234-write-boundary-and-reader-hardening.md) |
-| E235 | E235 | [context/evidence/experiments/e235-document-read-and-identity-registry.md](experiments/e235-document-read-and-identity-registry.md) |
-| E236 | E236 | [context/evidence/experiments/e236-document-edit-limb.md](experiments/e236-document-edit-limb.md) |
-| E243 | E243 | [context/evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md](experiments/e243-collapsed-cursor-and-parameter-settle.md) |
-| E244 | E244 | [context/evidence/experiments/e244-direct-parameter-display-observer.md](experiments/e244-direct-parameter-display-observer.md) |
-| E248 | E248 | [context/evidence/experiments/e248-writer-cursor-width.md](experiments/e248-writer-cursor-width.md) |
-| E250 | E250 | [context/evidence/experiments/e250-reader-follow-mode-repair.md](experiments/e250-reader-follow-mode-repair.md) |
-| E253 | E253 | [context/evidence/experiments/e253-overlay-basis-sealing.md](experiments/e253-overlay-basis-sealing.md) |
-| E254 | E254 | [context/evidence/experiments/e254-device-control-identity-and-route-claims.md](experiments/e254-device-control-identity-and-route-claims.md) |
-| E255 | E255 | [context/evidence/experiments/e255-document-format-discovery.md](experiments/e255-document-format-discovery.md) |
-| E257 | E257 | [context/evidence/experiments/e257-track-mixer.md](experiments/e257-track-mixer.md) |
-| E258 | E258 | [context/evidence/experiments/e258-selection-effects-and-unavailable-readback.md](experiments/e258-selection-effects-and-unavailable-readback.md) |
-| E260 | E260 | [context/evidence/experiments/e260-claim-replacement-repair.md](experiments/e260-claim-replacement-repair.md) |
-| E264 | E264 | [context/evidence/experiments/e264-device-add-revert-report.md](experiments/e264-device-add-revert-report.md) |
-| E265 | E265 | [context/evidence/experiments/e265-inline-midi-file-conversion.md](experiments/e265-inline-midi-file-conversion.md) |
-| E267 | E267 | [context/evidence/experiments/e267-midi-snapshot-export.md](experiments/e267-midi-snapshot-export.md) |
-| E269 | E269 | [context/evidence/experiments/e269-document-file-paths.md](experiments/e269-document-file-paths.md) |
-| E55 | E55 | [context/evidence/experiments/e55-direct-parameter-core-is-live.md](experiments/e55-direct-parameter-core-is-live.md) |
-| E56 | E56 | [context/evidence/experiments/e56-native-device-catalog-is-reproducible-and-resolved.md](experiments/e56-native-device-catalog-is-reproducible-and-resolved.md) |
-| E57 | E57 | [context/evidence/experiments/e57-vst3-and-clap-parameter-control-is-live.md](experiments/e57-vst3-and-clap-parameter-control-is-live.md) |
-| E67 | E67 | [context/evidence/experiments/e67-sampled-preset-authoring-is-live.md](experiments/e67-sampled-preset-authoring-is-live.md) |
-| E68 | E68 | [context/evidence/experiments/e68-container-cross-device-routing-is-live.md](experiments/e68-container-cross-device-routing-is-live.md) |
-| E69 | E69 | [context/evidence/experiments/e69-donor-scope-and-footprints-are-complete.md](experiments/e69-donor-scope-and-footprints-are-complete.md) |
-| E77 | E77 | [context/evidence/experiments/e77-nested-direct-parameter-guards-are-live.md](experiments/e77-nested-direct-parameter-guards-are-live.md) |
-| E82 | E82 | [context/evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md](experiments/e82-direct-parameter-domains-and-integrity-are-live.md) |
-| E85 | E85 | [context/evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md](experiments/e85-general-directparameter-modulation-targets-are-live.md) |
-| E86 | E86 | [context/evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md](experiments/e86-semantic-preset-modulation-inspection-is-complete.md) |
-| E87 | E87 | [context/evidence/experiments/e87-list-scoped-topology-is-complete.md](experiments/e87-list-scoped-topology-is-complete.md) |
-| E90 | E90 | [context/evidence/experiments/e90-fx-layer-late-binding-is-live.md](experiments/e90-fx-layer-late-binding-is-live.md) |
-| E91 | E91 | [context/evidence/experiments/e91-existing-device-modulation-wrapper-is-live.md](experiments/e91-existing-device-modulation-wrapper-is-live.md) |
-| E92 | E92 | [context/evidence/experiments/e92-general-device-source-composition-is-live.md](experiments/e92-general-device-source-composition-is-live.md) |
-| E93 | E93 | [context/evidence/experiments/e93-container-shape-and-capacity.md](experiments/e93-container-shape-and-capacity.md) |
-| E95 | E95 | [context/evidence/experiments/e95-modulator-identity-pair-controls-grid-placement.md](experiments/e95-modulator-identity-pair-controls-grid-placement.md) |
-| E96 | E96 | [context/evidence/experiments/e96-grid-generalization-and-catalog-boundary.md](experiments/e96-grid-generalization-and-catalog-boundary.md) |
-| E98 | E98 | [context/evidence/experiments/e98-parameter-units-and-semantic-writes-fail-closed.md](experiments/e98-parameter-units-and-semantic-writes-fail-closed.md) |
-| E99 | E99 | [context/evidence/experiments/e99-selection-borrowing-and-background-stability.md](experiments/e99-selection-borrowing-and-background-stability.md) |
+| E124 | E124 | [context/evidence/experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md](../../../evidence/experiments/e124-audio-facts-and-sensory-packets-connect-verified-files.md) |
+| E125 | E125 | [context/evidence/experiments/e125-audio-capture-composes-with-verified-file-analysis.md](../../../evidence/experiments/e125-audio-capture-composes-with-verified-file-analysis.md) |
+| E232 | E232 | [context/evidence/experiments/e232-reader-row-binding.md](../../../evidence/experiments/e232-reader-row-binding.md) |
+| E233 | E233 | [context/evidence/experiments/e233-pull-snapshot-references.md](../../../evidence/experiments/e233-pull-snapshot-references.md) |
+| E234 | E234 | [context/evidence/experiments/e234-write-boundary-and-reader-hardening.md](../../../evidence/experiments/e234-write-boundary-and-reader-hardening.md) |
+| E235 | E235 | [context/evidence/experiments/e235-document-read-and-identity-registry.md](../../../evidence/experiments/e235-document-read-and-identity-registry.md) |
+| E236 | E236 | [context/evidence/experiments/e236-document-edit-limb.md](../../../evidence/experiments/e236-document-edit-limb.md) |
+| E243 | E243 | [context/evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md](../../../evidence/experiments/e243-collapsed-cursor-and-parameter-settle.md) |
+| E244 | E244 | [context/evidence/experiments/e244-direct-parameter-display-observer.md](../../../evidence/experiments/e244-direct-parameter-display-observer.md) |
+| E248 | E248 | [context/evidence/experiments/e248-writer-cursor-width.md](../../../evidence/experiments/e248-writer-cursor-width.md) |
+| E250 | E250 | [context/evidence/experiments/e250-reader-follow-mode-repair.md](../../../evidence/experiments/e250-reader-follow-mode-repair.md) |
+| E253 | E253 | [context/evidence/experiments/e253-overlay-basis-sealing.md](../../../evidence/experiments/e253-overlay-basis-sealing.md) |
+| E254 | E254 | [context/evidence/experiments/e254-device-control-identity-and-route-claims.md](../../../evidence/experiments/e254-device-control-identity-and-route-claims.md) |
+| E255 | E255 | [context/evidence/experiments/e255-document-format-discovery.md](../../../evidence/experiments/e255-document-format-discovery.md) |
+| E257 | E257 | [context/evidence/experiments/e257-track-mixer.md](../../../evidence/experiments/e257-track-mixer.md) |
+| E258 | E258 | [context/evidence/experiments/e258-selection-effects-and-unavailable-readback.md](../../../evidence/experiments/e258-selection-effects-and-unavailable-readback.md) |
+| E260 | E260 | [context/evidence/experiments/e260-claim-replacement-repair.md](../../../evidence/experiments/e260-claim-replacement-repair.md) |
+| E264 | E264 | [context/evidence/experiments/e264-device-add-revert-report.md](../../../evidence/experiments/e264-device-add-revert-report.md) |
+| E265 | E265 | [context/evidence/experiments/e265-inline-midi-file-conversion.md](../../../evidence/experiments/e265-inline-midi-file-conversion.md) |
+| E267 | E267 | [context/evidence/experiments/e267-midi-snapshot-export.md](../../../evidence/experiments/e267-midi-snapshot-export.md) |
+| E269 | E269 | [context/evidence/experiments/e269-document-file-paths.md](../../../evidence/experiments/e269-document-file-paths.md) |
+| E55 | E55 | [context/evidence/experiments/e55-direct-parameter-core-is-live.md](../../../evidence/experiments/e55-direct-parameter-core-is-live.md) |
+| E56 | E56 | [context/evidence/experiments/e56-native-device-catalog-is-reproducible-and-resolved.md](../../../evidence/experiments/e56-native-device-catalog-is-reproducible-and-resolved.md) |
+| E57 | E57 | [context/evidence/experiments/e57-vst3-and-clap-parameter-control-is-live.md](../../../evidence/experiments/e57-vst3-and-clap-parameter-control-is-live.md) |
+| E67 | E67 | [context/evidence/experiments/e67-sampled-preset-authoring-is-live.md](../../../evidence/experiments/e67-sampled-preset-authoring-is-live.md) |
+| E68 | E68 | [context/evidence/experiments/e68-container-cross-device-routing-is-live.md](../../../evidence/experiments/e68-container-cross-device-routing-is-live.md) |
+| E69 | E69 | [context/evidence/experiments/e69-donor-scope-and-footprints-are-complete.md](../../../evidence/experiments/e69-donor-scope-and-footprints-are-complete.md) |
+| E77 | E77 | [context/evidence/experiments/e77-nested-direct-parameter-guards-are-live.md](../../../evidence/experiments/e77-nested-direct-parameter-guards-are-live.md) |
+| E82 | E82 | [context/evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md](../../../evidence/experiments/e82-direct-parameter-domains-and-integrity-are-live.md) |
+| E85 | E85 | [context/evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md](../../../evidence/experiments/e85-general-directparameter-modulation-targets-are-live.md) |
+| E86 | E86 | [context/evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md](../../../evidence/experiments/e86-semantic-preset-modulation-inspection-is-complete.md) |
+| E87 | E87 | [context/evidence/experiments/e87-list-scoped-topology-is-complete.md](../../../evidence/experiments/e87-list-scoped-topology-is-complete.md) |
+| E90 | E90 | [context/evidence/experiments/e90-fx-layer-late-binding-is-live.md](../../../evidence/experiments/e90-fx-layer-late-binding-is-live.md) |
+| E91 | E91 | [context/evidence/experiments/e91-existing-device-modulation-wrapper-is-live.md](../../../evidence/experiments/e91-existing-device-modulation-wrapper-is-live.md) |
+| E92 | E92 | [context/evidence/experiments/e92-general-device-source-composition-is-live.md](../../../evidence/experiments/e92-general-device-source-composition-is-live.md) |
+| E93 | E93 | [context/evidence/experiments/e93-container-shape-and-capacity.md](../../../evidence/experiments/e93-container-shape-and-capacity.md) |
+| E95 | E95 | [context/evidence/experiments/e95-modulator-identity-pair-controls-grid-placement.md](../../../evidence/experiments/e95-modulator-identity-pair-controls-grid-placement.md) |
+| E96 | E96 | [context/evidence/experiments/e96-grid-generalization-and-catalog-boundary.md](../../../evidence/experiments/e96-grid-generalization-and-catalog-boundary.md) |
+| E98 | E98 | [context/evidence/experiments/e98-parameter-units-and-semantic-writes-fail-closed.md](../../../evidence/experiments/e98-parameter-units-and-semantic-writes-fail-closed.md) |
+| E99 | E99 | [context/evidence/experiments/e99-selection-borrowing-and-background-stability.md](../../../evidence/experiments/e99-selection-borrowing-and-background-stability.md) |
 | GM-arranger | Cue marker handlers | [reference/bitwig-extensions/gig-maestro/src/main/java/dev/gregross/gig/handlers/ArrangerHandler.java:136](https://github.com/gregrossdev/bitwig-extensions/blob/de79a747a62b50e1488cc9ef49617d129804e3ff/gig-maestro/src/main/java/dev/gregross/gig/handlers/ArrangerHandler.java#L136) |
 | GM-device | Eight remote parameters and selected device operations | [reference/bitwig-extensions/gig-maestro/src/main/java/dev/gregross/gig/handlers/DeviceHandler.java:25](https://github.com/gregrossdev/bitwig-extensions/blob/de79a747a62b50e1488cc9ef49617d129804e3ff/gig-maestro/src/main/java/dev/gregross/gig/handlers/DeviceHandler.java#L25) |
 | GM-sends | Send level, mode, and enabled setters | [reference/bitwig-extensions/gig-maestro/src/main/java/dev/gregross/gig/handlers/SendHandler.java:20](https://github.com/gregrossdev/bitwig-extensions/blob/de79a747a62b50e1488cc9ef49617d129804e3ff/gig-maestro/src/main/java/dev/gregross/gig/handlers/SendHandler.java#L20) |
 | GM-transaction | Sequential operations and undo rollback | [reference/bitwig-extensions/gig-maestro/src/main/java/dev/gregross/gig/handlers/TransactionHandler.java:24](https://github.com/gregrossdev/bitwig-extensions/blob/de79a747a62b50e1488cc9ef49617d129804e3ff/gig-maestro/src/main/java/dev/gregross/gig/handlers/TransactionHandler.java#L24) |
-| GN-adapter | GN-adapter | [brain/src/adapters/live/adapter.ts](../../brain/src/adapters/live/adapter.ts) |
-| GN-audio | GN-audio | [brain/src/audio/index.ts](../../brain/src/audio/index.ts) |
-| GN-bwtests | GN-bwtests | [brain/src/bwmod/bwmod.test.ts](../../brain/src/bwmod/bwmod.test.ts) |
-| GN-descriptions | GN-descriptions | [brain/src/surface/description-cohort.ts](../../brain/src/surface/description-cohort.ts) |
-| GN-device | GN-device | [brain/src/surface/agent-native-devices.ts](../../brain/src/surface/agent-native-devices.ts) |
-| GN-donors | GN-donors | [brain/src/bwmod/donors.ts](../../brain/src/bwmod/donors.ts) |
-| GN-encoder | GN-encoder | [brain/src/adapters/live/encoder.ts](../../brain/src/adapters/live/encoder.ts) |
-| GN-inspect | GN-inspect | [brain/src/surface/preset-modulation-inspection.ts](../../brain/src/surface/preset-modulation-inspection.ts) |
-| GN-oracle | GN-oracle | [brain/src/bwmod/oracle.test.ts](../../brain/src/bwmod/oracle.test.ts) |
-| GN-readback | GN-readback | [brain/src/surface/readback-unavailable.test.ts](../../brain/src/surface/readback-unavailable.test.ts) |
-| GN-stream | GN-stream | [brain/src/bwmod/stream.ts](../../brain/src/bwmod/stream.ts) |
-| GN-stubs | GN-stubs | [brain/src/bwmod/stubs.ts](../../brain/src/bwmod/stubs.ts) |
+| GN-adapter | GN-adapter | [brain/src/adapters/live/adapter.ts](../../../../brain/src/adapters/live/adapter.ts) |
+| GN-audio | GN-audio | [brain/src/audio/index.ts](../../../../brain/src/audio/index.ts) |
+| GN-bwtests | GN-bwtests | [brain/src/bwmod/bwmod.test.ts](../../../../brain/src/bwmod/bwmod.test.ts) |
+| GN-descriptions | GN-descriptions | [brain/src/surface/description-cohort.ts](../../../../brain/src/surface/description-cohort.ts) |
+| GN-device | GN-device | [brain/src/surface/agent-native-devices.ts](../../../../brain/src/surface/agent-native-devices.ts) |
+| GN-donors | GN-donors | [brain/src/bwmod/donors.ts](../../../../brain/src/bwmod/donors.ts) |
+| GN-encoder | GN-encoder | [brain/src/adapters/live/encoder.ts](../../../../brain/src/adapters/live/encoder.ts) |
+| GN-inspect | GN-inspect | [brain/src/surface/preset-modulation-inspection.ts](../../../../brain/src/surface/preset-modulation-inspection.ts) |
+| GN-oracle | GN-oracle | [brain/src/bwmod/oracle.test.ts](../../../../brain/src/bwmod/oracle.test.ts) |
+| GN-readback | GN-readback | [brain/src/surface/readback-unavailable.test.ts](../../../../brain/src/surface/readback-unavailable.test.ts) |
+| GN-stream | GN-stream | [brain/src/bwmod/stream.ts](../../../../brain/src/bwmod/stream.ts) |
+| GN-stubs | GN-stubs | [brain/src/bwmod/stubs.ts](../../../../brain/src/bwmod/stubs.ts) |
 | HACKS | Historical Bitwig 2.0 modulator work | [reference/bitwig-device-hacks/README.md:1](https://github.com/zezic/bitwig-device-hacks/blob/59aa058e3fc725d202b6309c5251960a588e37a2/README.md#L1) |
-| Ledger | Ledger | [context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md](../../context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) |
+| Ledger | Ledger | [context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md](../../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) |
 | MOSS-clip | Controller clip implementation | [reference/DrivenByMoss/src/main/java/de/mossgrabers/bitwig/framework/daw/CursorClipImpl.java:1](https://github.com/git-moss/DrivenByMoss/blob/836117be7c17318a0f93cb414e333516a91a5436/src/main/java/de/mossgrabers/bitwig/framework/daw/CursorClipImpl.java#L1) |
 | MOSS-layer | Layer and send control implementation | [reference/DrivenByMoss/src/main/java/de/mossgrabers/bitwig/framework/daw/data/LayerImpl.java:1](https://github.com/git-moss/DrivenByMoss/blob/836117be7c17318a0f93cb414e333516a91a5436/src/main/java/de/mossgrabers/bitwig/framework/daw/data/LayerImpl.java#L1) |
-| Manifest | Manifest | [brain/assets/modulators/manifest.json](../../brain/assets/modulators/manifest.json) |
+| Manifest | Manifest | [brain/assets/modulators/manifest.json](../../../../brain/assets/modulators/manifest.json) |
 | NITRO | Nitro formats and unproved modified-image loading | [reference/bitwig-nitro-tools/README.md:140](https://github.com/blakebratcher/bitwig-nitro-tools/blob/a34c1d61c7e48b1531fb3fba5e4c06d9e1e0cf16/README.md#L140) |
-| NOW | NOW | [context/NOW.md](../../context/NOW.md) |
+| NOW | NOW | [context/NOW.md](../../../NOW.md) |
 | OW-bridge | Reflection, descriptor walker, and document operations | [reference/openwig/src/openwig/controller/openwig_bridge.control.js:490](https://github.com/Axyom/openwig/blob/d9ffed4cd3ea7ad7f2f94dee5992545e8e54db2d/src/openwig/controller/openwig_bridge.control.js#L490) |
 | OW-mod | Audio/preset insertion and modulator browser handler | [reference/openwig/src/openwig/controller/openwig_bridge.control.js:2214](https://github.com/Axyom/openwig/blob/d9ffed4cd3ea7ad7f2f94dee5992545e8e54db2d/src/openwig/controller/openwig_bridge.control.js#L2214) |
 | OW-notes | Arranger clip and automation graph extraction | [reference/openwig/src/openwig/read/notes.py:1](https://github.com/Axyom/openwig/blob/d9ffed4cd3ea7ad7f2f94dee5992545e8e54db2d/src/openwig/read/notes.py#L1) |

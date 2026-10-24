@@ -1,7 +1,7 @@
 ---
 title: Bitwig `.bwpreset` format — working specification
 status: evidence-backed draft (E10–E12, E71); enough to build modulator surgery
-updated: 2026-08-23
+updated: 2026-10-24
 scope: the plain (encoding 0002) container, focused on modulator topology
 ---
 
@@ -27,7 +27,7 @@ one header field.
 |---|---|---|
 | 0:4 | magic | `BtWg` |
 | 4:8 | container | container version, hex — `0003` on Bitwig 6.x |
-| 8:12 | **encoding** | **`0002` = plain TLV (readable) · `0004` = opaque** |
+| 8:12 | **encoding** | **`0002` = plain TLV (readable) · `0004` = encoded (see below)** |
 | 12:16 | writer | writer/device version, hex (e.g. `00c1`, `00c5`) |
 | 16:24 | **f4** | hex; `= objectStreamOffset + 1`. Points at the object stream. |
 | 24:32 | f5 | hex; `00000000` in every first-party preset examined **[K for presets]** |
@@ -37,12 +37,15 @@ one header field.
 - **The encoding field alone predicts readability**, and it tracks file *type*
   exactly across all 361 `BtWg` files on the system **[K, E10-FindingA]**:
   `.bwpreset` / `.bwclip` / `.bwproject` → `0002` plain;
-  `.bwdevice` / `.bwmodulator` → `0004` opaque.
-- `0004` is **not** any standard compression (no zlib/deflate/gzip/lzma/xz/zstd/lz4
-  magic; a decompress-at-every-offset scan finds nothing) and is community-
-  confirmed unreadable since Bitwig 3 **[K]**. It holds proprietary DSP. **Modulator
-  and device *instances* do NOT live there — they live in the plain `.bwpreset`.**
-  Do not spend effort on `0004`.
+  `.bwdevice` / `.bwmodulator` → `0004` encoded.
+- The E10 compression scans did not decode `0004`. A pinned
+  [bwpreset decoder](../../../reference/bwpreset/bwpreset/encoding.py) now
+  implements an encoding route **[Source]**. Its `installed_key` extractor
+  expects `com/bitwig/base/serial/file/sYG.class`, which is absent from the
+  installed 6.1.4 jar. That exact extractor is blocked; another extractor is
+  not established. See the [source checks](../../plan/overlap/wave-3/sources.md#reproducible-local-facts).
+  Device and modulator instances remain in plain `.bwpreset` files. The
+  recursive preset codec does not need this definition decoder.
 - **`f6` decoded [K, E11i]:** for a plugin host that embeds its own state (VST3/CLAP,
   e.g. Zebra 3 / u-he), `f6` is the absolute offset of an embedded **ZIP** archive
   (DEFLATE, one `plugin-states/<GUID>` entry) appended after the object stream. It
@@ -115,8 +118,9 @@ SENTINEL := 00 00 00 03 00 00 00 00             # NOT a bare classId 0 (E11h)
 **sentinel object** (`00 00 00 03 00 00 00 00`), *not* a bare `classId 0`. A
 0-item list is just the sentinel; an N-item list is N adjacent objects then the
 sentinel. Reading it as `object* u32(0)` desyncs (the parser eats the sentinel's
-`0x0003` as a real item), which is what produced the phantom "unmapped types
-0x02/0x06/0x1a" — those were desync noise, not value types. **Editing consequence:
+`0x0003` as a real item). This produced false type readings in E11h. Later
+corpus checks found four real `0x02` body fields. `0x06` and `0x1a` were not observed in that corpus;
+the earlier desynchronization does not disprove either type. **Editing consequence:
 a modulator object's true end is the byte before the sentinel; a diff/insert
 boundary can land 2 bytes INTO the sentinel and corrupt it → whole-preset reject
 (the alignment-dependent bug that manufactured the false "Zebra wall", E11i). Always
@@ -127,30 +131,38 @@ snap object bounds to the sentinel; insert new objects BEFORE it.**
 | type | meaning | encoding |
 |---|---|---|
 | 0x01 | u8 | 1 byte |
+| 0x02 | i16; observed in four body fields | 2 bytes BE; pinned codec and retained corpus check |
 | 0x03 | u32 | 4 bytes BE |
 | 0x05 | bool | 1 byte |
 | 0x07 | f64 | 8 bytes BE (IEEE double) |
 | 0x08 | str | u32 len + UTF-8 (NOT nul-terminated) |
 | 0x09 | object | nested `object` |
-| 0x12 | list | `list` (objects until classId 0) |
+| 0x12 | list | Objects through the empty class-3 sentinel; see the grammar above |
 | 0x15 | guid | 16 raw bytes |
 | 0x19 | str[] | u32 count + `[u32 len, bytes]*` |
-| ~~0x02, 0x06, 0x1a~~ | **RETIRED [K, E11h]** — never real value types; they were list-sentinel DESYNC artifacts (see §3 list grammar). No unmapped scalar types remain in practice. |
+| 0x06, 0x1a | Not observed in the retained corpus | Decoder branches exist in the pinned codec; no corpus proof here |
 
 - **Critical invariant [K, E10b]:** the `u32` after a `0x09`/`0x12` type byte is a
   **classId, not a byte length**. Nothing in the object stream encodes an absolute
   offset or a byte span. Therefore **length-changing edits inside the stream need
   NO enclosing fixups** — only the edited string's own `u32` length prefix, and
   (if META changed) the header `f4`.
-- **Field ids are numeric keys into Bitwig's internal "Ramona" schema**, which is
-  **not recoverable by inspection** (bitwig.jar is obfuscated; `com.bitwig.ramona.
-  serial`/`.type` packages exist but class names are stripped) **[K]**. Ids are used
-  raw. A routing target string like `CONTENTS/F1FREQ` is a **Ramona model path**.
-- ⚠ **Parser limitation [K]:** top-level lists now parse (sentinel terminator,
-  E11h), but a full recursive dump still stalls in DEEPLY-nested lists inside a
-  modulator's CONTENTS (a `type 0x00` desync) where element typing needs the schema.
-  This does **not** block targeted editing (locate a string/object by signature,
-  snap to the sentinel, edit) — which is all the library needs.
+- **Field IDs are numeric keys into Bitwig's internal Ramona model.**
+  Obfuscation limited the early jar search. Later descriptor reads recovered
+  scoped IDs and names: [E276](../experiments/e276-grid-semantic-read-and-value-probe.md)
+  identifies `6428 → auxiliary_devices` in one live Grid projection on 6.0.6.
+  This is not a complete schema, serializer, or arbitrary modulator API.
+  A routing string such as `CONTENTS/F1FREQ` is a model path.
+- **Recursive parsing does not require a complete field-name schema.** The
+  [retained check](../data/overlap-audit/offline-results.json) reports 24 exact
+  no-op preset round trips and 46 complete detached-donor parses with the
+  pinned [codec](../../../reference/bwpreset/bwpreset/codec.py). All six known
+  object footprints match. These are offline corpus results, not proof of
+  arbitrary edits or safe hostile-input parsing. The earlier recursive dump
+  failed on its tested path; that failure was not a format impossibility.
+- The current editor keeps its tested signature, sentinel, and sampled-reference
+  rules. A replacement must prove real-edit equivalence and reference counts
+  at the insertion boundary. Detached object counts alone are insufficient.
 
 ### 3.2 Field ids that matter (measured)
 
@@ -319,14 +331,16 @@ rule does not use a general suffix strip [K, E96].
 
 ---
 
-## 7. Do-not-pursue / dead ends (so a fresh session doesn't re-walk them)
+## 7. Earlier dead ends and current limits
 
-- **Encoding `0004`** (`.bwdevice`/`.bwmodulator`): opaque, no known decode since
-  BW3. Community tools (zezic/bitwig-device-hacks `repack.py`) only ever worked on
-  the BW1 `0001` plain era. `openwig` has no format knowledge (it's a controller-
-  script bridge; also GPL — read-only intelligence, not liftable). `carlca`'s
-  parser is a weaker meta-only heuristic.
-- **Recovering the Ramona field-id → name schema** by grepping the jar/engine: not
-  possible (obfuscated). Work from measured field ids instead.
-- **Runtime** modulator create/route APIs: ○ (E7). All construction is
-  template-time file surgery + runtime *driving* of what exists.
+- **Encoding `0004`:** the early decode attempts failed. The pinned bwpreset
+  decoder is a source lead, but its exact extractor is incompatible with the
+  installed 6.1.4 jar. See section 1.1. The older bitwig-device-hacks repacker
+  used a different format era; it does not prove current decoding.
+- **Field names:** the early jar search did not recover a complete dictionary.
+  E276 later proved scoped descriptor access. Use measured IDs and names within
+  that projection; do not infer a universal field dictionary.
+- **Runtime modulator create/route APIs:** E7 did not find them through its
+  inspected public API paths. Current product authoring uses preset edits
+  and live insertion or wrapping. Later internal-host research does not
+  establish an arbitrary outer-modulator API.

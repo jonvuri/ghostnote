@@ -324,11 +324,11 @@ complete. Wider Phase 9 scope remains unselected.
 
 1. [NOW](../../NOW.md), then the
    [performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md).
-2. [Overlap capability audit](../../evidence/OVERLAP_CAPABILITY_AUDIT.md),
+2. [Overlap capability audit](../overlap/wave-1/OVERLAP_CAPABILITY_AUDIT.md),
    especially P5, P7, P9, F4, F5, and the openwig section; the
-   [improvement sources](../../evidence/OVERLAP_IMPROVEMENT_SOURCES.md), O7,
+   [improvement sources](../overlap/wave-1/OVERLAP_IMPROVEMENT_SOURCES.md), O7,
    O8, and O12; and the
-   [source pins and offline checks](../../evidence/OVERLAP_AUDIT_SOURCES.md).
+   [source pins and offline checks](../overlap/wave-1/OVERLAP_AUDIT_SOURCES.md).
 3. [Device capability record](../../evidence/capability/devices.md),
    [BWFORMAT spec](../../evidence/format/BWFORMAT_SPEC.md), and
    [E4f](../../evidence/experiments/e4f-can-presets-be-synthesised-at-runtime-2026-07-19.md).

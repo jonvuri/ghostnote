@@ -3,7 +3,7 @@ title: Phase 10 — Breadth and release
 kind: plan
 state: planned
 status: Deferred from Phase 9. Phase 8 accepted the engine and publication candidates (E272); 10b retains the handoff.
-updated: 2026-10-18
+updated: 2026-10-24
 parent: ../ROADMAP.md
 prev: ../phase-9/README.md
 ---
@@ -15,6 +15,13 @@ and 9c are now 10a, 10b, and 10c. Historical evidence keeps its original
 phase names. [Phase 9](../phase-9/README.md) now holds the overlap investigation.
 
 This phase contains independently schedulable breadth and release work.
+
+The [feature breadth inputs](../overlap/wave-3/README.md) separate current
+tools from missing capabilities and give source and proof requirements by
+feature area. Use them before selecting from the older candidate list below.
+The [static report](../overlap/wave-3/report.html) compares the candidates.
+[Vision selection](../overlap/wave-3/vision-selection.md) will choose the work
+and its owners. No candidate has been assigned to a new phase.
 
 ## Why it is structured as a bag
 

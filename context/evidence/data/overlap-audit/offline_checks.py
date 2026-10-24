@@ -28,7 +28,7 @@ def digest(data):
 result = {
     "scope": "Offline source audit. No Bitwig load or live write.",
     "ghostnote_commit": git(ROOT, "rev-parse", "HEAD"),
-    "original_report_sha256": digest((ROOT / "context/evidence/OVERLAP_REPORT.md").read_bytes()),
+    "original_report_sha256": digest((ROOT / "context/plan/overlap/wave-1/OVERLAP_REPORT.md").read_bytes()),
     "repositories": [],
     "presets": [],
     "donors": [],
