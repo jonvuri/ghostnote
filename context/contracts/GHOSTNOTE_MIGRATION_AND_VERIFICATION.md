@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
 state: active
-updated: 2026-10-16
+updated: 2026-10-23
 scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 10b
 ---
 
@@ -258,6 +258,13 @@ observation JSON v1–v3 and the `observation.read` and `observation.replace`
 wire methods stay for `stable-v1` and for old projects. No stored record is
 deleted or rewritten. `stable-v1` keeps automatic capture and its frozen
 behaviour, including the partial-success result after a storage failure.
+
+9b.7 (E343, D52) adds one read tool with no `stable-v1` counterpart. It
+reports the Grid admission gate; no profile has a Grid write tool yet.
+
+| New tool | Class | Contract |
+|---|---|---|
+| `check_grid_support` | read | `ghostnote-grid-support/1`: `data.supported`, the host product and version, the local jar fingerprint, the admission (`admitted` with the cache summary, or `refused` with one of `jar-unreadable`, `no-cached-pass`, `cache-unreadable`, `cache-invalid`, `host-version-differs`), and `data.next` with the operator steps. One revision mark; the jar hash and the cache read are local. It cannot run the doctor |
 
 ## Decision amendments and gates
 

@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-22
+updated: 2026-10-23
 ---
 
 # Evidence index
@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E343 | 9b.7: the product refuses Grid writes without an accepted doctor record for the jar fingerprint and host version; check_grid_support reports the gate (45 tools, descriptions v53); grid_doctor.upgrade runs the D52 stages offline; the isolated 6.1.4 rehearsal refuses resolution with 53 missing type roles, and the labeled continuation reproduces the committed resources; toolkit classified; 2,626 temporary files verified and removed [K] (2026-10-23) | [open](experiments/e343-grid-admission-gate-and-upgrade-tool.md) |
 | E342 | 9b.6j third guarded pass accepted on 6.1.4: 76 roles, 16 commands, 19 independent pairs, disposal, both Undo stages, teardown, and preserved state pass; research cache written; E316 plus E342 close the two-build check; D53 removes prescribed operator wording [K] (2026-10-23) | [open](experiments/e342-grid-doctor-614-acceptance.md) |
 | E341 | 9b.6j preparation: 36 corresponding owned-tree classes on both builds, revised guard and third-pass policy tested and deployed; baseline preserved; controller replacement and live pass pending [K] (2026-10-23) | [open](experiments/e341-grid-doctor-614-owned-tree-preparation.md) |
 | E340 | 9b.6i second guarded doctor pass on 6.1.4: boolean and mapping cases pass with guards and paired readback, core passes 5 of 12 commands, the disposal entry guard refuses on an unpinned owned-tree class (wKx); recovered by restart; no cache [K] (2026-10-23) | [open](experiments/e340-grid-doctor-614-second-guarded-pass.md) |

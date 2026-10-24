@@ -613,6 +613,48 @@ def detached_classes(read):
     return sorted({n['runtimeClass'].replace('.', '/') for n in nodes}), read['snapshot']['ownedObjects']
 
 
+def run_census(jar, roles, disposal, forms, strong, root, receivers=None, read=None,
+               refused_class=None, managed_class_id=1904):
+    """Derive the class set of one build. Pinned receivers and a live read are optional checks.
+
+    A missing optional input gives a ``None`` check, not a pass. The live
+    exact-class guard still refuses any class outside the derived set.
+    """
+    worker = Census(jar, roles, forms, strong)
+    result = worker.run(root, disposal)
+    names = {c['name'] for c in result['classes']}
+    pinned = {r['runtime'] for r in receivers} if receivers is not None else None
+    observed, owned = detached_classes(read) if read is not None else (None, None)
+    checks = {
+        'pinnedReceiversCovered': sorted(pinned - names) == [] if pinned is not None else None,
+        'pinnedMissing': sorted(pinned - names) if pinned is not None else [],
+        'added': sorted(names - pinned) if pinned is not None else sorted(names),
+        'detachedReadCovered': all(n in names for n in observed) if observed is not None else None,
+        'detachedReadClasses': observed,
+        'detachedOwnedObjects': owned,
+        'refusedClassCovered': refused_class in names if refused_class else None,
+        'managedClasses': [c['name'] for c in result['classes'] if c['classId'] == managed_class_id],
+        'classCount': len(names),
+    }
+    if checks['pinnedReceiversCovered'] is False or checks['detachedReadCovered'] is False \
+            or checks['refusedClassCovered'] is False or len(checks['managedClasses']) != 1:
+        verdict = 'refused'
+    else:
+        verdict = 'complete-over-approximation'
+    return verdict, checks, result
+
+
+def census_report(jar, roles, disposal, forms, strong, root, start, inputs, **options):
+    verdict, checks, result = run_census(jar, roles, disposal, forms, strong, root, **options)
+    return {'format': FORMAT, 'result': verdict, 'jarSha256': jar.sha256, 'jarPath': str(jar.path.resolve()),
+            'roles': {k: roles[k] for k in ('object', 'descriptor', 'module', 'module-factory')},
+            'disposalRole': disposal, 'relationshipForms': forms, 'strongFilter': strong,
+            'inputs': inputs, 'checks': checks, **result,
+            'elapsedMs': round((time.perf_counter() - start) * 1000, 3), 'peakRssBytes': rss_bytes(),
+            'conditions': CONDITIONS, 'runtimeObserved': False, 'boundedAdmission': False,
+            'writeAuthority': False, 'bridgeCalls': 0, 'vendorClassesInitialized': 0}
+
+
 def census(args):
     start = time.perf_counter()
     raw = {name: Path(getattr(args, name)).read_bytes() for name in ('symbols', 'collector_report', 'module_report', 'read')}
@@ -625,37 +667,10 @@ def census(args):
             raise Refusal('census-module-report-jar')
         if inputs['read']['snapshot'].get('detached') is None:
             raise Refusal('census-read-detached-missing')
-        worker = Census(jar, roles, forms, strong)
-        result = worker.run(inputs['module_report']['objects']['root'], members['disposal'])
-        names = {c['name'] for c in result['classes']}
-        pinned = {r['runtime'] for r in receivers}
-        observed, owned = detached_classes(inputs['read'])
-        refused = args.refused_class
-        checks = {
-            'pinnedReceiversCovered': sorted(pinned - names) == [],
-            'pinnedMissing': sorted(pinned - names),
-            'added': sorted(names - pinned),
-            'detachedReadCovered': all(n in names for n in observed),
-            'detachedReadClasses': observed,
-            'detachedOwnedObjects': owned,
-            'refusedClassCovered': refused in names if refused else None,
-            'managedClasses': [c['name'] for c in result['classes'] if c['classId'] == args.managed_class_id],
-            'classCount': len(names),
-        }
-        if not checks['pinnedReceiversCovered'] or not checks['detachedReadCovered'] \
-                or (refused and not checks['refusedClassCovered']) or len(checks['managedClasses']) != 1:
-            verdict = 'refused'
-        else:
-            verdict = 'complete-over-approximation'
-        report = {'format': FORMAT, 'result': verdict, 'jarSha256': jar.sha256, 'jarPath': str(args.jar.resolve()),
-                  'roles': {k: roles[k] for k in ('object', 'descriptor', 'module', 'module-factory')},
-                  'disposalRole': members['disposal'], 'relationshipForms': forms, 'strongFilter': strong,
-                  'inputs': {name: {'path': str(getattr(args, name)), 'sha256': sha256(value)} for name, value in raw.items()},
-                  'checks': checks, **result,
-                  'elapsedMs': round((time.perf_counter() - start) * 1000, 3), 'peakRssBytes': rss_bytes(),
-                  'conditions': CONDITIONS, 'runtimeObserved': False, 'boundedAdmission': False,
-                  'writeAuthority': False, 'bridgeCalls': 0, 'vendorClassesInitialized': 0}
-        return report
+        hashes = {name: {'path': str(getattr(args, name)), 'sha256': sha256(value)} for name, value in raw.items()}
+        return census_report(jar, roles, members['disposal'], forms, strong, inputs['module_report']['objects']['root'],
+                             start, hashes, receivers=receivers, read=inputs['read'],
+                             refused_class=args.refused_class, managed_class_id=args.managed_class_id)
     finally:
         jar.close()
 

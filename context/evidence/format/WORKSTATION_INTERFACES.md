@@ -2,7 +2,7 @@
 title: Workstation interface inventory
 kind: reference
 state: active
-updated: 2026-10-16
+updated: 2026-10-23
 scope: Formats that cross the implemented Phase 7 boundary
 ---
 
@@ -12,10 +12,11 @@ scope: Formats that cross the implemented Phase 7 boundary
 
 The [8i close-out](../experiments/e272-8i-gate-close-out.md#interface-verdicts)
 gives each Phase 8 interface a verdict; the audit dispositions of I01 to
-I24 hold. Changes since the 8h status: I01 has 44 tools and description
-cohort `ghostnote-description-v52` (8i7 to 8i20: the track mixer, the
+I24 hold. Changes since the 8h status: I01 has 45 tools and description
+cohort `ghostnote-description-v53` (8i7 to 8i20: the track mixer, the
 clip copy to any slot, the revert report, the MIDI file tools, and the
-document file paths); I03 has 92 methods (`8be1975eaa99d78f`; the probe
+document file paths; 9b.7: `check_grid_support`, the Grid admission gate
+of D52, E343); I03 has 92 methods (`8be1975eaa99d78f`; the probe
 build 111, `9b339de4e9bb08da`). `stable-v1` (I07, I08, I21) retires in a
 planned Phase 10 session (D40).
 

@@ -1,0 +1,2307 @@
+{
+  "format": "grid-doctor-owned-census-v1-comparison",
+  "oldJarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "newJarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "classSetsEqual": true,
+  "oldCount": 36,
+  "newCount": 36,
+  "rows": [
+    {
+      "className": "audio_destination_atom",
+      "classId": 2002,
+      "old": "com/bitwig/flt/document/core/master/device/mvZ",
+      "new": "com/bitwig/flt/document/core/master/device/Wkj",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          41,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "old": "Kdl",
+      "new": "FCo",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "audio_source_atom",
+      "classId": 2000,
+      "old": "com/bitwig/flt/document/core/master/device/WAr",
+      "new": "com/bitwig/flt/document/core/master/device/RKg",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "auxiliary_device_remote_controls",
+      "classId": 1961,
+      "old": "com/bitwig/flt/document/core/master/device/FZ1",
+      "new": "com/bitwig/flt/document/core/master/device/OLR",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          61
+        ],
+        [
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "classId": 1763,
+      "old": "tqm",
+      "new": "Hgx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        8,
+        8
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          25,
+          41,
+          53,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          25,
+          41,
+          53,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_panel_value",
+      "classId": 1751,
+      "old": "yhl",
+      "new": "BMo",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          35,
+          61
+        ],
+        [
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_port",
+      "classId": 98,
+      "old": "FEG",
+      "new": "dgk",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_value_atom",
+      "classId": 87,
+      "old": "QY",
+      "new": "RuU",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          53,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_value_type",
+      "classId": 198,
+      "old": "agh",
+      "new": "aI",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "box_panel_item_layout_settings",
+      "classId": 1695,
+      "old": "llA",
+      "new": "vAT",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          29,
+          61
+        ],
+        [
+          29,
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "browsing_session_state",
+      "classId": 1661,
+      "old": "qOW",
+      "new": "EIm",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "component_settings",
+      "classId": 236,
+      "old": "com/bitwig/flt/document/core/master/device/r2",
+      "new": "com/bitwig/flt/document/core/master/device/OcA",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          61
+        ],
+        [
+          41,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "continuous_parameter_port",
+      "classId": 92,
+      "old": "vPq",
+      "new": "wKx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "decimal_value_type",
+      "classId": 123,
+      "old": "rNl",
+      "new": "aL",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          61
+        ],
+        [
+          59,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "desktop_settings",
+      "classId": 17,
+      "old": "com/bitwig/flt/document/core/master/device/EeT",
+      "new": "com/bitwig/flt/document/core/master/device/Rzi",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          61
+        ],
+        [
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "double_audio_port",
+      "classId": 1840,
+      "old": "tqA",
+      "new": "vta",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "engine_shared_memory_helper",
+      "classId": 757,
+      "old": "KzN",
+      "new": "HOU",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          61
+        ],
+        [
+          23,
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "grid_panel_item",
+      "classId": 1681,
+      "old": "HXj",
+      "new": "MLM",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          65,
+          29,
+          53,
+          61
+        ],
+        [
+          65,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "grid_panel_item_layout_settings",
+      "classId": 1694,
+      "old": "jMO",
+      "new": "yII",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          29,
+          61
+        ],
+        [
+          29,
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "image_panel_item",
+      "classId": 1719,
+      "old": "LSn",
+      "new": "WXa",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          47,
+          29,
+          53,
+          61
+        ],
+        [
+          47,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "inport_connection",
+      "classId": 105,
+      "old": "com/bitwig/flt/document/core/master/device/Uqf",
+      "new": "com/bitwig/flt/document/core/master/device/AJD",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          61
+        ],
+        [
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "knob_panel_item",
+      "classId": 1687,
+      "old": "BoW",
+      "new": "rOx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          53,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "label_panel_item",
+      "classId": 1683,
+      "old": "sdB",
+      "new": "BE2",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          29,
+          53,
+          61
+        ],
+        [
+          41,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_container_panel_item",
+      "classId": 1923,
+      "old": "nnn",
+      "new": "bj1",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_container_panel_item_layout_settings",
+      "classId": 1928,
+      "old": "hef",
+      "new": "LX1",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          61
+        ],
+        [
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_toggle_panel_item",
+      "classId": 1924,
+      "old": "Z2C",
+      "new": "qZc",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "module",
+      "classId": 1902,
+      "old": "com/bitwig/flt/document/core/master/device/DbL",
+      "new": "com/bitwig/flt/document/core/master/device/rSf",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          61
+        ],
+        [
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "module_contents",
+      "classId": 1904,
+      "old": "com/bitwig/flt/document/core/master/device/Wxc",
+      "new": "com/bitwig/flt/document/core/master/device/hpW",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          77,
+          83,
+          35,
+          61
+        ],
+        [
+          29,
+          77,
+          83,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_atom",
+      "classId": 1721,
+      "old": "dkb",
+      "new": "BgP",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          119,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          119,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "old": "jqf",
+      "new": "ZDH",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          23,
+          53,
+          61
+        ],
+        [
+          35,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_port_info",
+      "classId": 2428,
+      "old": "com/bitwig/nitro/EMf",
+      "new": "com/bitwig/nitro/CcL",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        1,
+        1
+      ],
+      "disposalBodiesEqual": [
+        false
+      ],
+      "disposalInstructions": [
+        [
+          61
+        ],
+        [
+          63
+        ]
+      ]
+    },
+    {
+      "className": "panel",
+      "classId": 1680,
+      "old": "fMM",
+      "new": "Fot",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          53,
+          61
+        ],
+        [
+          59,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "panel_expression",
+      "classId": 1728,
+      "old": "EVI",
+      "new": "CbC",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "port_panel_item",
+      "classId": 2001,
+      "old": "pAR",
+      "new": "Imy",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          23,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "remote_controls_page_group",
+      "classId": 1958,
+      "old": "com/bitwig/flt/document/core/master/device/rww",
+      "new": "com/bitwig/flt/document/core/master/device/riz",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "toggle_button_panel_item",
+      "classId": 1702,
+      "old": "zFZ",
+      "new": "ehl",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          59,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    }
+  ],
+  "changedDisposalBodies": [
+    {
+      "className": "audio_destination_atom",
+      "classId": 2002,
+      "old": "com/bitwig/flt/document/core/master/device/mvZ",
+      "new": "com/bitwig/flt/document/core/master/device/Wkj",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          41,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "audio_port",
+      "classId": 242,
+      "old": "Kdl",
+      "new": "FCo",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "audio_source_atom",
+      "classId": 2000,
+      "old": "com/bitwig/flt/document/core/master/device/WAr",
+      "new": "com/bitwig/flt/document/core/master/device/RKg",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "auxiliary_device_remote_controls",
+      "classId": 1961,
+      "old": "com/bitwig/flt/document/core/master/device/FZ1",
+      "new": "com/bitwig/flt/document/core/master/device/OLR",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          61
+        ],
+        [
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "bipolar_toggleable_decimal_value_atom",
+      "classId": 1763,
+      "old": "tqm",
+      "new": "Hgx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        8,
+        8
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          25,
+          41,
+          53,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          25,
+          41,
+          53,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_panel_value",
+      "classId": 1751,
+      "old": "yhl",
+      "new": "BMo",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          35,
+          61
+        ],
+        [
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_port",
+      "classId": 98,
+      "old": "FEG",
+      "new": "dgk",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_value_atom",
+      "classId": 87,
+      "old": "QY",
+      "new": "RuU",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          35,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          53,
+          35,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "boolean_value_type",
+      "classId": 198,
+      "old": "agh",
+      "new": "aI",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "box_panel_item_layout_settings",
+      "classId": 1695,
+      "old": "llA",
+      "new": "vAT",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          29,
+          61
+        ],
+        [
+          29,
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "browsing_session_state",
+      "classId": 1661,
+      "old": "qOW",
+      "new": "EIm",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "component_settings",
+      "classId": 236,
+      "old": "com/bitwig/flt/document/core/master/device/r2",
+      "new": "com/bitwig/flt/document/core/master/device/OcA",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          61
+        ],
+        [
+          41,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "continuous_parameter_port",
+      "classId": 92,
+      "old": "vPq",
+      "new": "wKx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "decimal_value_type",
+      "classId": 123,
+      "old": "rNl",
+      "new": "aL",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          61
+        ],
+        [
+          59,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "desktop_settings",
+      "classId": 17,
+      "old": "com/bitwig/flt/document/core/master/device/EeT",
+      "new": "com/bitwig/flt/document/core/master/device/Rzi",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          61
+        ],
+        [
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "double_audio_port",
+      "classId": 1840,
+      "old": "tqA",
+      "new": "vta",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "engine_shared_memory_helper",
+      "classId": 757,
+      "old": "KzN",
+      "new": "HOU",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          61
+        ],
+        [
+          23,
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "grid_panel_item",
+      "classId": 1681,
+      "old": "HXj",
+      "new": "MLM",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          65,
+          29,
+          53,
+          61
+        ],
+        [
+          65,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "grid_panel_item_layout_settings",
+      "classId": 1694,
+      "old": "jMO",
+      "new": "yII",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          29,
+          61
+        ],
+        [
+          29,
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "image_panel_item",
+      "classId": 1719,
+      "old": "LSn",
+      "new": "WXa",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          47,
+          29,
+          53,
+          61
+        ],
+        [
+          47,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "inport_connection",
+      "classId": 105,
+      "old": "com/bitwig/flt/document/core/master/device/Uqf",
+      "new": "com/bitwig/flt/document/core/master/device/AJD",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          61
+        ],
+        [
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "knob_panel_item",
+      "classId": 1687,
+      "old": "BoW",
+      "new": "rOx",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          53,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          53,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "label_panel_item",
+      "classId": 1683,
+      "old": "sdB",
+      "new": "BE2",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          41,
+          29,
+          53,
+          61
+        ],
+        [
+          41,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_container_panel_item",
+      "classId": 1923,
+      "old": "nnn",
+      "new": "bj1",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_container_panel_item_layout_settings",
+      "classId": 1928,
+      "old": "hef",
+      "new": "LX1",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          61
+        ],
+        [
+          29,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "menu_toggle_panel_item",
+      "classId": 1924,
+      "old": "Z2C",
+      "new": "qZc",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          23,
+          29,
+          53,
+          61
+        ],
+        [
+          29,
+          23,
+          29,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "module",
+      "classId": 1902,
+      "old": "com/bitwig/flt/document/core/master/device/DbL",
+      "new": "com/bitwig/flt/document/core/master/device/rSf",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          61
+        ],
+        [
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "module_contents",
+      "classId": 1904,
+      "old": "com/bitwig/flt/document/core/master/device/Wxc",
+      "new": "com/bitwig/flt/document/core/master/device/hpW",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          29,
+          77,
+          83,
+          35,
+          61
+        ],
+        [
+          29,
+          77,
+          83,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_atom",
+      "classId": 1721,
+      "old": "dkb",
+      "new": "BgP",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        5,
+        5
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          119,
+          23,
+          23,
+          35,
+          61
+        ],
+        [
+          119,
+          23,
+          23,
+          35,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_event_port",
+      "classId": 1809,
+      "old": "jqf",
+      "new": "ZDH",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        4,
+        4
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          35,
+          23,
+          53,
+          61
+        ],
+        [
+          35,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "nitro_port_info",
+      "classId": 2428,
+      "old": "com/bitwig/nitro/EMf",
+      "new": "com/bitwig/nitro/CcL",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        1,
+        1
+      ],
+      "disposalBodiesEqual": [
+        false
+      ],
+      "disposalInstructions": [
+        [
+          61
+        ],
+        [
+          63
+        ]
+      ]
+    },
+    {
+      "className": "panel",
+      "classId": 1680,
+      "old": "fMM",
+      "new": "Fot",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        3,
+        3
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          53,
+          61
+        ],
+        [
+          59,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "panel_expression",
+      "classId": 1728,
+      "old": "EVI",
+      "new": "CbC",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "port_panel_item",
+      "classId": 2001,
+      "old": "pAR",
+      "new": "Imy",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          23,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "remote_controls_page_group",
+      "classId": 1958,
+      "old": "com/bitwig/flt/document/core/master/device/rww",
+      "new": "com/bitwig/flt/document/core/master/device/riz",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        2,
+        2
+      ],
+      "disposalBodiesEqual": [
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          23,
+          61
+        ],
+        [
+          23,
+          63
+        ]
+      ]
+    },
+    {
+      "className": "toggle_button_panel_item",
+      "classId": 1702,
+      "old": "zFZ",
+      "new": "ehl",
+      "serializedEqual": true,
+      "creationSitesEqual": true,
+      "strongEqual": true,
+      "disposalChainLengths": [
+        6,
+        6
+      ],
+      "disposalBodiesEqual": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "disposalInstructions": [
+        [
+          59,
+          23,
+          23,
+          23,
+          53,
+          61
+        ],
+        [
+          59,
+          23,
+          23,
+          23,
+          53,
+          63
+        ]
+      ]
+    }
+  ],
+  "changedDisposalChains": [],
+  "boundedAdmission": false,
+  "writeAuthority": false
+}

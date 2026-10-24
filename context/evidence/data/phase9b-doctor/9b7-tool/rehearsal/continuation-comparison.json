@@ -1,0 +1,41 @@
+{
+  "format": "grid-doctor-upgrade-rehearsal-comparison-v1",
+  "byteEqualToCommitted": {
+    "candidate.json": true,
+    "selectors.json": true,
+    "guards.json": false
+  },
+  "guardsTopLevelDifferences": [
+    "ownedTree"
+  ],
+  "guardsOwnedTreeDifferences": [
+    "reportSha256"
+  ],
+  "guardsOwnedTreeReportSha256": {
+    "continuation": "64a2a14233cbd61d0cb66152189016defa79b6aaf671e6fe28b0e0555f404e8f",
+    "committed": "bfde9de65eaa7d33b3380886ff8ea6c5bdce443028fb9b9e6b267e98fd82c9ad"
+  },
+  "guardsSha256": {
+    "continuation": "f33646bf0b6b23b1c44ada801ea711c9b1680b8cbbddf39c2409afe6c7449df7",
+    "committed": "d14cf2f564cc5b2b534bef726dce9b4c5e8e03db0cdabe4a52431c88be3cf819"
+  },
+  "censusClassSetEqualToE341": true,
+  "tracedTableValidation": {
+    "structuralValidation": "pass",
+    "liveValidation": "not-run",
+    "writeAuthority": false
+  },
+  "preparedHashes": {
+    "candidate.json": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+    "selectors.json": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853",
+    "guards.json": "f33646bf0b6b23b1c44ada801ea711c9b1680b8cbbddf39c2409afe6c7449df7"
+  },
+  "excludedFromPrimary": [
+    "caches under .local/grid-doctor",
+    "614-resolution checkpoint reports",
+    "614-census reports",
+    "614-guarded and 614-census/prepared resources",
+    "prior verdicts"
+  ],
+  "continuationInputsAreSavedAnswers": true
+}

@@ -91,6 +91,7 @@ const CASES: Readonly<Record<string, { readonly input: Wire; readonly expect: 's
     expect: 'failure' },
   read_track_mixer: { input: { trackIds: [MISSING] }, expect: 'failure' },
   set_track_mixer: { input: { tracks: [{ trackId: MISSING, volumeDb: -18 }] }, expect: 'failure' },
+  check_grid_support: { input: {}, expect: 'success' },
 };
 
 /** The expected code of each failure case: absent (a missing target), except these. */
@@ -128,7 +129,7 @@ function workspace() {
 }
 
 test('8h4f vocabulary: every agent-native-v1 tool declares its schema and envelope', () => {
-  assert.equal(AGENT_NATIVE_TOOLS.length, 44);
+  assert.equal(AGENT_NATIVE_TOOLS.length, 45);
   assert.deepEqual(Object.keys(CASES).sort(), AGENT_NATIVE_TOOLS.map((spec) => spec.name).sort(),
     'each tool has exactly one vocabulary case');
   for (const spec of AGENT_NATIVE_TOOLS) {

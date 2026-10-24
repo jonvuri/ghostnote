@@ -1,0 +1,356 @@
+{
+  "format": "grid-doctor-upgrade-v1",
+  "baseline": {
+    "directory": "/private/tmp/gn-9b7/rehearsal/baseline-606",
+    "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+    "hostVersion": "6.0.6"
+  },
+  "stages": {
+    "fingerprint": {
+      "status": "derived",
+      "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "bytes": 35778607,
+      "mtimeNs": "1790948299000000000",
+      "fingerprint": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f:35778607:1790948299000000000",
+      "key": "d0d92c1ea5a30fb6fca4975500ad1729736dead4807a7a05c3436f47c223c101",
+      "sameAsBaseline": false
+    },
+    "resolve": {
+      "status": "refused",
+      "reason": "boolean-atom:expected-one-candidate:found-0",
+      "typeCensus": {
+        "resolved": [
+          "layout-pass",
+          "source-interface"
+        ],
+        "missing": [
+          "boolean-atom",
+          "boolean-base",
+          "child-object",
+          "connection",
+          "container",
+          "context",
+          "decimal-atom",
+          "descriptor",
+          "descriptor-base",
+          "destination-atom",
+          "destination-base",
+          "device-base",
+          "display-state",
+          "document-object",
+          "domain",
+          "domain-base",
+          "edit",
+          "edit-document",
+          "edit-lock",
+          "engine-state",
+          "engine-state-base",
+          "focus-base",
+          "focus-target-base",
+          "focus-wrapper",
+          "grid",
+          "grid-base",
+          "initialization-helper",
+          "insert-callback",
+          "journal",
+          "manager",
+          "mapping-source",
+          "mapping-source-base",
+          "mapping-target",
+          "module",
+          "module-base",
+          "named-base",
+          "native-device",
+          "nitro-atom",
+          "object",
+          "position-base",
+          "project-root",
+          "property",
+          "property-base",
+          "rectangle-base",
+          "relationship",
+          "remote-helper",
+          "selection-base",
+          "selection-state",
+          "serialization-filter",
+          "source-atom",
+          "source-base",
+          "transfer",
+          "value-base"
+        ],
+        "ambiguous": [],
+        "counts": {
+          "boolean-atom": 0,
+          "boolean-base": 0,
+          "child-object": 0,
+          "connection": 0,
+          "container": 0,
+          "context": 0,
+          "decimal-atom": 0,
+          "descriptor": 0,
+          "descriptor-base": 0,
+          "destination-atom": 0,
+          "destination-base": 0,
+          "device-base": 0,
+          "display-state": 0,
+          "document-object": 0,
+          "domain": 0,
+          "domain-base": 0,
+          "edit": 0,
+          "edit-document": 0,
+          "edit-lock": 0,
+          "engine-state": 0,
+          "engine-state-base": 0,
+          "focus-base": 0,
+          "focus-target-base": 0,
+          "focus-wrapper": 0,
+          "grid": 0,
+          "grid-base": 0,
+          "initialization-helper": 0,
+          "insert-callback": 0,
+          "journal": 0,
+          "layout-pass": 1,
+          "manager": 0,
+          "mapping-source": 0,
+          "mapping-source-base": 0,
+          "mapping-target": 0,
+          "module": 0,
+          "module-base": 0,
+          "named-base": 0,
+          "native-device": 0,
+          "nitro-atom": 0,
+          "object": 0,
+          "position-base": 0,
+          "project-root": 0,
+          "property": 0,
+          "property-base": 0,
+          "rectangle-base": 0,
+          "relationship": 0,
+          "remote-helper": 0,
+          "selection-base": 0,
+          "selection-state": 0,
+          "serialization-filter": 0,
+          "source-atom": 0,
+          "source-base": 0,
+          "source-interface": 1,
+          "transfer": 0,
+          "value-base": 0
+        }
+      },
+      "typeRoles": 55,
+      "memberRoles": 76,
+      "tracedTable": {
+        "path": "/Users/jonvuri/Development/ghostnote/context/evidence/data/phase9b-doctor/614-census/prepared/candidate.json",
+        "sha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+        "typeRoles": 55,
+        "memberRoles": 76,
+        "verdict": {
+          "structuralValidation": "pass",
+          "liveValidation": "not-run",
+          "writeAuthority": false
+        }
+      },
+      "source": "traced-table"
+    },
+    "body-change": {
+      "status": "compared",
+      "summary": {
+        "roles": 76,
+        "callees": 65,
+        "changed": 5,
+        "role:same-body": 57,
+        "role:field-same": 16,
+        "role:changed-body": 2,
+        "role:access-change-only": 1,
+        "callee:same-body": 63,
+        "callee:changed-body": 2
+      },
+      "changed": [
+        {
+          "role": "disposal",
+          "result": "changed-body"
+        },
+        {
+          "role": "members",
+          "result": "changed-body"
+        },
+        {
+          "role": "journal-recording-edit",
+          "result": "access-change-only"
+        },
+        {
+          "label": "validation",
+          "result": "changed-body"
+        },
+        {
+          "label": "pending-add",
+          "result": "changed-body"
+        }
+      ],
+      "oldJar": {
+        "path": "/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/apps/Bitwig Studio 6.0.6.app/Contents/Java/bitwig.jar",
+        "sha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93"
+      }
+    },
+    "census": {
+      "status": "complete-over-approximation",
+      "checks": {
+        "pinnedReceiversCovered": true,
+        "pinnedMissing": [],
+        "added": [
+          "dgk",
+          "vta",
+          "wKx"
+        ],
+        "detachedReadCovered": true,
+        "detachedReadClasses": [
+          "BMo",
+          "BgP",
+          "Hgx",
+          "RuU",
+          "com/bitwig/flt/document/core/master/device/RKg",
+          "com/bitwig/flt/document/core/master/device/Wkj",
+          "com/bitwig/flt/document/core/master/device/hpW",
+          "com/bitwig/flt/document/core/master/device/rSf"
+        ],
+        "detachedOwnedObjects": 77,
+        "refusedClassCovered": true,
+        "managedClasses": [
+          "com/bitwig/flt/document/core/master/device/hpW"
+        ],
+        "classCount": 36
+      },
+      "classes": [
+        "BE2",
+        "BMo",
+        "BgP",
+        "CbC",
+        "EIm",
+        "FCo",
+        "Fot",
+        "HOU",
+        "Hgx",
+        "Imy",
+        "LX1",
+        "MLM",
+        "RuU",
+        "WXa",
+        "ZDH",
+        "aI",
+        "aL",
+        "bj1",
+        "com/bitwig/flt/document/core/master/device/AJD",
+        "com/bitwig/flt/document/core/master/device/OLR",
+        "com/bitwig/flt/document/core/master/device/OcA",
+        "com/bitwig/flt/document/core/master/device/RKg",
+        "com/bitwig/flt/document/core/master/device/Rzi",
+        "com/bitwig/flt/document/core/master/device/Wkj",
+        "com/bitwig/flt/document/core/master/device/hpW",
+        "com/bitwig/flt/document/core/master/device/rSf",
+        "com/bitwig/flt/document/core/master/device/riz",
+        "com/bitwig/nitro/CcL",
+        "dgk",
+        "ehl",
+        "qZc",
+        "rOx",
+        "vAT",
+        "vta",
+        "wKx",
+        "yII"
+      ],
+      "comparison": {
+        "classSetsEqual": true,
+        "oldCount": 36,
+        "newCount": 36,
+        "changedDisposalBodies": [
+          "audio_destination_atom",
+          "audio_port",
+          "audio_source_atom",
+          "auxiliary_device_remote_controls",
+          "bipolar_toggleable_decimal_value_atom",
+          "boolean_panel_value",
+          "boolean_port",
+          "boolean_value_atom",
+          "boolean_value_type",
+          "box_panel_item_layout_settings",
+          "browsing_session_state",
+          "component_settings",
+          "continuous_parameter_port",
+          "decimal_value_type",
+          "desktop_settings",
+          "double_audio_port",
+          "engine_shared_memory_helper",
+          "grid_panel_item",
+          "grid_panel_item_layout_settings",
+          "image_panel_item",
+          "inport_connection",
+          "knob_panel_item",
+          "label_panel_item",
+          "menu_container_panel_item",
+          "menu_container_panel_item_layout_settings",
+          "menu_toggle_panel_item",
+          "module",
+          "module_contents",
+          "nitro_atom",
+          "nitro_event_port",
+          "nitro_port_info",
+          "panel",
+          "panel_expression",
+          "port_panel_item",
+          "remote_controls_page_group",
+          "toggle_button_panel_item"
+        ],
+        "changedDisposalChains": []
+      }
+    },
+    "guards": {
+      "status": "prepared",
+      "guardsSha256": "f33646bf0b6b23b1c44ada801ea711c9b1680b8cbbddf39c2409afe6c7449df7",
+      "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+      "types": 1,
+      "fields": 5,
+      "ownedTreeClasses": 36
+    }
+  },
+  "outputs": {
+    "body-change.json": {
+      "bytes": 145871,
+      "sha256": "eb53d937a4c85e6b10844fb5d5e558f115ed7a89a039fbf42127832a0ac585d3"
+    },
+    "census-comparison.json": {
+      "bytes": 41123,
+      "sha256": "bd19a3c8ed89673bf937005ded6341642a75cfdc4310759c22cf897eb286316c"
+    },
+    "census.json": {
+      "bytes": 200529,
+      "sha256": "64a2a14233cbd61d0cb66152189016defa79b6aaf671e6fe28b0e0555f404e8f"
+    },
+    "prepared/candidate.json": {
+      "bytes": 28052,
+      "sha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23"
+    },
+    "prepared/selectors.json": {
+      "bytes": 49832,
+      "sha256": "0739d6dd3ab19ab42a6ede124ada8d1d5107eb2afd19c7ce37e71abbc9759853"
+    },
+    "prepared/guards.json": {
+      "bytes": 9140,
+      "sha256": "f33646bf0b6b23b1c44ada801ea711c9b1680b8cbbddf39c2409afe6c7449df7"
+    }
+  },
+  "writeAuthority": false,
+  "bridgeCalls": 0,
+  "nativeCommands": 0,
+  "vendorClassesInitialized": 0,
+  "conditions": [
+    "Every stage reads class files as data. No vendor class is loaded or initialized. No host request is sent.",
+    "A resolved or traced table is a candidate. The consent-gated doctor must pass on the fingerprint before any Grid write; the product gate reads only the accepted cache.",
+    "Equal body digests prove equal local logic modulo renaming only. Callee bodies are compared only when a traced closure report is supplied.",
+    "The census is an over-approximation under its reachability rules; the live guard still refuses an unknown exact class."
+  ],
+  "result": "prepared",
+  "nextStep": "Bundle the prepared resources in the probe extension, obtain ordinary operator consent (D53), and run one consent-gated doctor pass on this fingerprint.",
+  "elapsedMs": 11310.502,
+  "peakRssBytes": 338280448
+}

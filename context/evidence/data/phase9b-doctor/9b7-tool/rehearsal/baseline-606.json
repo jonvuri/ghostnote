@@ -1,0 +1,27 @@
+{
+  "format": "grid-doctor-upgrade-baseline-v1",
+  "fingerprint": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93:34686665:1777550247000000000",
+  "key": "fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a",
+  "hostVersion": "6.0.6",
+  "jarSha256": "382c655d0b9e8db6bd433dc6100ef3a4ee23abf6a6615f79c40f0c2645792c93",
+  "jarPath": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+  "files": {
+    "accepted.json": {
+      "bytes": 4133,
+      "sha256": "f0d5ad79b531a869f80ce42a8e0712298bc95f2e76960f955108599883142041"
+    },
+    "candidate.json": {
+      "bytes": 27485,
+      "sha256": "02d215359e4da1aca25575d6b102187385fb5302fd55aa4fcdcf6d3b0fca1f58"
+    },
+    "selectors.json": {
+      "bytes": 49606,
+      "sha256": "151ebb81d946d1ffc5c281a04f7cd1d3a4442c754f601a7c04e84aa485171d99"
+    },
+    "census.json": {
+      "bytes": 198130,
+      "sha256": "fdece18af7c183ba20d415fa99d7d3854b024734ac67289470a2ad4383ea65ce"
+    }
+  },
+  "writeAuthority": false
+}

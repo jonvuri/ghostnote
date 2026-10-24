@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, SelectionOutcome, Snapshot, TrackAddress, TrackState,
+  Address, AdapterInfo, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, SelectionOutcome, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions, Take } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -63,6 +63,8 @@ export interface WorkspaceDeps {
   readonly operations?: OperationRegistry;
   /** Session-owned document identity registry (8h4b). Tests can inject a bounded one. */
   readonly documents?: IdentityRegistry;
+  /** The handshake result of the current adapter life (9b.7). A getter: it changes on reconnect. */
+  readonly adapterInfo?: () => AdapterInfo | undefined;
 }
 
 export interface Workspace {
@@ -113,6 +115,12 @@ export interface Workspace {
    * record: a launch has no durable effect to put back. Only `clip.launch` is accepted.
    */
   launch?(ops: readonly LaunchOp[], options?: RunOptions): Promise<Take>;
+  /**
+   * The handshake result of the current adapter life (9b.7): the host product and version. No host call: the
+   * session keeps the result of its own handshake, and `ready()` is not run again (each `Session.ready()` sends
+   * a revision mark). Call it after `mark()` in the same tool call. Undefined on a workspace without a handshake.
+   */
+  hostInfo?(): Promise<AdapterInfo | undefined>;
 }
 
 export type LaunchOp = Extract<Op, { readonly op: 'clip.launch' }>;
@@ -233,6 +241,10 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async mark(): Promise<RevisionMark> {
       await deps.ready();
       return deps.adapter.revision();
+    },
+
+    async hostInfo(): Promise<AdapterInfo | undefined> {
+      return deps.adapterInfo?.();
     },
 
     async tracks(): Promise<readonly TrackState[]> {

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v52';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v53';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -550,7 +550,9 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * name the removed objects and state the revert fidelity. v49 adds the two offline MIDI file tools. v50 states the snapshot coverage required for MIDI export. v51
  * (8i19, D51) keeps this list: the document writers take documentPath, and the two document readers take
  * documentOutputPath. v52 (8i20) keeps this list: read_midi_file reports a bounded tempo summary and states when to
- * omit targetBpm; add_launcher_clip and edit_launcher_clip state the overlap detail and the pre-check.
+ * omit targetBpm; add_launcher_clip and edit_launcher_clip state the overlap detail and the pre-check. v53 (9b.7,
+ * D52) adds check_grid_support at the end: the Grid admission gate of the connected build, read from the local jar
+ * fingerprint and the accepted doctor cache.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -558,6 +560,7 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   { name: 'set_track_mixer', kind: 'write', reason: 'Sets the track volume in dB, pan, mute, and solo with readback.' },
   { name: 'read_midi_file', kind: 'read', reason: 'Converts a complete local MIDI file to a document, inline or in a new file, with optional tempo conversion.' },
   { name: 'write_midi_file', kind: 'write', reason: 'Writes an inline or file document to a new local MIDI file without a host call.' },
+  { name: 'check_grid_support', kind: 'read', reason: 'Reads the native Grid admission gate of the connected build: jar fingerprint and accepted doctor cache (D52).' },
 ];
 
 interface ToolAnnotations {
@@ -879,3 +882,9 @@ export const TOOL_DESCRIPTION_V51_SHA256 = '877303235b4df1d9db5e6540a31964a3d863
  * with the pair detail.
  */
 export const TOOL_DESCRIPTION_V52_SHA256 = 'ccc7d870105b85d34da8e725b15b61c7315e7f5315d031ff68988830606bc3ea';
+
+/**
+ * v53 (9b.7, D52): check_grid_support reports the Grid admission gate of the connected build. No earlier
+ * description changes.
+ */
+export const TOOL_DESCRIPTION_V53_SHA256 = '3180edf177fbeda04df21cd860a238df54db8335f558df69299932103dfbb7f3';

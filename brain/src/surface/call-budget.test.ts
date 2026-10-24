@@ -293,6 +293,7 @@ test('call budget: the 8h4f retained and track tools', async () => {
     return result;
   };
   await run('connection', 'check_bitwig_connection', {});
+  await run('grid-support', 'check_grid_support', {});
   await run('tracks', 'list_tracks', {});
   const added = await run('add', 'add_tracks', { tracks: [{ name: 'gn-audio', kind: 'audio' }] });
   const audio = added.readback.tracks[0].trackId as string;
@@ -312,6 +313,8 @@ test('call budget: the 8h4f retained and track tools', async () => {
 // rename of a missing track as a failed op, not a refusal. Net: one more call, on rename_track only.
 const EXPECTED_RETAINED_BUDGETS: Record<string, Counts> = {
   connection: { mark: 1 },
+  // 9b.7: one mark for the health check; the jar hash and the cache read are local (D52).
+  'grid-support': { mark: 1 },
   tracks: { mark: 1, tracks: 1 },
   add: { read: 4, apply: 2, delta: 2, resolve: 1, tracks: 1 },
   duplicate: { tracks: 2, read: 4, apply: 2, delta: 2, resolve: 1 },

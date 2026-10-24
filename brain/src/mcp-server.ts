@@ -75,6 +75,7 @@ registerTools(server, workspaceOf({
   get executor() {
     return session.executor;
   },
+  adapterInfo: () => session.adapterInfo,
   stash: session.stash,
   observationStore: session.observations,
   statusSink: new LiveStatusSink(

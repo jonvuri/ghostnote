@@ -2,7 +2,7 @@
 title: Phase 9 — Overlap investigation
 kind: plan
 state: active
-status: E342 accepts the 6.1.4 guarded doctor. E316 and E342 close the two-build research check. Next is 9b.7, product cache enforcement and toolkit consolidation.
+status: E342 accepts the 6.1.4 guarded doctor on both builds. E343 completes 9b.7 with the product admission gate, check_grid_support, and the offline upgrade tool. Next is 9b step 3, build-out planning.
 updated: 2026-10-23
 parent: ../ROADMAP.md
 prev: ../phase-8/README.md

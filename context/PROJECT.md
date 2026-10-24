@@ -2,7 +2,7 @@
 title: ghostnote project context
 kind: project
 state: active
-updated: 2026-10-16
+updated: 2026-10-23
 ---
 
 # ghostnote
@@ -21,10 +21,12 @@ surface without relying on the user's UI selection.
   addressing for clips/scenes, which have no durable identity.
 - Writes pass through one executor and stash boundary with readback verification,
   concurrency reporting, and fidelity-aware reversal.
-- The default tool profile is `agent-native-v1` (D40): 44 tools on one
-  address, health, result, and error vocabulary, descriptions v52. The 8i
+- The default tool profile is `agent-native-v1` (D40): 45 tools on one
+  address, health, result, and error vocabulary, descriptions v53. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
-  planned Phase 10 removal.
+  planned Phase 10 removal. `check_grid_support` reports the Grid admission
+  gate (D52, E343); the product refuses native Grid writes without an
+  accepted doctor record for the jar fingerprint.
 - Launcher clips are read and edited as Ghostnote Document 1.0 documents:
   `read_launcher_clip` returns a base ref, and `edit_launcher_clip` takes a
   sparse patch or a desired document against it (D21, D25). Every read is a

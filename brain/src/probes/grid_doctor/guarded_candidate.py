@@ -38,8 +38,12 @@ def member(cls, name, desc, kind='method'):
     return found[0]
 
 
-def adjusted_selectors(rules, table_rows):
-    """Apply the one traced access variant. Refuse any other flag change."""
+def adjusted_selectors(rules, table_rows, require_variant=True):
+    """Apply the one traced access variant. Refuse any other flag change.
+
+    The 6.1.4 preparation requires the traced variant. The upgrade tool
+    (9b.7) accepts a table without any access change.
+    """
     adjusted = copy.deepcopy(rules)
     by_role = {r['role']: r for r in table_rows}
     variants = []
@@ -53,7 +57,7 @@ def adjusted_selectors(rules, table_rows):
                 raise Refusal('guard-untraced-access-change:' + rule['role'])
             rule['flags'] = v['to']
             variants.append(dict(v))
-    if len(variants) != 1:
+    if len(variants) > 1 or require_variant and len(variants) != 1:
         raise Refusal('guard-variant-count')
     adjusted['variants'] = variants
     return adjusted
@@ -147,9 +151,12 @@ def owned_tree_rows(jar, plan, report):
     if report.get('format') == CENSUS_FORMAT:
         if report['jarSha256'] != jar.sha256 or report['result'] != 'complete-over-approximation':
             raise Refusal('guard-census-report')
-        if report['checks']['pinnedMissing'] or not report['checks']['pinnedReceiversCovered'] \
-                or not report['checks']['detachedReadCovered'] or report['checks']['refusedClassCovered'] is not True \
-                or report['checks']['classCount'] != len(report['classes']) \
+        # A census without pinned receivers or a live read reports None for those checks (9b.7 upgrade tool).
+        # A False check is a refusal. The live exact-class guard still refuses an unknown class.
+        checks = report['checks']
+        if checks['pinnedMissing'] or checks['pinnedReceiversCovered'] is False \
+                or checks['detachedReadCovered'] is False or checks['refusedClassCovered'] is False \
+                or checks['classCount'] != len(report['classes']) \
                 or not 1 <= len(report['classes']) <= 64:
             raise Refusal('guard-census-checks')
         return [{'runtime': c['name'], 'className': c['className'], 'classId': c['classId'],
@@ -192,7 +199,7 @@ def reused_candidate(directory, jar, selectors_bytes, types, rows, verdict):
 
 
 def prepare(args, root):
-    start = time.perf_counter()
+    """The 9b.6h/9b.6j procedure: inputs from the checkpoint-2 symbol table and the v20 baseline."""
     data = root / 'context/evidence/data/phase9b-doctor'
     raw = {'candidate': (data / 'v20-preparation/candidate.json').read_bytes(),
            'selectors': (data / 'v20-preparation/selectors.json').read_bytes(),
@@ -200,8 +207,6 @@ def prepare(args, root):
     inputs = {k: json.loads(v) for k, v in raw.items()}
     if sha256(raw['selectors']) != inputs['candidate']['selectorSha256']:
         raise Refusal('guard-source-selectors')
-    if inputs['plan']['format'] != 'grid-doctor-guard-plan-v1':
-        raise Refusal('guard-plan-format')
     old_table = inputs['symbols']['builds'][0]['symbolTable']
     if old_table['types'] != inputs['candidate']['types'] or old_table['members'] != inputs['candidate']['members']:
         raise Refusal('guard-source-table')
@@ -213,68 +218,89 @@ def prepare(args, root):
         jar = Jar(args.jar)
         if jar.sha256 != build['sha256']:
             raise Refusal('guard-jar-fingerprint')
-        types, rows = build['symbolTable']['types'], build['symbolTable']['members']
-        selectors = adjusted_selectors(inputs['selectors'], rows)
-        verdict = validate(jar, selectors, types, rows)
-        if verdict != build['symbolTable']['validation']:
-            raise Refusal('guard-validation-differs')
-        for row in rows:
-            cls = jar.code(row['declaring'])
-            found = member(cls, row['name'], row['descriptor'], row['kind'])
-            if found.flags != row['flags']:
-                raise Refusal('guard-declaration-flags:' + row['role'])
-        jar.check()
-        # Guard roles. Each pin is verified against the jar as data.
-        plan = inputs['plan']
-        guard_types = {}
-        for role, pin in plan['types'].items():
-            name = pin['name']
-            if name not in jar.classes or name in types.values():
-                raise Refusal('guard-type-pin:' + role)
-            parent = types[pin['parentRole']]
-            if jar.classes[name].parent != parent or parent not in set(ancestors(jar.classes, name, jar.limits.depth)):
-                raise Refusal('guard-type-parent:' + role)
-            journal = types['journal']
-            owner, fname, fdesc = pin['pinnedBy']['journalField']
-            if owner != journal or member(jar.classes[journal], fname, fdesc, 'field').desc != 'L' + parent + ';':
-                raise Refusal('guard-type-journal-field:' + role)
-            guard_types[role] = name
-        guard_fields = []
-        for pin in plan['fields']:
-            verified = verify_field_pin(jar, pin, types)
-            if pin.get('static'):
-                writers = static_writers(jar, pin['declaring'], pin['name'], pin['descriptor'])
-                if writers != sorted([[pin['declaring'], n, d] for n, d in pin['writers']]):
-                    raise Refusal('guard-flag-writers:' + pin['role'])
-                verified['staticWriters'] = writers
-            if 'calledFromRole' in pin:
-                verify_disposal_call(jar, types, pin, rows)
-            guard_fields.append(verified)
-        tree = owned_tree(jar, plan['ownedTree'], args.collector_report)
-        jar.check()
-        selectors_bytes = (json.dumps(selectors, indent=2) + '\n').encode()
-        if args.candidate_directory is not None:
-            candidate_bytes = reused_candidate(args.candidate_directory, jar, selectors_bytes, types, rows, verdict)
-            return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
-        stat = args.jar.stat()
-        candidate = {'result': 'pass', 'jarSha256': jar.sha256, 'jarPath': str(args.jar.resolve()),
-                     'jarMtimeNs': stat.st_mtime_ns, 'jarMtimeNsText': str(stat.st_mtime_ns),
-                     'selectorSha256': sha256(selectors_bytes),
-                     'scanElapsedMs': round((time.perf_counter() - start) * 1000, 3),
-                     'timingsMs': {k: round(v, 3) for k, v in jar.timings.items()},
-                     'counts': jar.stats | {'codeClasses': len(jar.code_cache)}, 'limits': asdict(jar.limits),
-                     'peakRssBytes': rss_bytes(), 'verdict': verdict, 'types': types, 'members': rows,
-                     'liveInvariants': {r['role']: r['liveInvariant'] for r in selectors['members']},
-                     'source': {'symbolTable': str(args.symbols), 'symbolTableSha256': sha256(raw['symbols']),
-                                'sourceCandidateSha256': sha256(raw['candidate']),
-                                'sourceSelectorSha256': sha256(raw['selectors']),
-                                'variants': selectors['variants'], 'hostVersion': '6.1.4'},
-                     'bridgeCalls': 0, 'nativeCommands': 0, 'vendorClassesInitialized': 0}
-        candidate_bytes = (json.dumps(candidate, indent=2) + '\n').encode()
-        return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
+        source = {'symbolTable': str(args.symbols), 'symbolTableSha256': sha256(raw['symbols']),
+                  'sourceCandidateSha256': sha256(raw['candidate']),
+                  'sourceSelectorSha256': sha256(raw['selectors'])}
+        return prepare_resources(jar, inputs['plan'], raw['plan'], inputs['selectors'],
+                                 build['symbolTable']['types'], build['symbolTable']['members'],
+                                 args.collector_report, candidate_directory=args.candidate_directory,
+                                 source=source, expected_validation=build['symbolTable']['validation'],
+                                 host_version='6.1.4')
     finally:
         if jar is not None:
             jar.close()
+
+
+def prepare_resources(jar, plan, plan_bytes, base_selectors, types, rows, collector_report_path,
+                      candidate_directory=None, source=None, expected_validation=None, require_variant=True,
+                      host_version=None):
+    """Verify every pin of one table and guard plan against the open jar, then build the three resources.
+
+    The table (``types``, ``rows``) is the resolved or traced table of this
+    jar. ``base_selectors`` is the accepted build's selector set. No vendor
+    class is loaded. The result grants no write authority.
+    """
+    start = time.perf_counter()
+    if plan['format'] != 'grid-doctor-guard-plan-v1':
+        raise Refusal('guard-plan-format')
+    if plan['jarSha256'] != jar.sha256:
+        raise Refusal('guard-plan-jar')
+    selectors = adjusted_selectors(base_selectors, rows, require_variant)
+    verdict = validate(jar, selectors, types, rows)
+    if expected_validation is not None and verdict != expected_validation:
+        raise Refusal('guard-validation-differs')
+    for row in rows:
+        cls = jar.code(row['declaring'])
+        found = member(cls, row['name'], row['descriptor'], row['kind'])
+        if found.flags != row['flags']:
+            raise Refusal('guard-declaration-flags:' + row['role'])
+    jar.check()
+    # Guard roles. Each pin is verified against the jar as data.
+    guard_types = {}
+    for role, pin in plan['types'].items():
+        name = pin['name']
+        if name not in jar.classes or name in types.values():
+            raise Refusal('guard-type-pin:' + role)
+        parent = types[pin['parentRole']]
+        if jar.classes[name].parent != parent or parent not in set(ancestors(jar.classes, name, jar.limits.depth)):
+            raise Refusal('guard-type-parent:' + role)
+        journal = types['journal']
+        owner, fname, fdesc = pin['pinnedBy']['journalField']
+        if owner != journal or member(jar.classes[journal], fname, fdesc, 'field').desc != 'L' + parent + ';':
+            raise Refusal('guard-type-journal-field:' + role)
+        guard_types[role] = name
+    guard_fields = []
+    for pin in plan['fields']:
+        verified = verify_field_pin(jar, pin, types)
+        if pin.get('static'):
+            writers = static_writers(jar, pin['declaring'], pin['name'], pin['descriptor'])
+            if writers != sorted([[pin['declaring'], n, d] for n, d in pin['writers']]):
+                raise Refusal('guard-flag-writers:' + pin['role'])
+            verified['staticWriters'] = writers
+        if 'calledFromRole' in pin:
+            verify_disposal_call(jar, types, pin, rows)
+        guard_fields.append(verified)
+    tree = owned_tree(jar, plan['ownedTree'], collector_report_path)
+    jar.check()
+    selectors_bytes = (json.dumps(selectors, indent=2) + '\n').encode()
+    raw = {'plan': plan_bytes}
+    if candidate_directory is not None:
+        candidate_bytes = reused_candidate(candidate_directory, jar, selectors_bytes, types, rows, verdict)
+        return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
+    stat = jar.path.stat()
+    candidate = {'result': 'pass', 'jarSha256': jar.sha256, 'jarPath': str(jar.path.resolve()),
+                 'jarMtimeNs': stat.st_mtime_ns, 'jarMtimeNsText': str(stat.st_mtime_ns),
+                 'selectorSha256': sha256(selectors_bytes),
+                 'scanElapsedMs': round((time.perf_counter() - start) * 1000, 3),
+                 'timingsMs': {k: round(v, 3) for k, v in jar.timings.items()},
+                 'counts': jar.stats | {'codeClasses': len(jar.code_cache)}, 'limits': asdict(jar.limits),
+                 'peakRssBytes': rss_bytes(), 'verdict': verdict, 'types': types, 'members': rows,
+                 'liveInvariants': {r['role']: r['liveInvariant'] for r in selectors['members']},
+                 'source': {**(source or {}), 'variants': selectors['variants'],
+                            **({'hostVersion': host_version} if host_version else {})},
+                 'bridgeCalls': 0, 'nativeCommands': 0, 'vendorClassesInitialized': 0}
+    candidate_bytes = (json.dumps(candidate, indent=2) + '\n').encode()
+    return finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes)
 
 
 def finish(start, jar, raw, tree, guard_types, guard_fields, selectors_bytes, candidate_bytes):

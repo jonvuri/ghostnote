@@ -1,0 +1,15 @@
+{
+  "result": "prepared",
+  "reason": null,
+  "nextStep": "Bundle the prepared resources in the probe extension, obtain ordinary operator consent (D53), and run one consent-gated doctor pass on this fingerprint.",
+  "elapsedMs": 11310.502,
+  "peakRssBytes": 338280448,
+  "stages": {
+    "fingerprint": "derived",
+    "resolve": "refused",
+    "body-change": "compared",
+    "census": "complete-over-approximation",
+    "guards": "prepared"
+  }
+}
+PYTHONPATH=$R/brain/src/probes python3 -B -m grid_doctor.upgrade check   --ja  11.26s user 0.26s system 99% cpu 11.539 total

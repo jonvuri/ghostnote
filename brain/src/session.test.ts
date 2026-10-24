@@ -18,6 +18,8 @@ import type { BridgeLike } from './client.js';
 import { CONTRACT_VERSION, ContractVersionError } from './contract/index.js';
 import { StaleExtensionError } from './deploy.js';
 import { Session } from './session.js';
+import { AGENT_NATIVE_TOOL_PROFILE, callTool } from './surface/tools.js';
+import { workspaceOf } from './surface/workspace.js';
 
 /**
  * A bridge that answers the handshake and the mark, and can be told to come back
@@ -286,4 +288,40 @@ test('N-observation: the per-project store is separate from the adapter and stas
   assert.equal(session.observations, store);
   assert.notEqual(store, session.bitwig);
   assert.notEqual(store, session.stash);
+});
+
+/**
+ * 9b.7: the host-call budget at the SESSION boundary. `Session.ready()` sends a revision mark on every call, so a
+ * tool that runs it twice costs a second mark that the fake-adapter budget test cannot see. `check_grid_support`
+ * reuses the handshake result and must send the same wire calls as `check_bitwig_connection`.
+ */
+test('9b.7: check_grid_support sends the same marks as check_bitwig_connection through a real session', async () => {
+  const bridge = new StubBridge();
+  const sent: string[] = [];
+  const original = bridge.request.bind(bridge);
+  bridge.request = async (method, params) => { sent.push(method); return original(method, params); };
+  const session = sessionOn(bridge);
+  const workspace = workspaceOf({
+    ready: async () => { await session.ready(); },
+    get adapter() { return session.bitwig; },
+    get executor() { return session.executor; },
+    stash: session.stash, observationStore: session.observations, adapterInfo: () => session.adapterInfo,
+  });
+  const previous = process.env['GHOSTNOTE_BITWIG_JAR'];
+  process.env['GHOSTNOTE_BITWIG_JAR'] = '/no/such/bitwig.jar';
+  try {
+    const budget = async (name: string) => {
+      sent.length = 0;
+      const result = await callTool(workspace, name, {}, AGENT_NATIVE_TOOL_PROFILE) as Record<string, unknown>;
+      assert.equal(result['failure'], undefined, name);
+      return sent.filter((method) => method === WIRE.revisionGet).length;
+    };
+    await budget('check_bitwig_connection');
+    const connection = await budget('check_bitwig_connection');
+    const grid = await budget('check_grid_support');
+    assert.equal(grid, connection, `grid ${grid} marks, connection ${connection} marks`);
+    assert.equal(bridge.hellos, 1, 'the handshake result is reused, not re-run');
+  } finally {
+    if (previous === undefined) delete process.env['GHOSTNOTE_BITWIG_JAR']; else process.env['GHOSTNOTE_BITWIG_JAR'] = previous;
+  }
 });

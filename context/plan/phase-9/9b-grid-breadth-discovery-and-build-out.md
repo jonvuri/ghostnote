@@ -2,7 +2,7 @@
 title: Phase 9b — Grid breadth, build discovery, and build-out planning
 kind: plan
 state: active
-status: E342 completes the 6.1.4 guarded doctor. E316 and E342 close step 2 with passes on both builds. Next is 9b.7, product cache enforcement and toolkit consolidation.
+status: E342 completes the 6.1.4 guarded doctor on both builds. E343 completes 9b.7 with the product admission gate, check_grid_support, the offline upgrade tool, the toolkit classification, and the temporary-file cleanup. Next is step 3, build-out planning.
 updated: 2026-10-23
 parent: README.md
 prev: 9a-live-grid-editing-spike.md
@@ -110,7 +110,10 @@ all Grid paths; a list of module families the read path handles.
 **Complete for the fixed research scope.** [E316](../../evidence/experiments/e316-grid-doctor-606-acceptance.md)
 passes on 6.0.6. [E342](../../evidence/experiments/e342-grid-doctor-614-acceptance.md)
 passes on 6.1.4 under D52. Each covers all 76 roles, teardown, independent
-readback, and preserved state. Product cache enforcement remains in 9b.7.
+readback, and preserved state.
+[E343](../../evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)
+completes 9b.7: the product gate, `check_grid_support`, and the offline
+upgrade tool.
 
 Question: on a new Bitwig build, can Ghostnote re-resolve the Grid symbols at
 runtime, validate them with a consent-gated self-test on a scratch track, and
@@ -171,7 +174,9 @@ Sessions:
   E341 prepares the corrected guard. E342 passes all roles on 6.1.4 and
   closes the two-build research result. Changed symbols and logic are
   recorded separately.
-- **9b.7 — Refine into a tool.** A consent-gated check tool with a fingerprint
+- **9b.7 — Refine into a tool.** Complete in
+  [E343](../../evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md);
+  see [the session record](#session-9b7--refine-into-a-tool). A consent-gated check tool with a fingerprint
   cache; Grid tools refuse without a cached pass for the current fingerprint;
   descriptions bump and the usual tool-addition consumers. Sources: E316,
   [E342](../../evidence/experiments/e342-grid-doctor-614-acceptance.md),
@@ -214,7 +219,10 @@ for the native `llL` layout pass; layout writes; outgoing-consumer cleanup on
 delete; the cost model for real patch sizes (from the continued survey); failure
 handling and recovery; the tool surface and descriptions. Output: an
 implementation plan as a new phase or 9c, with a cost model per the
-[ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) rules.
+[ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) rules. Each
+planned Grid write tool calls `requireGridWriteAdmission`
+(`brain/src/grid/admission.ts`) before its first host call
+([E343](../../evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)).
 
 ## Session 9b.1 — Stock Grid preset survey (read-only)
 
@@ -1778,3 +1786,37 @@ set, or a traced and measured reason it cannot pass under D52. Close step 2
 only with the explicit two-build result. 9b.7 keeps product cache
 enforcement, the toolkit consolidation, the `/tmp` cleanup, and public
 descriptions.
+
+### Session 9b.7 — Refine into a tool
+
+**Complete.** [E343](../../evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)
+records the result. No live Grid command ran and no cache changed.
+
+1. **Product gate.** `brain/src/grid/admission.ts` reads the accepted
+   doctor cache for the local jar fingerprint and the connected host
+   version. `requireGridWriteAdmission` refuses before any host call when
+   no complete accepted record exists, and a record must cover every one
+   of the 76 required roles. The E316 and E342 records validate; each
+   refusal reason has a test.
+2. **Check tool.** `check_grid_support` (read, one revision mark) reports
+   the gate and the operator steps. The profile has 45 tools; descriptions
+   are v53. The tool cannot run the doctor; acceptance stays the driver
+   procedure on the probe profile with ordinary consent (D53).
+3. **Upgrade tool.** `grid_doctor.upgrade baseline` and `check` run the
+   D52 stages from explicit inputs: fingerprint, resolve or validated
+   traced table, body change, census, guards. A refusal names the missing
+   input or the next step. Two refactors make the census and guard preparation take
+   explicit tables.
+4. **Rehearsal.** The isolated run on the 6.1.4 jar without saved answers
+   derives the fingerprint and refuses resolution with 53 missing type
+   roles (E331 agrees). The labeled continuation with the traced inputs
+   reproduces the committed candidate, selectors, and 36-class census.
+5. **Toolkit and cleanup.** `toolkit.py` classifies 27 reusable tools and
+   30 per-build diagnostics, checked by a test. 2,626 temporary files were
+   verified against the checkpoint manifests, E316's capture manifest, and
+   E339's archive hash, 56 unreferenced scripts were preserved, and all
+   were removed.
+
+**Limits.** The gate does not detect a second install of the same version
+at another path. The census and guard stages need trace-session inputs.
+The next minor version is the stronger test of reuse.

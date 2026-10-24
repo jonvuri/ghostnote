@@ -2,7 +2,7 @@
 title: Ghostnote performance ledger
 kind: reference
 state: active
-updated: 2026-10-21
+updated: 2026-10-23
 parent: ../plan/phase-8/8h-cache-promotion-and-interface-simplification.md
 evidence: E227, E229, E234, E236, E237, E238, E239, E244, E246, E247, E248, E252, E253, E254, E256, E257, E258, E263, E264, E265, E267, E269, E271
 ---
@@ -2044,3 +2044,31 @@ ms after. The disposal ownership pass found 77 objects before the
 exact-class refusal; the refusal cost is inside the failed request. No
 cause is established for the changes; no command was repeated. Product
 budgets, descriptions, and latency claims are unchanged.
+
+## 9b.7 Grid admission gate and upgrade tool — model before implementation
+
+`check_grid_support` is one new read tool on `agent-native-v1`. It takes
+one revision mark for the health check (the `check_bitwig_connection`
+model: one host turn) and makes no other host call. The gate itself is
+local: one SHA-256 of the host jar (at most 64 MiB, memoized for the same
+path, size, and modification time) and one cache file read of at most
+1 MiB. The handshake result is reused without a second `Session.ready()`
+(each `ready()` sends a revision mark); a session-boundary test on the stub
+bridge checks the mark count against `check_bitwig_connection`. No wire
+method, document task, or extension change is added. The call-budget row is
+`grid-support: mark 1`.
+`requireGridWriteAdmission` costs the same local work and must run before
+the first host call of any future Grid write tool.
+
+The upgrade tool is offline. It keeps the 9b.4 jar limits (120 s and
+768 MiB RSS per jar scan) and the 9b.6h body-change and census limits, with
+a 300-second and 2 MiB report bound for the whole check. Host calls and
+native commands are zero.
+
+[E343](../evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)
+measures the jar hash at 15.627 ms cold and 0.051 ms memoized for the
+35,778,607-byte 6.1.4 jar. The primary rehearsal (fingerprint and refused
+resolution) takes 4,510.983 ms with 187,252,736 bytes peak RSS. The labeled
+continuation (traced table, body change, census, guards) takes
+11,310.502 ms with 338,280,448 bytes peak RSS. Product latency claims and
+every other call budget are unchanged.

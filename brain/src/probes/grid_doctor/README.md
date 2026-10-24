@@ -12,6 +12,48 @@ from text. Existing authorization carries forward within its scope.
 [D53](../../../../context/decisions/d53-ordinary-operator-consent.md)
 applies to the procedures below, including their historical examples.
 
+## Toolkit
+
+[`toolkit.py`](toolkit.py) classifies each module as a reusable tool or a
+per-build diagnostic; `test_toolkit.py` checks the classification. The
+per-build diagnostics are the 9b.6 investigation glue. Their reports stay
+under `context/evidence/data/phase9b-doctor/614-*` with the checkpoint
+snapshots, and the recorded commands below still run.
+
+Start a new Bitwig build with the upgrade check
+([E343](../../../../context/evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)).
+Assemble the accepted build's baseline once, then check the candidate jar
+into a new directory. Every stage reads class files as data. No vendor
+class is initialized and no host request is sent. The result grants no
+write authority; only the consent-gated doctor accepts a fingerprint.
+
+```sh
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.upgrade baseline \
+  --accepted '<the accepted cache record>' \
+  --candidate-directory '<directory with candidate.json, selectors.json, optional guards.json>' \
+  --census '<the owned-tree census of the accepted build>' \
+  --output /absolute/new/baseline
+
+PYTHONPATH=brain/src/probes python3 -B -m grid_doctor.upgrade check \
+  --baseline /absolute/new/baseline \
+  --jar '<the candidate bitwig.jar>' \
+  --old-jar '<the accepted build jar, when not at its recorded path>' \
+  --output /absolute/new/check
+```
+
+The verdict is `already-accepted`, `name-only-change`, `changed-bodies`,
+`resolution-refused`, `input-required`, or `prepared`; `nextStep` names
+the next action. After a resolver refusal, an agent trace session records
+the table; rerun with `--traced-table`. The census stage needs
+`--collector-report` and `--module-report`; the guards stage needs
+`--guard-plan`. `--candidate-directory` reuses earlier resource bytes.
+
+The product gate is `brain/src/grid/admission.ts`. It reads
+`.local/grid-doctor/<key>.accepted.json` for the local jar fingerprint
+(`GHOSTNOTE_BITWIG_JAR`, `GHOSTNOTE_GRID_DOCTOR_CACHE` override the paths)
+and the connected host version. `check_grid_support` reports it. Only the
+research driver writes the cache.
+
 ## Completed 6.0.6 procedure
 
 The V20 pass is complete in
@@ -498,3 +540,16 @@ completes the third pass: all 76 roles, 16 commands, 19 readback pairs,
 teardown, and preserved state pass. The 6.1.4 cache exists. Do not run the
 accepted doctor again. Continue with 9b.7; product cache enforcement is
 not implemented by this research cache.
+
+## 9b.7 — Product gate and upgrade tool
+
+[E343](../../../../context/evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)
+records the gate, the tool, the isolated rehearsal, and the cleanup. The
+rehearsal baseline came from E316's accepted record, the V20 candidate and
+selectors, and the 6.0.6 census. Without saved 6.1.4 answers, the check
+refuses resolution with 53 missing type roles. With the traced table, the
+checkpoint-17 closure and collector reports, the checkpoint-4 module
+report, the E340 stage-5 read, `--refused-class wKx`, the E341 guard plan,
+and `--candidate-directory 614-guarded`, it reproduces the committed
+candidate, selectors, and census; `guards.json` differs only in the census
+report hash. See the [Toolkit](#toolkit) section for the commands.

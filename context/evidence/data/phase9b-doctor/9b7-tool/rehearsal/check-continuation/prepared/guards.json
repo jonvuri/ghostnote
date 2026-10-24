@@ -1,0 +1,412 @@
+{
+  "format": "grid-doctor-guards-v1",
+  "jarSha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+  "candidateSha256": "e47612953f89745b4e09357e7d2dcdf54ffe230ace648d3a53e40411321b5a23",
+  "planSha256": "1c1cc77c5c5c4a80f09ffe99b0b4cc08370346ba7fc723735542dd7945d1a6ee",
+  "types": {
+    "project-document": "com/bitwig/flt/document/core/master/tj2"
+  },
+  "fields": [
+    {
+      "role": "helper-list",
+      "declaring": "dfI",
+      "name": "Z1C",
+      "descriptor": "Ljava/util/List;",
+      "flags": 18,
+      "static": false,
+      "check": "empty",
+      "verified": {
+        "readers": [
+          [
+            "cfM",
+            "(Lcom/bitwig/ramona/core/oDc;LdfT;)V"
+          ],
+          [
+            "UNj",
+            "(Lcom/bitwig/ramona/core/oDc;)V"
+          ],
+          [
+            "hUR",
+            "(Lcom/bitwig/ramona/core/oDc;)V"
+          ],
+          [
+            "wGc",
+            "()V"
+          ]
+        ],
+        "writers": []
+      }
+    },
+    {
+      "role": "pending-helper",
+      "declaring": "dfI",
+      "name": "dEI",
+      "descriptor": "LdgJ;",
+      "flags": 2,
+      "static": false,
+      "check": "null",
+      "verified": {
+        "readers": [
+          [
+            "IwV",
+            "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+          ],
+          [
+            "wGc",
+            "()V"
+          ],
+          [
+            "E3",
+            "()V"
+          ]
+        ],
+        "writers": [
+          [
+            "IwV",
+            "(Lcom/bitwig/ramona/core/oDc;)LdgI;"
+          ],
+          [
+            "wGc",
+            "()V"
+          ]
+        ]
+      }
+    },
+    {
+      "role": "pending-list",
+      "declaring": "dfI",
+      "name": "LaE",
+      "descriptor": "Ljava/util/List;",
+      "flags": 18,
+      "static": false,
+      "check": "empty",
+      "verified": {
+        "readers": [
+          [
+            "cfM",
+            "(Ljava/lang/Runnable;Z)V"
+          ],
+          [
+            "ucQ",
+            "()V"
+          ]
+        ],
+        "writers": [],
+        "listCalls": [
+          "cfM(Ljava/lang/Runnable;Z)V",
+          "ucQ()V"
+        ]
+      }
+    },
+    {
+      "role": "disposal-tracking-flag",
+      "declaring": "thz",
+      "name": "Hnt",
+      "descriptor": "Z",
+      "flags": 74,
+      "static": true,
+      "check": "false",
+      "verified": {
+        "readers": [
+          [
+            "cfM",
+            "(Ljava/lang/Object;)V"
+          ]
+        ],
+        "writers": [
+          [
+            "cfM",
+            "()V"
+          ],
+          [
+            "MRY",
+            "()V"
+          ]
+        ],
+        "calledFromRole": "disposal"
+      },
+      "staticWriters": [
+        [
+          "thz",
+          "MRY",
+          "()V"
+        ],
+        [
+          "thz",
+          "cfM",
+          "()V"
+        ]
+      ]
+    },
+    {
+      "role": "listener-tracking-flag",
+      "declaring": "apd",
+      "name": "Hnt",
+      "descriptor": "Z",
+      "flags": 74,
+      "static": true,
+      "check": "false",
+      "verified": {
+        "readers": [
+          [
+            "Hnt",
+            "()Z"
+          ]
+        ],
+        "writers": [
+          [
+            "cfM",
+            "()V"
+          ],
+          [
+            "MRY",
+            "()V"
+          ]
+        ]
+      },
+      "staticWriters": [
+        [
+          "apd",
+          "MRY",
+          "()V"
+        ],
+        [
+          "apd",
+          "cfM",
+          "()V"
+        ]
+      ]
+    }
+  ],
+  "ownedTree": {
+    "classes": [
+      {
+        "name": "com/bitwig/flt/document/core/master/device/Wkj",
+        "className": "audio_destination_atom",
+        "classId": 2002,
+        "managed": false
+      },
+      {
+        "name": "FCo",
+        "className": "audio_port",
+        "classId": 242,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/RKg",
+        "className": "audio_source_atom",
+        "classId": 2000,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/OLR",
+        "className": "auxiliary_device_remote_controls",
+        "classId": 1961,
+        "managed": false
+      },
+      {
+        "name": "Hgx",
+        "className": "bipolar_toggleable_decimal_value_atom",
+        "classId": 1763,
+        "managed": false
+      },
+      {
+        "name": "BMo",
+        "className": "boolean_panel_value",
+        "classId": 1751,
+        "managed": false
+      },
+      {
+        "name": "dgk",
+        "className": "boolean_port",
+        "classId": 98,
+        "managed": false
+      },
+      {
+        "name": "RuU",
+        "className": "boolean_value_atom",
+        "classId": 87,
+        "managed": false
+      },
+      {
+        "name": "aI",
+        "className": "boolean_value_type",
+        "classId": 198,
+        "managed": false
+      },
+      {
+        "name": "vAT",
+        "className": "box_panel_item_layout_settings",
+        "classId": 1695,
+        "managed": false
+      },
+      {
+        "name": "EIm",
+        "className": "browsing_session_state",
+        "classId": 1661,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/OcA",
+        "className": "component_settings",
+        "classId": 236,
+        "managed": false
+      },
+      {
+        "name": "wKx",
+        "className": "continuous_parameter_port",
+        "classId": 92,
+        "managed": false
+      },
+      {
+        "name": "aL",
+        "className": "decimal_value_type",
+        "classId": 123,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/Rzi",
+        "className": "desktop_settings",
+        "classId": 17,
+        "managed": false
+      },
+      {
+        "name": "vta",
+        "className": "double_audio_port",
+        "classId": 1840,
+        "managed": false
+      },
+      {
+        "name": "HOU",
+        "className": "engine_shared_memory_helper",
+        "classId": 757,
+        "managed": false
+      },
+      {
+        "name": "MLM",
+        "className": "grid_panel_item",
+        "classId": 1681,
+        "managed": false
+      },
+      {
+        "name": "yII",
+        "className": "grid_panel_item_layout_settings",
+        "classId": 1694,
+        "managed": false
+      },
+      {
+        "name": "WXa",
+        "className": "image_panel_item",
+        "classId": 1719,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/AJD",
+        "className": "inport_connection",
+        "classId": 105,
+        "managed": false
+      },
+      {
+        "name": "rOx",
+        "className": "knob_panel_item",
+        "classId": 1687,
+        "managed": false
+      },
+      {
+        "name": "BE2",
+        "className": "label_panel_item",
+        "classId": 1683,
+        "managed": false
+      },
+      {
+        "name": "bj1",
+        "className": "menu_container_panel_item",
+        "classId": 1923,
+        "managed": false
+      },
+      {
+        "name": "LX1",
+        "className": "menu_container_panel_item_layout_settings",
+        "classId": 1928,
+        "managed": false
+      },
+      {
+        "name": "qZc",
+        "className": "menu_toggle_panel_item",
+        "classId": 1924,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/rSf",
+        "className": "module",
+        "classId": 1902,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/hpW",
+        "className": "module_contents",
+        "classId": 1904,
+        "managed": true
+      },
+      {
+        "name": "BgP",
+        "className": "nitro_atom",
+        "classId": 1721,
+        "managed": false
+      },
+      {
+        "name": "ZDH",
+        "className": "nitro_event_port",
+        "classId": 1809,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/nitro/CcL",
+        "className": "nitro_port_info",
+        "classId": 2428,
+        "managed": false
+      },
+      {
+        "name": "Fot",
+        "className": "panel",
+        "classId": 1680,
+        "managed": false
+      },
+      {
+        "name": "CbC",
+        "className": "panel_expression",
+        "classId": 1728,
+        "managed": false
+      },
+      {
+        "name": "Imy",
+        "className": "port_panel_item",
+        "classId": 2001,
+        "managed": false
+      },
+      {
+        "name": "com/bitwig/flt/document/core/master/device/riz",
+        "className": "remote_controls_page_group",
+        "classId": 1958,
+        "managed": false
+      },
+      {
+        "name": "ehl",
+        "className": "toggle_button_panel_item",
+        "classId": 1702,
+        "managed": false
+      }
+    ],
+    "managed": [
+      "com/bitwig/flt/document/core/master/device/hpW"
+    ],
+    "managedNodes": 1,
+    "maxNodes": 256,
+    "maxDepth": 12,
+    "source": "614-census/census-614.json",
+    "reportSha256": "64a2a14233cbd61d0cb66152189016defa79b6aaf671e6fe28b0e0555f404e8f"
+  },
+  "writeAuthority": false,
+  "bridgeCalls": 0,
+  "vendorClassesInitialized": 0
+}

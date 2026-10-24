@@ -2,7 +2,7 @@
 title: ghostnote roadmap
 kind: plan
 state: active
-updated: 2026-10-21
+updated: 2026-10-23
 ---
 
 # Roadmap
@@ -19,7 +19,7 @@ updated: 2026-10-21
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
 | [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) remains a planned survey |
-| [9 — overlap investigation](phase-9/README.md) | active | E316 and E342 accept the fixed Grid doctor on 6.0.6 and 6.1.4. All 76 roles, readback, teardown, and preserved state pass. D52 defines guarded upgrade admission; D53 accepts ordinary operator consent. E330 accepts the 6.1.4 normal-product update audit. Next: 9b.7, product cache enforcement, toolkit consolidation, and public descriptions |
+| [9 — overlap investigation](phase-9/README.md) | active | E316 and E342 accept the fixed Grid doctor on 6.0.6 and 6.1.4. All 76 roles, readback, teardown, and preserved state pass. D52 defines guarded upgrade admission; D53 accepts ordinary operator consent. E330 accepts the 6.1.4 normal-product update audit. E343 adds the product admission gate, `check_grid_support`, and the offline upgrade tool. Next: 9b step 3, build-out planning |
 | [10 — breadth and release](phase-10/README.md) | deferred | Former Phase 9: publication reviews 10a/10b, the release live suite 10c, and the existing breadth backlog |
 
 ## Cross-phase work

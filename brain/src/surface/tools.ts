@@ -92,6 +92,7 @@ import { editLauncherClipTool } from './agent-native-edit.js';
 import { AGENT_NATIVE_CLIP_TOOLS, AGENT_NATIVE_SCENE_TOOLS } from './agent-native-clips.js';
 import { AGENT_NATIVE_TOOL_PROFILE } from './agent-native-result.js';
 import { MIDI_FILE_TOOLS } from './midi-files.js';
+import { GRID_SUPPORT_TOOLS } from './grid-support.js';
 import { AGENT_NATIVE_MIXER_TOOLS } from './agent-native-mixer.js';
 import { AGENT_NATIVE_DEVICE_RETIRED, agentNativeDeviceTools } from './agent-native-devices.js';
 import {
@@ -3884,6 +3885,7 @@ export const AGENT_NATIVE_TOOLS: readonly ToolSpec[] = [
   ...AGENT_NATIVE_DEVICES.additions,
   ...AGENT_NATIVE_MIXER_TOOLS,
   ...MIDI_FILE_TOOLS,
+  ...GRID_SUPPORT_TOOLS,
 ].map((item) => MEASURED_BODY_SCHEMAS[item.name] === undefined ? item
   : measuredBody(item, MEASURED_BODY_SCHEMAS[item.name]!));
 

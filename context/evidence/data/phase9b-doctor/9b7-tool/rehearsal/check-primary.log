@@ -1,0 +1,12 @@
+{
+  "result": "resolution-refused",
+  "reason": "boolean-atom:expected-one-candidate:found-0",
+  "nextStep": "Trace the changed structure in an agent session (the 9b.6a to 9b.6g procedure), record the traced table, then rerun with --traced-table.",
+  "elapsedMs": 4510.983,
+  "peakRssBytes": 187252736,
+  "stages": {
+    "fingerprint": "derived",
+    "resolve": "refused"
+  }
+}
+PYTHONPATH=$R/brain/src/probes python3 -B -m grid_doctor.upgrade check   --ja  4.47s user 0.10s system 99% cpu 4.580 total

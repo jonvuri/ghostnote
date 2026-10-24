@@ -2,7 +2,7 @@
 title: ghostnote context guide
 kind: index
 state: active
-updated: 2026-10-19
+updated: 2026-10-23
 ---
 
 # ghostnote context
@@ -123,3 +123,10 @@ Implementation references for the relevant change:
 - For MIDI and document files, use the
   [conversion contract](contracts/MIDI_FILE_CONVERSION.md). Its rules cover
   FIFO pairing, tempo maps, snapshot coverage, file formats, and verification.
+- A Grid write tool calls `requireGridWriteAdmission` (`brain/src/grid/admission.ts`)
+  before its first host call and adds a refusal case to its tests. The gate
+  reads the accepted doctor cache for the jar fingerprint and host version
+  ([D52](decisions/d52-grid-upgrade-admission-policy.md),
+  [E343](evidence/experiments/e343-grid-admission-gate-and-upgrade-tool.md)).
+  A new Bitwig build starts with `grid_doctor.upgrade`; see the
+  [driver README](../brain/src/probes/grid_doctor/README.md#toolkit).
