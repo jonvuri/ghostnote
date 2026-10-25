@@ -25,7 +25,8 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
-| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | next | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
+| B08 | Scrollable container scopes: remove the fixed three-position limit on layer-chain observation and writes by scrolling one-wide device banks and nested windows instead of adding fixed banks. Live probe of hung-bank retargeting and settle cost first; implement on a go verdict. | structure, research | next | [brief](work/b08-scrollable-container-scopes.md); DP-3; E63 |
+| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
 | P01 | Edit-path performance and recovery cost: attribute repeated inventories and full clip captures, simplify recovery-only machinery under D54. Offline audit first. | perf, cleanup | queued | [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost); W4-016, D54 |
 | V14 | Add devices and presets by name: `resolve_device_name` resolves stock, VST3, CLAP, and Bitwig-preset names from the running host configuration; all four insert and verify live, with refresh, ambiguity, and cleanup. | sound, implementation | done | [brief](work/v14-add-devices-by-name.md); [E351](evidence/experiments/e351-device-name-resolution-live.md); DP-5; R05, R06 |
@@ -81,7 +82,6 @@ when a workflow needs it.
 | B05 | Record Launcher playback into the Arranger. | live | later | CA-7 |
 | B06 | Project save through the API. | reuse | later | SM-11 |
 | B07 | Export a device's current state as a preset file. | reuse | later | DP-6 |
-| B08 | Wider nested device navigation and chain coverage. | structure | later | DP-3 |
 | B09 | Broader descriptor access for non-Grid objects. | platform | later | GI-4 |
 | B10 | Offline `.bwclip` import. | interchange | later | CA-2 |
 | B11 | Offline preset and Grid authoring: recursive codec, footprints, donor-free modulators, offline Grid presets. | offline | later | MP-1, MP-2, MP-6, GI-3; W4-013 |

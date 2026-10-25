@@ -12,8 +12,15 @@ stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
 installation, preferences, indexes, and content locations with no Bitwig call.
 [E351](evidence/experiments/e351-device-name-resolution-live.md) records all
 four live insertions, configuration refresh and removal in one session,
-ambiguity with explicit disambiguation, and cleanup. R01 is next in the
-[backlog](BACKLOG.md), then R02 and P01.
+ambiguity with explicit disambiguation, and cleanup.
+
+[B08](work/b08-scrollable-container-scopes.md) is next in the
+[backlog](BACKLOG.md), promoted from `later` on 2026-10-25: layer chains of a
+container after top-level position 2 are unobservable and unwritable because
+the extension's three container scopes are fixed to slots 0 to 2. The brief
+records the current design, the API 25 scrolling contract, a proposed
+scrollable-window mechanism, and a bounded live probe to run first. R01, R02,
+and P01 follow.
 
 V01's [Engram / Via Purifico sketch](work/v01-engram-purifico.md) is complete:
 two saved eight-bar Launcher sections at 130 BPM, independently verified and
@@ -37,7 +44,7 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) now orders R01, R02, then the P01 offline audit.
+The [backlog](BACKLOG.md) now orders B08, R01, R02, then the P01 offline audit.
 R01 also assesses the first-save annotation-continuity limitation
 recorded in the V01 closeout.
 
