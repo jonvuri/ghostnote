@@ -1,0 +1,492 @@
+{
+  "schemaVersion": 1,
+  "basis": "W4-002 and W4-003; full wave-3 baseline.",
+  "status": "Proposed cases with accepted priority direction from W4-004 through W4-011. Variation links do not credit every verb or prove a capability.",
+  "groups": [
+    {
+      "id": "foundation",
+      "title": "Guarded edits and operational evidence",
+      "treatment": "Shared foundation",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "connection.health",
+        "change.records",
+        "write.readback",
+        "write.selection",
+        "write.basis",
+        "write.destructive-separation",
+        "cost.ledger",
+        "descriptions.versioning"
+      ],
+      "case": "Use existing guards and independent result checks in each selected workflow. Exercise stale targets, partial results, selection preservation, and the stated inverse.",
+      "limit": "D54 removes mandatory agent reversal. Retain targeting, validation, independent result evidence, and partial-effect reporting; selected sessions may simplify recovery-only machinery. Existing runtime behavior is unchanged here.",
+      "priority": "Required safeguards",
+      "variations": []
+    },
+    {
+      "id": "structure",
+      "title": "Basic track structure",
+      "treatment": "Core workflow",
+      "workflows": [
+        "song"
+      ],
+      "rows": [
+        "track.inventory",
+        "track.existence",
+        "track.name"
+      ],
+      "case": "Create, identify, name, arm, and organize the tracks used by the song.",
+      "limit": "Current track existence and naming are product paths. Arm, active state, and colour are in the track-state group.",
+      "priority": "Workflow dependency",
+      "variations": [
+        "V01",
+        "V03",
+        "V12"
+      ]
+    },
+    {
+      "id": "notes-timeline",
+      "title": "Notes, clips, MIDI files, and timeline",
+      "treatment": "Core workflow",
+      "workflows": [
+        "song"
+      ],
+      "rows": [
+        "clip.notes",
+        "clip.existence",
+        "clip.properties",
+        "midi.file",
+        "arranger.clip-notes",
+        "automation"
+      ],
+      "case": "Import material, edit notes and loops, place song sections, and edit the automation needed by those sections.",
+      "limit": "Existing Launcher/MIDI product paths do not prove exact Arranger writes or every automation curve. Required verbs and fields must be named.",
+      "priority": "High: song",
+      "variations": [
+        "V01",
+        "V02",
+        "V03",
+        "V04"
+      ]
+    },
+    {
+      "id": "devices",
+      "title": "Devices and ordinary composition",
+      "treatment": "Core workflow",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "device.order",
+        "device.enabled",
+        "device.controls",
+        "container.layer-chains"
+      ],
+      "case": "Build and change a stock/plugin chain; use layers or drum pads where the task requires them.",
+      "limit": "Existing scoped product paths count. Opaque plugin state and all container types are not implied.",
+      "priority": "Main path",
+      "variations": [
+        "V01",
+        "V08",
+        "V12",
+        "V13"
+      ]
+    },
+    {
+      "id": "audio-path",
+      "title": "Place samples and obtain audio output",
+      "treatment": "Core workflow",
+      "workflows": [
+        "song",
+        "mix"
+      ],
+      "rows": [
+        "sample.insertion",
+        "arranger.audio-clip",
+        "audio.capture"
+      ],
+      "case": "V05/06 edit audio clips and device samples. V07/R03 investigates quick inaudible post-device/pre-fader readback from an existing clip over its full span or a measure/two.",
+      "limit": "Insertion and historical master capture do not prove full CRUD, device sample reads, or track bounce. Recording and final export are generally operator tasks.",
+      "priority": "High: song",
+      "variations": [
+        "V05",
+        "V06",
+        "V07"
+      ]
+    },
+    {
+      "id": "reuse",
+      "title": "Save and reuse results",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "project.save",
+        "device.preset-export"
+      ],
+      "case": "Use operator save/export by default. Add automated save or preset export only when a selected case needs it.",
+      "limit": "Project save and preset export are source leads with distinct proof needs. General cross-project reuse is not a main-path gate.",
+      "priority": "Low unless needed",
+      "variations": []
+    },
+    {
+      "id": "mix-routing",
+      "title": "Mix controls and routing",
+      "treatment": "Core workflow",
+      "workflows": [
+        "mix"
+      ],
+      "rows": [
+        "track.mixer",
+        "track.sends",
+        "master.mixer",
+        "track.routing",
+        "track.group-effect"
+      ],
+      "case": "Balance tracks, create the Effect track a send needs, use returns, route the required signals, and operate the master path.",
+      "limit": "A stereo balance does not prove input/output routing or send modes. Current mixer proof is narrower than this proposed case. Of track.group-effect, only Effect-track creation is in V12; Group and Hybrid creation and grouping remain bonus work.",
+      "priority": "Third workflow",
+      "variations": [
+        "V12",
+        "V13"
+      ]
+    },
+    {
+      "id": "performance",
+      "title": "Session and performance variation",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "song",
+        "sound"
+      ],
+      "rows": [
+        "scene.existence",
+        "scene.properties",
+        "groove",
+        "launcher.stop",
+        "clip.launch-settings",
+        "clip.playback-start",
+        "clip.editor-view",
+        "arranger.record"
+      ],
+      "case": "Add live launches, scene actions, groove, or performance recording only when easy or directly needed.",
+      "limit": "This row group mixes verbs. A low live-control priority does not justify using Launcher recording as exact Arranger editing. Tempo, meter, and cue markers have their own groups.",
+      "priority": "Low unless easy or needed",
+      "variations": []
+    },
+    {
+      "id": "expression",
+      "title": "Expressive MIDI and timing variation",
+      "treatment": "Variant required",
+      "workflows": [
+        "song"
+      ],
+      "rows": [
+        "clip.expression-fidelity"
+      ],
+      "case": "Use V02 and R02 to audit timing/expression fields and reproduce pressure independently. Prepare upstream evidence if an API defect is confirmed.",
+      "limit": "Pressure has no demonstrated workaround. Each field requires its own verdict; support for MIDI channels alone is not full MPE support.",
+      "priority": "High: song",
+      "variations": [
+        "V02"
+      ]
+    },
+    {
+      "id": "existing-audio",
+      "title": "Existing audio content variation",
+      "treatment": "Variant required",
+      "workflows": [
+        "song",
+        "mix"
+      ],
+      "rows": [
+        "launcher.audio-clip"
+      ],
+      "case": "Inspect an existing audio clip and identify its file, range, and required properties before editing or reuse.",
+      "limit": "No matching read path was found in the pinned survey. Sample insertion does not supply this capability.",
+      "priority": "High: song",
+      "variations": [
+        "V05"
+      ]
+    },
+    {
+      "id": "deep-structure",
+      "title": "Nested structures and wider reach",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "device.nested-reach"
+      ],
+      "case": "Promote only the nested device reach needed by a selected variation; otherwise retain as bonus work.",
+      "limit": "Source limits remain. A flat or small project does not establish wider reach or scale. Effect-track creation moved to mix-routing; Group and Hybrid tracks stay bonus work.",
+      "priority": "Bonus unless needed",
+      "variations": []
+    },
+    {
+      "id": "sound-depth",
+      "title": "Sound state and performance mappings",
+      "treatment": "Variant required",
+      "workflows": [
+        "sound"
+      ],
+      "rows": [
+        "remote-pages",
+        "modulator.catalog",
+        "preset.modulation",
+        "device.modulation-wrap",
+        "route.enabled",
+        "route.mode",
+        "route.scale-source",
+        "modulator.breadth",
+        "modulator.curves",
+        "preset.bindings"
+      ],
+      "case": "Use V08/09 and R04 to add useful remote controls and modulation. Inspect external live setters and prove each selected field independently.",
+      "limit": "Accepted preset paths are part of the union. New live replacements, all types, all payloads, and arbitrary plugin state are not established.",
+      "priority": "High: sound",
+      "variations": [
+        "V08",
+        "V09"
+      ]
+    },
+    {
+      "id": "grid",
+      "title": "Grid instrument construction",
+      "treatment": "Variant required",
+      "workflows": [
+        "sound"
+      ],
+      "rows": [
+        "grid.poly-graph",
+        "grid.extended-writes"
+      ],
+      "case": "Build a useful Grid instrument, change values/cables/mappings, and reopen it; select relocation and other flavours when needed.",
+      "limit": "Phase 11 retains ownership. Scoped research is demonstrated potential. Wave-two setters and broader families still have gaps.",
+      "priority": "High: sound",
+      "variations": [
+        "V10",
+        "V11"
+      ]
+    },
+    {
+      "id": "discovery",
+      "title": "Host discovery and required internal reads",
+      "treatment": "Variant required",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "device.discovery",
+        "host.descriptors"
+      ],
+      "case": "Find an intended Bitwig device, plug-in, or preset by name and inspect only the internal objects required by the selected operation. V01 resolves at least one name; R05 probes the popup browser for custom locations.",
+      "limit": "Arbitrary internal introspection is not required for a song. Descriptor access is a route, not proof of every field or verb. E101 found the browser content-type write ineffective; R05 is a bounded re-probe, not an established route.",
+      "priority": "Workflow dependency",
+      "variations": [
+        "V01",
+        "V08",
+        "V10"
+      ]
+    },
+    {
+      "id": "bwclip",
+      "title": "Optional clip-file interchange",
+      "treatment": "Interchange choice",
+      "workflows": [
+        "song"
+      ],
+      "rows": [
+        "bwclip.file"
+      ],
+      "case": "Import a .bwclip only if real source material requires that format; compare its usable notes and metadata.",
+      "limit": "Current external extraction is heuristic source evidence. This is not preset authoring and was not automatically deprioritized.",
+      "priority": "Only if input needs it",
+      "variations": [
+        "V01"
+      ]
+    },
+    {
+      "id": "offline",
+      "title": "Offline preset and Grid authoring",
+      "treatment": "Deferred file work",
+      "workflows": [],
+      "rows": [
+        "preset.codec",
+        "preset.footprints",
+        "modulator.donor-free",
+        "grid.offline-preset"
+      ],
+      "case": "Create or change reusable files without a running host if that output is selected later.",
+      "limit": "Some codec predicates passed offline; broader edits and donor-free extraction are not proved. Live operations do not automatically deliver an offline API.",
+      "priority": "Deferred",
+      "variations": []
+    },
+    {
+      "id": "platform",
+      "title": "Upgrade support and reference retrieval",
+      "treatment": "Separate support",
+      "workflows": [
+        "song",
+        "sound",
+        "mix"
+      ],
+      "rows": [
+        "grid.admission",
+        "docs.retrieval"
+      ],
+      "case": "Keep existing admission and required guards. Plan broader client support, degradation checks, and reference retrieval as later work unless they block a selected case.",
+      "limit": "Grid admission exists within scope. Primary-only degradation and Bitwig manual retrieval remain distinct work, not effects of a successful creative example.",
+      "priority": "Later expansion; retain admission",
+      "variations": []
+    },
+    {
+      "id": "external",
+      "title": "Analysis and cross-project library meaning",
+      "treatment": "External scope",
+      "workflows": [],
+      "rows": [
+        "library.search",
+        "audio.facts",
+        "audio.features",
+        "musical.navigation",
+        "audio.transform"
+      ],
+      "case": "Use Ghostworks or another consumer through explicit file/result handoffs when the task needs interpretation or library records.",
+      "limit": "These are intentional external responsibilities. Minimal media identity and timing facts remain in Ghostnote. Source/claim labels do not establish provider quality.",
+      "priority": "External responsibility",
+      "variations": []
+    },
+    {
+      "id": "frontier",
+      "title": "Unproved internal and DSP breadth",
+      "treatment": "Unproved frontier",
+      "workflows": [],
+      "rows": [
+        "grid.resources",
+        "dsp.image"
+      ],
+      "case": "Select a bounded part only if a concrete creative task needs it.",
+      "limit": "Grid resources, arrays, larger bounds, and DSP image deployment are not collectively demonstrated potential. No universal DSP/audio guarantee is implied.",
+      "priority": "Task-led research only",
+      "variations": []
+    },
+    {
+      "id": "sound-bonus",
+      "title": "Physical-unit and rare sound state",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "sound"
+      ],
+      "rows": [
+        "device.units"
+      ],
+      "case": "Use physical-unit control only when it makes a selected sound task work; do not require general parameter conversion.",
+      "limit": "Existing controls remain usable. Wider device-state coverage is a bonus.",
+      "priority": "Bonus unless needed",
+      "variations": [
+        "V08"
+      ]
+    },
+    {
+      "id": "sample-resources",
+      "title": "Audio resources within devices",
+      "treatment": "Variant required",
+      "workflows": [
+        "song",
+        "sound"
+      ],
+      "rows": [
+        "preset.resources"
+      ],
+      "case": "V06 assigns externally sliced hits to Samplers on pads; read/retrieve, replace, or clear sample sources and set only required region/playback fields.",
+      "limit": "A preset resource model does not prove live sample CRUD. MP-9 must be split by field and route.",
+      "priority": "High: required audio subset",
+      "variations": [
+        "V06"
+      ]
+    },
+    {
+      "id": "timeline-transport",
+      "title": "Tempo, meter, and timeline position",
+      "treatment": "Variant required",
+      "workflows": [
+        "song"
+      ],
+      "priority": "High: song",
+      "variations": [
+        "V03"
+      ],
+      "rows": [
+        "transport"
+      ],
+      "case": "V03 reads and sets the tempo, meter, and position that arrangement edits need.",
+      "limit": "Only the tempo, meter, and position verbs of this row are in V03. Play/stop, loop, metronome, and record stay low priority under W4-009. W4-D needs a verb-level row for this split."
+    },
+    {
+      "id": "arrangement-markers",
+      "title": "Cue markers as song-section markers",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "song"
+      ],
+      "priority": "Optional: song",
+      "variations": [
+        "V03"
+      ],
+      "rows": [
+        "cue-markers"
+      ],
+      "case": "V03 may read and create cue markers for the sections it arranges.",
+      "limit": "Optional scope. Two external implementations have source routes; none is proved in Ghostnote. A marker is navigation, not an Arranger edit."
+    },
+    {
+      "id": "track-state",
+      "title": "Track arm, active state, and colour",
+      "treatment": "Optional dependency",
+      "workflows": [
+        "mix"
+      ],
+      "priority": "Optional: mix",
+      "variations": [
+        "V12"
+      ],
+      "rows": [
+        "track.state"
+      ],
+      "case": "V12 sets the track fields the mix uses, such as colour or active state.",
+      "limit": "Only the fields the mix needs; SM-1 has source leads and no live proof. Arm is a recording control and stays low priority."
+    },
+    {
+      "id": "drum-pad-containers",
+      "title": "Drum pads and Sampler slots",
+      "treatment": "Variant required",
+      "workflows": [
+        "song"
+      ],
+      "priority": "High: required audio subset",
+      "variations": [
+        "V06"
+      ],
+      "rows": [
+        "container.other-types"
+      ],
+      "case": "V06 creates or uses the drum pads and Sampler slots that hold externally sliced hits.",
+      "limit": "Only the Drum Machine pad and Sampler subset of DP-4 is in V06. Other container and slot types remain bonus work."
+    }
+  ]
+}

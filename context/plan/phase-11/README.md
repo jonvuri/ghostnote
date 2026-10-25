@@ -54,11 +54,11 @@ Read these before any session:
 - [Performance ledger](../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation):
   the cost model of this phase.
 - [D15](../../decisions/d15-verification-discipline-settled-2026-07-25.md),
-  [D19](../../decisions/d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md),
   [D21](../../decisions/d21-musical-patch-and-public-tool-grain.md),
   [D44](../../decisions/d44-long-writes-are-optimized-then-bounded.md),
-  [D49](../../decisions/d49-revert-fidelity-states-what-the-revert-restored.md):
-  readback, reversal, tool grain, write bounds, and revert fidelity.
+  [D54](../../decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md):
+  readback, tool grain, write bounds, and the recovery floor. Grid writes
+  are new capabilities and record no inverse ([W4-024](../overlap/wave-4/decisions.md#w4-024--grid-writes-record-no-inverse-operator-undo-is-the-recovery)).
 
 ## Scope
 
@@ -151,7 +151,7 @@ need one probe each because their I/O module sets differ.
   and transfer function. Remove uses the proved removal command. The native
   command appends; other mappings keep their order and identities.
 
-### Failure handling and reversal
+### Failure handling and recovery
 
 - Keep the write lock, the uncertain-state latch, and the no-retry rule for
   every native command. A timeout latches uncertainty and stops writes; it
@@ -159,14 +159,12 @@ need one probe each because their I/O module sets differ.
   attachment. Never dispose a detached object after insertion was attempted.
 - Every command has a pre-command capture and a paired independent readback
   (D15). A writer receipt is not readback.
-- Reversal follows D19 through change records, not document undo. Each
-  operation records its inverse: set value restores the prior value; connect
-  and disconnect restore the prior source; add deletes the added module;
-  add mapping removes it; remove mapping re-adds it with the recorded fields
-  and a new identity (D49 fidelity `differs` on identity). **Revert of a
-  delete is withheld and reported** in wave one; restoring a module with its
-  values, cables, and content is a later item. Document undo remains a
-  research check in the doctor.
+- Grid writes record no inverse and offer no `revert_change` path (D54,
+  W4-024). The change record is an execution receipt: the operations
+  requested, the operations completed, and their independent readback.
+  The operator recovers with Bitwig undo, a saved project, or a backup;
+  E277 and E279 show one host undo step reverses one native command.
+  Document undo remains a research check in the doctor.
 - After uncertainty the operator inspects or restarts the host. The tool
   does not save.
 
@@ -174,7 +172,7 @@ need one probe each because their I/O module sets differ.
 
 - At most 64 modules per Grid; a larger patch refuses with the count.
 - At most 16 operations per write call (D44). A call stops at the first
-  failed operation and reports the completed ones with their change record.
+  failed operation and reports the completed ones in its receipt.
 - One owned detached tree at a time, at most 256 objects and depth 12.
 - One bind per call, released at the end. Claims do not survive a call.
 - The 48 MiB temporary-host planning allowance stays a planning figure.
@@ -188,7 +186,7 @@ Three tools result:
 |---|---|---|
 | `list_grid_module_types` | read, offline | The canonical catalog: type UUID, public name, aliases, flavour availability, known parameter names |
 | `read_grid_modules` | read | One Grid device: members with type, name, position, size, stored values with domains, ports, cables, mappings, and the admission standing |
-| `edit_grid_modules` | write | An ordered list of operations on one Grid device: `add_module`, `delete_module`, `set_value`, `connect`, `disconnect`, `add_mapping`, `remove_mapping`. Calls `requireGridWriteAdmission` first. One change record per call |
+| `edit_grid_modules` | write | An ordered list of operations on one Grid device: `add_module`, `delete_module`, `set_value`, `connect`, `disconnect`, `add_mapping`, `remove_mapping`. Calls `requireGridWriteAdmission` first. One receipt per call; no inverse |
 
 Final names pass the vocabulary test; the step-grid meaning of "grid" in
 clip tools (D9) is the reason for the `_modules` suffix. Descriptions bump
@@ -253,11 +251,13 @@ Inputs: E277, E279, E280, E308, the doctor value, boolean, and cable cases,
 2. Add `edit_grid_modules` with `set_value`, `connect`, and `disconnect`.
    `connect` to an input with a source is a retarget. Validate domains,
    ports, and member identity against the pre-command capture.
-3. Change records with inverse operations; `revert_change` and
-   `check_revert` support; `readbackStatusOf` cases.
+3. Execution receipts without inverse operations; `revert_change` and
+   `check_revert` refuse Grid changes with a plain reason; `readbackStatusOf`
+   cases.
 4. Update `check_grid_support` and bump descriptions.
 5. Live on a scratch Poly Grid loaded from a stock preset: set and restore
-   values, connect, retarget, disconnect, and revert each. Measure.
+   values, connect, retarget, and disconnect. The operator checks one host
+   undo step on one write. Measure.
 
 Acceptance: every write has independent readback; a refused admission sends
 no host call (test on the stub bridge); budgets and the D44 bound hold.
@@ -275,11 +275,11 @@ Inputs: E281, E283, E289, E310, the attachment design, `GridDetachedFactory`,
    attachment on a 19-module patch with the predicted no-movement layout;
    a factory type other than Amplify from the stateless families.
 4. Live: build a small patch in one call (add, connect, set values), read it
-   back, delete it, revert the add. Measure.
+   back, then delete it. Measure.
 
 Acceptance: the layout prediction equals the readback on every attached
-module; delete leaves no dangling cable; revert of delete is reported as
-withheld; no detached object remains after any failure path in tests.
+module; delete leaves no dangling cable; no detached object remains after
+any failure path in tests.
 
 ### 11d — Mappings
 
@@ -290,7 +290,7 @@ Inputs: E304, E305, E308, the doctor mapping case.
 2. `add_mapping` and `remove_mapping`; refuse sources outside membership.
 3. Probe: add a mapping between a source and target with no prior mapping
    on WT Parkour or SEMtex; remove it; check both endpoint lists.
-4. Live: the probe pair, an amount change as remove and re-add, and reverts.
+4. Live: the probe pair and an amount change as remove and re-add.
 
 Acceptance: endpoint lists change only by the named mapping; the amount
 round-trips through the public scale; descriptions state the unit.

@@ -20,8 +20,10 @@ The [feature breadth inputs](../overlap/wave-3/README.md) separate current
 tools from missing capabilities and give source and proof requirements by
 feature area. Use them before selecting from the older candidate list below.
 The [static report](../overlap/wave-3/report.html) compares the candidates.
-[Vision selection](../overlap/wave-3/vision-selection.md) will choose the work
-and its owners. No candidate has been assigned to a new phase.
+[Wave 4](../overlap/wave-4/README.md) selected the direction; its
+[W4-D session](../overlap/wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap)
+reconciles the 10a/10b/10c owners with a lightweight release slice (W4-015).
+No candidate has been assigned to a new phase.
 
 ## Why it is structured as a bag
 

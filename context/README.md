@@ -103,6 +103,11 @@ when the count changes. Follow [AGENTS.md](../AGENTS.md) for version reporting.
 
 Implementation references for the relevant change:
 
+- [D54](decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md)
+  replaces D19's universal agent-reversal obligation. A new capability does
+  not need an inverse merely to satisfy the old policy. Existing reversal
+  tools keep their advertised behavior until changed in a named session.
+
 - New write tools use `readbackStatusOf` and `readbackOrUnavailable`, with a
   case in `brain/src/surface/readback-unavailable.test.ts`. `unavailable`
   means a failed read only; a successful unequal read is `differs` ([E258](evidence/experiments/e258-selection-effects-and-unavailable-readback.md)).

@@ -55,6 +55,16 @@ test. Claims belong to one server session and do not survive a new thread or
 resume. The normal profile has no `transport.stop`; the operator stops playback
 after a launch.
 
+## Recovery policy
+
+[D54](context/decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md)
+supersedes D19's blanket agent-reversal requirement. Do not add or retain an
+inverse, reversible stash, or exact-recovery gate solely to satisfy D19.
+Simplify when maintenance or performance benefits justify it. Keep existing
+public behavior until its implementation session updates it. D15 result
+verification, truthful partial effects, D52 admission, and required fixture
+cleanup remain separate obligations.
+
 ## Implementation sessions
 
 1. Read `context/NOW.md`, then read the linked plans, evidence, decisions, and

@@ -27,7 +27,7 @@ updated: 2026-10-24
 
 | Brief | State | Purpose |
 |---|---|---|
-| [feature breadth report](overlap/wave-3/report.html) | synthesis complete; vision selection planned | Matrices, evidence, dependencies, and possible sequences. [Next decision session](overlap/wave-3/vision-selection.md). No new implementation phase or priority order selected. |
+| [wave-4 vision and scope](overlap/wave-4/report.html) | planning active | Selected outcome order: song, performable sound, mix/capture. W4-A through W4-C are complete; [W4-D](overlap/wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap) maps the accepted [13-case working plan](overlap/wave-4/workflow-sequence.md) to a row/verb matrix and sessions. [Selected sessions](overlap/wave-4/work-sessions.md) cover performance/recovery, formats/claims, stable-v1 removal, and internal dependency mapping. D54 removes mandatory agent reversal; release support is tested-version-only. The 76-row map retains its evidence. Wave 3 remains the evidence baseline; detailed implementation sessions are not selected. |
 | [capability knowledge base](../archive/outcomes/KNOWLEDGE-BASE.md) | done 2026-08-15 | Minted [`evidence/capability/`](../evidence/capability/INDEX.md) and seeded it from host-API and `reference/BitX` facts |
 
 The capability knowledge-base detour changed no product behavior. Phase 1 paused between sessions 3f-g

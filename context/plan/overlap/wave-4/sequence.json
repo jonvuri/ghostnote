@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "status": "Accepted working sequence under W4-012; detailed field bounds and implementation briefs remain to be selected. Dependencies are minimum logical dependencies, not a strict serial schedule.",
+  "variations": [
+    {
+      "id": "V01",
+      "workflow": "song",
+      "title": "Build a useful MIDI sketch",
+      "task": "Use current drum, bass, melodic, or harmonic material supplied by the user. Edit rhythm, pitches, lengths, and velocities, then make a contrasting section with existing devices. Resolve at least one device, plug-in, or Bitwig preset by name rather than by explicit ID.",
+      "acceptance": "The two sections contain the intended notes and sound choices. Unedited notes and tracks retain their required state. Use existing MIDI/document paths first. A named device or preset resolves to one exact identity, from the native catalog or through R05 browser discovery, and the inserted device is confirmed independently.",
+      "limit": "Current note, MIDI-file, and device tools are the starting point. No new notation, pressure route, or deep container is a prerequisite. Browser discovery is unproved (E101); if R05 fails, name resolution falls back to the offline native catalog and explicit VST3/CLAP IDs.",
+      "dependencies": [],
+      "work": [
+        "CA-1",
+        "DP-5"
+      ],
+      "research": [
+        "R01",
+        "R02",
+        "R05"
+      ]
+    },
+    {
+      "id": "V02",
+      "workflow": "song",
+      "title": "Edit difficult MIDI without hidden loss",
+      "task": "Use expressive multichannel material with pickups, tuplets, same-pitch overlaps, long notes, and loop offsets. Change selected notes without rewriting unrelated expression.",
+      "acceptance": "Each field has an independent read/write/preservation verdict. Unsupported edits report a precise limit. Pressure receives a corrected route, a reproducible defect report, or an explicit unresolved condition.",
+      "limit": "Readback has timing and pressure limits. Do not use a lossy projection as a fidelity oracle. An upstream response must not block other MIDI work.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "CA-1"
+      ],
+      "research": [
+        "R01",
+        "R02"
+      ]
+    },
+    {
+      "id": "V03",
+      "workflow": "song",
+      "title": "Arrange and revise song sections",
+      "task": "Read the Arranger, place MIDI sections, duplicate a chorus, move a passage, and change clip start, loop, and play ranges. Optionally read and create cue markers for the song sections.",
+      "acceptance": "The intended sections occur at the required musical times. Notes, offsets, overlaps, tempo/meter interpretation, and neighboring clips meet the selected preservation rules. If cue markers are used, each marker has the intended name and position.",
+      "limit": "Prove exact Arranger reads before writes. Launcher performance recording is optional later work, not an equivalent timeline editor. Cue markers (SM-5) are optional scope; only tempo, meter, and position verbs of SM-4 are required.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "CA-3",
+        "CA-4",
+        "SM-4",
+        "SM-5"
+      ],
+      "research": []
+    },
+    {
+      "id": "V04",
+      "workflow": "song",
+      "title": "Shape the arrangement with automation",
+      "task": "Add a filter rise and volume transition. Read and edit points and curves, then move a passage with its required automation.",
+      "acceptance": "Target, timing, values, and curve behavior match the intended transition. Untouched lanes stay intact. Distinguish clip and Arranger automation.",
+      "limit": "Start with one useful lane and expand by model. Do not infer all automation types from one passing curve.",
+      "dependencies": [
+        "V03"
+      ],
+      "work": [
+        "CA-6"
+      ],
+      "research": []
+    },
+    {
+      "id": "V05",
+      "workflow": "song",
+      "title": "Edit existing audio as song material",
+      "task": "Read an existing audio clip, identify its source and range, insert another, trim or split a section, move/duplicate it, replace its source where needed, and delete an owned clip.",
+      "acceptance": "The selected create/read/update/delete verbs preserve source identity, timing, audible content, and neighboring clips. Include Launcher and Arranger cases where their models differ.",
+      "limit": "CA-8 has no surveyed read route. Prove that read before dependent edits. Warp/stretch is a later audio-depth case if the selected song needs it.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "CA-5",
+        "CA-8",
+        "MA-2"
+      ],
+      "research": [
+        "R03"
+      ]
+    },
+    {
+      "id": "V06",
+      "workflow": "song",
+      "title": "Put externally sliced hits into a drum instrument",
+      "task": "Accept hit files from an external splicer. Create or use drum pads and Samplers, assign hits, read or retrieve their sources, then replace or clear a sample. Set only the required region/playback fields.",
+      "acceptance": "The intended pads use the correct sources and ranges. Sample retrieval returns a usable reference or file where supported. Replacement and clearing preserve unrelated pad/device state. Slicing and analysis stay external.",
+      "limit": "Insertion does not prove source retrieval or clearing. Embedded sample extraction needs route proof. Advanced multisample, wavetable, and arbitrary plugin sample state are not initial requirements.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "MA-2",
+        "MP-9",
+        "DP-4"
+      ],
+      "research": []
+    },
+    {
+      "id": "V07",
+      "workflow": "song",
+      "title": "Read back one track for external analysis",
+      "task": "Read back one existing clip through its track devices, before the track fader, over the full clip or a measure/two. Produce an inaudible bounded audio artifact for external sound-design analysis.",
+      "acceptance": "Verify post-device/pre-fader signal scope, file identity, range, channels, and stated tail/routing limits. Prove inaudibility and measure end-to-end latency. Final export and recording stay operator tasks.",
+      "limit": "The desired bounce route is not proved. R03 resolves sends, sidechains, tails, and fallback only as needed. Source extraction is not processed audio readback.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "MA-3"
+      ],
+      "research": [
+        "R03"
+      ]
+    },
+    {
+      "id": "V08",
+      "workflow": "sound",
+      "title": "Make the song sound playable",
+      "task": "Take a sound used in the song. Choose useful controls, set performance ranges, and create the remote mappings needed to play it.",
+      "acceptance": "Named controls reach the intended parameters over useful ranges. Mapping edits preserve the rest of the chain. Operator save/export is acceptable.",
+      "limit": "DP-2 needs live route assessment. Physical-unit input, nesting, and preset export are dependencies only when this instrument needs them.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "DP-2",
+        "DP-1"
+      ],
+      "research": [
+        "R04"
+      ]
+    },
+    {
+      "id": "V09",
+      "workflow": "sound",
+      "title": "Author and revise live modulation",
+      "task": "Add a useful modulator and mapping to that sound. Change amount, enable/mode, source, or curve only as the musical variation requires.",
+      "acceptance": "Independent state and a bounded functional check show the intended modulation. Change or remove the mapping without unrelated changes. Record each live setter verdict.",
+      "limit": "Use external implementations as leads. Grid mappings, outer modulators, and remote pages are separate surfaces. Keep a working file route until a replacement passes.",
+      "dependencies": [
+        "V08"
+      ],
+      "work": [
+        "MP-3",
+        "MP-4",
+        "MP-5",
+        "MP-7",
+        "MP-8",
+        "MP-10"
+      ],
+      "research": [
+        "R04"
+      ]
+    },
+    {
+      "id": "V10",
+      "workflow": "sound",
+      "title": "Construct a useful Grid instrument",
+      "task": "Run Phase 11 read/catalog work, then build or extend a Poly Grid voice. Edit modules, values, cables, and internal mappings for one useful sound.",
+      "acceptance": "Read the resulting graph independently, exercise the sound, and preserve existing module positions. Required save/reopen behavior holds for this instrument.",
+      "limit": "Keep Phase 11 scope, cost model, admitted roles, and session order. Mapping amount uses remove/re-add. This branch can advance while outer-modulator work is blocked.",
+      "dependencies": [
+        "V01"
+      ],
+      "work": [
+        "GI-1"
+      ],
+      "research": []
+    },
+    {
+      "id": "V11",
+      "workflow": "sound",
+      "title": "Extend Grid where it changes the instrument",
+      "task": "Try the next useful integer/indexed value, relocation, stateful attachment, or FX/Note Grid variation. Expand supported modulation by musical need.",
+      "acceptance": "Each added field or family has its own proved result, preservation rule, and stated limit. Stop after the useful instrument is achieved or the bounded route fails.",
+      "limit": "GI-2 is mixed proof. Resources, arrays, large patches, rare device state, and DSP changes are separate proposals, not automatic completion requirements.",
+      "dependencies": [
+        "V10"
+      ],
+      "work": [
+        "GI-2"
+      ],
+      "research": []
+    },
+    {
+      "id": "V12",
+      "workflow": "mix",
+      "title": "Balance the completed arrangement",
+      "task": "Set levels and pan, create the Effect track that a send needs, add one useful send, set track arm/active state or colour where the mix needs them, and adjust the required Master controls and processing. Use mix automation from V04.",
+      "acceptance": "The intended mixer and device state is read back. Effect-track creation is measured and the add_tracks description is corrected in this case. Only routing, groups, or returns needed by this mix are promoted. The operator handles final export.",
+      "limit": "SM-2/3 are distinct from basic track mixing. SM-7 is limited to Effect-track creation for sends; Group and Hybrid tracks remain bonus work. SM-1 covers only the track fields the mix uses. Do not make general routing, live launching, or automated stem export prerequisites.",
+      "dependencies": [
+        "V03",
+        "V04"
+      ],
+      "work": [
+        "SM-1",
+        "SM-2",
+        "SM-3",
+        "SM-7",
+        "SM-10"
+      ],
+      "research": []
+    },
+    {
+      "id": "V13",
+      "workflow": "mix",
+      "title": "Polish and compare a mix revision",
+      "task": "Change the required stock/plugin processing, then compare the relevant track readback or operator-provided mix export through external analysis.",
+      "acceptance": "The intended processing changes and audio provenance are clear. The operator can save and export the finished result. External judgments do not replace structural readback.",
+      "limit": "Reuse V07 when it meets the requested scope. Do not grow this into unattended recording, all-stem rendering, or a new analysis provider.",
+      "dependencies": [
+        "V12"
+      ],
+      "work": [
+        "MA-3",
+        "SM-3"
+      ],
+      "research": []
+    }
+  ],
+  "inputPolicy": "Workflow templates: the user supplies current real material at execution. Ask material acceptance questions when implementing the affected capability."
+}

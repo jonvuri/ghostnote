@@ -2112,7 +2112,8 @@ factory and attachment commands and reads up to 64 rectangles inside the
 pre-command capture; one detached tree at most 256 objects and depth 12.
 `delete_module` adds one disconnect command and readback pair per outgoing
 consumer. Budget row: `grid-edit: mark 1, grid 3 + 3n` for n operations,
-fixed in 11b. Revert reuses the same path with the inverse operations.
+fixed in 11b. Grid writes record no inverse and have no revert path (D54,
+wave-4 W4-024); no revert budget applies.
 
 **Admitted limits.** 64 modules, 16 operations per call, one detached tree,
 one bind per call. A changed limit, a new host call, or a new native member

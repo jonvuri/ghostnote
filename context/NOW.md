@@ -4,44 +4,64 @@ kind: status
 state: active
 updated: 2026-10-24
 phase: overlap-planning
-session: wave-3-vision-selection
+session: wave-4-selected-cleanup-and-recovery-floor
 ---
 
 ## Next session
 
-**Run [vision selection](plan/overlap/wave-3/vision-selection.md).** The
-[static synthesis report](plan/overlap/wave-3/report.html) is complete. It
-covers all 76 capability rows, 137 Ghostnote cells, 129 external cells, and
-58 work records. Its matrices, filters, source details, and possible sequences
-use the checked wave-3 data. The compact external matrix sorts projects by
-recorded capability density after Ghostnote. No new feature order or implementation brief is
-selected. Review the outcomes and D15/D49 context with the user, then plan
-only the work they select.
+**Continue [W4-D](plan/overlap/wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap)
+to map the workflow templates to capability requirements and a roadmap.**
+The user selected [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost) performance work
+on repeated parameter inventories, full clip captures, and useful D19
+simplification. Expanded R01 combines Producer Pal formats, dense claims,
+and naming. C01 confirms and removes obsolete stable-v1 machinery. I01
+records per-tool internal dependencies and refusal behavior. Full retention
+research stays deferred unless evidence shows a concrete cost.
 
-Baseline confirmed offline: 45 normal tools, descriptions v53, installed
-Bitwig 6.1.4. No host request ran. DL-6's current format-reference and parser
-comment corrections are complete; runtime logic and historical E/D records
-are unchanged. The report build and record checks pass. The context check
-still reports 18 pre-existing missing-frontmatter errors; no new link error
-remains. See [build and verification](plan/overlap/wave-3/report/README.md).
+The staged review of 2026-10-24 found the set coherent and closed its gaps
+([W4-024, W4-025](plan/overlap/wave-4/decisions.md)). Phase 11 Grid writes
+record no inverse and have no revert path; the plan and ledger are updated.
+Host undo stays operator-only; the research-profile `app.undo` method is not
+exposed. V12 adds Effect-track creation (measure `createEffectTrack` and
+correct `add_tracks`) and track state. V03 adds optional cue markers. V01
+adds name resolution with [R05](plan/overlap/wave-4/workflow-sequence.md#r05--browser-and-catalog-name-resolution),
+a bounded re-probe of popup-browser discovery; E101's failure stands until
+that probe runs. The coverage map has 25 groups; W4-A to W4-C are complete.
 
-The user's provisional preference favours capabilities, speed, and functional
-equivalence over perfect restoration. It is not an accepted contract change.
-The [report](plan/overlap/wave-3/report.html#vision) presents the choices;
-[dependencies](plan/overlap/wave-3/dependencies.md#provisional-user-statement-2026-10-24)
-retains the original statement. D15 and D49 remain in force.
+[D54](decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md)
+supersedes D19's blanket agent-reversal requirement. New capabilities need no
+bespoke inverse solely for D19. Simplify working machinery when maintenance
+or performance warrants it. Expected effects of the stated tool are acceptable;
+unintended changes are not. D15 result checks, D49 truthful retained reverts,
+and D52 admission remain. No runtime behavior changed in this planning turn.
 
-Phase 9 is complete. The next already-planned Grid implementation is
-[11a — Product Grid read and catalog](plan/phase-11/README.md#11a--product-grid-read-and-catalog).
-Keep the [Phase 11 scope](plan/phase-11/README.md) and
-[cost model](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation).
-Wave one uses only 76 admitted roles. Placement must preserve existing module
-positions. Mapping amount changes use remove and re-add. Before 11a live
-work, deploy the normal archive, get operator controller replacement, then
-run `npm run probe:hello`. 11a makes no Grid write.
+V01–13 are [working templates](plan/overlap/wave-4/workflow-sequence.md).
+The user supplies current Ghostworks material at execution. Initial sample
+scope is CRUD/retrieval for Samplers on drum pads using externally sliced
+hits. Readback is post-device/pre-fader from an existing clip, full span or
+a measure/two, preferably quick and inaudible. Keep FIELDS/JSON by default.
+Track each tool's internal dependency; unavailable required internals cause
+whole-tool refusal before mutation. Report partial effects if failure occurs
+later. See [case-specific examples](plan/overlap/wave-4/remaining-decisions.md).
 
-The independent [8i17 survey](plan/phase-8/8i17-midi-musical-navigation-survey.md)
-and Phase 10 remain on the [roadmap](plan/ROADMAP.md).
+Prepare lightweight release readiness after a few useful cases: clean docs,
+simple versions, and tested Bitwig versions only, with no guarantee outside
+that list; likely GitHub release assets. TCP/JSON-RPC stays; future HTTP is
+logged intent with no backlog item. File routes stay when capability or speed
+justifies them. Broad analysis/library work remains external.
+
+Wave 3 stays the evidence baseline. Baseline: 45 normal tools, descriptions
+v53, last installed-host record 6.1.4. No host request ran. See
+[checks](plan/overlap/wave-4/verification.md). W4-D maps the templates to explicit
+row/verb requirements and sessions; concrete acceptance questions belong at
+implementation, not another broad vision questionnaire.
+
+Phase 9 is complete. [11a](plan/phase-11/README.md#11a--product-grid-read-and-catalog)
+remains the next already-planned Grid implementation. Keep Phase 11 scope and
+[cost model](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation):
+76 admitted roles, existing positions, and mapping amount via remove/re-add.
+Before live work, deploy the matching archive, obtain operator controller
+replacement, and run `npm run probe:hello`. 11a makes no Grid write.
 
 ## Live state
 
@@ -61,13 +81,13 @@ and Phase 10 remain on the [roadmap](plan/ROADMAP.md).
 
 ## Material to preserve
 
-- The earlier overlap reorganization, review, wave-3 records, and external
-  register remain staged, not committed. This session adds the static report,
-  its source template and builder, the next decision-session plan, and current
-  reference corrections. The staged set includes prior sessions. Phase 11
-  was already committed at entry. Raw evidence and source records are preserved.
+- Wave 3 and earlier overlap work were committed before entry at `cbe99349`.
+  The worktree was clean. The previous staged-state note was stale. The
+  staged set includes the wave-4 kickoff and later decision, priority, and sequence updates;
+  no commit is made. Wave-3 files and raw evidence are unchanged.
 - SM-7 still records the unmeasured Effect and Group creation routes and the
-  overstatement in `add_tracks`. No tool description changed. DP-6's prose now
+  overstatement in `add_tracks`; V12 owns the measurement and correction.
+  No tool description changed. DP-6's prose now
   agrees with its Candidate record: Control Deck has an action-based export
   route, without saved-file or reload proof.
 - E343 and [`9b7-tool/`](evidence/data/phase9b-doctor/9b7-tool/), E342 and

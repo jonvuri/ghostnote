@@ -12,6 +12,8 @@ not select a new implementation phase or replace the Phase 11 plan.
 
 | Wave | Contents | Use |
 |---|---|---|
+| [Wave 4 report](wave-4/report.html) | Scope direction, architecture, workflow choices, and work dispositions | Start here for current vision selection |
+| [Wave 4 sessions](wave-4/sessions.md) | Workflow, boundary, route, and roadmap decisions | Turn selected outcomes into a planned matrix and implementation briefs |
 | [Wave 1](wave-1/OVERLAP_REPORT.md) | Original report, capability audit, improvement candidates, and source record | Historical investigation. The audit corrects the first report. Paths are repaired; findings are retained. |
 | [Wave 2 summary](wave-2/OVERLAP_STATUS_SUMMARY.md) | Another agent's status report | Historical assessment after Phase 9 |
 | [Wave 2 independent judgment](wave-2/INDEPENDENT_REVIEW.md) | Confirmations and qualifications of that summary | Read with the summary |
@@ -27,6 +29,8 @@ does not require either earlier wave. Its candidate IDs are navigation keys,
 not priorities. Raw audit data and executable checks stay in
 [`context/evidence/data/overlap-audit/`](../../evidence/data/overlap-audit/).
 
-The [input synthesis](wave-3/next-session.md) is complete. The next planning
-session is [vision selection](wave-3/vision-selection.md). It will record the
-user's selected outcomes and create briefs only for that work.
+The [input synthesis](wave-3/next-session.md) is complete. The user started
+[wave 4](wave-4/README.md) for vision and scope decisions. Its workflow,
+boundary, and route steps are complete; its next session is
+[W4-D](wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap).
+Wave 3 remains the evidence baseline; wave 4 records the new direction.

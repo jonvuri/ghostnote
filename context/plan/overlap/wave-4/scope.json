@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 1,
+  "basis": "User wave-4 kickoff and accepted priority follow-ups, 2026-10-24; wave-3 records retained unchanged.",
+  "status": "Proposed scope overlay. Outcome order is selected in W4-002; detailed implementation order and capability proof remain separate.",
+  "records": [
+    {
+      "id": "SM-1",
+      "disposition": "Host scope",
+      "reason": "Fits the stated host-control direction. Select verbs through a real workflow."
+    },
+    {
+      "id": "SM-2",
+      "disposition": "Host scope",
+      "reason": "Fits the stated host-control direction. Select verbs through a real workflow."
+    },
+    {
+      "id": "SM-3",
+      "disposition": "Host scope",
+      "reason": "Fits the stated host-control direction. Select verbs through a real workflow."
+    },
+    {
+      "id": "SM-4",
+      "disposition": "Host scope",
+      "reason": "V03 needs correct tempo, meter, and time position. Live playback and recording controls are lower priority under W4-009; split by verb."
+    },
+    {
+      "id": "SM-5",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-6",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-7",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-8",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-9",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-10",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "SM-11",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "CA-1",
+      "disposition": "Host scope",
+      "reason": "High-priority MIDI, arrangement, and automation in V01\u201304. CA-1 includes R02 pressure reproduction; source leads still need independent proof."
+    },
+    {
+      "id": "CA-2",
+      "disposition": "Interchange choice",
+      "reason": "Offline .bwclip import is interchange, not preset authoring. Select it if the workflow needs this format; the user has not deprioritized all file import/export."
+    },
+    {
+      "id": "CA-3",
+      "disposition": "Host scope",
+      "reason": "High-priority MIDI, arrangement, and automation in V01\u201304. CA-1 includes R02 pressure reproduction; source leads still need independent proof."
+    },
+    {
+      "id": "CA-4",
+      "disposition": "Host scope",
+      "reason": "High-priority MIDI, arrangement, and automation in V01\u201304. CA-1 includes R02 pressure reproduction; source leads still need independent proof."
+    },
+    {
+      "id": "CA-5",
+      "disposition": "Host scope",
+      "reason": "High-priority audio CRUD in V05. Identify source/range and prove reads before dependent edits; insertion alone is insufficient."
+    },
+    {
+      "id": "CA-6",
+      "disposition": "Host scope",
+      "reason": "High-priority MIDI, arrangement, and automation in V01\u201304. CA-1 includes R02 pressure reproduction; source leads still need independent proof."
+    },
+    {
+      "id": "CA-7",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "CA-8",
+      "disposition": "Host scope",
+      "reason": "High-priority audio CRUD in V05. Identify source/range and prove reads before dependent edits; insertion alone is insufficient."
+    },
+    {
+      "id": "DP-1",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "DP-2",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "DP-3",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "DP-4",
+      "disposition": "Workflow dependency or later",
+      "reason": "Promote only sample-device/drum-pad operations needed by V06. Broader container and slot types remain low priority."
+    },
+    {
+      "id": "DP-5",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "DP-6",
+      "disposition": "Workflow dependency or later",
+      "reason": "W4-009/010: low priority unless easy or needed by a concrete variation. Promote only the required verb; preserve baseline proof limits."
+    },
+    {
+      "id": "MP-1",
+      "disposition": "Deprioritized file work",
+      "reason": "Defer new file-authoring infrastructure unless a selected workflow needs it. Keep accepted behavior and evidence."
+    },
+    {
+      "id": "MP-2",
+      "disposition": "Deprioritized file work",
+      "reason": "Defer new file-authoring infrastructure unless a selected workflow needs it. Keep accepted behavior and evidence."
+    },
+    {
+      "id": "MP-3",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "MP-4",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "MP-5",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "MP-6",
+      "disposition": "Deprioritized file work",
+      "reason": "Defer new file-authoring infrastructure unless a selected workflow needs it. Keep accepted behavior and evidence."
+    },
+    {
+      "id": "MP-7",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "MP-8",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "MP-9",
+      "disposition": "Live route assessment",
+      "reason": "V06: sample source CRUD/retrieval for Samplers on drum pads using externally sliced hits. Advanced multisample/wavetable state is optional."
+    },
+    {
+      "id": "MP-10",
+      "disposition": "Live route assessment",
+      "reason": "High-priority live mapping/modulation assessment in V08/09 and R04. Inspect external setters and prove each selected route; retain accepted file behavior until replaced."
+    },
+    {
+      "id": "GI-1",
+      "disposition": "Existing Grid owner",
+      "reason": "High-priority Grid construction in V10/11, through Phase 11 ownership and admitted scope. 11a remains its first implementation session. Wider scope needs a useful result and bounded proof."
+    },
+    {
+      "id": "GI-2",
+      "disposition": "Existing Grid owner",
+      "reason": "High-priority Grid construction in V10/11, through Phase 11 ownership and admitted scope. 11a remains its first implementation session. Wider scope needs a useful result and bounded proof."
+    },
+    {
+      "id": "GI-3",
+      "disposition": "Deprioritized file work",
+      "reason": "Defer new file-authoring infrastructure unless a selected workflow needs it. Keep accepted behavior and evidence."
+    },
+    {
+      "id": "GI-4",
+      "disposition": "Live route assessment",
+      "reason": "Keep the desired live capability in scope. Inspect a bounded live route before expanding its file implementation. No live replacement is proved here."
+    },
+    {
+      "id": "GI-5",
+      "disposition": "Later research",
+      "reason": "No concrete near-term task was named for this broad research scope. Keep the limits and source leads; select a bounded part only when a workflow needs it."
+    },
+    {
+      "id": "GI-6",
+      "disposition": "Later research",
+      "reason": "No concrete near-term task was named for this broad research scope. Keep the limits and source leads; select a bounded part only when a workflow needs it."
+    },
+    {
+      "id": "MA-1",
+      "disposition": "Split library and host",
+      "reason": "External library search belongs outside the host product. Bitwig browser discovery remains a separate host need under DP-5."
+    },
+    {
+      "id": "MA-2",
+      "disposition": "Host scope",
+      "reason": "V05/06 require audio clips and device samples. Split insertion from existing-state reads and edits; add missing row/verb requirements in W4-D."
+    },
+    {
+      "id": "MA-3",
+      "disposition": "Host scope",
+      "reason": "V07/R03: quick inaudible post-device/pre-fader readback from an existing clip, full span or a measure/two. Historical master capture does not prove this. Operator final export remains the default."
+    },
+    {
+      "id": "MA-4",
+      "disposition": "External analysis",
+      "reason": "Place analysis outside supported Ghostnote scope. Existing code and the 8i17 survey remain until a selected migration or archival session."
+    },
+    {
+      "id": "MA-5",
+      "disposition": "External analysis",
+      "reason": "Place analysis outside supported Ghostnote scope. Existing code and the 8i17 survey remain until a selected migration or archival session."
+    },
+    {
+      "id": "MA-6",
+      "disposition": "External analysis",
+      "reason": "Move provider work outside supported Ghostnote scope. Preserve 8i17 and its unaided-agent baseline; reconcile its owner in W4-D."
+    },
+    {
+      "id": "MA-7",
+      "disposition": "External analysis",
+      "reason": "Place analysis outside supported Ghostnote scope. Existing code and the 8i17 survey remain until a selected migration or archival session."
+    },
+    {
+      "id": "MA-8",
+      "disposition": "Later platform work",
+      "reason": "W4-011: later backlog direction. Preserve existing owners and required checks; no broad platform expansion gates the creative path. HTTP remains intent only."
+    },
+    {
+      "id": "DL-1",
+      "disposition": "Early release slice",
+      "reason": "W4-015: prepare a modest product/format release after a few useful cases. Select only the relevant artifact and supported-version checks; retain existing owners. No publication now."
+    },
+    {
+      "id": "DL-2",
+      "disposition": "Later platform work",
+      "reason": "W4-011: later backlog direction. Preserve existing owners and required checks; no broad platform expansion gates the creative path. HTTP remains intent only."
+    },
+    {
+      "id": "DL-3",
+      "disposition": "Early release slice",
+      "reason": "W4-015: prepare a modest product/format release after a few useful cases. Select only the relevant artifact and supported-version checks; retain existing owners. No publication now."
+    },
+    {
+      "id": "DL-4",
+      "disposition": "Maintenance triage",
+      "reason": "C01 confirms that stable-v1 is obsolete, migrates shared normal-tool dependencies, then removes old-only machinery. Preserve historical evidence and host-trap tests."
+    },
+    {
+      "id": "DL-5",
+      "disposition": "Early release slice",
+      "reason": "W4-015: prepare a modest product/format release after a few useful cases. Select only the relevant artifact and supported-version checks; retain existing owners. No publication now."
+    },
+    {
+      "id": "DL-6",
+      "disposition": "Complete baseline",
+      "reason": "Wave 3 completed the reference correction. No new implementation work is needed for that correction."
+    },
+    {
+      "id": "DL-7",
+      "disposition": "Later platform work",
+      "reason": "W4-011: later backlog direction. Preserve existing owners and required checks; no broad platform expansion gates the creative path. HTTP remains intent only."
+    },
+    {
+      "id": "DL-8",
+      "disposition": "Later platform work",
+      "reason": "W4-011: later backlog direction. Preserve existing owners and required checks; no broad platform expansion gates the creative path. HTTP remains intent only."
+    },
+    {
+      "id": "DL-9",
+      "disposition": "Early release slice",
+      "reason": "W4-015: prepare a modest product/format release after a few useful cases. Select only the relevant artifact and supported-version checks; retain existing owners. No publication now."
+    }
+  ]
+}

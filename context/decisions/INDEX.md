@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-23
+updated: 2026-10-24
 ---
 
 # Decision index
@@ -30,7 +30,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D16 | The executor: write-set, stash, revert **[SETTLED 2026-07-26, PHASE-1 session 1]** | [open](d16-the-executor-write-set-stash-revert-settled-2026-07-26-phase-1-s.md) |
 | D17 | Take store retired; project-native scoped takes and stash survive **[REVISED 2026-08-14]** | [open](d17-the-take-store-persistence-branching-partial-revert-settled-2026.md) |
 | D18 | Layer chains are composable structure, not managed device alternates **[REVISED 2026-09-25]** | [open](d18-branching-the-hybrid-model-at-l3-open-settled-2026-08-06-by-the-.md) |
-| D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
+| D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07; BLANKET REVERSAL OBLIGATION SUPERSEDED BY D54 2026-10-24]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
 | D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
 | D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
 | D22 | Non-native plug-in preset loading is out of scope **[SETTLED 2026-09-12]** | [open](d22-non-native-plugin-preset-loading-is-out-of-scope.md) |
@@ -65,6 +65,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D51 | Document files keep large documents out of the conversation: `documentPath` on the document writers, `documentOutputPath` on the document readers, content-detected encoding, `.gndoc` and `.gndoc.json` by convention, no added host call **[SETTLED 2026-10-15]** | [open](d51-document-file-paths.md) |
 | D52 | Grid upgrade admission: offline structural resolution stays required; complete offline bounded admission is replaced by a body-change report, bounded traces of changed bodies, runtime entry guards, and the consent-gated doctor with timing **[SETTLED 2026-10-22]** | [open](d52-grid-upgrade-admission-policy.md) |
 | D53 | Operator consent uses ordinary approval for a stated scope; driver tokens stay internal, and the actual reply is preserved **[SETTLED 2026-10-23]** | [open](d53-ordinary-operator-consent.md) |
+| D54 | Requested edits do not require Ghostnote reversal; simplify recovery machinery when useful, while preserving correct effects and truthful results **[SETTLED 2026-10-24]** | [open](d54-recovery-is-not-a-prerequisite-for-requested-edits.md) |
 
 ## Phase 4 closeout audit
 
