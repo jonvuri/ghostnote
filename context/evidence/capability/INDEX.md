@@ -1,50 +1,33 @@
 ---
 title: Capability index
 kind: index
-state: active
-updated: 2026-10-19
+updated: 2026-10-25
 scope: current Bitwig host-API capability, organized by subject
 ---
 
 # Capability index
 
-This axis holds **current** capability facts, organized by subject. Read it first
-when you must find out what the Bitwig host API can do, and how.
+These subject pages summarize current host capability findings. Use the
+relevant page to find evidence without reading each experiment in sequence.
+Dated [experiments](../INDEX.md) retain what each run measured;
+[format references](../format/BWFORMAT_SPEC.md) summarize byte-format findings.
 
-## How this axis differs from the other two evidence axes
+## Updating a finding
 
-| Axis | Organization | Prose |
-|---|---|---|
-| [`evidence/experiments/`](../INDEX.md) | one file per dated run | **frozen** |
-| [`evidence/format/`](../format/BWFORMAT_SPEC.md) | byte-format subject pages | rewritten in place |
-| `evidence/capability/` (this axis) | host-API subject pages | rewritten in place |
+Update a page when evidence changes its useful interpretation. Cite the source
+and state what changed. Keep the dated experiment intact. A separate page or
+update is useful when later work needs the finding; each measurement does not
+need its own capability update.
 
-An experiment file is a record of what one run measured on one day. It stays as
-it was written. A capability page is the **current reading** of every run that
-touched a subject. When a new measurement supersedes an older reading, you
-rewrite the capability page and you leave the experiment file alone.
+Distinguish measured facts, inferences, and unknowns. Existing `[K]`, `[I]`, and
+`[U]` tags express that distinction; clear prose can do the same. Give unprobed
+observations an observer and date, and state the unresolved question. Name a
+new probe when it is needed for selected work. Keep applicable host versions
+and limits visible.
 
-`evidence/format/` proved this shape for the byte-format domain. This axis is
-its host-API sibling and uses the same `[K]`/`[I]`/`[U]` tags.
-
-## The four rules
-
-1. **Every claim cites something.** Each claim carries `[K]` known, `[I]`
-   inferred or `[U]` unknown, and gives its E-number, or names its observer and
-   the date. A claim that cites nothing is not admissible.
-2. **A page is rewritten in place when it is superseded.** The page also records
-   what it superseded and why. This axis is the one place in the tree where
-   prose is not frozen. That is its purpose.
-3. **Experiment files stay frozen.** A capability page never edits an E-file. It
-   supersedes the *reading* of that file and links to it.
-4. **An observed fact with no probe is admissible at `[I]`.** Attribute it, date
-   it, and name the probe that would raise it to `[K]`.
-
-Review enforces these rules. `check.rb` does not: it validates frontmatter and
-links only.
-
-⚠ Do not create a page with nothing measured behind it. An empty page is a claim
-that the subject is understood.
+A finding that conflicts with a design decision needs an explicit resolution
+under the current policy. This can be part of the implementation task. A
+capability summary does not silently change the decision or the public contract.
 
 ## Pages
 
@@ -60,7 +43,6 @@ that the subject is understood.
 
 ## Related
 
-- [Decision index](../../decisions/INDEX.md) — settled design. ⚠ If a capability
-  page and a D-file disagree, that is a decision review. It is not a page edit.
+- [Decision index](../../decisions/INDEX.md) — settled design.
 - [Evidence index](../INDEX.md) — the dated experiment records these pages read.
 - [Project context](../../PROJECT.md) — architecture and stable constraints.

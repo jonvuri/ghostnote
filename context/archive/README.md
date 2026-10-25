@@ -10,6 +10,9 @@ updated: 2026-10-19
 These documents preserve project history and original reasoning. They are not
 current instructions. Start from [context/README.md](../README.md) for active work.
 
+- [Performance ledger before DIET](performance-ledger-2026-10-24.md): retained
+  cost models, research results, and session history.
+
 - [Phase 8 dogfood](outcomes/PHASE-8-DOGFOOD.md): results, fixes, sessions,
   transcripts, and the end of project tracking.
 

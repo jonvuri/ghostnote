@@ -9,9 +9,9 @@ evidence: E1, E5, E14, E15, E16r, E16u, E22, E50; D6, D7, D20
 
 # Banks
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number or names its observer and date. Read the four
-> rules in [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 A bank is a fixed-size window onto a larger project. It is a **hard resource
 budget**, not a tuning preference, and the failure modes are silent. This page is

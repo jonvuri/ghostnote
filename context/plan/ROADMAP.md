@@ -1,14 +1,16 @@
 ---
 title: ghostnote roadmap
 kind: plan
-state: active
-updated: 2026-10-24
+updated: 2026-10-25
 ---
 
 # Roadmap
 
 Planning now runs from the [backlog](../BACKLOG.md); briefs live in
 [`work/`](../work/). The phase table below is the history of the phase model.
+Old session instructions describe their original work; they do not add
+requirements to current items. Read linked plans when a selected item needs
+their technical detail.
 
 | Phase | State | Purpose |
 |---|---|---|
@@ -17,11 +19,11 @@ Planning now runs from the [backlog](../BACKLOG.md); briefs live in
 | [2 — clip surface](phase-2/README.md) | done | Musical clip vocabulary, public surface, long-clip support, dogfood, and final proof |
 | [3 — session view](phase-3/README.md) | deferred | Phase 2 found no evidence to run it now |
 | [4 — sound design](phase-4/README.md) | done | Device and parameter surface |
-| [5 — authoring](phase-5/README.md) | active | Accepted public result; generalized closeout remains while the new direction starts |
-| [First dogfood loop](dogfooding/README.md) | deferred | Historical results remain; Phase 7 owns the next dogfood loop |
+| [5 — authoring](phase-5/README.md) | historical | Accepted public result; any useful generalized closeout is backlog item B16 |
+| [First dogfood loop](dogfooding/README.md) | historical | Results retained; selected trials can use the [reusable runbook](phase-8/8i-automated-dogfood-runbook.md) |
 | [6 — music workstation exploration](phase-6/README.md) | done | Contracts and verification costs audited; Phase 7 implementation followed |
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
-| [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) remains a planned survey |
+| [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) is a historical survey; the backlog assigns musical analysis to external consumers |
 | [9 — overlap investigation](phase-9/README.md) | done | 9a proves native Grid CRUD on the fixed fixture (E299). 9b closes breadth (E310), the two-build doctor (E316, E342), the admission gate and upgrade tool (E343), and the build-out plan. D52 defines guarded upgrade admission; D53 accepts ordinary operator consent. E330 accepts the 6.1.4 normal-product update audit |
 | [10 — breadth and release](phase-10/README.md) | dissolved | Its release work is backlog item REL; its breadth candidates are individual backlog items |
 | [11 — Grid authoring](phase-11/README.md) | dissolved | Backlog items V10 and V11; the design detail is in the [V10 brief](../work/v10-grid-instrument.md). Grid writes record no inverse (W4-024) |
@@ -40,4 +42,4 @@ of the capability axis needs no standing plan: the rules are in
 [capability index](../evidence/capability/INDEX.md).
 
 The [current execution state](../NOW.md) owns the immediate next step. Historical
-phase plans are retained under `archive/plans/`.
+phase plans remain here and under `archive/plans/`; their links stay valid.

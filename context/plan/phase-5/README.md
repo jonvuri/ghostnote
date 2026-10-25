@@ -1,9 +1,9 @@
 ---
 title: Phase 5 — Structure & modulation authoring (the differentiator)
 kind: plan
-state: active
-status: Final ColourCopy dogfood accepted. Closeout remains while Phase 6 exploration proceeds.
-updated: 2026-09-25
+state: historical
+status: Historical phase. The backlog owns the remaining closeout as B16.
+updated: 2026-10-25
 parent: ../ROADMAP.md
 prev: ../phase-4/README.md
 next: ../phase-6/README.md
@@ -11,6 +11,12 @@ evidence: DECISIONS D1/D2/D3, FINDINGS E10–E13, E90–E92, BWMOD_DESIGN.md, BW
 ---
 
 # Phase 5 — Structure & modulation authoring
+
+This is the historical plan and result summary. The [backlog](../../BACKLOG.md)
+owns any remaining closeout as B16, only where a selected route needs it.
+The procedure and reversal requirements below describe the original phase;
+[D54](../../decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md)
+governs current recovery work.
 
 > **Purpose.** The capability nothing else has: the agent **constructs modulator
 > topology** — add, replace, retarget, delete, any type, any category, arbitrary

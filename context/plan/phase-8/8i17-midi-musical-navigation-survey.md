@@ -1,14 +1,18 @@
 ---
 title: Phase 8i17 — MIDI musical navigation provider survey
 kind: plan
-state: planned
-status: Reopen the provider survey for harmonic, rhythmic, and arrangement navigation.
-updated: 2026-10-15
+state: historical
+status: Retained survey design. The backlog assigns musical analysis to external consumers.
+updated: 2026-10-25
 parent: README.md
 prev: 8i16-midi-file-conversion.md
 ---
 
 # Phase 8i17 — MIDI musical navigation provider survey
+
+Retained as a historical survey and reference for the operator baselines.
+The [backlog](../../BACKLOG.md) assigns musical analysis to external
+consumers (MA-4 through MA-7); this procedure is not a queued session.
 
 ## Purpose
 

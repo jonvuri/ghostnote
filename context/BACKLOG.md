@@ -1,32 +1,31 @@
 ---
 title: Backlog
 kind: backlog
-state: active
-updated: 2026-10-24
+updated: 2026-10-25
 ---
 
 # Backlog
 
 Priority-ordered work for Ghostnote. Order within a band is the priority.
-Take the top `queued` item that is not blocked, write or refine its brief in
-[`work/`](work/), do the work, record the result in the same brief, and mark
-the item `done`. Reorder, split, or drop items freely; keep IDs stable and
-give a new item the next free ID in its family (V, R, P, C, I, or B for
-anything else).
+Use the requested item, or the top `next`/`queued` item that is not blocked.
+Write or refine a brief in [`work/`](work/) when scope or a handoff needs it;
+use the [optional template](work/TEMPLATE.md) if helpful.
+Record useful results once and mark completed items `done`. Reorder, split,
+or drop items as needed; keep IDs stable and give new items the next free ID
+in their family (V, R, P, C, I, or B for other work).
 
 Statuses: `next`, `queued`, `blocked`, `later`, `external`, `done`.
 Source links point at the wave-4 [decision log](plan/overlap/wave-4/decisions.md),
 the [workflow sequence](plan/overlap/wave-4/workflow-sequence.md), the
 [work-session briefs](plan/overlap/wave-4/work-sessions.md), and the wave-3
 [work records](plan/overlap/wave-3/report.html). Those documents are source
-material, not active plans. The phase model (`plan/phase-*`) is history.
+material for the selected items. The phase model (`plan/phase-*`) is history.
 
 ## P0 — now
 
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
-| DIET | Instruction diet: cut AGENTS.md, context/README.md, the E-record default, frontmatter state, and the 61 unfinished plan files; keep host-protecting rules. Reviewed by another agent. | process | next | [brief](work/instruction-diet.md) |
-| V01 | Build a useful MIDI sketch: two sections from supplied material with existing tools; resolve one device or preset by name. | song | queued | [V01](plan/overlap/wave-4/workflow-sequence.md#main-path); W4-025; CA-1, DP-5 |
+| V01 | Build a useful MIDI sketch: two sections from supplied material with existing tools; resolve one device or preset by name. | song | next | [V01](plan/overlap/wave-4/workflow-sequence.md#main-path); W4-025; CA-1, DP-5 |
 | R05 | Browser and catalog name resolution: bounded re-probe of popup-browser discovery with a wait and filter reset; fallback is the offline catalog and explicit IDs. | song, research | queued | [R05](plan/overlap/wave-4/workflow-sequence.md#r05--browser-and-catalog-name-resolution); E101, D22 |
 | R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
@@ -105,5 +104,6 @@ when a workflow needs it.
 
 | ID | Item | Closed | Record |
 |---|---|---|---|
+| DIET | Reduced instruction load and inherited prescriptions; retained useful evidence and host procedures. Independently reviewed. | 2026-10-25 | [result](work/instruction-diet.md) |
 | W4 | Wave 4 vision and scope planning; D54; 25 decisions. | 2026-10-24 | [decision log](plan/overlap/wave-4/decisions.md) |
 | DL-6 | Correct contradicted working format references. | 2026-10-24 | wave 3 |

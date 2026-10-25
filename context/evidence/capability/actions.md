@@ -9,9 +9,9 @@ evidence: E6, E16j, E16k, E17, E22; D13, D18, D20
 
 # Named actions
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number or names its observer and date. Read the four
-> rules in [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 ## Current statement
 

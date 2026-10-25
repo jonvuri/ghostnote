@@ -9,9 +9,9 @@ evidence: E2, E24, E41–E46, E51–E54, E116, E119, E130-E133, E263, E264; D8, 
 
 # Launcher clips
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number. Read the four rules in
-> [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 ## Current statement
 

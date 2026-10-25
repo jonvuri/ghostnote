@@ -9,9 +9,9 @@ evidence: E16l, E16n/o, E16p; reference/BitX
 
 # Host API
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number or names its observer and date. Read the four
-> rules in [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 This page holds two things: **how to read the API source**, and **mechanisms
 that exist and that ghostnote does not use**. Recording a lead is not adopting

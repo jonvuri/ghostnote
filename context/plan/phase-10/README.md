@@ -2,8 +2,8 @@
 title: Phase 10 — Breadth and release
 kind: plan
 state: historical
-status: Deferred from Phase 9. Phase 8 accepted the engine and publication candidates (E272); 10b retains the handoff.
-updated: 2026-10-24
+status: Historical phase. REL owns release work; C01 owns stable-v1 retirement.
+updated: 2026-10-25
 parent: ../ROADMAP.md
 prev: ../phase-9/README.md
 ---
@@ -13,6 +13,8 @@ prev: ../phase-9/README.md
 The phase model is retired. The release work is the REL item and the
 breadth candidates are individual items in the [backlog](../../BACKLOG.md).
 The session files 10a, 10b, and 10c remain as source material for REL.
+C01 owns `stable-v1` retirement. The original scope below supplies technical
+history; its ordering and completion requirements are retired.
 
 This is the former Phase 9 backlog, moved on 2026-10-18. Sessions 9a, 9b,
 and 9c are now 10a, 10b, and 10c. Historical evidence keeps its original
@@ -25,9 +27,8 @@ tools from missing capabilities and give source and proof requirements by
 feature area. Use them before selecting from the older candidate list below.
 The [static report](../overlap/wave-3/report.html) compares the candidates.
 [Wave 4](../overlap/wave-4/README.md) selected the direction; its
-[W4-D session](../overlap/wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap)
-reconciles the 10a/10b/10c owners with a lightweight release slice (W4-015).
-No candidate has been assigned to a new phase.
+[backlog](../../BACKLOG.md) replaced W4-D and assigns the lightweight
+release slice to REL (W4-015).
 
 ## Why it is structured as a bag
 

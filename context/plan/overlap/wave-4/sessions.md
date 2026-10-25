@@ -7,13 +7,11 @@ updated: 2026-10-24
 
 # Decision sessions
 
-These sessions produce a selected vision, a planned capability matrix, and
-an implementation roadmap. The [report](report.html) starts the discussion.
-Only planning is authorized. The [decision log](decisions.md) selects the
-outcome order: song, performable sound, then mix/capture. Per-capability
-implementation sessions remain to be selected.
-These are decision steps, not four required meetings or fixed research gates.
-Combine them in one conversation when the answers are available.
+These are historical wave-4 decision steps. The [report](report.html)
+and [decision log](decisions.md) retain their sources and outcomes. The
+[backlog](../../../BACKLOG.md) now selects implementation work and its order;
+it replaced the proposed W4-D matrix step. The prompts below describe the
+planning session, not current authorization or work that must be selected again.
 
 ## W4-A — Select a workflow and its result
 

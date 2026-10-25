@@ -2,14 +2,20 @@
 title: Phase 8 — Agent-native live engine
 kind: plan
 state: done
-status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 10b has the handoff. 8i17 is a separate planned survey under this phase.
-updated: 2026-10-19
+status: Complete. The 8i gate is closed (E272): every criterion is met or void, each Phase 8 interface has a verdict, and 10b has the handoff. 8i17 is a historical survey; the backlog assigns musical analysis to external consumers.
+updated: 2026-10-25
 parent: ../ROADMAP.md
 prev: ../phase-7/README.md
 next: ../phase-9/README.md
 ---
 
 # Phase 8 — Agent-native live engine
+
+This is the completed phase's design and result summary. The
+[backlog](../../BACKLOG.md) owns current work. Use this plan for technical
+history; its execution sequence and completion procedures are retired.
+The [dogfood runbook](8i-automated-dogfood-runbook.md) remains available for
+selected trials.
 
 ## Purpose
 
@@ -396,7 +402,8 @@ owns the migration details.
    remain at their existing paths as history. The reusable
    [runbook](8i-automated-dogfood-runbook.md) remains available for new trials.
    [8i17 — MIDI musical navigation survey](8i17-midi-musical-navigation-survey.md)
-   is a separate planned survey; E266 and E268 supply its operator baselines.
+   is a historical survey; E266 and E268 retain its operator baselines.
+   The backlog assigns musical analysis to external consumers.
 
 ## Cross-session rules
 

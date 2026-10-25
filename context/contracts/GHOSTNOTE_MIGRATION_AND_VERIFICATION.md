@@ -1,20 +1,37 @@
 ---
 title: Ghostnote Document 1.0 migration and verification
 kind: reference
-state: active
-updated: 2026-10-23
-scope: 8f3 target contract; implementation gates for 8g, 8h, 8i, and 10b
+updated: 2026-10-25
+scope: Document 1.0 migration reference and retained Phase 8 gates
 ---
 
 # Migration and verification
 
-This reference binds the [document specification](../../spec/ghostnote-document-v1/SPEC.md)
-to the [interface audit](../evidence/format/AGENT_NATIVE_INTERFACE_AUDIT.md).
-It defines the target for 8h. It does not change the current runtime, D9 encoder,
-checkpoint fidelity, stored records, or frozen benchmark files. Use the
-[host field binding](../../spec/ghostnote-document-v1/HOST-BINDING.md) and
-[identity and overlay lifecycle](../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md)
-for each field and identity rule.
+This reference records the Document 1.0 migration and its implemented
+boundaries. Use the [specification](../../spec/ghostnote-document-v1/SPEC.md),
+[host binding](../../spec/ghostnote-document-v1/HOST-BINDING.md), and
+[identity rules](../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md)
+for field semantics. [E272](../evidence/experiments/e272-8i-gate-close-out.md)
+records Phase 8 acceptance. Current tool counts are in [PROJECT](../PROJECT.md).
+
+## Current use
+
+[D54](../decisions/d54-recovery-is-not-a-prerequisite-for-requested-edits.md)
+supersedes D19's blanket reversal obligation and D16/D17 requirements to
+retain recovery machinery solely to satisfy that obligation. Other D16/D17
+requirements and existing public behavior remain until explicitly changed.
+The historical tables below describe migration choices and existing behavior.
+They do not require new capabilities to reproduce recovery machinery or repeat
+closed acceptance work.
+
+[P01](../plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost)
+assesses existing captures, checks, and recovery costs. Separate correct target
+and effect, collateral preservation, concurrency, and result evidence from
+recovery-only work. Shared reads can serve several checks; broad regression
+proof can stay outside each product call. Keep current public behavior until
+its implementation and contract change together. A proposed D15 amendment
+identifies the claim, retained evidence, and changed obligation. See the
+[current maintenance policy](../README.md#maintenance).
 
 ## Public read scope
 
@@ -40,6 +57,11 @@ preflight: `copy_launcher_clips` and `move_launcher_clips` return the
 occupancy of each slot that they read, also on a dry run and on a refusal.
 
 ## Risk and evidence consumers
+
+This table records the migration's verification and recovery design. Its
+capture and stash requirements describe existing routes, not a universal
+minimum for later tools. Apply the current-use policy above when changing a
+route; keep the evidence needed for correct effects and truthful results.
 
 All live writes validate inputs before a host call. Recheck target and generation
 at the mutation boundary. A source/content hash does not prove target identity,
@@ -268,10 +290,9 @@ reports the Grid admission gate; no profile has a Grid write tool yet.
 
 ## Decision amendments and gates
 
-The decision files now record the following target amendments. Apply their
-implementation gates before the corresponding 8h behavior change.
-The binding corpus can establish pure rules. Live permission, timing, target,
-readback, and reversal reductions still require the specified live evidence.
+The table records the Phase 8 amendments and acceptance gates. E272 closes
+that migration. Reuse its evidence for unchanged behavior. New changes need
+verification of their affected boundary; D54 replaces recovery-only gates.
 
 | Decision | Required amendment or retained boundary | Gate and evidence |
 |---|---|---|
@@ -281,13 +302,16 @@ readback, and reversal reductions still require the specified live evidence.
 | D9 | Retain current encoder units, chooser, measured binary/triplet family, duration quantization, waits, and create/property staging | Document normalization is explicit at acquisition/import. Codec conversion never quantizes. No encoder amendment is needed to serialize or write represented 1/512 values |
 | D15 | Retain independent evidence and validation before host calls | Every preflight is a fresh read (D32); nothing replaces independent post-write evidence |
 | D23 and D25 | Retain one normalized cell plane, explicit sub-cell collision boundary, exact rational overlays, and one semantic model | Do not add a second acquisition grid or promise publication/source losslessness |
-| D19 | Clarify no Ghostnote reversal ownership for reads, navigation, ephemeral effects, or UI actions | 8h result/ownership migration tests and 8i hybrid trials |
+| D19 (blanket reversal obligation superseded by D54) | Historical recovery policy; new capabilities need no inverse solely to satisfy D19 | E272 records the old migration. P01 assesses existing recovery machinery under D54 |
 
 Public edit naming remains an 8h surface implementation detail under D21's
 amended grain. It must retain separate destructive tool names. A portable clip
 inventory cannot authorize container creation or removal through a benign edit.
 
 ## Migration order and rollback
+
+The sequence below is retained migration history. C01 owns retirement of the
+old profile; REL owns release preparation. See the [backlog](../BACKLOG.md).
 
 1. Complete: 8g implemented the cache in shadow mode (E224). 8h3c replaced
    E131 with the cold reader (E230), and 8h3e removed the shadow cache (E233).
@@ -319,10 +343,11 @@ hashes, IDs, defaults, or overlays is permitted.
 
 The [candidate inventory](GHOSTNOTE_PUBLICATION_CANDIDATES.json) records exact
 paths, versions, byte hashes, dependencies, and redistribution status. It is a
-review inventory for [10b](../plan/phase-10/10b-compact-bar-publication-review.md),
-not a release manifest. [E272](../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
-adds the 8i live acceptance and the known limits. 10b chooses packaging,
-dependency notices, and public claims.
+dated review inventory for [REL](../BACKLOG.md), with the
+[former 10b brief](../plan/phase-10/10b-compact-bar-publication-review.md) as source
+material. It is not a current-tree integrity check or a release manifest. [E272](../evidence/experiments/e272-8i-gate-close-out.md#phase-9-handoff)
+adds the 8i live acceptance and known limits. REL selects packaging,
+dependency notices, and public claims; the table retains the old 10b labels.
 
 | Candidate family | Version/hash authority | Dependencies and remaining gate |
 |---|---|---|
@@ -345,7 +370,9 @@ Old groove records do not separate acquisition displacement from intentional
 timing. Resolve their exact source before migration; otherwise use unresolved
 residuals. This rule uses existing evidence and avoids a new live experiment.
 
-Check the publication inventory with
-`python3 -B context/contracts/check-publication-candidates.py` from the repository
-root. After a reviewed source change, use `--write` to update its byte identities.
-The inventory does not approve publication or third-party redistribution.
+At a REL candidate review, run
+`python3 -B context/contracts/check-publication-candidates.py` to compare the
+candidate inventory with the current tree. Review the changes, then use
+`--write` and rerun without it to record that candidate. Routine source edits
+can differ from this dated snapshot. The inventory does not approve publication
+or third-party redistribution.

@@ -1,8 +1,7 @@
 ---
 title: ghostnote project context
 kind: project
-state: active
-updated: 2026-10-23
+updated: 2026-10-25
 ---
 
 # ghostnote
@@ -19,12 +18,13 @@ surface without relying on the user's UI selection.
   server owns its bridge connection.
 - Addressing uses stable identity where Bitwig exposes it and bounded positional
   addressing for clips/scenes, which have no durable identity.
-- Writes pass through one executor and stash boundary with readback verification,
-  concurrency reporting, and fidelity-aware reversal.
+- Existing writes use the executor and stash with readback verification,
+  concurrency reporting, and fidelity-aware reversal. D54 makes custom recovery
+  optional for new capabilities; [P01](BACKLOG.md) assesses existing costs.
 - The default tool profile is `agent-native-v1` (D40): 45 tools on one
   address, health, result, and error vocabulary, descriptions v53. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
-  planned Phase 10 removal. `check_grid_support` reports the Grid admission
+  [C01 removal](BACKLOG.md). `check_grid_support` reports the Grid admission
   gate (D52, E343); the product refuses native Grid writes without an
   accepted doctor record for the jar fingerprint.
 - Launcher clips are read and edited as Ghostnote Document 1.0 documents:

@@ -83,11 +83,12 @@ Build complete creative workflows in small steps. Keep broad interaction as
 the long-term goal. Do not interpret "comprehensive" as a requirement to
 finish every capability before the system is useful.
 
-This vision wording remains proposed. The user subsequently selected song
+The vision wording above was a proposal. The user subsequently selected song
 construction first, performable sounds second, and mixing/capture third.
 Practical variations should exercise most of the feature matrix. The
 [decision log](decisions.md) records these choices and the future HTTP intent.
-Per-capability implementation sessions are not yet selected.
+The [backlog](../../../BACKLOG.md) now selects implementation work and its
+order. Detailed choices for each item remain with its implementation.
 
 ## Scope distinctions
 

@@ -28,6 +28,11 @@ shows it is a real cost. This is not permission to expand the entire audit.
 
 ## P01 — Edit-path performance and recovery cost
 
+DIET updates the documentation that prescribes checks; P01 examines their
+runtime implementation. Apply the [current maintenance policy](../../../README.md#maintenance)
+when an inherited plan prescribes a capture or recovery step. Retain the
+required outcomes and assess whether the mechanism earns its cost.
+
 **Inputs:** [T1/T2/T6](simplification.md), D54, D15, D38, D49, D52, the
 [performance ledger](../../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), and
 current executor, adapter, write-set, stash, and surface code. Reuse E247,

@@ -1,14 +1,17 @@
 ---
 title: Workstation interface inventory
 kind: reference
-state: active
-updated: 2026-10-23
+updated: 2026-10-25
 scope: Formats that cross the implemented Phase 7 boundary
 ---
 
 # Workstation interface inventory
 
-## 8i closeout status (2026-10-16, E272)
+Current tool count and description version are in [PROJECT](../../PROJECT.md).
+The dated sections below retain interface history. Their phase gates and
+recovery prescriptions are subject to [current policy](../../README.md#maintenance).
+
+## 8i closeout with 9b.7 updates (2026-10-23, E272/E343)
 
 The [8i close-out](../experiments/e272-8i-gate-close-out.md#interface-verdicts)
 gives each Phase 8 interface a verdict; the audit dispositions of I01 to
@@ -17,8 +20,8 @@ cohort `ghostnote-description-v53` (8i7 to 8i20: the track mixer, the
 clip copy to any slot, the revert report, the MIDI file tools, and the
 document file paths; 9b.7: `check_grid_support`, the Grid admission gate
 of D52, E343); I03 has 92 methods (`8be1975eaa99d78f`; the probe
-build 111, `9b339de4e9bb08da`). `stable-v1` (I07, I08, I21) retires in a
-planned Phase 10 session (D40).
+build 111, `9b339de4e9bb08da`). `stable-v1` (I07, I08, I21) retires in
+[C01](../../BACKLOG.md) (D40).
 
 ## 8h closeout status (2026-10-08, E247)
 

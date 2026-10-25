@@ -9,9 +9,9 @@ evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280,
 
 # Devices
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number or names its observer and date. Read the four
-> rules in [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 The public controller API has no device-instance ID. It identifies device
 *types* through UUIDs and locates instances by chain position [K,

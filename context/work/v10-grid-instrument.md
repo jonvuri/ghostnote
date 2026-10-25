@@ -1,16 +1,15 @@
 ---
 title: V10 — Grid instrument (former Phase 11 design)
 kind: brief
-state: queued
-updated: 2026-10-24
+updated: 2026-10-25
 ---
 # V10 — Construct a useful Grid instrument (Grid authoring design)
 
 **Item:** [V10](../BACKLOG.md), band P3, with [V11](../BACKLOG.md) for the
 wave-two extensions. This brief carries the design detail of the former
-Phase 11 plan so it is not lost when the phase model is retired. Its sessions
-11a to 11e are the sub-items of V10. The wording below is the former plan,
-adjusted for D54 and W4-024; it is not yet trimmed to the plain brief register.
+Phase 11 plan so it is not lost when the phase model is retired. Sessions
+11a to 11e are the sub-items of V10. The design preserves the research
+results and identifies the checks needed for product use.
 
 ## Purpose
 
@@ -23,7 +22,7 @@ This is the build-out plan that
 [9b step 3](../plan/phase-9/9b-grid-breadth-discovery-and-build-out.md#step-3--build-out-planning)
 asked for. The operator settled four points in that session:
 
-1. The build-out is a new phase, not 9c.
+1. The build-out is separate from 9b; it is now V10 and V11.
 2. **Wave one adds no obfuscated symbol.** Every native member it uses is one
    of the 76 roles that the doctor accepted on 6.0.6 and 6.1.4. Later
    symbols are justified by a named verb and batched into one new doctor
@@ -36,7 +35,9 @@ asked for. The operator settled four points in that session:
 
 ## Sources
 
-Read these before any session:
+Use the sources for the selected sub-item. The inputs under each session
+identify its starting evidence; consult the references below when its design
+or result needs them.
 
 - [E299](../evidence/experiments/e299-grid-spike-close-out.md): the 9a
   verbs and their limits.
@@ -53,8 +54,8 @@ Read these before any session:
   `DOCTOR_ROLES` in `brain/src/grid/admission.ts`: the admitted symbol set.
 - [Native attachment design](../plan/phase-9/9a-native-attachment-design.md): the
   layout pass model and the failure-state table.
-- [Performance ledger](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation):
-  the cost model of this phase.
+- [Performance ledger](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#grid-authoring-planning-reference):
+  the provisional Grid authoring budget.
 - [D15](../decisions/d15-verification-discipline-settled-2026-07-25.md),
   [D21](../decisions/d21-musical-patch-and-public-tool-grain.md),
   [D44](../decisions/d44-long-writes-are-optimized-then-bounded.md),
@@ -71,7 +72,7 @@ Read these before any session:
 | Set a boolean value | 1 | E308, doctor boolean case | None beyond the product guards |
 | Connect, disconnect, retarget a cable | 1 | E279, E280, doctor cable case | Port validation on arbitrary modules |
 | Add a module by catalog type | 1 | E283, E289 factory and attachment; E310 Gates factory | Generalized layout admission; one live check on a larger patch |
-| Delete a module | 1 | E281 (incoming cable removed) | Outgoing consumers: Ghostnote disconnects them first; one probe |
+| Delete a module | 1 | E281 (incoming cable removed) | Probe outgoing-consumer cleanup and select the product path |
 | Add and remove a Grid-internal mapping | 1 | E308, doctor mapping case (remove and restore) | One probe on a source and target pair with no prior mapping |
 | Change a mapping amount | 1, as remove and re-add | Same | Public amount scale from the domain extent |
 | Relocate an existing module | 2 | Position getters only | New setter and edit symbols; doctor version 2 |
@@ -108,7 +109,7 @@ need one probe each because their I/O module sets differ.
   the fixture's child index. A device without that container refuses.
 - A module is identified by its loaded module UUID from the read. These
   UUIDs are document-scoped and change on reload (E276). A write validates
-  the UUID against a fresh pre-command capture. A module added in the same
+  the UUID against fresh host state. A module added in the same
   call is referenced by a caller-supplied label.
 - Module type comes from the catalog (65 UUIDs, 89 observed aliases in
   [`catalog-updated.json`](../evidence/data/phase9b-focused/catalog-updated.json)).
@@ -131,14 +132,14 @@ need one probe each because their I/O module sets differ.
 
 - E281 proves that the native delete removes the incoming cable of the
   deleted module. It does not prove cleanup of cables into other modules.
-- The product disconnects each outgoing consumer with the proved null-source
-  setter before the native delete. Each disconnect has its own readback. The
-  delete then runs on a module with no outgoing cable. The report lists the
-  disconnected consumers.
-- 11c runs one probe that deletes a module with an outgoing cable natively on
-  a scratch track and records what the host does. The explicit pre-disconnect
-  stays the product rule either way; the probe only decides whether a
-  surviving dangling edge is a possible state to refuse on.
+- 11c probes native deletion with an outgoing cable on a scratch track.
+  Use the result to select consumer cleanup. Explicit disconnection with
+  the proved null-source setter is the proposed path until that result is
+  available. If native deletion cleans consumers correctly, assess whether
+  a separate disconnect adds a needed guarantee before retaining it.
+- The product readback checks the deleted module and affected consumers.
+  Report completed and uncertain effects if cleanup or deletion fails.
+  Deletion must leave no dangling cable or change unrelated connections.
 
 ### Mapping and amount
 
@@ -159,8 +160,14 @@ need one probe each because their I/O module sets differ.
   every native command. A timeout latches uncertainty and stops writes; it
   never converts to success. The E284 failure-state table applies to
   attachment. Never dispose a detached object after insertion was attempted.
-- Every command has a pre-command capture and a paired independent readback
-  (D15). A writer receipt is not readback.
+- Validate targets against fresh state and verify write results independently
+  under D15. A writer receipt is not readback. Per-command captures and
+  paired readbacks are a proposed implementation, not a fixed call count.
+  Select their scope and frequency from the claims and host failure modes.
+  Shared or narrower reads must retain freshness, failure attribution, and
+  evidence for the requested effect and unrelated state. A change to D15
+  itself must identify the claim, retained evidence, and amended obligation.
+  Do not add recovery-only captures solely to satisfy superseded D19.
 - Grid writes record no inverse and offer no `revert_change` path (D54,
   W4-024). The change record is an execution receipt: the operations
   requested, the operations completed, and their independent readback.
@@ -206,21 +213,20 @@ research drivers keep working.
 
 ## Cost model
 
-The [ledger section](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#phase-11-grid-authoring--model-before-implementation)
-holds the model. In short: a read is one mark and one bounded capture
-(about 50 ms wire, under 15 ms document on a 31-module patch); a write
-operation is one pre-command capture, one command, and two readbacks, so a
-one-operation call is about seven wire calls and under 300 ms, and the
-16-operation maximum stays under 4 s. Each session measures its path and
-records the numbers.
+The [ledger reference](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#grid-authoring-planning-reference)
+holds the provisional budget. The proposed read uses one mark and one bounded
+capture. The proposed write uses a pre-command capture, a command, and paired
+readbacks per operation. These are planning assumptions; implementation can
+share or narrow reads under the verification rules above. Measure changed
+paths, update their call budgets, and compare with relevant research results.
 
 ## Sessions
 
-Each session follows the implementation-session rules in
-[AGENTS.md](../../AGENTS.md). Live work uses muted scratch tracks in the
-operator's chosen project and leaves `grid-probe` unchanged. Each session
-ends with an E record, the ledger rows it measured, and clean preserved
-state.
+Live work follows [AGENTS.md](../../AGENTS.md), uses muted scratch tracks in
+the operator's chosen project, and leaves `grid-probe` unchanged. Record
+results here and update measured ledger rows. Create a separate E record
+when a durable result needs citation or reproduction. Remove scratch objects
+and check the preserved state after the live check.
 
 ### 11a — Product Grid read and catalog
 
@@ -249,10 +255,11 @@ Inputs: E277, E279, E280, E308, the doctor value, boolean, and cable cases,
 `GridFixtureValue`, `GridFixtureCable`, `GridBreadthCommands`.
 
 1. Add `grid.bind`, `grid.apply`, and `grid.release` with the write lock,
-   latch, pre-command capture, and paired readback per operation.
+   latch, fresh target validation, and independent result readback. Select
+   capture scope and frequency under the verification rules above.
 2. Add `edit_grid_modules` with `set_value`, `connect`, and `disconnect`.
    `connect` to an input with a source is a retarget. Validate domains,
-   ports, and member identity against the pre-command capture.
+   ports, and member identity against fresh host state.
 3. Execution receipts without inverse operations; `revert_change` and
    `check_revert` refuse Grid changes with a plain reason; `readbackStatusOf`
    cases.
@@ -272,7 +279,7 @@ Inputs: E281, E283, E289, E310, the attachment design, `GridDetachedFactory`,
 1. Generalize layout admission to the admitted member count and the
    placement rule above. Keep checked arithmetic and the rectangle bounds.
 2. `add_module` by catalog type with optional position, name, and label;
-   `delete_module` with explicit consumer disconnects.
+   `delete_module` with the consumer cleanup selected by the probe.
 3. Probes before product live use: native delete with an outgoing cable;
    attachment on a 19-module patch with the predicted no-movement layout;
    a factory type other than Amplify from the stateless families.
@@ -300,8 +307,9 @@ round-trips through the public scale; descriptions state the unit.
 ### 11e — Acceptance, documentation, and cost
 
 1. Ledger rows for every tool path; a comparison with the research numbers.
-2. Capability record, PROJECT and interface tool counts, descriptions
-   artifact, migration contract.
+2. Update the tool descriptions and public artifact as tools change. Update
+   capability findings and contracts where behavior or measured limits change;
+   follow the [maintenance guidance](../README.md#maintenance).
 3. One end-to-end dogfood: from an empty Poly Grid, build and read back a
    playable patch of about ten modules with one mapping. An operator
    listening check is optional and uses the E296 style if run.
@@ -325,5 +333,5 @@ round-trips through the public scale; descriptions state the unit.
 
 Wave one exits when the three tools are on `agent-native-v1`, every path has
 a ledger row, the subset test against `DOCTOR_ROLES` passes, the dogfood
-patch is built and read back, and E records cover 11a through 11e. The
-wave-two items stay planned sessions with their probes named.
+patch is built and read back, and this brief records the accepted results
+and limits. Wave-two work is V11 in the backlog, with the probes above.

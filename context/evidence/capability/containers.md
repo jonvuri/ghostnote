@@ -9,9 +9,9 @@ evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71-E73; D6, D7, D18
 
 # Containers
 
-> **Provenance.** Each claim carries `[K]` known, `[I]` inferred or `[U]`
-> unknown, and cites its E-number or names its observer and date. Read the four
-> rules in [INDEX.md](INDEX.md) before you edit this page.
+> **Provenance.** Existing tags mean `[K]` known, `[I]` inferred, and `[U]`
+> unknown. See the [update guidance](INDEX.md#updating-a-finding) for source
+> attribution and changes to these findings.
 
 A container is a device that holds device chains. Bitwig has three kinds, and
 they differ in ways that decide the product.

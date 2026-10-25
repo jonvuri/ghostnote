@@ -1,21 +1,20 @@
 ---
 title: Current state
 kind: status
-state: active
-updated: 2026-10-24
+updated: 2026-10-25
 ---
 
 ## Now
 
-Work is pulled from the [backlog](BACKLOG.md). The next item is
-[DIET](work/instruction-diet.md): cut the instruction and artifact load,
-then hand the result to another agent for review. After it, V01, R05, R01,
-R02, and the P01 offline audit are the P0 items.
+The next item in the [backlog](BACKLOG.md) is V01: build a useful MIDI
+sketch with supplied material and existing tools. R05, R01, R02, and the
+P01 offline audit follow in P0.
 
-The phase model is retired. Phases 10 and 11 are dissolved into REL and
-V10/V11; the Phase 11 design detail is in the [V10 brief](work/v10-grid-instrument.md).
-Wave 4 is complete: 25 decisions, D54, and the 13-case working sequence are
-the source material the backlog links to. No runtime code changed in wave 4.
+[DIET](work/instruction-diet.md) is complete and independently reviewed.
+Use the shorter [context guide](README.md) for relevant reading. D54 governs
+inherited prescriptions; P01 examines runtime checks and recovery costs.
+The [V10 brief](work/v10-grid-instrument.md) retains the Grid design and
+identifies proposed mechanisms for assessment during implementation.
 
 ## Live state
 
