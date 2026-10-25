@@ -260,6 +260,29 @@ tasks.register('gridReadTest', JavaExec) {
 
 tasks.named('check') { dependsOn 'gridReadTest' }
 
+tasks.register('browserDiscoveryTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.BrowserDiscoveryTest'
+}
+
+tasks.named('check') { dependsOn 'browserDiscoveryTest' }
+
+tasks.register('runtimeProfileTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.RuntimeProfileTest'
+    args projectDir.absolutePath
+}
+
+tasks.named('check') { dependsOn 'runtimeProfileTest' }
+
+// A source-only golden check cannot detect a failing Java static initializer.
+// Exercise it before replacing any installed runtime profile.
+['copyExtension', 'copyCaptureExtension', 'copyProbeExtension'].each { name ->
+    tasks.named(name) { dependsOn 'runtimeProfileTest' }
+}
+
 // This check resolves reflection metadata. It does not initialize vendor classes.
 tasks.register('gridAttachmentSymbolsTest', JavaExec) {
     dependsOn harnessTestClasses

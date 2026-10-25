@@ -2,9 +2,9 @@
 title: Devices — type UUIDs, parameters and observables
 kind: capability
 state: active
-updated: 2026-10-19
+updated: 2026-10-25
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289, E298, E299; D2, D46; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289, E298, E299, E344, E345; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -17,6 +17,16 @@ The public controller API has no device-instance ID. It identifies device
 *types* through UUIDs and locates instances by chain position [K,
 [E16l](../experiments/e16l-object-identity-settled-properly-is-the-only-one-and-there-is-no.md)].
 See [identity](identity.md) for the public API limits.
+
+## Direct index discovery research
+
+Read-only disk decoding yields 407 VST3/CLAP entries across four explicit local
+scopes, with matching IDs/paths for all 28 earlier browser samples and matching
+complete instrument-name sets. The measured local read/parse/bundle-stat cost
+is 7.69 ms median with warm/unspecified OS caching. No popup or host call is
+required. Native/preset index preambles, configured-root discovery, and refresh
+coverage remain unresolved; there is no public resolver yet
+([E349](../experiments/e349-direct-plugin-index-discovery.md)).
 
 ## Live Grid research (9a)
 
@@ -394,6 +404,42 @@ deterministic no-op. The only local FXB was not a user-loadable fixture [K,
 The API 25 popup browser did not accept any tested content-type index write.
 Ghostnote could not enter a safe plug-in preset selection state, so it committed
 no popup result. Keep the popup out of the public surface [K, E101].
+
+R05's first 6.1.4 re-probe stopped before a content-type write: the initial
+result bank changed between reads 305 and 402 ms after opening, and opening
+re-enabled audition despite a pre-open disable. Cancellation and scratch
+cleanup were verified [K, [E344](../experiments/e344-browser-open-resets-audition-and-populates-late.md)].
+The revised pass used a 1,000 ms opening wait and verified post-open audition
+disable. After requesting `Devices`, paired delayed reads still returned
+index 0, empty selected name, and 95,764 results. It canceled before filters
+or scans because the content-type guard was unconfirmed. This does not prove
+the index setter was ignored: index 0 was already selected. R05 retains the
+native catalog and explicit plug-in IDs/preset paths as its fallback, with no
+public browser resolver [K, [E345](../experiments/e345-browser-content-type-readback-remains-unconfirmed.md)].
+
+Static inspection of the installed 6.1.4 proxy subsequently found that the
+content-type name is explicitly empty and the index proxy has no target
+binding, while several filters and the results session are bound. Filter-driven
+discovery and internal result file/URI metadata remain open research routes;
+neither has a new live acceptance claim
+[[E346](../experiments/e346-browser-proxy-bindings-and-open-discovery-routes.md)].
+
+[E347](../experiments/e347-filter-driven-native-browser-discovery.md) subsequently
+verified API selection of observed location rows without content-type controls:
+46 Devices results (one Polysynth), 40 My Library results, and Addictive Drums 2
+in a bounded 4,096-of-92,018 Plug-ins scan. The plug-in branch mixes devices and
+presets; its scan is incomplete. These are discovery observations, not persistent
+identity or insertion acceptance. Cleanup and preserved inventories passed.
+
+[E348](../experiments/e348-browser-native-result-identities.md) adds a positive
+read-only internal identity route on the pinned 6.1.4 build: 16 native UUIDs
+match the catalog, 16 VST3 and 12 CLAP IDs match Bitwig caches and installed
+bundles, and 16 user `.bwpreset` paths exist with matching META device IDs.
+Preset identity is the file path, not its contained-device UUID. Dedicated
+VST3/CLAP location scans contain 49/12 names, with metadata sampled for 16/12.
+A minimal resolver contract is proposed in the R05 brief; no public tool or
+new insertion acceptance is added. Other host builds, arbitrary configured
+roots, and complete cross-format ambiguity handling remain unverified.
 
 [D22](../../decisions/d22-non-native-plugin-preset-loading-is-out-of-scope.md)
 puts H2P, VSTPRESET, FXP, FXB, and CLAP-discovered preset loading out of scope.

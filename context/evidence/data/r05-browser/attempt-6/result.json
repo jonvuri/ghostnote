@@ -1,0 +1,215 @@
+{
+  "project": "gn-scale-test",
+  "generation": "bc80f651-5d72-4a9d-893b-b8ccdbd56125",
+  "ownedId": "663911ca-daf7-49b0-b984-a0ab8ddb8b6e",
+  "verdict": {
+    "verdict": "filter-discovery-observed",
+    "conditions": [
+      {
+        "location": "System VST 3 Plug-ins",
+        "name": "Addictive Drums 2",
+        "outcome": "scanned",
+        "count": 49,
+        "scanned": 49,
+        "complete": true,
+        "matches": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Addictive Drums 2",
+            "selected": false
+          }
+        ],
+        "sample": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Addictive Drums 2",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "exists": true,
+            "name": "Analog Lab 4 [X64]",
+            "selected": false
+          },
+          {
+            "index": 2,
+            "exists": true,
+            "name": "Analog Rytm",
+            "selected": false
+          },
+          {
+            "index": 3,
+            "exists": true,
+            "name": "Anukari",
+            "selected": false
+          },
+          {
+            "index": 4,
+            "exists": true,
+            "name": "Beat Scholar",
+            "selected": false
+          },
+          {
+            "index": 5,
+            "exists": true,
+            "name": "CosmosfSaturn81S",
+            "selected": false
+          },
+          {
+            "index": 6,
+            "exists": true,
+            "name": "crusher-X-Instrument DEMO",
+            "selected": false
+          },
+          {
+            "index": 7,
+            "exists": true,
+            "name": "CS-80 V3",
+            "selected": false
+          },
+          {
+            "index": 8,
+            "exists": true,
+            "name": "Current",
+            "selected": false
+          },
+          {
+            "index": 9,
+            "exists": true,
+            "name": "Digitakt",
+            "selected": false
+          },
+          {
+            "index": 10,
+            "exists": true,
+            "name": "GuyEngine V2",
+            "selected": false
+          },
+          {
+            "index": 11,
+            "exists": true,
+            "name": "HY-RPE2",
+            "selected": false
+          },
+          {
+            "index": 12,
+            "exists": true,
+            "name": "HY-SeqCollection2",
+            "selected": false
+          },
+          {
+            "index": 13,
+            "exists": true,
+            "name": "Jup-8 V3 [X64]",
+            "selected": false
+          },
+          {
+            "index": 14,
+            "exists": true,
+            "name": "Keyscape",
+            "selected": false
+          },
+          {
+            "index": 15,
+            "exists": true,
+            "name": "Kontakt 7",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "location": "System CLAP Plug-ins",
+        "name": "Diva",
+        "outcome": "scanned",
+        "count": 12,
+        "scanned": 12,
+        "complete": true,
+        "matches": [
+          {
+            "index": 1,
+            "exists": true,
+            "name": "Diva",
+            "selected": false
+          }
+        ],
+        "sample": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Bazille",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "exists": true,
+            "name": "Diva",
+            "selected": false
+          },
+          {
+            "index": 2,
+            "exists": true,
+            "name": "FilterscapeVA",
+            "selected": false
+          },
+          {
+            "index": 3,
+            "exists": true,
+            "name": "Quanta 2",
+            "selected": false
+          },
+          {
+            "index": 4,
+            "exists": true,
+            "name": "Repro-1",
+            "selected": false
+          },
+          {
+            "index": 5,
+            "exists": true,
+            "name": "Repro-5",
+            "selected": false
+          },
+          {
+            "index": 6,
+            "exists": true,
+            "name": "sforzando",
+            "selected": false
+          },
+          {
+            "index": 7,
+            "exists": true,
+            "name": "TAL Sampler",
+            "selected": false
+          },
+          {
+            "index": 8,
+            "exists": true,
+            "name": "TX16Wx",
+            "selected": false
+          },
+          {
+            "index": 9,
+            "exists": true,
+            "name": "Zebra2",
+            "selected": false
+          },
+          {
+            "index": 10,
+            "exists": true,
+            "name": "Zebra3",
+            "selected": false
+          },
+          {
+            "index": 11,
+            "exists": true,
+            "name": "Zebralette",
+            "selected": false
+          }
+        ]
+      }
+    ],
+    "identity": "unproved"
+  }
+}

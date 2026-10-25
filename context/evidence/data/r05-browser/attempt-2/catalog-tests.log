@@ -1,0 +1,14 @@
+✔ structured preset fields preserve names and reject object tokens as parameters (1.203417ms)
+✔ generation is byte-identical and skips plugin or non-preset directories (1.430542ms)
+✔ live resolution stays distinct from candidates and drives typed Java ids (1.487667ms)
+✔ the structured name reader keeps the known 12-character name trap (0.202208ms)
+✔ checked-in catalog and typed Java input agree (1.342458ms)
+✔ public catalog identity validates UUIDs and reports all exact-name failures (0.721209ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 86.263459

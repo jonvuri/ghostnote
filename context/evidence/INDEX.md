@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-23
+updated: 2026-10-25
 ---
 
 # Evidence index
@@ -18,6 +18,13 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E350 | Preferences expose configured content roots independently of indexes; live sound-content add/remove detected while Settings remains open, original locations restored; seven offline tests pass (2026-10-25) | [open](experiments/e350-library-roots-from-preferences.md) |
+| E349 | Direct disk indexes yield 407 VST3/CLAP entries without host calls; 28 identities and complete prior instrument-name lists match. Local read/parse/check median 7.69 ms; native/preset preamble and refresh remain unproved (2026-10-25) | [open](experiments/e349-direct-plugin-index-discovery.md) |
+| E348 | Native browser metadata yields stock UUIDs, VST3/CLAP IDs, and Bitwig-preset paths on 6.1.4; 60 sampled supported identities cross-check against independent sources. VST3/CLAP name scans complete; no insertion; cleanup passes; minimal resolver contract proposed (2026-10-25) | [open](experiments/e348-browser-native-result-identities.md) |
+| E347 | Filter-driven API discovery works on 6.1.4: complete Devices (46) and My Library (40) scans; Addictive Drums 2 found in an incomplete Plug-ins scan (4,096 of 92,018). Observed location rows, no commit; scratch cleanup and preserved inventories pass (2026-10-25) | [open](experiments/e347-filter-driven-native-browser-discovery.md) |
+| E346 | Static 6.1.4 proxy inspection finds disconnected content-type controls but bound filters/results; Control Deck's filter sequence, internal file/URI metadata, and native indexes remain discovery leads. No new live attempt (2026-10-25) | [open](experiments/e346-browser-proxy-bindings-and-open-discovery-routes.md) |
+| E345 | R05 closes with catalog/explicit-ID fallback: on 6.1.4, post-open audition disable works, but paired delayed reads after selecting Devices still report index 0, empty selected name, and 95,764 results. Canceled before filters or scans; preserved inventories and scratch cleanup pass [K] (2026-10-25) | [open](experiments/e345-browser-content-type-readback-remains-unconfirmed.md) |
+| E344 | R05 on 6.1.4: popup results populate between reads 305 and 402 ms after open; opening re-enables audition despite the pre-open disable. Canceled before any content-type write; scratch removed and preserved inventories verified. Revised condition pending [K] (2026-10-25) | [open](experiments/e344-browser-open-resets-audition-and-populates-late.md) |
 | E343 | 9b.7: the product refuses Grid writes without an accepted doctor record for the jar fingerprint and host version; check_grid_support reports the gate (45 tools, descriptions v53); grid_doctor.upgrade runs the D52 stages offline; the isolated 6.1.4 rehearsal refuses resolution with 53 missing type roles, and the labeled continuation reproduces the committed resources; toolkit classified; 2,626 temporary files verified and removed [K] (2026-10-23) | [open](experiments/e343-grid-admission-gate-and-upgrade-tool.md) |
 | E342 | 9b.6j third guarded pass accepted on 6.1.4: 76 roles, 16 commands, 19 independent pairs, disposal, both Undo stages, teardown, and preserved state pass; research cache written; E316 plus E342 close the two-build check; D53 removes prescribed operator wording [K] (2026-10-23) | [open](experiments/e342-grid-doctor-614-acceptance.md) |
 | E341 | 9b.6j preparation: 36 corresponding owned-tree classes on both builds, revised guard and third-pass policy tested and deployed; baseline preserved; controller replacement and live pass pending [K] (2026-10-23) | [open](experiments/e341-grid-doctor-614-owned-tree-preparation.md) |

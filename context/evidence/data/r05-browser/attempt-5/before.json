@@ -1,0 +1,1079 @@
+{
+  "rows": [
+    {
+      "index": 0,
+      "name": "Instrument Layer",
+      "position": 0,
+      "type": "Hybrid",
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+    },
+    {
+      "index": 1,
+      "name": "Hybrid 2",
+      "position": 1,
+      "type": "Hybrid",
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+    },
+    {
+      "index": 2,
+      "name": "gn-A",
+      "position": 2,
+      "type": "Instrument",
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+    },
+    {
+      "index": 3,
+      "name": "gn-B",
+      "position": 3,
+      "type": "Instrument",
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+    },
+    {
+      "index": 4,
+      "name": "Group 5",
+      "position": 4,
+      "type": "Group",
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+    },
+    {
+      "index": 5,
+      "name": "gn-E16",
+      "position": 5,
+      "type": "Instrument",
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "hidden": true
+    },
+    {
+      "index": 6,
+      "name": "gn-lay",
+      "position": 6,
+      "type": "Instrument",
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+    },
+    {
+      "index": 7,
+      "name": "gn-lay4",
+      "position": 7,
+      "type": "Instrument",
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+    },
+    {
+      "index": 8,
+      "name": "gn-sel",
+      "position": 8,
+      "type": "Instrument",
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+    },
+    {
+      "index": 9,
+      "name": "FX 1",
+      "position": 9,
+      "type": "Effect",
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+    },
+    {
+      "index": 10,
+      "name": "Master",
+      "position": 10,
+      "type": "Master",
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+    }
+  ],
+  "mixer": {
+    "tracks": [
+      {
+        "trackIndex": 0,
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+        "matches": true,
+        "type": "Hybrid",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 1,
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+        "matches": true,
+        "type": "Hybrid",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 2,
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.7811510509348213,
+        "volumeNormalized": 0.62,
+        "volumeDisplayed": "-6.4 dB",
+        "volumeAutomated": false,
+        "panRaw": -0.30000000000000004,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 3,
+        "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 4,
+        "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+        "matches": true,
+        "type": "Group",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 5,
+        "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.7307542089390263,
+        "volumeNormalized": 0.58,
+        "volumeDisplayed": "-8.2 dB",
+        "volumeAutomated": false,
+        "panRaw": -0.16000000000000003,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 6,
+        "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 7,
+        "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 8,
+        "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+        "matches": true,
+        "type": "Instrument",
+        "volumeRaw": 0.6812920690579614,
+        "volumeNormalized": 0.5407418735600996,
+        "volumeDisplayed": "-10.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 9,
+        "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+        "matches": true,
+        "type": "Effect",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      },
+      {
+        "trackIndex": 10,
+        "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+        "matches": true,
+        "type": "Master",
+        "volumeRaw": 1,
+        "volumeNormalized": 0.7937005259840999,
+        "volumeDisplayed": "0.0 dB",
+        "volumeAutomated": false,
+        "panRaw": 0,
+        "panAutomated": false,
+        "mute": false,
+        "solo": false
+      }
+    ]
+  },
+  "slots": [
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": true
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 0,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 1,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 2,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 3,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 4,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 5,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 6,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 7,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 8,
+      "exists": true,
+      "hasContent": false
+    },
+    {
+      "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "slotIndex": 9,
+      "exists": true,
+      "hasContent": false
+    }
+  ],
+  "devices": [
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 1,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 2,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 3,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 4,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 5,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 6,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 7,
+          "name": "Instrument Layer",
+          "enabled": true
+        }
+      ],
+      "count": 8,
+      "itemCount": 8,
+      "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "trackPosition": 0,
+      "bankSize": 16
+    },
+    {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "trackPosition": 1,
+      "bankSize": 16
+    },
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "trackPosition": 2,
+      "bankSize": 16
+    },
+    {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "trackPosition": 3,
+      "bankSize": 16
+    },
+    {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "trackPosition": 4,
+      "bankSize": 16
+    },
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "enabled": true
+        },
+        {
+          "index": 1,
+          "name": "Zebra3",
+          "enabled": true
+        },
+        {
+          "index": 2,
+          "name": "Polysynth",
+          "enabled": true
+        }
+      ],
+      "count": 3,
+      "itemCount": 3,
+      "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "trackPosition": 0,
+      "bankSize": 16
+    },
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "trackPosition": 5,
+      "bankSize": 16
+    },
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "enabled": true
+        }
+      ],
+      "count": 1,
+      "itemCount": 1,
+      "trackChannelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+      "trackPosition": 6,
+      "bankSize": 16
+    },
+    {
+      "devices": [
+        {
+          "index": 0,
+          "name": "Instrument Selector",
+          "enabled": true
+        },
+        {
+          "index": 1,
+          "name": "Filter+",
+          "enabled": true
+        }
+      ],
+      "count": 2,
+      "itemCount": 2,
+      "trackChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "trackPosition": 7,
+      "bankSize": 16
+    },
+    {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+      "trackPosition": 8,
+      "bankSize": 16
+    },
+    {
+      "devices": [],
+      "count": 0,
+      "itemCount": 0,
+      "trackChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+      "trackPosition": 9,
+      "bankSize": 16
+    }
+  ],
+  "sceneCount": 10
+}

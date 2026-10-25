@@ -1,0 +1,346 @@
+{
+  "project": "gn-scale-test",
+  "generation": "bc80f651-5d72-4a9d-893b-b8ccdbd56125",
+  "ownedId": "5818fddd-4036-49e8-8ea3-d8ee9a0eac3f",
+  "verdict": {
+    "verdict": "filter-discovery-observed",
+    "conditions": [
+      {
+        "location": "Devices",
+        "name": "Polysynth",
+        "outcome": "scanned",
+        "count": 46,
+        "scanned": 46,
+        "complete": true,
+        "matches": [
+          {
+            "index": 11,
+            "exists": true,
+            "name": "Polysynth",
+            "selected": false
+          }
+        ],
+        "sample": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Chain",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "exists": true,
+            "name": "Drum Machine",
+            "selected": false
+          },
+          {
+            "index": 2,
+            "exists": true,
+            "name": "FM-4",
+            "selected": false
+          },
+          {
+            "index": 3,
+            "exists": true,
+            "name": "HW CV Instrument",
+            "selected": false
+          },
+          {
+            "index": 4,
+            "exists": true,
+            "name": "HW Instrument",
+            "selected": false
+          },
+          {
+            "index": 5,
+            "exists": true,
+            "name": "Instrument Layer",
+            "selected": false
+          },
+          {
+            "index": 6,
+            "exists": true,
+            "name": "Instrument Selector",
+            "selected": false
+          },
+          {
+            "index": 7,
+            "exists": true,
+            "name": "Organ",
+            "selected": false
+          },
+          {
+            "index": 8,
+            "exists": true,
+            "name": "Phase-4",
+            "selected": false
+          },
+          {
+            "index": 9,
+            "exists": true,
+            "name": "Poly Grid",
+            "selected": false
+          },
+          {
+            "index": 10,
+            "exists": true,
+            "name": "Polymer",
+            "selected": false
+          },
+          {
+            "index": 11,
+            "exists": true,
+            "name": "Polysynth",
+            "selected": false
+          },
+          {
+            "index": 12,
+            "exists": true,
+            "name": "Sampler",
+            "selected": false
+          },
+          {
+            "index": 13,
+            "exists": true,
+            "name": "v0 Cymbal",
+            "selected": false
+          },
+          {
+            "index": 14,
+            "exists": true,
+            "name": "v0 Hat",
+            "selected": false
+          },
+          {
+            "index": 15,
+            "exists": true,
+            "name": "v0 Kick",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "location": "Plug-ins",
+        "name": "Addictive Drums 2",
+        "outcome": "scanned",
+        "count": 92018,
+        "scanned": 128,
+        "complete": false,
+        "matches": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Addictive Drums 2",
+            "selected": false
+          }
+        ],
+        "sample": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "Addictive Drums 2",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "exists": true,
+            "name": "crusher-X-Instrument-DEMO",
+            "selected": false
+          },
+          {
+            "index": 2,
+            "exists": true,
+            "name": "Current",
+            "selected": false
+          },
+          {
+            "index": 3,
+            "exists": true,
+            "name": "MDrummer",
+            "selected": false
+          },
+          {
+            "index": 4,
+            "exists": true,
+            "name": "MDrummer1out",
+            "selected": false
+          },
+          {
+            "index": 5,
+            "exists": true,
+            "name": "MDrummer16out",
+            "selected": false
+          },
+          {
+            "index": 6,
+            "exists": true,
+            "name": "MPowerSynth",
+            "selected": false
+          },
+          {
+            "index": 7,
+            "exists": true,
+            "name": "MSoundFactory",
+            "selected": false
+          },
+          {
+            "index": 8,
+            "exists": true,
+            "name": "MSoundFactory6out",
+            "selected": false
+          },
+          {
+            "index": 9,
+            "exists": true,
+            "name": "Pigments",
+            "selected": false
+          },
+          {
+            "index": 10,
+            "exists": true,
+            "name": "TX16Wx",
+            "selected": false
+          },
+          {
+            "index": 11,
+            "exists": true,
+            "name": "XO",
+            "selected": false
+          },
+          {
+            "index": 12,
+            "exists": true,
+            "name": "! GATE . 01 - Possibility",
+            "selected": false
+          },
+          {
+            "index": 13,
+            "exists": true,
+            "name": "!Pearl Ambience",
+            "selected": false
+          },
+          {
+            "index": 14,
+            "exists": true,
+            "name": "- Clear All",
+            "selected": false
+          },
+          {
+            "index": 15,
+            "exists": true,
+            "name": "- Clear All",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "location": "My Library",
+        "name": null,
+        "outcome": "scanned",
+        "count": 40,
+        "scanned": 40,
+        "complete": true,
+        "matches": [],
+        "sample": [
+          {
+            "index": 0,
+            "exists": true,
+            "name": "gn test - instrument layer 4",
+            "selected": false
+          },
+          {
+            "index": 1,
+            "exists": true,
+            "name": "gn-grid-spike-baseline",
+            "selected": false
+          },
+          {
+            "index": 2,
+            "exists": true,
+            "name": "gn-preset-zoo",
+            "selected": false
+          },
+          {
+            "index": 3,
+            "exists": true,
+            "name": "gn-ua-0b6c3297-multi-edited",
+            "selected": false
+          },
+          {
+            "index": 4,
+            "exists": true,
+            "name": "gn-ua-0b6c3297-single-edited",
+            "selected": false
+          },
+          {
+            "index": 5,
+            "exists": true,
+            "name": "gn-ua-0b6c3297-single-name-check",
+            "selected": false
+          },
+          {
+            "index": 6,
+            "exists": true,
+            "name": "gn_crossdev_outer",
+            "selected": false
+          },
+          {
+            "index": 7,
+            "exists": true,
+            "name": "gn_instr_five_empty",
+            "selected": false
+          },
+          {
+            "index": 8,
+            "exists": true,
+            "name": "gn_instrument_layer_2",
+            "selected": false
+          },
+          {
+            "index": 9,
+            "exists": true,
+            "name": "gn_instrument_selector_2",
+            "selected": false
+          },
+          {
+            "index": 10,
+            "exists": true,
+            "name": "gn_sampler2_bare",
+            "selected": false
+          },
+          {
+            "index": 11,
+            "exists": true,
+            "name": "gn_sampler2_one_lfo",
+            "selected": false
+          },
+          {
+            "index": 12,
+            "exists": true,
+            "name": "gn_sampler_bare",
+            "selected": false
+          },
+          {
+            "index": 13,
+            "exists": true,
+            "name": "gn_sampler_lfo_random",
+            "selected": false
+          },
+          {
+            "index": 14,
+            "exists": true,
+            "name": "gn_sampler_multi_bare",
+            "selected": false
+          },
+          {
+            "index": 15,
+            "exists": true,
+            "name": "gn_sampler_multi_one_lfo",
+            "selected": false
+          }
+        ]
+      }
+    ],
+    "identity": "unproved"
+  }
+}

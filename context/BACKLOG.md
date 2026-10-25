@@ -25,7 +25,7 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
-| R05 | Browser and catalog name resolution: bounded re-probe of popup-browser discovery with a wait and filter reset; fallback is the offline catalog and explicit IDs. | song, research | next | [R05](plan/overlap/wave-4/workflow-sequence.md#r05--browser-and-catalog-name-resolution); E101, D22 |
+| V14 | Add devices and presets by name: implement configured-root discovery and public resolution; independently verify insertion of a stock device, a VST3 plug-in, a CLAP plug-in, and a Bitwig preset from a newly added sound-content location. | sound, implementation | next | [brief](work/v14-add-devices-by-name.md); DP-5; R05, R06 |
 | R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
 | P01 | Edit-path performance and recovery cost: attribute repeated inventories and full clip captures, simplify recovery-only machinery under D54. Offline audit first. | perf, cleanup | queued | [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost); W4-016, D54 |
@@ -103,6 +103,8 @@ when a workflow needs it.
 
 | ID | Item | Closed | Record |
 |---|---|---|---|
+| R06 | Direct index feasibility: 407 VST3/CLAP entries, 28 identity checks and full prior instrument-name sets match; 7.69 ms median local read/parse/check. Preferences route detects live sound-content add/remove (E350); native/preset preamble and index freshness remain; no public resolver. | 2026-10-25 | [result](work/r06-native-index-discovery.md); [E349](evidence/experiments/e349-direct-plugin-index-discovery.md); [E350](evidence/experiments/e350-library-roots-from-preferences.md) |
+| R05 | Filter-driven discovery and native identities verified; 60 sampled identities cross-checked. Minimal resolver contract proposed; normal controller restoration and handshake complete. | 2026-10-25 | [result](work/r05-browser-name-resolution.md); [E348](evidence/experiments/e348-browser-native-result-identities.md) |
 | V01 | Built and saved two Engram / Via Purifico sections with existing tools and named presets; independently verified and accepted after audition. | 2026-10-25 | [result and follow-ups](work/v01-engram-purifico.md) |
 | DIET | Reduced instruction load and inherited prescriptions; retained useful evidence and host procedures. Independently reviewed. | 2026-10-25 | [result](work/instruction-diet.md) |
 | W4 | Wave 4 vision and scope planning; D54; 25 decisions. | 2026-10-24 | [decision log](plan/overlap/wave-4/decisions.md) |

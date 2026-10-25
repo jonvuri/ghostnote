@@ -1,0 +1,56 @@
+{
+  "source": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/prefs/6.1.4.prefs",
+  "stat": [
+    16777231,
+    70228465,
+    48809,
+    1792949858642539394,
+    1792949858642539394
+  ],
+  "sha256": "9e7f09a4e0b79d7026f726174e56901535a94c904243e39583d36312915800c2",
+  "locations": {
+    "myLibrary": "",
+    "packageInstallationDirectory": "",
+    "soundContent": [
+      {
+        "path": "/Users/jonvuri/Development/ghostnote/.tmp/r06-location-test",
+        "automaticUpdate": true
+      }
+    ],
+    "music": [],
+    "plugins": [
+      {
+        "path": "/Library/Audio/Plug-Ins/VST",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/VST",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Plug-Ins/VST3",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Presets",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Plug-Ins/CLAP",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Presets",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/VST3",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/CLAP",
+        "automaticUpdate": true
+      }
+    ]
+  }
+}

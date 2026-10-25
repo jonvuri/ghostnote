@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-19",
+  "extractedAt": "2026-10-25",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 176,
-  "methodsHash": "252261ea2def6a48",
+  "count": 178,
+  "methodsHash": "fd5f21a51ea9463c",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -87,7 +87,9 @@
     "note.observer.read",
     "observation.read",
     "observation.replace",
+    "probe.browserDiscovery",
     "probe.gridCable",
+    "probe.gridEngine",
     "probe.gridModuleAttach",
     "probe.gridModuleDelete",
     "probe.gridModuleFactory",
@@ -265,7 +267,9 @@
     "param.set",
     "param.touch",
     "ping",
+    "probe.browserDiscovery",
     "probe.gridCable",
+    "probe.gridEngine",
     "probe.gridModuleAttach",
     "probe.gridModuleDelete",
     "probe.gridModuleFactory",
@@ -560,10 +564,14 @@
   ],
   "addedInPhase9a": [
     "probe.gridCable",
+    "probe.gridEngine",
     "probe.gridModuleAttach",
     "probe.gridModuleDelete",
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue"
+  ],
+  "addedInR05": [
+    "probe.browserDiscovery"
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "project": "gn-scale-test",
+  "generation": "6f9b15b5-8b5f-4edd-b325-ed2be341b20c",
+  "ownedId": "5f7d48b7-a3cd-475c-977d-a9e93e6a3907",
+  "failure": "Error: open: browser did not settle within the bounded wait"
+}

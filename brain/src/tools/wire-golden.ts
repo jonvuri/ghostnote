@@ -106,6 +106,8 @@ export interface Golden {
   addedInPhase8i14?: string[];
   /** Phase 9a descriptor reads and guarded fixture value, cable, and module writes. Research only. */
   addedInPhase9a?: string[];
+  /** R05 popup browser discovery; research only. */
+  addedInR05?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   preSplitCount: number;
@@ -115,9 +117,9 @@ export interface Golden {
 }
 
 /**
- * Scrape `r.on("name", …)` and `r.onAsync("name", …)` out of every handler group.
+ * Scrape registrations using either handler registry variable name (`r` or `registry`).
  *
- * ⚠ Deliberately strict: any line mentioning `r.on(` that this pattern cannot
+ * ⚠ Deliberately strict: any registration line that this pattern cannot
  * read THROWS rather than being skipped. A silently unparsed registration is
  * worse than no check at all, because it would leave the golden looking green
  * while the real surface drifted underneath it.
@@ -127,8 +129,8 @@ export function scrapeRegistrations(dir = HANDLERS_DIR): string[] {
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.java'))) {
     const src = readFileSync(join(dir, file), 'utf8');
     for (const line of src.split('\n')) {
-      if (!line.includes('r.on(') && !line.includes('r.onAsync(')) continue;
-      const m = line.match(/r\.on(?:Async)?\("([^"]+)"\s*,/);
+      if (!/\b(?:r|registry)\.on(?:Async)?\(/.test(line)) continue;
+      const m = line.match(/\b(?:r|registry)\.on(?:Async)?\("([^"]+)"\s*,/);
       if (m === null) throw new Error(`${file}: unparsable registration line -> ${line.trim()}`);
       found.push(m[1]!);
     }

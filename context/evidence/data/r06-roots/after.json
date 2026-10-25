@@ -1,0 +1,51 @@
+{
+  "source": "/Users/jonvuri/Library/Application Support/Bitwig/Bitwig Studio/prefs/6.1.4.prefs",
+  "stat": [
+    16777231,
+    70228465,
+    48701,
+    1792949873659104809,
+    1792949873659104809
+  ],
+  "sha256": "aadcfdce3742399a7978cb1953285dcbd07c8865f770b2210bd5e49baeeb829b",
+  "locations": {
+    "myLibrary": "",
+    "packageInstallationDirectory": "",
+    "soundContent": [],
+    "music": [],
+    "plugins": [
+      {
+        "path": "/Library/Audio/Plug-Ins/VST",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/VST",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Plug-Ins/VST3",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Presets",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Library/Audio/Plug-Ins/CLAP",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Presets",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/VST3",
+        "automaticUpdate": true
+      },
+      {
+        "path": "/Users/jonvuri/Library/Audio/Plug-Ins/CLAP",
+        "automaticUpdate": true
+      }
+    ]
+  }
+}
