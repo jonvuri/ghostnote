@@ -25,9 +25,8 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
-| V01 | Build a useful MIDI sketch: two sections from supplied material with existing tools; resolve one device or preset by name. | song | next | [V01](plan/overlap/wave-4/workflow-sequence.md#main-path); W4-025; CA-1, DP-5 |
-| R05 | Browser and catalog name resolution: bounded re-probe of popup-browser discovery with a wait and filter reset; fallback is the offline catalog and explicit IDs. | song, research | queued | [R05](plan/overlap/wave-4/workflow-sequence.md#r05--browser-and-catalog-name-resolution); E101, D22 |
-| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); W4-007, W4-021 |
+| R05 | Browser and catalog name resolution: bounded re-probe of popup-browser discovery with a wait and filter reset; fallback is the offline catalog and explicit IDs. | song, research | next | [R05](plan/overlap/wave-4/workflow-sequence.md#r05--browser-and-catalog-name-resolution); E101, D22 |
+| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
 | P01 | Edit-path performance and recovery cost: attribute repeated inventories and full clip captures, simplify recovery-only machinery under D54. Offline audit first. | perf, cleanup | queued | [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost); W4-016, D54 |
 
@@ -57,7 +56,7 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 | V08 | Make the song sound playable: useful controls, ranges, remote mappings. | sound | queued | [V08](plan/overlap/wave-4/workflow-sequence.md#main-path); DP-2, DP-1 |
 | R04 | Live mappings and modulation setters: per-setter route table from external references; first live brief. | sound, research | queued | [R04](plan/overlap/wave-4/workflow-sequence.md#r04--live-mappings-and-modulation-setters); W4-004 |
 | V09 | Author and revise live modulation: amount, enable, mode, source, curve with independent verdicts. | sound | queued | [V09](plan/overlap/wave-4/workflow-sequence.md#main-path); MP-3, MP-4, MP-5, MP-7, MP-8, MP-10 |
-| V10 | Construct a useful Grid instrument: read and catalog, values and cables, add and delete modules, mappings. Sub-items are the former 11a to 11e. Grid writes record no inverse. | sound, grid | queued | [brief](work/v10-grid-instrument.md); W4-024; GI-1, D52 |
+| V10 | Construct a useful Grid instrument: read and catalog, values and cables, add and delete modules, mappings; operationalize doctor storage outside the repository. Sub-items are the former 11a to 11e. Grid writes record no inverse. | sound, grid | queued | [brief](work/v10-grid-instrument.md); W4-024; GI-1, D52 |
 | V11 | Extend Grid where it changes the instrument: indexed values, relocation, FX/Note Grid, stateful attachment. | sound, grid | queued | [V11](plan/overlap/wave-4/workflow-sequence.md#main-path); GI-2 |
 
 ## P4
@@ -104,6 +103,7 @@ when a workflow needs it.
 
 | ID | Item | Closed | Record |
 |---|---|---|---|
+| V01 | Built and saved two Engram / Via Purifico sections with existing tools and named presets; independently verified and accepted after audition. | 2026-10-25 | [result and follow-ups](work/v01-engram-purifico.md) |
 | DIET | Reduced instruction load and inherited prescriptions; retained useful evidence and host procedures. Independently reviewed. | 2026-10-25 | [result](work/instruction-diet.md) |
 | W4 | Wave 4 vision and scope planning; D54; 25 decisions. | 2026-10-24 | [decision log](plan/overlap/wave-4/decisions.md) |
 | DL-6 | Correct contradicted working format references. | 2026-10-24 | wave 3 |

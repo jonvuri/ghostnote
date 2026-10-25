@@ -6,9 +6,12 @@ updated: 2026-10-25
 
 ## Now
 
-The next item in the [backlog](BACKLOG.md) is V01: build a useful MIDI
-sketch with supplied material and existing tools. R05, R01, R02, and the
-P01 offline audit follow in P0.
+V01's [Engram / Via Purifico sketch](work/v01-engram-purifico.md) is complete:
+two saved eight-bar Launcher sections at 130 BPM, independently verified and
+accepted after operator audition. No blocking V01 implementation defect was
+observed. R05 is next in the [backlog](BACKLOG.md), followed by R01, R02, and
+the P01 offline audit. R01 also assesses the first-save annotation-continuity
+limitation recorded in the V01 closeout.
 
 [DIET](work/instruction-diet.md) is complete and independently reviewed.
 Use the shorter [context guide](README.md) for relevant reading. D54 governs
@@ -21,14 +24,28 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The last deployed archive is the 9b.6j probe build (`e9a31bb8…`,
-  `ghostnote probe`). Redeploy `copyExtension` and ask for controller
-  replacement before normal product work; then run `npm run probe:hello`.
-- Last independent read (E342): `gn-grid-spike`, only `grid-probe`, `FX 1`,
-  and `Master`; control muted at -10 dB. No scratch, claim, lock, or
-  uncertainty remains. Baseline: 45 normal tools, descriptions v53.
-- `.local/grid-doctor/` holds the accepted 6.0.6 and 6.1.4 records and all
-  attempt records; `check_grid_support` admits the 6.1.4 jar from it.
+- The normal `ghostnote` archive was deployed with `copyExtension` on
+  2026-10-25 (SHA-256 `14fe6b8173715b68927c1ec49c70216da2de1b0e44f27eecd11c38af9c9d7fae`).
+  Operator confirmed replacement with “Replaced”. `npm run probe:hello`
+  passed: `normal-v1`, API 25, 92 methods, hash `8be1975eaa99d78f`,
+  expected build markers, and fresh initialization at `2026-10-25T15:00:24.972Z`.
+- Current project: `engram purifico`, saved under the Ghostworks construct
+  of the same name. It contains Addictive Drums 2 (operator set GM mapping),
+  Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
+  hold six verified clips, accepted after operator audition. Playback state
+  has not been re-read since that audition. The last mixer read showed the
+  three musical tracks at -10 dB, centered, unmuted, and unsoloed.
+  Source contributions are confirmed; the saved-project path and verification
+  summary are in the V01 brief. Its temporary working files were removed.
+  Re-read project, target, and selection before further writes.
+  Baseline: 45 normal tools, descriptions v53.
+- `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
+  attempt records; the admission reader and doctor drivers now use this path.
+  The whole `.tmp/` directory is ignored. Experimental evidence remains under
+  `context/evidence/`; historical records retain their original `.local/` paths.
+  A running brain process must restart to pick up the changed default path.
+  [V10](work/v10-grid-instrument.md#operational-doctor-storage) will replace
+  this development path with durable per-user application-data storage.
 
 ## Preserve
 

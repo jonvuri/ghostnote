@@ -101,6 +101,25 @@ need one probe each because their I/O module sets differ.
   records incomplete. The session then runs one consented doctor pass on the
   current build. Batch all new symbols of a wave into one doctor version.
 
+### Operational doctor storage
+
+Follow-up requested on 2026-10-25: when expanding Grid operations and revisiting
+the doctor, replace the hard-coded repository-relative `.tmp/grid-doctor/`
+default with durable per-user application data. An installed executable must
+work without a source checkout. The intended macOS location is
+`~/Library/Application Support/Ghostnote/grid-doctor/`; use the corresponding
+standard application-data location on other supported platforms.
+
+Give the admission reader and doctor writers one shared location resolver,
+including a consistent explicit override. Define migration of existing local
+records and verify admission and attempt handling across process restarts and
+from an installation outside the repository. Keep the operational state needed
+for admission and safe execution there; the full experimental history remains
+in the evidence archive. Assess retention when revisiting the doctor rather
+than requiring installed users to carry the repository's research history.
+
+The current `.tmp/` location remains a development arrangement until this work.
+
 ### Target and identity
 
 - A Grid device is addressed by durable track ID and top-level device

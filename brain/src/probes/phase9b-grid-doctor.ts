@@ -145,7 +145,8 @@ async function main() {
     boolean: ['boolean-command'], mapping: ['remove-mapping', 'restore-mapping', 'target-domain', 'domain-extent'],
     core: roles.filter(r => !['boolean-command', 'remove-mapping', 'restore-mapping', 'target-domain', 'domain-extent'].includes(r)),
   };
-  const attempts = join(ROOT, '.local/grid-doctor'); mkdirSync(attempts, { recursive: true });
+  // TODO(V10): share the operational storage resolver with admission.ts; see the V10 brief.
+  const attempts = join(ROOT, '.tmp/grid-doctor'); mkdirSync(attempts, { recursive: true });
   const key = createHash('sha256').update(fingerprint).digest('hex');
   await runSurvey(['gn-grid-spike', output, join(DATA, 'plan.json')], {
     marker: MARKER, stopOnRefusal: true, budget: { calls: 1500, milliseconds: 900_000, bytes: 64 * 1024 * 1024 },

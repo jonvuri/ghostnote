@@ -20,8 +20,12 @@ import { join } from 'node:path';
 export const GRID_ADMISSION_VERSION = 'grid-admission-v1';
 /** The jar of the default macOS install. `GHOSTNOTE_BITWIG_JAR` overrides it. */
 export const DEFAULT_BITWIG_JAR = '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar';
-/** The research cache directory. `GHOSTNOTE_GRID_DOCTOR_CACHE` overrides it. */
-export const DEFAULT_CACHE_DIRECTORY = join(import.meta.dirname, '../../../.local/grid-doctor');
+/**
+ * The research cache directory. `GHOSTNOTE_GRID_DOCTOR_CACHE` overrides it.
+ * TODO(V10): use a shared application-data location for admission and doctor records, independent of the
+ * checkout or executable location. See context/work/v10-grid-instrument.md#operational-doctor-storage.
+ */
+export const DEFAULT_CACHE_DIRECTORY = join(import.meta.dirname, '../../../.tmp/grid-doctor');
 /**
  * The fixed doctor scope: the 69 resolver roles and the seven document Undo roles (E316, E342). An accepted record
  * must cover every one of them; a count alone would admit a record of unrelated names.

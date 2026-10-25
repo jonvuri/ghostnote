@@ -31,7 +31,8 @@ export const OWNED_TREE_NODES = 77;
 const ROOT = join(import.meta.dirname, '../../..');
 export const DATA = join(ROOT, 'context/evidence/data/phase9b-doctor');
 export const CANDIDATE_DIRECTORY = join(DATA, '614-census/prepared');
-export const ATTEMPTS = join(ROOT, '.local/grid-doctor');
+// TODO(V10): share the operational storage resolver with admission.ts; see the V10 brief.
+export const ATTEMPTS = join(ROOT, '.tmp/grid-doctor');
 const OLD_KEY = 'fd829f5381cd55021de542d9581accfb20ca82ed2c975c3863a562fe083ed87a';
 /** The 6.0.6 records in the attempt directory and their committed copies (relative to DATA). */
 export const OLD_RECORDS: [string, string][] = [

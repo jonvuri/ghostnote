@@ -49,10 +49,15 @@ the table; rerun with `--traced-table`. The census stage needs
 `--guard-plan`. `--candidate-directory` reuses earlier resource bytes.
 
 The product gate is `brain/src/grid/admission.ts`. It reads
-`.local/grid-doctor/<key>.accepted.json` for the local jar fingerprint
+`.tmp/grid-doctor/<key>.accepted.json` for the local jar fingerprint
 (`GHOSTNOTE_BITWIG_JAR`, `GHOSTNOTE_GRID_DOCTOR_CACHE` override the paths)
 and the connected host version. `check_grid_support` reports it. Only the
 research driver writes the cache.
+
+This repository-relative default is temporary development storage.
+[V10 tracks operational doctor storage](../../../../context/work/v10-grid-instrument.md#operational-doctor-storage)
+in per-user application data, shared by the reader and writers and usable by
+an installed executable without a checkout.
 
 ## Completed 6.0.6 procedure
 
@@ -113,7 +118,7 @@ operator answer separately. The fixed plan
 creates three new muted scratch tracks in sequence, never together.
 A complete new-table acceptance requires all three cases and teardown.
 
-The driver checks `.local/grid-doctor/<fingerprint-hash>.attempt.json`
+The driver checks `.tmp/grid-doctor/<fingerprint-hash>.attempt.json`
 against E313's saved original. It keeps those bytes and creates a separate
 `<fingerprint-hash>.v20.attempt.json` before the first scratch write.
 Exclusive creation prevents a second V20 pass. Do not remove either file
@@ -388,7 +393,7 @@ absolute evidence directory:
 node --import tsx src/probes/phase9b-grid-doctor-614.ts /absolute/new/evidence-directory '<consent>'
 ```
 
-The first run creates `.local/grid-doctor/<fingerprint-hash>.attempt.json`
+The first run creates `.tmp/grid-doctor/<fingerprint-hash>.attempt.json`
 with exclusive creation. A retry is admitted only with the explicit
 `--retry-after-refused-preflight <prior evidence dirs> '<retry consent>'`
 arguments, only when every prior record proves that no native command ran,
