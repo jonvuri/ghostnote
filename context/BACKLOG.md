@@ -25,10 +25,10 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
-| V14 | Add devices and presets by name: implement configured-root discovery and public resolution; independently verify insertion of a stock device, a VST3 plug-in, a CLAP plug-in, and a Bitwig preset from a newly added sound-content location. | sound, implementation | next | [brief](work/v14-add-devices-by-name.md); DP-5; R05, R06 |
-| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
+| R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | next | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
 | P01 | Edit-path performance and recovery cost: attribute repeated inventories and full clip captures, simplify recovery-only machinery under D54. Offline audit first. | perf, cleanup | queued | [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost); W4-016, D54 |
+| V14 | Add devices and presets by name: `resolve_device_name` resolves stock, VST3, CLAP, and Bitwig-preset names from the running host configuration; all four insert and verify live, with refresh, ambiguity, and cleanup. | sound, implementation | done | [brief](work/v14-add-devices-by-name.md); [E351](evidence/experiments/e351-device-name-resolution-live.md); DP-5; R05, R06 |
 
 ## P1
 

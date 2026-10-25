@@ -7,10 +7,13 @@ updated: 2026-10-25
 ## Now
 
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
-next for implementation and live verification: stock Bitwig device, VST3, CLAP,
-and a Bitwig preset from a newly added sound-content location. It owns public
-resolution, configured-root refresh, ambiguity handling, and build compatibility.
-The brief is prepared; implementation has not begun.
+complete. `resolve_device_name` (46 tools, descriptions v54) resolves an exact
+stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
+installation, preferences, indexes, and content locations with no Bitwig call.
+[E351](evidence/experiments/e351-device-name-resolution-live.md) records all
+four live insertions, configuration refresh and removal in one session,
+ambiguity with explicit disambiguation, and cleanup. R01 is next in the
+[backlog](BACKLOG.md), then R02 and P01.
 
 V01's [Engram / Via Purifico sketch](work/v01-engram-purifico.md) is complete:
 two saved eight-bar Launcher sections at 130 BPM, independently verified and
@@ -32,9 +35,9 @@ preamble, and remaining index-refresh limits.
 preferences-based root-discovery route: a temporary sound-content location was
 detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
-These results remain research; V14 now owns public resolver implementation.
+V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) now orders V14, R01, R02, then the P01 offline audit.
+The [backlog](BACKLOG.md) now orders R01, R02, then the P01 offline audit.
 R01 also assesses the first-save annotation-continuity limitation
 recorded in the V01 closeout.
 
@@ -57,10 +60,13 @@ identifies proposed mechanisms for assessment during implementation.
   hash `8be1975eaa99d78f`, expected normal build markers, and fresh initialization
   at `2026-10-25T16:53:58.441Z`. The R05 operational handoff is complete.
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E348 verified the original track rows, 110 slot occupancy reads (25 filled),
-  16 top-level devices, and mixer fields after scratch cleanup. Transport was
-  stopped; the mixer selection was restored to `gn-sel`. No R05 scratch track
-  or popup remains. Re-read project, target, and selection before more writes.
+  E351 deleted its scratch track `gn-v14`; `list_tracks` then listed the
+  original 11 tracks with unchanged IDs and the four-chain `gn-lay4` structure
+  read back unchanged. The V14 sound-content location was removed from Bitwig
+  Settings and its temporary directory deleted. No scratch track or popup
+  remains. Re-read project, target, and selection before more writes.
+  The running MCP server already lists `resolve_device_name`; a server started
+  before this session needs a restart to load it.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
@@ -70,7 +76,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Baseline: 45 normal tools, descriptions v53.
+  Baseline: 46 normal tools, descriptions v54.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

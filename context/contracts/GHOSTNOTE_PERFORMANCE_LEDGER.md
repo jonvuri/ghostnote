@@ -283,6 +283,23 @@ planner: offline median 2.9 ms for 835 notes and 51.2 ms for 16,384 notes
 | Upgrade check, primary rehearsal | 4,510.983 ms; peak RSS 187,252,736 bytes | Zero host calls; 120 s and 768 MiB per jar scan; 300 s and 2 MiB report for the full check | E343 |
 | Upgrade check, traced continuation | 11,310.502 ms; peak RSS 338,280,448 bytes | Same offline bounds | E343 |
 
+### Device name resolution (E351)
+
+`resolve_device_name` makes no Bitwig call once a handshake is cached (one
+revision mark before that). It reads the host process list and `Info.plist`
+through `ps` and `plutil`, then the prefs file, four index dictionaries, the
+present VST3/CLAP index files, the stock `device-settings` presets, and every
+`.bwpreset` name under the content roots. Decoded prefs, dictionaries, indexes,
+and stock devices are kept while their file signatures are unchanged; preset
+enumeration and the bounded bundle check run on every call.
+
+| Path | Measured cost | Budget and bounds | Source |
+|---|---|---|---|
+| `resolve_device_name`, all four kinds, warm cache (`gn-scale-test` host: 152 stock devices, 407 plug-in entries, 5,285 presets under 18,412 entries) | Resolution 36–41 ms (presets 29–34 ms, indexes 6–7 ms); host context 62–375 ms more for `ps` and `plutil`; zero Bitwig calls | Prefs at most 32 MiB; index and dictionary files at most 32 and 64 MiB; preset scan at most 250,000 entries and depth 32 per root; bundle check at most 50,000 entries and depth 2 per root; stock preset at most 16 MiB | E351 |
+| `resolve_device_name`, first call or changed files | Resolution 166–205 ms (native 22–28 ms, indexes 21–46 ms, presets 115–162 ms) | Same bounds; a changed prefs or index signature re-decodes only that file | E351 |
+| `resolve_device_name`, one kind (`sourceKind: vst3`) | 4 ms warm | Same bounds; scopes outside the kind are not read | E351 |
+| `add_devices` from a resolved source: stock device; VST3; CLAP; preset | 1,547 ms; 1,019 ms; 999 ms; 1,123 ms (`expectedDeviceOrder` given after the first) | As the existing `add_devices` rows | E351 |
+
 ## Limits
 
 These limits describe the cited implementation and measurements. P01 can

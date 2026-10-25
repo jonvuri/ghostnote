@@ -4,7 +4,7 @@ kind: capability
 state: active
 updated: 2026-10-25
 scope: device identification, parameter access and the observable surface
-evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289, E298, E299, E344, E345; D2, D46; reference/BitX
+evidence: E4, E4b, E4c, E4d, E12, E16l, E55–E73, E254, E276, E277, E279, E280, E281, E283, E289, E298, E299, E344, E345, E349, E350, E351; D2, D46; reference/BitX
 ---
 
 # Devices
@@ -18,15 +18,29 @@ The public controller API has no device-instance ID. It identifies device
 [E16l](../experiments/e16l-object-identity-settled-properly-is-the-only-one-and-there-is-no.md)].
 See [identity](identity.md) for the public API limits.
 
-## Direct index discovery research
+## Name resolution from the host configuration
 
-Read-only disk decoding yields 407 VST3/CLAP entries across four explicit local
-scopes, with matching IDs/paths for all 28 earlier browser samples and matching
-complete instrument-name sets. The measured local read/parse/bundle-stat cost
-is 7.69 ms median with warm/unspecified OS caching. No popup or host call is
-required. Native/preset index preambles, configured-root discovery, and refresh
-coverage remain unresolved; there is no public resolver yet
-([E349](../experiments/e349-direct-plugin-index-discovery.md)).
+`resolve_device_name` resolves one exact name without a host call or browser
+popup. It identifies the running Bitwig process and version, resolves its
+settings directory (including `BITWIG_USER_SETTINGS_DIR`), decodes the active
+prefs file for My Library, package, sound-content, music, and plug-in
+locations, and reads the stock `device-settings` presets, Bitwig's VST3/CLAP
+indexes, and `.bwpreset` names under the content roots. A sound-content
+location added or removed in Settings is searched or dropped on the next call
+with no restart. All four source kinds were inserted live from resolved
+identities and verified independently on 6.1.4; the plug-in host loaded
+exactly the resolved VST3 and CLAP bundles [K,
+[E351](../experiments/e351-device-name-resolution-live.md)].
+
+The route rests on read-only disk decoding verified in research: 407
+VST3/CLAP entries across four explicit local scopes, with matching IDs/paths
+for all 28 earlier browser samples and matching complete instrument-name sets
+([E349](../experiments/e349-direct-plugin-index-discovery.md)); preferences
+expose the configured roots ([E350](../experiments/e350-library-roots-from-preferences.md)).
+Bundles Bitwig could not load are classified through its metadata cache and
+reported as exclusions. VST2 and vendor preset formats are not resolved, and
+the native/preset index preambles stay undecoded: stock devices and presets
+are read from their files instead.
 
 ## Live Grid research (9a)
 

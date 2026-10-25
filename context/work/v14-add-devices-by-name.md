@@ -1,5 +1,43 @@
 # V14 — Add devices and presets by name
 
+## Result — 2026-10-25
+
+Complete. [E351](../evidence/experiments/e351-device-name-resolution-live.md)
+records the live pass: `resolve_device_name` resolved Polymer (stock UUID),
+TX16Wx as VST3 and as CLAP (ambiguous until `sourceKind` chose one), and an
+owned Instrument Layer preset in a sound-content location added through
+Bitwig Settings during the session. Each identity inserted through the
+unchanged `add_devices` route and read back independently; the plug-in host
+loaded exactly the resolved bundles; the preset read back with its four named
+layer chains. Removing the location dropped the root and the name on the
+next call. The scratch track and temporary files were removed; the project
+and the neighbouring track read back unchanged.
+
+Implementation: `brain/src/discovery/` (binary readers, prefs locations,
+VST3/CLAP indexes, host context from the Bitwig process, roots, source
+scanners, resolver) and `brain/src/surface/device-discovery.ts` (the tool).
+The tool reads only local files and `ps`/`plutil` output; it uses no
+internal host symbol and makes no Bitwig call once a handshake is cached.
+Admission pins the 6.1.4 jar fingerprint and validates any other build at run
+time from the prefs decode, index state files, index decode, and stock-device
+decode; a failed check yields `partial` or `unsupported` with the reason.
+Descriptions are v54 with 46 tools; the ledger has a
+[resolution section](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md#device-name-resolution-e351).
+
+An independent review found four P2 issues, all fixed with tests: unindexed
+bundles beside an indexed one in a vendor directory were hidden (full relative
+paths are compared now); missing index state files did not constrain plug-in
+scopes (they are `incomplete` now); one file under two overlapping content
+roots was a false ambiguity (one candidate with `location.alsoUnder` now);
+and the bounded bundle check needed explicit semantics (a plug-in claim is
+about Bitwig's index; deeper directories are counted, not searched).
+
+Limits and follow-ups: macOS only; VST2 and vendor presets are outside scope;
+the bundle freshness check covers two directory levels; a layer container
+inserted after position 2 must be moved before its chains can be read (the
+existing `read_devices` bound); the result carries full per-root coverage and
+is verbose for all-kind queries. No new D record was needed.
+
 ## Goal
 
 Implement public name discovery and use its results to add a stock Bitwig

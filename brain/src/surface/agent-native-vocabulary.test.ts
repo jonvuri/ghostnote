@@ -92,12 +92,16 @@ const CASES: Readonly<Record<string, { readonly input: Wire; readonly expect: 's
   read_track_mixer: { input: { trackIds: [MISSING] }, expect: 'failure' },
   set_track_mixer: { input: { tracks: [{ trackId: MISSING, volumeDb: -18 }] }, expect: 'failure' },
   check_grid_support: { input: {}, expect: 'success' },
+  // V14: a root that is not a discovered location refuses as absent when a Bitwig process is running on the test
+  // machine, and as unsupported (no running host) otherwise. Neither case reads a project.
+  resolve_device_name: { input: { name: 'Polysynth', root: '/gn-vocabulary-no-such-location' }, expect: 'failure' },
 };
 
 /** The expected code of each failure case: absent (a missing target), except these. */
-const CODES: Readonly<Record<string, string>> = {
+const CODES: Readonly<Record<string, string | readonly string[]>> = {
   edit_launcher_clip: 'invalid-ref',
   reverse_existing_device_modulation_wrap: 'unsupported',
+  resolve_device_name: ['absent', 'unsupported'],
 };
 
 /** Project-index and implementation names that no public input uses (interface audit, target conventions). */
@@ -129,7 +133,7 @@ function workspace() {
 }
 
 test('8h4f vocabulary: every agent-native-v1 tool declares its schema and envelope', () => {
-  assert.equal(AGENT_NATIVE_TOOLS.length, 45);
+  assert.equal(AGENT_NATIVE_TOOLS.length, 46);
   assert.deepEqual(Object.keys(CASES).sort(), AGENT_NATIVE_TOOLS.map((spec) => spec.name).sort(),
     'each tool has exactly one vocabulary case');
   for (const spec of AGENT_NATIVE_TOOLS) {
@@ -161,7 +165,8 @@ test('8h4f vocabulary: each tool answers with its schema, and each failure with 
     assert.equal(result['schema'], contract['schema'], `${spec.name}: ${text}`);
     if (item.expect === 'failure') {
       assert.ok(FAILURE_CODES.includes(result['failure']?.code), `${spec.name} must fail with a stable code: ${text}`);
-      assert.equal(result['failure'].code, CODES[spec.name] ?? 'absent', `${spec.name}: ${text}`);
+      const expected = CODES[spec.name] ?? 'absent';
+      assert.ok((typeof expected === 'string' ? [expected] : expected).includes(result['failure'].code), `${spec.name}: ${text}`);
       assert.ok(Array.isArray(result['failure'].effects), spec.name);
       assert.equal(typeof result['failure'].stage, 'string', spec.name);
       assert.equal(result['refused'] === true && MEASURED_BODY_SCHEMAS[spec.name] === undefined, false, spec.name);

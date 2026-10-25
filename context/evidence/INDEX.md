@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E351 | V14: `resolve_device_name` resolves a stock device, VST3, CLAP, and a preset in a newly added sound-content location from the running host configuration with zero Bitwig calls; all four insert and read back independently, the plug-in host loads exactly the resolved bundles, refresh and removal pass without a restart, scratch cleanup passes (2026-10-25) | [open](experiments/e351-device-name-resolution-live.md) |
 | E350 | Preferences expose configured content roots independently of indexes; live sound-content add/remove detected while Settings remains open, original locations restored; seven offline tests pass (2026-10-25) | [open](experiments/e350-library-roots-from-preferences.md) |
 | E349 | Direct disk indexes yield 407 VST3/CLAP entries without host calls; 28 identities and complete prior instrument-name lists match. Local read/parse/check median 7.69 ms; native/preset preamble and refresh remain unproved (2026-10-25) | [open](experiments/e349-direct-plugin-index-discovery.md) |
 | E348 | Native browser metadata yields stock UUIDs, VST3/CLAP IDs, and Bitwig-preset paths on 6.1.4; 60 sampled supported identities cross-check against independent sources. VST3/CLAP name scans complete; no insertion; cleanup passes; minimal resolver contract proposed (2026-10-25) | [open](experiments/e348-browser-native-result-identities.md) |

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v53';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v54';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -552,7 +552,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * documentOutputPath. v52 (8i20) keeps this list: read_midi_file reports a bounded tempo summary and states when to
  * omit targetBpm; add_launcher_clip and edit_launcher_clip state the overlap detail and the pre-check. v53 (9b.7,
  * D52) adds check_grid_support at the end: the Grid admission gate of the connected build, read from the local jar
- * fingerprint and the accepted doctor cache.
+ * fingerprint and the accepted doctor cache. v54 (V14) adds resolve_device_name at the end: exact stock-device,
+ * VST3, CLAP, and Bitwig-preset name resolution from the running host's configuration, with no Bitwig call.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -561,6 +562,7 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   { name: 'read_midi_file', kind: 'read', reason: 'Converts a complete local MIDI file to a document, inline or in a new file, with optional tempo conversion.' },
   { name: 'write_midi_file', kind: 'write', reason: 'Writes an inline or file document to a new local MIDI file without a host call.' },
   { name: 'check_grid_support', kind: 'read', reason: 'Reads the native Grid admission gate of the connected build: jar fingerprint and accepted doctor cache (D52).' },
+  { name: 'resolve_device_name', kind: 'read', reason: 'Resolves one exact device or preset name to its add_devices identity from the running host configuration (V14).' },
 ];
 
 interface ToolAnnotations {
@@ -888,3 +890,9 @@ export const TOOL_DESCRIPTION_V52_SHA256 = 'ccc7d870105b85d34da8e725b15b61c7315e
  * description changes.
  */
 export const TOOL_DESCRIPTION_V53_SHA256 = '3180edf177fbeda04df21cd860a238df54db8335f558df69299932103dfbb7f3';
+
+/**
+ * v54 (V14): resolve_device_name resolves one exact stock-device, VST3, CLAP, or Bitwig-preset name to its add_devices
+ * identity from the running host's preferences, indexes, and content roots. No earlier description changes.
+ */
+export const TOOL_DESCRIPTION_V54_SHA256 = 'f13534e980deac485a601640f0360294196f44f24acff82cfb56329478c72719';
