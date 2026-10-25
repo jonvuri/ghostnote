@@ -84,6 +84,10 @@ check('runtime profile has an active golden', goldenFile !== undefined, hello);
 if (hello.runtimeProfile === 'phase-8-probe-v1') {
   const browser = await client.request('probe.browserDiscovery', { operation: 'status' }) as { marker?: string };
   check('the R05 browser handler has the expected build marker', browser.marker === 'r05-browser-discovery-v4', browser.marker);
+  const scopes = await client.request('probe.scopeScroll', { operation: 'status' }) as { marker?: string; scopes?: { status: string }[] };
+  check('the B08 scope-scroll handler has the expected build marker and held scopes',
+    scopes.marker === 'b08-scope-scroll-v1' && scopes.scopes?.every((scope) => scope.status === 'held') === true,
+    { marker: scopes.marker, scopes: scopes.scopes?.map((scope) => scope.status) });
   // Read each handler directly. A constant copied into rig.info can be stale.
   for (const operation of ['status', 'breadthStatus', 'doctorStatus']) {
     const status = await client.request('probe.gridRead', { operation }) as Record<string, unknown>;

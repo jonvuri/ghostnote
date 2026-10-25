@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-25",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 178,
-  "methodsHash": "fd5f21a51ea9463c",
+  "count": 179,
+  "methodsHash": "9f2a826c2eccc4af",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -95,6 +95,7 @@
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue",
+    "probe.scopeScroll",
     "rig.methods",
     "selection.restoreMixer",
     "slot.copyTo",
@@ -275,6 +276,7 @@
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue",
+    "probe.scopeScroll",
     "remote.list",
     "remote.selectPage",
     "remote.set",
@@ -573,5 +575,8 @@
   ],
   "addedInR05": [
     "probe.browserDiscovery"
+  ],
+  "addedInB08": [
+    "probe.scopeScroll"
   ]
 }

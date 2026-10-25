@@ -1,0 +1,15 @@
+{
+  "elapsedMs": 9142.717708,
+  "value": {
+    "operation": "setSolo",
+    "scope": 0,
+    "layerIndex": 1,
+    "containerName": "Instrument Layer",
+    "chainName": "B2",
+    "chainChannelId": "819b9360-d089-413b-ac07-ab739376bd37",
+    "previousSolo": true,
+    "requestedSolo": false,
+    "sequence": 87,
+    "readbackRequired": true
+  }
+}

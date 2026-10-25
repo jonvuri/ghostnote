@@ -1,0 +1,41 @@
+{
+  "elapsedMs": 8264.364083,
+  "value": {
+    "layers": {
+      "requested": 2,
+      "reportedPosition": 2,
+      "itemCount": 5,
+      "names": [
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "expected": [
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "outcome": "observed"
+    },
+    "layersOverflow": {
+      "requested": 10,
+      "reportedPosition": 2,
+      "canScrollForwards": false
+    },
+    "devices": {
+      "chain": "B1",
+      "requested": 2,
+      "reportedPosition": 2,
+      "itemCount": 4,
+      "names": [
+        "Delay-1",
+        "Bit-8"
+      ],
+      "expected": [
+        "Delay-1",
+        "Bit-8"
+      ],
+      "outcome": "observed"
+    }
+  }
+}

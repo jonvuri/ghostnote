@@ -6,6 +6,21 @@ updated: 2026-10-25
 
 ## Now
 
+[B08](work/b08-scrollable-container-scopes.md) research is complete with a
+**go** verdict. [E352](evidence/experiments/e352-scrollable-container-scopes-retarget-live.md)
+records that a layer bank hung off a one-wide scrollable device bank retargets
+to the container at the scrolled position, including position 3, with the
+complete identity correct on the first read at 0 ms wait (polled 23 ms, one
+status round trip); nested chain and device windows scroll with total
+`itemCount`; out-of-range scrolls clamp; a solo written through a scrolled
+scope read back through an independent scope and the cursor route. The probe
+profile gained `probe.scopeScroll` (120 methods, hash `eee07e622b789114`)
+with an offline-tested driver. B08 implementation is next in the
+[backlog](BACKLOG.md): scrollable product scopes, the five chain tools and
+`compose_devices` past position 2, call-budget tests, and a re-measured
+`containerScope` ledger row. The brief's result section lists the design
+notes from the probe. R01, R02, and P01 follow.
+
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
 complete. `resolve_device_name` (46 tools, descriptions v54) resolves an exact
 stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
@@ -13,14 +28,6 @@ installation, preferences, indexes, and content locations with no Bitwig call.
 [E351](evidence/experiments/e351-device-name-resolution-live.md) records all
 four live insertions, configuration refresh and removal in one session,
 ambiguity with explicit disambiguation, and cleanup.
-
-[B08](work/b08-scrollable-container-scopes.md) is next in the
-[backlog](BACKLOG.md), promoted from `later` on 2026-10-25: layer chains of a
-container after top-level position 2 are unobservable and unwritable because
-the extension's three container scopes are fixed to slots 0 to 2. The brief
-records the current design, the API 25 scrolling contract, a proposed
-scrollable-window mechanism, and a bounded live probe to run first. R01, R02,
-and P01 follow.
 
 V01's [Engram / Via Purifico sketch](work/v01-engram-purifico.md) is complete:
 two saved eight-bar Launcher sections at 130 BPM, independently verified and
@@ -59,21 +66,21 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive was restored with `copyExtension` at
-  `2026-10-25T16:50:22.916Z` (SHA-256
-  `1024978cd6c65ad93519675191b14fdcd900845d62afc3a098f6d125ca9e0214`).
-  The operator confirmed replacement with “Controller replaced”.
-  `npm run probe:hello` passed: `normal-v1`, API 25, 92 methods,
-  hash `8be1975eaa99d78f`, expected normal build markers, and fresh initialization
-  at `2026-10-25T16:53:58.441Z`. The R05 operational handoff is complete.
+- The normal `ghostnote` archive was restored with `copyExtension` after the
+  B08 probe (SHA-256
+  `ae998a5d238b34665243523c48c4dd073d7cc82dd3e5d872525e7ea0051f7524`; the jar
+  now carries the probe class, normal profile unchanged). The operator
+  confirmed replacement; `npm run probe:hello` passed: `normal-v1`, API 25,
+  92 methods, hash `8be1975eaa99d78f`, expected build markers, fresh
+  initialization at `2026-10-25T20:05:43.639Z`. The Ghostnote MCP server
+  answered product tools again after that replacement; it had stopped
+  answering after the earlier replacement to the probe build (E352).
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E351 deleted its scratch track `gn-v14`; `list_tracks` then listed the
-  original 11 tracks with unchanged IDs and the four-chain `gn-lay4` structure
-  read back unchanged. The V14 sound-content location was removed from Bitwig
-  Settings and its temporary directory deleted. No scratch track or popup
-  remains. Re-read project, target, and selection before more writes.
-  The running MCP server already lists `resolve_device_name`; a server started
-  before this session needs a restart to load it.
+  E352 deleted its scratch track `gn-b08`; `list_tracks` then listed the
+  original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure
+  read back unchanged, and the mixer selection stayed on `gn-sel`. No scratch
+  track, solo flag, or popup remains. Re-read project, target, and selection
+  before more writes.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes

@@ -1,0 +1,228 @@
+{
+  "elapsedMs": 7080.276458,
+  "value": {
+    "marker": "b08-scope-scroll-v1",
+    "sequence": 72,
+    "scopeCount": 2,
+    "layerWindow": 3,
+    "deviceWindow": 2,
+    "context": {
+      "project": "gn-scale-test",
+      "generation": "34d8410e-3738-4d98-84b6-288e23572333",
+      "trackExists": true,
+      "trackId": "a80fa3af-aa8d-4824-bdc3-30a9802dc72d",
+      "trackName": "gn-b08",
+      "deviceCount": 4
+    },
+    "reference": {
+      "width": 16,
+      "itemCount": 4,
+      "devices": [
+        {
+          "index": 0,
+          "name": "FX Layer"
+        },
+        {
+          "index": 1,
+          "name": "Dual Pan"
+        },
+        {
+          "index": 2,
+          "name": "Ring-Mod"
+        },
+        {
+          "index": 3,
+          "name": "Instrument Layer"
+        }
+      ]
+    },
+    "scopes": [
+      {
+        "scope": 0,
+        "status": "held",
+        "requestedPosition": 0,
+        "scrollPosition": 0,
+        "itemCount": 4,
+        "canScrollForwards": true,
+        "canScrollBackwards": false,
+        "device": {
+          "exists": true,
+          "name": "FX Layer",
+          "position": 0,
+          "hasLayers": true
+        },
+        "layers": {
+          "scrollPosition": 0,
+          "itemCount": 2,
+          "canScrollForwards": false,
+          "canScrollBackwards": false,
+          "items": [
+            {
+              "index": 0,
+              "exists": true,
+              "name": "A1",
+              "solo": false,
+              "channelId": "53a738b5-d8b1-4a64-bd59-2f01ad0a5b77",
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 1,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": true,
+                    "name": "Distortion",
+                    "position": 0
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "exists": true,
+              "name": "A2",
+              "solo": false,
+              "channelId": "bdedda1e-4a69-43e9-83d8-aedbfc9501a7",
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 1,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": true,
+                    "name": "Tremolo",
+                    "position": 0
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "exists": false,
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 1,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": false
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "scope": 1,
+        "status": "held",
+        "requestedPosition": 0,
+        "scrollPosition": 0,
+        "itemCount": 4,
+        "canScrollForwards": true,
+        "canScrollBackwards": false,
+        "device": {
+          "exists": true,
+          "name": "FX Layer",
+          "position": 0,
+          "hasLayers": true
+        },
+        "layers": {
+          "scrollPosition": 0,
+          "itemCount": 2,
+          "canScrollForwards": false,
+          "canScrollBackwards": false,
+          "items": [
+            {
+              "index": 0,
+              "exists": true,
+              "name": "A1",
+              "solo": false,
+              "channelId": "53a738b5-d8b1-4a64-bd59-2f01ad0a5b77",
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 1,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": true,
+                    "name": "Distortion",
+                    "position": 0
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "exists": true,
+              "name": "A2",
+              "solo": false,
+              "channelId": "bdedda1e-4a69-43e9-83d8-aedbfc9501a7",
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 1,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": true,
+                    "name": "Tremolo",
+                    "position": 0
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "exists": false,
+              "devices": {
+                "scrollPosition": 0,
+                "itemCount": 0,
+                "canScrollForwards": false,
+                "canScrollBackwards": false,
+                "items": [
+                  {
+                    "index": 0,
+                    "exists": false
+                  },
+                  {
+                    "index": 1,
+                    "exists": false
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

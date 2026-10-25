@@ -1,0 +1,181 @@
+{
+  "elapsedMs": 9923.418416,
+  "value": {
+    "verdict": "scrollable-scope-retargets",
+    "retarget": {
+      "outcome": "observed",
+      "mismatches": [],
+      "resting": {
+        "outcome": "observed",
+        "mismatches": []
+      }
+    },
+    "settle": {
+      "fixedWaits": [
+        {
+          "waitMs": 0,
+          "correct": 6,
+          "trials": 6
+        },
+        {
+          "waitMs": 25,
+          "correct": 6,
+          "trials": 6
+        },
+        {
+          "waitMs": 50,
+          "correct": 6,
+          "trials": 6
+        },
+        {
+          "waitMs": 100,
+          "correct": 6,
+          "trials": 6
+        },
+        {
+          "waitMs": 200,
+          "correct": 6,
+          "trials": 6
+        }
+      ],
+      "polled": [
+        {
+          "target": "FX Layer",
+          "position": 0,
+          "nameMs": 23.036042000000634,
+          "completeMs": 23.036042000000634
+        },
+        {
+          "target": "Instrument Layer",
+          "position": 3,
+          "nameMs": 24.26524999999947,
+          "completeMs": 24.26524999999947
+        },
+        {
+          "target": "FX Layer",
+          "position": 0,
+          "nameMs": 22.229041999999936,
+          "completeMs": 22.229041999999936
+        },
+        {
+          "target": "Instrument Layer",
+          "position": 3,
+          "nameMs": 22.79162499999984,
+          "completeMs": 22.79162499999984
+        },
+        {
+          "target": "FX Layer",
+          "position": 0,
+          "nameMs": 22.934707999999773,
+          "completeMs": 22.934707999999773
+        },
+        {
+          "target": "Instrument Layer",
+          "position": 3,
+          "nameMs": 22.467375000000175,
+          "completeMs": 22.467375000000175
+        },
+        {
+          "target": "FX Layer",
+          "position": 0,
+          "nameMs": 23.876917000000503,
+          "completeMs": 23.876917000000503
+        },
+        {
+          "target": "Instrument Layer",
+          "position": 3,
+          "nameMs": 24.658540999999786,
+          "completeMs": 24.658540999999786
+        }
+      ],
+      "medianNameMs": 22.985375000000204,
+      "medianCompleteMs": 22.985375000000204
+    },
+    "clamp": {
+      "requested": 40,
+      "reportedPosition": 3,
+      "canScrollForwards": false,
+      "deviceExists": true,
+      "deviceName": "Instrument Layer",
+      "last": {
+        "position": 3,
+        "canScrollForwards": false,
+        "deviceName": "Instrument Layer"
+      },
+      "first": {
+        "position": 0,
+        "canScrollBackwards": false
+      }
+    },
+    "nested": {
+      "layers": {
+        "requested": 2,
+        "reportedPosition": 2,
+        "itemCount": 5,
+        "names": [
+          "B3",
+          "B4",
+          "B5"
+        ],
+        "expected": [
+          "B3",
+          "B4",
+          "B5"
+        ],
+        "outcome": "observed"
+      },
+      "layersOverflow": {
+        "requested": 10,
+        "reportedPosition": 2,
+        "canScrollForwards": false
+      },
+      "devices": {
+        "chain": "B1",
+        "requested": 2,
+        "reportedPosition": 2,
+        "itemCount": 4,
+        "names": [
+          "Delay-1",
+          "Bit-8"
+        ],
+        "expected": [
+          "Delay-1",
+          "Bit-8"
+        ],
+        "outcome": "observed"
+      }
+    },
+    "guard": {
+      "immediateWrite": "accepted",
+      "settledAfterMs": 29.443874999999025
+    },
+    "solo": {
+      "chain": "B2",
+      "independentScope": true,
+      "cursorRoute": true,
+      "siblingsUntouched": true,
+      "restored": {
+        "independentScope": false,
+        "cursorRoute": false
+      },
+      "outcome": "observed"
+    },
+    "simultaneity": {
+      "scope0": "Instrument Layer",
+      "scope1": "FX Layer",
+      "outcome": "observed"
+    },
+    "cleanup": {
+      "scopePositions": [
+        0,
+        0
+      ],
+      "soloFlags": [
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  }
+}

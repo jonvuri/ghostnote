@@ -110,6 +110,8 @@ export interface Golden {
   addedInR05?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
+  /** B08 scrollable container scope research. */
+  addedInB08?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

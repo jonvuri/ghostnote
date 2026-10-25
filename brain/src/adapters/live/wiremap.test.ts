@@ -82,6 +82,8 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     'directparam.observeDisplay',
     'probe.gridRead',
     'probe.browserDiscovery',
+    // B08: scrollable container scope research.
+    'probe.scopeScroll',
     'probe.gridValue',
     'probe.gridCable',
     'probe.gridModuleDelete',
@@ -98,7 +100,7 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
   );
   assert.equal(normalGolden.count, 92);
   assert.equal(captureGolden.count, 97);
-  assert.equal(probeGolden.count, 119);
+  assert.equal(probeGolden.count, 120);
 });
 
 test('9b: hello and the doctor driver require the delegated Grid marker', () => {
@@ -219,7 +221,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase8h1a ?? []), ...(golden.addedInPhase8h4a5 ?? []),
       ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
       ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? []),
-      ...(golden.addedInPhase8i14 ?? []), ...(golden.addedInPhase9a ?? []), ...(golden.addedInR05 ?? [])];
+      ...(golden.addedInPhase8i14 ?? []), ...(golden.addedInPhase9a ?? []), ...(golden.addedInR05 ?? []),
+      ...(golden.addedInB08 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

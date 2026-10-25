@@ -1,0 +1,19 @@
+{
+  "elapsedMs": 7080.63225,
+  "value": {
+    "requested": 40,
+    "reportedPosition": 3,
+    "canScrollForwards": false,
+    "deviceExists": true,
+    "deviceName": "Instrument Layer",
+    "last": {
+      "position": 3,
+      "canScrollForwards": false,
+      "deviceName": "Instrument Layer"
+    },
+    "first": {
+      "position": 0,
+      "canScrollBackwards": false
+    }
+  }
+}

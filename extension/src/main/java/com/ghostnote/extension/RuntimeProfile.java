@@ -207,6 +207,7 @@ public enum RuntimeProfile {
 
         private static final Set<String> ACTIVE_PROBE = methods(
             "probe.browserDiscovery",
+            "probe.scopeScroll",
             "api.runtimeMethods",
             "app.actions",
             "app.invokeAction",
@@ -373,9 +374,9 @@ public enum RuntimeProfile {
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
                     || PRODUCT.size() != 97
                     || NORMAL.size() != 92
-                    || PROBE.size() != 119
+                    || PROBE.size() != 120
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 178
+                    || ALL_CLASSIFIED.size() != 179
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

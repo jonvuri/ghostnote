@@ -1,0 +1,15 @@
+{
+  "elapsedMs": 8318.091083,
+  "value": {
+    "operation": "setSolo",
+    "scope": 0,
+    "layerIndex": 0,
+    "containerName": "FX Layer",
+    "chainName": "A1",
+    "chainChannelId": "53a738b5-d8b1-4a64-bd59-2f01ad0a5b77",
+    "previousSolo": false,
+    "requestedSolo": false,
+    "sequence": 82,
+    "readbackRequired": true
+  }
+}

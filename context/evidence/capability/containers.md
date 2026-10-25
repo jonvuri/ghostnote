@@ -292,6 +292,23 @@ mismatch is a staleness signal and never an observation. ⚠ The bound counts
 **attempts, not wall-clock**: a clock spins hot wherever `settle` is not real
 time, which is every offline test of this class.
 
+### Scrolled scopes retarget within one round trip (B08 research)
+
+- A `DeviceLayerBank` and its per-layer `DeviceBank`s hung off the single slot
+  of a one-wide `DeviceBank` on cursor track 0 **retarget to the container at
+  the scrolled position**, including positions past the fixed scopes. The
+  complete identity was correct on the first read after the scroll at 0 ms
+  wait (6/6 at 0, 25, 50, 100, and 200 ms; polled first-correct 23 ms, one
+  status round trip) [K, E352]. Scrolling within one track is therefore not
+  the 100 ms case above, which re-points the cursor across tracks.
+- The nested chain and device windows scroll too; `itemCount` reports the
+  total and an over-range request clamps to `itemCount - size` [K, E352].
+- ⚠ Two containers of one kind share a device name (`Instrument Layer`), so a
+  scrolled scope's identity guard must use the requested position, the
+  reported position, the reference bank's name there, and the chain name
+  [K, E352]. The product does not yet use scrolled scopes; B08 implementation
+  follows.
+
 ---
 
 ## 7. Chain-level state

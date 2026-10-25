@@ -1,0 +1,53 @@
+{
+  "elapsedMs": 6090.901541,
+  "value": [
+    {
+      "target": "FX Layer",
+      "position": 0,
+      "nameMs": 23.036042000000634,
+      "completeMs": 23.036042000000634
+    },
+    {
+      "target": "Instrument Layer",
+      "position": 3,
+      "nameMs": 24.26524999999947,
+      "completeMs": 24.26524999999947
+    },
+    {
+      "target": "FX Layer",
+      "position": 0,
+      "nameMs": 22.229041999999936,
+      "completeMs": 22.229041999999936
+    },
+    {
+      "target": "Instrument Layer",
+      "position": 3,
+      "nameMs": 22.79162499999984,
+      "completeMs": 22.79162499999984
+    },
+    {
+      "target": "FX Layer",
+      "position": 0,
+      "nameMs": 22.934707999999773,
+      "completeMs": 22.934707999999773
+    },
+    {
+      "target": "Instrument Layer",
+      "position": 3,
+      "nameMs": 22.467375000000175,
+      "completeMs": 22.467375000000175
+    },
+    {
+      "target": "FX Layer",
+      "position": 0,
+      "nameMs": 23.876917000000503,
+      "completeMs": 23.876917000000503
+    },
+    {
+      "target": "Instrument Layer",
+      "position": 3,
+      "nameMs": 24.658540999999786,
+      "completeMs": 24.658540999999786
+    }
+  ]
+}

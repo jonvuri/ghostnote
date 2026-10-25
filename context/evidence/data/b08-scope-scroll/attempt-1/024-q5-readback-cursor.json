@@ -1,0 +1,123 @@
+{
+  "elapsedMs": 9125.992708,
+  "value": {
+    "layers": [
+      {
+        "index": 0,
+        "name": "B1",
+        "mute": false,
+        "solo": false,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "d668bd41-71f0-409f-be35-56c14cec3aac",
+        "color": "0.925,0.380,0.329",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool"
+          },
+          {
+            "index": 1,
+            "name": "Blur"
+          },
+          {
+            "index": 2,
+            "name": "Delay-1"
+          },
+          {
+            "index": 3,
+            "name": "Bit-8"
+          }
+        ],
+        "deviceCount": 4
+      },
+      {
+        "index": 1,
+        "name": "B2",
+        "mute": false,
+        "solo": true,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "819b9360-d089-413b-ac07-ab739376bd37",
+        "color": "0.925,0.380,0.329",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "Gate"
+          }
+        ],
+        "deviceCount": 1
+      },
+      {
+        "index": 2,
+        "name": "B3",
+        "mute": false,
+        "solo": false,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "43dda0ce-46f9-4b42-af5f-8ab9a3e42aa7",
+        "color": "0.925,0.380,0.329",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-5"
+          }
+        ],
+        "deviceCount": 1
+      },
+      {
+        "index": 3,
+        "name": "B4",
+        "mute": false,
+        "solo": false,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "0cf96609-0911-473d-9ab1-e6041f529174",
+        "color": "0.925,0.380,0.329",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-2"
+          }
+        ],
+        "deviceCount": 1
+      },
+      {
+        "index": 4,
+        "name": "B5",
+        "mute": false,
+        "solo": false,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "c44a7c5f-5a04-4d6c-a0c5-d5f29d99f22a",
+        "color": "0.925,0.380,0.329",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "Peak Limiter"
+          }
+        ],
+        "deviceCount": 1
+      }
+    ],
+    "count": 5,
+    "itemCount": 5,
+    "bankSize": 8,
+    "deviceBankSize": 4,
+    "hasLayers": true,
+    "layerMixerStatus": "marked:8",
+    "layerColorStatus": "marked:8",
+    "layerSendsStatus": "FAILED@0:JAL:No send bank exists: Requested a send bank size of 0",
+    "cursorDeviceName": "Instrument Layer"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "elapsedMs": 9498.229791,
+  "value": {
+    "chain": "B2",
+    "independentScope": true,
+    "cursorRoute": true,
+    "siblingsUntouched": true,
+    "restored": {
+      "independentScope": false,
+      "cursorRoute": false
+    },
+    "outcome": "observed"
+  }
+}

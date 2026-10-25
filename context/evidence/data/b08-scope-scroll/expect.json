@@ -1,0 +1,13 @@
+{
+  "resting": { "position": 0, "name": "FX Layer", "chains": [
+    { "name": "A1", "devices": ["Distortion"] },
+    { "name": "A2", "devices": ["Tremolo"] }
+  ] },
+  "far": { "position": 3, "name": "Instrument Layer", "chains": [
+    { "name": "B1", "devices": ["Tool", "Blur", "Delay-1", "Bit-8"] },
+    { "name": "B2", "devices": ["Gate"] },
+    { "name": "B3", "devices": ["EQ-5"] },
+    { "name": "B4", "devices": ["EQ-2"] },
+    { "name": "B5", "devices": ["Peak Limiter"] }
+  ] }
+}

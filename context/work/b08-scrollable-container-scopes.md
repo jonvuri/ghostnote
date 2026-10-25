@@ -152,5 +152,34 @@ re-measured; cleanup of the scratch track and preserved project state checked.
 
 ## Result
 
-Pending. Record the probe as an E record and update this section, the
-backlog, and NOW with the verdict.
+Research complete on 2026-10-25: **go**.
+[E352](../evidence/experiments/e352-scrollable-container-scopes-retarget-live.md)
+records the probe. A layer bank hung off a one-wide scrollable device bank on
+cursor track 0 retargeted to the container at the scrolled position every
+time, including position 3, with the complete identity correct on the first
+read at 0 ms wait (6/6 at each fixed wait; polled first-correct 23 ms, which
+is one status round trip). Out-of-range scrolls clamp to `itemCount - 1`. The
+nested chain window (width 3 over 5 chains) and device window (width 2 over 4
+devices) scroll with `itemCount` reporting the total. A solo written through a
+scrolled scope at position 3 read back through an independent scope and the
+cursor route and was cleared. Two scopes at two containers read correctly in
+one reply.
+
+Deviations from the plan above: the nested windows were made narrower than
+the product's (3 and 2 instead of 5 and 4) so that compose-built content
+needed scrolling; the six-chain and five-device shapes were not built. The
+guard's refusal path could not be shown live because no stale state was
+observable at wire granularity; it is covered by the offline host models.
+
+Implementation notes from the probe: identity must not rest on the slot name
+(two containers of one kind share it); guard on the requested position, the
+reported position, the reference bank's name there, and the chain name, and
+refuse a clamped request. A read past position 2 costs the fixed-scope read
+plus one scroll request; resting positions 0 to 2 need no scroll. Re-measure
+the `containerScope` ledger row during implementation. After a controller
+replacement, a running MCP server needs a reconnect before product tools
+answer (E352).
+
+Probe sources: `extension/.../ScopeScrollProbe.java`, `ScopeScrollHandlers.java`,
+`brain/src/probes/b08-scope-scroll-lib.ts` with offline tests, and
+`npm run probe:b08-scope`. The probe profile now has 120 methods.
