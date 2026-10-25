@@ -1,7 +1,7 @@
 ---
 title: Wave 4 decision sessions
 kind: plan
-state: active
+state: complete
 updated: 2026-10-24
 ---
 
@@ -109,8 +109,9 @@ estimate. Do not block independent useful work on an unrelated route result.
 
 ## W4-D — Select the matrix and implementation roadmap
 
-**Status:** next. The review of 2026-10-24 (W4-024, W4-025) settled the
-remaining Phase 11, undo, and coverage questions.
+**Status:** replaced by the [backlog](../../../BACKLOG.md) on 2026-10-24.
+The row/verb matrix is not built; each item writes its own brief when it
+reaches the top. The owner reconciliation below is applied in the backlog.
 
 Promote only selected work from the [scope overlay](scope.json). The overlay
 contains all 58 wave-3 records but does not authorize their implementation.

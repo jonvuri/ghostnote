@@ -30,7 +30,7 @@ not priorities. Raw audit data and executable checks stay in
 [`context/evidence/data/overlap-audit/`](../../evidence/data/overlap-audit/).
 
 The [input synthesis](wave-3/next-session.md) is complete. The user started
-[wave 4](wave-4/README.md) for vision and scope decisions. Its workflow,
-boundary, and route steps are complete; its next session is
-[W4-D](wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap).
+[wave 4](wave-4/README.md) for vision and scope decisions; it is complete.
+Its cases and briefs are items in the [backlog](../../BACKLOG.md), which
+replaced the planned W4-D matrix step.
 Wave 3 remains the evidence baseline; wave 4 records the new direction.

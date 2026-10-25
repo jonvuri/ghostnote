@@ -7,6 +7,9 @@ updated: 2026-10-24
 
 # Roadmap
 
+Planning now runs from the [backlog](../BACKLOG.md); briefs live in
+[`work/`](../work/). The phase table below is the history of the phase model.
+
 | Phase | State | Purpose |
 |---|---|---|
 | 0 — foundation | done | Contract, fake adapter, UI probe, decision consolidation |
@@ -20,14 +23,14 @@ updated: 2026-10-24
 | [7 — workstation dogfood](phase-7/README.md) | done | Focused modules, hybrid dogfood, and the played-range follow-up pass |
 | [8 — agent-native live engine](phase-8/README.md) | done | FIELDS/JSON 1.0 contract, codec, model reference, and the agent-native surface; the 8i gate closed (E272). [8i17](phase-8/8i17-midi-musical-navigation-survey.md) remains a planned survey |
 | [9 — overlap investigation](phase-9/README.md) | done | 9a proves native Grid CRUD on the fixed fixture (E299). 9b closes breadth (E310), the two-build doctor (E316, E342), the admission gate and upgrade tool (E343), and the build-out plan. D52 defines guarded upgrade admission; D53 accepts ordinary operator consent. E330 accepts the 6.1.4 normal-product update audit |
-| [10 — breadth and release](phase-10/README.md) | deferred | Former Phase 9: publication reviews 10a/10b, the release live suite 10c, and the existing breadth backlog |
-| [11 — Grid authoring](phase-11/README.md) | active | Product Grid tools from the Phase 9 result: read, values, cables, add and delete modules, mappings, gated by D52 admission. Wave one adds no obfuscated symbol. Next: 11a, the product Grid read |
+| [10 — breadth and release](phase-10/README.md) | dissolved | Its release work is backlog item REL; its breadth candidates are individual backlog items |
+| [11 — Grid authoring](phase-11/README.md) | dissolved | Backlog items V10 and V11; the design detail is in the [V10 brief](../work/v10-grid-instrument.md). Grid writes record no inverse (W4-024) |
 
 ## Cross-phase work
 
 | Brief | State | Purpose |
 |---|---|---|
-| [wave-4 vision and scope](overlap/wave-4/report.html) | planning active | Selected outcome order: song, performable sound, mix/capture. W4-A through W4-C are complete; [W4-D](overlap/wave-4/sessions.md#w4-d--select-the-matrix-and-implementation-roadmap) maps the accepted [13-case working plan](overlap/wave-4/workflow-sequence.md) to a row/verb matrix and sessions. [Selected sessions](overlap/wave-4/work-sessions.md) cover performance/recovery, formats/claims, stable-v1 removal, and internal dependency mapping. D54 removes mandatory agent reversal; release support is tested-version-only. The 76-row map retains its evidence. Wave 3 remains the evidence baseline; detailed implementation sessions are not selected. |
+| [wave-4 vision and scope](overlap/wave-4/report.html) | complete 2026-10-24 | Selected outcome order: song, performable sound, mix/capture; 25 decisions and D54. Its 13-case sequence and research/cleanup briefs are items in the [backlog](../BACKLOG.md), which replaced the planned W4-D matrix step. Wave 3 remains the evidence baseline. |
 | [capability knowledge base](../archive/outcomes/KNOWLEDGE-BASE.md) | done 2026-08-15 | Minted [`evidence/capability/`](../evidence/capability/INDEX.md) and seeded it from host-API and `reference/BitX` facts |
 
 The capability knowledge-base detour changed no product behavior. Phase 1 paused between sessions 3f-g

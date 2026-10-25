@@ -52,7 +52,9 @@ The review of 2026-10-24 confirmed the set is coherent and closed its gaps:
 Grid writes record no inverse and host undo stays operator-only (W4-024);
 V12 adds Effect-track creation and track state, V03 adds optional cue markers,
 and V01 adds name resolution with the R05 browser re-probe (W4-025). Stale
-pointers and the coverage accounting were corrected. W4-D is next.
+pointers and the coverage accounting were corrected. The user then replaced
+the phase model with a priority-ordered [backlog](../../../BACKLOG.md); W4-D
+is not run. These documents are the source material the backlog links to.
 
 At entry, the worktree was clean at `cbe99349`. The wave-3 report and earlier
 overlap work were already committed. NOW's earlier staged-state note was

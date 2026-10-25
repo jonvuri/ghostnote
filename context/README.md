@@ -14,7 +14,7 @@ history so an agent does not have to reconstruct authority from chronology.
 
 | Goal | Read, in order |
 |---|---|
-| Continue implementation | [NOW](NOW.md) → active session brief → cited decisions |
+| Continue work | [NOW](NOW.md) → [backlog](BACKLOG.md) → the item's brief in [`work/`](work/) → cited decisions |
 | Find Phase 8 dogfood results and fixes | [dogfood archive](archive/outcomes/PHASE-8-DOGFOOD.md) → result and related session |
 | Run a new dogfood trial | Selected session brief → [reusable runbook](plan/phase-8/8i-automated-dogfood-runbook.md) |
 | Find earlier dogfood runs | [first loop history](plan/dogfooding/README.md) → run ledger |
@@ -27,7 +27,7 @@ history so an agent does not have to reconstruct authority from chronology.
 | Work on the agent musical language | [language reference](evidence/format/AGENT_MUSICAL_LANGUAGE.md) → cited evidence → Phase 7 plan |
 | Implement or audit a workstation module | [contracts](evidence/format/WORKSTATION_CONTRACTS.md) → [inventory](evidence/format/WORKSTATION_INTERFACES.md) → [seam blockers](evidence/format/WORKSTATION_SEAMS.md) → [verification costs](evidence/format/WORKSTATION_VERIFICATION.md) → named Phase 7 brief |
 | Work on the `.bwpreset` byte format | [format spec](evidence/format/BWFORMAT_SPEC.md) → [bwmod design](evidence/format/BWMOD_DESIGN.md) |
-| Review the roadmap | [roadmap](plan/ROADMAP.md) → relevant phase README |
+| Review priorities | [backlog](BACKLOG.md); the [roadmap](plan/ROADMAP.md) is phase history |
 | Compare feature breadth and plan missing capabilities | [overlap workspace](plan/overlap/README.md) → [standalone inputs](plan/overlap/wave-3/README.md) |
 | Audit how the design evolved | Current decision → cited evidence → [archive](archive/README.md) |
 
@@ -37,7 +37,8 @@ When documents disagree, use this order:
 
 1. `NOW.md` for current execution state only.
 2. Individual files in `decisions/` for settled design.
-3. Active briefs in `plan/` for work scope and ordering.
+3. `BACKLOG.md` for ordering and briefs in `work/` for work scope. Files
+   under `plan/` are historical phase plans and wave source material.
 4. Pages in `evidence/capability/` and `evidence/format/` for the **current
    reading** of a measured fact.
 5. Files in `evidence/experiments/` for **what one run measured on one day**.

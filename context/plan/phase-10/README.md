@@ -1,14 +1,18 @@
 ---
 title: Phase 10 — Breadth and release
 kind: plan
-state: planned
+state: historical
 status: Deferred from Phase 9. Phase 8 accepted the engine and publication candidates (E272); 10b retains the handoff.
 updated: 2026-10-24
 parent: ../ROADMAP.md
 prev: ../phase-9/README.md
 ---
 
-# Phase 10 — Breadth and release
+# Phase 10 — Breadth and release (dissolved)
+
+The phase model is retired. The release work is the REL item and the
+breadth candidates are individual items in the [backlog](../../BACKLOG.md).
+The session files 10a, 10b, and 10c remain as source material for REL.
 
 This is the former Phase 9 backlog, moved on 2026-10-18. Sessions 9a, 9b,
 and 9c are now 10a, 10b, and 10c. Historical evidence keeps its original

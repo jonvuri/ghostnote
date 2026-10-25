@@ -1,7 +1,7 @@
 ---
 title: Phase 10a — bwmod publication review and extraction
 kind: plan
-state: planned
+state: historical
 status: First publication item in the deferred Phase 10 backlog. Review redistribution before extraction.
 updated: 2026-10-18
 parent: README.md
