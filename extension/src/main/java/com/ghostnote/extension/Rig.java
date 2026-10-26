@@ -241,13 +241,28 @@ public class Rig {
      * on the container; a slot-scoped bank has no such hidden argument, because the
      * container is named by the parameter rather than by cursor state.
      *
-     * ⚠ Scoped to the track `cursorTracks[0]` points at, and to the first three
-     * top-level device slots. Session 5r needs one container after position 1.
+     * ⚠ Scoped to the track `cursorTracks[0]` points at. B08 (E352): each scope
+     * is a ONE-WIDE device bank of its own on that track, scrolled to the
+     * top-level position it observes, rather than a fixed slot of the 16-wide
+     * bank. Scrolling retargets the hung layer bank and its nested device banks
+     * within one wire round trip, so any top-level position inside the 16-wide
+     * reference bank is observable through one of the three scopes. Scope `s`
+     * rests at position `s`, which keeps the first three positions at the fixed
+     * cost; `chain.scroll` moves a scope and `scopeSettled` is the identity
+     * guard every chain write passes through.
      */
     public static final int SLOT_SCOPES = 3;
     public static final int SLOT_LAYER_BANK = 5;
     public static final int SLOT_LAYER_DEVICE_BANK = 4;
     public static final int PARAMETER_ROUTE_DEPTH = 2;
+    /** B08: the one-wide scrollable bank each scope hangs off. */
+    public final DeviceBank[] scopeBanks = new DeviceBank[SLOT_SCOPES];
+    /**
+     * The top-level position each scope was last asked to show. A scroll past
+     * the item count clamps, so the reported `scrollPosition` can differ from
+     * this; the guard compares the two and refuses the difference.
+     */
+    public final int[] scopeRequestedPosition = new int[SLOT_SCOPES];
     public final DeviceLayerBank[] slotLayerBanks = new DeviceLayerBank[SLOT_SCOPES];
     public final DeviceBank[][] slotLayerDeviceBanks = new DeviceBank[SLOT_SCOPES][SLOT_LAYER_BANK];
     /**
@@ -259,6 +274,34 @@ public class Rig {
      * must ABORT unless this reads `held`.
      */
     public final String[] slotScopeStatus = new String[SLOT_SCOPES];
+
+    /** The device a scope currently shows: the single slot of its one-wide bank. */
+    public Device scopeDevice(int scope) {
+        return scopeBanks[scope].getDevice(0);
+    }
+
+    /**
+     * B08 identity guard. A scope is settled when the bank reports the position
+     * it was asked for, that position lies inside the 16-wide reference bank,
+     * and the scope's slot agrees with the reference bank at that position on
+     * existence, name, and the device's own chain position. A clamped scroll
+     * (requested past the item count) fails the first test; a hung bank that
+     * has not retargeted yet fails the last two. Both refuse, which is the
+     * fail-closed direction the probe design calls for (E352).
+     */
+    public boolean scopeSettled(int scope) {
+        if (slotLayerBanks[scope] == null) return false;
+        int requested = scopeRequestedPosition[scope];
+        if (requested < 0 || requested >= config.deviceBank) return false;
+        if (scopeBanks[scope].scrollPosition().get() != requested) return false;
+        Device reference = cursorDeviceBanks[0].getDevice(requested);
+        Device slot = scopeDevice(scope);
+        boolean exists = reference.exists().get();
+        if (exists != slot.exists().get()) return false;
+        if (!exists) return true;
+        return reference.name().get().equals(slot.name().get())
+            && slot.position().get() == requested;
+    }
 
     /**
      * Nesting views on cursorDevice0. All four Bitwig nesting mechanisms are
@@ -1213,7 +1256,21 @@ public class Rig {
         // documented-current observer and cost the session its readback.
         for (int s = 0; s < SLOT_SCOPES; s++) {
             try {
-                Device slot = cursorDeviceBanks[0].getDevice(s);
+                // B08 (E352): a one-wide bank of this scope's own, so the slot it
+                // hangs off can be scrolled to any top-level position. Its item
+                // count, scroll position, and scroll limits are the guard's inputs.
+                scopeBanks[s] = cursorTracks[0].createDeviceBank(1);
+                scopeBanks[s].itemCount().markInterested();
+                scopeBanks[s].scrollPosition().markInterested();
+                scopeBanks[s].canScrollForwards().markInterested();
+                scopeBanks[s].canScrollBackwards().markInterested();
+                Device slot = scopeBanks[s].getDevice(0);
+                slot.exists().markInterested();
+                slot.name().markInterested();
+                // The device's own chain position: with the slot name, the strongest
+                // identity a scrolled scope can report (two containers of one kind
+                // share a name, E352).
+                slot.position().markInterested();
                 // `hasLayers` is not marked by the pool loop above, and a handler
                 // that cannot say whether the slot IS a container cannot tell "no
                 // chains" from "not a container".
@@ -1252,6 +1309,11 @@ public class Rig {
                         nested.isEnabled().markInterested();
                     }
                 }
+                // Rest scope `s` at position `s`: the first three positions then
+                // cost no scroll. Best effort only; a bank with fewer items clamps,
+                // and the brain re-scrolls whatever it finds unsettled.
+                scopeRequestedPosition[s] = s;
+                scopeBanks[s].scrollPosition().set(s);
                 slotScopeStatus[s] = "held";
             } catch (Throwable t) {
                 slotScopeStatus[s] = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();

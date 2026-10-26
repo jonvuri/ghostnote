@@ -259,7 +259,7 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
     assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
     counts[label] = used;
   };
-  // A structure read: one bank read and one read for the containers in positions 0 through 2.
+  // A structure read: one bank read and one read for every container in the bank.
   await run('read', 'read_devices', { trackId: fx.trackId });
   await run('solo', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
   await run('solo-noop', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
@@ -268,6 +268,40 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
     devices: [{ from: 'layer-chain', containerPosition: 1, layerChain: 'C', devicePosition: 0 }], destination: { to: 'track-end' } });
   await run('controls', 'read_device_controls', { device: { trackId: fx.trackId, devicePosition: 0 } });
   assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
+});
+
+// B08: the same tools on a container at position 3, past the three scopes, cost the same adapter calls. The
+// scope is scrolled inside the adapter's container read (one `chain.scroll` wire call, E352), which these counts
+// do not see; the ledger `containerScope` row carries the wire cost.
+test('call budget: the layer-chain tools on a container past position 2 (B08)', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });
+  fx.fake.model.visibleTracks()[0]!.devices.push(dev('Polysynth'), dev('Tool'), dev('Dual Pan'), { ...dev('FX Layer'),
+    params: [], chains: [
+      { name: 'A', solo: false, id: 'budget-far-a', devices: [dev('EQ+')] },
+      { name: 'B', solo: false, id: 'budget-far-b', devices: [dev('Delay+')] },
+    ] });
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire) => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+    return result;
+  };
+  const read = await run('read', 'read_devices', { trackId: fx.trackId });
+  assert.deepEqual(read.data.devices[3].container.layerChains.map((item: Wire) => item.name), ['A', 'B']);
+  await run('solo', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', mode: 'exclusive' });
+  await run('solo-noop', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', mode: 'exclusive' });
+  await run('rename', 'rename_layer_chain', { trackId: fx.trackId, containerPosition: 3, layerChain: 'B', name: 'C' });
+  await run('move', 'move_devices', { trackId: fx.trackId,
+    devices: [{ from: 'layer-chain', containerPosition: 3, layerChain: 'C', devicePosition: 0 }], destination: { to: 'track-end' } });
+  await run('controls', 'read_device_controls', { device: { trackId: fx.trackId, devicePosition: 0 } });
+  assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
+  await run('duplicate-chain', 'duplicate_layer_chain', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', name: 'D' });
+  await run('copy-devices', 'copy_devices', { trackId: fx.trackId, devices: [{ from: 'layer-chain', containerPosition: 3,
+    layerChain: 'A', devicePosition: 0 }], destination: { to: 'layer-chain', containerPosition: 3, layerChain: 'C' } });
+  assert.deepEqual(counts['duplicate-chain'], EXPECTED_8H4G_BUDGETS['duplicate-chain']);
+  assert.deepEqual(counts['copy-devices'], EXPECTED_8H4G_BUDGETS['copy-devices']);
 });
 
 // Each limb reads the container before the write and once after it; the executor adds its own preflight and

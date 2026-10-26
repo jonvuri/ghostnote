@@ -6,23 +6,34 @@ updated: 2026-10-25
 
 ## Now
 
-[B08](work/b08-scrollable-container-scopes.md) research is complete with a
-**go** verdict. [E352](evidence/experiments/e352-scrollable-container-scopes-retarget-live.md)
-records that a layer bank hung off a one-wide scrollable device bank retargets
-to the container at the scrolled position, including position 3, with the
-complete identity correct on the first read at 0 ms wait (polled 23 ms, one
-status round trip); nested chain and device windows scroll with total
-`itemCount`; out-of-range scrolls clamp; a solo written through a scrolled
-scope read back through an independent scope and the cursor route. The probe
-profile gained `probe.scopeScroll` (120 methods, hash `eee07e622b789114`)
-with an offline-tested driver. B08 implementation is next in the
-[backlog](BACKLOG.md): scrollable product scopes, the five chain tools and
-`compose_devices` past position 2, call-budget tests, and a re-measured
-`containerScope` ledger row. The brief's result section lists the design
-notes from the probe. R01, R02, and P01 follow.
+[B08](work/b08-scrollable-container-scopes.md) is complete and verified live.
+[E353](evidence/experiments/e353-scrollable-container-scopes-product-live.md)
+records the product build composing FX Layers at top-level positions 3 and 5,
+`read_devices` listing their chains, the five chain tools and a move between
+the two far containers applying and reading back, the solo read back through
+the cursor route and a second scope, cleanup, and one defect fixed in the
+session (a scope scrolled on a track with fewer devices clamps and stays; the
+adapter now re-issues the scroll). The normal profile is 93 methods, hash
+`a44ce79ed75df81b`, with `chain.scroll`; descriptions are v55 (46 tools).
+The `containerScope` ledger row has a far-position variant (about 305 ms, 11
+turns). [D55](decisions/d55-proved-routes-run-with-one-readback.md) sets the new
+runtime posture: routes proved in tests and E records are trusted at
+runtime, a tool call makes one independent readback at the end, and
+concurrent operator edits are not a design case.
+[B17](work/b17-extension-owned-window-scrolling.md) is next: move the scope logic
+into async extension operations (deferred replies, as `clip.read` already
+uses), page the 16-wide top-level bank and the nested chain and device
+windows, reads first, and retire the caps that exist only because of the
+window widths. P01 then takes the container-scope
+read policy (skip non-containers, rotate the far scope, scope count and
+width) and rebuilds staged `compose_devices` under D55 (direct chain
+insertion in one batch, one readback, re-derived D44 weights), then applies
+the rule to the other staged paths.
+The running Ghostnote MCP server keeps the brain it started with; restart it
+to serve v55. R01 and R02 follow in the [backlog](BACKLOG.md).
 
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
-complete. `resolve_device_name` (46 tools, descriptions v54) resolves an exact
+complete. `resolve_device_name` (46 tools, descriptions v54 then) resolves an exact
 stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
 installation, preferences, indexes, and content locations with no Bitwig call.
 [E351](evidence/experiments/e351-device-name-resolution-live.md) records all
@@ -66,21 +77,21 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive was restored with `copyExtension` after the
-  B08 probe (SHA-256
-  `ae998a5d238b34665243523c48c4dd073d7cc82dd3e5d872525e7ea0051f7524`; the jar
-  now carries the probe class, normal profile unchanged). The operator
-  confirmed replacement; `npm run probe:hello` passed: `normal-v1`, API 25,
-  92 methods, hash `8be1975eaa99d78f`, expected build markers, fresh
-  initialization at `2026-10-25T20:05:43.639Z`. The Ghostnote MCP server
-  answered product tools again after that replacement; it had stopped
-  answering after the earlier replacement to the probe build (E352).
+- The normal `ghostnote` archive carries the B08 build, deployed with
+  `copyExtension` (SHA-256
+  `d225c4389cd09a128621e6ea63f40347c3df9382a7029807c1966c91e89afc16`). The
+  operator confirmed replacement; `npm run probe:hello` passed: `normal-v1`,
+  API 25, 93 methods, hash `a44ce79ed75df81b`, expected build markers, fresh
+  initialization at `2026-10-25T23:37:26.947Z`. The running Ghostnote MCP
+  server answered product tools after that replacement with the brain it
+  started with (v54 descriptions, three-position checks); restart it for v55.
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E352 deleted its scratch track `gn-b08`; `list_tracks` then listed the
+  E353 deleted its scratch track `gn-b08i`; `list_tracks` then listed the
   original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure
-  read back unchanged, and the mixer selection stayed on `gn-sel`. No scratch
-  track, solo flag, or popup remains. Re-read project, target, and selection
-  before more writes.
+  read back unchanged, and the mixer selection stayed on `gn-sel`. The
+  container scopes rested at positions 0, 1, and 5 of the deleted track; the
+  adapter re-aims them on the next read. No scratch track, solo flag, or
+  popup remains. Re-read project, target, and selection before more writes.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
@@ -90,7 +101,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Baseline: 46 normal tools, descriptions v54.
+  Baseline: 46 normal tools, descriptions v55.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

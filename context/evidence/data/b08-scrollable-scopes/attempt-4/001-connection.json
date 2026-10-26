@@ -1,0 +1,49 @@
+{
+  "elapsedMs": 186,
+  "value": {
+    "name": "check_bitwig_connection",
+    "args": {},
+    "ms": 25,
+    "wire": {
+      "turns": 1,
+      "wireMs": 24,
+      "methods": {
+        "revision.get": 1,
+        "track.list": 1
+      },
+      "clipReads": 0,
+      "stages": 0
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-connection/1",
+      "source": {
+        "host": "bitwig",
+        "read": "revision-mark"
+      },
+      "target": {
+        "project": "gn-scale-test"
+      },
+      "coverage": {
+        "tracks": {
+          "addressable": 256,
+          "inProject": 11
+        },
+        "scenes": {
+          "addressable": 128,
+          "inProject": 10
+        }
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "reachable": true,
+        "project": "gn-scale-test",
+        "health": "healthy"
+      },
+      "warnings": []
+    },
+    "scopeCalls": []
+  }
+}

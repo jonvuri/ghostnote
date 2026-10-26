@@ -145,8 +145,9 @@ const publicCheckpoint = z.object({
   schemaVersion: z.literal(5),
   state: z.enum(['container-inserted', 'container-positioned', 'entries-prepared', 'composing']),
   trackId: z.string().min(1), containerKind: z.enum(GENERAL_DEVICE_CONTAINER_KINDS),
-  requestedContainerPosition: z.number().int().min(0)
-    .max(GENERAL_DEVICE_COMPOSITION_CAPACITIES.topLevelContainerPositions - 1),
+  // Frozen at the stable-v1 (v25) bound of three container positions: the public artifact of the stable
+  // profile must stay byte-equal until C01 retires it. The engine capacity behind it is 16 (B08).
+  requestedContainerPosition: z.number().int().min(0).max(2),
   containerInsertChangeId: z.string().min(1), insertedContainerPosition: z.number().int().min(0),
   currentContainerPosition: z.number().int().min(0),
   seedUnchanged: z.boolean(),

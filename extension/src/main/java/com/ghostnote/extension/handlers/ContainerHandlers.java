@@ -3,6 +3,7 @@ package com.ghostnote.extension.handlers;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceBank;
 import com.bitwig.extension.controller.api.DeviceChain;
 import com.bitwig.extension.controller.api.DeviceLayer;
 import com.bitwig.extension.controller.api.DeviceSlot;
@@ -57,6 +58,7 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("layer.duplicateViaAction", params -> layerDuplicateViaAction(params));
         // ⚠⚠ E18 §3.1 — the REBUILD strategy's gating direction. See `chainMove`.
         r.on("chain.inventory", params -> chainInventory());
+        r.on("chain.scroll", params -> chainScroll(params));
         r.on("chain.move", params -> chainMove(params));
         // ⚠⚠ Session 3f step 6b-2 — PRODUCT surface, the first write that reaches
         // inside a container. See the block comment above `chainSelect`.
@@ -991,9 +993,26 @@ public final class ContainerHandlers extends HandlerGroup {
             JsonObject scope = new JsonObject();
             scope.addProperty("slot", s);
             scope.addProperty("status", rig.slotScopeStatus[s]);
-            Device slot = rig.cursorDeviceBanks[0].getDevice(s);
+            if (rig.scopeBanks[s] == null) {
+                scopes.add(scope);
+                continue;
+            }
+            // B08: the scope's own one-wide bank. `position` is what the bank
+            // reports after clamping; `requestedPosition` is what the last
+            // `chain.scroll` (or the resting scroll at init) asked for; `settled`
+            // is the identity guard, which the brain requires before it believes
+            // the chains below describe the container at `requestedPosition`.
+            final int scopeIndex = s;
+            final DeviceBank scopeBank = rig.scopeBanks[s];
+            Device slot = rig.scopeDevice(s);
+            scope.addProperty("requestedPosition", rig.scopeRequestedPosition[s]);
+            putGuarded(scope, "position", () -> scopeBank.scrollPosition().get());
+            putGuarded(scope, "settled", () -> rig.scopeSettled(scopeIndex));
+            putGuarded(scope, "canScrollForwards", () -> scopeBank.canScrollForwards().get());
+            putGuarded(scope, "canScrollBackwards", () -> scopeBank.canScrollBackwards().get());
             putGuarded(scope, "deviceExists", () -> slot.exists().get());
             putGuarded(scope, "deviceName", () -> slot.name().get());
+            putGuarded(scope, "devicePosition", () -> slot.position().get());
             putGuarded(scope, "hasLayers", () -> slot.hasLayers().get());
             putGuarded(scope, "hasSlots", () -> slot.hasSlots().get());
             JsonArray slotNames = new JsonArray();
@@ -1068,6 +1087,12 @@ public final class ContainerHandlers extends HandlerGroup {
         }
         JsonObject result = new JsonObject();
         result.add("scopes", scopes);
+        // B08: the reference bank's device count and width, so a reader can tell
+        // "no device at the requested position" (a real observation) from a
+        // scope that has not settled yet.
+        result.addProperty("scopeCount", Rig.SLOT_SCOPES);
+        putGuarded(result, "deviceCount", () -> rig.cursorDeviceBanks[0].itemCount().get());
+        result.addProperty("deviceBankSize", rig.config.deviceBank);
         // Chain's slot devices are visible only after the device cursor enters
         // its nonempty CHAIN slot. Report the sibling bank with the recorded
         // parent route, so the brain can bind it to one top-level container.
@@ -1083,7 +1108,7 @@ public final class ContainerHandlers extends HandlerGroup {
             boolean namedRoute = rig.directParameterRouteKinds.size() == 1
                 && "deviceSlot".equals(rig.directParameterRouteKinds.get(0));
             if (rig.cursorDevice0.isNested().get() && namedRoute
-                    && topIndex >= 0 && topIndex < Rig.SLOT_SCOPES) {
+                    && topIndex >= 0 && topIndex < rig.config.deviceBank) {
                 Device parent = rig.cursorDeviceBanks[0].getDevice(topIndex);
                 String slotName = rig.directParameterRouteNames.get(0);
                 cursorScope.addProperty("parentDeviceIndex", topIndex);
@@ -1163,8 +1188,15 @@ public final class ContainerHandlers extends HandlerGroup {
         if (!"top".equals(src) && !"chain".equals(src) && !"slot".equals(src)) {
             throw new IllegalArgumentException("src must be top, chain, or slot: " + src);
         }
-        if (!"top".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
+        // B08: for a chain source `srcSlot` names a SCOPE (scrolled to the
+        // container's position, which `srcPosition` carries for the guard); for
+        // a named-slot source it is the container's top-level position, as the
+        // cursor route has always taken it.
+        if ("chain".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
             throw new IllegalArgumentException("srcSlot out of scope range: " + srcSlot);
+        }
+        if ("slot".equals(src) && (srcSlot < 0 || srcSlot >= rig.config.deviceBank)) {
+            throw new IllegalArgumentException("srcSlot out of bank range: " + srcSlot);
         }
         if ("chain".equals(src) && (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK)) {
             throw new IllegalArgumentException("srcLayer out of bank range: " + srcLayer);
@@ -1192,10 +1224,8 @@ public final class ContainerHandlers extends HandlerGroup {
             }
         }
         verifyExpectedTopLevelDevices(params);
-        if ("chain".equals(src) && rig.slotLayerBanks[srcSlot] == null) {
-            throw new IllegalArgumentException(
-                "source scope " + srcSlot + " was never built: " + rig.slotScopeStatus[srcSlot]
-                + " (standing rule 13 — a missing handle and an API refusal look identical)");
+        if ("chain".equals(src)) {
+            requireSettledScope(srcSlot, params, "srcPosition", "expectedSourceContainer");
         }
         DeviceChain sourceNamedSlot = "slot".equals(src)
             ? requireCursorNamedSlot(srcSlot, params, "expectedSourceChain") : null;
@@ -1247,8 +1277,8 @@ public final class ContainerHandlers extends HandlerGroup {
         if ("chain".equals(src)) {
             putGuarded(r, "sourceChain",
                 () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
-            putGuarded(r, "sourceContainer",
-                () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
+            putGuarded(r, "sourceContainer", () -> rig.scopeDevice(srcSlot).name().get());
+            r.addProperty("sourcePosition", rig.scopeRequestedPosition[srcSlot]);
         }
         if ("slot".equals(src)) {
             putGuarded(r, "sourceChain", () -> sourceNamedSlot.name().get());
@@ -1276,11 +1306,11 @@ public final class ContainerHandlers extends HandlerGroup {
             if (dstLayer < 0 || dstLayer >= Rig.SLOT_LAYER_BANK) {
                 throw new IllegalArgumentException("dstLayer out of bank range: " + dstLayer);
             }
-            if (rig.slotLayerBanks[dstSlot] == null) {
-                throw new IllegalArgumentException(
-                    "destination scope " + dstSlot + " was never built: " + rig.slotScopeStatus[dstSlot]);
-            }
-            if ("chain".equals(src) && dstSlot == srcSlot && dstLayer == srcLayer) {
+            requireSettledScope(dstSlot, params, "dstPosition", "expectedDestinationContainer");
+            int dstPosition = rig.scopeRequestedPosition[dstSlot];
+            // Two scopes can show one container; the no-op test is by position.
+            if ("chain".equals(src) && dstPosition == rig.scopeRequestedPosition[srcSlot]
+                    && dstLayer == srcLayer) {
                 throw new IllegalArgumentException(
                     "the destination chain is the source chain, so the move is a no-op by "
                     + "construction and would be indistinguishable from a failure");
@@ -1289,9 +1319,9 @@ public final class ContainerHandlers extends HandlerGroup {
             if (!destination.exists().get()) {
                 throw new IllegalArgumentException(
                     "no chain at scope " + dstSlot + " / index " + dstLayer + " — the slot device is "
-                    + rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+                    + rig.scopeDevice(dstSlot).name().get() + " at position " + dstPosition);
             }
-            if ("top".equals(src) && srcDevice == dstSlot) {
+            if ("top".equals(src) && srcDevice == dstPosition) {
                 throw new IllegalArgumentException("a container cannot be relocated into one of its own chains");
             }
             if (params.has("expectedDestinationChain")) {
@@ -1305,19 +1335,22 @@ public final class ContainerHandlers extends HandlerGroup {
             }
             r.addProperty("dstSlot", dstSlot);
             r.addProperty("dstLayer", dstLayer);
+            r.addProperty("dstPosition", dstPosition);
             r.addProperty("dstScopeStatus", rig.slotScopeStatus[dstSlot]);
             putGuarded(r, "dstChain", () -> destination.name().get());
-            putGuarded(r, "dstContainer",
-                () -> rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
+            putGuarded(r, "dstContainer", () -> rig.scopeDevice(dstSlot).name().get());
             target = "chainStart".equals(where)
                 ? destination.startOfDeviceChainInsertionPoint()
                 : destination.endOfDeviceChainInsertionPoint();
         } else {
             int dstSlot = params.get("dstSlot").getAsInt();
-            if (dstSlot < 0 || dstSlot >= Rig.SLOT_SCOPES) {
-                throw new IllegalArgumentException("dstSlot out of scope range: " + dstSlot);
+            if (dstSlot < 0 || dstSlot >= rig.config.deviceBank) {
+                throw new IllegalArgumentException("dstSlot out of bank range: " + dstSlot);
             }
-            if (!"top".equals(src) && dstSlot == srcSlot) {
+            // The named-slot destination is addressed by top-level position; a
+            // chain source names a scope, so compare its scrolled position.
+            int srcPosition = "chain".equals(src) ? rig.scopeRequestedPosition[srcSlot] : srcSlot;
+            if (!"top".equals(src) && dstSlot == srcPosition) {
                 throw new IllegalArgumentException(
                     "the destination named slot is the source chain, so the move is a no-op");
             }
@@ -1686,12 +1719,91 @@ public final class ContainerHandlers extends HandlerGroup {
         if (slot < 0 || slot >= Rig.SLOT_SCOPES) {
             throw new IllegalArgumentException("slot out of scope range: " + slot);
         }
-        if (rig.slotLayerBanks[slot] == null) {
+        requireSettledScope(slot, params, "position", "expectedContainerName");
+        return slot;
+    }
+
+    /**
+     * B08: the scrolled-scope identity guard, before any chain write.
+     *
+     * The scope must have been built; it must be settled (`Rig.scopeSettled`:
+     * reported position equals the requested one, and the slot agrees with the
+     * 16-wide reference bank there on existence, name, and device position);
+     * when the caller names the position it observed, the scope must have been
+     * asked for that position, so a scope another handler moved in between is
+     * refused rather than written through; and when the caller names the
+     * container, the slot must carry that name. Each disagreement is staleness,
+     * and staleness refuses.
+     */
+    private void requireSettledScope(int slot, JsonObject params, String positionField, String containerField) {
+        if (rig.slotLayerBanks[slot] == null || rig.scopeBanks[slot] == null) {
             throw new IllegalArgumentException(
                 "scope " + slot + " was never built: " + rig.slotScopeStatus[slot]
                 + " (standing rule 13 — a missing handle and an API refusal look identical)");
         }
-        return slot;
+        int requested = rig.scopeRequestedPosition[slot];
+        if (params.has(positionField) && !params.get(positionField).isJsonNull()) {
+            int position = params.get(positionField).getAsInt();
+            if (position != requested) {
+                throw new IllegalArgumentException(
+                    "scope " + slot + " was last scrolled to position " + requested + ", not " + position
+                    + " — scroll it again and re-read before writing through it");
+            }
+        }
+        if (!rig.scopeSettled(slot)) {
+            throw new IllegalArgumentException(
+                "scope " + slot + " has not settled at position " + requested + " (reports "
+                + rig.scopeBanks[slot].scrollPosition().get() + ", slot \"" + rig.scopeDevice(slot).name().get()
+                + "\" at device position " + rig.scopeDevice(slot).position().get()
+                + ") — re-read before writing through it");
+        }
+        if (params.has(containerField) && !params.get(containerField).isJsonNull()) {
+            String expected = params.get(containerField).getAsString();
+            String actual = rig.scopeDevice(slot).name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "scope " + slot + " at position " + requested + " shows \"" + actual + "\", not \""
+                    + expected + "\"");
+            }
+        }
+    }
+
+    /**
+     * B08: aim one scope at a top-level position. The hung layer bank and its
+     * nested device banks retarget within one wire round trip (E352); the next
+     * `chain.inventory` reports whether the scope settled. A request past the
+     * reference bank refuses here because the guard could never verify it; a
+     * request past the current item count is accepted, clamps, and never
+     * settles, which the inventory then reports.
+     */
+    private JsonElement chainScroll(JsonObject params) {
+        int slot = params.get("slot").getAsInt();
+        if (slot < 0 || slot >= Rig.SLOT_SCOPES) {
+            throw new IllegalArgumentException("slot out of scope range: " + slot);
+        }
+        if (rig.slotLayerBanks[slot] == null || rig.scopeBanks[slot] == null) {
+            throw new IllegalArgumentException(
+                "scope " + slot + " was never built: " + rig.slotScopeStatus[slot]);
+        }
+        if (!params.has("position") || !params.get("position").isJsonPrimitive()
+                || !params.get("position").getAsJsonPrimitive().isNumber()) {
+            throw new IllegalArgumentException("chain.scroll needs an integer position");
+        }
+        double raw = params.get("position").getAsDouble();
+        if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= rig.config.deviceBank) {
+            throw new IllegalArgumentException(
+                "chain.scroll position must be an integer in 0.." + (rig.config.deviceBank - 1) + ": " + raw);
+        }
+        int position = (int) raw;
+        JsonObject r = ok();
+        r.addProperty("slot", slot);
+        r.addProperty("previousRequestedPosition", rig.scopeRequestedPosition[slot]);
+        putGuarded(r, "previousPosition", () -> rig.scopeBanks[slot].scrollPosition().get());
+        r.addProperty("position", position);
+        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+        rig.scopeRequestedPosition[slot] = position;
+        rig.scopeBanks[slot].scrollPosition().set(position);
+        return r;
     }
 
     /**
@@ -1719,7 +1831,7 @@ public final class ContainerHandlers extends HandlerGroup {
         if (!layer.exists().get()) {
             throw new IllegalArgumentException(
                 "no chain at scope " + slot + " index " + layerIndex + " — the slot device is "
-                + rig.cursorDeviceBanks[0].getDevice(slot).name().get()
+                + rig.scopeDevice(slot).name().get() + " at position " + rig.scopeRequestedPosition[slot]
                 + ", holding " + countSlotChains(slot) + " chains");
         }
         if (params.has("expectedName")) {
@@ -1741,10 +1853,11 @@ public final class ContainerHandlers extends HandlerGroup {
         r.addProperty("slot", params.get("slot").getAsInt());
         r.addProperty("layerIndex", params.get("layerIndex").getAsInt());
         r.addProperty("scopeStatus", rig.slotScopeStatus[params.get("slot").getAsInt()]);
+        r.addProperty("position", rig.scopeRequestedPosition[params.get("slot").getAsInt()]);
         putGuarded(r, "sourceName", () -> layer.name().get());
         putGuarded(r, "sourceChannelId", () -> layer.channelId().get());
         putGuarded(r, "containerName",
-            () -> rig.cursorDeviceBanks[0].getDevice(params.get("slot").getAsInt()).name().get());
+            () -> rig.scopeDevice(params.get("slot").getAsInt()).name().get());
         // ⚠ Named beside the rest: a scope index means nothing without knowing
         // which TRACK the device bank is on (the e16o trap, one level up), and
         // these banks follow `cursorTracks[0]`.

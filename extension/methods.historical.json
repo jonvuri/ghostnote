@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-25",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 179,
-  "methodsHash": "9f2a826c2eccc4af",
+  "count": 180,
+  "methodsHash": "559942da7e135b66",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -33,6 +33,7 @@
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
+    "chain.scroll",
     "chain.select",
     "chain.setName",
     "chain.setSolo",
@@ -160,6 +161,7 @@
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
+    "chain.scroll",
     "chain.select",
     "chain.setName",
     "chain.setSolo",
@@ -577,6 +579,7 @@
     "probe.browserDiscovery"
   ],
   "addedInB08": [
+    "chain.scroll",
     "probe.scopeScroll"
   ]
 }

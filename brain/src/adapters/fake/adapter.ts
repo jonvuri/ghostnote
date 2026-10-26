@@ -816,19 +816,17 @@ export class FakeAdapter implements BitwigAdapter {
           };
         }
         if (track === undefined) return undefined;
-        // ⚠⚠ UNREACHABLE past the container scopes, and the fake reports it even
+        // ⚠⚠ UNREACHABLE past the device bank, and the fake reports it even
         // though its own list could answer — because live cannot. `device.list`
-        // reads a device bank; the CONTAINER structure and the device names this
-        // entry carries both come from the slot scopes, which exist at the first
-        // `containerScopes` positions and nowhere else. A fake that answered
-        // here would certify a read live Bitwig has no route for, which is
-        // PHASE-0 §Risks' named failure mode pointed the wrong way.
+        // reads a 16-wide device bank, and the container scopes scroll over the
+        // same bank (B08). A fake that answered past it would certify a read
+        // live Bitwig has no route for, which is PHASE-0 §Risks' named failure
+        // mode pointed the wrong way.
         const dev = track.devices[address.chainIndex];
         if (structureOnly) {
-          // 8h4e: live reads a device past the container scopes through `device.list`: the name, with no
-          // container. A device inside the scopes also reports its container.
+          // 8h4e: a device inside the bank reports its name and, through a scrolled scope, its container.
           if (dev === undefined) return undefined;
-          const observed = address.chainIndex < this.model.containerScopes
+          const observed = address.chainIndex < this.model.deviceBankSize
             ? this.model.observeContainer(track, address.chainIndex) : undefined;
           return {
             address,
@@ -844,7 +842,7 @@ export class FakeAdapter implements BitwigAdapter {
           };
         }
         if (dev === undefined) {
-          return address.chainIndex >= this.model.containerScopes ? 'unreachable' : undefined;
+          return address.chainIndex >= this.model.deviceBankSize ? 'unreachable' : undefined;
         }
         const key = addressKey(address);
         let params = parameterReads.get(key);
@@ -1167,9 +1165,9 @@ export class FakeAdapter implements BitwigAdapter {
    * The container at a top-level device position, as an observation — the fake's
    * half of `chain.inventory`, in the shape the contract's guards take.
    *
-   * ⚠ `undefined` means the position is past `containerScopes`, i.e. NOTHING WAS
+   * ⚠ `undefined` means the position is past the device bank, i.e. NOTHING WAS
    * LOOKED AT, and every caller treats that as a refusal rather than as "no
-   * chains". A position inside the scopes that holds no container is a different
+   * chains". A position inside the bank that holds no container is a different
    * answer and reports an empty, complete container — see `observeContainer`.
    *
    * ⚠ An unresolvable track THROWS rather than answering `undefined`, so the two

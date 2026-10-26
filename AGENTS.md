@@ -54,6 +54,10 @@ Assess costly checks by their purpose and evidence; existing prescriptions are
 not a reason to retain redundant work. Change public behavior and its
 tests/descriptions together. D15 amendments identify the claim and retained
 evidence; broad proof can stay in regression or upgrade tests.
+[D55](context/decisions/d55-proved-routes-run-with-one-readback.md): a route
+proved in tests and E records is trusted at runtime; a tool call makes one
+independent readback at the end, not one per stage, and does not guard
+against concurrent operator edits.
 
 For changed live costs, use the relevant [ledger rows](context/contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md)
 and call-budget tests. For tool changes, follow [tool maintenance](context/README.md#tool-maintenance).

@@ -821,9 +821,11 @@ public final class DeviceHandlers extends HandlerGroup {
         int containerIndex = params.get("containerIndex").getAsInt();
         int deviceIndex = params.get("deviceIndex").getAsInt();
         String slot = params.get("slot").getAsString();
-        if (containerIndex < 0 || containerIndex >= Rig.SLOT_SCOPES) {
+        // B08: the named-slot route is cursor-bound and addresses the container
+        // by top-level position in the 16-wide bank, not by scope.
+        if (containerIndex < 0 || containerIndex >= rig.config.deviceBank) {
             throw new IllegalArgumentException(
-                "devcursor.selectInSlot container index is outside the observed scope");
+                "devcursor.selectInSlot container index is outside the observed bank");
         }
         if (deviceIndex < 0 || deviceIndex >= Rig.SLOT_LAYER_DEVICE_BANK) {
             throw new IllegalArgumentException(

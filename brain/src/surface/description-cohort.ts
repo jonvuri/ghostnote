@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v54';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v55';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -896,3 +896,11 @@ export const TOOL_DESCRIPTION_V53_SHA256 = '3180edf177fbeda04df21cd860a238df54db
  * identity from the running host's preferences, indexes, and content roots. No earlier description changes.
  */
 export const TOOL_DESCRIPTION_V54_SHA256 = 'f13534e980deac485a601640f0360294196f44f24acff82cfb56329478c72719';
+
+/**
+ * v55 (B08, E352): layer chains are observable at every top-level position inside the 16-device bank, through
+ * container scopes scrolled to the position. read_devices lists every container's chains and reports the
+ * observed positions in coverage; containerPosition accepts 0 through 15 in the five layer-chain tools and
+ * compose_devices; the `layerChains: outside-limit` marker is gone. No earlier description changes.
+ */
+export const TOOL_DESCRIPTION_V55_SHA256 = '484c2f3f0514c7586e8daa844befa0658ffabd7f9c541a0b4d09b98d0ed92073';

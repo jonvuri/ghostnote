@@ -66,6 +66,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D52 | Grid upgrade admission: offline structural resolution stays required; complete offline bounded admission is replaced by a body-change report, bounded traces of changed bodies, runtime entry guards, and the consent-gated doctor with timing **[SETTLED 2026-10-22]** | [open](d52-grid-upgrade-admission-policy.md) |
 | D53 | Operator consent uses ordinary approval for a stated scope; driver tokens stay internal, and the actual reply is preserved **[SETTLED 2026-10-23]** | [open](d53-ordinary-operator-consent.md) |
 | D54 | Requested edits do not require Ghostnote reversal; simplify recovery machinery when useful, while preserving correct effects and truthful results **[SETTLED 2026-10-24]** | [open](d54-recovery-is-not-a-prerequisite-for-requested-edits.md) |
+| D55 | Proved routes run with one readback at the end: no mid-operation proofs, no concurrent-operator guards, rigor in tests and E records **[SETTLED 2026-10-25]** | [open](d55-proved-routes-run-with-one-readback.md) |
 
 ## Phase 4 closeout audit
 

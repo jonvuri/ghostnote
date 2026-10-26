@@ -5,8 +5,8 @@
   ],
   "profile": "capture",
   "identity": "capture-v1",
-  "count": 97,
-  "methodsHash": "8b79866f915a96d8",
+  "count": 98,
+  "methodsHash": "76f772133f15d9c6",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -14,6 +14,7 @@
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
+    "chain.scroll",
     "chain.select",
     "chain.setName",
     "chain.setSolo",

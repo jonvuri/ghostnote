@@ -133,10 +133,21 @@ interface WireInventoryChain {
 }
 
 interface WireInventoryScope {
-  slot: number;
+  slot?: number;
   status?: string;
+  /**
+   * B08: the scope's one-wide bank. `position` is the reported scroll position (after clamping),
+   * `requestedPosition` what `chain.scroll` last asked for, and `settled` the extension's identity guard
+   * (reported equals requested, and the slot agrees with the reference bank there). An extension without
+   * scrollable scopes sends none of these, and the scope then stands for the position equal to its index.
+   */
+  position?: number;
+  requestedPosition?: number;
+  settled?: boolean | string;
+  canScrollForwards?: boolean | string;
   deviceExists?: boolean;
   deviceName?: string;
+  devicePosition?: number | string;
   hasLayers?: boolean;
   hasSlots?: boolean;
   slotNames?: string[];
@@ -170,6 +181,10 @@ interface WireCursorInventoryScope {
 
 interface WireInventory {
   scopes?: WireInventoryScope[];
+  /** B08: the reference bank's device count and width, so an empty position is an observation. */
+  deviceCount?: number | string;
+  deviceBankSize?: number;
+  scopeCount?: number;
   cursorScope?: WireCursorInventoryScope;
   trackName?: string;
   trackChannelId?: string;
@@ -730,6 +745,7 @@ export interface LiveTraceEvent {
   readonly action:
     | 'cursor-point'
     | 'track-reuse'
+    | 'scope-scroll'
     | 'device-retarget'
     | 'device-reuse'
     | 'device-reuse-invalid' | 'device-cursor-recover'
@@ -822,6 +838,31 @@ const addressBorrowsSelection = (address: Address): boolean =>
   || address.kind === 'device' || address.kind === 'deviceEnabled' || address.kind === 'param'
   || address.kind === 'remotes' || address.kind === 'remote' || address.kind === 'drumPad'
   || address.kind === 'chain';
+
+/**
+ * B08: the scope an inventory reply shows settled at `containerIndex`, with its slot.
+ *
+ * A scope that reports a `position` is scrollable and counts only when it reports the requested position,
+ * the same reported position, and `settled` true (the extension's identity guard against the reference
+ * bank). A scope without one comes from an extension with fixed scopes and stands for the position equal to
+ * its slot, as it always did.
+ */
+function settledScopeAt(
+  reply: WireInventory,
+  containerIndex: number,
+): { scope: WireInventoryScope; slot: number } | undefined {
+  for (const [index, scope] of (reply.scopes ?? []).entries()) {
+    const slot = scope.slot ?? index;
+    if (typeof scope.position !== 'number') {
+      if (slot === containerIndex) return { scope, slot };
+      continue;
+    }
+    if (scope.position === containerIndex && scope.requestedPosition === containerIndex && scope.settled === true) {
+      return { scope, slot };
+    }
+  }
+  return undefined;
+}
 
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
@@ -917,8 +958,15 @@ export class LiveAdapter implements BitwigAdapter {
   private groupPoint: string | undefined;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
-  /** Top-level container positions with complete fixed observation scopes. */
+  /** How many container scopes the rig built (`Rig.SLOT_SCOPES`). B08: each scrolls over the whole bank. */
   private containerScopeSize = 3;
+  /**
+   * B08: which scope each container was last observed through, keyed by the container's address. The encoder
+   * sends this slot with the container's position, and the extension refuses a scope that has since been
+   * aimed elsewhere. Cleared by `readContainers` at the start of each batch observation, so an entry always
+   * comes from a reply this batch took.
+   */
+  private readonly scopeSlots = new Map<AddressKey, { readonly track: string; readonly position: number; readonly slot: number }>();
   /**
    * ⚠ How wide the SCENE window is — the number rule 5's second population is an
    * inequality over, and the one nothing in this file used to hold.
@@ -1572,6 +1620,7 @@ export class LiveAdapter implements BitwigAdapter {
       trackIndex: (t) => this.trackIndex(t),
       chainIndex: (c) => this.chainIndex(c),
       chainId: (c) => this.chainId(c),
+      scopeSlot: (c) => this.scopeSlotOf(c),
       deviceName: (d) => {
         const name = this.deviceNames.get(addressKey(d));
         if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
@@ -1608,6 +1657,65 @@ export class LiveAdapter implements BitwigAdapter {
       },
       sceneRow: sceneRowIn(this.sceneWindow),
     };
+  }
+
+  /**
+   * B08: how far a container scope can reach — the reference bank's width once the hello reported it, and the
+   * scope count before that (an extension without scrollable scopes observes exactly the first few positions).
+   */
+  private get containerPositions(): number {
+    return this.deviceBankSize ?? this.containerScopeSize;
+  }
+
+  /** B08: the scope slot the last observation of this container settled on; refuses when none did. */
+  private scopeSlotOf(container: DeviceAddress): number {
+    const entry = this.scopeSlots.get(addressKey(container));
+    if (entry === undefined) {
+      throw new AddressUnresolvedError(container, 'no observation of this container recorded its scope');
+    }
+    return entry.slot;
+  }
+
+  /**
+   * B08: which scope to aim at `containerIndex`, from the scopes an inventory reply describes.
+   *
+   * `none`: no scope is scrollable (an older extension), so the position is outside the bank window. `held`:
+   * every scrollable scope is reserved for another container of this batch. `scroll`: aim this slot.
+   *
+   * ⚠ A scope already asked for this position is scrolled AGAIN, not waited for. Measured 2026-10-25 (E353): a
+   * scroll issued while cursor track 0 sat on a track with fewer devices clamps the one-wide bank to 0, and the
+   * bank stays there after the track gains devices, with `requestedPosition` still naming the wanted position.
+   * Waiting for such a scope never ends; a repeated scroll of the same position is a no-op on a bank that is
+   * already moving and the repair on one that clamped.
+   *
+   * Scope `s` rests at position `s`, so a position inside the scope count prefers its own scope, keeping the
+   * common case at the fixed-scope cost; a later position prefers a scope already away from rest, then the
+   * highest slot, so the lower scopes stay resting.
+   */
+  private chooseScope(
+    reply: WireInventory,
+    trackRef: TrackAddress,
+    containerIndex: number,
+    hold: boolean,
+  ): { kind: 'none' | 'held' } | { kind: 'scroll'; slot: number } {
+    const scrollable = (reply.scopes ?? []).flatMap((scope, index) =>
+      scope.status === 'held' && typeof scope.position === 'number' ? [{ scope, slot: scope.slot ?? index }] : []);
+    if (scrollable.length === 0) return { kind: 'none' };
+    const asked = scrollable.find(({ scope }) => scope.requestedPosition === containerIndex);
+    if (asked !== undefined) return { kind: 'scroll', slot: asked.slot };
+    const reserved = new Set<number>();
+    if (hold) {
+      for (const entry of this.scopeSlots.values()) {
+        if (entry.track === trackRef.channelId && entry.position !== containerIndex) reserved.add(entry.slot);
+      }
+    }
+    const free = scrollable.filter(({ slot }) => !reserved.has(slot));
+    if (free.length === 0) return { kind: 'held' };
+    const resting = free.find(({ slot }) => slot === containerIndex);
+    if (resting !== undefined) return { kind: 'scroll', slot: resting.slot };
+    const highestFirst = (a: { slot: number }, b: { slot: number }) => b.slot - a.slot;
+    const displaced = free.filter(({ scope, slot }) => scope.requestedPosition !== slot).sort(highestFirst);
+    return { kind: 'scroll', slot: (displaced[0] ?? [...free].sort(highestFirst)[0]!).slot };
   }
 
   /**
@@ -2660,9 +2768,11 @@ export class LiveAdapter implements BitwigAdapter {
    * Everything about this call is narrow, and every limit is reported rather
    * than smoothed over:
    *
-   *   - it reads `Rig.slotLayerBanks`, which hang off the FIRST FEW top-level
-   *     device slots of the track `cursorTracks[0]` points at. A container
-   *     further along the chain has no scope and is `outside-bank-window`;
+   *   - it reads `Rig.slotLayerBanks`, which hang off one-wide scrollable
+   *     device banks on the track `cursorTracks[0]` points at (B08, E352). A
+   *     scope is aimed at the requested position with `chain.scroll` and
+   *     believed only when the reply reports it settled there; a position past
+   *     the reference bank is `outside-bank-window`;
    *   - the scopes are built at `init()` (D7), so a scope that failed to build
    *     reports its own status. Standing rule 13: *"the handle does not exist"*
    *     and *"the API declines"* are indistinguishable in the outcome, and three
@@ -2711,10 +2821,18 @@ export class LiveAdapter implements BitwigAdapter {
      * lists layer chains also skips it.
      */
     slots = true,
+    /**
+     * B08: keep the scopes this batch already aimed. With it, choosing a scope to scroll skips every scope that
+     * `scopeSlots` records for another container on this track, so a relocation's source and destination stay
+     * settled at once (E18 §3.1 needs both live). Reads leave it false and re-aim freely.
+     */
+    hold = false,
   ): Promise<ContainerScope> {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
+    // B08: a scope scrolls over the whole reference bank, so the reach is the bank width, not the scope count.
+    if (containerIndex >= this.containerPositions) return { ok: false, miss: 'outside-bank-window' };
     // ⚠ Bounded by ATTEMPTS, not by a clock. A wall-clock deadline spins hot
     // wherever `settle` is not real time — which is every offline test of this
     // class — and a bound that means something different in the suite from what
@@ -2722,7 +2840,13 @@ export class LiveAdapter implements BitwigAdapter {
     // against a measured need of ~100ms.
     let reply: WireInventory | undefined;
     let trackReply: WireInventory | undefined;
+    let scope: WireInventoryScope | undefined;
+    let miss: ChainMiss | undefined;
     let descents = 0;
+    // The fast path stays fast: a cursor already on this track answers on the first pass at the cursor budget.
+    // An identity mismatch pays the structural one. A scroll retargets the hung banks within one round trip
+    // (E352), so the read after a scroll pays the cursor budget again.
+    let budget: 'cursorPoint' | 'trackStruct' = 'cursorPoint';
     for (let attempt = 0; attempt < 8; attempt += 1) {
       this.heldClips.delete('0');
       this.heldDeviceTarget = undefined;
@@ -2732,14 +2856,11 @@ export class LiveAdapter implements BitwigAdapter {
       } else {
         this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
       }
-      if (containerIndex < this.containerScopeSize) {
-        await this.transport.send({
-          method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
-        });
-      }
-      // The fast path stays fast: a cursor already on this track answers on the
-      // first pass at the cursor budget. Only a mismatch pays the structural one.
-      await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
+      await this.transport.send({
+        method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
+      });
+      await this.settle(budget);
+      budget = 'trackStruct';
       reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
       // ⚠ The identity guard, before anything in the reply is believed. `trackName`
       // rides along too and is deliberately NOT used for this: a name is not an
@@ -2751,14 +2872,44 @@ export class LiveAdapter implements BitwigAdapter {
       }
       this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
       trackReply = reply;
-      const fixedScope = (reply.scopes ?? [])[containerIndex];
-      const slotName = fixedScope?.hasSlots === true && fixedScope.slotNames?.length === 1
-        ? fixedScope.slotNames[0] : undefined;
-      // A layer container (the fixed scope already lists layer chains) needs no slot descent: no product route
+      // B08: a position past the track's device count holds nothing. The reference bank was read, so this is
+      // an observation rather than a scope that failed to settle (a scroll there clamps and never settles).
+      if (typeof reply.deviceCount === 'number' && containerIndex >= reply.deviceCount) {
+        const chainBank = (reply.scopes ?? []).find((item) => typeof item.chainBankSize === 'number')?.chainBankSize;
+        return { ok: true, deviceName: undefined, container: {
+          chains: [], chainsComplete: true, slots: [], slotsComplete: true,
+          ...(chainBank === undefined ? {} : { chainsBankSize: chainBank }),
+        } };
+      }
+      const settled = settledScopeAt(reply, containerIndex);
+      if (settled === undefined) {
+        const choice = this.chooseScope(reply, trackRef, containerIndex, hold);
+        if (choice.kind !== 'scroll') {
+          miss = choice.kind === 'none' ? 'outside-bank-window' : 'unsupported';
+          reply = undefined;
+          break;
+        }
+        await this.transport.send({
+          method: WIRE.chainScroll, params: { slot: choice.slot, position: containerIndex },
+        });
+        this.onTrace?.({ action: 'scope-scroll', target: `${choice.slot}:${containerIndex}` });
+        budget = 'cursorPoint';
+        // A scope was asked for this position. If it never settles within the bound, we looked and could
+        // not see: `unsupported`, never a tombstone.
+        miss = 'unsupported';
+        reply = undefined;
+        continue;
+      }
+      miss = undefined;
+      scope = settled.scope;
+      this.scopeSlots.set(addressKey(deviceAt(trackRef, containerIndex)),
+        { track: trackRef.channelId, position: containerIndex, slot: settled.slot });
+      const slotName = scope.hasSlots === true && scope.slotNames?.length === 1
+        ? scope.slotNames[0] : undefined;
+      // A layer container (the scope already lists layer chains) needs no slot descent: no product route
       // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
-      const layerContainer = (fixedScope?.chains?.length ?? 0) > 0;
-      if (!slots || layerContainer || slotName === undefined || fixedScope?.deviceExists !== true
-          || containerIndex >= this.containerScopeSize) break;
+      const layerContainer = (scope.chains?.length ?? 0) > 0;
+      if (!slots || layerContainer || slotName === undefined || scope.deviceExists !== true) break;
       await this.transport.send({
         method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
       });
@@ -2776,7 +2927,7 @@ export class LiveAdapter implements BitwigAdapter {
         && cursorScope.deviceExists === true
         && cursorScope.isNested === true
         && cursorScope.parentDeviceIndex === containerIndex
-        && cursorScope.parentDeviceName === fixedScope.deviceName
+        && cursorScope.parentDeviceName === scope.deviceName
         && cursorScope.slotName === slotName;
       if (cursorSettled) {
         reply = nestedReply;
@@ -2787,9 +2938,11 @@ export class LiveAdapter implements BitwigAdapter {
       // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device (Delay+).
       if (++descents >= CONTAINER_SLOT_DESCENTS) break;
     }
+    if (miss !== undefined) return { ok: false, miss };
     reply ??= trackReply;
     if (reply === undefined) return { ok: false, miss: 'unsupported' };
-    const scope = (reply.scopes ?? [])[containerIndex];
+    // The final reply (the nested one after a descent) is read through the same settled scope.
+    scope = settledScopeAt(reply, containerIndex)?.scope ?? scope;
     if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
     if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
     const chainBank = scope.chainBankSize;
@@ -2806,7 +2959,7 @@ export class LiveAdapter implements BitwigAdapter {
     const useCursorSlot = cursorSlotMatches;
     const namedSlot = useCursorSlot ? cursorScope?.namedSlot : scope.namedSlot;
     const cursorSlotRequired = scope.deviceExists === true && scope.hasSlots === true
-      && scope.slotNames?.length === 1 && containerIndex < this.containerScopeSize;
+      && scope.slotNames?.length === 1 && containerIndex < this.containerPositions;
     const namedSlotComplete = cursorSlotRequired
       ? cursorSlotMatches && cursorScope?.namedSlotComplete === true
       : scope.namedSlotStatus === 'held' && scope.namedSlotComplete === true;
@@ -2906,7 +3059,7 @@ export class LiveAdapter implements BitwigAdapter {
     if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
     if (!nestingObservable(address)) return { address, found: false, reason: 'unsupported' as const };
     const container = address.kind === 'chain' ? address.container : address.chain!.container;
-    if (container.chainIndex >= this.containerScopeSize) {
+    if (container.chainIndex >= this.containerPositions) {
       return { address, found: false, reason: 'outside-bank-window' as const };
     }
     // Prove the top-level anchor before the shared container cursor is moved.
@@ -4324,7 +4477,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (found.ok) return entry({ chainIndex: found.device.index, name: found.device.name });
       return found.miss === 'outside-bank-window' || found.miss === 'unsupported' ? 'unreachable' : undefined;
     }
-    if (address.chainIndex < this.containerScopeSize) {
+    if (address.chainIndex < this.containerPositions) {
       const scope = await this.containerScope(address.track, address.chainIndex, false);
       if (scope.ok) {
         return scope.deviceName === undefined ? undefined : entry({
@@ -4333,8 +4486,8 @@ export class LiveAdapter implements BitwigAdapter {
       }
       if (scope.miss === 'absent') return undefined;
     }
-    // Past the container scopes (or a scope that did not hold): the device exists when the device bank has
-    // it. Its chains are not observable, so the entry has no `container`.
+    // Past the scopes' reach (or a scope that did not hold): the device exists when the device bank has it.
+    // Its chains are not observable, so the entry has no `container`.
     const chain = await this.deviceChain(address.track);
     if (chain === undefined) return 'unreachable';
     const found = chain.devices.find((item) => item.index === address.chainIndex);
@@ -4774,6 +4927,7 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<Map<AddressKey, ObservedContainer | undefined>> {
     this.chainPositions.clear();
     this.chainIds.clear();
+    this.scopeSlots.clear();
     const seen = new Map<AddressKey, ObservedContainer | undefined>();
     for (const op of ops) {
       if (op.op !== 'chain.create' && op.op !== 'chain.rename' && op.op !== 'chain.activate'
@@ -4781,7 +4935,7 @@ export class LiveAdapter implements BitwigAdapter {
       const container = op.op === 'chain.create' ? op.source.container : op.chain.container;
       const key = addressKey(container);
       if (seen.has(key)) continue;
-      const scope = await this.containerScope(container.track, container.chainIndex, false);
+      const scope = await this.containerScope(container.track, container.chainIndex, false, true);
       // ⚠ EVERY miss maps to `undefined`, deliberately — including `absent`. The
       // contract's refusal says "nothing could observe the chain this would
       // make", which is true of all four of them, and a create is the one moment
@@ -4826,7 +4980,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
 
     const scope = await this.containerScope(
-      endpoint.container.track, endpoint.container.chainIndex);
+      endpoint.container.track, endpoint.container.chainIndex, true, true);
     if (!scope.ok) {
       throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
     }
@@ -4924,12 +5078,23 @@ export class LiveAdapter implements BitwigAdapter {
     const slots = relocations.some((op) => op.destination.kind === 'deviceSlot' || op.source.chain?.kind === 'deviceSlot');
     for (const trackRef of new Map(relocations.map((op) =>
       [op.source.track.channelId, op.source.track])).values()) {
-      const observed = await this.relocationSequence(trackRef);
-      tracks.set(trackRef.channelId, observed);
-      for (const item of observed.devices) {
-        const at = deviceAt(trackRef, item.index);
-        const scope = await this.containerScope(trackRef, item.index, slots);
-        containers.set(addressKey(at), scope.ok ? scope.container : undefined);
+      tracks.set(trackRef.channelId, await this.relocationSequence(trackRef));
+    }
+    // B08: only the endpoint containers are read. `assertChainRelocatable` observes nothing else, and a scope
+    // aimed at every device on the track in turn would cost a scroll and a read for each one. Both endpoints
+    // hold their scopes so a relocation between two containers keeps both settled at once.
+    for (const op of relocations) {
+      for (const endpoint of [op.source.chain, op.destination]) {
+        if (endpoint === undefined || endpoint.kind === 'track' || endpoint.kind === 'drumPad') continue;
+        const key = addressKey(endpoint.container);
+        if (containers.has(key)) continue;
+        const track = tracks.get(endpoint.container.track.channelId);
+        if (!track?.devices.some((item) => item.index === endpoint.container.chainIndex)) {
+          containers.set(key, undefined);
+          continue;
+        }
+        const scope = await this.containerScope(endpoint.container.track, endpoint.container.chainIndex, slots, true);
+        containers.set(key, scope.ok ? scope.container : undefined);
       }
     }
     assertChainRelocatable(
@@ -5312,7 +5477,8 @@ export class LiveAdapter implements BitwigAdapter {
     await this.transport.send({
       method: WIRE.chainSelect,
       params: {
-        slot: op.source.container.chainIndex,
+        slot: this.scopeSlotOf(op.source.container),
+        position: op.source.container.chainIndex,
         layerIndex: this.chainIndex(op.source),
         expectedName: op.source.name,
       },
@@ -5381,7 +5547,10 @@ export class LiveAdapter implements BitwigAdapter {
     try {
       await this.transport.send({
         method: WIRE.chainSetName,
-        params: { slot: container.chainIndex, channelId: witness.chain.id, name: op.name },
+        params: {
+          slot: this.scopeSlotOf(container), position: container.chainIndex,
+          channelId: witness.chain.id, name: op.name,
+        },
       });
       // A rename is a name write, not a structural one; `trackStruct` is the
       // budget `track.rename` already pays for the same class of change.

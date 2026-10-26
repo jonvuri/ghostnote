@@ -18,7 +18,8 @@ export const EXISTING_DEVICE_WRAPPER_ENTRY = 'Layer 1' as const;
 export const GENERAL_DEVICE_CONTAINER_KINDS = ['Instrument Layer', 'FX Layer'] as const;
 export type GeneralDeviceContainerKind = typeof GENERAL_DEVICE_CONTAINER_KINDS[number];
 export const GENERAL_DEVICE_COMPOSITION_CAPACITIES = Object.freeze({
-  topLevelContainerPositions: 3,
+  // B08 (E352): the container scopes scroll over the whole 16-wide top-level device bank.
+  topLevelContainerPositions: 16,
   entriesPerLayer: 5,
   devicesPerEntry: 4,
   parameterRouteDepth: 2,

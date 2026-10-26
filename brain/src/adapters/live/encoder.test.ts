@@ -51,6 +51,9 @@ const ctx: EncodeContext = {
   // array offset or a hardcoded zero fails here rather than live.
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
   chainId: (c) => `id-${c.name}`,
+  // B08: the scope each container was observed through. Deliberately NOT the position, so a frame that
+  // sends the position as the slot fails here rather than live.
+  scopeSlot: (c) => 10 + c.chainIndex,
   deviceName: () => 'Polysynth',
   deviceEnabled: () => true,
   deviceTailIndex: () => 5,
@@ -449,11 +452,14 @@ test('E-chain: a create names its container by SLOT and its source by OBSERVED p
   assert.deepEqual(methods(frames), [WIRE.chainDuplicate],
     'ONE frame: the rename cannot be encoded, because nothing yet knows which chain to rename');
   const params = paramsOf(frames, WIRE.chainDuplicate);
-  // ⚠ `slot` is the CONTAINER's position in the track's own device chain, and
-  // `layerIndex` is the source chain's position inside that container. Two
-  // different numbers at two different levels; the stub answers 2 for this
-  // chain, so a frame that reused the container's 1 fails here.
-  assert.equal(params?.['slot'], 1);
+  // ⚠ `slot` is the SCOPE the container was observed through (B08: a scrolled
+  // one-wide bank, so it is not the container's position), `position` is the
+  // container's position in the track's own device chain, and `layerIndex` is
+  // the source chain's position inside that container. Three different numbers
+  // at three different levels; the stub answers 11 and 2 for this container and
+  // chain, so a frame that reused the container's 1 for either fails here.
+  assert.equal(params?.['slot'], 11);
+  assert.equal(params?.['position'], 1);
   assert.equal(params?.['layerIndex'], 2);
   // ⚠ Carried so the extension can refuse a position that re-indexed since it
   // was observed, instead of copying whatever slid into it (E3, one level down).
@@ -481,7 +487,8 @@ test('E-chain-rename: a durable name write targets the freshly observed identity
   const frames = encodeOp({ op: 'chain.rename', chain: source, name: 'Original' }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainSetName]);
   const params = paramsOf(frames, WIRE.chainSetName);
-  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['slot'], 11);
+  assert.equal(params?.['position'], 1);
   assert.equal(params?.['channelId'], 'id-A take');
   assert.equal(params?.['name'], 'Original');
   assert.equal(params?.['layerIndex'], undefined, 'a position is never the rename identity');
@@ -513,6 +520,14 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
   assert.equal(params[2]?.['dstLayer'], 3);
   assert.equal(params[3]?.['expectedDestinationChain'], 'CHAIN');
   assert.equal(params[4]?.['expectedSourceChain'], 'CHAIN');
+  // B08: a layer-chain endpoint names its SCOPE and the container position the scope must be settled at; a
+  // named-slot endpoint names the container position (the cursor route), with no scope position.
+  assert.deepEqual([params[0]?.['dstSlot'], params[0]?.['dstPosition']], [10, 0]);
+  assert.deepEqual([params[1]?.['srcSlot'], params[1]?.['srcPosition']], [10, 0]);
+  assert.deepEqual([params[2]?.['srcSlot'], params[2]?.['srcPosition'], params[2]?.['dstSlot'], params[2]?.['dstPosition']],
+    [10, 0, 11, 1]);
+  assert.deepEqual([params[3]?.['dstSlot'], params[3]?.['dstPosition']], [1, undefined]);
+  assert.deepEqual([params[4]?.['srcSlot'], params[4]?.['srcPosition']], [1, undefined]);
   for (const value of params) {
     assert.equal(value?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(value?.['expectedSourceName'], 'Polysynth');
@@ -524,7 +539,8 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   const frames = encodeOp({ op: 'chain.activate', chain: target }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainActivate]);
   const params = paramsOf(frames, WIRE.chainActivate);
-  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['slot'], 11);
+  assert.equal(params?.['position'], 1);
   assert.equal(params?.['layerIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
@@ -536,7 +552,8 @@ test('8h4e encoder: a solo set carries the identity guards and the requested fla
     const frames = encodeOp({ op: 'chain.solo', chain: target, solo }, ctx);
     assert.deepEqual(methods(frames), [WIRE.chainSetSolo]);
     const params = paramsOf(frames, WIRE.chainSetSolo);
-    assert.equal(params?.['slot'], 1);
+    assert.equal(params?.['slot'], 11);
+    assert.equal(params?.['position'], 1);
     assert.equal(params?.['layerIndex'], 3);
     assert.equal(params?.['expectedName'], 'B take');
     assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);

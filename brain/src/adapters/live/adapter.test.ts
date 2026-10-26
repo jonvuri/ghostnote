@@ -5014,8 +5014,9 @@ test('8i1 (D43): the unpinned cursor list rides beside the mark, so a snapshot r
 });
 
 test('8i3 relocation preflight: a layer-chain route skips the named-slot descent; a slot route keeps it', async () => {
-  // The preflight reads each top-level container scope. The descent into an empty device slot (Delay+) never
-  // settles (about 3 s, E252), and only a device-slot endpoint uses it.
+  // The preflight reads the endpoint container scopes (B08: only those, since a scrolled scope costs a scroll and
+  // a read for each container it is aimed at). The descent into an empty device slot (Delay+) never settles
+  // (about 3 s, E252), and only a device-slot endpoint uses it.
   class ScopeRecordingAdapter extends LiveAdapter {
     readonly slots: boolean[] = [];
     preflight(ops: readonly Parameters<LiveAdapter['apply']>[0]['ops'][number][]): Promise<void> {
@@ -5035,11 +5036,11 @@ test('8i3 relocation preflight: a layer-chain route skips the named-slot descent
   const move = (destination: Parameters<LiveAdapter['apply']>[0]['ops'][number]) => destination;
   await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: chainAt(layer, 'A'),
     mode: 'move' })]).catch(() => undefined);
-  assert.deepEqual(adapter.slots, [false, false]);
+  assert.deepEqual(adapter.slots, [false]);
   adapter.slots.length = 0;
   await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: deviceSlot(layer, 'FX'),
     mode: 'move' })]).catch(() => undefined);
-  assert.deepEqual(adapter.slots, [true, true]);
+  assert.deepEqual(adapter.slots, [true]);
 });
 
 test('8i3 container scope: an empty-slot descent gives up after two misses with the slots incomplete', async () => {
@@ -5284,4 +5285,181 @@ test('8i8 review: a slot restore that the observer never confirms reports unconf
   await adapter.preserveSelection(() => new Executor(adapter).run([{ op: 'clip.create',
     slot: slot(track('track-a'), scene(2, at.sceneEpoch)), lengthBeats: 4 }]), (outcome) => outcomes.push(outcome));
   assert.deepEqual(outcomes, [{ slot: 'unconfirmed' }]);
+});
+
+// --- B08: scrollable container scopes ------------------------------------------
+
+/**
+ * A `chain.inventory` stub whose three scopes are one-wide scrollable banks, as the B08 extension reports them.
+ * Scope `s` rests at position `s`. `chain.scroll` records the requested position and, unless the host is made
+ * to hang, retargets the slot at once; a request past the device count clamps and never settles, exactly as
+ * E352 observed. Every scope reports `position`, `requestedPosition`, and `settled`.
+ */
+class ScrollScopeTransport implements Transport {
+  readonly frames: Frame[] = [];
+  readonly requested = [0, 1, 2];
+  readonly position = [0, 1, 2];
+  /** When true, a scroll records the request but the bank never moves: the never-settling case. */
+  hung = false;
+  /** When true, a scroll is applied only on its second request: the clamped-bank case E353 measured. */
+  clampedOnce = false;
+  private scrollRequests = 0;
+  constructor(readonly devices: { name: string; chains?: string[] }[]) {}
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    const params = (frame.params ?? {}) as Record<string, any>;
+    switch (frame.method) {
+      case WIRE.chainScroll: {
+        const slot = params['slot'] as number;
+        this.requested[slot] = params['position'] as number;
+        this.scrollRequests += 1;
+        const applies = !this.hung && !(this.clampedOnce && this.scrollRequests === 1);
+        if (applies) this.position[slot] = Math.min(params['position'] as number, Math.max(this.devices.length - 1, 0));
+        return {};
+      }
+      case WIRE.chainInventory:
+        return {
+          trackChannelId: CHANNEL_ID,
+          trackName: 'gn-scroll',
+          deviceCount: this.devices.length,
+          deviceBankSize: 16,
+          scopeCount: 3,
+          scopes: [0, 1, 2].map((slot) => {
+            const device = this.devices[this.position[slot]!];
+            const settled = this.position[slot] === this.requested[slot] && device !== undefined;
+            return {
+              slot, status: 'held', position: this.position[slot], requestedPosition: this.requested[slot], settled,
+              deviceExists: device !== undefined, deviceName: device?.name, devicePosition: this.position[slot],
+              hasLayers: (device?.chains?.length ?? 0) > 0, hasSlots: false, slotNames: [],
+              chains: (device?.chains ?? []).map((name, index) => ({ index, name, channelId: `${name}-id`, solo: false, devices: [], deviceCount: 0 })),
+              chainCount: device?.chains?.length ?? 0, chainBankSize: 5, deviceBankSize: 4,
+              namedSlotStatus: 'held', namedSlotComplete: true,
+            };
+          }),
+        };
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+function scrollAdapter(wire: ScrollScopeTransport): Record<string, any> {
+  const adapter = new UntimedAdapter({ transport: wire });
+  const internals = adapter as unknown as Record<string, any>;
+  internals['index'] = new Map([[CHANNEL_ID, 0]]);
+  internals['cursorTrackHeld'] = () => true;
+  internals['deviceBankSize'] = 16;
+  return internals;
+}
+
+const scrolls = (wire: ScrollScopeTransport) => wire.frames
+  .filter((frame) => frame.method === WIRE.chainScroll)
+  .map((frame) => [(frame.params as any)['slot'], (frame.params as any)['position']]);
+
+test('B08 container scope: a container past the scope count reads through a scrolled scope', async () => {
+  const wire = new ScrollScopeTransport([{ name: 'FX Layer', chains: ['A1', 'A2'] }, { name: 'Dual Pan' },
+    { name: 'Ring-Mod' }, { name: 'Instrument Layer', chains: ['B1', 'B2', 'B3'] }]);
+  const internals = scrollAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 3, false);
+  assert.equal(result.ok, true, JSON.stringify(result));
+  assert.equal(result.deviceName, 'Instrument Layer');
+  assert.deepEqual(result.container.chains.map((chain: { name: string }) => chain.name), ['B1', 'B2', 'B3']);
+  assert.equal(result.container.chainsComplete, true);
+  // The highest resting scope is aimed, once; the lower scopes keep resting at 0 and 1.
+  assert.deepEqual(scrolls(wire), [[2, 3]]);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.chainInventory).length, 2);
+  assert.equal(internals['scopeSlotOf'](deviceAt(TRACK, 3)), 2);
+  // A position at rest needs no scroll.
+  const resting = await internals['containerScope'](TRACK, 0, false);
+  assert.equal(resting.ok && resting.deviceName, 'FX Layer');
+  assert.deepEqual(scrolls(wire), [[2, 3]]);
+  assert.equal(internals['scopeSlotOf'](deviceAt(TRACK, 0)), 0);
+  // The displaced scope is re-aimed at position 2 when that is asked for again.
+  const back = await internals['containerScope'](TRACK, 2, false);
+  assert.equal(back.ok && back.deviceName, 'Ring-Mod');
+  assert.deepEqual(scrolls(wire), [[2, 3], [2, 2]]);
+});
+
+test('B08 container scope: a position past the device count is an empty observation, not a scroll', async () => {
+  const wire = new ScrollScopeTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' }]);
+  const internals = scrollAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 5, false);
+  assert.deepEqual(result, { ok: true, deviceName: undefined, container: {
+    chains: [], chainsComplete: true, slots: [], slotsComplete: true, chainsBankSize: 5 } });
+  assert.deepEqual(scrolls(wire), []);
+  const past = await internals['containerScope'](TRACK, 16, false);
+  assert.deepEqual(past, { ok: false, miss: 'outside-bank-window' });
+});
+
+test('B08 container scope: a scope that never settles refuses after the bounded attempts, re-aimed each pass', async () => {
+  const wire = new ScrollScopeTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' },
+    { name: 'Ring-Mod' }, { name: 'Instrument Layer', chains: ['B1'] }]);
+  wire.hung = true;
+  const internals = scrollAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 3, false);
+  assert.deepEqual(result, { ok: false, miss: 'unsupported' });
+  // The same scope is asked again on every pass (E353: a clamped bank needs the repeat), never another one.
+  assert.deepEqual(scrolls(wire), Array.from({ length: 8 }, () => [2, 3]));
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.chainInventory).length, 8);
+  assert.throws(() => internals['scopeSlotOf'](deviceAt(TRACK, 3)), /recorded its scope/);
+});
+
+test('B08 container scope: a scope clamped on an earlier track is re-aimed, not waited for (E353)', async () => {
+  const wire = new ScrollScopeTransport([{ name: 'Tool' }, { name: 'Dual Pan' }, { name: 'Ring-Mod' },
+    { name: 'FX Layer', chains: ['Layer 1'] }]);
+  // Left over from another track: scope 2 was asked for 3 but the bank sits at 0, and so does scope 1.
+  wire.requested[2] = 3; wire.position[2] = 0;
+  wire.requested[1] = 1; wire.position[1] = 0;
+  wire.clampedOnce = true;
+  const internals = scrollAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 3, false);
+  assert.equal(result.ok && result.deviceName, 'FX Layer', JSON.stringify(result));
+  assert.deepEqual(scrolls(wire), [[2, 3], [2, 3]], 'the scope already asked for 3 is scrolled again until it settles');
+  const resting = await internals['containerScope'](TRACK, 1, false);
+  assert.equal(resting.ok && resting.deviceName, 'Dual Pan');
+  assert.deepEqual(scrolls(wire).slice(2), [[1, 1]], 'a resting scope that clamped is re-aimed at its own position');
+});
+
+test('B08 container scope: held scopes keep a relocation\'s two containers settled at once', async () => {
+  const wire = new ScrollScopeTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' },
+    { name: 'Chain', chains: ['C1'] }, { name: 'Tool' }, { name: 'Instrument Layer', chains: ['B1'] }]);
+  const internals = scrollAdapter(wire);
+  // Source at 4 takes the highest resting scope (2); the destination at 2 then cannot take its own resting
+  // scope, which is held, so it takes the next one down.
+  const source = await internals['containerScope'](TRACK, 4, false, true);
+  const destination = await internals['containerScope'](TRACK, 2, false, true);
+  assert.equal(source.ok && source.deviceName, 'Instrument Layer');
+  assert.equal(destination.ok && destination.deviceName, 'Chain');
+  assert.deepEqual(scrolls(wire), [[2, 4], [1, 2]]);
+  assert.equal(internals['scopeSlotOf'](deviceAt(TRACK, 4)), 2);
+  assert.equal(internals['scopeSlotOf'](deviceAt(TRACK, 2)), 1);
+  // Without the hold, a read re-aims the resting scope freely.
+  const free = await internals['containerScope'](TRACK, 2, false);
+  assert.equal(free.ok && free.deviceName, 'Chain');
+  assert.deepEqual(scrolls(wire), [[2, 4], [1, 2]], 'already settled at 2 through scope 1: nothing to re-aim');
+});
+
+test('B08 container scope: a fixed-scope reply (no position fields) keeps the slot-index meaning', async () => {
+  const scope = { slot: 0, status: 'held', deviceExists: true, deviceName: 'FX Layer',
+    chains: [{ index: 0, name: 'A', channelId: 'a', solo: false, devices: [], deviceCount: 0 }],
+    chainCount: 1, chainBankSize: 5, deviceBankSize: 4, hasLayers: true, hasSlots: false, slotNames: [] };
+  const frames: string[] = [];
+  const transport = {
+    async send(frame: Frame) {
+      frames.push(frame.method);
+      return frame.method === WIRE.chainInventory ? { trackChannelId: CHANNEL_ID, scopes: [scope] } : {};
+    },
+    async close() {},
+  } as unknown as Transport;
+  const internals = new UntimedAdapter({ transport }) as unknown as Record<string, any>;
+  internals['index'] = new Map([[CHANNEL_ID, 0]]);
+  internals['cursorTrackHeld'] = () => true;
+  const found = await internals['containerScope'](TRACK, 0, false);
+  assert.equal(found.ok && found.deviceName, 'FX Layer');
+  const missing = await internals['containerScope'](TRACK, 1, false);
+  assert.deepEqual(missing, { ok: false, miss: 'outside-bank-window' });
+  assert.ok(!frames.includes(WIRE.chainScroll), 'nothing to scroll on an extension without scrollable scopes');
 });

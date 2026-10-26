@@ -1,0 +1,60 @@
+{
+  "elapsedMs": 41053,
+  "value": {
+    "name": "delete_track",
+    "args": {
+      "trackIds": [
+        "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+      ]
+    },
+    "ms": 484,
+    "wire": {
+      "turns": 12,
+      "wireMs": 286,
+      "methods": {
+        "track.list": 8,
+        "selection.status": 2,
+        "revision.get": 6,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-track-delete/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "fcfe5538-4793-4a74-8161-35d13d810b34",
+          "target": {
+            "trackIds": [
+              "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+            ]
+          },
+          "summary": "Deleted 1 track(s).",
+          "fidelity": "none"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "removed": [
+          "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change cannot put a deleted track back."
+        }
+      ],
+      "target": {
+        "trackIds": [
+          "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        ]
+      }
+    },
+    "scopeCalls": []
+  }
+}

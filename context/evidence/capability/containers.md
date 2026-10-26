@@ -306,8 +306,21 @@ time, which is every offline test of this class.
 - ⚠ Two containers of one kind share a device name (`Instrument Layer`), so a
   scrolled scope's identity guard must use the requested position, the
   reported position, the reference bank's name there, and the chain name
-  [K, E352]. The product does not yet use scrolled scopes; B08 implementation
-  follows.
+  [K, E352].
+- **Shipped design (B08 implementation).** Each of the three product scopes is
+  now a one-wide bank on cursor track 0 (`Rig.scopeBanks`), resting at its own
+  index. `chain.scroll` aims a scope; `chain.inventory` reports `position`,
+  `requestedPosition`, and `settled` (reported equals requested, and the slot
+  agrees with the 16-wide reference bank on existence, name, and device
+  position); every chain write names its scope and position and refuses an
+  unsettled scope. The adapter holds a relocation's two scopes so both stay
+  settled at once. A position past the device count answers as empty from the
+  reference bank count; only the bank edge is `outside-bank-window`.
+- ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
+  on a track with fewer devices clamps to 0 and does not move when the track
+  later gains devices, although it still reports the requested position. The
+  adapter re-issues the scroll on every unsettled pass; waiting for such a
+  scope never ends [K, E353].
 
 ---
 

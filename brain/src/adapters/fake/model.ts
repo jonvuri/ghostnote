@@ -187,11 +187,12 @@ export class ProjectModel {
    * the banks `chain.inventory` reads through.
    *
    * A layer bank is not the track bank: it is fixed at init, it is narrow, and a
-   * container is only observable at all in the FIRST FEW top-level device
-   * positions, because a `DeviceLayerBank` has to hang off a bank slot that
-   * exists when the extension starts (D7 — allocation is init-only). Modelled
-   * rather than idealised for the reason PHASE-0 §Risks names: a fake that could
-   * see every chain everywhere would certify resolution live Bitwig answers with
+   * container is observable at any top-level position inside the device bank:
+   * B08 (E352) made each of the `Rig.SLOT_SCOPES` scopes a one-wide scrollable
+   * bank, so the scope count no longer bounds the reach. `containerScopes` is
+   * carried for the hello shape; `deviceBankSize` is the reach. Modelled rather
+   * than idealised for the reason PHASE-0 §Risks names: a fake that could see a
+   * chain past the bank would certify resolution live Bitwig answers with
    * silence, and "we could not look" would ship as "it is not there".
    */
   containerScopes = 3;
@@ -714,8 +715,8 @@ export class ProjectModel {
    * What the container scopes can SEE at one top-level device position — the
    * fake's half of `chain.inventory`.
    *
-   * ⚠ `undefined` means the position is past `containerScopes`: no bank was ever
-   * built there, so nothing was looked at. That is NOT the same as a position
+   * ⚠ `undefined` means the position is past the device bank: no scope can be
+   * scrolled there, so nothing was looked at. That is NOT the same as a position
    * holding no container, which is an observation and reports empty-and-complete.
    *
    * ⚠⚠ Completeness is `visible < bankSize`, never `<=`, and the asymmetry is
@@ -726,7 +727,7 @@ export class ProjectModel {
    * direction PHASE-0 §Risks forbids.
    */
   observeContainer(track: FakeTrack, containerIndex: number): ObservedContainer | undefined {
-    if (containerIndex < 0 || containerIndex >= this.containerScopes) return undefined;
+    if (containerIndex < 0 || containerIndex >= this.deviceBankSize) return undefined;
     const device = track.devices[containerIndex];
     const held = device?.chains ?? [];
     const visible = held.slice(0, this.chainBankSize);

@@ -556,7 +556,10 @@ test('3g-d: track copy is ordinary use, and refusals and no-action context add n
   );
 });
 
-test('3g-d: an inserted but unconfirmed device container creates no managed event', async () => {
+test('3g-d: a device container after the scope count is confirmed through a scrolled scope (B08)', async () => {
+  // Before B08 this case was "inserted but unconfirmed": a container at position 3 had no fixed scope, so no
+  // managed event could be recorded. The scopes now scroll over the whole bank (E352), so the only unobservable
+  // position is past the bank edge, where an insert refuses before writing.
   const fx = fixture();
   for (const id of [
     'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
@@ -568,11 +571,11 @@ test('3g-d: an inserted but unconfirmed device container creates no managed even
     }))['applied'], true);
   }
   const result = await call(fx, 'create_device_alternates', {
-    trackId: fx.trackA, containerType: 'effect', names: ['outside view'],
+    trackId: fx.trackA, containerType: 'effect', names: ['formerly outside view'],
   });
-  assert.equal(result['creationConfirmed'], undefined);
-  assert.equal(result['managedEventId'], undefined);
-  assert.equal((await fx.observationStore.read()).value, '');
+  assert.equal(result['creationConfirmed'], true, JSON.stringify(result));
+  assert.equal((result['structure'] as { container: { devicePosition: number } }).container.devicePosition, 3);
+  assert.notEqual((await fx.observationStore.read()).value, '');
 });
 
 test('3g-d: a record failure reports a confirmed project write as partial success', async () => {
@@ -2878,13 +2881,13 @@ test('T-selective-reduction: an unobservable temporary container position refuse
     containerType: 'effect',
     names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
   }) as { structure: { container: { devicePosition: number } } };
+  // B08: the scopes reach the whole 16-device bank, so the temporary position is unobservable only past the
+  // bank edge: fill the track to 16 devices.
   await call(fx, 'add_device', {
-    devices: [
-      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor' },
-      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor-2' },
-    ],
+    devices: Array.from({ length: 15 }, (_, index) => ({ trackId: fx.trackA, from: 'bitwig', id: `gn-anchor-${index}` })),
   });
   const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  assert.equal(track.devices.length, 16);
   const before = JSON.stringify(track.devices);
   const sent = fx.sent.length;
 
@@ -2896,7 +2899,7 @@ test('T-selective-reduction: an unobservable temporary container position refuse
   });
   assert.equal(result['refused'], true, JSON.stringify(result));
   assert.equal(result['nothingWasWritten'], true);
-  assert.match(String(result['why']), /outside the observable container scopes/);
+  assert.match(String(result['why']), /observable bank is full/);
   assert.equal(JSON.stringify(track.devices), before);
   assert.equal(fx.sent.length, sent);
 });

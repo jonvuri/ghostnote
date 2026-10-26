@@ -10,8 +10,9 @@
  * its kind, and `layer_chain` is one named parallel child. Do not use bare
  * `chain` in a public name.
  *
- * Reach: only the top-level positions 0 through 2 expose layer chains (the
- * three slot scopes of `Rig`). Each limb reads the complete structure first and
+ * Reach: every top-level position inside the 16-wide device bank exposes its
+ * layer chains (B08, E352: `Rig`'s three scopes are one-wide banks scrolled to
+ * the requested position). Each limb reads the complete structure first and
  * refuses before a write when the route is not observable.
  *
  * This module imports only types from `tools.ts`. `tools.ts` calls
@@ -77,8 +78,12 @@ export const COPY_SCHEMA = 'ghostnote-device-copy/1';
 export const SOLO_SCHEMA = 'ghostnote-layer-chain-solo/1';
 export const DELETE_DEVICE_SCHEMA = 'ghostnote-device-delete/1';
 
-/** The top-level positions whose layer chains `Rig` can observe (three slot scopes). */
-export const LAYER_CHAIN_POSITIONS = 3;
+/**
+ * The top-level positions whose layer chains `Rig` can observe: the whole 16-wide device bank, through a
+ * scope scrolled to the position (B08, E352). The adapter reports the observed bank width on each read;
+ * this is the schema bound.
+ */
+export const LAYER_CHAIN_POSITIONS = 16;
 
 const PROFILE = `Profile ${AGENT_NATIVE_TOOL_PROFILE}.`;
 
@@ -106,7 +111,7 @@ const { deviceTarget, parameterSetting, expectedDeviceOrder } = deviceControlSch
   trackId, AGENT_NATIVE_DEVICE_NAMES,
 );
 const containerPosition = z.number().int().min(0).max(LAYER_CHAIN_POSITIONS - 1).describe(
-  'Top-level position of the container, from read_devices. Only positions 0 through 2 expose layer chains.',
+  'Top-level position of the container, from read_devices (any position inside the 16-device bank).',
 );
 const layerChainName = z.string().min(1).describe('Exact layer-chain name from read_devices.');
 const newLayerChainName = z.string().min(1).refine((name) => name.trim().length > 0, {
@@ -224,7 +229,8 @@ interface ReadContainer {
 async function readContainer(workspace: Workspace, id: string, position: number): Promise<ReadContainer> {
   const track = trackAt(id);
   if (position >= LAYER_CHAIN_POSITIONS) {
-    throw new ToolFailure('outside-limit', 'acquire', 'Only top-level positions 0 through 2 expose layer chains.');
+    throw new ToolFailure('outside-limit', 'acquire', `Top-level positions 0 through ${LAYER_CHAIN_POSITIONS - 1} `
+      + 'expose layer chains.');
   }
   const read = (await structureAt(workspace, track, [position])).get(position);
   if (read === 'missing' || read === undefined) {
@@ -301,12 +307,12 @@ const readInput = z.object({ trackId }).strict();
 type ReadInput = z.infer<typeof readInput>;
 
 const READ_DESCRIPTION = `${PROFILE} Read the complete top-level device order of one track, and the layer `
-  + 'chains of each container at top-level positions 0 through 2. Each device has its devicePosition, name, and '
+  + 'chains of each container at any top-level position in the 16-device bank. Each device has its devicePosition, name, and '
   + 'enabled state. A container (Instrument Layer or FX Layer; containerKind) lists its layer chains in order: '
   + 'name, solo, mute, volume, pan, colour, and the ordered devices in each. Positions are not IDs: a device-order '
   + 'edit changes later positions, so read again after each structural edit. Layer-chain names are the address '
-  + 'of a layer chain. A device after position 2 reports layerChains outside-limit: its chains are not '
-  + 'observable. coverage states the bank size and completeness; a partial view is not evidence that the hidden '
+  + 'of a layer chain. A container whose chains did not read reports layerChains unavailable. '
+  + 'coverage states the bank size and completeness; a partial view is not evidence that the hidden '
   + 'tail is empty. Instrument Layer chains all receive the same MIDI input and run in parallel; there is no '
   + 'per-note routing. This reads no parameters (use read_device_controls).\n'
   + 'Recipes over the generic limbs. A/B audition: compose_devices or duplicate_layer_chain makes the named layer '
@@ -327,7 +333,6 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
     let containersComplete = true;
     const devices = bank.devices.map((item) => {
       const base = { devicePosition: item.index, name: item.name, enabled: item.enabled ?? null };
-      if (item.index >= LAYER_CHAIN_POSITIONS) return { ...base, layerChains: 'outside-limit' as const };
       const read = structure.get(item.index);
       if (read === undefined || typeof read === 'string') {
         containersComplete = false;
@@ -349,7 +354,7 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
         status: bank.devicesComplete && containersComplete ? 'complete' : 'partial',
         devicesComplete: bank.devicesComplete,
         bankSize: bank.bankSize ?? null,
-        layerChainPositions: [0, 1, 2],
+        layerChainPositions: scoped,
       },
       authority: { kind: 'fresh-read' },
       data: { trackId: args.trackId, devices },
@@ -689,9 +694,6 @@ async function planRelocation(
         const containerNow = mode === 'move'
           ? destination.containerPosition - moved.filter((item) => item < destination.containerPosition).length
           : destination.containerPosition;
-        if (containerNow >= LAYER_CHAIN_POSITIONS) {
-          throw new ToolFailure('outside-limit', 'plan', 'The container would leave the observable positions.');
-        }
         ops.push({
           op: 'chain.relocate', source: deviceAt(track, current),
           destination: chainAt(deviceAt(track, containerNow), destination.layerChain), mode,
@@ -982,8 +984,7 @@ const composeInput = z.object({
     + 'same audio input. Drum Machine: one pad for each MIDI note from 36 through 51.',
   ),
   containerPosition: z.number().int().min(0).max(LAYER_CHAIN_POSITIONS - 1).optional().describe(
-    'Final top-level position of a layer container. Default: the end of the track, which must be position 2 or '
-    + 'earlier.',
+    'Final top-level position of a layer container. Default: the end of the track.',
   ),
   expectedDeviceOrder: expectedDeviceOrder.optional(),
   layerChains: z.array(z.object({
@@ -1057,7 +1058,7 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + 'edits counts two more: its checks add about 2 s) and 4 modulators and modulator edits; a '
   + 'larger request refuses before any read or write (code outside-limit, the limit in detail). Add more devices '
   + 'later with add_devices and move_devices. '
-  + 'The final container position must be 0 through 2 (layer chains are not observable later). Every request is '
+  + 'The final container position must be inside the 16-device bank (layer chains are observable there). Every request is '
   + 'validated before the first write; a later failure returns the completed effects.\n'
   + 'Result: effects with change IDs, readback with the complete structure, and next.revert. revert_change with '
   + 'that change ID reverses the whole composition: it restores moved existing devices and removes only the owned '
@@ -1120,8 +1121,8 @@ export async function composeDevices(
     }
     if (backend !== 'drum-machine' && args.containerPosition === undefined
         && bank.devices.length >= LAYER_CHAIN_POSITIONS) {
-      throw new ToolFailure('outside-limit', 'input', 'The end of the track is after position 2, where layer '
-        + 'chains are not observable. Give containerPosition 0 through 2.');
+      throw new ToolFailure('outside-limit', 'input', `The end of the track is after position ${LAYER_CHAIN_POSITIONS - 1}, `
+        + 'the last observable layer-container position.');
     }
     state.stage = 'write';
     if (backend === 'drum-machine') return composeDrumMachine(workspace, args, state, started, target);
@@ -1644,7 +1645,7 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
     spec('read_devices', 'read', 'Read track devices and layer chains', READ_DESCRIPTION, readInput, DEVICES_SCHEMA, [],
       (workspace, input) => readDevices(workspace, input as ReadInput),
       { coverage: ['status', 'devicesComplete', 'bankSize', 'layerChainPositions'],
-        layerChains: ['outside-limit', 'unavailable'] }),
+        layerChains: ['unavailable'] }),
     readControls!,
     setControls!,
     readPreset!,

@@ -712,19 +712,23 @@ let fixtureChainId = 0;
 const someChain = (name: string, devices: FakeChain['devices'] = []): FakeChain =>
   ({ name, solo: false, id: `fixture-chain-${++fixtureChainId}`, devices });
 
-test('T-scope: a container is observable only in the first few device positions', () => {
-  // ⚠ Not a fake limitation — `Rig.slotLayerBanks` are allocated at init (D7)
-  // on `SLOT_SCOPES` top-level device slots, so a container further along the
-  // chain has no bank to be read through. The model carries the same number so
-  // an offline pass cannot certify a reach live Bitwig does not have.
+test('T-scope: a container is observable at every device position inside the bank, and nowhere past it', () => {
+  // ⚠ Not a fake limitation — B08 (E352): each `Rig` scope is a one-wide bank
+  // scrolled to the requested position, so the reach is the 16-wide device
+  // bank, and a container past it has no bank to be read through. The model
+  // carries the same width so an offline pass cannot certify a reach live
+  // Bitwig does not have.
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
-  for (let i = 0; i <= model.containerScopes; i++) {
+  for (let i = 0; i <= model.deviceBankSize; i++) {
     track.devices.push({ name: `dev-${i}`, paramsLive: true, params: [], chains: [someChain('A')] });
   }
   assert.notEqual(model.observeContainer(track, 0), undefined);
-  assert.equal(model.observeContainer(track, model.containerScopes), undefined,
-    'past the scopes nothing was looked at — which is not the same as nothing being there');
+  assert.notEqual(model.observeContainer(track, model.containerScopes), undefined,
+    'the scope count no longer bounds the reach');
+  assert.notEqual(model.observeContainer(track, model.deviceBankSize - 1), undefined);
+  assert.equal(model.observeContainer(track, model.deviceBankSize), undefined,
+    'past the bank nothing was looked at — which is not the same as nothing being there');
 });
 
 test('5p fake adapter: container inventory preserves nested enabled state', () => {
@@ -1259,6 +1263,7 @@ test('8h4e fake: a structure read reports names and containers with no parameter
     });
   }
   const inScope = deviceAddress(track(first.channelId), 0);
+  // B08: a position past the scope count reads through a scrolled scope, with its container.
   const pastScope = deviceAddress(track(first.channelId), adapter.model.containerScopes);
   const nested = deviceInAddress(chainAddress(inScope, 'A'), 0);
   const generation = adapter.model.parameterObservationGeneration;
@@ -1271,7 +1276,7 @@ test('8h4e fake: a structure read reports names and containers with no parameter
   assert.equal(of(inScope)?.params, undefined);
   assert.equal(of(inScope)?.container?.chains[0]?.name, 'A');
   assert.equal(of(pastScope)?.name, `dev-${adapter.model.containerScopes}`);
-  assert.equal(of(pastScope)?.container, undefined);
+  assert.equal(of(pastScope)?.container?.chains[0]?.name, 'A');
   assert.deepEqual(snapshot.unreachable, []);
   assert.equal(of(nested)?.name, 'Inner');
   assert.equal(of(nested)?.params, undefined);

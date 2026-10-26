@@ -798,11 +798,14 @@ export function runConformance(h: AdapterHarness): void {
         const miss = (await adapter.resolve([chain(container, 'gn-conf-no-such-chain')])).resolved[0];
         assert.deepEqual({ found: miss?.found, reason: miss?.reason }, { found: false, reason: 'absent' });
 
-        // ⚠ A container position with NO SCOPE is a fact about our reach, not
-        // about the music — `outside-bank-window`, and `unreachable` on a read.
-        // The layer banks are allocated at init (D7) on the first few device
-        // slots only, so this is an ordinary position, not an extreme one.
-        const far = chain(device(trackA, 9), 'anything');
+        // ⚠ A container position past the device bank is a fact about our reach,
+        // not about the music — `outside-bank-window`, and `unreachable` on a
+        // read. B08 (E352): the scopes scroll over the whole 16-wide bank, so an
+        // empty position inside it is an ordinary `absent`, and only the bank
+        // edge is blind.
+        const emptyInside = (await adapter.resolve([chain(device(trackA, 9), 'anything')])).resolved[0];
+        assert.deepEqual({ found: emptyInside?.found, reason: emptyInside?.reason }, { found: false, reason: 'absent' });
+        const far = chain(device(trackA, 16), 'anything');
         const blind = (await adapter.resolve([far])).resolved[0];
         assert.deepEqual({ found: blind?.found, reason: blind?.reason },
           { found: false, reason: 'outside-bank-window' });

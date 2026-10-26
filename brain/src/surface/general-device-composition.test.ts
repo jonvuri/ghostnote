@@ -446,7 +446,7 @@ test('5r-route-depth: total depth 2 completes and total depth 3 refuses before a
     entry.source.modulatorLocation,
   );
   assert.deepEqual(accepted['capacities'], {
-    topLevelContainerPositions: 3, entriesPerLayer: 5,
+    topLevelContainerPositions: 16, entriesPerLayer: 5,
     devicesPerEntry: 4, parameterRouteDepth: 2,
   });
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
@@ -499,7 +499,7 @@ test('5r-position-and-device-capacity: position 2 and four ordered devices rever
   }) as Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   assert.deepEqual(result['capacities'], {
-    topLevelContainerPositions: 3, entriesPerLayer: 5,
+    topLevelContainerPositions: 16, entriesPerLayer: 5,
     devicesPerEntry: 4, parameterRouteDepth: 2,
   });
   const structure = result['structure'] as { devices: { position: number }[] }[];
@@ -526,7 +526,8 @@ test('5r-position-and-device-capacity: position 2 and four ordered devices rever
       { name: 'Existing Twin', enabled: true }, { name: 'Tool', enabled: false },
       { name: 'Third anchor', enabled: true },
     ],
-    containerKind: 'FX Layer', containerPosition: 3,
+    // B08: positions 3 through 15 are inside the scrolled scopes' reach; the bank edge is the refusal.
+    containerKind: 'FX Layer', containerPosition: 16,
     entries: [{ entryName: 'No write', source: { kind: 'native', name: 'Polysynth' }, modulators: [] }],
   }) as Record<string, unknown>;
   assert.equal(outside['refused'], true, JSON.stringify(outside));

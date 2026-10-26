@@ -66,7 +66,10 @@ test('8h4e read_devices: top-level order, addressed layer chains, and coverage i
   assert.deepEqual(container.layerChains.map((item: Wire) => [item.name, item.solo, item.devices.map((d: Wire) => d.name)]),
     [['A', true, ['EQ+', 'Delay+']], ['B', false, []]]);
   assert.equal(read.data.devices[0].container, undefined);
-  assert.equal(read.data.devices[3].layerChains, 'outside-limit');
+  // B08: a container after position 2 reads through a scrolled scope, so its chains are listed too.
+  assert.equal(read.data.devices[3].layerChains, undefined);
+  assert.deepEqual(read.data.devices[3].container.layerChains.map((item: Wire) => item.name), ['X']);
+  assert.deepEqual(read.coverage.layerChainPositions, [0, 1, 2, 3]);
   assert.ok(!('parameters' in read.data.devices[0]), 'read_devices reads no parameters');
 });
 
@@ -229,7 +232,8 @@ test('8h4e compose_devices: the private backend boundary', () => {
   assert.equal(compositionBackend({ ...two, layerChains: [...two.layerChains, chain('C', native('FM-4')),
     chain('D', native('Organ')), chain('E', native('Sampler'))] } as never, 0), 'staged', 'five layer chains');
   assert.equal(compositionBackend({ ...two, containerKind: 'FX Layer' } as never, 0), 'staged');
-  assert.equal(compositionBackend(two as never, 3), 'staged', 'the end is outside the observable positions');
+  assert.equal(compositionBackend(two as never, 3), 'offline', 'B08: the end after position 2 is observable');
+  assert.equal(compositionBackend(two as never, 16), 'staged', 'the end is outside the device bank');
   assert.equal(compositionBackend({ ...two, containerPosition: 0 } as never, 1), 'staged', 'a caller position');
   assert.equal(compositionBackend({ ...base, layerChains: [chain('A', { kind: 'clap', id: 'x' })] } as never, 0),
     'staged');

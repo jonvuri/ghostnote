@@ -125,6 +125,15 @@ export const WIRE = {
   /** Slot-scoped device relocation, promoted only for `chain.relocate`. */
   chainMove: 'chain.move',
   /**
+   * B08 (E352): aim one container scope at a top-level position. Each scope is
+   * a one-wide device bank on cursor track 0 with the layer bank hung off its
+   * single slot; scrolling the bank retargets the hung banks within one wire
+   * round trip. The next `chain.inventory` reports `position`,
+   * `requestedPosition`, and `settled` for the scope, and every chain write
+   * refuses a scope that is not settled at the position the caller names.
+   */
+  chainScroll: 'chain.scroll',
+  /**
    * ⚠⚠ NEW in session 3f step 6b-2, and the first WRITE in this system that
    * reaches inside a container. `layer.select` + `Channel.duplicate()`, the one
    * typed route `e17ak` found for making a chain — but reached through

@@ -1,0 +1,246 @@
+{
+  "elapsedMs": 14153,
+  "value": {
+    "name": "compose_devices",
+    "args": {
+      "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "name": "A",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "EQ-5"
+              }
+            }
+          ]
+        },
+        {
+          "name": "B",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "Gate"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "ms": 9801,
+    "wire": {
+      "turns": 275,
+      "wireMs": 6333,
+      "methods": {
+        "selection.status": 22,
+        "track.list": 67,
+        "devcursor.pin": 34,
+        "cursor.pointTrack": 32,
+        "device.list": 49,
+        "revision.get": 53,
+        "batch.run": 7,
+        "cursor.pin": 40,
+        "devcursor.selectAt": 21,
+        "chain.inventory": 19,
+        "chain.scroll": 1,
+        "devcursor.status": 6,
+        "layer.list": 2,
+        "devcursor.selectInLayer": 2,
+        "directparam.list": 6,
+        "param.list": 2
+      },
+      "clipReads": 0,
+      "stages": 7
+    },
+    "scrolls": [
+      {
+        "slot": 2,
+        "position": 3
+      }
+    ],
+    "result": {
+      "schema": "ghostnote-device-compose/2",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "9fed6672-a6ed-4ec3-acb5-7ea2b271d049",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage insert-container.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "6af79e46-c7b6-4bb4-8928-a7c6d2d77433",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage confirm-entry-name.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "bfb8660d-aa34-4df8-873f-8ac194348867",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "b0c57948-9b2f-4e38-9e06-bcdd34bcb089",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "17f51e28-7a26-4a15-88f4-61124a37deae",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer",
+            "layerChain": "B"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "75511a6c-9797-4302-b81e-fff06e4fb99e",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerKind": "FX Layer",
+            "layerChain": "B"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "backend": "staged",
+        "containerPosition": 3,
+        "structure": [
+          {
+            "entryIndex": 0,
+            "entryName": "A",
+            "devices": [
+              {
+                "position": 0,
+                "name": "EQ-5",
+                "enabled": true
+              }
+            ]
+          },
+          {
+            "entryIndex": 1,
+            "entryName": "B",
+            "devices": [
+              {
+                "position": 0,
+                "name": "Gate",
+                "enabled": true
+              }
+            ]
+          }
+        ],
+        "layerChains": [
+          {
+            "entryIndex": 0,
+            "deviceIndex": 0,
+            "entryName": "A",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "EQ-5"
+            },
+            "observed": {
+              "deviceName": "EQ-5",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "030afac48929abab4f365d54b3a575cb5826ca8cfa3b694537ba14fe33136847",
+                "parameterCount": 29
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          },
+          {
+            "entryIndex": 1,
+            "deviceIndex": 0,
+            "entryName": "B",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "Gate"
+            },
+            "observed": {
+              "deviceName": "Gate",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "13efb705ba7c92883509d7487d089bc60fbe2769d50fd273f72d7dba4795da4e",
+                "parameterCount": 4
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeId": "9fed6672-a6ed-4ec3-acb5-7ea2b271d049"
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 9800.649208
+      },
+      "target": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+        "containerKind": "FX Layer"
+      }
+    }
+  }
+}

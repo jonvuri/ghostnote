@@ -1,0 +1,62 @@
+{
+  "elapsedMs": 19822,
+  "value": {
+    "slot": 1,
+    "status": "held",
+    "requestedPosition": 3,
+    "position": 3,
+    "settled": true,
+    "canScrollForwards": false,
+    "canScrollBackwards": true,
+    "deviceExists": true,
+    "deviceName": "FX Layer",
+    "devicePosition": 3,
+    "hasLayers": true,
+    "hasSlots": false,
+    "slotNames": [],
+    "chains": [
+      {
+        "index": 0,
+        "name": "A",
+        "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+        "solo": true,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.267,0.784,0.996",
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-5",
+            "enabled": true
+          }
+        ],
+        "deviceCount": 1
+      },
+      {
+        "index": 1,
+        "name": "B",
+        "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.267,0.784,0.996",
+        "devices": [
+          {
+            "index": 0,
+            "name": "Gate",
+            "enabled": true
+          }
+        ],
+        "deviceCount": 1
+      }
+    ],
+    "visibleChainCount": 2,
+    "chainCount": 2,
+    "chainBankSize": 5,
+    "deviceBankSize": 4,
+    "namedSlotStatus": "held",
+    "namedSlotComplete": true
+  }
+}

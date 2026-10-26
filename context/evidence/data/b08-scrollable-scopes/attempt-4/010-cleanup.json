@@ -1,0 +1,15 @@
+{
+  "elapsedMs": 8722,
+  "value": {
+    "removed": [
+      "d0a0db11-5548-427c-bc76-11109b74618a"
+    ],
+    "warnings": [
+      {
+        "code": "not-reversible",
+        "message": "revert_change cannot put a deleted track back."
+      }
+    ],
+    "tracks": 11
+  }
+}

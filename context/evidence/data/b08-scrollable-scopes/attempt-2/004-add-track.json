@@ -1,0 +1,74 @@
+{
+  "elapsedMs": 1139,
+  "value": {
+    "name": "add_tracks",
+    "args": {
+      "tracks": [
+        {
+          "name": "gn-b08i"
+        }
+      ]
+    },
+    "ms": 913,
+    "wire": {
+      "turns": 22,
+      "wireMs": 510,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "clipReads": 0,
+      "stages": 2
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-track-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "af7b4f48-df65-4cd4-8f30-bfe66f6f2e93",
+          "target": {
+            "trackIds": [
+              "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed"
+            ]
+          },
+          "summary": "Created 1 track(s).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "ce50cd49-a2f8-4c0c-a97e-f0b4a6ac9d6f",
+          "target": {
+            "trackIds": [
+              "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed"
+            ]
+          },
+          "summary": "Named the new track(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "tracks": [
+          {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "name": "gn-b08i",
+            "kind": "Instrument"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ],
+      "target": {
+        "tracks": 1
+      }
+    }
+  }
+}
