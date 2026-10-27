@@ -1,24 +1,34 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-26
+updated: 2026-10-27
 ---
 
 ## Now
 
-[B17](work/b17-extension-owned-window-scrolling.md) session 1 is complete and
-verified live.
-[E354](evidence/experiments/e354-extension-owned-container-scopes-live.md)
-records the extension owning the container scopes: `chain.observe` and
-self-settling chain writes replace `chain.scroll` and the brain's scope state,
-the E353 shape repeats with the same results at positions 3 and 5, an
-isolated far container read costs 6 turns and about 140 ms (was 11 turns,
-305 ms), and `batch.run` continues across a deferred op (the first attempt
-found the executor refusing one). The normal profile is 93 methods, hash
-`d6decf985f6b1f36`, marker `extension-owned-scopes-v1`; descriptions stay
-v55. Session 2 (paged reads of the chain, device, and 16-wide top-level
-windows inside `chain.observe`) and session 3 (writes past the first page,
-cap retirement) follow the interface decisions recorded in the brief.
+[B17](work/b17-extension-owned-window-scrolling.md) **session 2 (paged reads)
+is complete and verified live** in
+[E356](evidence/experiments/e356-paged-device-and-layer-reads-live.md).
+The normal `paged-windows-v3` build reads eighteen top-level devices, a
+six-chain container at position 17, and five devices in chain A completely.
+Repeated reads agree; nested windows return to zero; selection is preserved
+during acceptance. The owned scratch track was removed, with original tracks
+and `gn-lay4` verified unchanged. No controller replacement is pending.
+
+The overflow container structure read measured six wire turns / about 505 ms;
+one two-page top-level `device.list`, about 144 ms. Full `read_devices` on the
+fixture took 65 turns / about 2.6 s. These are fixture-specific measurements.
+Normal profile: 93 methods, hash `d6decf985f6b1f36`; descriptions v56.
+**Next: B17 session 3**, writes past the first page and cap retirement.
+The [session-2 result](work/b17-extension-owned-window-scrolling.md#session-2-result-and-session-3-handoff)
+records the inherited interface and remaining scope. Write width limits,
+named-slot paging, and parameter paging were not changed in session 2.
+
+Session 1 was verified live in
+[E354](evidence/experiments/e354-extension-owned-container-scopes-live.md):
+the E353 shape produced the same results at positions 3 and 5, and an isolated
+far container read fell from 11 turns / 305 ms to 6 turns / about 140 ms.
+These are session-1 measurements; E356 records the session-2 overflow costs.
 
 [B08](work/b08-scrollable-container-scopes.md) is complete and verified live.
 [E353](evidence/experiments/e353-scrollable-container-scopes-product-live.md)
@@ -88,26 +98,25 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive carries the B17 session-1 build with the
-  review fix (SHA-256
-  `de1ace51bcd018c7d00e74ff67799327a5ab71127d9f3a21415d7577b15d9def`; it
-  refuses `clip.read` and `cursor.pointExpanded` inside a batch). The
-  operator confirmed replacement; `npm run probe:hello` passed: `normal-v1`,
-  API 25, 93 methods, hash `d6decf985f6b1f36`, the
-  `extension-owned-scopes-v1` marker, fresh initialization at
-  `2026-10-27T03:49:38.533Z` (UTC). E354 ran on the previous archive of this
-  build (`f286e47e…cbc7`, same methods and hash, without the batch refusal).
-  The B17 archive `e877ccb6…e5438` before it lacked the `batch.run`
-  continuation and was replaced within the session. A running Ghostnote MCP
-  server started before this session carries the B08 brain and must restart
-  before it can read or write layer chains against this extension.
+- The normal `ghostnote` archive is the B17 session-2 v3 build, SHA-256
+  `081cdbb46b410bb651f3f01cb3af436b32fb75d1285c3fcff5f03db0624813f7`.
+  The operator replied “Controller replaced”; its fresh handshake passed at
+  initialization `2026-10-27T13:09:49.749Z`: `normal-v1`, API 25, 93 methods,
+  hash `d6decf985f6b1f36`, marker `paged-windows-v3`. The live acceptance
+  and cleanup passed on that instance. No write block or open scope remains.
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E354 deleted its scratch track `gn-b17s`; `list_tracks` then listed the
-  original 11 tracks, the four-chain `gn-lay4` structure read back unchanged,
-  and the mixer selection stayed on `gn-sel`. The container scopes rested at
-  positions 0, 1, and 5 of the deleted track; the extension re-aims them on
-  the next operation. No scratch track, solo flag, or popup remains. Re-read
-  project, target, and selection before more writes.
+  Owned scratch `gn-b17r` (`2c494622-de74-4d56-804e-7a40127afc47`) was removed.
+  Original tracks and `gn-lay4` entries match the pre-write baseline.
+  Mixer selection is `gn-sel` (index 8, channel
+  `6fb96670-abde-4958-9147-f573a4b43918`); no Launcher slot is selected.
+  Selection revision advanced 1 → 5 during setup and UI restoration, then
+  stayed unchanged during acceptance and cleanup. No playback launch or
+  project save ran. One old MCP client (PID 46491) was left alone; owned
+  foreground drivers exited. Re-check live claims, project, selection,
+  clients, and targets on resume.
+  [E356](evidence/experiments/e356-paged-device-and-layer-reads-live.md) retains
+  acceptance, timings, setup results, and preservation comparisons; E355
+  retains the earlier host-state corrections.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
@@ -117,7 +126,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Baseline: 46 normal tools, descriptions v55.
+  Current source: 46 normal tools, descriptions v56; running server version unconfirmed.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

@@ -289,10 +289,10 @@ public final class ContainerScopesTest {
     private static void validation() {
         Model m = new Model("FX Layer", "Tool");
         ContainerScopes scopes = new ContainerScopes(m);
+        Result far = aim(scopes, m, "track-a", 16);
+        check(far.settled != null && far.settled.slotOf(16) == ContainerScopes.EMPTY, "past the count is empty");
+        far.settled.release();
         boolean threw = false;
-        try { aim(scopes, m, "track-a", 16); } catch (IllegalArgumentException expected) { threw = true; }
-        check(threw && m.gate.writeLeases() == 0, "a position past the bank throws before the lease");
-        threw = false;
         try { aim(scopes, m, "track-a", -1); } catch (IllegalArgumentException expected) { threw = true; }
         check(threw, "a negative position throws");
         Result open = aim(scopes, m, "track-a", 0);
@@ -304,7 +304,7 @@ public final class ContainerScopesTest {
         check(next.settled != null, "and admitted after the release");
         next.settled.release();
         JsonObject status = scopes.status();
-        check(status.get("rule").getAsString().equals(ContainerScopes.RULE) && status.get("aims").getAsLong() == 2
+        check(status.get("rule").getAsString().equals(ContainerScopes.RULE) && status.get("aims").getAsLong() == 3
             && !status.get("open").getAsBoolean(), "status counts the aims");
     }
 

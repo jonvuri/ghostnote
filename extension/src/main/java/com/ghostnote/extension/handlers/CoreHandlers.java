@@ -101,6 +101,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("groupPoint", GroupPoint.RULE);
         // B17 deliberate build marker: the extension owns the container scopes.
         result.addProperty("containerScopeRoute", ContainerScopes.RULE);
+        result.addProperty("windowWriteBlock", rig.writeGate.blockedReason());
         result.add("containerScopeStatus", rig.containerScopes.status());
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
         // 8h4f deliberate build marker: the track kinds that track.create accepts.
@@ -168,6 +169,9 @@ public final class CoreHandlers extends HandlerGroup {
         resources.addProperty("layerDeviceBanks", layerDeviceBanks);
         resources.addProperty("slotDeviceBanks", slotDeviceBanks);
         resources.addProperty("scopeDeviceBanks", scopeDeviceBanks);
+        // B17 reuses every handle. Only scroll positions and item-position witnesses are newly subscribed.
+        resources.addProperty("pagingMarkedValues", cursorDeviceBanks * (1 + rig.config.deviceBank)
+            + Rig.SLOT_SCOPES * (1 + Rig.SLOT_LAYER_BANK * (2 + Rig.SLOT_LAYER_DEVICE_BANK)));
         resources.addProperty("namedSlotDeviceBanks", namedSlotDeviceBanks);
         resources.addProperty("drumPadDeviceBanks", drumPadDeviceBanks);
         resources.addProperty("deviceBanks",

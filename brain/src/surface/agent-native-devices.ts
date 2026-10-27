@@ -248,6 +248,9 @@ async function readContainer(workspace: Workspace, id: string, position: number)
   if (!container.chainsComplete) {
     throw new ToolFailure('partial', 'acquire', 'The complete layer-chain list is not visible. Nothing was written.');
   }
+  if (container.chainsBankSize !== undefined && container.chains.length > container.chainsBankSize) {
+    throw new ToolFailure('outside-limit', 'acquire', 'Layer-chain writes beyond the first window are not yet supported.');
+  }
   return { device: read, container, address: deviceAt(track, position) };
 }
 
@@ -282,6 +285,8 @@ function publicLayerChain(item: ObservedChain) {
     devices: item.devices.map((nested) => ({ devicePosition: nested.index, name: nested.name })),
     devicesComplete: item.devicesComplete,
     deviceCapacity: item.devicesBankSize ?? null,
+    devicePages: item.devicesComplete && item.devicesBankSize
+      ? Math.max(1, Math.ceil(item.devices.length / item.devicesBankSize)) : null,
   };
 }
 
@@ -292,6 +297,8 @@ function publicContainer(device: DeviceState) {
     layerChains: container.chains.map(publicLayerChain),
     complete: container.chainsComplete && container.chains.every((item) => item.devicesComplete),
     capacity: container.chainsBankSize ?? null,
+    chainPages: container.chainsComplete && container.chainsBankSize
+      ? Math.max(1, Math.ceil(container.chains.length / container.chainsBankSize)) : null,
   };
 }
 
@@ -307,7 +314,7 @@ const readInput = z.object({ trackId }).strict();
 type ReadInput = z.infer<typeof readInput>;
 
 const READ_DESCRIPTION = `${PROFILE} Read the complete top-level device order of one track, and the layer `
-  + 'chains of each container at any top-level position in the 16-device bank. Each device has its devicePosition, name, and '
+  + 'chains of each container at any top-level position. Reads page the device and layer-chain windows. Each device has its devicePosition, name, and '
   + 'enabled state. A container (Instrument Layer or FX Layer; containerKind) lists its layer chains in order: '
   + 'name, solo, mute, volume, pan, colour, and the ordered devices in each. Positions are not IDs: a device-order '
   + 'edit changes later positions, so read again after each structural edit. Layer-chain names are the address '
@@ -328,7 +335,7 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
   try {
     const track = trackAt(args.trackId);
     const bank = await workspace.devices(track);
-    const scoped = bank.devices.map((item) => item.index).filter((index) => index < LAYER_CHAIN_POSITIONS);
+    const scoped = bank.devices.map((item) => item.index);
     const structure = await structureAt(workspace, track, scoped);
     let containersComplete = true;
     const devices = bank.devices.map((item) => {
@@ -354,6 +361,8 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
         status: bank.devicesComplete && containersComplete ? 'complete' : 'partial',
         devicesComplete: bank.devicesComplete,
         bankSize: bank.bankSize ?? null,
+        devicePages: bank.devicesComplete && bank.bankSize
+          ? Math.max(1, Math.ceil(bank.devices.length / bank.bankSize)) : null,
         layerChainPositions: scoped,
       },
       authority: { kind: 'fresh-read' },

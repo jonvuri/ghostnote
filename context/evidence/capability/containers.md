@@ -2,7 +2,7 @@
 title: Containers — device layers, selectors and drum machines
 kind: capability
 state: active
-updated: 2026-08-23
+updated: 2026-10-27
 scope: nested device containers; chain lifecycle, switching, addressing and state
 evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71-E73; D6, D7, D18
 ---
@@ -321,7 +321,21 @@ it reads a scope, and the brain re-points once on a refusal.
   write or clip read interleaves. The brain holds no scope state;
   `chain.inventory` remains the raw read of every scope. A position past the
   device count answers as empty from the reference bank count; only the bank
-  edge is `outside-bank-window`. [K, E353; E354]
+  edge is `outside-bank-window` in session 1; session 2 extends read reach
+  below. [K, E353; E354]
+- **Paged product reads (B17 session 2).** `device.list` stitches the 16-wide
+  top-level window; `chain.observe` stitches the five-chain and four-device
+  windows, retaining absolute indices and restoring windows before reply.
+  E356 proves eighteen top-level devices, a six-chain FX Layer at position
+  17, and five devices in chain A, with complete repeated public reads and
+  verified cleanup. The beyond-bank scope uses confirmed track identity,
+  total count, and its own absolute device position. Layer channel indices
+  are not local bank positions (E355); channel-ID witnesses reject stale
+  pages. Non-layer devices can retain stale layer counts and skip layer
+  traversal. Write width limits remain until session 3; named-slot and
+  parameter paging are outside this evidence. [K,
+  [E355](../experiments/e355-paged-read-host-state-corrections.md),
+  [E356](../experiments/e356-paged-device-and-layer-reads-live.md)]
 - ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
   on a track with fewer devices clamps to 0 and does not move when the track
   later gains devices, although it still reports the requested position. The

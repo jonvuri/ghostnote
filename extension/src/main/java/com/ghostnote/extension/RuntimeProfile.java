@@ -314,7 +314,6 @@ public enum RuntimeProfile {
             "cursor.playState",
             "cursor.status",
             "devcursor.status",
-            "device.list",
             "directparam.callbacks",
             "directparam.completion",
             "directparam.list",

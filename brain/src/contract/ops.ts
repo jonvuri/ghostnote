@@ -821,6 +821,20 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   }
 }
 
+/** Paged reads do not expand the complete-chain fingerprint accepted by device writers. */
+export function assertTopLevelDeviceWriteWindow(op: string, count: number, bankSize: number | undefined): void {
+  if (bankSize === undefined || count > bankSize) {
+    throw new InvalidOpError(op, 'top-level device writes require the entire chain to fit in the first window');
+  }
+}
+
+/** B17 session 2 expands reads; all chain writers still require their first window. */
+function assertChainWriteWindow(op: string, observed: ObservedContainer): void {
+  if (observed.chainsBankSize !== undefined && observed.chains.length > observed.chainsBankSize) {
+    throw new InvalidOpError(op, 'layer-chain writes beyond the first window are not yet supported');
+  }
+}
+
 /**
  * Refuse a chain switch (`chain.activate`) or a solo set (`chain.solo`) unless
  * every sibling and its solo flag were observed. The readback of both ops
@@ -836,6 +850,7 @@ export function assertChainActivatable(
     if (observed === undefined) {
       throw new InvalidOpError(op.op, 'the addressed container is not observable through a slot scope');
     }
+    assertChainWriteWindow(op.op, observed);
     if (!observed.chainsComplete) {
       throw new InvalidOpError(op.op, 'the container chain view is partial, so every sibling cannot be switched safely');
     }
@@ -1019,6 +1034,7 @@ export function assertChainRenamable(
       if (observed === undefined || !observed.chainsComplete) {
         throw new InvalidOpError(op.op, 'the complete sibling set must be observable before a rename');
       }
+      assertChainWriteWindow(op.op, observed);
       chains = observed.chains.map((item) => ({ ...item }));
       projected.set(key, chains);
     }
@@ -1220,6 +1236,7 @@ export function assertChainRelocatable(
     }
     let entry: ObservedDeviceSequence;
     if (endpoint.kind === 'chain') {
+      assertChainWriteWindow('chain.relocate', observed);
       const found = lookupChain(observed, endpoint.name);
       if (!found.ok) {
         throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
@@ -1232,7 +1249,7 @@ export function assertChainRelocatable(
       }
       entry = found.slot;
     }
-    if (!entry.devicesComplete) {
+    if (!entry.devicesComplete || (entry.devicesBankSize !== undefined && entry.devices.length > entry.devicesBankSize)) {
       throw new InvalidOpError('chain.relocate', 'the complete device order of the addressed alternate must be observable');
     }
     if (entry.devicesBankSize === undefined) {

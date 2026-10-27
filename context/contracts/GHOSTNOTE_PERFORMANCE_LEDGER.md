@@ -1,7 +1,7 @@
 ---
 title: Ghostnote performance ledger
 kind: reference
-updated: 2026-10-25
+updated: 2026-10-27
 ---
 
 # Ghostnote performance ledger
@@ -59,7 +59,9 @@ the result; create a separate E record when it will be useful to cite later.
 | Named-slot descent into an empty slot | Two misses, about 0.4 s, then the slots are incomplete (8 misses: about 3 s); a layer-chain move does not descend | E252 |
 | Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s. A drum pad insertion polls its pad (was the fixed 4,000 ms) | E247, E252 |
 | Device or chain relocation | No fixed wait; its proof poll (deadline 8,000 ms) | E247 |
-| One container read (`containerScope`, layer container, track not held) | About 6 turns: 120 ms at a position where a scope rests (0 through 2), 140 ms at a later position, where the extension's `chain.observe` scrolls a scope and settles it in about 24 ms (B17). Before B17: 8 turns (190 ms) resting, 11 turns (305 ms) far, with a `chain.scroll` frame and a second select-and-inventory pass | E238 trace; E353; E354 |
+| One container read (`containerScope`, layer container, track not held; B17 session 1) | About 6 turns: 120 ms at a position where a scope rests (0 through 2), 140 ms at a later position, where the extension's `chain.observe` scrolls a scope and settles it in about 24 ms (B17). Before B17: 8 turns (190 ms) resting, 11 turns (305 ms) far, with a `chain.scroll` frame and a second select-and-inventory pass | E238 trace; E353; E354 |
+| Paged container reads: six chains or five devices in one chain (B17 session 2) | One `chain.observe` wire operation per container; paging and restoration run inside the extension. Public `read_devices` remains one `devices` + one `read` adapter call. E356 combined six-chain/five-device fixture at position 17: isolated adapter structure read 6 turns, median 505 ms (500–511 ms, five trials); one already-aimed `chain.observe` 383 ms (one sample). Full eighteen-device `read_devices`: 65 turns, 2.58–2.61 s. Do not apply E354 single-page timings to overflow | E356; `call-budget.test.ts` paged-read rows; `WindowPagerTest` |
+| Paged top-level read: beyond sixteen devices (B17 session 2) | One `device.list` operation stitches two overlapping pages and restores zero. The existing stable-device read still uses two equal replies. Public `read_devices` remains one `devices` + one `read` adapter call and observes every position. E356 eighteen-device fixture: one `device.list` median 144 ms (141–145 ms, five trials); exact seventeen boundary remains covered offline | E356; paged live/fake conformance and call-budget rows |
 | One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 420 ms, 23 wire calls | E247 |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher); 336 bytes in a held writer | E227, E246, E248 |
 | `track.mixer`, 1 or 8 tracks | One turn (18–25 ms) after the mark; every field of every named track | E257 |

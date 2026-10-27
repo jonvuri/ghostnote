@@ -47,6 +47,33 @@ const abFixture = () => fixture((id) => [
   device('Tool'),
 ]);
 
+for (const count of [16, 17, 18]) {
+  for (const position of [0, count - 1]) {
+    for (const tool of ['set_device_enabled', 'delete_device']) {
+      test(`B17 ${tool}: ${count} devices, position ${position}, preserves the write window`, async () => {
+        const fx = fixture(() => Array.from({ length: count }, (_, index) => device(`Tool ${index}`)));
+        const before = structuredClone(fx.row.devices);
+        const read = await fx.native('read_devices', { trackId: fx.trackId });
+        assert.equal(read.coverage.status, 'complete');
+        assert.equal(read.data.devices.length, count);
+        const target = { trackId: fx.trackId, devicePosition: position };
+        const result = await fx.native(tool, tool === 'delete_device'
+          ? { devices: [target] } : { settings: [{ ...target, enabled: false }] });
+        if (count > 16) {
+          assert.notEqual(result.applied, true, JSON.stringify(result));
+          assert.deepEqual(fx.row.devices, before, 'refused writes preserve every device');
+          assert.match(JSON.stringify(result), /first window/);
+        } else {
+          assert.equal(result.applied, true, JSON.stringify(result));
+          assert.equal(result.readback.status, 'verified');
+          if (tool === 'delete_device') assert.equal(fx.row.devices.length, count - 1);
+          else assert.equal(fx.row.devices[position]!.enabled, false);
+        }
+      });
+    }
+  }
+}
+
 test('8h4e read_devices: top-level order, addressed layer chains, and coverage in one envelope', async () => {
   const fx = fixture((id) => [
     device('Polysynth'),

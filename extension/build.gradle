@@ -332,3 +332,18 @@ tasks.register('gridDoctorTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.GridDoctorTest'
     args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
 }
+
+// B17: paged windows share the host model with reads and future paged writes.
+tasks.register('windowPagerTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.WindowPagerTest'
+}
+tasks.named('check') { dependsOn 'windowPagerTest' }
+
+tasks.register('containerPagingTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ContainerPagingTest'
+}
+tasks.named('check') { dependsOn 'containerPagingTest' }

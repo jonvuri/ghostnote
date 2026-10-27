@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v55';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v56';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -904,3 +904,6 @@ export const TOOL_DESCRIPTION_V54_SHA256 = 'f13534e980deac485a601640f0360294196f
  * compose_devices; the `layerChains: outside-limit` marker is gone. No earlier description changes.
  */
 export const TOOL_DESCRIPTION_V55_SHA256 = '484c2f3f0514c7586e8daa844befa0658ffabd7f9c541a0b4d09b98d0ed92073';
+
+/** v56 (B17 session 2): read_devices pages the top-level, chain, and chain-device windows. Write limits stay. */
+export const TOOL_DESCRIPTION_V56_SHA256 = '76cf46f587e86e1c1d7db37b89fed80e20aa74841ad47bb1d22faa813c433df3';

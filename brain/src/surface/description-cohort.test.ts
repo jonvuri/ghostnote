@@ -31,6 +31,7 @@ import {
   TOOL_DESCRIPTION_V52_SHA256,
   TOOL_DESCRIPTION_V53_SHA256,
   TOOL_DESCRIPTION_V54_SHA256,
+  TOOL_DESCRIPTION_V56_SHA256,
   TOOL_DESCRIPTION_V55_SHA256,
   TOOL_DESCRIPTION_V29_SHA256,
   TOOL_DESCRIPTION_V28_SHA256,
@@ -79,8 +80,8 @@ const EXPECTED_COHORT = [
   'check_grid_support', 'resolve_device_name',
 ] as const;
 
-test('description v55 names one complete and explicit cohort: the default agent-native-v1 list', () => {
-  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v55');
+test('description v56 names one complete and explicit cohort: the default agent-native-v1 list', () => {
+  assert.equal(TOOL_DESCRIPTION_VERSION, 'ghostnote-description-v56');
   assert.deepEqual(DESCRIPTION_COHORT.map((member) => member.name), EXPECTED_COHORT);
   assert.deepEqual(AGENT_NATIVE_TOOLS.map((spec) => spec.name), EXPECTED_COHORT);
   assert.equal(new Set(EXPECTED_COHORT).size, EXPECTED_COHORT.length);
@@ -100,13 +101,18 @@ test('description v1 stays frozen as its original 15-tool artifact', () => {
   );
 });
 
-test('description v55 matches its public artifact', () => {
+test('description v56 matches its public artifact', () => {
   const artifact = descriptionCohortArtifact(AGENT_NATIVE_TOOLS, ANNOTATIONS);
   assert.equal(
     fingerprintDescriptionCohort(artifact),
-    TOOL_DESCRIPTION_V55_SHA256,
-    'the v55 public wording or schema changed',
+    TOOL_DESCRIPTION_V56_SHA256,
+    'the v56 public wording or schema changed',
   );
+});
+
+test('description v55 keeps its frozen public artifact', () => {
+  assert.equal(TOOL_DESCRIPTION_V55_SHA256,
+    '484c2f3f0514c7586e8daa844befa0658ffabd7f9c541a0b4d09b98d0ed92073');
 });
 
 test('description v54 keeps its frozen public artifact', () => {

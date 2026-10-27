@@ -1,0 +1,2889 @@
+{
+  "trials": [
+    {
+      "ms": 503.2342920000001,
+      "turns": 6,
+      "calls": [
+        {
+          "method": "revision.get",
+          "sent": 1055.36625,
+          "received": 1079.497291,
+          "bytes": 2844,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "14",
+            "result": {
+              "revision": 31,
+              "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+              "project": "gn-scale-test",
+              "projectStatus": "marked",
+              "sceneEpoch": 2,
+              "sceneCount": 10,
+              "contentEpoch": 32793,
+              "unpinnedCursorTracks": [],
+              "contentEvents": [
+                {
+                  "seq": 32770,
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+                  "trackIndex": 0,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32771,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32772,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32773,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32774,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32775,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32776,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 3,
+                  "filled": true
+                },
+                {
+                  "seq": 32777,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32778,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32779,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 6,
+                  "filled": true
+                },
+                {
+                  "seq": 32780,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 7,
+                  "filled": true
+                },
+                {
+                  "seq": 32781,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 8,
+                  "filled": true
+                },
+                {
+                  "seq": 32782,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 9,
+                  "filled": true
+                },
+                {
+                  "seq": 32783,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32784,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32785,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32786,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32787,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32788,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32789,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32790,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32791,
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+                  "trackIndex": 6,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32792,
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+                  "trackIndex": 7,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32793,
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+                  "trackIndex": 8,
+                  "slotIndex": 0,
+                  "filled": true
+                }
+              ]
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"14\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+        },
+        {
+          "method": "track.list",
+          "sent": 1055.415041,
+          "received": 1079.698416,
+          "bytes": 1441,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "15",
+            "result": {
+              "tracks": [
+                {
+                  "index": 0,
+                  "name": "Instrument Layer",
+                  "position": 0,
+                  "type": "Hybrid",
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+                },
+                {
+                  "index": 1,
+                  "name": "Hybrid 2",
+                  "position": 1,
+                  "type": "Hybrid",
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+                },
+                {
+                  "index": 2,
+                  "name": "gn-A",
+                  "position": 2,
+                  "type": "Instrument",
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+                },
+                {
+                  "index": 3,
+                  "name": "gn-B",
+                  "position": 3,
+                  "type": "Instrument",
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+                },
+                {
+                  "index": 4,
+                  "name": "Group 5",
+                  "position": 4,
+                  "type": "Group",
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+                },
+                {
+                  "index": 5,
+                  "name": "gn-E16",
+                  "position": 5,
+                  "type": "Instrument",
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "hidden": true
+                },
+                {
+                  "index": 6,
+                  "name": "gn-lay",
+                  "position": 6,
+                  "type": "Instrument",
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+                },
+                {
+                  "index": 7,
+                  "name": "gn-lay4",
+                  "position": 7,
+                  "type": "Instrument",
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+                },
+                {
+                  "index": 8,
+                  "name": "gn-sel",
+                  "position": 8,
+                  "type": "Instrument",
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+                },
+                {
+                  "index": 9,
+                  "name": "gn-b17r",
+                  "position": 9,
+                  "type": "Instrument",
+                  "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+                },
+                {
+                  "index": 10,
+                  "name": "FX 1",
+                  "position": 10,
+                  "type": "Effect",
+                  "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+                },
+                {
+                  "index": 11,
+                  "name": "Master",
+                  "position": 11,
+                  "type": "Master",
+                  "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+                }
+              ],
+              "count": 12,
+              "itemCount": 12,
+              "bankSize": 256
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"15\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+        },
+        {
+          "method": "selection.status",
+          "sent": 1079.751083,
+          "received": 1104.425125,
+          "bytes": 245,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "16",
+            "result": {
+              "trackIndex": -1,
+              "slotIndex": -1,
+              "mixerTrackIndex": 8,
+              "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "changes": 0,
+              "revision": 5,
+              "slotProject": "",
+              "mixerProject": "gn-scale-test",
+              "project": "gn-scale-test"
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"16\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+        },
+        {
+          "method": "devcursor.pin",
+          "params": {
+            "pinned": false
+          },
+          "sent": 1104.51925,
+          "received": 1127.647,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "17",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"17\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "cursor.pointTrack",
+          "params": {
+            "cursor": "0",
+            "trackIndex": 9
+          },
+          "sent": 1127.689916,
+          "received": 1150.563916,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "18",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"18\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 17,
+            "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+          },
+          "sent": 1150.608916,
+          "received": 1558.368,
+          "bytes": 2918,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "19",
+            "result": {
+              "success": true,
+              "position": 17,
+              "slot": 2,
+              "deviceCount": 18,
+              "deviceBankSize": 16,
+              "scopeCount": 3,
+              "chainBankSize": 5,
+              "chainDeviceBankSize": 4,
+              "scope": {
+                "slot": 2,
+                "status": "held",
+                "requestedPosition": 17,
+                "position": 17,
+                "settled": true,
+                "canScrollForwards": false,
+                "canScrollBackwards": true,
+                "deviceExists": true,
+                "deviceName": "FX Layer",
+                "devicePosition": 17,
+                "hasLayers": true,
+                "hasSlots": false,
+                "slotNames": [],
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                    "reportedChannelIndex": 58,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 5,
+                    "devicePages": 2
+                  },
+                  {
+                    "index": 1,
+                    "name": "E",
+                    "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 2,
+                    "name": "D",
+                    "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 3,
+                    "name": "C",
+                    "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 4,
+                    "name": "B",
+                    "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 5,
+                    "name": "Tool",
+                    "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  }
+                ],
+                "visibleChainCount": 6,
+                "chainCount": 6,
+                "chainWindowPosition": 0,
+                "chainBankSize": 5,
+                "deviceBankSize": 4,
+                "namedSlotStatus": "held",
+                "namedSlotComplete": true,
+                "paged": true,
+                "chainPages": 2,
+                "devicePages": 7
+              },
+              "cursorScope": {
+                "status": "held",
+                "deviceExists": true,
+                "deviceName": "Tool",
+                "deviceIndex": 0,
+                "isNested": true,
+                "namedSlotComplete": false
+              },
+              "trackName": "gn-b17r",
+              "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+              "aim": {
+                "rule": "paged-windows-v3",
+                "scopes": [
+                  {
+                    "position": 17,
+                    "slot": 2
+                  }
+                ],
+                "polls": 2,
+                "scrolls": 1,
+                "ms": 382.556
+              }
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"19\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":382.556}}}"
+        }
+      ]
+    },
+    {
+      "ms": 509.775584,
+      "turns": 6,
+      "calls": [
+        {
+          "method": "revision.get",
+          "sent": 1608.32175,
+          "received": 1631.176625,
+          "bytes": 2844,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "21",
+            "result": {
+              "revision": 31,
+              "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+              "project": "gn-scale-test",
+              "projectStatus": "marked",
+              "sceneEpoch": 2,
+              "sceneCount": 10,
+              "contentEpoch": 32793,
+              "unpinnedCursorTracks": [],
+              "contentEvents": [
+                {
+                  "seq": 32770,
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+                  "trackIndex": 0,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32771,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32772,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32773,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32774,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32775,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32776,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 3,
+                  "filled": true
+                },
+                {
+                  "seq": 32777,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32778,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32779,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 6,
+                  "filled": true
+                },
+                {
+                  "seq": 32780,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 7,
+                  "filled": true
+                },
+                {
+                  "seq": 32781,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 8,
+                  "filled": true
+                },
+                {
+                  "seq": 32782,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 9,
+                  "filled": true
+                },
+                {
+                  "seq": 32783,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32784,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32785,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32786,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32787,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32788,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32789,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32790,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32791,
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+                  "trackIndex": 6,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32792,
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+                  "trackIndex": 7,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32793,
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+                  "trackIndex": 8,
+                  "slotIndex": 0,
+                  "filled": true
+                }
+              ]
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"21\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+        },
+        {
+          "method": "track.list",
+          "sent": 1608.369416,
+          "received": 1631.457708,
+          "bytes": 1441,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "22",
+            "result": {
+              "tracks": [
+                {
+                  "index": 0,
+                  "name": "Instrument Layer",
+                  "position": 0,
+                  "type": "Hybrid",
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+                },
+                {
+                  "index": 1,
+                  "name": "Hybrid 2",
+                  "position": 1,
+                  "type": "Hybrid",
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+                },
+                {
+                  "index": 2,
+                  "name": "gn-A",
+                  "position": 2,
+                  "type": "Instrument",
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+                },
+                {
+                  "index": 3,
+                  "name": "gn-B",
+                  "position": 3,
+                  "type": "Instrument",
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+                },
+                {
+                  "index": 4,
+                  "name": "Group 5",
+                  "position": 4,
+                  "type": "Group",
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+                },
+                {
+                  "index": 5,
+                  "name": "gn-E16",
+                  "position": 5,
+                  "type": "Instrument",
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "hidden": true
+                },
+                {
+                  "index": 6,
+                  "name": "gn-lay",
+                  "position": 6,
+                  "type": "Instrument",
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+                },
+                {
+                  "index": 7,
+                  "name": "gn-lay4",
+                  "position": 7,
+                  "type": "Instrument",
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+                },
+                {
+                  "index": 8,
+                  "name": "gn-sel",
+                  "position": 8,
+                  "type": "Instrument",
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+                },
+                {
+                  "index": 9,
+                  "name": "gn-b17r",
+                  "position": 9,
+                  "type": "Instrument",
+                  "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+                },
+                {
+                  "index": 10,
+                  "name": "FX 1",
+                  "position": 10,
+                  "type": "Effect",
+                  "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+                },
+                {
+                  "index": 11,
+                  "name": "Master",
+                  "position": 11,
+                  "type": "Master",
+                  "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+                }
+              ],
+              "count": 12,
+              "itemCount": 12,
+              "bankSize": 256
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"22\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+        },
+        {
+          "method": "selection.status",
+          "sent": 1631.514916,
+          "received": 1656.105541,
+          "bytes": 245,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "23",
+            "result": {
+              "trackIndex": -1,
+              "slotIndex": -1,
+              "mixerTrackIndex": 8,
+              "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "changes": 0,
+              "revision": 5,
+              "slotProject": "",
+              "mixerProject": "gn-scale-test",
+              "project": "gn-scale-test"
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"23\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+        },
+        {
+          "method": "devcursor.pin",
+          "params": {
+            "pinned": false
+          },
+          "sent": 1656.176416,
+          "received": 1679.890375,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "24",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"24\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "cursor.pointTrack",
+          "params": {
+            "cursor": "0",
+            "trackIndex": 9
+          },
+          "sent": 1679.947291,
+          "received": 1704.871791,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "25",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"25\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 17,
+            "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+          },
+          "sent": 1704.920666,
+          "received": 2117.983625,
+          "bytes": 2921,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "26",
+            "result": {
+              "success": true,
+              "position": 17,
+              "slot": 2,
+              "deviceCount": 18,
+              "deviceBankSize": 16,
+              "scopeCount": 3,
+              "chainBankSize": 5,
+              "chainDeviceBankSize": 4,
+              "scope": {
+                "slot": 2,
+                "status": "held",
+                "requestedPosition": 17,
+                "position": 17,
+                "settled": true,
+                "canScrollForwards": false,
+                "canScrollBackwards": true,
+                "deviceExists": true,
+                "deviceName": "FX Layer",
+                "devicePosition": 17,
+                "hasLayers": true,
+                "hasSlots": false,
+                "slotNames": [],
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                    "reportedChannelIndex": 58,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 5,
+                    "devicePages": 2
+                  },
+                  {
+                    "index": 1,
+                    "name": "E",
+                    "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 2,
+                    "name": "D",
+                    "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 3,
+                    "name": "C",
+                    "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 4,
+                    "name": "B",
+                    "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 5,
+                    "name": "Tool",
+                    "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  }
+                ],
+                "visibleChainCount": 6,
+                "chainCount": 6,
+                "chainWindowPosition": 0,
+                "chainBankSize": 5,
+                "deviceBankSize": 4,
+                "namedSlotStatus": "held",
+                "namedSlotComplete": true,
+                "paged": true,
+                "chainPages": 2,
+                "devicePages": 7
+              },
+              "cursorScope": {
+                "status": "held",
+                "deviceExists": true,
+                "deviceName": "Tool",
+                "deviceIndex": 0,
+                "isNested": true,
+                "namedSlotComplete": false
+              },
+              "trackName": "gn-b17r",
+              "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+              "aim": {
+                "rule": "paged-windows-v3",
+                "scopes": [
+                  {
+                    "position": 17,
+                    "slot": 2
+                  }
+                ],
+                "polls": 2,
+                "scrolls": 1,
+                "ms": 392.007458
+              }
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"26\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":392.007458}}}"
+        }
+      ]
+    },
+    {
+      "ms": 500.3199160000004,
+      "turns": 6,
+      "calls": [
+        {
+          "method": "revision.get",
+          "sent": 2166.87825,
+          "received": 2189.824875,
+          "bytes": 2844,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "28",
+            "result": {
+              "revision": 31,
+              "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+              "project": "gn-scale-test",
+              "projectStatus": "marked",
+              "sceneEpoch": 2,
+              "sceneCount": 10,
+              "contentEpoch": 32793,
+              "unpinnedCursorTracks": [],
+              "contentEvents": [
+                {
+                  "seq": 32770,
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+                  "trackIndex": 0,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32771,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32772,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32773,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32774,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32775,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32776,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 3,
+                  "filled": true
+                },
+                {
+                  "seq": 32777,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32778,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32779,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 6,
+                  "filled": true
+                },
+                {
+                  "seq": 32780,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 7,
+                  "filled": true
+                },
+                {
+                  "seq": 32781,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 8,
+                  "filled": true
+                },
+                {
+                  "seq": 32782,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 9,
+                  "filled": true
+                },
+                {
+                  "seq": 32783,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32784,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32785,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32786,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32787,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32788,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32789,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32790,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32791,
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+                  "trackIndex": 6,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32792,
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+                  "trackIndex": 7,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32793,
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+                  "trackIndex": 8,
+                  "slotIndex": 0,
+                  "filled": true
+                }
+              ]
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"28\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+        },
+        {
+          "method": "track.list",
+          "sent": 2166.927375,
+          "received": 2190.024833,
+          "bytes": 1441,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "29",
+            "result": {
+              "tracks": [
+                {
+                  "index": 0,
+                  "name": "Instrument Layer",
+                  "position": 0,
+                  "type": "Hybrid",
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+                },
+                {
+                  "index": 1,
+                  "name": "Hybrid 2",
+                  "position": 1,
+                  "type": "Hybrid",
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+                },
+                {
+                  "index": 2,
+                  "name": "gn-A",
+                  "position": 2,
+                  "type": "Instrument",
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+                },
+                {
+                  "index": 3,
+                  "name": "gn-B",
+                  "position": 3,
+                  "type": "Instrument",
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+                },
+                {
+                  "index": 4,
+                  "name": "Group 5",
+                  "position": 4,
+                  "type": "Group",
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+                },
+                {
+                  "index": 5,
+                  "name": "gn-E16",
+                  "position": 5,
+                  "type": "Instrument",
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "hidden": true
+                },
+                {
+                  "index": 6,
+                  "name": "gn-lay",
+                  "position": 6,
+                  "type": "Instrument",
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+                },
+                {
+                  "index": 7,
+                  "name": "gn-lay4",
+                  "position": 7,
+                  "type": "Instrument",
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+                },
+                {
+                  "index": 8,
+                  "name": "gn-sel",
+                  "position": 8,
+                  "type": "Instrument",
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+                },
+                {
+                  "index": 9,
+                  "name": "gn-b17r",
+                  "position": 9,
+                  "type": "Instrument",
+                  "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+                },
+                {
+                  "index": 10,
+                  "name": "FX 1",
+                  "position": 10,
+                  "type": "Effect",
+                  "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+                },
+                {
+                  "index": 11,
+                  "name": "Master",
+                  "position": 11,
+                  "type": "Master",
+                  "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+                }
+              ],
+              "count": 12,
+              "itemCount": 12,
+              "bankSize": 256
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"29\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+        },
+        {
+          "method": "selection.status",
+          "sent": 2190.084416,
+          "received": 2214.823916,
+          "bytes": 245,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "30",
+            "result": {
+              "trackIndex": -1,
+              "slotIndex": -1,
+              "mixerTrackIndex": 8,
+              "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "changes": 0,
+              "revision": 5,
+              "slotProject": "",
+              "mixerProject": "gn-scale-test",
+              "project": "gn-scale-test"
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"30\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+        },
+        {
+          "method": "devcursor.pin",
+          "params": {
+            "pinned": false
+          },
+          "sent": 2214.881833,
+          "received": 2239.6265,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "31",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"31\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "cursor.pointTrack",
+          "params": {
+            "cursor": "0",
+            "trackIndex": 9
+          },
+          "sent": 2239.669583,
+          "received": 2264.478916,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "32",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"32\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 17,
+            "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+          },
+          "sent": 2264.514791,
+          "received": 2667.089791,
+          "bytes": 2921,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "33",
+            "result": {
+              "success": true,
+              "position": 17,
+              "slot": 2,
+              "deviceCount": 18,
+              "deviceBankSize": 16,
+              "scopeCount": 3,
+              "chainBankSize": 5,
+              "chainDeviceBankSize": 4,
+              "scope": {
+                "slot": 2,
+                "status": "held",
+                "requestedPosition": 17,
+                "position": 17,
+                "settled": true,
+                "canScrollForwards": false,
+                "canScrollBackwards": true,
+                "deviceExists": true,
+                "deviceName": "FX Layer",
+                "devicePosition": 17,
+                "hasLayers": true,
+                "hasSlots": false,
+                "slotNames": [],
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                    "reportedChannelIndex": 58,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 5,
+                    "devicePages": 2
+                  },
+                  {
+                    "index": 1,
+                    "name": "E",
+                    "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 2,
+                    "name": "D",
+                    "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 3,
+                    "name": "C",
+                    "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 4,
+                    "name": "B",
+                    "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 5,
+                    "name": "Tool",
+                    "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  }
+                ],
+                "visibleChainCount": 6,
+                "chainCount": 6,
+                "chainWindowPosition": 0,
+                "chainBankSize": 5,
+                "deviceBankSize": 4,
+                "namedSlotStatus": "held",
+                "namedSlotComplete": true,
+                "paged": true,
+                "chainPages": 2,
+                "devicePages": 7
+              },
+              "cursorScope": {
+                "status": "held",
+                "deviceExists": true,
+                "deviceName": "Tool",
+                "deviceIndex": 0,
+                "isNested": true,
+                "namedSlotComplete": false
+              },
+              "trackName": "gn-b17r",
+              "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+              "aim": {
+                "rule": "paged-windows-v3",
+                "scopes": [
+                  {
+                    "position": 17,
+                    "slot": 2
+                  }
+                ],
+                "polls": 2,
+                "scrolls": 1,
+                "ms": 379.037042
+              }
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"33\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":379.037042}}}"
+        }
+      ]
+    },
+    {
+      "ms": 504.5510409999997,
+      "turns": 6,
+      "calls": [
+        {
+          "method": "revision.get",
+          "sent": 2716.721833,
+          "received": 2740.400083,
+          "bytes": 2844,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "35",
+            "result": {
+              "revision": 31,
+              "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+              "project": "gn-scale-test",
+              "projectStatus": "marked",
+              "sceneEpoch": 2,
+              "sceneCount": 10,
+              "contentEpoch": 32793,
+              "unpinnedCursorTracks": [],
+              "contentEvents": [
+                {
+                  "seq": 32770,
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+                  "trackIndex": 0,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32771,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32772,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32773,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32774,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32775,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32776,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 3,
+                  "filled": true
+                },
+                {
+                  "seq": 32777,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32778,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32779,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 6,
+                  "filled": true
+                },
+                {
+                  "seq": 32780,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 7,
+                  "filled": true
+                },
+                {
+                  "seq": 32781,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 8,
+                  "filled": true
+                },
+                {
+                  "seq": 32782,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 9,
+                  "filled": true
+                },
+                {
+                  "seq": 32783,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32784,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32785,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32786,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32787,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32788,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32789,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32790,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32791,
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+                  "trackIndex": 6,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32792,
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+                  "trackIndex": 7,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32793,
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+                  "trackIndex": 8,
+                  "slotIndex": 0,
+                  "filled": true
+                }
+              ]
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"35\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+        },
+        {
+          "method": "track.list",
+          "sent": 2716.756125,
+          "received": 2741.198708,
+          "bytes": 1441,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "36",
+            "result": {
+              "tracks": [
+                {
+                  "index": 0,
+                  "name": "Instrument Layer",
+                  "position": 0,
+                  "type": "Hybrid",
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+                },
+                {
+                  "index": 1,
+                  "name": "Hybrid 2",
+                  "position": 1,
+                  "type": "Hybrid",
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+                },
+                {
+                  "index": 2,
+                  "name": "gn-A",
+                  "position": 2,
+                  "type": "Instrument",
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+                },
+                {
+                  "index": 3,
+                  "name": "gn-B",
+                  "position": 3,
+                  "type": "Instrument",
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+                },
+                {
+                  "index": 4,
+                  "name": "Group 5",
+                  "position": 4,
+                  "type": "Group",
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+                },
+                {
+                  "index": 5,
+                  "name": "gn-E16",
+                  "position": 5,
+                  "type": "Instrument",
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "hidden": true
+                },
+                {
+                  "index": 6,
+                  "name": "gn-lay",
+                  "position": 6,
+                  "type": "Instrument",
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+                },
+                {
+                  "index": 7,
+                  "name": "gn-lay4",
+                  "position": 7,
+                  "type": "Instrument",
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+                },
+                {
+                  "index": 8,
+                  "name": "gn-sel",
+                  "position": 8,
+                  "type": "Instrument",
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+                },
+                {
+                  "index": 9,
+                  "name": "gn-b17r",
+                  "position": 9,
+                  "type": "Instrument",
+                  "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+                },
+                {
+                  "index": 10,
+                  "name": "FX 1",
+                  "position": 10,
+                  "type": "Effect",
+                  "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+                },
+                {
+                  "index": 11,
+                  "name": "Master",
+                  "position": 11,
+                  "type": "Master",
+                  "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+                }
+              ],
+              "count": 12,
+              "itemCount": 12,
+              "bankSize": 256
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"36\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+        },
+        {
+          "method": "selection.status",
+          "sent": 2741.305208,
+          "received": 2765.34825,
+          "bytes": 245,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "37",
+            "result": {
+              "trackIndex": -1,
+              "slotIndex": -1,
+              "mixerTrackIndex": 8,
+              "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "changes": 0,
+              "revision": 5,
+              "slotProject": "",
+              "mixerProject": "gn-scale-test",
+              "project": "gn-scale-test"
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"37\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+        },
+        {
+          "method": "devcursor.pin",
+          "params": {
+            "pinned": false
+          },
+          "sent": 2765.417041,
+          "received": 2790.637041,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "38",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"38\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "cursor.pointTrack",
+          "params": {
+            "cursor": "0",
+            "trackIndex": 9
+          },
+          "sent": 2790.693,
+          "received": 2814.2445,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "39",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"39\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 17,
+            "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+          },
+          "sent": 2814.281708,
+          "received": 3221.16425,
+          "bytes": 2921,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "40",
+            "result": {
+              "success": true,
+              "position": 17,
+              "slot": 2,
+              "deviceCount": 18,
+              "deviceBankSize": 16,
+              "scopeCount": 3,
+              "chainBankSize": 5,
+              "chainDeviceBankSize": 4,
+              "scope": {
+                "slot": 2,
+                "status": "held",
+                "requestedPosition": 17,
+                "position": 17,
+                "settled": true,
+                "canScrollForwards": false,
+                "canScrollBackwards": true,
+                "deviceExists": true,
+                "deviceName": "FX Layer",
+                "devicePosition": 17,
+                "hasLayers": true,
+                "hasSlots": false,
+                "slotNames": [],
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                    "reportedChannelIndex": 58,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 5,
+                    "devicePages": 2
+                  },
+                  {
+                    "index": 1,
+                    "name": "E",
+                    "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 2,
+                    "name": "D",
+                    "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 3,
+                    "name": "C",
+                    "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 4,
+                    "name": "B",
+                    "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 5,
+                    "name": "Tool",
+                    "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  }
+                ],
+                "visibleChainCount": 6,
+                "chainCount": 6,
+                "chainWindowPosition": 0,
+                "chainBankSize": 5,
+                "deviceBankSize": 4,
+                "namedSlotStatus": "held",
+                "namedSlotComplete": true,
+                "paged": true,
+                "chainPages": 2,
+                "devicePages": 7
+              },
+              "cursorScope": {
+                "status": "held",
+                "deviceExists": true,
+                "deviceName": "Tool",
+                "deviceIndex": 0,
+                "isNested": true,
+                "namedSlotComplete": false
+              },
+              "trackName": "gn-b17r",
+              "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+              "aim": {
+                "rule": "paged-windows-v3",
+                "scopes": [
+                  {
+                    "position": 17,
+                    "slot": 2
+                  }
+                ],
+                "polls": 2,
+                "scrolls": 1,
+                "ms": 383.347666
+              }
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"40\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":383.347666}}}"
+        }
+      ]
+    },
+    {
+      "ms": 510.98845900000015,
+      "turns": 6,
+      "calls": [
+        {
+          "method": "revision.get",
+          "sent": 3271.003458,
+          "received": 3296.012,
+          "bytes": 2844,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "42",
+            "result": {
+              "revision": 31,
+              "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+              "project": "gn-scale-test",
+              "projectStatus": "marked",
+              "sceneEpoch": 2,
+              "sceneCount": 10,
+              "contentEpoch": 32793,
+              "unpinnedCursorTracks": [],
+              "contentEvents": [
+                {
+                  "seq": 32770,
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+                  "trackIndex": 0,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32771,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32772,
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+                  "trackIndex": 1,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32773,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32774,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32775,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32776,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 3,
+                  "filled": true
+                },
+                {
+                  "seq": 32777,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 4,
+                  "filled": true
+                },
+                {
+                  "seq": 32778,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32779,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 6,
+                  "filled": true
+                },
+                {
+                  "seq": 32780,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 7,
+                  "filled": true
+                },
+                {
+                  "seq": 32781,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 8,
+                  "filled": true
+                },
+                {
+                  "seq": 32782,
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+                  "trackIndex": 2,
+                  "slotIndex": 9,
+                  "filled": true
+                },
+                {
+                  "seq": 32783,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32784,
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+                  "trackIndex": 3,
+                  "slotIndex": 5,
+                  "filled": true
+                },
+                {
+                  "seq": 32785,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32786,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32787,
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+                  "trackIndex": 4,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32788,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32789,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 1,
+                  "filled": true
+                },
+                {
+                  "seq": 32790,
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "trackIndex": 5,
+                  "slotIndex": 2,
+                  "filled": true
+                },
+                {
+                  "seq": 32791,
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+                  "trackIndex": 6,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32792,
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+                  "trackIndex": 7,
+                  "slotIndex": 0,
+                  "filled": true
+                },
+                {
+                  "seq": 32793,
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+                  "trackIndex": 8,
+                  "slotIndex": 0,
+                  "filled": true
+                }
+              ]
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"42\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+        },
+        {
+          "method": "track.list",
+          "sent": 3271.044541,
+          "received": 3296.34625,
+          "bytes": 1441,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "43",
+            "result": {
+              "tracks": [
+                {
+                  "index": 0,
+                  "name": "Instrument Layer",
+                  "position": 0,
+                  "type": "Hybrid",
+                  "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+                },
+                {
+                  "index": 1,
+                  "name": "Hybrid 2",
+                  "position": 1,
+                  "type": "Hybrid",
+                  "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+                },
+                {
+                  "index": 2,
+                  "name": "gn-A",
+                  "position": 2,
+                  "type": "Instrument",
+                  "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+                },
+                {
+                  "index": 3,
+                  "name": "gn-B",
+                  "position": 3,
+                  "type": "Instrument",
+                  "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+                },
+                {
+                  "index": 4,
+                  "name": "Group 5",
+                  "position": 4,
+                  "type": "Group",
+                  "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+                },
+                {
+                  "index": 5,
+                  "name": "gn-E16",
+                  "position": 5,
+                  "type": "Instrument",
+                  "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+                  "hidden": true
+                },
+                {
+                  "index": 6,
+                  "name": "gn-lay",
+                  "position": 6,
+                  "type": "Instrument",
+                  "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+                },
+                {
+                  "index": 7,
+                  "name": "gn-lay4",
+                  "position": 7,
+                  "type": "Instrument",
+                  "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+                },
+                {
+                  "index": 8,
+                  "name": "gn-sel",
+                  "position": 8,
+                  "type": "Instrument",
+                  "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+                },
+                {
+                  "index": 9,
+                  "name": "gn-b17r",
+                  "position": 9,
+                  "type": "Instrument",
+                  "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+                },
+                {
+                  "index": 10,
+                  "name": "FX 1",
+                  "position": 10,
+                  "type": "Effect",
+                  "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+                },
+                {
+                  "index": 11,
+                  "name": "Master",
+                  "position": 11,
+                  "type": "Master",
+                  "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+                }
+              ],
+              "count": 12,
+              "itemCount": 12,
+              "bankSize": 256
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"43\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+        },
+        {
+          "method": "selection.status",
+          "sent": 3296.411,
+          "received": 3319.347375,
+          "bytes": 245,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "44",
+            "result": {
+              "trackIndex": -1,
+              "slotIndex": -1,
+              "mixerTrackIndex": 8,
+              "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "changes": 0,
+              "revision": 5,
+              "slotProject": "",
+              "mixerProject": "gn-scale-test",
+              "project": "gn-scale-test"
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"44\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+        },
+        {
+          "method": "devcursor.pin",
+          "params": {
+            "pinned": false
+          },
+          "sent": 3319.429791,
+          "received": 3342.98775,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "45",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"45\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "cursor.pointTrack",
+          "params": {
+            "cursor": "0",
+            "trackIndex": 9
+          },
+          "sent": 3343.032875,
+          "received": 3367.071333,
+          "bytes": 54,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "46",
+            "result": {
+              "success": true
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"46\",\"result\":{\"success\":true}}"
+        },
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 17,
+            "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+          },
+          "sent": 3367.112333,
+          "received": 3781.879208,
+          "bytes": 2921,
+          "reply": {
+            "jsonrpc": "2.0",
+            "id": "47",
+            "result": {
+              "success": true,
+              "position": 17,
+              "slot": 2,
+              "deviceCount": 18,
+              "deviceBankSize": 16,
+              "scopeCount": 3,
+              "chainBankSize": 5,
+              "chainDeviceBankSize": 4,
+              "scope": {
+                "slot": 2,
+                "status": "held",
+                "requestedPosition": 17,
+                "position": 17,
+                "settled": true,
+                "canScrollForwards": false,
+                "canScrollBackwards": true,
+                "deviceExists": true,
+                "deviceName": "FX Layer",
+                "devicePosition": 17,
+                "hasLayers": true,
+                "hasSlots": false,
+                "slotNames": [],
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                    "reportedChannelIndex": 58,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 5,
+                    "devicePages": 2
+                  },
+                  {
+                    "index": 1,
+                    "name": "E",
+                    "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 2,
+                    "name": "D",
+                    "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 3,
+                    "name": "C",
+                    "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 4,
+                    "name": "B",
+                    "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  },
+                  {
+                    "index": 5,
+                    "name": "Tool",
+                    "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                    "reportedChannelIndex": -1,
+                    "solo": false,
+                    "mute": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": "0.788,0.788,0.788",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "deviceWindowPosition": 0,
+                    "deviceCount": 1,
+                    "devicePages": 1
+                  }
+                ],
+                "visibleChainCount": 6,
+                "chainCount": 6,
+                "chainWindowPosition": 0,
+                "chainBankSize": 5,
+                "deviceBankSize": 4,
+                "namedSlotStatus": "held",
+                "namedSlotComplete": true,
+                "paged": true,
+                "chainPages": 2,
+                "devicePages": 7
+              },
+              "cursorScope": {
+                "status": "held",
+                "deviceExists": true,
+                "deviceName": "Tool",
+                "deviceIndex": 0,
+                "isNested": true,
+                "namedSlotComplete": false
+              },
+              "trackName": "gn-b17r",
+              "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+              "aim": {
+                "rule": "paged-windows-v3",
+                "scopes": [
+                  {
+                    "position": 17,
+                    "slot": 2
+                  }
+                ],
+                "polls": 2,
+                "scrolls": 1,
+                "ms": 390.704792
+              }
+            }
+          },
+          "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"47\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":390.704792}}}"
+        }
+      ]
+    }
+  ]
+}

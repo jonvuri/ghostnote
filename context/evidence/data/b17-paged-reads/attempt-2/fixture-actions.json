@@ -1,0 +1,2725 @@
+[
+  {
+    "phase": "setup",
+    "record": "000-before.json",
+    "before": {
+      "tracks": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "position": 0,
+          "type": "Hybrid",
+          "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+        },
+        {
+          "index": 1,
+          "name": "Hybrid 2",
+          "position": 1,
+          "type": "Hybrid",
+          "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+        },
+        {
+          "index": 2,
+          "name": "gn-A",
+          "position": 2,
+          "type": "Instrument",
+          "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+        },
+        {
+          "index": 3,
+          "name": "gn-B",
+          "position": 3,
+          "type": "Instrument",
+          "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+        },
+        {
+          "index": 4,
+          "name": "Group 5",
+          "position": 4,
+          "type": "Group",
+          "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+        },
+        {
+          "index": 5,
+          "name": "gn-E16",
+          "position": 5,
+          "type": "Instrument",
+          "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "hidden": true
+        },
+        {
+          "index": 6,
+          "name": "gn-lay",
+          "position": 6,
+          "type": "Instrument",
+          "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+        },
+        {
+          "index": 7,
+          "name": "gn-lay4",
+          "position": 7,
+          "type": "Instrument",
+          "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        {
+          "index": 8,
+          "name": "gn-sel",
+          "position": 8,
+          "type": "Instrument",
+          "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        {
+          "index": 9,
+          "name": "FX 1",
+          "position": 9,
+          "type": "Effect",
+          "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+        },
+        {
+          "index": 10,
+          "name": "Master",
+          "position": 10,
+          "type": "Master",
+          "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+        }
+      ],
+      "count": 11,
+      "itemCount": 11,
+      "bankSize": 256
+    },
+    "selection": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 8,
+      "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "changes": 0,
+      "revision": 1,
+      "slotProject": "",
+      "mixerProject": "gn-scale-test",
+      "project": "gn-scale-test"
+    },
+    "info": {
+      "runtimeProfile": "normal-v1",
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "gridKeys": 128,
+      "stepSize": 0.25,
+      "cursorPool": 8,
+      "deviceBank": 16,
+      "remotePages": 16,
+      "containerScopes": 3,
+      "containerScopePositions": 16,
+      "containerEntryBank": 5,
+      "containerEntryDeviceBank": 4,
+      "parameterRouteDepth": 2,
+      "sceneCount": 10,
+      "clipReader": {
+        "revision": "clip-reader-v3",
+        "closeRule": "confirm-before-release-v1",
+        "openRule": "subscribe-before-unpin-v1",
+        "groupRule": "expand-collapsed-parent-v1",
+        "limitRule": "sounding-cell-limit-v1",
+        "format": "notes-v1",
+        "width": 4194304,
+        "grid": 0.001953125,
+        "page": 131072,
+        "deadlineMs": 2000,
+        "soundingCells": 2097152,
+        "reads": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "lateCallbacks": 0,
+        "strayCallbacks": 0,
+        "releaseCallbacks": 0,
+        "releaseEmpty": 0,
+        "releaseSustain": 0,
+        "releaseOn": 0,
+        "subscribed": false,
+        "open": false,
+        "state": {
+          "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+          "trackChannelId": "",
+          "trackPinned": false,
+          "clipTrackChannelId": "",
+          "clipExists": false,
+          "clipPinned": false,
+          "sceneIndex": 0,
+          "subscribed": false,
+          "atPark": false
+        },
+        "writeGate": {
+          "readOpen": false,
+          "waiting": 0,
+          "leases": 0,
+          "limit": 256,
+          "queuedTotal": 0,
+          "refusedTotal": 0
+        },
+        "groupPoint": {
+          "rule": "expand-collapsed-point-v1",
+          "points": 0,
+          "refusals": 0,
+          "lastRefusal": "",
+          "open": false
+        }
+      },
+      "writeGuard": "batch-scene-guard-v1",
+      "selectionRule": "selection-project-v1",
+      "cursorIdentity": "cursor-channel-id-v1",
+      "groupPoint": "expand-collapsed-point-v1",
+      "containerScopeRoute": "paged-windows-v2",
+      "containerScopeStatus": {
+        "rule": "paged-windows-v2",
+        "open": false,
+        "aims": 1,
+        "refusals": 0,
+        "lastRefusal": "",
+        "pollMs": 5,
+        "maxPolls": 400
+      },
+      "parameterSettle": "same-ids-switch-v1",
+      "trackCreateKinds": [
+        "instrument",
+        "audio"
+      ],
+      "clipMetadataWrite": "owned-fields-v1",
+      "cursorTrackPins": {
+        "rule": "owned-tracks-pinned-v1",
+        "tracks": 14,
+        "unpinned": [],
+        "repins": 0,
+        "untargeted": 5
+      },
+      "trackMixer": "track-mixer-raw-v1",
+      "selectionEffects": "mixer-restore-v1",
+      "clipCopy": "copy-to-slot-v1",
+      "contentFilter": "ALL_CHANNELS"
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "001-check_bitwig_connection.json",
+    "args": {},
+    "result": {
+      "schema": "ghostnote-connection/1",
+      "source": {
+        "host": "bitwig",
+        "read": "revision-mark"
+      },
+      "target": {
+        "project": "gn-scale-test"
+      },
+      "coverage": {
+        "tracks": {
+          "addressable": 256,
+          "inProject": 11
+        },
+        "scenes": {
+          "addressable": 128,
+          "inProject": 10
+        }
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "reachable": true,
+        "project": "gn-scale-test",
+        "health": "healthy"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "002-add_tracks.json",
+    "args": {
+      "tracks": [
+        {
+          "name": "gn-b17r"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-track-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "b376a5a8-185e-49f8-b3b2-5d711ab3ef08",
+          "target": {
+            "trackIds": [
+              "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+            ]
+          },
+          "summary": "Created 1 track(s).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "e67ad170-78f1-44ab-92f1-6f11c1117a35",
+          "target": {
+            "trackIds": [
+              "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+            ]
+          },
+          "summary": "Named the new track(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "tracks": [
+          {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "name": "gn-b17r",
+            "kind": "Instrument"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ],
+      "target": {
+        "tracks": 1
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "003-scratch.json",
+    "id": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+  },
+  {
+    "phase": "setup",
+    "record": "004-compose_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "name": "A",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "Tool"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-compose/2",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "89412fad-57e0-48f2-b4ae-1ff2a9fcb3f2",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage insert-container.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "52ab3016-45cf-4223-9df0-596485347248",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage confirm-entry-name.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "ca886651-028f-473d-9a35-697dafd3f75c",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "897258c0-6dac-498b-8322-5672a0aad636",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "backend": "staged",
+        "containerPosition": 0,
+        "structure": [
+          {
+            "entryIndex": 0,
+            "entryName": "A",
+            "devices": [
+              {
+                "position": 0,
+                "name": "Tool",
+                "enabled": true
+              }
+            ]
+          }
+        ],
+        "layerChains": [
+          {
+            "entryIndex": 0,
+            "deviceIndex": 0,
+            "entryName": "A",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "Tool"
+            },
+            "observed": {
+              "deviceName": "Tool",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "c8375a4e3e550034ec297d895cd612c7a7ed8d97709f8f3b570629d66208cf7b",
+                "parameterCount": 7
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeId": "89412fad-57e0-48f2-b4ae-1ff2a9fcb3f2"
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 7145.2780840000005
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "containerKind": "FX Layer"
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "005-duplicate_layer_chain.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "name": "B"
+    },
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "1d1b3d0b-d83a-4b51-806d-a048f26ebeb9",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerPosition": 0,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"B\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "B",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.478,
+            "green": 0.478,
+            "blue": 0.478
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Tool"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4,
+          "devicePages": 1
+        },
+        "layerChains": [
+          "A",
+          "B"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1528.233542
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "006-duplicate_layer_chain.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "name": "C"
+    },
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "9d123d2a-4044-4d55-8e9b-3f046999fbbb",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerPosition": 0,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"C\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "C",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.478,
+            "green": 0.478,
+            "blue": 0.478
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Tool"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4,
+          "devicePages": 1
+        },
+        "layerChains": [
+          "A",
+          "C",
+          "B"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1718.8990000000013
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "007-duplicate_layer_chain.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "name": "D"
+    },
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "00a254d8-7e51-4c33-a4bb-1e4b1e453af4",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerPosition": 0,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"D\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "D",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.478,
+            "green": 0.478,
+            "blue": 0.478
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Tool"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4,
+          "devicePages": 1
+        },
+        "layerChains": [
+          "A",
+          "D",
+          "C",
+          "B"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1921.5849589999998
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "008-duplicate_layer_chain.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "containerPosition": 0,
+      "layerChain": "A",
+      "name": "E"
+    },
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "f6779027-e607-4cb4-aec3-d7f5ff16d18f",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "containerPosition": 0,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"E\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "E",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.478,
+            "green": 0.478,
+            "blue": 0.478
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "Tool"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4,
+          "devicePages": 1
+        },
+        "layerChains": [
+          "A",
+          "E",
+          "D",
+          "C",
+          "B"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 2101.749041000001
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    }
+  },
+  {
+    "phase": "setup",
+    "record": "009-copy_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "A",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    },
+    "result": {
+      "schema": "ghostnote-device-copy/1",
+      "failure": {
+        "code": "invalid-input",
+        "stage": "input",
+        "effects": []
+      },
+      "message": "The source and destination layer chains must differ.",
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "A"
+        }
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "000-before.json",
+    "before": {
+      "tracks": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "position": 0,
+          "type": "Hybrid",
+          "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+        },
+        {
+          "index": 1,
+          "name": "Hybrid 2",
+          "position": 1,
+          "type": "Hybrid",
+          "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+        },
+        {
+          "index": 2,
+          "name": "gn-A",
+          "position": 2,
+          "type": "Instrument",
+          "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+        },
+        {
+          "index": 3,
+          "name": "gn-B",
+          "position": 3,
+          "type": "Instrument",
+          "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+        },
+        {
+          "index": 4,
+          "name": "Group 5",
+          "position": 4,
+          "type": "Group",
+          "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+        },
+        {
+          "index": 5,
+          "name": "gn-E16",
+          "position": 5,
+          "type": "Instrument",
+          "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "hidden": true
+        },
+        {
+          "index": 6,
+          "name": "gn-lay",
+          "position": 6,
+          "type": "Instrument",
+          "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+        },
+        {
+          "index": 7,
+          "name": "gn-lay4",
+          "position": 7,
+          "type": "Instrument",
+          "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        {
+          "index": 8,
+          "name": "gn-sel",
+          "position": 8,
+          "type": "Instrument",
+          "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        {
+          "index": 9,
+          "name": "gn-b17r",
+          "position": 9,
+          "type": "Instrument",
+          "channelId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+        },
+        {
+          "index": 10,
+          "name": "FX 1",
+          "position": 10,
+          "type": "Effect",
+          "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+        },
+        {
+          "index": 11,
+          "name": "Master",
+          "position": 11,
+          "type": "Master",
+          "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+        }
+      ],
+      "count": 12,
+      "itemCount": 12,
+      "bankSize": 256
+    },
+    "selection": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 8,
+      "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "changes": 0,
+      "revision": 3,
+      "slotProject": "",
+      "mixerProject": "gn-scale-test",
+      "project": "gn-scale-test"
+    },
+    "info": {
+      "runtimeProfile": "normal-v1",
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "gridKeys": 128,
+      "stepSize": 0.25,
+      "cursorPool": 8,
+      "deviceBank": 16,
+      "remotePages": 16,
+      "containerScopes": 3,
+      "containerScopePositions": 16,
+      "containerEntryBank": 5,
+      "containerEntryDeviceBank": 4,
+      "parameterRouteDepth": 2,
+      "sceneCount": 10,
+      "clipReader": {
+        "revision": "clip-reader-v3",
+        "closeRule": "confirm-before-release-v1",
+        "openRule": "subscribe-before-unpin-v1",
+        "groupRule": "expand-collapsed-parent-v1",
+        "limitRule": "sounding-cell-limit-v1",
+        "format": "notes-v1",
+        "width": 4194304,
+        "grid": 0.001953125,
+        "page": 131072,
+        "deadlineMs": 2000,
+        "soundingCells": 2097152,
+        "reads": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "lateCallbacks": 0,
+        "strayCallbacks": 0,
+        "releaseCallbacks": 0,
+        "releaseEmpty": 0,
+        "releaseSustain": 0,
+        "releaseOn": 0,
+        "subscribed": false,
+        "open": false,
+        "state": {
+          "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+          "trackChannelId": "",
+          "trackPinned": false,
+          "clipTrackChannelId": "",
+          "clipExists": false,
+          "clipPinned": false,
+          "sceneIndex": 0,
+          "subscribed": false,
+          "atPark": false
+        },
+        "writeGate": {
+          "readOpen": false,
+          "waiting": 0,
+          "leases": 0,
+          "limit": 256,
+          "queuedTotal": 0,
+          "refusedTotal": 0
+        },
+        "groupPoint": {
+          "rule": "expand-collapsed-point-v1",
+          "points": 0,
+          "refusals": 0,
+          "lastRefusal": "",
+          "open": false
+        }
+      },
+      "writeGuard": "batch-scene-guard-v1",
+      "selectionRule": "selection-project-v1",
+      "cursorIdentity": "cursor-channel-id-v1",
+      "groupPoint": "expand-collapsed-point-v1",
+      "containerScopeRoute": "paged-windows-v2",
+      "containerScopeStatus": {
+        "rule": "paged-windows-v2",
+        "open": false,
+        "aims": 58,
+        "refusals": 0,
+        "lastRefusal": "",
+        "pollMs": 5,
+        "maxPolls": 400
+      },
+      "parameterSettle": "same-ids-switch-v1",
+      "trackCreateKinds": [
+        "instrument",
+        "audio"
+      ],
+      "clipMetadataWrite": "owned-fields-v1",
+      "cursorTrackPins": {
+        "rule": "owned-tracks-pinned-v1",
+        "tracks": 14,
+        "unpinned": [],
+        "repins": 0,
+        "untargeted": 5
+      },
+      "trackMixer": "track-mixer-raw-v1",
+      "selectionEffects": "mixer-restore-v1",
+      "clipCopy": "copy-to-slot-v1",
+      "contentFilter": "ALL_CHANNELS"
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "001-check_bitwig_connection.json",
+    "args": {},
+    "result": {
+      "schema": "ghostnote-connection/1",
+      "source": {
+        "host": "bitwig",
+        "read": "revision-mark"
+      },
+      "target": {
+        "project": "gn-scale-test"
+      },
+      "coverage": {
+        "tracks": {
+          "addressable": 256,
+          "inProject": 12
+        },
+        "scenes": {
+          "addressable": 128,
+          "inProject": 10
+        }
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "reachable": true,
+        "project": "gn-scale-test",
+        "health": "healthy"
+      },
+      "warnings": []
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "002-read_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+    },
+    "result": {
+      "schema": "ghostnote-devices/1",
+      "source": {
+        "host": "bitwig-devices",
+        "read": "fresh-structure-read"
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+      },
+      "coverage": {
+        "status": "complete",
+        "devicesComplete": true,
+        "bankSize": 16,
+        "devicePages": 1,
+        "layerChainPositions": [
+          0
+        ]
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true,
+            "container": {
+              "containerKind": "FX Layer",
+              "layerChains": [
+                {
+                  "position": 0,
+                  "name": "A",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.478,
+                    "green": 0.478,
+                    "blue": 0.478
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Tool"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4,
+                  "devicePages": 1
+                },
+                {
+                  "position": 1,
+                  "name": "E",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.478,
+                    "green": 0.478,
+                    "blue": 0.478
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Tool"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4,
+                  "devicePages": 1
+                },
+                {
+                  "position": 2,
+                  "name": "D",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.478,
+                    "green": 0.478,
+                    "blue": 0.478
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Tool"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4,
+                  "devicePages": 1
+                },
+                {
+                  "position": 3,
+                  "name": "C",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.478,
+                    "green": 0.478,
+                    "blue": 0.478
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Tool"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4,
+                  "devicePages": 1
+                },
+                {
+                  "position": 4,
+                  "name": "B",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.478,
+                    "green": 0.478,
+                    "blue": 0.478
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Tool"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4,
+                  "devicePages": 1
+                }
+              ],
+              "complete": true,
+              "capacity": 5,
+              "chainPages": 1
+            }
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 581.07125
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "003-copy_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "B",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    },
+    "result": {
+      "schema": "ghostnote-device-copy/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "627a79f1-e87a-4f0d-8b1c-bbfb8bcaa017",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "devices": 1,
+            "destination": {
+              "to": "layer-chain",
+              "containerPosition": 0,
+              "layerChain": "A"
+            }
+          },
+          "summary": "Copied 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 0,
+            "position": 0,
+            "name": "A",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 1,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          },
+          {
+            "containerPosition": 0,
+            "position": 4,
+            "name": "B",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 2646.5567089999995
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "A"
+        }
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "004-copy_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "B",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    },
+    "result": {
+      "schema": "ghostnote-device-copy/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "45b687f8-c175-4cc3-b220-f2fd9850645f",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "devices": 1,
+            "destination": {
+              "to": "layer-chain",
+              "containerPosition": 0,
+              "layerChain": "A"
+            }
+          },
+          "summary": "Copied 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 0,
+            "position": 0,
+            "name": "A",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 1,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 2,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          },
+          {
+            "containerPosition": 0,
+            "position": 4,
+            "name": "B",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 2652.6163329999995
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "A"
+        }
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "005-copy_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "B",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 0,
+        "layerChain": "A"
+      }
+    },
+    "result": {
+      "schema": "ghostnote-device-copy/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "e72badb7-3459-42a4-bfcf-787761704abb",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "devices": 1,
+            "destination": {
+              "to": "layer-chain",
+              "containerPosition": 0,
+              "layerChain": "A"
+            }
+          },
+          "summary": "Copied 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 0,
+            "position": 0,
+            "name": "A",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 1,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 2,
+                "name": "Tool"
+              },
+              {
+                "devicePosition": 3,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          },
+          {
+            "containerPosition": 0,
+            "position": 4,
+            "name": "B",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.478,
+              "green": 0.478,
+              "blue": 0.478
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4,
+            "devicePages": 1
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 2645.658792
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 0,
+          "layerChain": "A"
+        }
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "006-add_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "904c3eef-4760-4de2-9b7e-9e38dbf151b0",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "62eb1ffc-4eda-424f-9f3e-fc880d1c36cd",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "527fa058-4b74-44a2-9ae2-b7803f1ed408",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Tool).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 1,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 2,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 3,
+            "name": "Tool"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "Tool",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "527fa058-4b74-44a2-9ae2-b7803f1ed408",
+            "62eb1ffc-4eda-424f-9f3e-fc880d1c36cd",
+            "904c3eef-4760-4de2-9b7e-9e38dbf151b0"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3888.7882500000014
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 3
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "007-add_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "36842ece-1e6e-49bd-a73c-03661b7c42d0",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "c5c6990b-83c6-4ea0-a94c-52c35cfa28bc",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "0412729d-6da4-4e5b-9ecb-59eae7064225",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Tool).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 4,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 5,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 6,
+            "name": "Tool"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 6,
+            "name": "Tool",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "0412729d-6da4-4e5b-9ecb-59eae7064225",
+            "c5c6990b-83c6-4ea0-a94c-52c35cfa28bc",
+            "36842ece-1e6e-49bd-a73c-03661b7c42d0"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3883.720959
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 3
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "008-add_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "e1b9ad2b-2a65-4b77-8a8b-631a5f4fc82c",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "45544d8f-0469-4854-acd7-cd23ed14bc71",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "5854a838-8729-4ef9-95f5-446f3ac2efc5",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Tool).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 7,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 8,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 9,
+            "name": "Tool"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 9,
+            "name": "Tool",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "5854a838-8729-4ef9-95f5-446f3ac2efc5",
+            "45544d8f-0469-4854-acd7-cd23ed14bc71",
+            "e1b9ad2b-2a65-4b77-8a8b-631a5f4fc82c"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3908.9884170000005
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 3
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "009-add_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "ff5ee0ef-fc87-485a-91e0-e2c2275b3d67",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "0c97e77c-e00a-4213-af2b-4b5b1240f04f",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "1e9f8de4-59ae-415e-9262-63e1732f6b37",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Tool).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 10,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 11,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 12,
+            "name": "Tool"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 12,
+            "name": "Tool",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "1e9f8de4-59ae-415e-9262-63e1732f6b37",
+            "0c97e77c-e00a-4213-af2b-4b5b1240f04f",
+            "ff5ee0ef-fc87-485a-91e0-e2c2275b3d67"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3893.3831250000003
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 3
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "010-add_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Tool"
+        }
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "d855a586-ea3d-4bd6-83fa-eff18e5893ec",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "7ca999ff-e235-460c-8ae2-283f64cadbe4",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "acde973f-bd05-429a-9dfe-492d81d5641f",
+          "target": {
+            "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Tool).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 13,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 14,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 15,
+            "name": "Tool"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 15,
+            "name": "Tool",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "acde973f-bd05-429a-9dfe-492d81d5641f",
+            "7ca999ff-e235-460c-8ae2-283f64cadbe4",
+            "d855a586-ea3d-4bd6-83fa-eff18e5893ec"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3917.974957999999
+      },
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 3
+      }
+    }
+  },
+  {
+    "phase": "setup-continue",
+    "record": "011-move_devices.json",
+    "args": {
+      "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+      "devices": [
+        {
+          "from": "top-level",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "track-end"
+      }
+    },
+    "result": {
+      "schema": "ghostnote-device-move/1",
+      "failure": {
+        "code": "unsupported",
+        "stage": "input",
+        "effects": []
+      },
+      "message": "Top-level devices move to an earlier top-level-position, not to the track end.",
+      "target": {
+        "trackId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8",
+        "devices": 1,
+        "destination": {
+          "to": "track-end"
+        }
+      },
+      "detail": {
+        "reason": "route"
+      }
+    }
+  },
+  {
+    "phase": "cleanup",
+    "record": "000-before.json",
+    "selection": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 8,
+      "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "changes": 0,
+      "revision": 3,
+      "slotProject": "",
+      "mixerProject": "gn-scale-test",
+      "project": "gn-scale-test"
+    },
+    "tracks": {
+      "tracks": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "position": 0,
+          "type": "Hybrid",
+          "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+        },
+        {
+          "index": 1,
+          "name": "Hybrid 2",
+          "position": 1,
+          "type": "Hybrid",
+          "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+        },
+        {
+          "index": 2,
+          "name": "gn-A",
+          "position": 2,
+          "type": "Instrument",
+          "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+        },
+        {
+          "index": 3,
+          "name": "gn-B",
+          "position": 3,
+          "type": "Instrument",
+          "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+        },
+        {
+          "index": 4,
+          "name": "Group 5",
+          "position": 4,
+          "type": "Group",
+          "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+        },
+        {
+          "index": 5,
+          "name": "gn-E16",
+          "position": 5,
+          "type": "Instrument",
+          "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "hidden": true
+        },
+        {
+          "index": 6,
+          "name": "gn-lay",
+          "position": 6,
+          "type": "Instrument",
+          "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+        },
+        {
+          "index": 7,
+          "name": "gn-lay4",
+          "position": 7,
+          "type": "Instrument",
+          "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        {
+          "index": 8,
+          "name": "gn-sel",
+          "position": 8,
+          "type": "Instrument",
+          "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        {
+          "index": 9,
+          "name": "gn-b17r",
+          "position": 9,
+          "type": "Instrument",
+          "channelId": "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+        },
+        {
+          "index": 10,
+          "name": "FX 1",
+          "position": 10,
+          "type": "Effect",
+          "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+        },
+        {
+          "index": 11,
+          "name": "Master",
+          "position": 11,
+          "type": "Master",
+          "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+        }
+      ],
+      "count": 12,
+      "itemCount": 12,
+      "bankSize": 256
+    },
+    "info": {
+      "runtimeProfile": "normal-v1",
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "gridKeys": 128,
+      "stepSize": 0.25,
+      "cursorPool": 8,
+      "deviceBank": 16,
+      "remotePages": 16,
+      "containerScopes": 3,
+      "containerScopePositions": 16,
+      "containerEntryBank": 5,
+      "containerEntryDeviceBank": 4,
+      "parameterRouteDepth": 2,
+      "sceneCount": 10,
+      "clipReader": {
+        "revision": "clip-reader-v3",
+        "closeRule": "confirm-before-release-v1",
+        "openRule": "subscribe-before-unpin-v1",
+        "groupRule": "expand-collapsed-parent-v1",
+        "limitRule": "sounding-cell-limit-v1",
+        "format": "notes-v1",
+        "width": 4194304,
+        "grid": 0.001953125,
+        "page": 131072,
+        "deadlineMs": 2000,
+        "soundingCells": 2097152,
+        "reads": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "lateCallbacks": 0,
+        "strayCallbacks": 0,
+        "releaseCallbacks": 0,
+        "releaseEmpty": 0,
+        "releaseSustain": 0,
+        "releaseOn": 0,
+        "subscribed": false,
+        "open": false,
+        "state": {
+          "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+          "trackChannelId": "",
+          "trackPinned": false,
+          "clipTrackChannelId": "",
+          "clipExists": false,
+          "clipPinned": false,
+          "sceneIndex": 0,
+          "subscribed": false,
+          "atPark": false
+        },
+        "writeGate": {
+          "readOpen": false,
+          "waiting": 0,
+          "leases": 0,
+          "limit": 256,
+          "queuedTotal": 0,
+          "refusedTotal": 0
+        },
+        "groupPoint": {
+          "rule": "expand-collapsed-point-v1",
+          "points": 0,
+          "refusals": 0,
+          "lastRefusal": "",
+          "open": false
+        }
+      },
+      "writeGuard": "batch-scene-guard-v1",
+      "selectionRule": "selection-project-v1",
+      "cursorIdentity": "cursor-channel-id-v1",
+      "groupPoint": "expand-collapsed-point-v1",
+      "containerScopeRoute": "paged-windows-v2",
+      "containerScopeStatus": {
+        "rule": "paged-windows-v2",
+        "open": false,
+        "aims": 100,
+        "refusals": 0,
+        "lastRefusal": "",
+        "pollMs": 5,
+        "maxPolls": 400
+      },
+      "parameterSettle": "same-ids-switch-v1",
+      "trackCreateKinds": [
+        "instrument",
+        "audio"
+      ],
+      "clipMetadataWrite": "owned-fields-v1",
+      "cursorTrackPins": {
+        "rule": "owned-tracks-pinned-v1",
+        "tracks": 14,
+        "unpinned": [],
+        "repins": 0,
+        "untargeted": 5
+      },
+      "trackMixer": "track-mixer-raw-v1",
+      "selectionEffects": "mixer-restore-v1",
+      "clipCopy": "copy-to-slot-v1",
+      "contentFilter": "ALL_CHANNELS"
+    }
+  },
+  {
+    "phase": "cleanup",
+    "record": "001-delete_track.json",
+    "args": {
+      "trackIds": [
+        "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+      ]
+    },
+    "result": {
+      "schema": "ghostnote-track-delete/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "b95c04af-0718-476e-ade1-f4afd0510ceb",
+          "target": {
+            "trackIds": [
+              "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+            ]
+          },
+          "summary": "Deleted 1 track(s).",
+          "fidelity": "none"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "removed": [
+          "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change cannot put a deleted track back."
+        }
+      ],
+      "target": {
+        "trackIds": [
+          "9e4acdaf-a7bf-48b6-85e0-b5747a6ffaa8"
+        ]
+      }
+    }
+  },
+  {
+    "phase": "cleanup",
+    "record": "002-cleanup.json",
+    "tracks": {
+      "tracks": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "position": 0,
+          "type": "Hybrid",
+          "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+        },
+        {
+          "index": 1,
+          "name": "Hybrid 2",
+          "position": 1,
+          "type": "Hybrid",
+          "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+        },
+        {
+          "index": 2,
+          "name": "gn-A",
+          "position": 2,
+          "type": "Instrument",
+          "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+        },
+        {
+          "index": 3,
+          "name": "gn-B",
+          "position": 3,
+          "type": "Instrument",
+          "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+        },
+        {
+          "index": 4,
+          "name": "Group 5",
+          "position": 4,
+          "type": "Group",
+          "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+        },
+        {
+          "index": 5,
+          "name": "gn-E16",
+          "position": 5,
+          "type": "Instrument",
+          "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "hidden": true
+        },
+        {
+          "index": 6,
+          "name": "gn-lay",
+          "position": 6,
+          "type": "Instrument",
+          "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+        },
+        {
+          "index": 7,
+          "name": "gn-lay4",
+          "position": 7,
+          "type": "Instrument",
+          "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        {
+          "index": 8,
+          "name": "gn-sel",
+          "position": 8,
+          "type": "Instrument",
+          "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        {
+          "index": 9,
+          "name": "FX 1",
+          "position": 9,
+          "type": "Effect",
+          "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+        },
+        {
+          "index": 10,
+          "name": "Master",
+          "position": 10,
+          "type": "Master",
+          "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+        }
+      ],
+      "count": 11,
+      "itemCount": 11,
+      "bankSize": 256
+    },
+    "selection": {
+      "trackIndex": -1,
+      "slotIndex": -1,
+      "mixerTrackIndex": 8,
+      "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+      "changes": 0,
+      "revision": 3,
+      "slotProject": "",
+      "mixerProject": "gn-scale-test",
+      "project": "gn-scale-test"
+    },
+    "info": {
+      "runtimeProfile": "normal-v1",
+      "tracks": 256,
+      "scenes": 128,
+      "gridSteps": 64,
+      "fineSteps": 4194304,
+      "noteReadSteps": 2048,
+      "gridKeys": 128,
+      "stepSize": 0.25,
+      "cursorPool": 8,
+      "deviceBank": 16,
+      "remotePages": 16,
+      "containerScopes": 3,
+      "containerScopePositions": 16,
+      "containerEntryBank": 5,
+      "containerEntryDeviceBank": 4,
+      "parameterRouteDepth": 2,
+      "sceneCount": 10,
+      "clipReader": {
+        "revision": "clip-reader-v3",
+        "closeRule": "confirm-before-release-v1",
+        "openRule": "subscribe-before-unpin-v1",
+        "groupRule": "expand-collapsed-parent-v1",
+        "limitRule": "sounding-cell-limit-v1",
+        "format": "notes-v1",
+        "width": 4194304,
+        "grid": 0.001953125,
+        "page": 131072,
+        "deadlineMs": 2000,
+        "soundingCells": 2097152,
+        "reads": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "lateCallbacks": 0,
+        "strayCallbacks": 0,
+        "releaseCallbacks": 0,
+        "releaseEmpty": 0,
+        "releaseSustain": 0,
+        "releaseOn": 0,
+        "subscribed": false,
+        "open": false,
+        "state": {
+          "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+          "trackChannelId": "",
+          "trackPinned": false,
+          "clipTrackChannelId": "",
+          "clipExists": false,
+          "clipPinned": false,
+          "sceneIndex": 0,
+          "subscribed": false,
+          "atPark": false
+        },
+        "writeGate": {
+          "readOpen": false,
+          "waiting": 0,
+          "leases": 0,
+          "limit": 256,
+          "queuedTotal": 0,
+          "refusedTotal": 0
+        },
+        "groupPoint": {
+          "rule": "expand-collapsed-point-v1",
+          "points": 0,
+          "refusals": 0,
+          "lastRefusal": "",
+          "open": false
+        }
+      },
+      "writeGuard": "batch-scene-guard-v1",
+      "selectionRule": "selection-project-v1",
+      "cursorIdentity": "cursor-channel-id-v1",
+      "groupPoint": "expand-collapsed-point-v1",
+      "containerScopeRoute": "paged-windows-v2",
+      "containerScopeStatus": {
+        "rule": "paged-windows-v2",
+        "open": false,
+        "aims": 100,
+        "refusals": 0,
+        "lastRefusal": "",
+        "pollMs": 5,
+        "maxPolls": 400
+      },
+      "parameterSettle": "same-ids-switch-v1",
+      "trackCreateKinds": [
+        "instrument",
+        "audio"
+      ],
+      "clipMetadataWrite": "owned-fields-v1",
+      "cursorTrackPins": {
+        "rule": "owned-tracks-pinned-v1",
+        "tracks": 14,
+        "unpinned": [],
+        "repins": 0,
+        "untargeted": 6
+      },
+      "trackMixer": "track-mixer-raw-v1",
+      "selectionEffects": "mixer-restore-v1",
+      "clipCopy": "copy-to-slot-v1",
+      "contentFilter": "ALL_CHANNELS"
+    }
+  }
+]

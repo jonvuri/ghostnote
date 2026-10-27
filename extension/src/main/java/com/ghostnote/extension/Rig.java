@@ -284,21 +284,20 @@ public class Rig {
     }
 
     /**
-     * B08 identity guard. A scope is settled when the bank reports the position
-     * it was asked for, that position lies inside the 16-wide reference bank,
-     * and the scope's slot agrees with the reference bank at that position on
-     * existence, name, and the device's own chain position. A clamped scroll
-     * (requested past the item count) fails the first test; a hung bank that
-     * has not retargeted yet fails the last two. Both refuse, which is the
-     * fail-closed direction the probe design calls for (E352).
+     * A scope must report its requested absolute position and an existing device at that position.
+     * Within the current reference window it must also agree with the reference device's name and existence.
+     * Beyond that window, the track identity, total count, and device position are the witnesses (B17).
      */
     public boolean scopeSettled(int scope) {
         if (slotLayerBanks[scope] == null) return false;
         int requested = scopeRequestedPosition[scope];
-        if (requested < 0 || requested >= config.deviceBank) return false;
+        if (requested < 0 || requested >= cursorDeviceBanks[0].itemCount().get()) return false;
         if (scopeBanks[scope].scrollPosition().get() != requested) return false;
-        Device reference = cursorDeviceBanks[0].getDevice(requested);
         Device slot = scopeDevice(scope);
+        if (!slot.exists().get() || slot.position().get() != requested) return false;
+        int relative = requested - cursorDeviceBanks[0].scrollPosition().get();
+        if (relative < 0 || relative >= config.deviceBank) return true;
+        Device reference = cursorDeviceBanks[0].getDevice(relative);
         boolean exists = reference.exists().get();
         if (exists != slot.exists().get()) return false;
         if (!exists) return true;
@@ -1119,8 +1118,10 @@ public class Rig {
 
             cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(config.deviceBank);
             cursorDeviceBanks[i].itemCount().markInterested();
+            cursorDeviceBanks[i].scrollPosition().markInterested();
             for (int d = 0; d < config.deviceBank; d++) {
                 Device device = cursorDeviceBanks[i].getDevice(d);
+                device.position().markInterested();
                 device.exists().markInterested();
                 device.name().markInterested();
                 device.isEnabled().markInterested();
@@ -1283,8 +1284,10 @@ public class Rig {
                 slot.slotNames().markInterested();
                 slotLayerBanks[s] = slot.createLayerBank(SLOT_LAYER_BANK);
                 slotLayerBanks[s].itemCount().markInterested();
+                slotLayerBanks[s].scrollPosition().markInterested();
                 for (int l = 0; l < SLOT_LAYER_BANK; l++) {
                     DeviceLayer layer = slotLayerBanks[s].getItemAt(l);
+                    layer.channelIndex().markInterested();
                     layer.exists().markInterested();
                     layer.name().markInterested();
                     // 3f-e reads and writes solo through this cursor-free slot
@@ -1306,8 +1309,10 @@ public class Rig {
                     // Product relocation needs a true population count so a
                     // full bank is distinguishable from an overflowing one.
                     slotLayerDeviceBanks[s][l].itemCount().markInterested();
+                    slotLayerDeviceBanks[s][l].scrollPosition().markInterested();
                     for (int d = 0; d < SLOT_LAYER_DEVICE_BANK; d++) {
                         Device nested = slotLayerDeviceBanks[s][l].getDevice(d);
+                        nested.position().markInterested();
                         nested.exists().markInterested();
                         nested.name().markInterested();
                         nested.isEnabled().markInterested();

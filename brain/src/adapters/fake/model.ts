@@ -181,20 +181,7 @@ export class ProjectModel {
    */
   sceneBankSize = 128;
 
-  /**
-   * ⚠⚠ THE CONTAINER WINDOWS, and they are small on purpose — these are
-   * `Rig.SLOT_SCOPES`, `Rig.SLOT_LAYER_BANK` and `Rig.SLOT_LAYER_DEVICE_BANK`,
-   * the banks `chain.inventory` reads through.
-   *
-   * A layer bank is not the track bank: it is fixed at init, it is narrow, and a
-   * container is observable at any top-level position inside the device bank:
-   * B08 (E352) made each of the `Rig.SLOT_SCOPES` scopes a one-wide scrollable
-   * bank, so the scope count no longer bounds the reach. `containerScopes` is
-   * carried for the hello shape; `deviceBankSize` is the reach. Modelled rather
-   * than idealised for the reason PHASE-0 §Risks names: a fake that could see a
-   * chain past the bank would certify resolution live Bitwig answers with
-   * silence, and "we could not look" would ship as "it is not there".
-   */
+  /** Physical window sizes. B17 pages reads; session 3 will extend writes beyond these widths. */
   containerScopes = 3;
   chainBankSize = 5;
   chainDeviceBankSize = 4;
@@ -711,29 +698,15 @@ export class ProjectModel {
     return true;
   }
 
-  /**
-   * What the container scopes can SEE at one top-level device position — the
-   * fake's half of `chain.inventory`.
-   *
-   * ⚠ `undefined` means the position is past the device bank: no scope can be
-   * scrolled there, so nothing was looked at. That is NOT the same as a position
-   * holding no container, which is an observation and reports empty-and-complete.
-   *
-   * ⚠⚠ Completeness is `visible < bankSize`, never `<=`, and the asymmetry is
-   * deliberate: the live enumeration omits empty bank slots, so a full bank and
-   * an overflowing one produce byte-identical replies. A fake that reported a
-   * dead-full bank as complete would answer `absent` where live must answer
-   * `outside-bank-window` — the fake being the permissive one, which is the
-   * direction PHASE-0 §Risks forbids.
-   */
+  /** The stitched container reading; bank widths remain write limits until B17 session 3. */
   observeContainer(track: FakeTrack, containerIndex: number): ObservedContainer | undefined {
-    if (containerIndex < 0 || containerIndex >= this.deviceBankSize) return undefined;
+    if (containerIndex < 0) return undefined;
     const device = track.devices[containerIndex];
     const held = device?.chains ?? [];
-    const visible = held.slice(0, this.chainBankSize);
+    const visible = held;
     return {
       chains: visible.map((c, index) => {
-        const devices = c.devices.slice(0, this.chainDeviceBankSize);
+        const devices = c.devices;
         return {
           index,
           name: c.name,
@@ -752,11 +725,11 @@ export class ProjectModel {
             name: d.name,
             enabled: d.enabled ?? true,
           })),
-          devicesComplete: c.devices.length <= this.chainDeviceBankSize,
+          devicesComplete: true,
           devicesBankSize: this.chainDeviceBankSize,
         };
       }),
-      chainsComplete: held.length <= this.chainBankSize && visible.length === held.length,
+      chainsComplete: true,
       // ⚠ Reported for the guards that have to reason about a container two
       // creates from now — see `ObservedContainer.chainsBankSize`. The fake
       // carries the same number the rig does (`Rig.SLOT_LAYER_BANK`), because a

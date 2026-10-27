@@ -70,6 +70,7 @@ export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';
 
 export {
   CREATABLE_TRACK_KINDS, OP_BUMPS_SCENE_EPOCH, OP_SETTLE, OP_SETTLE_BEFORE, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable,
+  assertTopLevelDeviceWriteWindow,
   assertNever, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom,
   assertSlotsFree, assertClipSources, launcherSlotsOf, sceneRowsOf,
 } from './ops.js';

@@ -34,7 +34,7 @@ import {
   type SceneGuard, type SelectionOutcome,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, assertTopLevelDeviceWriteWindow, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clipSourceFingerprint, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
   contentDelta, device as deviceAt, deviceIn,
   deviceSlot,
@@ -133,6 +133,9 @@ interface WireInventoryChain {
 }
 
 interface WireInventoryScope {
+  paged?: boolean;
+  chainPages?: number;
+  devicePages?: number;
   slot?: number;
   status?: string;
   /**
@@ -1765,29 +1768,40 @@ export class LiveAdapter implements BitwigAdapter {
     } else {
       this.onTrace?.({ action: 'track-reuse', target: `${cursor}:${trackIndex}` });
     }
-    const res = (await this.transport.send({
-      method: WIRE.deviceList,
-      params: { cursor },
-    })) as {
+    type DeviceListReply = {
       devices?: WireDevice[];
       count?: number;
       itemCount?: number;
       trackChannelId?: string;
       bankSize?: number;
+      paged?: boolean;
     };
+    const read = async (): Promise<DeviceListReply> => await this.transport.send({
+      method: WIRE.deviceList, params: { cursor },
+    }) as DeviceListReply;
+    let res: DeviceListReply;
+    try {
+      res = await read();
+    } catch (error) {
+      // B17 live: the track identity can arrive during the paged read after a cursor point. The extension
+      // discards that mixed reading and restores its window. Retry this read once; never retry a write or a
+      // restoration failure. The reply below must still prove the requested track and complete item count.
+      if (!(error instanceof BridgeError) || !/device\.list track changed during paging/.test(error.message)) throw error;
+      this.heldCursorTracks.delete(cursor);
+      if (cursor === '0') this.heldDeviceTarget = undefined;
+      await this.settle('cursorPoint');
+      res = await read();
+    }
     const devices = res.devices ?? [];
-    // ⚠ E5's rule, one level down. `deviceList` walks `rig.config.deviceBank`
-    // slots while `itemCount` is the CHAIN's true length, so a chain longer than
-    // the bank window is partially visible — and a diff over a partial view
-    // cannot tell an insert from something scrolling into frame. Looking is
-    // allowed; concluding from a half-view is not.
+    // A paged reply proves the complete count independently of the physical width. Legacy replies remain
+    // bounded by their bank; neither route may infer an empty tail from a partial list.
     const bankSize = res.bankSize ?? this.deviceBankSize;
     const contiguous = devices.every((device, index) => device.index === index);
     const complete = res.trackChannelId === trackRef.channelId
       && Number.isInteger(res.itemCount) && res.itemCount! >= 0
       && res.itemCount === devices.length
       && res.count === devices.length
-      && bankSize !== undefined && devices.length <= bankSize
+      && bankSize !== undefined && (res.paged === true || devices.length <= bankSize)
       && contiguous;
     if (res.trackChannelId === trackRef.channelId) {
       this.rememberCursorTrack(cursor, { channelId: trackRef.channelId, index: trackIndex });
@@ -1828,6 +1842,7 @@ export class LiveAdapter implements BitwigAdapter {
         'the complete top-level device chain is unavailable at the mutation boundary',
       );
     }
+    assertTopLevelDeviceWriteWindow(op, observed.devices.length, observed.bankSize);
     const actual = observed.devices.map((item) => item.name);
     if (expected !== undefined
         && (actual.length !== expected.length
@@ -2786,8 +2801,7 @@ export class LiveAdapter implements BitwigAdapter {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
-    // B08: a scope scrolls over the whole reference bank, so the reach is the bank width, not the scope count.
-    if (containerIndex >= this.containerPositions) return { ok: false, miss: 'outside-bank-window' };
+    // B17: scope positions are absolute; the extension pages the bounded windows.
     let observed: WireObserve | undefined;
     for (let attempt = 0; attempt < CONTAINER_POINT_ATTEMPTS && observed === undefined; attempt += 1) {
       this.heldClips.delete('0');
@@ -2842,7 +2856,8 @@ export class LiveAdapter implements BitwigAdapter {
     // A layer container (the scope already lists layer chains) needs no slot descent: no product route
     // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
     const layerContainer = (scope.chains?.length ?? 0) > 0;
-    if (slots && !layerContainer && slotName !== undefined && scope.deviceExists === true) {
+    if (slots && !layerContainer && slotName !== undefined && scope.deviceExists === true
+        && containerIndex < this.containerPositions) {
       this.heldDeviceTarget = undefined;
       // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the scope with the
       // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device.
@@ -2938,12 +2953,13 @@ export class LiveAdapter implements BitwigAdapter {
             ...(typeof d.enabled === 'boolean' ? { enabled: d.enabled } : {}),
           })),
           devicesComplete: deviceBank !== undefined && typeof c.deviceCount === 'number'
-            && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
+            && (scope.paged === true || c.deviceCount <= deviceBank) && (c.devices ?? []).length === c.deviceCount
+            && (c.devices ?? []).every((device, index) => device.index === index),
           ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),
         })),
         chainsComplete: scope.hasLayers === false ? chains.length === 0
           : chainBank !== undefined && typeof scope.chainCount === 'number'
-          && scope.chainCount <= chainBank && chains.length === scope.chainCount
+          && (scope.paged === true || scope.chainCount <= chainBank) && chains.length === scope.chainCount
           && chains.every((chain, index) => chain.index === index),
         // ⚠ Carried through so a guard can count a container it has no second
         // reading of — see `ObservedContainer.chainsBankSize`. Absent from an
@@ -2992,9 +3008,6 @@ export class LiveAdapter implements BitwigAdapter {
     if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
     if (!nestingObservable(address)) return { address, found: false, reason: 'unsupported' as const };
     const container = address.kind === 'chain' ? address.container : address.chain!.container;
-    if (container.chainIndex >= this.containerPositions) {
-      return { address, found: false, reason: 'outside-bank-window' as const };
-    }
     // Prove the top-level anchor before the shared container cursor is moved.
     // An empty device position is absent even if that cursor still holds an
     // older nested target from another request.
@@ -4391,8 +4404,8 @@ export class LiveAdapter implements BitwigAdapter {
 
   /**
    * 8h4e: one `device` read with `ReadOptions.structure`. It reads no DirectParameter inventory and pins no
-   * parameter cursor. A top-level device inside the bank costs one `containerScope` (one `chain.observe` on a
-   * held track, plus the point frames); a device past the bank costs one `device.list`. A nested device uses
+   * parameter cursor. A top-level device costs one `containerScope` (one `chain.observe` on a
+   * held track, plus the point frames), including beyond the first bank window. A nested device uses
    * the one-level container-scope lookup.
    */
   private async readDeviceStructure(
@@ -4410,7 +4423,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (found.ok) return entry({ chainIndex: found.device.index, name: found.device.name });
       return found.miss === 'outside-bank-window' || found.miss === 'unsupported' ? 'unreachable' : undefined;
     }
-    if (address.chainIndex < this.containerPositions) {
+    if (address.chainIndex >= 0) {
       const scope = await this.containerScope(address.track, address.chainIndex, false);
       if (scope.ok) {
         return scope.deviceName === undefined ? undefined : entry({

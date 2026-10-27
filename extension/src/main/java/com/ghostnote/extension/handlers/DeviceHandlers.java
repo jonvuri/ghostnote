@@ -1,6 +1,9 @@
 package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Rig;
+import com.ghostnote.extension.Bridge;
+import com.ghostnote.extension.DeviceWindow;
+import com.ghostnote.extension.WindowPager;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
 import com.bitwig.extension.controller.api.DeviceBank;
@@ -32,7 +35,7 @@ public final class DeviceHandlers extends HandlerGroup {
         r.on("device.insertBitwig", params -> deviceInsertBitwig(params));
         r.on("device.insertClap", params -> deviceInsertClap(params));
         r.on("device.insertVst3", params -> deviceInsertVst3(params));
-        r.on("device.list", params -> deviceList(params));
+        r.onAsync("device.list", this::deviceList);
         r.on("device.setEnabled", params -> deviceSetEnabled(params));
         r.on("device.delete", params -> deviceDelete(params));
         r.on("device.duplicate", params -> deviceDuplicate(params));
@@ -123,33 +126,34 @@ public final class DeviceHandlers extends HandlerGroup {
         return ok();
     }
 
-    /** List devices in a pool cursor's track chain via its DeviceBank. */
-    private JsonElement deviceList(JsonObject params) {
-        int i = params.get("cursor").getAsInt();
-        DeviceBank bank = rig.cursorDeviceBanks[i];
+    /** Page the existing bank, restoring its fixed-index write view before replying. */
+    private void deviceList(JsonObject params, Bridge.Reply reply) {
+        int cursor = params.get("cursor").getAsInt();
+        if (cursor < 0 || cursor >= rig.config.cursorPool) throw new IllegalArgumentException("cursor out of range");
+        var lease = rig.writeGate.writeLease();
+        String track = rig.cursorTracks[cursor].channelId().get();
         JsonArray devices = new JsonArray();
-        for (int d = 0; d < rig.config.deviceBank; d++) {
-            Device device = bank.getDevice(d);
-            if (!device.exists().get()) {
-                continue;
-            }
-            JsonObject obj = new JsonObject();
-            obj.addProperty("index", d);
-            obj.addProperty("name", device.name().get());
-            obj.addProperty("enabled", device.isEnabled().get());
-            devices.add(obj);
-        }
-        JsonObject result = new JsonObject();
-        result.add("devices", devices);
-        result.addProperty("count", devices.size());
-        result.addProperty("itemCount", bank.itemCount().get());
-        // E22/4a: a cursor-bound bank read must name its track. The scale sweep
-        // accepts a row only after this identity is the expected channelId and
-        // the complete reply repeats unchanged on two consecutive reads.
-        result.addProperty("trackChannelId", rig.cursorTracks[i].channelId().get());
-        result.addProperty("trackPosition", rig.cursorTracks[i].position().get());
-        result.addProperty("bankSize", rig.config.deviceBank);
-        return result;
+        new WindowPager(host::scheduleTask).read(
+            new DeviceWindow(rig.cursorDeviceBanks[cursor], rig.config.deviceBank),
+            (offset, page, next) -> { devices.addAll(page); next.accept(null); },
+            (report, error) -> {
+                if (error instanceof WindowPager.RestoreFailure) rig.writeGate.blockWrites(error.getMessage());
+                lease.release();
+                if (error != null) { reply.error(error, 0); return; }
+                if (!track.equals(rig.cursorTracks[cursor].channelId().get())) {
+                    reply.error(new IllegalStateException("device.list track changed during paging"), 0); return;
+                }
+                JsonObject result = new JsonObject();
+                result.add("devices", devices);
+                result.addProperty("count", devices.size());
+                result.addProperty("itemCount", report.count());
+                result.addProperty("trackChannelId", track);
+                result.addProperty("trackPosition", rig.cursorTracks[cursor].position().get());
+                result.addProperty("bankSize", rig.config.deviceBank);
+                result.addProperty("pages", report.pages());
+                result.addProperty("paged", true);
+                reply.result(result, 0);
+            });
     }
 
     /** Read and validate a complete-chain fingerprint without accessing Bitwig. */

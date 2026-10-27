@@ -239,11 +239,186 @@ needed and is kept only as the record of the choice.
   `chainCount`/`deviceCount` as the totals, so `chainsComplete` and
   `devicesComplete` describe the stitched container; `requireChainIndex`
   and the `srcDevice` bound in `ContainerHandlers` are the only places that
-  still refuse an index past the first window page, and session 2 lifts
-  them with the paging. A deferred op inside `batch.run` must release its
+  still refuse an index past the first window page; session 2 retains
+  these write limits, and session 3 lifts them with write paging. A deferred op inside `batch.run` must release its
   lease before it replies. The resting-scope preference for positions 0 to
   2 keeps scope 2 shuttling on a structure read; that policy now lives in
   `ContainerScopes.choose` for P01.
+
+## Session 2 implementation and live handoff
+
+Implemented on 2026-10-26 and **verified live on 2026-10-27** in
+[E356](../evidence/experiments/e356-paged-device-and-layer-reads-live.md).
+The earlier host-state corrections are retained in
+[E355](../evidence/experiments/e355-paged-read-host-state-corrections.md).
+Current normal archive SHA-256:
+`081cdbb46b410bb651f3f01cb3af436b32fb75d1285c3fcff5f03db0624813f7`.
+The v3 replacement, overflow acceptance, and scratch cleanup are complete.
+
+- `WindowPager` pages existing handles, using the reported scroll position,
+  absolute device positions and layer channel-ID witnesses, population count, and a repeated page in
+  the next scheduled task. Final pages overlap because the host clamps to
+  `count - width`; the stitch includes each absolute index once. Polls are
+  5 ms, unsettled scrolls reissue every 10 polls, and each page refuses after
+  400 polls. A population change after the first accepted page refuses.
+- `device.list` is now asynchronous and takes a write lease. `chain.observe`
+  pages the five-chain window and each four-device window under its existing
+  lease. Each moved window returns to zero before the reply, so existing
+  fixed-index writes retain their meaning. A window that never moved needs
+  no restoration pass. Restoration failure latches an explicit write refusal
+  until controller initialization; queued requests and batch continuations
+  honor it, diagnostic reads remain available, and leases are released.
+- The wire retains absolute indices and adds `paged`, page counts, and raw
+  window positions. `device.list` carries all top-level devices;
+  `chain.observe` carries the stitched container at any absolute position.
+  Beyond the reference bank, scope settlement uses the confirmed track,
+  total count, and the scope device's absolute position. Where the reference
+  bank covers the position, name/existence agreement remains required.
+  The farther scope guard is proved at position 17 in E356. Layer channel indices
+  are diagnostic only: `LayerPageWitness` uses within-session channel IDs
+  to reject old pages under newly reported positions, conflicting overlap,
+  duplicate IDs, and incorrect restoration. It does not assume that
+  `DeviceLayer.channelIndex()` is an index inside the layer bank.
+- No new host banks or device handles are allocated. New subscriptions are
+  top-level bank scroll positions and device positions; layer-bank scroll
+  positions and channel indices; nested bank scroll positions and device
+  positions. `rig.stats.resources.pagingMarkedValues` counts them (229 with
+  the default eight cursors). Profile counts/hashes and wire goldens are
+  unchanged: normal 93 methods, `d6decf985f6b1f36`. The deliberate build marker
+  is `paged-windows-v3`; `windowWriteBlock` reports a restoration failure.
+- Fake and live adapters accept complete paged readings while retaining
+  incomplete treatment for legacy replies. `read_devices` visits every
+  top-level position, reports page counts and window widths, and can list
+  six chains, five devices per chain, and seventeen top-level devices.
+  Width-derived write limits remain: the product and shared preflight
+  refuse chain writes outside their first window. Named-slot and parameter
+  cursor paging are outside this session. Descriptions are **v56**; writes
+  and broader cap retirement remain session 3.
+- Verification: `npm run typecheck`; all 2,552 brain tests (2,547 passed in
+  the sandbox; five TCP client tests passed when rerun with local-network
+  access); `./gradlew check`; 87 focused surface tests after adding public
+  page counts. The pager harness covers boundary counts, overlapping final
+  pages, delayed witnesses, clamped-scroll repair, timeouts, restoration,
+  nested leases, and refusal of queued/batch writes after restoration failure.
+  Live/fake conformance covers all three required overflow shapes; their
+  public read call budget stays one `devices` and one `read` adapter call.
+
+After any new deployment, wait for operator replacement with normal
+**ghostnote**, then run `npm run probe:hello` from `brain/`, checking
+fresh initialization and `paged-windows-v3`. Re-read project, targets,
+selection, and competing clients. The read-only driver is
+`brain/src/probes/b17-paged-reads-live.ts`:
+
+```sh
+node --import tsx src/probes/b17-paged-reads-live.ts --out NEW_DIRECTORY
+```
+
+It expects a `gn-b17r` scratch track in `gn-scale-test`: at least
+17 top-level devices, with a six-chain layer container last and five devices
+in at least one chain. `--devices` declares the exact count (default 17; E356
+used `--devices 18`). It records public and raw reads, page
+counts, isolated observe cost, restored window positions, repeated content,
+track list, and selection preservation. Fixture preparation and cleanup are separate from this read-only driver.
+Use current product tools within their caps, then ordinary Bitwig edits for
+the overflow boundaries. Create fourteen top-level Tools before composing the
+container at position 14; composition needs one extra scratch slot. Append
+one Tool, then move it before the container to reach position 15. Copy from
+a different chain when growing chain A. Product writes cannot yet exceed
+the widths; do not lift their guards for fixture setup. Inspect existing
+fixtures first to avoid redundant setup. E356 records the passing reads and live costs; the ledger now includes them.
+
+### First live attempt and corrections
+
+The operator replied **“Controller replaced”**. `npm run probe:hello`
+passed on the first session-2 archive (`14f9de17…7f437`), marker
+`paged-windows-v1`, initialized `2026-10-27T04:18:09.455Z`. The process check
+found no foreground probe. One old Ghostnote MCP server, PID 46491, was
+connected and left alone. Artifacts are retained under
+[attempt-1](../evidence/data/b17-paged-reads/attempt-1/hello.log).
+
+1. The first inventory reached `gn-sel` while cursor 0's track identity was
+   still arriving. `device.list` refused with “track changed during paging.”
+   The brain previously propagated this read-only transient. It now waits
+   the existing cursor-settle interval and retries that specific read once;
+   the reply must still pass track identity/count checks. Other failures,
+   including restoration refusal, are never retried by this path. The
+   [captured exchange](../evidence/data/b17-paged-reads/attempt-1/track-arrival-refusal.json)
+   retains the mixed-track refusal. The next inventory read all eleven
+   tracks successfully; none had seventeen devices (maximum eight).
+2. The `gn-lay4` layer read then refused and latched the write block. The
+   [exchange](../evidence/data/b17-paged-reads/attempt-1/layer-read-refusal.json)
+   and [diagnostics](../evidence/data/b17-paged-reads/attempt-1/refusal-diagnostics.json)
+   show the original four chains, all windows at zero, zero leases/waiters,
+   unchanged track list, and unchanged selection. The build required
+   `layer.channelIndex() == bank position + slot`; that interpretation was
+   unproved. The first archive did not report the observed channelIndex,
+   so its exact values and the predicate responsible for the refusal are
+   not claimed established. The corrected build uses channel-ID page
+   witnesses and reports raw channel indices and window diagnostics for
+   the next live check.
+3. Repeated scroll-to-zero attempts had incorrectly made an unreadable
+   resting window take a restoration pass and then latch its failure. The
+   pager now tracks whether it ever requested or observed a nonzero window.
+   A failed read that stayed at zero returns its read refusal without
+   claiming restoration failed. A window that may have moved still must
+   restore, and a failed restoration still latches refusal.
+
+The corrections pass `npm run typecheck`, 197 live-adapter/call-budget tests,
+and `./gradlew check`. New harness cases reject stale layer IDs after a
+scroll with identical names and arbitrary channelIndex values, verify
+nonoverlapping and overlapping pages and restoration, and distinguish an
+unreadable resting window from failed restoration. The new brain regression
+covers one successful track-arrival retry, bounded repeated refusal, and
+no retry on restoration failure.
+
+### Second live attempt and current handoff
+
+The second actual operator reply was **“Controller replaced”**. The fresh
+v2 handshake, nonlocal layer indices, successful baseline, stale non-layer
+count, fixture writes, and cleanup are recorded once in
+[E355](../evidence/experiments/e355-paged-read-host-state-corrections.md).
+The v3 correction completes a non-layer scope without traversing its stale
+layer bank. It leaves real layer containers and unknown capabilities on the
+guarded path and preserves named-slot completeness. `ContainerPagingTest`
+regresses the captured Tool/five-chain-count shape. `./gradlew check` and
+brain typecheck pass after this correction.
+
+The v3 replacement and live acceptance subsequently passed in E356.
+
+## Session 2 result and session 3 handoff
+
+Complete on 2026-10-27, with the read-only acceptance and cleanup recorded in
+[E356](../evidence/experiments/e356-paged-device-and-layer-reads-live.md).
+The fixture had eighteen top-level devices, a six-chain FX Layer at position
+17, and five Tools in chain A. This proves all three overflow routes; the
+exact seventeen-device boundary remains covered offline. `read_devices`
+reported complete data twice, with two top-level pages, two chain pages, and
+two device pages for A. The extension restored the raw nested windows and
+released its lease without a refusal latch. Original tracks, `gn-lay4`, and
+selected targets were verified after removing the scratch track.
+
+The inherited interface is unchanged: absolute positions and indices, one
+extension reply carrying the stitched result, and no brain window state.
+The measured overflow adapter read is six turns / median 505 ms; top-level
+`device.list` is one turn / median 144 ms; full fixture `read_devices` is
+65 turns / about 2.6 s. These fixture-specific values are in the ledger.
+
+Session 3 can now add guarded write paging and retire the width-derived caps
+together. Preserve population/identity checks, restored windows, write leases,
+and the refusal latch. Keep D44's time budget until P01 re-derives it. Writes
+still use the first windows; named-slot and parameter paging are outside the
+proved session-2 routes. The v3 normal build is running and no replacement
+or scratch cleanup is pending. Revalidate live context before new work.
+
+The session-2 review caught a write-parity regression: complete paged reads
+allowed the fake to enable or delete devices on tracks wider than sixteen,
+while the extension rejected their full-chain fingerprints. Both adapters now
+check the physical write width separately from read completeness at the
+device-mutation boundary, using the existing observation. This adds no wire
+calls. Regression tests cover both tools at the first and last positions of
+seventeen- and eighteen-device tracks, refuse before a live mutation frame,
+preserve complete reads and fake state, and retain successful writes on a
+sixteen-device track. These cases reproduced the mismatch before the fix.
 
 ## Risks and open questions
 

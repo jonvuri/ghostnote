@@ -798,20 +798,15 @@ export function runConformance(h: AdapterHarness): void {
         const miss = (await adapter.resolve([chain(container, 'gn-conf-no-such-chain')])).resolved[0];
         assert.deepEqual({ found: miss?.found, reason: miss?.reason }, { found: false, reason: 'absent' });
 
-        // ⚠ A container position past the device bank is a fact about our reach,
-        // not about the music — `outside-bank-window`, and `unreachable` on a
-        // read. B08 (E352): the scopes scroll over the whole 16-wide bank, so an
-        // empty position inside it is an ordinary `absent`, and only the bank
-        // edge is blind.
-        const emptyInside = (await adapter.resolve([chain(device(trackA, 9), 'anything')])).resolved[0];
-        assert.deepEqual({ found: emptyInside?.found, reason: emptyInside?.reason }, { found: false, reason: 'absent' });
-        const far = chain(device(trackA, 16), 'anything');
-        const blind = (await adapter.resolve([far])).resolved[0];
-        assert.deepEqual({ found: blind?.found, reason: blind?.reason },
-          { found: false, reason: 'outside-bank-window' });
-        const blindRead = await adapter.read([far]);
-        assert.deepEqual(blindRead.unreachable.map(addressKey), [addressKey(far)],
-          'a container we cannot see must not be reported as empty');
+        // B17: paging makes positions beyond the first window observable too.
+        for (const position of [9, 16]) {
+          const far = chain(device(trackA, position), 'anything');
+          const absent = (await adapter.resolve([far])).resolved[0];
+          assert.deepEqual({ found: absent?.found, reason: absent?.reason }, { found: false, reason: 'absent' });
+          const read = await adapter.read([far]);
+          assert.deepEqual(read.missing.map(addressKey), [addressKey(far)]);
+          assert.deepEqual(read.unreachable, []);
+        }
 
         // The chain reads back as what was observed, and as nothing restorable.
         const chainRead = await adapter.read([alt]);

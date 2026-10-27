@@ -40,6 +40,14 @@ public final class WriteGate {
     private boolean readOpen, pumping;
     private int leases, writeLeases;
     private long queuedTotal, refusedTotal, readsOpened;
+    private String blockedReason;
+
+    /** A window could not return to the fixed-index write view. Only controller initialization clears this. */
+    public void blockWrites(String reason) { blockedReason = reason; }
+    public String blockedReason() { return blockedReason; }
+    public void requireAvailable(Kind kind) {
+        if (kind != Kind.READ && blockedReason != null) throw new IllegalStateException(blockedReason);
+    }
 
     public WriteGate(Consumer<Runnable> schedule, LongSupplier clock, int limit) {
         if (limit < 1) throw new IllegalArgumentException("queue limit must be positive");

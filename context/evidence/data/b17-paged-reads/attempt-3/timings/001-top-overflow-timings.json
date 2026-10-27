@@ -1,0 +1,524 @@
+{
+  "trials": [
+    {
+      "ms": 140.78274999999985,
+      "raw": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 15,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 16,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 17,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "count": 18,
+        "itemCount": 18,
+        "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+        "trackPosition": 8,
+        "bankSize": 16,
+        "pages": 2,
+        "paged": true
+      }
+    },
+    {
+      "ms": 144.86083400000007,
+      "raw": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 15,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 16,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 17,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "count": 18,
+        "itemCount": 18,
+        "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+        "trackPosition": 8,
+        "bankSize": 16,
+        "pages": 2,
+        "paged": true
+      }
+    },
+    {
+      "ms": 142.02904100000023,
+      "raw": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 15,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 16,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 17,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "count": 18,
+        "itemCount": 18,
+        "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+        "trackPosition": 8,
+        "bankSize": 16,
+        "pages": 2,
+        "paged": true
+      }
+    },
+    {
+      "ms": 143.75262500000008,
+      "raw": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 15,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 16,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 17,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "count": 18,
+        "itemCount": 18,
+        "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+        "trackPosition": 8,
+        "bankSize": 16,
+        "pages": 2,
+        "paged": true
+      }
+    },
+    {
+      "ms": 144.4730840000002,
+      "raw": {
+        "devices": [
+          {
+            "index": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 7,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 8,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 9,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 10,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 11,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 12,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 13,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 14,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 15,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 16,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 17,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "count": 18,
+        "itemCount": 18,
+        "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+        "trackPosition": 8,
+        "bankSize": 16,
+        "pages": 2,
+        "paged": true
+      }
+    }
+  ]
+}

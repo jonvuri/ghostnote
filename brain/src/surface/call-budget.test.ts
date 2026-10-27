@@ -496,3 +496,37 @@ test('8i19 call budget: document files add no host call; a refused destination m
     assert.deepEqual(missing.counts, {});
   } finally { await rm(dir, { recursive: true, force: true }); }
 });
+
+// B17 session 2: overflow costs host pages, not extra brain adapter calls.
+for (const [label, topCount, chainCount, deviceCount] of [
+  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen top-level devices', 17, 1, 1],
+] as const) {
+  test(`call budget: paged read_devices, ${label}`, async () => {
+    const fx = await fixture();
+    const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+    fx.fake.model.visibleTracks()[0]!.devices.push(...Array.from({ length: topCount }, (_, i) => ({
+      ...dev(i === topCount - 1 ? 'FX Layer' : `Tool ${i}`),
+      ...(i === topCount - 1 ? { chains: Array.from({ length: chainCount }, (_, c) => ({
+        name: `Chain ${c}`, id: `chain-${c}`, solo: false,
+        devices: Array.from({ length: deviceCount }, (_, d) => dev(`Device ${d}`)),
+      })) } : {}),
+    })));
+    const { result, counts } = await fx.call('read_devices', { trackId: fx.trackId });
+    assert.equal(result.failure, undefined);
+    assert.equal(result.coverage.status, 'complete');
+    assert.equal(result.data.devices.length, topCount);
+    assert.equal(result.coverage.devicePages, Math.ceil(topCount / 16));
+    assert.equal(result.data.devices[topCount - 1].container.chainPages, Math.ceil(chainCount / 5));
+    const chains = result.data.devices[topCount - 1].container.layerChains;
+    assert.equal(chains.length, chainCount);
+    assert.equal(chains.at(-1).devices.length, deviceCount);
+    assert.equal(chains.at(-1).devicePages, Math.ceil(deviceCount / 4));
+    assert.deepEqual(counts, { devices: 1, read: 1 });
+    if (chainCount > 5) {
+      const refusal = await fx.call('rename_layer_chain', { trackId: fx.trackId,
+        containerPosition: 0, layerChain: 'Chain 5', name: 'renamed' });
+      assert.equal(refusal.result.failure.code, 'outside-limit');
+      assert.equal(refusal.counts.apply, undefined, 'write reach is retained until session 3');
+    }
+  });
+}

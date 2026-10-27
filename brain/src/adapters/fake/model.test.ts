@@ -712,12 +712,8 @@ let fixtureChainId = 0;
 const someChain = (name: string, devices: FakeChain['devices'] = []): FakeChain =>
   ({ name, solo: false, id: `fixture-chain-${++fixtureChainId}`, devices });
 
-test('T-scope: a container is observable at every device position inside the bank, and nowhere past it', () => {
-  // ⚠ Not a fake limitation — B08 (E352): each `Rig` scope is a one-wide bank
-  // scrolled to the requested position, so the reach is the 16-wide device
-  // bank, and a container past it has no bank to be read through. The model
-  // carries the same width so an offline pass cannot certify a reach live
-  // Bitwig does not have.
+test('T-scope: container scopes reach past the first device window', () => {
+  // B17 reads page the physical windows; their widths remain write limits.
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
   for (let i = 0; i <= model.deviceBankSize; i++) {
@@ -727,8 +723,7 @@ test('T-scope: a container is observable at every device position inside the ban
   assert.notEqual(model.observeContainer(track, model.containerScopes), undefined,
     'the scope count no longer bounds the reach');
   assert.notEqual(model.observeContainer(track, model.deviceBankSize - 1), undefined);
-  assert.equal(model.observeContainer(track, model.deviceBankSize), undefined,
-    'past the bank nothing was looked at — which is not the same as nothing being there');
+  assert.equal(model.observeContainer(track, model.deviceBankSize)?.chains[0]?.name, 'A');
 });
 
 test('5p fake adapter: container inventory preserves nested enabled state', () => {
@@ -743,7 +738,7 @@ test('5p fake adapter: container inventory preserves nested enabled state', () =
   assert.equal(model.observeContainer(track, 0)?.chains[0]?.devices[0]?.enabled, false);
 });
 
-test('T-full: an exact item count distinguishes a full bank from overflow', () => {
+test('T-full: paging includes the chain beyond a full window', () => {
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
   const chains = Array.from({ length: model.chainBankSize }, (_, i) => someChain(`c${i}`));
@@ -753,7 +748,8 @@ test('T-full: an exact item count distinguishes a full bank from overflow', () =
   assert.equal(observed.chainsComplete, true);
 
   track.devices[0]!.chains = [...chains, someChain('overflow')];
-  assert.equal(model.observeContainer(track, 0)!.chainsComplete, false);
+  assert.equal(model.observeContainer(track, 0)!.chainsComplete, true);
+  assert.equal(model.observeContainer(track, 0)!.chains.at(-1)?.name, 'overflow');
 });
 
 test('T-dupname: copying a container gives two chains ONE name (e17n)', () => {

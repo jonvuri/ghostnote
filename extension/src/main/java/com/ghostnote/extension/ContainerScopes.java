@@ -35,7 +35,7 @@ import java.util.Arrays;
  */
 public final class ContainerScopes {
     /** B17 build marker, in {@code rig.info} and in each reply. */
-    public static final String RULE = "extension-owned-scopes-v1";
+    public static final String RULE = WindowPager.RULE;
     static final int POLL_MS = 5;
     /** Polls between repeated scrolls of an unsettled scope (E353: a clamped bank needs the repeat). */
     static final int RESCROLL_POLLS = 10;
@@ -47,7 +47,7 @@ public final class ContainerScopes {
     /** The scope state an aim reads and moves. The rig binding reads the host; tests model it. */
     public interface Scopes {
         int scopeCount();
-        /** The reference bank width: the positions a scope can be aimed at. */
+        /** The reference window width (not a bound on read reach). */
         int deviceBank();
         boolean held(int slot);
         int requestedPosition(int slot);
@@ -184,9 +184,9 @@ public final class ContainerScopes {
         if (current != null) throw new IllegalStateException("a container scope operation is already open");
         int[] positions = Arrays.stream(requested).distinct().toArray();
         for (int position : positions) {
-            if (position < 0 || position >= scopes.deviceBank()) {
+            if (position < 0) {
                 throw new IllegalArgumentException(
-                    "position must be in 0.." + (scopes.deviceBank() - 1) + ": " + position);
+                    "position must be nonnegative: " + position);
             }
         }
         if (built() == 0) {

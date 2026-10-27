@@ -2593,6 +2593,35 @@ test('4g-device-enabled: a raw unrelated toggle fails the full enabled fingerpri
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
+for (const count of [17, 18]) {
+  for (const position of [0, count - 1]) {
+    for (const op of ['device.setEnabled', 'device.delete'] as const) {
+      test(`B17 live ${op}: refuses ${count}-device chain at ${position} before a mutation frame`, async () => {
+        class PagedTransport extends DeviceChainTransport {
+          protected override dispatch(method: string, params: Record<string, unknown>): unknown {
+            const reply = super.dispatch(method, params);
+            return method === WIRE.deviceList
+              ? { ...(reply as object), bankSize: 16, paged: true } : reply;
+          }
+        }
+        const wire = new PagedTransport();
+        const names = Array.from({ length: count }, (_, index) => `Tool ${index}`);
+        wire.chains.set(0, [...names]);
+        const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+        const read = await adapter.devices(TRACK);
+        assert.equal(read.devicesComplete, true);
+        assert.equal(read.devices.length, count);
+        await assert.rejects(adapter.apply({ ops: [{
+          op, device: deviceAt(TRACK, position), enabled: false,
+        }] }), /first window/);
+        assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun
+          || frame.method === WIRE.deviceDelete || frame.method === WIRE.deviceSetEnabled), false);
+        assert.deepEqual(wire.chains.get(0), names);
+      });
+    }
+  }
+}
+
 test('L-mint: an insert reports the chain index it OBSERVED, and the delete undoes it', async () => {
   const wire = new DeviceChainTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -4759,14 +4788,12 @@ test('L-chain-create: a container with no observable scope is refused, not writt
   const wire = new ChainCreateTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
-  // Position 4 is past the scopes the stub reports, exactly as it would be past
-  // `Rig.SLOT_SCOPES` live — and a chain created out there could be resolved by
-  // nothing and removed by nothing.
+  // The stub's empty-position reply omits the chain width. Creation refuses without that write limit.
   await assert.rejects(
     adapter.apply({
       ops: [{ op: 'chain.create', source: chainAt(deviceAt(TRACK, 4), 'gn-shipped'), name: 'gn-B' }],
     }),
-    /no container scope covers device position 4/,
+    /did not report how wide the chain bank is/,
   );
   assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
 });
@@ -4844,7 +4871,7 @@ test('L-chain-activate: missing solo observation refuses before the write frame'
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
 });
 
-test('L-chain: a container position past the bank is UNREACHABLE on a read; past the device count it is missing', async () => {
+test('L-chain: a container position past the device count is missing, including beyond the first window', async () => {
   const wire = new InventoryTransport(
     new Map([[0, CHANNEL_ID]]),
     new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
@@ -4852,12 +4879,12 @@ test('L-chain: a container position past the bank is UNREACHABLE on a read; past
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   (adapter as unknown as Record<string, unknown>)['deviceBankSize'] = 16;
 
-  // Position 16 is past the 16-wide bank: no scope can be aimed there, so nothing was looked at.
+  // Position 16 is beyond the first window but also beyond this one-device track.
   const far = chainAt(deviceAt(TRACK, 16), 'A take');
   const snapshot = await adapter.read([far]);
-  assert.deepEqual(snapshot.unreachable.map(addressKey), [addressKey(far)]);
-  assert.deepEqual(snapshot.missing, []);
-  assert.equal(wire.frames.some((f) => f.method === WIRE.chainObserve), false, 'refused before the wire');
+  assert.deepEqual(snapshot.unreachable, []);
+  assert.deepEqual(snapshot.missing.map(addressKey), [addressKey(far)]);
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainObserve), true);
   // Position 4 on a one-device track is an EMPTY observation (B08): the reference bank was read.
   const empty = chainAt(deviceAt(TRACK, 4), 'A take');
   const observed = await adapter.read([empty]);
@@ -5447,7 +5474,7 @@ test('B17 container scope: a container at any bank position is one observe namin
   assert.equal(internals['scopeSlotOf'], undefined);
 });
 
-test('B17 container scope: a position past the device count is an empty observation; past the bank it is outside the window', async () => {
+test('B17 container scope: a position past the device count is empty, including beyond the first window', async () => {
   const wire = new ObserveTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' }]);
   const internals = observeAdapter(wire);
   const result = await internals['containerScope'](TRACK, 5, false);
@@ -5455,8 +5482,8 @@ test('B17 container scope: a position past the device count is an empty observat
     chains: [], chainsComplete: true, slots: [], slotsComplete: true, chainsBankSize: 5 } });
   assert.deepEqual(observes(wire), [5]);
   const past = await internals['containerScope'](TRACK, 16, false);
-  assert.deepEqual(past, { ok: false, miss: 'outside-bank-window' });
-  assert.deepEqual(observes(wire), [5], 'refused before the wire');
+  assert.deepEqual(past, result);
+  assert.deepEqual(observes(wire), [5, 16]);
 });
 
 test('B17 container scope: an extension refusal after its settle bound is unsupported, never a tombstone', async () => {
@@ -5482,4 +5509,77 @@ test('B17 container scope: a track the cursor did not confirm is re-pointed once
   assert.deepEqual(result, { ok: false, miss: 'unsupported' });
   assert.deepEqual(observes(wire), [0, 0]);
   assert.equal(points, 2, 'the cursor is what a stale reply is stale about, so the retry re-points');
+});
+
+for (const [label, topCount, chainCount, deviceCount] of [
+  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen devices', 17, 1, 1],
+] as const) {
+  test(`B17 paged live/fake conformance: ${label}`, async () => {
+    const { FakeAdapter } = await import('../fake/adapter.js');
+    const fake = new FakeAdapter({ tracks: ['paged'] });
+    const fakeTrack = fake.model.visibleTracks()[0]!;
+    const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+    const chains = Array.from({ length: chainCount }, (_, index) => ({
+      index, name: `Chain ${index}`, channelId: `chain-${index}`, solo: false,
+      devices: Array.from({ length: deviceCount }, (_, d) => ({ index: d, name: `Device ${d}`, enabled: true })),
+      deviceCount,
+    }));
+    fakeTrack.devices.push(...Array.from({ length: topCount }, (_, i) => ({ ...dev(`Top ${i}`),
+      ...(i === topCount - 1 ? { chains: chains.map(c => ({ name: c.name, id: c.channelId, solo: c.solo,
+        devices: c.devices.map(d => dev(d.name)) })) } : {}),
+    })));
+    const wire = new ObserveTransport(Array.from({ length: topCount }, (_, i) => ({ name: `Top ${i}` })));
+    const send = wire.send.bind(wire);
+    wire.send = async (frame) => {
+      if (frame.method === WIRE.deviceList) {
+        wire.frames.push(frame);
+        return { trackChannelId: CHANNEL_ID, bankSize: 16, paged: true, count: topCount, itemCount: topCount,
+          devices: Array.from({ length: topCount }, (_, index) => ({ index, name: `Top ${index}`, enabled: true })) };
+      }
+      const reply = await send(frame) as any;
+      if (frame.method === WIRE.chainObserve && reply.scope) {
+        reply.scope = { ...reply.scope, paged: true, hasLayers: true, chains, chainCount };
+      }
+      return reply;
+    };
+    const live = observeAdapter(wire);
+    const liveTop = await live['deviceChain'](TRACK);
+    const fakeTop = await fake.devices(track(fakeTrack.channelId));
+    assert.deepEqual(liveTop.devices, fakeTop.devices);
+    assert.equal(liveTop.blind, false);
+    assert.equal(fakeTop.devicesComplete, true);
+    const observed = await live['containerScope'](TRACK, topCount - 1, false);
+    assert.equal(observed.ok, true);
+    const fakeContainer = fake.model.observeContainer(fakeTrack, topCount - 1)!;
+    assert.deepEqual(observed.container, fakeContainer);
+    assert.equal(observed.container.chainsComplete, true);
+    assert.equal(observed.container.chains.at(-1).devicesComplete, true);
+    assert.deepEqual(observes(wire), [topCount - 1], 'one extension call, no brain page state');
+  });
+}
+
+test('B17 paged device list retries an arriving track once, and never retries restoration failure', async () => {
+  for (const [message, failures, expectedReads] of [
+    ['device.list track changed during paging', 1, 2],
+    ['device.list track changed during paging', 2, 2],
+    ['window did not restore; reload ghostnote before writes', 1, 1],
+  ] as const) {
+    const wire = new ObserveTransport([]);
+    let reads = 0;
+    wire.send = async (frame) => {
+      assert.equal(frame.method, WIRE.deviceList);
+      if (++reads <= failures) throw new BridgeError(-32603, `Internal error: ${message}`);
+      return { devices: [{ index: 0, name: 'Tool' }], count: 1, itemCount: 1,
+        trackChannelId: CHANNEL_ID, bankSize: 16, paged: true };
+    };
+    const live = observeAdapter(wire);
+    if (failures === 1 && expectedReads === 2) {
+      const result = await live['deviceChain'](TRACK);
+      assert.equal(result.blind, false);
+      assert.equal(result.devices[0].name, 'Tool');
+    } else {
+      await assert.rejects(live['deviceChain'](TRACK), new RegExp(message));
+    }
+    assert.equal(reads, expectedReads);
+  }
 });

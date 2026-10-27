@@ -15,6 +15,7 @@ import {
   AddressUnresolvedError, BankWindowOverflowError, CONTRACT_TAG, CONTRACT_VERSION, GROUP_TRACK_TYPE,
   assertNoGroupSlotAddresses, assertNoGroupSlotOps, sceneGuardError, sceneGuardMismatch, sceneGuardOf,
   InvalidOpError, StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
+  assertTopLevelDeviceWriteWindow,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
   chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
@@ -155,9 +156,9 @@ export class FakeAdapter implements BitwigAdapter {
   async devices(trackRef: import('../../contract/index.js').TrackAddress) {
     const track = this.requireTrack(trackRef, 'devices');
     return {
-      devices: track.devices.slice(0, this.model.deviceBankSize)
+      devices: track.devices
         .map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
-      devicesComplete: track.devices.length <= this.model.deviceBankSize,
+      devicesComplete: true,
       bankSize: this.model.deviceBankSize,
     };
   }
@@ -429,9 +430,6 @@ export class FakeAdapter implements BitwigAdapter {
         // through the container scopes, or refused with the reason that says
         // which of the four things happened — see `resolveNested`.
         if (address.kind === 'device' && address.chain === undefined) {
-          if (address.chainIndex >= this.model.deviceBankSize) {
-            return { address, found: false, reason: 'outside-bank-window' as const };
-          }
           return hit.track.devices[address.chainIndex] === undefined
             ? { address, found: false, reason: 'absent' as const }
             : { address, found: true, index: address.chainIndex };
@@ -439,9 +437,6 @@ export class FakeAdapter implements BitwigAdapter {
         if (address.kind === 'deviceEnabled') {
           if (address.device.chain !== undefined) {
             return { address, found: false, reason: 'unsupported' as const };
-          }
-          if (address.device.chainIndex >= this.model.deviceBankSize) {
-            return { address, found: false, reason: 'outside-bank-window' as const };
           }
           return hit.track.devices[address.device.chainIndex] === undefined
             ? { address, found: false, reason: 'absent' as const }
@@ -816,18 +811,12 @@ export class FakeAdapter implements BitwigAdapter {
           };
         }
         if (track === undefined) return undefined;
-        // ⚠⚠ UNREACHABLE past the device bank, and the fake reports it even
-        // though its own list could answer — because live cannot. `device.list`
-        // reads a 16-wide device bank, and the container scopes scroll over the
-        // same bank (B08). A fake that answered past it would certify a read
-        // live Bitwig has no route for, which is PHASE-0 §Risks' named failure
-        // mode pointed the wrong way.
+        // B17 structure reads use paged observations; parameter routes retain their own bounds.
         const dev = track.devices[address.chainIndex];
         if (structureOnly) {
           // 8h4e: a device inside the bank reports its name and, through a scrolled scope, its container.
           if (dev === undefined) return undefined;
-          const observed = address.chainIndex < this.model.deviceBankSize
-            ? this.model.observeContainer(track, address.chainIndex) : undefined;
+          const observed = this.model.observeContainer(track, address.chainIndex);
           return {
             address,
             fidelity: 'none',
@@ -1036,9 +1025,13 @@ export class FakeAdapter implements BitwigAdapter {
         bankSize: this.model.deviceBankSize,
       };
     });
-    // Parameter and remote writes own the recursive route. Confirm their exact
-    // target before staging, as the live adapter does.
+    // Refuse device writes outside the first window before staging. Parameter
+    // and remote writes also confirm their recursive target, as live does.
     for (const op of batch.ops) {
+      if (op.op === 'device.setEnabled' || op.op === 'device.delete') {
+        const track = this.requireTrack(op.device.track, op.op);
+        assertTopLevelDeviceWriteWindow(op.op, track.devices.length, this.model.deviceBankSize);
+      }
       if (op.op === 'param.set') {
         const target = this.deepDevice(
           this.requireTrack(op.param.device.track, op.op), op.param.device,
@@ -1199,6 +1192,7 @@ export class FakeAdapter implements BitwigAdapter {
     expected: readonly string[] | undefined,
     expectedEnabled: readonly boolean[] | undefined,
   ): void {
+    assertTopLevelDeviceWriteWindow(op, track.devices.length, this.model.deviceBankSize);
     const actual = track.devices.map((item) => item.name);
     if (expected !== undefined
         && (actual.length !== expected.length

@@ -2,6 +2,10 @@ package com.ghostnote.extension.handlers;
 
 import com.ghostnote.extension.Bridge;
 import com.ghostnote.extension.ContainerScopes;
+import com.ghostnote.extension.DeviceWindow;
+import com.ghostnote.extension.WindowPager;
+import com.ghostnote.extension.LayerPageWitness;
+import java.util.function.Consumer;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
@@ -1064,9 +1068,10 @@ public final class ContainerHandlers extends HandlerGroup {
                 JsonObject chain = new JsonObject();
                 // B17: the index is absolute within the container. Session 1 keeps the chain window at rest,
                 // so it equals the window index; session 2 pages the window and keeps the index absolute.
-                chain.addProperty("index", l);
+                chain.addProperty("index", rig.slotLayerBanks[s].scrollPosition().get() + l);
                 putGuarded(chain, "name", () -> layer.name().get());
                 putGuarded(chain, "channelId", () -> layer.channelId().get());
+                putGuarded(chain, "reportedChannelIndex", () -> layer.channelIndex().get());
                 // Product switching needs the exact flag for EVERY sibling.
                 // Guarded silence is preserved as a missing field, which the
                 // brain refuses rather than guessing as false.
@@ -1083,12 +1088,13 @@ public final class ContainerHandlers extends HandlerGroup {
                         continue;
                     }
                     JsonObject dev = new JsonObject();
-                    dev.addProperty("index", d);
+                    dev.addProperty("index", rig.slotLayerDeviceBanks[s][l].scrollPosition().get() + d);
                     putGuarded(dev, "name", () -> nested.name().get());
                     putGuarded(dev, "enabled", () -> nested.isEnabled().get());
                     devices.add(dev);
                 }
                 chain.add("devices", devices);
+                chain.addProperty("deviceWindowPosition", rig.slotLayerDeviceBanks[s][l].scrollPosition().get());
                 chain.addProperty("deviceCount",
                     rig.slotLayerDeviceBanks[s][l].itemCount().get());
                 chains.add(chain);
@@ -1098,6 +1104,7 @@ public final class ContainerHandlers extends HandlerGroup {
         scope.addProperty("visibleChainCount", existing);
         if (rig.slotLayerBanks[s] != null) {
             scope.addProperty("chainCount", rig.slotLayerBanks[s].itemCount().get());
+            scope.addProperty("chainWindowPosition", rig.slotLayerBanks[s].scrollPosition().get());
         }
         // Session 5r: itemCount distinguishes a full bank from overflow.
         // The bank sizes remain explicit so a projected create can refuse
@@ -1235,7 +1242,7 @@ public final class ContainerHandlers extends HandlerGroup {
 
     /**
      * An absolute chain index. Session 1 of B17 keeps the chain window at rest, so the index must lie inside
-     * it; session 2 pages the window and lifts this bound.
+     * it; session 3 adds writes past its first page.
      */
     private int requireChainIndex(JsonObject params, String field) {
         if (!params.has(field) || !params.get(field).isJsonPrimitive()
@@ -1245,7 +1252,7 @@ public final class ContainerHandlers extends HandlerGroup {
         double raw = params.get(field).getAsDouble();
         if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= Rig.SLOT_LAYER_BANK) {
             throw new IllegalArgumentException(field + " must be an integer in 0.." + (Rig.SLOT_LAYER_BANK - 1)
-                + ": " + raw + " (chains past the window are paged in B17 session 2)");
+                + ": " + raw + " (writes past the window arrive in B17 session 3)");
         }
         return (int) raw;
     }
@@ -1256,24 +1263,125 @@ public final class ContainerHandlers extends HandlerGroup {
      * cursor-bound named-slot view, the track identity, and the aim's cost.
      */
     private void chainObserve(JsonObject params, Bridge.Reply reply) {
-        int position = requirePosition(params, "position");
-        withScopes(new int[] {position}, params, reply, settled -> {
-            JsonObject r = ok();
-            r.addProperty("position", position);
-            int slot = settled.slotOf(position);
-            r.addProperty("slot", slot);
-            r.addProperty("deviceCount", settled.deviceCount());
-            r.addProperty("deviceBankSize", rig.config.deviceBank);
-            r.addProperty("scopeCount", Rig.SLOT_SCOPES);
-            r.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
-            r.addProperty("chainDeviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
-            if (slot >= 0) r.add("scope", describeScope(slot));
-            r.add("cursorScope", describeCursorScope());
-            putGuarded(r, "trackName", () -> rig.cursorTracks[0].name().get());
-            putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-            r.add("aim", settled.report());
-            return r;
+        // Read reach is independent of the write limits retained until B17 session 3.
+        if (!params.has("position") || !params.get("position").isJsonPrimitive()
+                || !params.get("position").getAsJsonPrimitive().isNumber())
+            throw new IllegalArgumentException("position must be a nonnegative integer");
+        double raw = params.get("position").getAsDouble();
+        if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw > Integer.MAX_VALUE)
+            throw new IllegalArgumentException("position must be a nonnegative integer");
+        int position = (int) raw;
+        String expectedTrack = params.has("expectedTrackChannelId")
+            ? params.get("expectedTrackChannelId").getAsString() : null;
+        rig.containerScopes.aim(new int[] {position}, expectedTrack, new ContainerScopes.Outcome() {
+            @Override public void settled(ContainerScopes.Settled settled) {
+                int slot = settled.slotOf(position);
+                JsonObject result = ok();
+                result.addProperty("position", position);
+                result.addProperty("slot", slot);
+                result.addProperty("deviceCount", settled.deviceCount());
+                result.addProperty("deviceBankSize", rig.config.deviceBank);
+                result.addProperty("scopeCount", Rig.SLOT_SCOPES);
+                result.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
+                result.addProperty("chainDeviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
+                Consumer<Exception> finish = error -> {
+                    if (error instanceof WindowPager.RestoreFailure) rig.writeGate.blockWrites(error.getMessage());
+                    settled.release();
+                    if (error != null) { reply.error(error, 0); return; }
+                    result.add("cursorScope", describeCursorScope());
+                    putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
+                    putGuarded(result, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+                    result.add("aim", settled.report());
+                    reply.result(result, 0);
+                };
+                if (slot < 0) { finish.accept(null); return; }
+                pageScope(slot, (scope, error) -> {
+                    if (scope != null) result.add("scope", scope);
+                    finish.accept(error);
+                });
+            }
+            @Override public void refused(String reason, String detail, JsonObject report) {
+                reply.error(new IllegalStateException("container scope " + reason + ": " + detail), 0);
+            }
         });
+    }
+
+    /** A settled non-layer device has no layer window, even when the host retains old bank values. */
+    static boolean completeNonLayerScope(JsonObject scope) {
+        JsonElement hasLayers = scope.get("hasLayers");
+        if (hasLayers == null || !hasLayers.isJsonPrimitive()
+                || !hasLayers.getAsJsonPrimitive().isBoolean() || hasLayers.getAsBoolean()) return false;
+        scope.add("chains", new JsonArray());
+        scope.addProperty("chainCount", 0);
+        scope.addProperty("visibleChainCount", 0);
+        scope.addProperty("paged", true);
+        scope.addProperty("chainPages", 0);
+        scope.addProperty("devicePages", 0);
+        return true;
+    }
+
+    private void pageScope(int slot, java.util.function.BiConsumer<JsonObject, Exception> done) {
+        JsonObject initial = describeScope(slot);
+        if (completeNonLayerScope(initial)) {
+            done.accept(initial, null);
+            return;
+        }
+        JsonArray chains = new JsonArray();
+        int[] devicePages = {0};
+        WindowPager pager = new WindowPager(host::scheduleTask);
+        LayerPageWitness witness = new LayerPageWitness();
+        pager.read(new WindowPager.Window() {
+            @Override public int width() { return Rig.SLOT_LAYER_BANK; }
+            @Override public int count() { return rig.slotLayerBanks[slot].itemCount().get(); }
+            @Override public int position() { return rig.slotLayerBanks[slot].scrollPosition().get(); }
+            @Override public void scroll(int position) { rig.slotLayerBanks[slot].scrollPosition().set(position); }
+            @Override public String describe() {
+                return "layer window scope=" + slot + ", count=" + count() + ", position=" + position()
+                    + ", chains=" + describeScope(slot).getAsJsonArray("chains");
+            }
+            @Override public JsonArray snapshot() {
+                int size = Math.min(width(), Math.max(0, count() - position()));
+                for (int i = 0; i < size; i++) {
+                    DeviceLayer layer = rig.slotLayerBanks[slot].getItemAt(i);
+                    if (!layer.exists().get()) return null;
+                }
+                JsonArray page = describeScope(slot).getAsJsonArray("chains");
+                return witness.matches(page) ? page : null;
+            }
+        }, (offset, page, next) -> {
+            witness.accept(page);
+            pageChainDevices(pager, slot, offset, page, 0, chains, devicePages, next);
+        },
+        (report, error) -> {
+            if (error != null) { done.accept(null, error); return; }
+            JsonObject scope = describeScope(slot);
+            scope.add("chains", chains);
+            scope.addProperty("chainCount", report.count());
+            scope.addProperty("visibleChainCount", chains.size());
+            scope.addProperty("paged", true);
+            scope.addProperty("chainPages", report.pages());
+            scope.addProperty("devicePages", devicePages[0]);
+            done.accept(scope, null);
+        });
+    }
+
+    private void pageChainDevices(WindowPager pager, int slot, int offset, JsonArray page, int index,
+            JsonArray chains, int[] devicePages, Consumer<Exception> done) {
+        if (index >= page.size()) { done.accept(null); return; }
+        JsonObject chain = page.get(index).getAsJsonObject();
+        int local = chain.get("index").getAsInt() - offset;
+        JsonArray devices = new JsonArray();
+        pager.read(new DeviceWindow(rig.slotLayerDeviceBanks[slot][local], Rig.SLOT_LAYER_DEVICE_BANK),
+            (deviceOffset, rows, next) -> { devices.addAll(rows); next.accept(null); },
+            (report, error) -> {
+                if (error != null) { done.accept(error); return; }
+                chain.add("devices", devices);
+                chain.addProperty("deviceCount", report.count());
+                chain.addProperty("devicePages", report.pages());
+                devicePages[0] += report.pages();
+                chains.add(chain);
+                pageChainDevices(pager, slot, offset, page, index + 1, chains, devicePages, done);
+            });
     }
 
     /**
