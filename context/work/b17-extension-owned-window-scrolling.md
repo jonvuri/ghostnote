@@ -157,6 +157,36 @@ and device tool works outside the first window page; the width caps are
 gone from schemas, descriptions, and refusals; offline suite, goldens, and
 a live E record with cleanup and preserved-state checks.
 
+## Sessions
+
+B17 runs as three sessions. Each one deploys, is checked live, and leaves
+the product consistent if work stops after it. At the end of each session,
+record in this brief what was proved and any interface decisions the next
+session inherits.
+
+1. **Extension-owned scopes (step 0).** This session makes no behavior
+   change. It moves the scope logic into async extension operations with a
+   write lease, retires `chain.scroll`, and removes the brain's scope state.
+   A live check on the E353 shape must show the same results in fewer turns.
+   This session decides between the extension route and the brain-side
+   alternative, so the later sessions start only after it. It also fixes the
+   wire shape for the later sessions: absolute `position`, absolute chain and
+   device indices, and a reply that can carry stitched pages. Sessions 2 and
+   3 extend that interface; they do not redesign it.
+2. **Paged reads (steps 1–3).** The operations page the chain and device
+   windows and the 16-wide top-level bank. This session adds fake paging,
+   conformance cases for 6 chains, 5 devices, and 17 top-level devices, a
+   complete `read_devices` result, and call-budget rows, followed by a
+   reads-only live check.
+3. **Writes past the first page and cap retirement (steps 4–6).** The writes
+   and the cap retirement land together: a cap lifted before writes reach the
+   later pages would expose tools that fail. This session also bumps the
+   descriptions, updates the ledger rows, and runs the full step 6 live check
+   for the E record.
+
+Sessions 2 and 3 share the paging internals and may run as one session if
+session 2 finishes early.
+
 ## Risks and open questions
 
 - A paged read is two or more inventories per container; a container with

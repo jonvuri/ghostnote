@@ -1,7 +1,7 @@
 ---
 title: Backlog
 kind: backlog
-updated: 2026-10-25
+updated: 2026-10-26
 ---
 
 # Backlog
@@ -26,7 +26,7 @@ material for the selected items. The phase model (`plan/phase-*`) is history.
 | ID | Item | Tags | Status | Brief / source |
 |---|---|---|---|---|
 | B08 | Scrollable container scopes: the three product scopes are one-wide device banks scrolled to the requested position, so layer chains are observable and writable at every top-level position in the 16-device bank. Research (E352) and implementation (E353: compose, read, the five chain tools, and a cross-container move at positions 3 and 5, with the clamped-scope repair) complete; nested-window scrolling and a cheaper structure-read scope policy are follow-ups. | structure, implementation | done | [brief](work/b08-scrollable-container-scopes.md); [E352](evidence/experiments/e352-scrollable-container-scopes-retarget-live.md); [E353](evidence/experiments/e353-scrollable-container-scopes-product-live.md); DP-3; E63 |
-| B17 | Scrolling inside the extension and the window-derived caps: move B08's scope logic into async extension operations that scroll and settle as needed and reply once; page the 16-wide top-level bank and the five-chain and four-device windows, reads first, then writes; retire the limits that exist only because of the window widths. | structure, implementation | next | [brief](work/b17-extension-owned-window-scrolling.md); E352 §4; E353 |
+| B17 | Scrolling inside the extension and the window-derived caps: move B08's scope logic into async extension operations that scroll and settle as needed and reply once; page the 16-wide top-level bank and the five-chain and four-device windows, reads first, then writes; retire the limits that exist only because of the window widths. Three sessions: extension-owned scopes with no behavior change, paged reads, then writes past the first page with cap retirement. | structure, implementation | next | [brief](work/b17-extension-owned-window-scrolling.md#sessions); E352 §4; E353 |
 | R01 | Formats, claims, and public naming: compare Producer Pal notations and transforms with FIELDS/JSON; assess dense claims and first-save annotation continuity; propose a public format name. Current notation is the default. | song, research | queued | [R01](plan/overlap/wave-4/work-sessions.md#r01--formats-claims-and-public-naming); [V01 finding](work/v01-engram-purifico.md#closeout-assessment); W4-007, W4-021 |
 | R02 | Pressure reproduction: audit E15/E236 and external handlers, reproduce independently, prepare upstream evidence if confirmed. | song, research | queued | [R02](plan/overlap/wave-4/workflow-sequence.md#r02--pressure-reproduction-and-upstream-evidence); W4-006, D37 |
 | P01 | Edit-path performance and recovery cost: attribute repeated inventories and full clip captures, simplify recovery-only machinery under D54; the B08 container-scope read policy (skip non-containers, rotate the far scope, scope count and width) and the staged `compose_devices` proof cost and device-unit weights after D46. Offline audit first; after B17. | perf, cleanup | queued | [P01](plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost); W4-016, D54 |
