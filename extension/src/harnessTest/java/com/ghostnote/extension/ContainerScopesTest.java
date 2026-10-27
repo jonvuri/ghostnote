@@ -86,6 +86,7 @@ public final class ContainerScopesTest {
         run("a scope clamped on an earlier track is re-aimed, not waited for (E353)", ContainerScopesTest::clamped);
         run("two positions hold two scopes at once; three distinct far positions use all three",
             ContainerScopesTest::twoAtOnce);
+        run("independent endpoints at one container hold separate scopes", ContainerScopesTest::independent);
         run("the track identity is polled before any scope is read", ContainerScopesTest::trackIdentity);
         run("an unbuilt scope is skipped; no built scope refuses before the lease", ContainerScopesTest::unbuilt);
         run("an aim holds a write lease: writes and clip reads wait, plain reads run; release pumps",
@@ -247,6 +248,44 @@ public final class ContainerScopesTest {
         Result blind = aim(stuck, never, null, 0);
         check(blind.settled != null && blind.settled.slotOf(0) == 0, "no identity to poll");
         blind.settled.release();
+    }
+
+    private static void independent() {
+        Model m = new Model("Tool", "Tool", "Tool", "FX Layer");
+        ContainerScopes scopes = new ContainerScopes(m);
+        Result same = new Result();
+        int[] endpoints = {3, 3};
+        scopes.aimIndependent(endpoints, "track-a", same);
+        endpoints[0] = 0; // The aim must own the request while deferred.
+        drain();
+        check(same.settled != null && same.settled.slotAt(0) != same.settled.slotAt(1), "independent handles");
+        check(m.reported[same.settled.slotAt(0)] == 3 && m.reported[same.settled.slotAt(1)] == 3,
+            "both scopes describe the same intended container");
+        check(m.scrollLog().equals("2->3 1->3") && m.gate.writeLeases() == 1, "two scopes under one lease");
+        check(same.settled.report().getAsJsonArray("scopes").size() == 2, "report keeps both endpoint positions");
+        boolean ambiguous = false;
+        try { same.settled.slotOf(3); } catch (IllegalArgumentException expected) { ambiguous = true; }
+        check(ambiguous, "a duplicate position cannot silently select the wrong endpoint");
+        same.settled.release();
+
+        Result reused = new Result();
+        int scrolls = m.scrolls.size();
+        scopes.aimIndependent(new int[] {3, 3}, "track-a", reused);
+        check(reused.settled != null && reused.polls == 1 && m.scrolls.size() == scrolls,
+            "the settled pair is reused without scrolling");
+        reused.settled.release();
+
+        Result tooMany = new Result();
+        scopes.aimIndependent(new int[] {3, 3, 3, 3}, "track-a", tooMany);
+        drain();
+        check("scopes-unavailable".equals(tooMany.refused) && !scopes.open() && m.gate.leases() == 0,
+            "independent endpoints cannot alias a scope when the handles run out");
+
+        Result empty = new Result();
+        scopes.aimIndependent(new int[] {9, 9}, "track-a", empty);
+        check(empty.settled.slotAt(0) == ContainerScopes.EMPTY && empty.settled.slotAt(1) == ContainerScopes.EMPTY,
+            "each absent endpoint reports empty");
+        empty.settled.release();
     }
 
     private static void unbuilt() {

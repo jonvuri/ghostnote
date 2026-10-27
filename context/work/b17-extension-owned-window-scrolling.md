@@ -159,33 +159,138 @@ a live E record with cleanup and preserved-state checks.
 
 ## Sessions
 
-B17 runs as three sessions. Each one deploys, is checked live, and leaves
-the product consistent if work stops after it. At the end of each session,
-record in this brief what was proved and any interface decisions the next
-session inherits.
+The operator agreed on 2026-10-27 to checkpoint the offline chain-control
+work and divide the remainder into **four fresh sessions**. This replaces
+the original three-session plan and its requirement to deploy after every
+session. Sessions 1 and 2 are verified live; session 3 is an offline
+implementation checkpoint, not completed host acceptance. Sessions 4–6 are
+separate implementation checkpoints, followed by one coordinated deployment
+and live acceptance in session 7.
 
-1. **Extension-owned scopes (step 0).** This session makes no behavior
-   change. It moves the scope logic into async extension operations with a
-   write lease, retires `chain.scroll`, and removes the brain's scope state.
-   A live check on the E353 shape must show the same results in fewer turns.
-   This session decides between the extension route and the brain-side
-   alternative, so the later sessions start only after it. It also fixes the
-   wire shape for the later sessions: absolute `position`, absolute chain and
-   device indices, and a reply that can carry stitched pages. Sessions 2 and
-   3 extend that interface; they do not redesign it.
-2. **Paged reads (steps 1–3).** The operations page the chain and device
-   windows and the 16-wide top-level bank. This session adds fake paging,
-   conformance cases for 6 chains, 5 devices, and 17 top-level devices, a
-   complete `read_devices` result, and call-budget rows, followed by a
-   reads-only live check.
-3. **Writes past the first page and cap retirement (steps 4–6).** The writes
-   and the cap retirement land together: a cap lifted before writes reach the
-   later pages would expose tools that fail. This session also bumps the
-   descriptions, updates the ledger rows, and runs the full step 6 live check
-   for the E record.
+| Session | Scope | Status |
+| --- | --- | --- |
+| 1 | Extension-owned scopes; absolute wire positions and indices | Complete, live E354 |
+| 2 | Paged top-level and nested reads | Complete, live E356 |
+| 3 | Write-window foundation and paged chain controls | Checkpointed; offline checks pass; not deployed |
+| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Next; fresh session |
+| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Queued; fresh session |
+| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Queued; fresh session |
+| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Queued; fresh session |
 
-Sessions 2 and 3 share the paging internals and may run as one session if
-session 2 finishes early.
+Each fresh session starts with `context/NOW.md`, its section below, and the
+relevant implementation/result sections. Record the completed scope, checks,
+remaining limitations, and next entry point in this brief and NOW. Stage
+only task changes; do not commit. Public width caps stay in place during
+sessions 4 and 5. Session 6 changes admission only after the corresponding
+write routes are implemented and tested. Keep D44's device-unit budget and
+the separate named-slot and parameter limits throughout this work.
+
+### Session 4 — Nested move and copy paging
+
+**Entry:** the [session-3 chain-control checkpoint](#session-3-chain-control-integration),
+`ContainerHandlers.chainMove`, `ContainerScopes.aimIndependent`,
+`WindowAccess`, and the registered-handler test pattern in
+`ChainControlHandlersTest`. The existing `chain.move` handler still uses its
+first-window bounds; independent same-container scopes are available but
+not yet used by it.
+
+Implement source-device acquisition beyond the four-device window and
+source/destination chain acquisition beyond the five-chain window. Use
+independent scopes when distant chains in one container cannot share a
+window. Hold both endpoint identities through the transfer. Restore device
+windows before their enclosing chain windows; retain correct partial
+results and latch failed restoration before releasing the lease. Do not
+repeat an uncertain move or copy.
+
+Cover chain-to-chain and chain-to-track transfers, top-level-to-chain
+transfers within the currently supported top-level reach, same-container
+and different-container endpoints, and shifted source indices after moves.
+Do not lift top-level or named-slot bounds to make a mixed route pass;
+session 5 owns top-level overflow acquisition, and named-slot paging remains
+outside B17's proved routes.
+
+**Exit:** registered-handler tests exercise overflow sources and destinations,
+simultaneously held endpoints, preservation of unrelated devices, identity
+refusals, partial effects, restoration failures, and queued/batch behavior.
+Run relevant adapter/encoder and call-budget tests, plus extension checks.
+Document the endpoint interface and any mixed-route work left for session 5.
+Leave public width caps intact and do not deploy.
+
+### Session 5 — Top-level mutation paging
+
+**Entry:** session 4's endpoint interface and tests; `DeviceHandlers`,
+`DeviceWindow`, the complete-chain fingerprints in both adapters, and the
+session-2 regression cases for seventeen- and eighteen-device tracks.
+
+Extend insertion, deletion, enabled-state changes, and reordering beyond
+sixteen top-level devices. Validate complete paged fingerprints and acquire
+the intended handles. Reordering must hold source and anchor when they
+cannot fit in one physical window. Resolve the pool-cursor ownership issue
+explicitly: the existing container scopes belong to cursor 0. Complete the
+top-level overflow endpoints of the mixed move/copy routes from session 4.
+
+**Exit:** handler and adapter tests cover the first and last positions of
+seventeen- and eighteen-device tracks, distant reorder endpoints, insertion
+across the boundary, mixed transfers, identity/refusal paths, restoration,
+and preservation of unrelated state. Keep read completeness separate from
+write support while public caps remain. Run relevant shared regressions,
+wire goldens, and call-budget tests. Record any remaining admission changes
+for session 6; do not deploy.
+
+### Session 6 — Cap retirement and composition
+
+**Entry:** the completed write routes and limitations recorded by sessions
+3–5. Audit every width-derived refusal before removing it.
+
+Update shared preflight, live and fake adapters, public schemas and
+descriptions, and composition together. Extend composition beyond its
+five-entry preset seed; a schema change alone cannot supply that shape.
+Retire the 5 × 4 composition limits while preserving D44's device-unit time
+budget. Resolve the earlier proposed product bounds explicitly: a physical
+window width alone is not a reason to impose a replacement capacity.
+Retain named-slot and parameter restrictions where those routes remain
+unproved.
+
+**Exit:** live/fake offline conformance covers the newly admitted shapes,
+including six chains, five devices in a chain, and more than sixteen
+top-level devices. Regress incomplete observations and unsupported routes;
+bump `TOOL_DESCRIPTION_VERSION` with the changed description artifact and
+update affected help, inventory, and tests. Run extension checks, brain
+checks, wire goldens, call budgets, and documentation checks. Prepare the
+scratch acceptance driver and an explicit expected profile/build-marker
+handoff for session 7. No deployment or live overflow call runs against the
+still-installed session-2 build in this session.
+
+### Session 7 — Integrated live acceptance
+
+**Entry:** session 6's checked implementation, descriptions, acceptance
+driver, and build expectations. Re-read NOW; earlier project, target,
+selection, client, and controller claims have expired across these sessions.
+
+Deploy normal **ghostnote** from `extension/` with `./gradlew copyExtension`.
+Controller replacement is operator-only: state which product to load, retain
+the actual confirmation, then run `npm run probe:hello` from `brain/`.
+Verify the normal profile, expected method count/hash, fresh initialization,
+and deliberate markers, including the chain-control marker. Restart the
+brain/MCP server as needed so it serves the matching implementation.
+
+Check project, targets, selection, and competing drivers/clients before any
+write. Use one foreground driver and one live writer on owned scratch
+objects. Run step 6 of [work and acceptance](#work-and-acceptance): compose
+two containers, grow one to six chains and one chain to five devices, solo
+and rename the sixth chain, and move the fifth device out. Also exercise
+same-container distant transfers and top-level insertion, enabled-state
+changes, deletion, and reordering beyond sixteen devices. Include a
+container beyond the first top-level page.
+
+**Exit:** independently read back each tool's result under D15/D55; inspect
+uncertain effects before further work and never automatically repeat the
+write. Remove owned scratch objects and verify preserved project/selection
+state. Record the acceptance, cleanup, and fixture-specific read/write costs
+in a new E record, update its index and the performance ledger, and update
+capability summaries, NOW, and backlog status. Keep earlier E/D records
+unchanged. B17 is complete only after this live acceptance passes; any
+failure leaves an explicit remaining task and an accurate state handoff.
 
 ## Session 1 result
 
@@ -419,6 +524,106 @@ calls. Regression tests cover both tools at the first and last positions of
 seventeen- and eighteen-device tracks, refuse before a live mutation frame,
 preserve complete reads and fake state, and retain successful writes on a
 sixteen-device track. These cases reproduced the mismatch before the fix.
+
+## Session 3 start: offline write-window foundation
+
+Started on 2026-10-27. This first implementation pass adds the navigation
+primitives; it does **not** expand product write reach or lift any cap yet.
+No archive was deployed, no live write ran, and no controller replacement
+is pending. The installed session-2 build and its live evidence remain the
+current product baseline.
+
+- `WindowAccess.withWindow` acquires an absolute range in one existing
+  window, requires repeated position-witnessed snapshots in separate tasks,
+  rejects population changes before work, and runs its work callback once.
+  It uses the earliest window that holds both endpoints, so a first-page
+  target needs no scroll. Distant endpoints require independent handles.
+  Nested work keeps the outer view held until the inner view restores zero.
+  A failed inner restoration still attempts to restore the outer view.
+- The helper permits population changes caused by work and retains the
+  work result, `workStarted`, and any error through restoration. It never
+  retries work. A restoration failure remains `WindowPager.RestoreFailure`;
+  handlers must latch it before releasing their write lease. Restoration
+  explicitly requests zero to supersede any pending nonzero request.
+  The caller supplies track/target identity checks, owns the lease, and
+  maintains the window's identity witnesses across structural edits. These
+  are integration obligations, not host behavior proved by this harness.
+- `ContainerScopes.aimIndependent` holds one scope per endpoint, including
+  two endpoints at the same container position. `Settled.slotAt` resolves
+  them by request order; ambiguous `slotOf` use refuses. This supports a
+  future move between distant chains in one container without moving the
+  source's bank while resolving the destination. Existing `aim` callers
+  retain their distinct-position sharing and wire behavior.
+- Offline verification: `./gradlew check`, including eleven `WindowAccessTest`
+  groups and twelve `ContainerScopesTest` groups. The new coverage includes
+  all three window boundaries, target mapping, identical layer names with
+  delayed channel-ID witnesses, clamped-scroll repair, bounded refusals,
+  population changes, applied/partial results, exactly-once work, nested
+  restoration, and queued-write refusal after a restoration failure.
+  Profile inventories/hashes, build marker, public descriptions, and current
+  runtime costs are unchanged; no new live measurement is claimed.
+
+The remaining work is assigned to [sessions 4–7](#sessions). The next
+fresh session is [nested move/copy paging](#session-4--nested-move-and-copy-paging).
+
+## Session 3 chain-control integration
+
+Implemented on 2026-10-27; **verified offline, not yet deployed or checked
+in Bitwig**. This completes the chain-control task and is the session-3
+checkpoint. The operator agreed to continue the remaining work in fresh
+[sessions 4–7](#sessions); this checkpoint does not claim live acceptance.
+
+`ChainControlHandlers` now registers `chain.select`, `chain.duplicate`,
+`chain.setName`, `chain.activate`, and `chain.setSolo`. Their absolute
+container positions and chain indices can exceed the physical windows.
+The existing relocation handler retains its bounds until its two endpoints
+can be acquired safely. Public preflight and schema caps remain in place,
+so the normal tools do not yet admit overflow writes.
+
+The controls take one scope lease, page chain metadata (IDs, names, and solo
+flags), resolve the target, and use `WindowAccess` to acquire its page.
+They do not read nested devices or allocate additional host handles. Rename
+searches the complete metadata by channel ID; it never substitutes an index.
+Activation clears observed sibling solos in groups that fit a window before
+enabling the target, including when the target was already soloed. A later
+failure reports possible partial effects and retains completed clears.
+There is no independent per-stage result readback inside these handlers;
+the tool's final independent readback remains required.
+
+Duplication keeps the separate, earlier `chain.select` operation required
+by E17ak. Its restoration witness accepts the original ID order while the
+duplicate has not arrived, or the E353 projection with one new ID immediately
+after the source. It rejects unexpected placement and duplicate identities.
+The handler never repeats duplication, including after a no-op, a thrown
+partial write, or a failed restoration. The acknowledgement alone does not
+claim that a copy was created; the brain still identifies the copy from the
+independent reading and renames that ID.
+
+The brain sends its freshly observed `expectedChannelId` for selection,
+duplication, activation, and solo, alongside the existing name and track
+guards. An older extension that omits source IDs now refuses before
+selection/duplication; the selection cleanup runs on that failure. Rename
+continues to send its required `channelId`. No extra wire request was added.
+
+Integration also corrected `WindowPager` restoration: it now explicitly
+requests zero to supersede pending navigation and restores the outer window
+after a nested restoration failure. Restoration errors latch refusal before
+lease release; batch continuations can start their next aim only afterward.
+`rig.info.layerControlRoute` reports the new deliberate marker
+`paged-chain-controls-v1`. The existing read marker remains `paged-windows-v3`;
+method profiles/hashes and descriptions v56 are unchanged.
+
+Verification: `./gradlew check`; twelve registered-handler test groups;
+`npm run typecheck`; all 2,574 brain tests, including local TCP tests and
+the existing tool call budgets; documentation links and diff checks.
+The handler model exercises the actual registered handlers at container
+position 17 and chains 0, 5, and 10, with delayed position/item observers,
+identical names, shifted duplication identities, multi-page activation,
+partial effects, navigation refusal, queued-write blocking, and batch
+continuation. These are offline results; live costs and host behavior remain
+to be established during [session 7](#session-7--integrated-live-acceptance). The
+[performance ledger](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) records
+the changed internal traversal without assigning a new latency measurement.
 
 ## Risks and open questions
 

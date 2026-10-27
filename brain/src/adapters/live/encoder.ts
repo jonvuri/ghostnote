@@ -768,6 +768,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         // anything, which turns a stale position into an error instead of a copy
         // of somebody else's chain.
         expectedName: op.source.name,
+        expectedChannelId: ctx.chainId(op.source),
         expectedTrackChannelId: op.source.container.track.channelId,
       })];
 
@@ -820,6 +821,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         position: op.chain.container.chainIndex,
         chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
+        expectedChannelId: ctx.chainId(op.chain),
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
@@ -828,6 +830,7 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         position: op.chain.container.chainIndex,
         chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
+        expectedChannelId: ctx.chainId(op.chain),
         expectedTrackChannelId: op.chain.container.track.channelId,
         solo: op.solo,
       })];

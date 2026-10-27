@@ -87,7 +87,7 @@ public final class WindowPager {
                     else restore(error);
                     return;
                 }
-                if (!ready && (attempts == 1 || attempts % ContainerScopes.RESCROLL_POLLS == 0)) {
+                if (!ready && ((!restoring && attempts == 1) || attempts % ContainerScopes.RESCROLL_POLLS == 0)) {
                     if (target != 0) leftZero = true;
                     window.scroll(target); scrolls++;
                 }
@@ -99,16 +99,26 @@ public final class WindowPager {
         }
         void reset() { attempts = 0; previous = null; previousCount = -1; }
         void restore(Exception error) {
-            if (error instanceof RestoreFailure) { finish(error); return; }
-            if (!leftZero && window.position() == 0) { finish(error); return; }
             failure = error;
             restoring = true;
             reset();
+            try {
+                if (!leftZero && window.position() == 0) { finish(error); return; }
+                // Supersede a pending nonzero request even when its position has not arrived yet.
+                // An inner failure still requires restoring this outer window before releasing its lease.
+                window.scroll(0);
+                scrolls++;
+            } catch (Exception restoreError) {
+                if (finished) throw restoreError;
+                finish(new RestoreFailure(restoreError));
+                return;
+            }
             poll();
         }
         void finish(Exception error) {
             if (finished) return;
             finished = true;
+            if (error != null && failure != null && error != failure) error.addSuppressed(failure);
             done.accept(new Result(total, pages, polls, scrolls), error);
         }
     }

@@ -69,13 +69,7 @@ public final class ContainerHandlers extends HandlerGroup {
         // scope for it in later tasks and replies once (`ContainerScopes`).
         r.onAsync("chain.observe", this::chainObserve);
         r.onAsync("chain.move", this::chainMove);
-        // ⚠⚠ Session 3f step 6b-2 — PRODUCT surface, the first write that reaches
-        // inside a container. See the block comment above `chainSelect`.
-        r.onAsync("chain.select", this::chainSelect);
-        r.onAsync("chain.duplicate", this::chainDuplicate);
-        r.onAsync("chain.setName", this::chainSetName);
-        r.onAsync("chain.activate", this::chainActivate);
-        r.onAsync("chain.setSolo", this::chainSetSolo);
+        ChainControlHandlers.over(host, rig).register(r);
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -1226,7 +1220,7 @@ public final class ContainerHandlers extends HandlerGroup {
         });
     }
 
-    /** An integer top-level position inside the reference bank, validated BEFORE any Bitwig call (rule 3c). */
+    /** Relocation endpoints retain their first-window bound until the B17 move/copy integration. */
     private int requirePosition(JsonObject params, String field) {
         if (!params.has(field) || !params.get(field).isJsonPrimitive()
                 || !params.get(field).getAsJsonPrimitive().isNumber()) {
@@ -1241,8 +1235,8 @@ public final class ContainerHandlers extends HandlerGroup {
     }
 
     /**
-     * An absolute chain index. Session 1 of B17 keeps the chain window at rest, so the index must lie inside
-     * it; session 3 adds writes past its first page.
+     * Relocations still require the first chain window. Paged controls validate absolute indices in
+     * ChainControlHandlers; lifting this bound also requires acquiring both relocation endpoints.
      */
     private int requireChainIndex(JsonObject params, String field) {
         if (!params.has(field) || !params.get(field).isJsonPrimitive()
@@ -1382,224 +1376,6 @@ public final class ContainerHandlers extends HandlerGroup {
                 chains.add(chain);
                 pageChainDevices(pager, slot, offset, page, index + 1, chains, devicePages, done);
             });
-    }
-
-    /**
-     * The chain a write is about to act on, through the scope the aim settled at its container's position,
-     * and checked against the name the caller observed.
-     *
-     * ⚠ The name check is the whole point. A bank position is not an identity: a chain bank re-indexes when a
-     * chain is added or removed (E3, one level down), so an index learned from one reply can name a different
-     * chain in the next request. Aimed at the wrong chain, the verbs succeed and report `ok`.
-     *
-     * ⚠ An absent chain throws rather than no-op'ing, for the e16o reason: aimed at an empty bank slot these
-     * verbs are silent no-ops byte-identical to an API refusal.
-     */
-    private DeviceLayer requireChain(ContainerScopes.Settled settled, int position, int chainIndex, JsonObject params) {
-        int slot = settled.slotOf(position);
-        if (slot == ContainerScopes.EMPTY) {
-            throw new IllegalArgumentException("no device at position " + position + " — the track holds "
-                + settled.deviceCount() + " devices");
-        }
-        DeviceLayer layer = rig.slotLayerBanks[slot].getItemAt(chainIndex);
-        if (!layer.exists().get()) {
-            throw new IllegalArgumentException(
-                "no chain at position " + position + " index " + chainIndex + " — the device is "
-                + rig.scopeDevice(slot).name().get() + ", holding " + countSlotChains(slot) + " chains");
-        }
-        if (params.has("expectedName")) {
-            String expected = params.get("expectedName").getAsString();
-            String actual = layer.name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "chain at position " + position + " index " + chainIndex + " is named \"" + actual
-                    + "\", not \"" + expected + "\" — the bank re-indexed since it was observed, "
-                    + "and acting on a stale index would hit a chain nobody addressed");
-            }
-        }
-        return layer;
-    }
-
-    /** Identify the chain a call is about to act on, read BEFORE the act (`e16t`). */
-    private JsonObject describeChain(ContainerScopes.Settled settled, int position, int chainIndex, DeviceLayer layer) {
-        int slot = settled.slotOf(position);
-        JsonObject r = ok();
-        r.addProperty("position", position);
-        r.addProperty("chainIndex", chainIndex);
-        r.addProperty("slot", slot);
-        r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
-        putGuarded(r, "sourceName", () -> layer.name().get());
-        putGuarded(r, "sourceChannelId", () -> layer.channelId().get());
-        putGuarded(r, "containerName", () -> rig.scopeDevice(slot).name().get());
-        // ⚠ Named beside the rest: a position means nothing without knowing which TRACK the device bank is
-        // on (the e16o trap, one level up), and these banks follow `cursorTracks[0]`.
-        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-        r.add("aim", settled.report());
-        return r;
-    }
-
-    private String requireTrackIdentity(JsonObject params, String method) {
-        if (!params.has("expectedTrackChannelId") || params.get("expectedTrackChannelId").isJsonNull()) {
-            throw new IllegalArgumentException(method + " needs expectedTrackChannelId");
-        }
-        return params.get("expectedTrackChannelId").getAsString();
-    }
-
-    /**
-     * ⚠ Make a chain the editor selection — `e17ak`'s enabling half.
-     *
-     * `DeviceLayer` is a `DeviceChain`, so it carries `selectInEditor()`, and `e17y` proved our call sets the
-     * identical flag a human click does. SELECT IS ITS OWN CALL, deliberately: E2 says a write is not visible
-     * to a read in the same request, and `e17ak` fired the select one turn before the duplicate. The brain
-     * sends `chain.select`, settles, and only then sends `chain.duplicate`.
-     */
-    private void chainSelect(JsonObject params, Bridge.Reply reply) {
-        int position = requirePosition(params, "position");
-        int chainIndex = requireChainIndex(params, "chainIndex");
-        withScopes(new int[] {position}, params, reply, settled -> {
-            DeviceLayer layer = requireChain(settled, position, chainIndex, params);
-            JsonObject r = describeChain(settled, position, chainIndex, layer);
-            layer.selectInEditor();
-            return r;
-        });
-    }
-
-    /**
-     * ⚠⚠ `Channel.duplicate()` on an already-selected chain — the create itself (`e17ak`: the one typed route
-     * that makes a chain). It selects again first, belt and braces: the load-bearing selection is the one made
-     * in the PREVIOUS request. Returns the source's identity read BEFORE the verb fires; the brain identifies
-     * the copy by diffing channelIds across two observations.
-     */
-    private void chainDuplicate(JsonObject params, Bridge.Reply reply) {
-        int position = requirePosition(params, "position");
-        int chainIndex = requireChainIndex(params, "chainIndex");
-        withScopes(new int[] {position}, params, reply, settled -> {
-            DeviceLayer layer = requireChain(settled, position, chainIndex, params);
-            JsonObject r = describeChain(settled, position, chainIndex, layer);
-            layer.selectInEditor();
-            layer.duplicate();
-            return r;
-        });
-    }
-
-    /**
-     * ⚠⚠ Rename the chain carrying this `channelId` — BY IDENTITY, never by name and never by position.
-     *
-     * A duplicate arrives carrying its source's NAME, so at the moment this runs the container holds two
-     * chains one name cannot tell apart; and a bank index is exactly what the duplicate just invalidated.
-     * `channelId` is worthless ACROSS a project load (E17ad, E18b) and exactly right WITHIN the turn that just
-     * observed it. It REFUSES an id it cannot find, and refuses again if two chains report the same one.
-     */
-    private void chainSetName(JsonObject params, Bridge.Reply reply) {
-        int position = requirePosition(params, "position");
-        String channelId = params.get("channelId").getAsString();
-        String name = params.get("name").getAsString();
-        // Validated BEFORE the write: a chain's name is its only durable
-        // identifier (E18b), so a blank one is not a weak name but no name.
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException("name must not be blank");
-        }
-        withScopes(new int[] {position}, params, reply, settled -> {
-            int slot = settled.slotOf(position);
-            if (slot == ContainerScopes.EMPTY) {
-                throw new IllegalArgumentException("no device at position " + position + " — the track holds "
-                    + settled.deviceCount() + " devices");
-            }
-            DeviceLayer target = null;
-            int at = -1;
-            for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
-                DeviceLayer candidate = rig.slotLayerBanks[slot].getItemAt(l);
-                if (!candidate.exists().get() || !channelId.equals(candidate.channelId().get())) {
-                    continue;
-                }
-                if (target != null) {
-                    throw new IllegalArgumentException(
-                        "two chains at position " + position + " report channelId " + channelId
-                        + " — refusing rather than renaming whichever was enumerated first");
-                }
-                target = candidate;
-                at = l;
-            }
-            if (target == null) {
-                throw new IllegalArgumentException(
-                    "no chain at position " + position + " has channelId " + channelId
-                    + " — the container holds " + countSlotChains(slot) + " chains. Refusing rather "
-                    + "than falling back to an index, which is what this id exists to avoid");
-            }
-            final DeviceLayer chain = target;
-            JsonObject r = ok();
-            r.addProperty("position", position);
-            r.addProperty("chainIndex", at);
-            r.addProperty("slot", slot);
-            r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
-            r.addProperty("requested", name);
-            // Read BEFORE the write, so a reply describes what was there rather than
-            // what we just put there (`e16t`).
-            putGuarded(r, "previousName", () -> chain.name().get());
-            putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-            r.add("aim", settled.report());
-            chain.name().set(name);
-            return r;
-        });
-    }
-
-    /** Make one chain the sole soloed chain in its container. */
-    private void chainActivate(JsonObject params, Bridge.Reply reply) {
-        int position = requirePosition(params, "position");
-        int chainIndex = requireChainIndex(params, "chainIndex");
-        String expectedTrack = requireTrackIdentity(params, "chain.activate");
-        withScopes(new int[] {position}, params, reply, settled -> {
-            String actualTrack = rig.cursorTracks[0].channelId().get();
-            if (!expectedTrack.equals(actualTrack)) {
-                throw new IllegalArgumentException(
-                    "chain.activate track identity changed: expected " + expectedTrack + ", got " + actualTrack);
-            }
-            DeviceLayer target = requireChain(settled, position, chainIndex, params);
-            int slot = settled.slotOf(position);
-            JsonObject r = describeChain(settled, position, chainIndex, target);
-            // Clear any exceptional multi-solo state first. Then use the measured
-            // exclusivity primitive only when the requested target is not already on;
-            // toggle(true) on an already-soloed target would turn it off.
-            for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
-                if (l == chainIndex) continue;
-                DeviceLayer sibling = rig.slotLayerBanks[slot].getItemAt(l);
-                if (sibling.exists().get() && sibling.solo().get()) {
-                    sibling.solo().set(false);
-                }
-            }
-            if (!target.solo().get()) {
-                target.solo().toggle(true);
-            }
-            return r;
-        });
-    }
-
-    /**
-     * 8h4e: set the solo flag of one chain. It is not exclusive: the sibling flags do not change. The brain
-     * proves the result from a new container observation.
-     */
-    private void chainSetSolo(JsonObject params, Bridge.Reply reply) {
-        if (!params.has("solo") || !params.get("solo").isJsonPrimitive()
-                || !params.get("solo").getAsJsonPrimitive().isBoolean()) {
-            throw new IllegalArgumentException("chain.setSolo needs a boolean solo");
-        }
-        boolean solo = params.get("solo").getAsBoolean();
-        int position = requirePosition(params, "position");
-        int chainIndex = requireChainIndex(params, "chainIndex");
-        String expectedTrack = requireTrackIdentity(params, "chain.setSolo");
-        withScopes(new int[] {position}, params, reply, settled -> {
-            String actualTrack = rig.cursorTracks[0].channelId().get();
-            if (!expectedTrack.equals(actualTrack)) {
-                throw new IllegalArgumentException(
-                    "chain.setSolo track identity changed: expected " + expectedTrack + ", got " + actualTrack);
-            }
-            DeviceLayer target = requireChain(settled, position, chainIndex, params);
-            JsonObject r = describeChain(settled, position, chainIndex, target);
-            r.addProperty("previousSolo", target.solo().get());
-            r.addProperty("requestedSolo", solo);
-            target.solo().set(solo);
-            return r;
-        });
     }
 
     /**

@@ -4681,6 +4681,7 @@ test('L-chain-create: the copy is SELECTED first, then named by the id it was ob
   // visibility E2 says does not exist, and would fail as a silent no-op.
   const order = wire.frames.map((f) => f.method);
   const selectAt = order.indexOf(WIRE.chainSelect);
+  assert.equal((wire.frames[selectAt]?.params as Record<string, unknown>)['expectedChannelId'], 'chain-id-1');
   const batchAt = order.findIndex((m, i) => m === WIRE.batchRun && i > selectAt);
   assert.ok(selectAt >= 0 && batchAt > selectAt, 'select comes before the batch that duplicates');
   const batch = wire.frames[batchAt]!.params as Record<string, unknown>;
@@ -4716,22 +4717,19 @@ test('L-chain-create: a duplicate that silently did nothing mints NOTHING and sa
   assert.match(failed[0]?.error ?? '', /exactly one more was expected/);
 });
 
-test('L-chain-create: an extension too old to report chain ids mints NOTHING', async () => {
+test('L-chain-create: missing chain IDs refuse before selection or duplication', async () => {
   // Silence must fail closed: `methodsHash` is over method NAMES, so a
   // deployment that predates the per-chain `channelId` cannot be detected at the
   // handshake. Falling back to position would rename by guesswork.
   const wire = new ChainCreateTransport(true);
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
-  const receipt = await adapter.apply({
+  await assert.rejects(adapter.apply({
     ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
-  });
-
-  assert.deepEqual(receipt.minted, {});
-  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped', 'gn-shipped'],
-    '⚠ the copy is REAL and is wearing the source name — which is what the failure has to report');
-  const failed = receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok);
-  assert.match(failed[0]?.error ?? '', /names two chains and neither resolves/);
+  }), /no fresh observation recorded an identity/);
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped']);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainSelect), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainDuplicate), false);
 });
 
 test('L-chain-create: a rename the extension REFUSES is reported, never thrown', async () => {
@@ -4842,6 +4840,7 @@ test('L-chain-solo: on and off change only the addressed chain, proved by readba
     : [frame as { method: string; params: Record<string, unknown> }])
     .filter((frame) => frame.method === WIRE.chainSetSolo);
   assert.deepEqual(sent.map((frame) => [frame.params['chainIndex'], frame.params['solo']]), [[1, true], [0, false]]);
+  assert.deepEqual(sent.map((frame) => frame.params['expectedChannelId']), ['chain-id-2', 'chain-id-1']);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
 });
 

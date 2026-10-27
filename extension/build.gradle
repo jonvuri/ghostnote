@@ -347,3 +347,17 @@ tasks.register('containerPagingTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.handlers.ContainerPagingTest'
 }
 tasks.named('check') { dependsOn 'containerPagingTest' }
+
+tasks.register('windowAccessTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.WindowAccessTest'
+}
+tasks.named('check') { dependsOn 'windowAccessTest' }
+
+tasks.register('chainControlHandlersTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ChainControlHandlersTest'
+}
+tasks.named('check') { dependsOn 'chainControlHandlersTest' }

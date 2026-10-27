@@ -461,6 +461,7 @@ test('E-chain: a create names its container by POSITION and its source by OBSERV
   // ⚠ Carried so the extension can refuse a position that re-indexed since it
   // was observed, instead of copying whatever slid into it (E3, one level down).
   assert.equal(params?.['expectedName'], 'A take');
+  assert.equal(params?.['expectedChannelId'], 'id-A take');
   // ⚠ And NO cursor and NO trackIndex: these banks hang off `cursorTracks[0]`
   // via the slot scopes, and the load-bearing point is the settled one the
   // adapter makes in an earlier request. A point in this frame would look like a
@@ -544,6 +545,7 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   assert.equal(params?.['position'], 1);
   assert.equal(params?.['chainIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
+  assert.equal(params?.['expectedChannelId'], 'id-B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
 });
 
@@ -557,8 +559,29 @@ test('8h4e encoder: a solo set carries the identity guards and the requested fla
     assert.equal(params?.['position'], 1);
     assert.equal(params?.['chainIndex'], 3);
     assert.equal(params?.['expectedName'], 'B take');
+    assert.equal(params?.['expectedChannelId'], 'id-B take');
     assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(params?.['solo'], solo);
+  }
+});
+
+test('B17 chain controls retain absolute overflow positions and their observed channel ID', () => {
+  const target = chainAt(device(TRACK_A, 17), 'sixth');
+  const observed: EncodeContext = { ...ctx, chainIndex: () => 5, chainId: () => 'sixth-id' };
+  const controls: Op[] = [
+    { op: 'chain.create', source: target, name: 'copy' },
+    { op: 'chain.activate', chain: target },
+    { op: 'chain.solo', chain: target, solo: true },
+  ];
+  for (const op of controls) {
+    const frames = encodeOp(op, observed);
+    assert.equal(frames.length, 1);
+    const params = frames[0]!.params as Record<string, unknown>;
+    assert.equal(params['position'], 17);
+    assert.equal(params['chainIndex'], 5);
+    assert.equal(params['expectedChannelId'], 'sixth-id');
+    assert.equal(params['slot'], undefined);
+    assert.equal(params['layerWindow'], undefined, 'window state stays in the extension');
   }
 });
 

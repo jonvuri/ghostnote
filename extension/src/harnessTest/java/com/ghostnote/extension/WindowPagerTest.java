@@ -88,6 +88,32 @@ public final class WindowPagerTest {
         drain();
         check(changed.error != null && changing.position == 0 && changed.replies == 1, "count change refuses once");
 
+        Model pending = new Model(4, 5);
+        int[] requested = {0};
+        Capture canceled = new Capture();
+        pager().read(new WindowPager.Window() {
+            public int width() { return pending.width(); }
+            public int count() { return pending.count(); }
+            public int position() { return 0; }
+            public void scroll(int target) { requested[0] = target; }
+            public JsonArray snapshot() { return pending.snapshot(); }
+        }, (offset, rows, next) -> next.accept(null), canceled::done);
+        while (requested[0] == 0) tasks.remove().run();
+        pending.count++;
+        drain();
+        check(canceled.error != null && canceled.replies == 1 && requested[0] == 0,
+            "a refused read actively cancels navigation whose position has not arrived");
+
+        Model failedOuter = new Model(5, 6);
+        Capture nestedFailure = new Capture();
+        pager().read(failedOuter, (offset, rows, next) -> {
+            if (offset == 0) { next.accept(null); return; }
+            next.accept(new WindowPager.RestoreFailure(new IllegalStateException("inner failed")));
+        }, nestedFailure::done);
+        drain();
+        check(nestedFailure.error instanceof WindowPager.RestoreFailure && failedOuter.position == 0,
+            "an inner restore failure does not leave the outer read window displaced");
+
         Model outer = new Model(5, 6);
         Capture nested = new Capture();
         WriteGate gate = new WriteGate(tasks::add, () -> 0L, 8);

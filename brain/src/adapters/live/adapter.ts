@@ -5425,6 +5425,7 @@ export class LiveAdapter implements BitwigAdapter {
         position: op.source.container.chainIndex,
         chainIndex: this.chainIndex(op.source),
         expectedName: op.source.name,
+        expectedChannelId: this.chainId(op.source),
         expectedTrackChannelId: op.source.container.track.channelId,
       },
     });
@@ -5837,8 +5838,13 @@ export class LiveAdapter implements BitwigAdapter {
         // ⚠ The positions the ENCODER will use come from THIS reading, not from
         // the pre-batch one. A container re-indexes when a chain is added, and an
         // earlier stage in the same batch is allowed to have added one.
-        this.recordChainPositions(createOp.source.container, containerBefore.container);
-        await this.selectSourceChain(createOp);
+        try {
+          this.recordChainPositions(createOp.source.container, containerBefore.container);
+          await this.selectSourceChain(createOp);
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
       }
 
       const renameAt = stage.ops.findIndex((o) => o.op === 'chain.rename');

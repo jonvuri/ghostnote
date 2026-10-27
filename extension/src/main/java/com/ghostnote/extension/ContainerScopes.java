@@ -67,6 +67,8 @@ public final class ContainerScopes {
     public interface Settled {
         /** The scope slot settled at {@code position}, or {@link #EMPTY} when the position holds no device. */
         int slotOf(int position);
+        /** The slot for an endpoint in request order, including repeated positions in an independent aim. */
+        int slotAt(int endpoint);
         /** The reference bank's device count at the settle. */
         int deviceCount();
         /** Polls, scrolls, and elapsed time of the aim, for the reply. */
@@ -102,11 +104,18 @@ public final class ContainerScopes {
         }
 
         @Override public int slotOf(int position) {
+            int found = UNCHOSEN;
             for (int i = 0; i < positions.length; i++) {
-                if (positions[i] == position) return slots[i];
+                if (positions[i] != position) continue;
+                if (found != UNCHOSEN)
+                    throw new IllegalArgumentException("position " + position + " has multiple endpoints; use slotAt");
+                found = slots[i];
             }
+            if (found != UNCHOSEN) return found;
             throw new IllegalArgumentException("position " + position + " was not aimed at");
         }
+
+        @Override public int slotAt(int endpoint) { return slots[endpoint]; }
 
         @Override public int deviceCount() { return deviceCount; }
 
@@ -181,8 +190,20 @@ public final class ContainerScopes {
      * else in a later task. Validation throws before anything is taken or moved.
      */
     public void aim(int[] requested, String expectedTrack, Outcome outcome) {
+        aimPositions(Arrays.stream(requested).distinct().toArray(), expectedTrack, outcome);
+    }
+
+    /**
+     * Hold a separate scope for every endpoint, even when two endpoints name the same container.
+     * Their nested layer windows can then settle at different pages simultaneously. Existing callers of
+     * {@link #aim} continue to share one scope per distinct position; independent callers use slotAt.
+     */
+    public void aimIndependent(int[] requested, String expectedTrack, Outcome outcome) {
+        aimPositions(requested.clone(), expectedTrack, outcome);
+    }
+
+    private void aimPositions(int[] positions, String expectedTrack, Outcome outcome) {
         if (current != null) throw new IllegalStateException("a container scope operation is already open");
-        int[] positions = Arrays.stream(requested).distinct().toArray();
         for (int position : positions) {
             if (position < 0) {
                 throw new IllegalArgumentException(
