@@ -68,7 +68,7 @@ public final class ContainerHandlers extends HandlerGroup {
         // write name an absolute container position; each aims and settles a
         // scope for it in later tasks and replies once (`ContainerScopes`).
         r.onAsync("chain.observe", this::chainObserve);
-        r.onAsync("chain.move", this::chainMove);
+        ChainMoveHandlers.over(host, rig, this::verifyExpectedTopLevelDevices).register(r, this::chainMove);
         ChainControlHandlers.over(host, rig).register(r);
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
@@ -1220,7 +1220,7 @@ public final class ContainerHandlers extends HandlerGroup {
         });
     }
 
-    /** Relocation endpoints retain their first-window bound until the B17 move/copy integration. */
+    /** Legacy named-slot relocation endpoints retain their first-window bound. */
     private int requirePosition(JsonObject params, String field) {
         if (!params.has(field) || !params.get(field).isJsonPrimitive()
                 || !params.get(field).getAsJsonPrimitive().isNumber()) {
@@ -1235,8 +1235,8 @@ public final class ContainerHandlers extends HandlerGroup {
     }
 
     /**
-     * Relocations still require the first chain window. Paged controls validate absolute indices in
-     * ChainControlHandlers; lifting this bound also requires acquiring both relocation endpoints.
+     * Named-slot relocations still require the first chain window. Layer-only and track/layer
+     * relocations acquire absolute endpoints in ChainMoveHandlers.
      */
     private int requireChainIndex(JsonObject params, String field) {
         if (!params.has(field) || !params.get(field).isJsonPrimitive()
@@ -1246,7 +1246,7 @@ public final class ContainerHandlers extends HandlerGroup {
         double raw = params.get(field).getAsDouble();
         if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= Rig.SLOT_LAYER_BANK) {
             throw new IllegalArgumentException(field + " must be an integer in 0.." + (Rig.SLOT_LAYER_BANK - 1)
-                + ": " + raw + " (writes past the window arrive in B17 session 3)");
+                + ": " + raw + " (named-slot routes require the first chain window)");
         }
         return (int) raw;
     }

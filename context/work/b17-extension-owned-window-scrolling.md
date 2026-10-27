@@ -172,8 +172,8 @@ and live acceptance in session 7.
 | 1 | Extension-owned scopes; absolute wire positions and indices | Complete, live E354 |
 | 2 | Paged top-level and nested reads | Complete, live E356 |
 | 3 | Write-window foundation and paged chain controls | Checkpointed; offline checks pass; not deployed |
-| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Next; fresh session |
-| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Queued; fresh session |
+| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Checkpointed; offline checks pass; not deployed |
+| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Next; fresh session |
 | [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Queued; fresh session |
 | [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Queued; fresh session |
 
@@ -190,9 +190,9 @@ the separate named-slot and parameter limits throughout this work.
 **Entry:** the [session-3 chain-control checkpoint](#session-3-chain-control-integration),
 `ContainerHandlers.chainMove`, `ContainerScopes.aimIndependent`,
 `WindowAccess`, and the registered-handler test pattern in
-`ChainControlHandlersTest`. The existing `chain.move` handler still uses its
-first-window bounds; independent same-container scopes are available but
-not yet used by it.
+`ChainControlHandlersTest`. At session entry, `chain.move` still used its first-window bounds and did
+not yet use independent same-container scopes. The implemented result is in
+the [session-4 checkpoint](#session-4-nested-relocation-checkpoint).
 
 Implement source-device acquisition beyond the four-device window and
 source/destination chain acquisition beyond the five-chain window. Use
@@ -218,7 +218,7 @@ Leave public width caps intact and do not deploy.
 
 ### Session 5 — Top-level mutation paging
 
-**Entry:** session 4's endpoint interface and tests; `DeviceHandlers`,
+**Entry:** the [session-4 endpoint interface and tests](#session-4-nested-relocation-checkpoint); `DeviceHandlers`,
 `DeviceWindow`, the complete-chain fingerprints in both adapters, and the
 session-2 regression cases for seventeen- and eighteen-device tracks.
 
@@ -271,7 +271,7 @@ Deploy normal **ghostnote** from `extension/` with `./gradlew copyExtension`.
 Controller replacement is operator-only: state which product to load, retain
 the actual confirmation, then run `npm run probe:hello` from `brain/`.
 Verify the normal profile, expected method count/hash, fresh initialization,
-and deliberate markers, including the chain-control marker. Restart the
+and deliberate markers, including the chain-control and chain-move markers. Restart the
 brain/MCP server as needed so it serves the matching implementation.
 
 Check project, targets, selection, and competing drivers/clients before any
@@ -563,8 +563,9 @@ current product baseline.
   Profile inventories/hashes, build marker, public descriptions, and current
   runtime costs are unchanged; no new live measurement is claimed.
 
-The remaining work is assigned to [sessions 4–7](#sessions). The next
-fresh session is [nested move/copy paging](#session-4--nested-move-and-copy-paging).
+The remaining work was assigned to [sessions 4–7](#sessions). Session 4 is
+now checkpointed below; the next fresh session is
+[top-level mutation paging](#session-5--top-level-mutation-paging).
 
 ## Session 3 chain-control integration
 
@@ -624,6 +625,76 @@ continuation. These are offline results; live costs and host behavior remain
 to be established during [session 7](#session-7--integrated-live-acceptance). The
 [performance ledger](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) records
 the changed internal traversal without assigning a new latency measurement.
+
+## Session 4 nested-relocation checkpoint
+
+Implemented on 2026-10-27; **verified offline, not deployed or verified in
+Bitwig**. Session 4 is checkpointed. Continue with
+[session 5](#session-5--top-level-mutation-paging) in a fresh session; public
+width admission remains unchanged until session 6, and session 7 owns live
+acceptance.
+
+`ChainMoveHandlers` registers the existing `chain.move` wire command and
+handles layer-chain-to-layer-chain, layer-chain-to-track, and
+track-to-layer-chain move/copy. Source device indices can exceed the
+four-device window, and both chain indices can exceed the five-chain window.
+`ContainerScopes.aimIndependent` gives each chain endpoint its own scope,
+including distant chains in the same container. No new host handles or wire
+requests are allocated. Named-slot endpoints and legacy top-to-top probe
+calls delegate to the earlier bounded handler.
+
+The handler reads chain metadata to establish channel-ID page witnesses,
+then holds both chain pages while acquiring the source device page with
+`WindowAccess`. Device positions witness the source page. The brain sends
+`expectedSourceChannelId` and `expectedDestinationChannelId` from its existing
+observations, alongside the track, chain-name, source-device-name, and
+optional complete top-level fingerprints. Both endpoint identities are
+checked before the one transfer. Reply names are captured before the source
+bank reindexes. The acknowledgement remains insufficient proof of success;
+the tool retains its final independent readback under D15/D55.
+
+Restoration unwinds the source device window before either enclosing chain
+window and releases the scope lease before replying. A failed inner restore
+still attempts outer restoration and latches the write gate before queued
+or batch work can proceed. A thrown transfer reports possible partial effects
+and never retries or removes correct effects. Mixed transfers use the
+observed top-level count projection to follow the same container if removing
+a preceding top-level source or inserting at the start of the track shifts
+its index; channel-ID witnesses remain in force during restoration. A no-op
+retains the original index projection.
+
+**Session-5 interface and limits:** `ChainMoveHandlers.Endpoint` holds absolute
+container/chain coordinates, the acquired scope slot and local chain index,
+and the chain ID/name. Its `Host` seam supplies existing layer/device windows,
+endpoint readiness, the top-level fingerprint guard, and one transfer.
+`Operation.acquire` holds chain pages recursively; `acquireDevice` supplies
+the source's local device index to `Host.transfer`. Top-level handles still
+belong to cursor 0 and must be on page zero. Mixed transfers require the
+whole top-level chain to fit the current write window and room for a new
+top-level destination. The existing complete-fingerprint validator also
+retains its sixteen-device bound. Session 5 must replace these top-level
+acquisition/fingerprint restrictions and settle cursor-pool ownership; it
+must preserve independently held chain endpoints and mixed-route restoration.
+Named-slot paging remains outside this route.
+
+The new deliberate `rig.info.chainMoveRoute` marker is
+`paged-chain-moves-v1`. The read marker remains `paged-windows-v3`, and the
+chain-control marker remains `paged-chain-controls-v1`. Normal profile stays
+93 methods, hash `d6decf985f6b1f36`; public descriptions stay v56. The installed
+archive remains session 2's v3 build. No controller replacement is pending.
+
+Verification: `./gradlew check`, plus the expanded twelve registered-handler
+test groups; `npm run check` (typecheck and all 2,575 brain tests, including
+local TCP tests, adapter/encoder regressions, wire goldens, and tool call
+budgets); documentation links and diff checks. The handler tests cover the
+six-chain/five-device boundary, chains 0/5/10 and source devices 4/5/9,
+empty destinations, same/different containers, mixed transfers and shifted
+indices, identical chain names with delayed observers, unrelated-device
+preservation, identity/input refusals, no-ops and partial effects, restoration
+failures, and queued/batch continuation. These tests model host behavior;
+session 7 must establish the new route in Bitwig. The
+[ledger](../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) records its internal
+work without claiming new live latency.
 
 ## Risks and open questions
 

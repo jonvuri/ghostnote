@@ -102,6 +102,7 @@ public final class CoreHandlers extends HandlerGroup {
         // B17 deliberate build marker: the extension owns the container scopes.
         result.addProperty("containerScopeRoute", ContainerScopes.RULE);
         result.addProperty("layerControlRoute", ChainControlHandlers.RULE);
+        result.addProperty("chainMoveRoute", ChainMoveHandlers.RULE);
         result.addProperty("windowWriteBlock", rig.writeGate.blockedReason());
         result.add("containerScopeStatus", rig.containerScopes.status());
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);

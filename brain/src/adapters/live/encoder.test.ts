@@ -493,7 +493,29 @@ test('E-chain-rename: a durable name write targets the freshly observed identity
   assert.equal(params?.['chainIndex'], undefined, 'an index is never the rename identity');
 });
 
-test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {
+test('B17 relocation encodes overflow indices and refuses an unobserved endpoint identity', () => {
+  const source = chainAt(device(TRACK_A, 1), 'source');
+  const destination = chainAt(device(TRACK_A, 1), 'destination');
+  const op: Op = { op: 'chain.relocate', source: deviceIn(source, 9), destination, mode: 'move' };
+  const paged = { ...ctx, chainIndex: (c: typeof source) => c.name === 'source' ? 5 : 10 };
+  const frames = encodeOp(op, paged);
+  assert.deepEqual(methods(frames), [WIRE.chainMove]);
+  const params = paramsOf(frames, WIRE.chainMove);
+  assert.deepEqual([params?.['srcPosition'], params?.['srcChain'], params?.['srcDevice'],
+    params?.['dstPosition'], params?.['dstChain']], [1, 5, 9, 1, 10]);
+  assert.equal(params?.['expectedSourceChannelId'], 'id-source');
+  assert.equal(params?.['expectedDestinationChannelId'], 'id-destination');
+  for (const missing of ['source', 'destination']) {
+    assert.throws(() => encodeOp(op, {
+      ...paged, chainId: (c) => {
+        if (c.name === missing) throw new Error('no fresh chain identity');
+        return `id-${c.name}`;
+      },
+    }), /no fresh chain identity/);
+  }
+});
+
+test('E-chain-relocate: all directions use one guarded absolute-position mover', () => {
   const a = chainAt(device(TRACK_A, 0), 'A take');
   const b = chainAt(device(TRACK_A, 1), 'B take');
   const named = deviceSlot(device(TRACK_A, 1), 'CHAIN');
@@ -517,6 +539,12 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
   assert.deepEqual(params[0]?.['expectedDeviceEnabled'], [true, false]);
   assert.equal(params[1]?.['srcChain'], 2);
   assert.equal(params[2]?.['dstChain'], 3);
+  assert.equal(params[0]?.['expectedDestinationChannelId'], 'id-A take');
+  assert.equal(params[1]?.['expectedSourceChannelId'], 'id-A take');
+  assert.equal(params[2]?.['expectedSourceChannelId'], 'id-A take');
+  assert.equal(params[2]?.['expectedDestinationChannelId'], 'id-B take');
+  assert.equal(params[3]?.['expectedDestinationChannelId'], undefined);
+  assert.equal(params[4]?.['expectedSourceChannelId'], undefined);
   assert.equal(params[3]?.['expectedDestinationChain'], 'CHAIN');
   assert.equal(params[4]?.['expectedSourceChain'], 'CHAIN');
   // B17: every nested endpoint names its container's absolute position; a layer-chain endpoint adds the

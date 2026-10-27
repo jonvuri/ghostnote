@@ -797,14 +797,18 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         // a named-slot endpoint goes through the cursor-bound slot handle.
         ...(sourceChain === undefined ? {} : {
           srcPosition: sourceChain.container.chainIndex,
-          ...(sourceChain.kind === 'chain' ? { srcChain: ctx.chainIndex(sourceChain) } : {}),
+          ...(sourceChain.kind === 'chain' ? {
+            srcChain: ctx.chainIndex(sourceChain), expectedSourceChannelId: ctx.chainId(sourceChain),
+          } : {}),
           expectedSourceChain: sourceChain.name,
         }),
         dst: destinationChain === undefined ? 'top'
           : destinationChain.kind === 'chain' ? 'chain' : 'slot',
         ...(destinationChain === undefined ? { where: 'chainEnd' } : {
           dstPosition: destinationChain.container.chainIndex,
-          ...(destinationChain.kind === 'chain' ? { dstChain: ctx.chainIndex(destinationChain) } : {}),
+          ...(destinationChain.kind === 'chain' ? {
+            dstChain: ctx.chainIndex(destinationChain), expectedDestinationChannelId: ctx.chainId(destinationChain),
+          } : {}),
           expectedDestinationChain: destinationChain.name,
         }),
         verb: op.mode,

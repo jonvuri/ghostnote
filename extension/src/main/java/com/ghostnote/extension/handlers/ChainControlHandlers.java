@@ -85,6 +85,8 @@ public final class ChainControlHandlers {
         });
     }
 
+    WindowPager.Window layers(int slot) { return host.layers(slot); }
+
     public void register(HandlerRegistry r) {
         r.onAsync("chain.select", (p, reply) -> run(Action.SELECT, p, reply));
         r.onAsync("chain.duplicate", (p, reply) -> run(Action.DUPLICATE, p, reply));
