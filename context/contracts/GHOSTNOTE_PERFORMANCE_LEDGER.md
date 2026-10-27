@@ -59,7 +59,7 @@ the result; create a separate E record when it will be useful to cite later.
 | Named-slot descent into an empty slot | Two misses, about 0.4 s, then the slots are incomplete (8 misses: about 3 s); a layer-chain move does not descend | E252 |
 | Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s. A drum pad insertion polls its pad (was the fixed 4,000 ms) | E247, E252 |
 | Device or chain relocation | No fixed wait; its proof poll (deadline 8,000 ms) | E247 |
-| One container read (`containerScope`, layer container, track not held) | About 8 turns (190 ms) at a position where a scope rests (0 through 2); about 11 turns (305 ms) at a later position, with one `chain.scroll` and a second select-and-inventory pass (B08) | E238 trace; E353 |
+| One container read (`containerScope`, layer container, track not held) | About 6 turns: 120 ms at a position where a scope rests (0 through 2), 140 ms at a later position, where the extension's `chain.observe` scrolls a scope and settles it in about 24 ms (B17). Before B17: 8 turns (190 ms) resting, 11 turns (305 ms) far, with a `chain.scroll` frame and a second select-and-inventory pass | E238 trace; E353; E354 |
 | One structural track stage (`track.create`, `track.duplicate`, `track.delete`): cursor release, rescan, mint poll | About 420 ms, 23 wire calls | E247 |
 | Bound heap for each sounding cell | About 300 bytes live (ZGC "used" is higher); 336 bytes in a held writer | E227, E246, E248 |
 | `track.mixer`, 1 or 8 tracks | One turn (18–25 ms) after the mark; every field of every named track | E257 |

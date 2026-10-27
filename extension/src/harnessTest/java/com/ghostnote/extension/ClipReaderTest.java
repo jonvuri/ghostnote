@@ -41,6 +41,7 @@ public final class ClipReaderTest {
         run("a clip read waits for a write lease and for earlier entries", ClipReaderTest::gateLease);
         run("a full queue refuses before the request runs", ClipReaderTest::gateLimit);
         run("every method has a gate class; undo, redo, actions, and unknown methods are writes", ClipReaderTest::classes);
+        run("a batch refuses a clip read inside it and runs a deferred write (B17 invokeAsync)", ClipReaderTest::batchAsync);
         System.out.println("Clip reader: " + passed + " test groups passed.");
     }
 
@@ -495,6 +496,38 @@ public final class ClipReaderTest {
         check(RuntimeProfile.kind("clip.readPage") == WriteGate.Kind.READ, "clip.readPage is a read");
         check(RuntimeProfile.NORMAL.includes("clip.read") && RuntimeProfile.NORMAL.includes("clip.readPage"),
             "normal profile has the reader");
+    }
+
+    /** The batch executor's dispatch: a clip read never reaches its handler (no read is open to close). */
+    private static void batchAsync() {
+        long[] now = {0};
+        WriteGate g = gate(8, now);
+        com.ghostnote.extension.handlers.HandlerRegistry registry =
+            new com.ghostnote.extension.handlers.HandlerRegistry(RuntimeProfile.NORMAL, g);
+        List<String> log = new ArrayList<>();
+        registry.onAsync("clip.read", (params, reply) -> { log.add("clip.read ran"); g.readClosed(); });
+        registry.onAsync("cursor.pointExpanded", (params, reply) -> { log.add("point ran"); g.readClosed(); });
+        registry.onAsync("chain.observe", (params, reply) -> queue.add(() -> reply.result(new JsonObject(), 0)));
+        registry.on("ping", params -> new JsonObject());
+        List<String> outcomes = new ArrayList<>();
+        Bridge.Reply reply = new Bridge.Reply() {
+            @Override public void result(com.google.gson.JsonElement result, long queued) { outcomes.add("ok"); }
+            @Override public void error(Exception error, long queued) { outcomes.add("error: " + error.getMessage()); }
+        };
+        for (String method : List.of("clip.read", "cursor.pointExpanded")) {
+            registry.invokeAsync(method, new JsonObject(), reply);
+        }
+        check(log.isEmpty(), "no clip-read handler ran inside the batch: " + log);
+        check(outcomes.size() == 2 && outcomes.stream().allMatch(o -> o.contains("cannot run inside a batch")),
+            "both refused with the batch reason: " + outcomes);
+        registry.invokeAsync("chain.observe", new JsonObject(), reply);
+        check(outcomes.size() == 2, "the deferred write replies later");
+        drain();
+        check(outcomes.size() == 3 && outcomes.get(2).equals("ok"), "then it replies: " + outcomes);
+        registry.invokeAsync("ping", new JsonObject(), reply);
+        check(outcomes.size() == 4 && outcomes.get(3).equals("ok"), "a synchronous method replies in this task");
+        registry.invokeAsync("no.such.method", new JsonObject(), reply);
+        check(outcomes.get(4).startsWith("error:"), "an unknown method is an error reply, not a throw");
     }
 
     private static void run(String name, ThrowingRunnable test) throws Exception {

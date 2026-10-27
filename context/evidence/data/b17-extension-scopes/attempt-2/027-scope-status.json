@@ -1,0 +1,12 @@
+{
+  "elapsedMs": 33889,
+  "value": {
+    "rule": "extension-owned-scopes-v1",
+    "open": false,
+    "aims": 136,
+    "refusals": 0,
+    "lastRefusal": "",
+    "pollMs": 5,
+    "maxPolls": 400
+  }
+}

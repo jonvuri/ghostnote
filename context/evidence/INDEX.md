@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-25
+updated: 2026-10-26
 ---
 
 # Evidence index
@@ -18,6 +18,8 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E354 | B17 session 1: the extension owns the container scopes (`chain.observe` and self-settling chain writes replace `chain.scroll`); the E353 shape repeats with the same results at positions 3 and 5, an isolated far container read costs 6 turns and about 140 ms (was 11 turns, 305 ms), 136 aims with no refusal, cleanup and preserved state pass; `batch.run` continues across a deferred op (2026-10-26) | [open](experiments/e354-extension-owned-container-scopes-live.md) |
+| E353 | B08 implementation: the product scrollable scopes compose, read, solo, rename, duplicate, copy, and move layer chains at top-level positions 3 and 5, with independent readback and cleanup; a scope scrolled on a shorter track clamps and stays, repaired by re-issuing the scroll; far container read about 305 ms, 11 turns (2026-10-25) | [open](experiments/e353-scrollable-container-scopes-product-live.md) |
 | E352 | B08: a layer bank hung off a one-wide scrollable device bank retargets to the container at the scrolled position, complete identity on the first read at 0 ms wait (6/6 at every fixed wait, polled 23 ms = one status round trip); nested chain and device windows scroll with total `itemCount`; out-of-range scrolls clamp; a solo through a scrolled scope at position 3 reads back through an independent scope and the cursor route; go for implementation (2026-10-25) | [open](experiments/e352-scrollable-container-scopes-retarget-live.md) |
 | E351 | V14: `resolve_device_name` resolves a stock device, VST3, CLAP, and a preset in a newly added sound-content location from the running host configuration with zero Bitwig calls; all four insert and read back independently, the plug-in host loads exactly the resolved bundles, refresh and removal pass without a restart, scratch cleanup passes (2026-10-25) | [open](experiments/e351-device-name-resolution-live.md) |
 | E350 | Preferences expose configured content roots independently of indexes; live sound-content add/remove detected while Settings remains open, original locations restored; seven offline tests pass (2026-10-25) | [open](experiments/e350-library-roots-from-preferences.md) |

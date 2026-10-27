@@ -268,7 +268,7 @@ back. Do not assume the Layer result transfers.
 
 ### ⚠ Container scope lags the cursor, and the budget was wrong
 
-`LiveAdapter.containerScope` re-points cursor 0 and reads `chain.inventory`. It
+`LiveAdapter.containerScope` re-pointed cursor 0 and read `chain.inventory`. It
 waited the `cursorPoint` budget (25 ms) — a budget borrowed from what a cursor
 *point* costs, while this reply arrives through `Rig.slotLayerBanks`, which must
 follow the cursor to another track first.
@@ -287,10 +287,10 @@ track just pointed at:
 
 Nothing was ever mis-reported, because the identity guard fails closed. But
 every container write refused about half the time when the cursor had been
-elsewhere. A mismatch is now retried within a bound of 8 attempts, because a
-mismatch is a staleness signal and never an observation. ⚠ The bound counts
-**attempts, not wall-clock**: a clock spins hot wherever `settle` is not real
-time, which is every offline test of this class.
+elsewhere. A mismatch was then retried within a bound of 8 attempts, because a
+mismatch is a staleness signal and never an observation. Since B17 the
+extension polls the track identity itself (5 ms polls, bounded at 400) before
+it reads a scope, and the brain re-points once on a refusal.
 
 ### Scrolled scopes retarget within one round trip (B08 research)
 
@@ -307,20 +307,27 @@ time, which is every offline test of this class.
   scrolled scope's identity guard must use the requested position, the
   reported position, the reference bank's name there, and the chain name
   [K, E352].
-- **Shipped design (B08 implementation).** Each of the three product scopes is
-  now a one-wide bank on cursor track 0 (`Rig.scopeBanks`), resting at its own
-  index. `chain.scroll` aims a scope; `chain.inventory` reports `position`,
-  `requestedPosition`, and `settled` (reported equals requested, and the slot
-  agrees with the 16-wide reference bank on existence, name, and device
-  position); every chain write names its scope and position and refuses an
-  unsettled scope. The adapter holds a relocation's two scopes so both stay
-  settled at once. A position past the device count answers as empty from the
-  reference bank count; only the bank edge is `outside-bank-window`.
+- **Shipped design (B08 implementation, B17 session 1).** Each of the three
+  product scopes is a one-wide bank on cursor track 0 (`Rig.scopeBanks`),
+  resting at its own index. Since B17 the extension owns the scrolling
+  (`ContainerScopes`): `chain.observe {position, expectedTrackChannelId}` and
+  every chain write name a container by its absolute top-level position (and a
+  chain by its absolute index); the extension chooses a scope, scrolls it,
+  polls every 5 ms until cursor track 0 confirms the track and the scope is
+  settled (reported equals requested, and the slot agrees with the 16-wide
+  reference bank on existence, name, and device position), performs the read
+  or write, and replies once. A move between two containers settles two
+  scopes in one operation. The operation holds a write lease, so no other
+  write or clip read interleaves. The brain holds no scope state;
+  `chain.inventory` remains the raw read of every scope. A position past the
+  device count answers as empty from the reference bank count; only the bank
+  edge is `outside-bank-window`. [K, E353; E354]
 - ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
   on a track with fewer devices clamps to 0 and does not move when the track
   later gains devices, although it still reports the requested position. The
-  adapter re-issues the scroll on every unsettled pass; waiting for such a
-  scope never ends [K, E353].
+  extension re-issues the scroll every 10 polls of an unsettled scope and
+  refuses after 400 polls (about 2 s); waiting for such a scope never ends
+  [K, E353].
 
 ---
 

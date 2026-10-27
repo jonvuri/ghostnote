@@ -50,6 +50,11 @@ check('the 8h4a5 build markers: the group point route and the DirectParameter se
   rig['groupPoint'] === 'expand-collapsed-point-v1' && rig['parameterSettle'] === 'same-ids-switch-v1'
     && (reader?.['groupPoint'] as Record<string, unknown> | undefined)?.['rule'] === 'expand-collapsed-point-v1',
   { groupPoint: rig['groupPoint'], parameterSettle: rig['parameterSettle'] });
+const scopeStatus = rig['containerScopeStatus'] as { rule?: string; open?: boolean } | undefined;
+check('the B17 build marker: the extension owns the container scopes, and no scope operation is open',
+  rig['containerScopeRoute'] === 'extension-owned-scopes-v1' && scopeStatus?.rule === 'extension-owned-scopes-v1'
+    && scopeStatus.open === false,
+  { containerScopeRoute: rig['containerScopeRoute'], containerScopeStatus: scopeStatus });
 check('the 8h4f build marker: track.create makes instrument and audio tracks',
   JSON.stringify(rig['trackCreateKinds']) === JSON.stringify(['instrument', 'audio']),
   { trackCreateKinds: rig['trackCreateKinds'] });

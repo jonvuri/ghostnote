@@ -1,0 +1,183 @@
+{
+  "elapsedMs": 18556,
+  "value": {
+    "name": "set_layer_chain_solo",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "containerPosition": 3,
+      "layerChain": "A",
+      "mode": "off"
+    },
+    "ms": 566,
+    "turns": 29,
+    "wire": {
+      "turns": 22,
+      "wireMs": 513,
+      "methods": {
+        "revision.get": 7,
+        "track.list": 7,
+        "selection.status": 3,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "chain.observe": 5,
+        "batch.run": 1
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "observes": 5,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-layer-chain-solo/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "5460eb25-e4f4-459c-a93a-2b838bd62663",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerPosition": 3,
+            "layerChain": "A",
+            "mode": "off"
+          },
+          "summary": "Set layer chain \"A\" solo off.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChains": [
+          {
+            "name": "A",
+            "solo": false
+          },
+          {
+            "name": "B",
+            "solo": false
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 566.2554999999993
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "containerPosition": 3,
+        "layerChain": "A",
+        "mode": "off"
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 87,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.091833
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 226,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.241625
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 250,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.874625
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 328,
+        "ms": 18,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.300875
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 540,
+        "ms": 26,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.47
+        }
+      }
+    ]
+  }
+}

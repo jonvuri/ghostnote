@@ -1,10 +1,24 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-25
+updated: 2026-10-26
 ---
 
 ## Now
+
+[B17](work/b17-extension-owned-window-scrolling.md) session 1 is complete and
+verified live.
+[E354](evidence/experiments/e354-extension-owned-container-scopes-live.md)
+records the extension owning the container scopes: `chain.observe` and
+self-settling chain writes replace `chain.scroll` and the brain's scope state,
+the E353 shape repeats with the same results at positions 3 and 5, an
+isolated far container read costs 6 turns and about 140 ms (was 11 turns,
+305 ms), and `batch.run` continues across a deferred op (the first attempt
+found the executor refusing one). The normal profile is 93 methods, hash
+`d6decf985f6b1f36`, marker `extension-owned-scopes-v1`; descriptions stay
+v55. Session 2 (paged reads of the chain, device, and 16-wide top-level
+windows inside `chain.observe`) and session 3 (writes past the first page,
+cap retirement) follow the interface decisions recorded in the brief.
 
 [B08](work/b08-scrollable-container-scopes.md) is complete and verified live.
 [E353](evidence/experiments/e353-scrollable-container-scopes-product-live.md)
@@ -20,17 +34,14 @@ turns). [D55](decisions/d55-proved-routes-run-with-one-readback.md) sets the new
 runtime posture: routes proved in tests and E records are trusted at
 runtime, a tool call makes one independent readback at the end, and
 concurrent operator edits are not a design case.
-[B17](work/b17-extension-owned-window-scrolling.md) is next: move the scope logic
-into async extension operations (deferred replies, as `clip.read` already
-uses), page the 16-wide top-level bank and the nested chain and device
-windows, reads first, and retire the caps that exist only because of the
-window widths. P01 then takes the container-scope
-read policy (skip non-containers, rotate the far scope, scope count and
+P01 then takes the container-scope read policy (now `ContainerScopes.choose`
+in the extension: skip non-containers, rotate the far scope, scope count and
 width) and rebuilds staged `compose_devices` under D55 (direct chain
 insertion in one batch, one readback, re-derived D44 weights), then applies
 the rule to the other staged paths.
 The running Ghostnote MCP server keeps the brain it started with; restart it
-to serve v55. R01 and R02 follow in the [backlog](BACKLOG.md).
+to serve the B17 wire (the B08 brain sends `chain.scroll`, which the running
+extension no longer has). R01 and R02 follow in the [backlog](BACKLOG.md).
 
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
 complete. `resolve_device_name` (46 tools, descriptions v54 then) resolves an exact
@@ -77,21 +88,26 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive carries the B08 build, deployed with
-  `copyExtension` (SHA-256
-  `d225c4389cd09a128621e6ea63f40347c3df9382a7029807c1966c91e89afc16`). The
+- The normal `ghostnote` archive carries the B17 session-1 build with the
+  review fix (SHA-256
+  `de1ace51bcd018c7d00e74ff67799327a5ab71127d9f3a21415d7577b15d9def`; it
+  refuses `clip.read` and `cursor.pointExpanded` inside a batch). The
   operator confirmed replacement; `npm run probe:hello` passed: `normal-v1`,
-  API 25, 93 methods, hash `a44ce79ed75df81b`, expected build markers, fresh
-  initialization at `2026-10-25T23:37:26.947Z`. The running Ghostnote MCP
-  server answered product tools after that replacement with the brain it
-  started with (v54 descriptions, three-position checks); restart it for v55.
+  API 25, 93 methods, hash `d6decf985f6b1f36`, the
+  `extension-owned-scopes-v1` marker, fresh initialization at
+  `2026-10-27T03:49:38.533Z` (UTC). E354 ran on the previous archive of this
+  build (`f286e47e…cbc7`, same methods and hash, without the batch refusal).
+  The B17 archive `e877ccb6…e5438` before it lacked the `batch.run`
+  continuation and was replaced within the session. A running Ghostnote MCP
+  server started before this session carries the B08 brain and must restart
+  before it can read or write layer chains against this extension.
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E353 deleted its scratch track `gn-b08i`; `list_tracks` then listed the
-  original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure
-  read back unchanged, and the mixer selection stayed on `gn-sel`. The
-  container scopes rested at positions 0, 1, and 5 of the deleted track; the
-  adapter re-aims them on the next read. No scratch track, solo flag, or
-  popup remains. Re-read project, target, and selection before more writes.
+  E354 deleted its scratch track `gn-b17s`; `list_tracks` then listed the
+  original 11 tracks, the four-chain `gn-lay4` structure read back unchanged,
+  and the mixer selection stayed on `gn-sel`. The container scopes rested at
+  positions 0, 1, and 5 of the deleted track; the extension re-aims them on
+  the next operation. No scratch track, solo flag, or popup remains. Re-read
+  project, target, and selection before more writes.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes

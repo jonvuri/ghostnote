@@ -1,0 +1,423 @@
+{
+  "elapsedMs": 32981,
+  "value": {
+    "name": "move_devices",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 3,
+          "layerChain": "B2",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 5,
+        "layerChain": "X"
+      }
+    },
+    "ms": 1821,
+    "turns": 72,
+    "wire": {
+      "turns": 56,
+      "wireMs": 1483,
+      "methods": {
+        "selection.status": 7,
+        "track.list": 12,
+        "devcursor.pin": 9,
+        "cursor.pointTrack": 9,
+        "device.list": 5,
+        "revision.get": 9,
+        "chain.observe": 12,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "observes": 12,
+    "scrolls": 6,
+    "result": {
+      "schema": "ghostnote-device-move/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "3a69014d-69cc-4f2e-bee8-bdb9aa0be893",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "devices": 1,
+            "destination": {
+              "to": "layer-chain",
+              "containerPosition": 5,
+              "layerChain": "X"
+            }
+          },
+          "summary": "Moved 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Dual Pan",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Ring-Mod",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 5,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 5,
+            "position": 0,
+            "name": "X",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.329,
+              "green": 0.329,
+              "blue": 0.318
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "Peak Limiter"
+              },
+              {
+                "devicePosition": 1,
+                "name": "Gate"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4
+          },
+          {
+            "containerPosition": 3,
+            "position": 2,
+            "name": "B2",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.329,
+              "green": 0.329,
+              "blue": 0.318
+            },
+            "devices": [],
+            "devicesComplete": true,
+            "deviceCapacity": 4
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1820.498125000002
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 5,
+          "layerChain": "X"
+        }
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 359,
+        "ms": 48,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 24.86725
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 503,
+        "ms": 46,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 23.8315
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 716,
+        "ms": 48,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 22.812417
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 764,
+        "ms": 46,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 24.2455
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 811,
+        "ms": 49,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 24.464875
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 860,
+        "ms": 48,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 23.535667
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 956,
+        "ms": 23,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.231042
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 979,
+        "ms": 24,
+        "slot": 1,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 1
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.11725
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1104,
+        "ms": 18,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.11275
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1122,
+        "ms": 24,
+        "slot": 1,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 1
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.101416
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1671,
+        "ms": 25,
+        "slot": 1,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 1
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.460083
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1796,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.391334
+        }
+      }
+    ]
+  }
+}

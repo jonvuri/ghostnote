@@ -1,5 +1,6 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.Bridge;
 import com.ghostnote.extension.Rig;
 import com.ghostnote.extension.WriteGate;
 import com.bitwig.extension.controller.api.ControllerHost;
@@ -36,7 +37,9 @@ public final class BatchHandlers extends HandlerGroup {
 
     @Override
     public void register(HandlerRegistry r) {
-        r.on("batch.run", params -> batchRun(params));
+        // B17: a batch replies later when one of its ops does (the chain writes settle their container
+        // scope in later tasks); every op still runs in order, one continuation per deferred op.
+        r.onAsync("batch.run", this::batchRun);
         r.on("revision.get", params -> revisionGet());
         r.on("revision.bump", params -> revisionBump());
     }
@@ -76,7 +79,7 @@ public final class BatchHandlers extends HandlerGroup {
      * here per-op failures are recorded and the batch continues, so the probe
      * can see the whole picture.
      */
-    private JsonElement batchRun(JsonObject params) {
+    private void batchRun(JsonObject params, Bridge.Reply reply) {
         JsonArray ops = params.getAsJsonArray("ops");
         int delayMs = params.has("delayMs") ? params.get("delayMs").getAsInt() : 0;
 
@@ -91,7 +94,8 @@ public final class BatchHandlers extends HandlerGroup {
                 result.addProperty("reason", "stale-revision");
                 result.addProperty("expected", expected);
                 result.addProperty("actual", state.revision);
-                return result;
+                reply.result(result, 0);
+                return;
             }
         }
         // --- 8h4a scene guard: generation, project, and scene epoch ---
@@ -99,7 +103,10 @@ public final class BatchHandlers extends HandlerGroup {
         // scene insert or delete after the brain read its rows (E233). Same rule
         // as the guarded `slot.launchWithOptions`. A mismatch runs no op.
         JsonObject sceneRefusal = sceneGuardRefusal(params);
-        if (sceneRefusal != null) return sceneRefusal;
+        if (sceneRefusal != null) {
+            reply.result(sceneRefusal, 0);
+            return;
+        }
         long batchRevision = ++state.revision;
 
         if (delayMs > 0) {
@@ -111,30 +118,49 @@ public final class BatchHandlers extends HandlerGroup {
             result.addProperty("scheduled", ops.size());
             result.addProperty("delayMs", delayMs);
             result.addProperty("revision", batchRevision);
-            return result;
+            reply.result(result, 0);
+            return;
         }
 
-        // Synchronous fast path: every op in this one task/turn.
+        // The fast path: every synchronous op in this one task/turn. B17: an op that replies later (a chain
+        // write settling its scope) defers the rest of the batch to its reply; the ops still run in order,
+        // and the batch replies once, after the last one.
         long start = System.nanoTime();
         JsonArray results = new JsonArray();
-        int failures = 0;
-        for (JsonElement el : ops) {
-            JsonObject r = runOp(el.getAsJsonObject());
-            if (!r.get("ok").getAsBoolean()) {
-                failures++;
+        int[] failures = {0};
+        runOps(ops, 0, results, failures, () -> {
+            result.addProperty("applied", true);
+            result.addProperty("paced", false);
+            result.addProperty("count", ops.size());
+            result.addProperty("failures", failures[0]);
+            result.addProperty("elapsedMicros", (System.nanoTime() - start) / 1000);
+            result.addProperty("revision", batchRevision);
+            if (params.has("verbose") && params.get("verbose").getAsBoolean()) {
+                result.add("results", results);
             }
+            reply.result(result, 0);
+        });
+    }
+
+    /** Run ops from {@code from} in order; continue from a deferred op's reply; then {@code finish}. */
+    private void runOps(JsonArray ops, int from, JsonArray results, int[] failures, Runnable finish) {
+        for (int i = from; i < ops.size(); i++) {
+            JsonObject op = ops.get(i).getAsJsonObject();
+            String method = op.get("method").getAsString();
+            if (registry.isAsync(method)) {
+                final int next = i + 1;
+                runOpThen(op, r -> {
+                    if (!r.get("ok").getAsBoolean()) failures[0]++;
+                    results.add(r);
+                    runOps(ops, next, results, failures, finish);
+                });
+                return;
+            }
+            JsonObject r = runOp(op);
+            if (!r.get("ok").getAsBoolean()) failures[0]++;
             results.add(r);
         }
-        result.addProperty("applied", true);
-        result.addProperty("paced", false);
-        result.addProperty("count", ops.size());
-        result.addProperty("failures", failures);
-        result.addProperty("elapsedMicros", (System.nanoTime() - start) / 1000);
-        result.addProperty("revision", batchRevision);
-        if (params.has("verbose") && params.get("verbose").getAsBoolean()) {
-            result.add("results", results);
-        }
-        return result;
+        finish.run();
     }
 
     /** The 8h4a scene guard refusal, or null. All three fields or none. */
@@ -192,18 +218,48 @@ public final class BatchHandlers extends HandlerGroup {
         return r;
     }
 
+    /**
+     * Dispatch one op of either kind; the per-op result reaches {@code done} once, in this task for a
+     * synchronous op and in a later task for one that replies later. Never throws.
+     */
+    private void runOpThen(JsonObject op, java.util.function.Consumer<JsonObject> done) {
+        String m = op.get("method").getAsString();
+        JsonObject p = op.has("params") ? op.getAsJsonObject("params") : new JsonObject();
+        JsonObject r = new JsonObject();
+        r.addProperty("method", m);
+        if (m.startsWith("batch.")) {
+            r.addProperty("ok", false);
+            r.addProperty("error", "nested batch not allowed");
+            done.accept(r);
+            return;
+        }
+        registry.invokeAsync(m, p, new Bridge.Reply() {
+            @Override public void result(JsonElement opResult, long ignored) {
+                r.addProperty("ok", true);
+                if ("directparam.set".equals(m) && opResult != null && !opResult.isJsonNull()) {
+                    r.add("result", opResult);
+                }
+                done.accept(r);
+            }
+
+            @Override public void error(Exception error, long ignored) {
+                r.addProperty("ok", false);
+                r.addProperty("error", String.valueOf(error.getMessage()));
+                done.accept(r);
+            }
+        });
+    }
+
     /** Run op[index] now, then re-schedule op[index+1] delayMs later (staged). */
     private void scheduleOps(JsonArray ops, int index, int delayMs, WriteGate.Lease lease) {
         if (index >= ops.size()) {
             lease.release();
             return;
         }
-        try {
-            runOp(ops.get(index).getAsJsonObject());
-        } finally {
+        runOpThen(ops.get(index).getAsJsonObject(), r -> {
             if (index + 1 >= ops.size()) lease.release();
             else host.scheduleTask(() -> scheduleOps(ops, index + 1, delayMs, lease), delayMs);
-        }
+        });
     }
 
     /**

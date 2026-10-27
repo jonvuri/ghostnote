@@ -1,0 +1,178 @@
+{
+  "elapsedMs": 8337,
+  "value": {
+    "name": "read_devices",
+    "args": {
+      "trackId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+    },
+    "ms": 386,
+    "turns": 14,
+    "wire": {
+      "turns": 13,
+      "wireMs": 307,
+      "methods": {
+        "selection.status": 2,
+        "track.list": 2,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "device.list": 2,
+        "revision.get": 1,
+        "chain.observe": 1
+      },
+      "clipReads": 0,
+      "stages": 0
+    },
+    "observes": 1,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-devices/1",
+      "source": {
+        "host": "bitwig-devices",
+        "read": "fresh-structure-read"
+      },
+      "target": {
+        "trackId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      "coverage": {
+        "status": "complete",
+        "devicesComplete": true,
+        "bankSize": 16,
+        "layerChainPositions": [
+          0
+        ]
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "trackId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Instrument Layer",
+            "enabled": true,
+            "container": {
+              "containerKind": "Instrument Layer",
+              "layerChains": [
+                {
+                  "position": 0,
+                  "name": "Phase-4",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.776,
+                    "green": 0.624,
+                    "blue": 0.427
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Phase-4"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                },
+                {
+                  "position": 1,
+                  "name": "Polysynth",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.776,
+                    "green": 0.624,
+                    "blue": 0.427
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Polysynth"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                },
+                {
+                  "position": 2,
+                  "name": "Organ",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.776,
+                    "green": 0.624,
+                    "blue": 0.427
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Organ"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                },
+                {
+                  "position": 3,
+                  "name": "Sampler",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.776,
+                    "green": 0.624,
+                    "blue": 0.427
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Sampler"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                }
+              ],
+              "complete": true,
+              "capacity": 5
+            }
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 385.7513340000005
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 0,
+          "expectedTrackChannelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        "at": 360,
+        "ms": 26,
+        "slot": 0,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 0,
+              "slot": 0
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.398333
+        }
+      }
+    ]
+  }
+}

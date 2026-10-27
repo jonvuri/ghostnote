@@ -190,6 +190,26 @@ interface WireInventory {
   trackChannelId?: string;
 }
 
+/**
+ * `chain.observe`'s reply (B17): the scope the extension settled at `position`, in the shape of one
+ * `chain.inventory` scope, or no `scope` when the position holds no device (`deviceCount` says so). The
+ * extension polls the track identity and the scope itself before it replies; a refusal arrives as an error.
+ */
+interface WireObserve {
+  position?: number;
+  slot?: number;
+  deviceCount?: number | string;
+  deviceBankSize?: number;
+  scopeCount?: number;
+  chainBankSize?: number;
+  chainDeviceBankSize?: number;
+  scope?: WireInventoryScope;
+  cursorScope?: WireCursorInventoryScope;
+  trackName?: string;
+  trackChannelId?: string;
+  aim?: { polls?: number; scrolls?: number; ms?: number };
+}
+
 /** 8h4g (E248): a parked writer window starts here. It is the reader width: 4,194,304 steps of 1/512. */
 const WRITER_PARK_BEATS = 8_192;
 /** D41: the writer width that bounds a note write to one page for each view. It is the reader width. */
@@ -519,6 +539,12 @@ const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 const PARAMETER_COHORT_POLLS = 4;
 /** 8i3: named-slot descents of one container scope read before it answers with the slots incomplete. */
 const CONTAINER_SLOT_DESCENTS = 2;
+/**
+ * B17: how many times a container read points cursor track 0 when the extension refuses the observation because
+ * the cursor did not confirm the track within its own poll bound. The cursor is what a stale reply is stale about,
+ * so the retry re-points rather than re-reading; two attempts bound it.
+ */
+const CONTAINER_POINT_ATTEMPTS = 2;
 /** Observe delayed enabled values without repeating the setter. */
 const DEVICE_ENABLED_READ_ATTEMPTS = 8;
 /**
@@ -745,7 +771,7 @@ export interface LiveTraceEvent {
   readonly action:
     | 'cursor-point'
     | 'track-reuse'
-    | 'scope-scroll'
+    | 'scope-observe'
     | 'device-retarget'
     | 'device-reuse'
     | 'device-reuse-invalid' | 'device-cursor-recover'
@@ -958,15 +984,11 @@ export class LiveAdapter implements BitwigAdapter {
   private groupPoint: string | undefined;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
-  /** How many container scopes the rig built (`Rig.SLOT_SCOPES`). B08: each scrolls over the whole bank. */
-  private containerScopeSize = 3;
   /**
-   * B08: which scope each container was last observed through, keyed by the container's address. The encoder
-   * sends this slot with the container's position, and the extension refuses a scope that has since been
-   * aimed elsewhere. Cleared by `readContainers` at the start of each batch observation, so an entry always
-   * comes from a reply this batch took.
+   * How many container scopes the rig built (`Rig.SLOT_SCOPES`): the reach before the hello reports the bank
+   * width. B17: the extension owns the scopes, so the brain keeps no scope or window state beyond this size.
    */
-  private readonly scopeSlots = new Map<AddressKey, { readonly track: string; readonly position: number; readonly slot: number }>();
+  private containerScopeSize = 3;
   /**
    * ⚠ How wide the SCENE window is — the number rule 5's second population is an
    * inequality over, and the one nothing in this file used to hold.
@@ -1620,7 +1642,6 @@ export class LiveAdapter implements BitwigAdapter {
       trackIndex: (t) => this.trackIndex(t),
       chainIndex: (c) => this.chainIndex(c),
       chainId: (c) => this.chainId(c),
-      scopeSlot: (c) => this.scopeSlotOf(c),
       deviceName: (d) => {
         const name = this.deviceNames.get(addressKey(d));
         if (name === undefined) throw new AddressUnresolvedError(d, 'no fresh structural reading named this device');
@@ -1665,57 +1686,6 @@ export class LiveAdapter implements BitwigAdapter {
    */
   private get containerPositions(): number {
     return this.deviceBankSize ?? this.containerScopeSize;
-  }
-
-  /** B08: the scope slot the last observation of this container settled on; refuses when none did. */
-  private scopeSlotOf(container: DeviceAddress): number {
-    const entry = this.scopeSlots.get(addressKey(container));
-    if (entry === undefined) {
-      throw new AddressUnresolvedError(container, 'no observation of this container recorded its scope');
-    }
-    return entry.slot;
-  }
-
-  /**
-   * B08: which scope to aim at `containerIndex`, from the scopes an inventory reply describes.
-   *
-   * `none`: no scope is scrollable (an older extension), so the position is outside the bank window. `held`:
-   * every scrollable scope is reserved for another container of this batch. `scroll`: aim this slot.
-   *
-   * ⚠ A scope already asked for this position is scrolled AGAIN, not waited for. Measured 2026-10-25 (E353): a
-   * scroll issued while cursor track 0 sat on a track with fewer devices clamps the one-wide bank to 0, and the
-   * bank stays there after the track gains devices, with `requestedPosition` still naming the wanted position.
-   * Waiting for such a scope never ends; a repeated scroll of the same position is a no-op on a bank that is
-   * already moving and the repair on one that clamped.
-   *
-   * Scope `s` rests at position `s`, so a position inside the scope count prefers its own scope, keeping the
-   * common case at the fixed-scope cost; a later position prefers a scope already away from rest, then the
-   * highest slot, so the lower scopes stay resting.
-   */
-  private chooseScope(
-    reply: WireInventory,
-    trackRef: TrackAddress,
-    containerIndex: number,
-    hold: boolean,
-  ): { kind: 'none' | 'held' } | { kind: 'scroll'; slot: number } {
-    const scrollable = (reply.scopes ?? []).flatMap((scope, index) =>
-      scope.status === 'held' && typeof scope.position === 'number' ? [{ scope, slot: scope.slot ?? index }] : []);
-    if (scrollable.length === 0) return { kind: 'none' };
-    const asked = scrollable.find(({ scope }) => scope.requestedPosition === containerIndex);
-    if (asked !== undefined) return { kind: 'scroll', slot: asked.slot };
-    const reserved = new Set<number>();
-    if (hold) {
-      for (const entry of this.scopeSlots.values()) {
-        if (entry.track === trackRef.channelId && entry.position !== containerIndex) reserved.add(entry.slot);
-      }
-    }
-    const free = scrollable.filter(({ slot }) => !reserved.has(slot));
-    if (free.length === 0) return { kind: 'held' };
-    const resting = free.find(({ slot }) => slot === containerIndex);
-    if (resting !== undefined) return { kind: 'scroll', slot: resting.slot };
-    const highestFirst = (a: { slot: number }, b: { slot: number }) => b.slot - a.slot;
-    const displaced = free.filter(({ scope, slot }) => scope.requestedPosition !== slot).sort(highestFirst);
-    return { kind: 'scroll', slot: (displaced[0] ?? [...free].sort(highestFirst)[0]!).slot };
   }
 
   /**
@@ -2762,189 +2732,152 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
-   * ⚠⚠ A container device's chains, through `chain.inventory` — the only route
+   * ⚠⚠ A container device's chains, through `chain.observe` — the only route
    * by which anything in this system can SEE a layer chain.
    *
-   * Everything about this call is narrow, and every limit is reported rather
-   * than smoothed over:
+   * B17: the extension owns the scopes. This names the container by its
+   * absolute top-level position and the track by its channelId; the extension
+   * aims one of its one-wide scope banks at the position, polls until cursor
+   * track 0 confirms the track and the scope settles there (re-issuing a
+   * clamped scroll, E353), and replies once with the settled scope, or refuses
+   * after its bound. The brain holds no scope state and sends no scroll.
    *
-   *   - it reads `Rig.slotLayerBanks`, which hang off one-wide scrollable
-   *     device banks on the track `cursorTracks[0]` points at (B08, E352). A
-   *     scope is aimed at the requested position with `chain.scroll` and
-   *     believed only when the reply reports it settled there; a position past
-   *     the reference bank is `outside-bank-window`;
-   *   - the scopes are built at `init()` (D7), so a scope that failed to build
-   *     reports its own status. Standing rule 13: *"the handle does not exist"*
-   *     and *"the API declines"* are indistinguishable in the outcome, and three
-   *     false ○s in E17 came from exactly that. A scope that is not `held` is
+   * Every limit is reported rather than smoothed over:
+   *
+   *   - a position past the reference bank is `outside-bank-window`; a position
+   *     past the track's device count is an EMPTY observation (the reply carries
+   *     `deviceCount`), which is what makes a device read of an empty position
+   *     `missing` while a position nothing could look at is `unreachable`;
+   *   - a scope that failed to build (standing rule 13: *"the handle does not
+   *     exist"* and *"the API declines"* are indistinguishable in the outcome),
+   *     a track the cursor did not confirm, or a scope that did not settle is
    *     `unsupported` — we did not look — never `absent`;
    *   - the bank SIZES come off the reply, and when they do not (an extension
    *     older than this slice) completeness is UNKNOWN, which makes every
-   *     zero-match answer `outside-bank-window` instead of `absent`. A stale
-   *     deployment fails closed rather than silently reporting tombstones.
+   *     zero-match answer `outside-bank-window` instead of `absent`.
    *
-   * ⚠⚠ It points cursor `'0'` SPECIFICALLY, and not a pool cursor: the slot
-   * scopes were built from `cursorDeviceBanks[0]` at init and follow that one
-   * cursor for the life of the extension. Handing this a pool ref would scope
-   * the read to whatever track that cursor happens to hold — the e16o trap, one
-   * level up, with a reply that looks perfectly healthy.
+   * ⚠⚠ It points cursor `'0'` SPECIFICALLY, and not a pool cursor: the scopes
+   * hang off cursor track 0 for the life of the extension. Handing this a pool
+   * ref would scope the read to whatever track that cursor happens to hold —
+   * the e16o trap, one level up, with a reply that looks perfectly healthy.
    *
-   * ⚠ And the point is VERIFIED, not assumed: the reply carries the pointed
-   * track's own `channelId`, which is compared against the track we were asked
-   * about. A mismatch is `unsupported` rather than a guess — reporting another
-   * track's chains under this address is the whole failure class.
+   * ⚠ And the point is VERIFIED, not assumed: the extension polls the pointed
+   * track's own `channelId` before it reads a scope (measured 2026-08-15: the
+   * scopes follow a re-pointed cursor at a structural pace, 0/6 correct at
+   * 0 ms and 6/6 from 100 ms), and a refusal here re-points once, bounded,
+   * because the cursor is what a stale reply is stale about.
    *
-   * ⚠⚠ **The identity guard is POLLED, because `cursorPoint` is the wrong budget
-   * for this read and was borrowed rather than measured.** `settle('cursorPoint')`
-   * is 25ms (E1), which is what a cursor POINT costs; this reply comes through
-   * `Rig.slotLayerBanks`, which have to follow the cursor to a different track
-   * before the inventory means anything. Measured on 2026-08-15, re-pointing from
-   * one track to another and reading immediately: the reply named the track we
-   * had just pointed at 0/6 at 0ms, **3/6 at 25ms**, 5/6 at 50ms and 6/6 from
-   * 100ms — so at the borrowed budget this read was a coin flip, and
-   * `C-chain-switch` failed two runs in three on exactly that.
-   *
-   * Nothing was ever mis-reported, because the guard below fails closed — but a
-   * refusal on a container that is perfectly observable a tick later is a
-   * capability that works or does not depending on where the cursor last was.
-   * So a MISMATCH is retried within a bound rather than answered: a mismatch is
-   * a staleness signal and never an observation. Every other miss still answers
-   * immediately, because each of those IS an observation (see the list above).
+   * The named-slot descent (a Chain device's slot devices) stays on the cursor
+   * route: `devcursor.selectAt`, `devcursor.selectFirstInSlot`, then
+   * `chain.inventory` for `cursorScope`, bounded by `CONTAINER_SLOT_DESCENTS`
+   * (8i3, E252: a descent into an empty slot never settles).
    */
   private async containerScope(
     trackRef: TrackAddress,
     containerIndex: number,
     /**
-     * 8h4e (E238): false skips the named-slot descent. A layer-chain route needs only the fixed scope; the descent
-     * into an empty slot (the FX slot of an Instrument Layer) never settles and costs eight retries (about 3 s).
+     * 8h4e (E238): false skips the named-slot descent. A layer-chain route needs only the scope; the descent
+     * into an empty slot (the FX slot of an Instrument Layer) never settles and costs its misses (about 0.4 s).
      * Without the descent, `slotsComplete` is false, so a slot address still refuses. A container that already
      * lists layer chains also skips it.
      */
     slots = true,
-    /**
-     * B08: keep the scopes this batch already aimed. With it, choosing a scope to scroll skips every scope that
-     * `scopeSlots` records for another container on this track, so a relocation's source and destination stay
-     * settled at once (E18 §3.1 needs both live). Reads leave it false and re-aim freely.
-     */
-    hold = false,
   ): Promise<ContainerScope> {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
     // B08: a scope scrolls over the whole reference bank, so the reach is the bank width, not the scope count.
     if (containerIndex >= this.containerPositions) return { ok: false, miss: 'outside-bank-window' };
-    // ⚠ Bounded by ATTEMPTS, not by a clock. A wall-clock deadline spins hot
-    // wherever `settle` is not real time — which is every offline test of this
-    // class — and a bound that means something different in the suite from what
-    // it means live is not a bound. Eight passes is ~1s at the structural budget
-    // against a measured need of ~100ms.
-    let reply: WireInventory | undefined;
-    let trackReply: WireInventory | undefined;
-    let scope: WireInventoryScope | undefined;
-    let miss: ChainMiss | undefined;
-    let descents = 0;
-    // The fast path stays fast: a cursor already on this track answers on the first pass at the cursor budget.
-    // An identity mismatch pays the structural one. A scroll retargets the hung banks within one round trip
-    // (E352), so the read after a scroll pays the cursor budget again.
-    let budget: 'cursorPoint' | 'trackStruct' = 'cursorPoint';
-    for (let attempt = 0; attempt < 8; attempt += 1) {
+    let observed: WireObserve | undefined;
+    for (let attempt = 0; attempt < CONTAINER_POINT_ATTEMPTS && observed === undefined; attempt += 1) {
       this.heldClips.delete('0');
-      this.heldDeviceTarget = undefined;
       if (!this.cursorTrackHeld('0', { channelId: trackRef.channelId, index: trackIndex })) {
         await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
         await this.pointCursorTrack('0', trackIndex);
       } else {
         this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
       }
-      await this.transport.send({
-        method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
-      });
-      await this.settle(budget);
-      budget = 'trackStruct';
-      reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
-      // ⚠ The identity guard, before anything in the reply is believed. `trackName`
-      // rides along too and is deliberately NOT used for this: a name is not an
-      // identity (standing rule 2), and two tracks may share one.
+      let reply: WireObserve;
+      try {
+        reply = await this.transport.send({
+          method: WIRE.chainObserve,
+          params: { position: containerIndex, expectedTrackChannelId: trackRef.channelId },
+        }) as WireObserve;
+      } catch (error) {
+        // The extension refused: the cursor did not confirm the track, the scope did not settle within its
+        // bound, or no scope was built or free. We looked and could not see: `unsupported`, never a tombstone.
+        this.heldCursorTracks.delete('0');
+        if (error instanceof BridgeError && /track-not-confirmed/.test(error.message)) continue;
+        return { ok: false, miss: 'unsupported' };
+      }
+      // ⚠ The identity guard, before anything in the reply is believed. The extension polled it; a reply that
+      // still names another track is a stale cursor, which a re-point addresses. `trackName` rides along too
+      // and is deliberately NOT used for this: a name is not an identity (standing rule 2).
       if (reply.trackChannelId !== trackRef.channelId) {
-        reply = undefined;
         this.heldCursorTracks.delete('0');
         continue;
       }
-      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
-      trackReply = reply;
-      // B08: a position past the track's device count holds nothing. The reference bank was read, so this is
-      // an observation rather than a scope that failed to settle (a scroll there clamps and never settles).
-      if (typeof reply.deviceCount === 'number' && containerIndex >= reply.deviceCount) {
-        const chainBank = (reply.scopes ?? []).find((item) => typeof item.chainBankSize === 'number')?.chainBankSize;
+      observed = reply;
+    }
+    if (observed === undefined) return { ok: false, miss: 'unsupported' };
+    this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
+    this.onTrace?.({ action: 'scope-observe', target: `${containerIndex}:${observed.aim?.scrolls ?? 0}` });
+    if (observed.scope === undefined) {
+      // A position past the track's device count holds nothing. The reference bank was read, so this is an
+      // observation rather than a scope that failed to settle (a scroll there clamps and never settles).
+      if (typeof observed.deviceCount === 'number' && containerIndex >= observed.deviceCount) {
+        const chainBank = observed.chainBankSize;
         return { ok: true, deviceName: undefined, container: {
           chains: [], chainsComplete: true, slots: [], slotsComplete: true,
           ...(chainBank === undefined ? {} : { chainsBankSize: chainBank }),
         } };
       }
-      const settled = settledScopeAt(reply, containerIndex);
-      if (settled === undefined) {
-        const choice = this.chooseScope(reply, trackRef, containerIndex, hold);
-        if (choice.kind !== 'scroll') {
-          miss = choice.kind === 'none' ? 'outside-bank-window' : 'unsupported';
-          reply = undefined;
+      return { ok: false, miss: 'unsupported' };
+    }
+    let scope: WireInventoryScope = observed.scope;
+    if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
+    let reply: { cursorScope?: WireCursorInventoryScope } = observed;
+    const slotName = scope.hasSlots === true && scope.slotNames?.length === 1
+      ? scope.slotNames[0] : undefined;
+    // A layer container (the scope already lists layer chains) needs no slot descent: no product route
+    // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
+    const layerContainer = (scope.chains?.length ?? 0) > 0;
+    if (slots && !layerContainer && slotName !== undefined && scope.deviceExists === true) {
+      this.heldDeviceTarget = undefined;
+      // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the scope with the
+      // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device.
+      for (let descents = 0; descents < CONTAINER_SLOT_DESCENTS; descents += 1) {
+        // ⚠ Re-select the parent on EVERY pass. `devcursor.selectAt` begins the cursor route and
+        // `devcursor.selectFirstInSlot` appends one step to it; the extension reports the slot only while the
+        // route holds exactly one step, so a retry that only repeated the descent could never settle.
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
+        });
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
+        });
+        await this.settle('trackStruct');
+        const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
+        if (nestedReply.trackChannelId !== trackRef.channelId) {
+          // The cursor moved under us (not a design case, D55): the scope reading stands, slots incomplete.
+          this.heldCursorTracks.delete('0');
           break;
         }
-        await this.transport.send({
-          method: WIRE.chainScroll, params: { slot: choice.slot, position: containerIndex },
-        });
-        this.onTrace?.({ action: 'scope-scroll', target: `${choice.slot}:${containerIndex}` });
-        budget = 'cursorPoint';
-        // A scope was asked for this position. If it never settles within the bound, we looked and could
-        // not see: `unsupported`, never a tombstone.
-        miss = 'unsupported';
-        reply = undefined;
-        continue;
+        const cursorScope = nestedReply.cursorScope;
+        const cursorSettled = cursorScope?.status === 'held'
+          && cursorScope.deviceExists === true
+          && cursorScope.isNested === true
+          && cursorScope.parentDeviceIndex === containerIndex
+          && cursorScope.parentDeviceName === scope.deviceName
+          && cursorScope.slotName === slotName;
+        if (cursorSettled) {
+          reply = nestedReply;
+          // The nested reply is read through the same settled scope.
+          scope = settledScopeAt(nestedReply, containerIndex)?.scope ?? scope;
+          break;
+        }
       }
-      miss = undefined;
-      scope = settled.scope;
-      this.scopeSlots.set(addressKey(deviceAt(trackRef, containerIndex)),
-        { track: trackRef.channelId, position: containerIndex, slot: settled.slot });
-      const slotName = scope.hasSlots === true && scope.slotNames?.length === 1
-        ? scope.slotNames[0] : undefined;
-      // A layer container (the scope already lists layer chains) needs no slot descent: no product route
-      // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
-      const layerContainer = (scope.chains?.length ?? 0) > 0;
-      if (!slots || layerContainer || slotName === undefined || scope.deviceExists !== true) break;
-      await this.transport.send({
-        method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
-      });
-      await this.settle('trackStruct');
-      const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
-      if (nestedReply.trackChannelId !== trackRef.channelId) {
-        reply = undefined;
-        this.heldCursorTracks.delete('0');
-        continue;
-      }
-      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
-      trackReply = nestedReply;
-      const cursorScope = nestedReply.cursorScope;
-      const cursorSettled = cursorScope?.status === 'held'
-        && cursorScope.deviceExists === true
-        && cursorScope.isNested === true
-        && cursorScope.parentDeviceIndex === containerIndex
-        && cursorScope.parentDeviceName === scope.deviceName
-        && cursorScope.slotName === slotName;
-      if (cursorSettled) {
-        reply = nestedReply;
-        break;
-      }
-      reply = undefined;
-      // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the fixed scope with the
-      // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device (Delay+).
-      if (++descents >= CONTAINER_SLOT_DESCENTS) break;
     }
-    if (miss !== undefined) return { ok: false, miss };
-    reply ??= trackReply;
-    if (reply === undefined) return { ok: false, miss: 'unsupported' };
-    // The final reply (the nested one after a descent) is read through the same settled scope.
-    scope = settledScopeAt(reply, containerIndex)?.scope ?? scope;
-    if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
-    if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
     const chainBank = scope.chainBankSize;
     const deviceBank = scope.deviceBankSize;
     const chains = scope.chains ?? [];
@@ -4458,9 +4391,9 @@ export class LiveAdapter implements BitwigAdapter {
 
   /**
    * 8h4e: one `device` read with `ReadOptions.structure`. It reads no DirectParameter inventory and pins no
-   * parameter cursor. A top-level device in the container scopes costs one `containerScope` (one
-   * `chain.inventory` on a held track, plus the point and select frames); a device past the scopes costs one
-   * `device.list`. A nested device uses the one-level container-scope lookup.
+   * parameter cursor. A top-level device inside the bank costs one `containerScope` (one `chain.observe` on a
+   * held track, plus the point frames); a device past the bank costs one `device.list`. A nested device uses
+   * the one-level container-scope lookup.
    */
   private async readDeviceStructure(
     address: DeviceAddress,
@@ -4927,7 +4860,6 @@ export class LiveAdapter implements BitwigAdapter {
   ): Promise<Map<AddressKey, ObservedContainer | undefined>> {
     this.chainPositions.clear();
     this.chainIds.clear();
-    this.scopeSlots.clear();
     const seen = new Map<AddressKey, ObservedContainer | undefined>();
     for (const op of ops) {
       if (op.op !== 'chain.create' && op.op !== 'chain.rename' && op.op !== 'chain.activate'
@@ -4935,7 +4867,7 @@ export class LiveAdapter implements BitwigAdapter {
       const container = op.op === 'chain.create' ? op.source.container : op.chain.container;
       const key = addressKey(container);
       if (seen.has(key)) continue;
-      const scope = await this.containerScope(container.track, container.chainIndex, false, true);
+      const scope = await this.containerScope(container.track, container.chainIndex, false);
       // ⚠ EVERY miss maps to `undefined`, deliberately — including `absent`. The
       // contract's refusal says "nothing could observe the chain this would
       // make", which is true of all four of them, and a create is the one moment
@@ -4980,7 +4912,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
 
     const scope = await this.containerScope(
-      endpoint.container.track, endpoint.container.chainIndex, true, true);
+      endpoint.container.track, endpoint.container.chainIndex, true);
     if (!scope.ok) {
       throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
     }
@@ -5093,7 +5025,7 @@ export class LiveAdapter implements BitwigAdapter {
           containers.set(key, undefined);
           continue;
         }
-        const scope = await this.containerScope(endpoint.container.track, endpoint.container.chainIndex, slots, true);
+        const scope = await this.containerScope(endpoint.container.track, endpoint.container.chainIndex, slots);
         containers.set(key, scope.ok ? scope.container : undefined);
       }
     }
@@ -5477,10 +5409,10 @@ export class LiveAdapter implements BitwigAdapter {
     await this.transport.send({
       method: WIRE.chainSelect,
       params: {
-        slot: this.scopeSlotOf(op.source.container),
         position: op.source.container.chainIndex,
-        layerIndex: this.chainIndex(op.source),
+        chainIndex: this.chainIndex(op.source),
         expectedName: op.source.name,
+        expectedTrackChannelId: op.source.container.track.channelId,
       },
     });
     await this.settle('trackStruct');
@@ -5548,8 +5480,8 @@ export class LiveAdapter implements BitwigAdapter {
       await this.transport.send({
         method: WIRE.chainSetName,
         params: {
-          slot: this.scopeSlotOf(container), position: container.chainIndex,
-          channelId: witness.chain.id, name: op.name,
+          position: container.chainIndex, channelId: witness.chain.id, name: op.name,
+          expectedTrackChannelId: container.track.channelId,
         },
       });
       // A rename is a name write, not a structural one; `trackStruct` is the

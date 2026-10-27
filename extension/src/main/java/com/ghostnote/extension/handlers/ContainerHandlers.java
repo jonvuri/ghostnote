@@ -1,5 +1,7 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.Bridge;
+import com.ghostnote.extension.ContainerScopes;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
 import com.bitwig.extension.controller.api.Device;
@@ -58,15 +60,18 @@ public final class ContainerHandlers extends HandlerGroup {
         r.on("layer.duplicateViaAction", params -> layerDuplicateViaAction(params));
         // ⚠⚠ E18 §3.1 — the REBUILD strategy's gating direction. See `chainMove`.
         r.on("chain.inventory", params -> chainInventory());
-        r.on("chain.scroll", params -> chainScroll(params));
-        r.on("chain.move", params -> chainMove(params));
+        // B17: the extension owns the scopes. `chain.observe` and every chain
+        // write name an absolute container position; each aims and settles a
+        // scope for it in later tasks and replies once (`ContainerScopes`).
+        r.onAsync("chain.observe", this::chainObserve);
+        r.onAsync("chain.move", this::chainMove);
         // ⚠⚠ Session 3f step 6b-2 — PRODUCT surface, the first write that reaches
         // inside a container. See the block comment above `chainSelect`.
-        r.on("chain.select", params -> chainSelect(params));
-        r.on("chain.duplicate", params -> chainDuplicate(params));
-        r.on("chain.setName", params -> chainSetName(params));
-        r.on("chain.activate", params -> chainActivate(params));
-        r.on("chain.setSolo", params -> chainSetSolo(params));
+        r.onAsync("chain.select", this::chainSelect);
+        r.onAsync("chain.duplicate", this::chainDuplicate);
+        r.onAsync("chain.setName", this::chainSetName);
+        r.onAsync("chain.activate", this::chainActivate);
+        r.onAsync("chain.setSolo", this::chainSetSolo);
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));
         r.on("drumpad.duplicate", params -> drumPadDuplicate(params));
@@ -990,100 +995,7 @@ public final class ContainerHandlers extends HandlerGroup {
     private JsonElement chainInventory() {
         JsonArray scopes = new JsonArray();
         for (int s = 0; s < Rig.SLOT_SCOPES; s++) {
-            JsonObject scope = new JsonObject();
-            scope.addProperty("slot", s);
-            scope.addProperty("status", rig.slotScopeStatus[s]);
-            if (rig.scopeBanks[s] == null) {
-                scopes.add(scope);
-                continue;
-            }
-            // B08: the scope's own one-wide bank. `position` is what the bank
-            // reports after clamping; `requestedPosition` is what the last
-            // `chain.scroll` (or the resting scroll at init) asked for; `settled`
-            // is the identity guard, which the brain requires before it believes
-            // the chains below describe the container at `requestedPosition`.
-            final int scopeIndex = s;
-            final DeviceBank scopeBank = rig.scopeBanks[s];
-            Device slot = rig.scopeDevice(s);
-            scope.addProperty("requestedPosition", rig.scopeRequestedPosition[s]);
-            putGuarded(scope, "position", () -> scopeBank.scrollPosition().get());
-            putGuarded(scope, "settled", () -> rig.scopeSettled(scopeIndex));
-            putGuarded(scope, "canScrollForwards", () -> scopeBank.canScrollForwards().get());
-            putGuarded(scope, "canScrollBackwards", () -> scopeBank.canScrollBackwards().get());
-            putGuarded(scope, "deviceExists", () -> slot.exists().get());
-            putGuarded(scope, "deviceName", () -> slot.name().get());
-            putGuarded(scope, "devicePosition", () -> slot.position().get());
-            putGuarded(scope, "hasLayers", () -> slot.hasLayers().get());
-            putGuarded(scope, "hasSlots", () -> slot.hasSlots().get());
-            JsonArray slotNames = new JsonArray();
-            try {
-                for (String name : slot.slotNames().get()) slotNames.add(name);
-            } catch (Throwable t) {
-                scope.addProperty("slotNamesError",
-                    t.getClass().getSimpleName() + ":" + t.getMessage());
-            }
-            scope.add("slotNames", slotNames);
-            JsonArray chains = new JsonArray();
-            int existing = 0;
-            if (rig.slotLayerBanks[s] != null) {
-                for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
-                    DeviceLayer layer = rig.slotLayerBanks[s].getItemAt(l);
-                    if (!layer.exists().get()) {
-                        continue;
-                    }
-                    existing++;
-                    JsonObject chain = new JsonObject();
-                    chain.addProperty("index", l);
-                    putGuarded(chain, "name", () -> layer.name().get());
-                    putGuarded(chain, "channelId", () -> layer.channelId().get());
-                    // Product switching needs the exact flag for EVERY sibling.
-                    // Guarded silence is preserved as a missing field, which the
-                    // brain refuses rather than guessing as false.
-                    putGuarded(chain, "solo", () -> layer.solo().get());
-                    putGuarded(chain, "mute", () -> layer.mute().get());
-                    putGuarded(chain, "volume", () -> layer.volume().value().get());
-                    putGuarded(chain, "pan", () -> layer.pan().value().get());
-                    putGuarded(chain, "color", () -> String.format("%.3f,%.3f,%.3f",
-                        layer.color().red(), layer.color().green(), layer.color().blue()));
-                    JsonArray devices = new JsonArray();
-                    for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
-                        Device nested = rig.slotLayerDeviceBanks[s][l].getDevice(d);
-                        if (!nested.exists().get()) {
-                            continue;
-                        }
-                        JsonObject dev = new JsonObject();
-                        dev.addProperty("index", d);
-                        putGuarded(dev, "name", () -> nested.name().get());
-                        putGuarded(dev, "enabled", () -> nested.isEnabled().get());
-                        devices.add(dev);
-                    }
-                    chain.add("devices", devices);
-                    chain.addProperty("deviceCount",
-                        rig.slotLayerDeviceBanks[s][l].itemCount().get());
-                    chains.add(chain);
-                }
-            }
-            scope.add("chains", chains);
-            scope.addProperty("visibleChainCount", existing);
-            if (rig.slotLayerBanks[s] != null) {
-                scope.addProperty("chainCount", rig.slotLayerBanks[s].itemCount().get());
-            }
-            // Session 5r: itemCount distinguishes a full bank from overflow.
-            // The bank sizes remain explicit so a projected create can refuse
-            // before it writes past the complete window. Older extensions omit
-            // itemCount, and the adapter treats that omission as incomplete.
-            scope.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
-            scope.addProperty("deviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
-            scope.addProperty("namedSlotStatus", "held");
-            try {
-                scope.addProperty("namedSlotComplete",
-                    !slot.hasSlots().get() && slot.slotNames().get().length == 0);
-            } catch (Throwable t) {
-                scope.addProperty("namedSlotComplete", false);
-                scope.addProperty("namedSlotError",
-                    t.getClass().getSimpleName() + ":" + t.getMessage());
-            }
-            scopes.add(scope);
+            scopes.add(describeScope(s));
         }
         JsonObject result = new JsonObject();
         result.add("scopes", scopes);
@@ -1093,9 +1005,124 @@ public final class ContainerHandlers extends HandlerGroup {
         result.addProperty("scopeCount", Rig.SLOT_SCOPES);
         putGuarded(result, "deviceCount", () -> rig.cursorDeviceBanks[0].itemCount().get());
         result.addProperty("deviceBankSize", rig.config.deviceBank);
-        // Chain's slot devices are visible only after the device cursor enters
-        // its nonempty CHAIN slot. Report the sibling bank with the recorded
-        // parent route, so the brain can bind it to one top-level container.
+        result.add("cursorScope", describeCursorScope());
+        // Named beside the scopes: an index means nothing without knowing which
+        // TRACK the device bank is on (the e16o trap, one level up).
+        putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
+        // ⚠⚠ And the DURABLE half of that guard, added in session 3f step 6b when
+        // this became product surface. A name is not an identity (standing rule 2)
+        // and two tracks may share one, so a reader that has just pointed cursor 0
+        // at a channelId compares against THIS and refuses the whole observation
+        // on a mismatch. It is the only field here that can prove the reply
+        // describes the track that was asked about.
+        putGuarded(result, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+        return result;
+    }
+
+    /**
+     * One scope as `chain.inventory` and `chain.observe` report it: the scope's one-wide bank (`position` is
+     * what the bank reports after clamping, `requestedPosition` what it was last asked for, `settled` the
+     * identity guard), the slot device, and its chains with their devices.
+     */
+    private JsonObject describeScope(int s) {
+        JsonObject scope = new JsonObject();
+        scope.addProperty("slot", s);
+        scope.addProperty("status", rig.slotScopeStatus[s]);
+        if (rig.scopeBanks[s] == null) {
+            return scope;
+        }
+        final int scopeIndex = s;
+        final DeviceBank scopeBank = rig.scopeBanks[s];
+        Device slot = rig.scopeDevice(s);
+        scope.addProperty("requestedPosition", rig.scopeRequestedPosition[s]);
+        putGuarded(scope, "position", () -> scopeBank.scrollPosition().get());
+        putGuarded(scope, "settled", () -> rig.scopeSettled(scopeIndex));
+        putGuarded(scope, "canScrollForwards", () -> scopeBank.canScrollForwards().get());
+        putGuarded(scope, "canScrollBackwards", () -> scopeBank.canScrollBackwards().get());
+        putGuarded(scope, "deviceExists", () -> slot.exists().get());
+        putGuarded(scope, "deviceName", () -> slot.name().get());
+        putGuarded(scope, "devicePosition", () -> slot.position().get());
+        putGuarded(scope, "hasLayers", () -> slot.hasLayers().get());
+        putGuarded(scope, "hasSlots", () -> slot.hasSlots().get());
+        JsonArray slotNames = new JsonArray();
+        try {
+            for (String name : slot.slotNames().get()) slotNames.add(name);
+        } catch (Throwable t) {
+            scope.addProperty("slotNamesError",
+                t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        scope.add("slotNames", slotNames);
+        JsonArray chains = new JsonArray();
+        int existing = 0;
+        if (rig.slotLayerBanks[s] != null) {
+            for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+                DeviceLayer layer = rig.slotLayerBanks[s].getItemAt(l);
+                if (!layer.exists().get()) {
+                    continue;
+                }
+                existing++;
+                JsonObject chain = new JsonObject();
+                // B17: the index is absolute within the container. Session 1 keeps the chain window at rest,
+                // so it equals the window index; session 2 pages the window and keeps the index absolute.
+                chain.addProperty("index", l);
+                putGuarded(chain, "name", () -> layer.name().get());
+                putGuarded(chain, "channelId", () -> layer.channelId().get());
+                // Product switching needs the exact flag for EVERY sibling.
+                // Guarded silence is preserved as a missing field, which the
+                // brain refuses rather than guessing as false.
+                putGuarded(chain, "solo", () -> layer.solo().get());
+                putGuarded(chain, "mute", () -> layer.mute().get());
+                putGuarded(chain, "volume", () -> layer.volume().value().get());
+                putGuarded(chain, "pan", () -> layer.pan().value().get());
+                putGuarded(chain, "color", () -> String.format("%.3f,%.3f,%.3f",
+                    layer.color().red(), layer.color().green(), layer.color().blue()));
+                JsonArray devices = new JsonArray();
+                for (int d = 0; d < Rig.SLOT_LAYER_DEVICE_BANK; d++) {
+                    Device nested = rig.slotLayerDeviceBanks[s][l].getDevice(d);
+                    if (!nested.exists().get()) {
+                        continue;
+                    }
+                    JsonObject dev = new JsonObject();
+                    dev.addProperty("index", d);
+                    putGuarded(dev, "name", () -> nested.name().get());
+                    putGuarded(dev, "enabled", () -> nested.isEnabled().get());
+                    devices.add(dev);
+                }
+                chain.add("devices", devices);
+                chain.addProperty("deviceCount",
+                    rig.slotLayerDeviceBanks[s][l].itemCount().get());
+                chains.add(chain);
+            }
+        }
+        scope.add("chains", chains);
+        scope.addProperty("visibleChainCount", existing);
+        if (rig.slotLayerBanks[s] != null) {
+            scope.addProperty("chainCount", rig.slotLayerBanks[s].itemCount().get());
+        }
+        // Session 5r: itemCount distinguishes a full bank from overflow.
+        // The bank sizes remain explicit so a projected create can refuse
+        // before it writes past the complete window. Older extensions omit
+        // itemCount, and the adapter treats that omission as incomplete.
+        scope.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
+        scope.addProperty("deviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
+        scope.addProperty("namedSlotStatus", "held");
+        try {
+            scope.addProperty("namedSlotComplete",
+                !slot.hasSlots().get() && slot.slotNames().get().length == 0);
+        } catch (Throwable t) {
+            scope.addProperty("namedSlotComplete", false);
+            scope.addProperty("namedSlotError",
+                t.getClass().getSimpleName() + ":" + t.getMessage());
+        }
+        return scope;
+    }
+
+    /**
+     * The cursor-bound named-slot view. A Chain device's slot devices are visible only after the device cursor
+     * enters its nonempty CHAIN slot; the sibling bank is reported with the recorded parent route, so the brain
+     * can bind it to one top-level container.
+     */
+    private JsonObject describeCursorScope() {
         JsonObject cursorScope = new JsonObject();
         cursorScope.addProperty("status", "held");
         putGuarded(cursorScope, "deviceExists", () -> rig.cursorDevice0.exists().get());
@@ -1140,71 +1167,359 @@ public final class ContainerHandlers extends HandlerGroup {
             cursorScope.addProperty("namedSlotError",
                 t.getClass().getSimpleName() + ":" + t.getMessage());
         }
-        result.add("cursorScope", cursorScope);
-        // Named beside the scopes: an index means nothing without knowing which
-        // TRACK the device bank is on (the e16o trap, one level up).
-        putGuarded(result, "trackName", () -> rig.cursorTracks[0].name().get());
-        // ⚠⚠ And the DURABLE half of that guard, added in session 3f step 6b when
-        // this became product surface. A name is not an identity (standing rule 2)
-        // and two tracks may share one, so a reader that has just pointed cursor 0
-        // at a channelId compares against THIS and refuses the whole observation
-        // on a mismatch. It is the only field here that can prove the reply
-        // describes the track that was asked about.
-        putGuarded(result, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-        return result;
+        return cursorScope;
+    }
+
+    // ======================================================================
+    // B17 — extension-owned scopes.
+    //
+    // `chain.observe` and every chain write name a container by its ABSOLUTE
+    // top-level position (and a chain by its absolute index inside the
+    // container). The extension aims a scope at each named position through
+    // `ContainerScopes`, polls until it settles (or refuses after the bound),
+    // performs the read or write through the settled scope, and replies once.
+    // The brain holds no scope slot and sends no scroll. A reply carries `aim`
+    // (polls, scrolls, elapsed) so a live driver can see what the settle cost.
+    // ======================================================================
+
+    private interface ScopeWork {
+        JsonElement run(ContainerScopes.Settled settled) throws Exception;
     }
 
     /**
-     * ⚠⚠ E18 §3.1 — relocate a device that is INSIDE a chain.
-     *
-     * Source is always `slotLayerDeviceBanks[srcSlot][srcLayer][srcDevice]` — a
-     * device nested in a container's chain, which no wire method has ever been able
-     * to name as a SOURCE. Destination is either the track's top-level chain or
-     * another chain, in the same container or a different one.
-     *
-     * ⚠ Every input is validated BEFORE the call (standing rule 3c): an exception
-     * Bitwig defers to its own thread escapes every extension frame and takes the
-     * DAW down (E14-A1).
-     *
-     * ⚠ The source is required to EXIST before the verb fires. Aimed at an empty
-     * bank slot, `moveDevices` is a silent no-op byte-identical to an API refusal —
-     * the e16o trap, which nearly published a false negative on the inbound row and
-     * is why `requireLayer` exists at all. A handler that throws here turns the
-     * whole class of mistake into an error message instead of a wrong finding.
-     *
-     * ⚠ Verified by a `chain.inventory` / `device.list` DIFF, never by this return:
-     * the acknowledgement is identical whether or not anything moved (E6 blocker 4).
+     * Settle a scope at each position, run the work through them, reply once, and release the write lease.
+     * A refused aim (track not confirmed, scope not settled within the bound, no free scope) replies an error
+     * and changes nothing. `expectedTrackChannelId`, when sent, is polled by the aim and so proves the scopes
+     * describe the track the caller asked about.
      */
-    private JsonElement chainMove(JsonObject params) {
+    private void withScopes(int[] positions, JsonObject params, Bridge.Reply reply, ScopeWork work) {
+        String expectedTrack = params.has("expectedTrackChannelId")
+                && !params.get("expectedTrackChannelId").isJsonNull()
+            ? params.get("expectedTrackChannelId").getAsString() : null;
+        rig.containerScopes.aim(positions, expectedTrack, new ContainerScopes.Outcome() {
+            @Override public void settled(ContainerScopes.Settled settled) {
+                // Release BEFORE the reply: a batch continues with its next op from inside the reply, and
+                // that op may open the next scope operation in the same task.
+                JsonElement result;
+                try {
+                    result = work.run(settled);
+                } catch (Exception error) {
+                    settled.release();
+                    reply.error(error, 0);
+                    return;
+                }
+                settled.release();
+                reply.result(result, 0);
+            }
+
+            @Override public void refused(String reason, String detail, JsonObject report) {
+                reply.error(new IllegalStateException("container scope " + reason + " after "
+                    + report.get("polls").getAsInt() + " polls: " + detail), 0);
+            }
+        });
+    }
+
+    /** An integer top-level position inside the reference bank, validated BEFORE any Bitwig call (rule 3c). */
+    private int requirePosition(JsonObject params, String field) {
+        if (!params.has(field) || !params.get(field).isJsonPrimitive()
+                || !params.get(field).getAsJsonPrimitive().isNumber()) {
+            throw new IllegalArgumentException(field + " must be an integer position");
+        }
+        double raw = params.get(field).getAsDouble();
+        if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= rig.config.deviceBank) {
+            throw new IllegalArgumentException(
+                field + " must be an integer in 0.." + (rig.config.deviceBank - 1) + ": " + raw);
+        }
+        return (int) raw;
+    }
+
+    /**
+     * An absolute chain index. Session 1 of B17 keeps the chain window at rest, so the index must lie inside
+     * it; session 2 pages the window and lifts this bound.
+     */
+    private int requireChainIndex(JsonObject params, String field) {
+        if (!params.has(field) || !params.get(field).isJsonPrimitive()
+                || !params.get(field).getAsJsonPrimitive().isNumber()) {
+            throw new IllegalArgumentException(field + " must be an integer chain index");
+        }
+        double raw = params.get(field).getAsDouble();
+        if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= Rig.SLOT_LAYER_BANK) {
+            throw new IllegalArgumentException(field + " must be an integer in 0.." + (Rig.SLOT_LAYER_BANK - 1)
+                + ": " + raw + " (chains past the window are paged in B17 session 2)");
+        }
+        return (int) raw;
+    }
+
+    /**
+     * B17: observe one container by position. The reply carries the settled scope (`scope`, in the shape of
+     * one `chain.inventory` scope), or no `scope` when the position holds no device (`deviceCount` says so), the
+     * cursor-bound named-slot view, the track identity, and the aim's cost.
+     */
+    private void chainObserve(JsonObject params, Bridge.Reply reply) {
+        int position = requirePosition(params, "position");
+        withScopes(new int[] {position}, params, reply, settled -> {
+            JsonObject r = ok();
+            r.addProperty("position", position);
+            int slot = settled.slotOf(position);
+            r.addProperty("slot", slot);
+            r.addProperty("deviceCount", settled.deviceCount());
+            r.addProperty("deviceBankSize", rig.config.deviceBank);
+            r.addProperty("scopeCount", Rig.SLOT_SCOPES);
+            r.addProperty("chainBankSize", Rig.SLOT_LAYER_BANK);
+            r.addProperty("chainDeviceBankSize", Rig.SLOT_LAYER_DEVICE_BANK);
+            if (slot >= 0) r.add("scope", describeScope(slot));
+            r.add("cursorScope", describeCursorScope());
+            putGuarded(r, "trackName", () -> rig.cursorTracks[0].name().get());
+            putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+            r.add("aim", settled.report());
+            return r;
+        });
+    }
+
+    /**
+     * The chain a write is about to act on, through the scope the aim settled at its container's position,
+     * and checked against the name the caller observed.
+     *
+     * ⚠ The name check is the whole point. A bank position is not an identity: a chain bank re-indexes when a
+     * chain is added or removed (E3, one level down), so an index learned from one reply can name a different
+     * chain in the next request. Aimed at the wrong chain, the verbs succeed and report `ok`.
+     *
+     * ⚠ An absent chain throws rather than no-op'ing, for the e16o reason: aimed at an empty bank slot these
+     * verbs are silent no-ops byte-identical to an API refusal.
+     */
+    private DeviceLayer requireChain(ContainerScopes.Settled settled, int position, int chainIndex, JsonObject params) {
+        int slot = settled.slotOf(position);
+        if (slot == ContainerScopes.EMPTY) {
+            throw new IllegalArgumentException("no device at position " + position + " — the track holds "
+                + settled.deviceCount() + " devices");
+        }
+        DeviceLayer layer = rig.slotLayerBanks[slot].getItemAt(chainIndex);
+        if (!layer.exists().get()) {
+            throw new IllegalArgumentException(
+                "no chain at position " + position + " index " + chainIndex + " — the device is "
+                + rig.scopeDevice(slot).name().get() + ", holding " + countSlotChains(slot) + " chains");
+        }
+        if (params.has("expectedName")) {
+            String expected = params.get("expectedName").getAsString();
+            String actual = layer.name().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "chain at position " + position + " index " + chainIndex + " is named \"" + actual
+                    + "\", not \"" + expected + "\" — the bank re-indexed since it was observed, "
+                    + "and acting on a stale index would hit a chain nobody addressed");
+            }
+        }
+        return layer;
+    }
+
+    /** Identify the chain a call is about to act on, read BEFORE the act (`e16t`). */
+    private JsonObject describeChain(ContainerScopes.Settled settled, int position, int chainIndex, DeviceLayer layer) {
+        int slot = settled.slotOf(position);
+        JsonObject r = ok();
+        r.addProperty("position", position);
+        r.addProperty("chainIndex", chainIndex);
+        r.addProperty("slot", slot);
+        r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
+        putGuarded(r, "sourceName", () -> layer.name().get());
+        putGuarded(r, "sourceChannelId", () -> layer.channelId().get());
+        putGuarded(r, "containerName", () -> rig.scopeDevice(slot).name().get());
+        // ⚠ Named beside the rest: a position means nothing without knowing which TRACK the device bank is
+        // on (the e16o trap, one level up), and these banks follow `cursorTracks[0]`.
+        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+        r.add("aim", settled.report());
+        return r;
+    }
+
+    private String requireTrackIdentity(JsonObject params, String method) {
+        if (!params.has("expectedTrackChannelId") || params.get("expectedTrackChannelId").isJsonNull()) {
+            throw new IllegalArgumentException(method + " needs expectedTrackChannelId");
+        }
+        return params.get("expectedTrackChannelId").getAsString();
+    }
+
+    /**
+     * ⚠ Make a chain the editor selection — `e17ak`'s enabling half.
+     *
+     * `DeviceLayer` is a `DeviceChain`, so it carries `selectInEditor()`, and `e17y` proved our call sets the
+     * identical flag a human click does. SELECT IS ITS OWN CALL, deliberately: E2 says a write is not visible
+     * to a read in the same request, and `e17ak` fired the select one turn before the duplicate. The brain
+     * sends `chain.select`, settles, and only then sends `chain.duplicate`.
+     */
+    private void chainSelect(JsonObject params, Bridge.Reply reply) {
+        int position = requirePosition(params, "position");
+        int chainIndex = requireChainIndex(params, "chainIndex");
+        withScopes(new int[] {position}, params, reply, settled -> {
+            DeviceLayer layer = requireChain(settled, position, chainIndex, params);
+            JsonObject r = describeChain(settled, position, chainIndex, layer);
+            layer.selectInEditor();
+            return r;
+        });
+    }
+
+    /**
+     * ⚠⚠ `Channel.duplicate()` on an already-selected chain — the create itself (`e17ak`: the one typed route
+     * that makes a chain). It selects again first, belt and braces: the load-bearing selection is the one made
+     * in the PREVIOUS request. Returns the source's identity read BEFORE the verb fires; the brain identifies
+     * the copy by diffing channelIds across two observations.
+     */
+    private void chainDuplicate(JsonObject params, Bridge.Reply reply) {
+        int position = requirePosition(params, "position");
+        int chainIndex = requireChainIndex(params, "chainIndex");
+        withScopes(new int[] {position}, params, reply, settled -> {
+            DeviceLayer layer = requireChain(settled, position, chainIndex, params);
+            JsonObject r = describeChain(settled, position, chainIndex, layer);
+            layer.selectInEditor();
+            layer.duplicate();
+            return r;
+        });
+    }
+
+    /**
+     * ⚠⚠ Rename the chain carrying this `channelId` — BY IDENTITY, never by name and never by position.
+     *
+     * A duplicate arrives carrying its source's NAME, so at the moment this runs the container holds two
+     * chains one name cannot tell apart; and a bank index is exactly what the duplicate just invalidated.
+     * `channelId` is worthless ACROSS a project load (E17ad, E18b) and exactly right WITHIN the turn that just
+     * observed it. It REFUSES an id it cannot find, and refuses again if two chains report the same one.
+     */
+    private void chainSetName(JsonObject params, Bridge.Reply reply) {
+        int position = requirePosition(params, "position");
+        String channelId = params.get("channelId").getAsString();
+        String name = params.get("name").getAsString();
+        // Validated BEFORE the write: a chain's name is its only durable
+        // identifier (E18b), so a blank one is not a weak name but no name.
+        if (name.trim().isEmpty()) {
+            throw new IllegalArgumentException("name must not be blank");
+        }
+        withScopes(new int[] {position}, params, reply, settled -> {
+            int slot = settled.slotOf(position);
+            if (slot == ContainerScopes.EMPTY) {
+                throw new IllegalArgumentException("no device at position " + position + " — the track holds "
+                    + settled.deviceCount() + " devices");
+            }
+            DeviceLayer target = null;
+            int at = -1;
+            for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+                DeviceLayer candidate = rig.slotLayerBanks[slot].getItemAt(l);
+                if (!candidate.exists().get() || !channelId.equals(candidate.channelId().get())) {
+                    continue;
+                }
+                if (target != null) {
+                    throw new IllegalArgumentException(
+                        "two chains at position " + position + " report channelId " + channelId
+                        + " — refusing rather than renaming whichever was enumerated first");
+                }
+                target = candidate;
+                at = l;
+            }
+            if (target == null) {
+                throw new IllegalArgumentException(
+                    "no chain at position " + position + " has channelId " + channelId
+                    + " — the container holds " + countSlotChains(slot) + " chains. Refusing rather "
+                    + "than falling back to an index, which is what this id exists to avoid");
+            }
+            final DeviceLayer chain = target;
+            JsonObject r = ok();
+            r.addProperty("position", position);
+            r.addProperty("chainIndex", at);
+            r.addProperty("slot", slot);
+            r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
+            r.addProperty("requested", name);
+            // Read BEFORE the write, so a reply describes what was there rather than
+            // what we just put there (`e16t`).
+            putGuarded(r, "previousName", () -> chain.name().get());
+            putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
+            r.add("aim", settled.report());
+            chain.name().set(name);
+            return r;
+        });
+    }
+
+    /** Make one chain the sole soloed chain in its container. */
+    private void chainActivate(JsonObject params, Bridge.Reply reply) {
+        int position = requirePosition(params, "position");
+        int chainIndex = requireChainIndex(params, "chainIndex");
+        String expectedTrack = requireTrackIdentity(params, "chain.activate");
+        withScopes(new int[] {position}, params, reply, settled -> {
+            String actualTrack = rig.cursorTracks[0].channelId().get();
+            if (!expectedTrack.equals(actualTrack)) {
+                throw new IllegalArgumentException(
+                    "chain.activate track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+            }
+            DeviceLayer target = requireChain(settled, position, chainIndex, params);
+            int slot = settled.slotOf(position);
+            JsonObject r = describeChain(settled, position, chainIndex, target);
+            // Clear any exceptional multi-solo state first. Then use the measured
+            // exclusivity primitive only when the requested target is not already on;
+            // toggle(true) on an already-soloed target would turn it off.
+            for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
+                if (l == chainIndex) continue;
+                DeviceLayer sibling = rig.slotLayerBanks[slot].getItemAt(l);
+                if (sibling.exists().get() && sibling.solo().get()) {
+                    sibling.solo().set(false);
+                }
+            }
+            if (!target.solo().get()) {
+                target.solo().toggle(true);
+            }
+            return r;
+        });
+    }
+
+    /**
+     * 8h4e: set the solo flag of one chain. It is not exclusive: the sibling flags do not change. The brain
+     * proves the result from a new container observation.
+     */
+    private void chainSetSolo(JsonObject params, Bridge.Reply reply) {
+        if (!params.has("solo") || !params.get("solo").isJsonPrimitive()
+                || !params.get("solo").getAsJsonPrimitive().isBoolean()) {
+            throw new IllegalArgumentException("chain.setSolo needs a boolean solo");
+        }
+        boolean solo = params.get("solo").getAsBoolean();
+        int position = requirePosition(params, "position");
+        int chainIndex = requireChainIndex(params, "chainIndex");
+        String expectedTrack = requireTrackIdentity(params, "chain.setSolo");
+        withScopes(new int[] {position}, params, reply, settled -> {
+            String actualTrack = rig.cursorTracks[0].channelId().get();
+            if (!expectedTrack.equals(actualTrack)) {
+                throw new IllegalArgumentException(
+                    "chain.setSolo track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+            }
+            DeviceLayer target = requireChain(settled, position, chainIndex, params);
+            JsonObject r = describeChain(settled, position, chainIndex, target);
+            r.addProperty("previousSolo", target.solo().get());
+            r.addProperty("requestedSolo", solo);
+            target.solo().set(solo);
+            return r;
+        });
+    }
+
+    /**
+     * ⚠⚠ E18 §3.1 — relocate a device that is INSIDE a chain, or into one.
+     *
+     * A chain endpoint names its container's absolute top-level position (`srcPosition`/`dstPosition`) and
+     * the chain's absolute index (`srcChain`/`dstChain`); the aim settles one scope for each distinct
+     * position, so a move between two containers holds both at once. A named-slot endpoint names its
+     * container position too and goes through the cursor-bound slot handle. A top-level endpoint is the
+     * track's own chain.
+     *
+     * ⚠ Every input is validated BEFORE the call (standing rule 3c): an exception Bitwig defers to its own
+     * thread escapes every extension frame and takes the DAW down (E14-A1).
+     *
+     * ⚠ The source is required to EXIST before the verb fires. Aimed at an empty bank slot, `moveDevices` is a
+     * silent no-op byte-identical to an API refusal (the e16o trap).
+     *
+     * ⚠ Verified by a container or `device.list` DIFF, never by this return: the acknowledgement is identical
+     * whether or not anything moved (E6 blocker 4).
+     */
+    private void chainMove(JsonObject params, Bridge.Reply reply) {
         String src = params.has("src") ? params.get("src").getAsString() : "chain";
-        int srcSlot = params.has("srcSlot") ? params.get("srcSlot").getAsInt() : -1;
-        int srcLayer = params.has("srcLayer") ? params.get("srcLayer").getAsInt() : -1;
-        int srcDevice = params.get("srcDevice").getAsInt();
         String dst = params.has("dst") ? params.get("dst").getAsString() : "top";
         String verb = params.has("verb") ? params.get("verb").getAsString() : "move";
         String where = params.has("where") ? params.get("where").getAsString() : "chainEnd";
         String ref = params.has("cursor") ? params.get("cursor").getAsString() : "0";
-
         if (!"top".equals(src) && !"chain".equals(src) && !"slot".equals(src)) {
             throw new IllegalArgumentException("src must be top, chain, or slot: " + src);
-        }
-        // B08: for a chain source `srcSlot` names a SCOPE (scrolled to the
-        // container's position, which `srcPosition` carries for the guard); for
-        // a named-slot source it is the container's top-level position, as the
-        // cursor route has always taken it.
-        if ("chain".equals(src) && (srcSlot < 0 || srcSlot >= Rig.SLOT_SCOPES)) {
-            throw new IllegalArgumentException("srcSlot out of scope range: " + srcSlot);
-        }
-        if ("slot".equals(src) && (srcSlot < 0 || srcSlot >= rig.config.deviceBank)) {
-            throw new IllegalArgumentException("srcSlot out of bank range: " + srcSlot);
-        }
-        if ("chain".equals(src) && (srcLayer < 0 || srcLayer >= Rig.SLOT_LAYER_BANK)) {
-            throw new IllegalArgumentException("srcLayer out of bank range: " + srcLayer);
-        }
-        int sourceBankSize = !"top".equals(src)
-            ? Rig.SLOT_LAYER_DEVICE_BANK : rig.config.deviceBank;
-        if (srcDevice < 0 || srcDevice >= sourceBankSize) {
-            throw new IllegalArgumentException("srcDevice out of bank range: " + srcDevice);
         }
         if (!"top".equals(dst) && !"chain".equals(dst) && !"slot".equals(dst)) {
             throw new IllegalArgumentException("dst must be top, chain, or slot: " + dst);
@@ -1215,180 +1530,199 @@ public final class ContainerHandlers extends HandlerGroup {
         if (!"chainStart".equals(where) && !"chainEnd".equals(where)) {
             throw new IllegalArgumentException("where must be chainStart or chainEnd: " + where);
         }
-        if (params.has("expectedTrackChannelId")) {
-            String expectedTrack = params.get("expectedTrackChannelId").getAsString();
-            String actualTrack = rig.cursorTracks[0].channelId().get();
-            if (!expectedTrack.equals(actualTrack)) {
-                throw new IllegalArgumentException(
-                    "chain.move track identity changed: expected " + expectedTrack + ", got " + actualTrack);
-            }
+        if (!params.has("srcDevice") || !params.get("srcDevice").isJsonPrimitive()
+                || !params.get("srcDevice").getAsJsonPrimitive().isNumber()) {
+            throw new IllegalArgumentException("chain.move needs an integer srcDevice");
         }
-        verifyExpectedTopLevelDevices(params);
-        if ("chain".equals(src)) {
-            requireSettledScope(srcSlot, params, "srcPosition", "expectedSourceContainer");
+        int srcDevice = params.get("srcDevice").getAsInt();
+        int srcPosition = "top".equals(src) ? -1 : requirePosition(params, "srcPosition");
+        int srcChain = "chain".equals(src) ? requireChainIndex(params, "srcChain") : -1;
+        int dstPosition = "top".equals(dst) ? -1 : requirePosition(params, "dstPosition");
+        int dstChain = "chain".equals(dst) ? requireChainIndex(params, "dstChain") : -1;
+        int sourceBankSize = !"top".equals(src) ? Rig.SLOT_LAYER_DEVICE_BANK : rig.config.deviceBank;
+        if (srcDevice < 0 || srcDevice >= sourceBankSize) {
+            throw new IllegalArgumentException("srcDevice out of bank range: " + srcDevice);
         }
-        DeviceChain sourceNamedSlot = "slot".equals(src)
-            ? requireCursorNamedSlot(srcSlot, params, "expectedSourceChain") : null;
-
-        Device source = "chain".equals(src)
-            ? rig.slotLayerDeviceBanks[srcSlot][srcLayer].getDevice(srcDevice)
-            : "slot".equals(src)
-                ? rig.cursorDeviceSiblings0.getDevice(srcDevice)
-            : rig.cursorDeviceBanks[0].getDevice(srcDevice);
-        if ("chain".equals(src) && params.has("expectedSourceChain")) {
-            String expected = params.get("expectedSourceChain").getAsString();
-            String actual = rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "source chain identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
-            }
-        }
-        if ("slot".equals(src) && params.has("expectedSourceChain")) {
-            String expected = params.get("expectedSourceChain").getAsString();
-            String actual = sourceNamedSlot.name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "source named-slot identity changed: expected \"" + expected
-                    + "\", got \"" + actual + "\"");
-            }
-        }
-        if (params.has("expectedSourceName")) {
-            String expected = params.get("expectedSourceName").getAsString();
-            String actual = source.name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "source device identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
-            }
-        }
-        JsonObject r = ok();
-        r.addProperty("verb", verb);
-        r.addProperty("dst", dst);
-        r.addProperty("where", where);
-        if ("chain".equals(src)) r.addProperty("srcScopeStatus", rig.slotScopeStatus[srcSlot]);
-        if ("slot".equals(src)) {
-            r.addProperty("srcScopeStatus", "cursor-held");
-        }
-        // ⚠ Read the source BEFORE the verb fires. Afterwards the banks re-index
-        // (E3: deleting device[0] shifts the survivor from 1 to 0), so this handle
-        // no longer necessarily refers to what moved — and a name read after the
-        // fact is how a probe reports the wrong device.
-        putGuarded(r, "sourceName", () -> source.name().get());
-        putGuarded(r, "sourceExists", () -> source.exists().get());
-        if ("chain".equals(src)) {
-            putGuarded(r, "sourceChain",
-                () -> rig.slotLayerBanks[srcSlot].getItemAt(srcLayer).name().get());
-            putGuarded(r, "sourceContainer", () -> rig.scopeDevice(srcSlot).name().get());
-            r.addProperty("sourcePosition", rig.scopeRequestedPosition[srcSlot]);
-        }
-        if ("slot".equals(src)) {
-            putGuarded(r, "sourceChain", () -> sourceNamedSlot.name().get());
-            putGuarded(r, "sourceContainer",
-                () -> rig.cursorDeviceBanks[0].getDevice(srcSlot).name().get());
-        }
-        if (!source.exists().get()) {
+        if ("slot".equals(src) && "slot".equals(dst)) {
             throw new IllegalArgumentException(
-                "no device at " + src + " source " + srcSlot + " / chain " + srcLayer + " / index " + srcDevice
-                + " — aimed at an empty slot this verb is a silent no-op byte-identical to a "
-                + "refusal (the e16o trap)");
+                "a named-slot to named-slot move has only one cursor-bound slot handle");
         }
-
-        com.bitwig.extension.controller.api.InsertionPoint target;
-        if ("top".equals(dst)) {
-            target = "chainStart".equals(where)
-                ? rig.cursorTrack(ref).startOfDeviceChainInsertionPoint()
-                : rig.cursorTrack(ref).endOfDeviceChainInsertionPoint();
-        } else if ("chain".equals(dst)) {
-            int dstSlot = params.get("dstSlot").getAsInt();
-            int dstLayer = params.get("dstLayer").getAsInt();
-            if (dstSlot < 0 || dstSlot >= Rig.SLOT_SCOPES) {
-                throw new IllegalArgumentException("dstSlot out of scope range: " + dstSlot);
+        if ("chain".equals(src) && "chain".equals(dst) && srcPosition == dstPosition && srcChain == dstChain) {
+            throw new IllegalArgumentException(
+                "the destination chain is the source chain, so the move is a no-op by "
+                + "construction and would be indistinguishable from a failure");
+        }
+        if (!"top".equals(src) && "slot".equals(dst) && dstPosition == srcPosition) {
+            throw new IllegalArgumentException(
+                "the destination named slot is the source chain, so the move is a no-op");
+        }
+        if ("top".equals(src) && "chain".equals(dst) && srcDevice == dstPosition) {
+            throw new IllegalArgumentException("a container cannot be relocated into one of its own chains");
+        }
+        if ("top".equals(src) && "slot".equals(dst) && srcDevice == dstPosition) {
+            throw new IllegalArgumentException(
+                "a container cannot be relocated into one of its own named slots");
+        }
+        // The chain endpoints are what the scopes serve; a named-slot endpoint is cursor-bound.
+        int[] positions = "chain".equals(src) && "chain".equals(dst) ? new int[] {srcPosition, dstPosition}
+            : "chain".equals(src) ? new int[] {srcPosition}
+            : "chain".equals(dst) ? new int[] {dstPosition}
+            : new int[0];
+        withScopes(positions, params, reply, settled -> {
+            if (params.has("expectedTrackChannelId")) {
+                String expectedTrack = params.get("expectedTrackChannelId").getAsString();
+                String actualTrack = rig.cursorTracks[0].channelId().get();
+                if (!expectedTrack.equals(actualTrack)) {
+                    throw new IllegalArgumentException(
+                        "chain.move track identity changed: expected " + expectedTrack + ", got " + actualTrack);
+                }
             }
-            if (dstLayer < 0 || dstLayer >= Rig.SLOT_LAYER_BANK) {
-                throw new IllegalArgumentException("dstLayer out of bank range: " + dstLayer);
+            verifyExpectedTopLevelDevices(params);
+            int srcSlot = -1;
+            if ("chain".equals(src)) {
+                srcSlot = settled.slotOf(srcPosition);
+                if (srcSlot == ContainerScopes.EMPTY) {
+                    throw new IllegalArgumentException("no device at source position " + srcPosition
+                        + " — the track holds " + settled.deviceCount() + " devices");
+                }
             }
-            requireSettledScope(dstSlot, params, "dstPosition", "expectedDestinationContainer");
-            int dstPosition = rig.scopeRequestedPosition[dstSlot];
-            // Two scopes can show one container; the no-op test is by position.
-            if ("chain".equals(src) && dstPosition == rig.scopeRequestedPosition[srcSlot]
-                    && dstLayer == srcLayer) {
-                throw new IllegalArgumentException(
-                    "the destination chain is the source chain, so the move is a no-op by "
-                    + "construction and would be indistinguishable from a failure");
+            DeviceChain sourceNamedSlot = "slot".equals(src)
+                ? requireCursorNamedSlot(srcPosition, params, "expectedSourceChain") : null;
+            Device source = "chain".equals(src)
+                ? rig.slotLayerDeviceBanks[srcSlot][srcChain].getDevice(srcDevice)
+                : "slot".equals(src)
+                    ? rig.cursorDeviceSiblings0.getDevice(srcDevice)
+                : rig.cursorDeviceBanks[0].getDevice(srcDevice);
+            if ("chain".equals(src)) {
+                DeviceLayer sourceChain = rig.slotLayerBanks[srcSlot].getItemAt(srcChain);
+                if (!sourceChain.exists().get()) {
+                    throw new IllegalArgumentException("no chain at position " + srcPosition + " index "
+                        + srcChain + " — the device is " + rig.scopeDevice(srcSlot).name().get()
+                        + ", holding " + countSlotChains(srcSlot) + " chains");
+                }
+                if (params.has("expectedSourceChain")) {
+                    String expected = params.get("expectedSourceChain").getAsString();
+                    String actual = sourceChain.name().get();
+                    if (!expected.equals(actual)) {
+                        throw new IllegalArgumentException(
+                            "source chain identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
+                    }
+                }
             }
-            DeviceLayer destination = rig.slotLayerBanks[dstSlot].getItemAt(dstLayer);
-            if (!destination.exists().get()) {
-                throw new IllegalArgumentException(
-                    "no chain at scope " + dstSlot + " / index " + dstLayer + " — the slot device is "
-                    + rig.scopeDevice(dstSlot).name().get() + " at position " + dstPosition);
-            }
-            if ("top".equals(src) && srcDevice == dstPosition) {
-                throw new IllegalArgumentException("a container cannot be relocated into one of its own chains");
-            }
-            if (params.has("expectedDestinationChain")) {
-                String expected = params.get("expectedDestinationChain").getAsString();
-                String actual = destination.name().get();
+            if ("slot".equals(src) && params.has("expectedSourceChain")) {
+                String expected = params.get("expectedSourceChain").getAsString();
+                String actual = sourceNamedSlot.name().get();
                 if (!expected.equals(actual)) {
                     throw new IllegalArgumentException(
-                        "destination chain identity changed: expected \"" + expected
+                        "source named-slot identity changed: expected \"" + expected
                         + "\", got \"" + actual + "\"");
                 }
             }
-            r.addProperty("dstSlot", dstSlot);
-            r.addProperty("dstLayer", dstLayer);
-            r.addProperty("dstPosition", dstPosition);
-            r.addProperty("dstScopeStatus", rig.slotScopeStatus[dstSlot]);
-            putGuarded(r, "dstChain", () -> destination.name().get());
-            putGuarded(r, "dstContainer", () -> rig.scopeDevice(dstSlot).name().get());
-            target = "chainStart".equals(where)
-                ? destination.startOfDeviceChainInsertionPoint()
-                : destination.endOfDeviceChainInsertionPoint();
-        } else {
-            int dstSlot = params.get("dstSlot").getAsInt();
-            if (dstSlot < 0 || dstSlot >= rig.config.deviceBank) {
-                throw new IllegalArgumentException("dstSlot out of bank range: " + dstSlot);
+            if (params.has("expectedSourceName")) {
+                String expected = params.get("expectedSourceName").getAsString();
+                String actual = source.name().get();
+                if (!expected.equals(actual)) {
+                    throw new IllegalArgumentException(
+                        "source device identity changed: expected \"" + expected + "\", got \"" + actual + "\"");
+                }
             }
-            // The named-slot destination is addressed by top-level position; a
-            // chain source names a scope, so compare its scrolled position.
-            int srcPosition = "chain".equals(src) ? rig.scopeRequestedPosition[srcSlot] : srcSlot;
-            if (!"top".equals(src) && dstSlot == srcPosition) {
-                throw new IllegalArgumentException(
-                    "the destination named slot is the source chain, so the move is a no-op");
+            JsonObject r = ok();
+            r.addProperty("verb", verb);
+            r.addProperty("dst", dst);
+            r.addProperty("where", where);
+            if ("chain".equals(src)) {
+                final int slot = srcSlot;
+                r.addProperty("srcSlot", slot);
+                r.addProperty("srcScopeStatus", rig.slotScopeStatus[slot]);
+                putGuarded(r, "sourceChain", () -> rig.slotLayerBanks[slot].getItemAt(srcChain).name().get());
+                putGuarded(r, "sourceContainer", () -> rig.scopeDevice(slot).name().get());
+                r.addProperty("sourcePosition", srcPosition);
             }
             if ("slot".equals(src)) {
+                r.addProperty("srcScopeStatus", "cursor-held");
+                putGuarded(r, "sourceChain", () -> sourceNamedSlot.name().get());
+                putGuarded(r, "sourceContainer",
+                    () -> rig.cursorDeviceBanks[0].getDevice(srcPosition).name().get());
+                r.addProperty("sourcePosition", srcPosition);
+            }
+            // ⚠ Read the source BEFORE the verb fires. Afterwards the banks re-index
+            // (E3: deleting device[0] shifts the survivor from 1 to 0), so this handle
+            // no longer necessarily refers to what moved — and a name read after the
+            // fact is how a probe reports the wrong device.
+            putGuarded(r, "sourceName", () -> source.name().get());
+            putGuarded(r, "sourceExists", () -> source.exists().get());
+            if (!source.exists().get()) {
                 throw new IllegalArgumentException(
-                    "a named-slot to named-slot move has only one cursor-bound slot handle");
+                    "no device at " + src + " source position " + srcPosition + " / chain " + srcChain
+                    + " / index " + srcDevice
+                    + " — aimed at an empty slot this verb is a silent no-op byte-identical to a "
+                    + "refusal (the e16o trap)");
             }
-            DeviceChain destination = requireCursorNamedSlot(
-                dstSlot, params, "expectedDestinationChain");
-            if ("top".equals(src) && srcDevice == dstSlot) {
-                throw new IllegalArgumentException(
-                    "a container cannot be relocated into one of its own named slots");
-            }
-            if (params.has("expectedDestinationChain")) {
-                String expected = params.get("expectedDestinationChain").getAsString();
-                String actual = destination.name().get();
-                if (!destination.exists().get() || !expected.equals(actual)) {
-                    throw new IllegalArgumentException(
-                        "destination named-slot identity changed: expected \"" + expected
-                        + "\", got \"" + actual + "\"");
-                }
-            }
-            r.addProperty("dstSlot", dstSlot);
-            r.addProperty("dstScopeStatus", "cursor-held");
-            putGuarded(r, "dstChain", () -> destination.name().get());
-            putGuarded(r, "dstContainer",
-                () -> rig.cursorDeviceBanks[0].getDevice(dstSlot).name().get());
-            target = "chainStart".equals(where)
-                ? destination.startOfDeviceChainInsertionPoint()
-                : destination.endOfDeviceChainInsertionPoint();
-        }
 
-        if ("move".equals(verb)) {
-            target.moveDevices(source);
-        } else {
-            target.copyDevices(source);
-        }
-        return r;
+            com.bitwig.extension.controller.api.InsertionPoint target;
+            if ("top".equals(dst)) {
+                target = "chainStart".equals(where)
+                    ? rig.cursorTrack(ref).startOfDeviceChainInsertionPoint()
+                    : rig.cursorTrack(ref).endOfDeviceChainInsertionPoint();
+            } else if ("chain".equals(dst)) {
+                int dstSlot = settled.slotOf(dstPosition);
+                if (dstSlot == ContainerScopes.EMPTY) {
+                    throw new IllegalArgumentException("no device at destination position " + dstPosition
+                        + " — the track holds " + settled.deviceCount() + " devices");
+                }
+                DeviceLayer destination = rig.slotLayerBanks[dstSlot].getItemAt(dstChain);
+                if (!destination.exists().get()) {
+                    throw new IllegalArgumentException(
+                        "no chain at position " + dstPosition + " index " + dstChain + " — the device is "
+                        + rig.scopeDevice(dstSlot).name().get() + ", holding " + countSlotChains(dstSlot) + " chains");
+                }
+                if (params.has("expectedDestinationChain")) {
+                    String expected = params.get("expectedDestinationChain").getAsString();
+                    String actual = destination.name().get();
+                    if (!expected.equals(actual)) {
+                        throw new IllegalArgumentException(
+                            "destination chain identity changed: expected \"" + expected
+                            + "\", got \"" + actual + "\"");
+                    }
+                }
+                r.addProperty("dstSlot", dstSlot);
+                r.addProperty("dstChain", dstChain);
+                r.addProperty("dstPosition", dstPosition);
+                r.addProperty("dstScopeStatus", rig.slotScopeStatus[dstSlot]);
+                putGuarded(r, "dstChainName", () -> destination.name().get());
+                putGuarded(r, "dstContainer", () -> rig.scopeDevice(dstSlot).name().get());
+                target = "chainStart".equals(where)
+                    ? destination.startOfDeviceChainInsertionPoint()
+                    : destination.endOfDeviceChainInsertionPoint();
+            } else {
+                DeviceChain destination = requireCursorNamedSlot(
+                    dstPosition, params, "expectedDestinationChain");
+                if (params.has("expectedDestinationChain")) {
+                    String expected = params.get("expectedDestinationChain").getAsString();
+                    String actual = destination.name().get();
+                    if (!destination.exists().get() || !expected.equals(actual)) {
+                        throw new IllegalArgumentException(
+                            "destination named-slot identity changed: expected \"" + expected
+                            + "\", got \"" + actual + "\"");
+                    }
+                }
+                r.addProperty("dstPosition", dstPosition);
+                r.addProperty("dstScopeStatus", "cursor-held");
+                putGuarded(r, "dstChainName", () -> destination.name().get());
+                putGuarded(r, "dstContainer",
+                    () -> rig.cursorDeviceBanks[0].getDevice(dstPosition).name().get());
+                target = "chainStart".equals(where)
+                    ? destination.startOfDeviceChainInsertionPoint()
+                    : destination.endOfDeviceChainInsertionPoint();
+            }
+            r.add("aim", settled.report());
+            if ("move".equals(verb)) {
+                target.moveDevices(source);
+            } else {
+                target.copyDevices(source);
+            }
+            return r;
+        });
     }
 
     /** Return the one cursor-bound named slot after exact parent validation. */
@@ -1480,218 +1814,6 @@ public final class ContainerHandlers extends HandlerGroup {
         }
     }
 
-    // ======================================================================
-    // ⚠⚠ Session 3f step 6b-2 — CHAIN CREATION, as product surface.
-    //
-    // `e17ak` closed this as the one typed route that works, after the whole
-    // spike had recorded it as impossible: SELECT the chain
-    // (`DeviceChain.selectInEditor()`), then call `Channel.duplicate()` on it.
-    // Four arms on a fresh FX Layer that had never been clicked — no primer ○,
-    // `layer.pointCursor` ○, `insertViaCursor` ○, and `layer.select` ●● — with
-    // the sibling `DuplicableObject.duplicateObject()` genuinely dead beside it.
-    // No focus, no priming, no foreground, no human.
-    //
-    // ⚠⚠ **These three are NOT `layer.select` / `layer.duplicateChannel` /
-    // `layer.setName` under new names, and the difference is the handle.** Those
-    // act on `rig.layerBank0`, which follows `cursorDevice0`. That is
-    // disqualifying three times over for a product route:
-    //
-    //   - the container becomes a HIDDEN argument (the e16o trap), where
-    //     `chain.inventory` — the reader these must agree with — names it by
-    //     parameter;
-    //   - reader and writer would address containers through different handles,
-    //     so a chain resolved at slot 1 could be duplicated somewhere else;
-    //   - `cursorDevice0` is what `param.set` writes through, so moving it to
-    //     reach a container would silently re-aim every parameter write near it.
-    //
-    // These read through `Rig.slotLayerBanks[slot]` instead: the same banks
-    // `chain.inventory` enumerates, hung off top-level device SLOTS, with the
-    // container named by a parameter and no cursor to steal.
-    //
-    // ⚠ The DEVIATION is named rather than glossed over, because this project's
-    // most repeated lesson is that sibling verbs and sibling handles disagree
-    // (`copyDevices` ○ beside `moveDevices` ●; `duplicateObject()` ○ beside
-    // `Channel.duplicate()` ●). `e17ak` measured these two calls on a
-    // `DeviceLayer` from `layerBank0`; this is the same interface and the same
-    // two calls on a `DeviceLayer` from `slotLayerBanks`. Live conformance is
-    // what closes that gap — nothing here should be read as having closed it.
-    //
-    // ⚠ SELECT IS ITS OWN CALL, deliberately, and that is not tidiness. E2: a
-    // write is not visible to a read in the same request. `e17ak` fired the
-    // select as a separate call one turn earlier, so a handler that selected and
-    // duplicated in one breath would be testing a timing nobody has measured,
-    // and the failure mode is a silent ○ indistinguishable from "the route does
-    // not work". The brain sends `chain.select`, settles, and only then sends
-    // `chain.duplicate`.
-    //
-    // ⚠ Every one of them is verified by a `chain.inventory` DIFF, never by its
-    // own return value: the acknowledgement is identical whether or not anything
-    // happened (E6 blocker 4).
-    // ======================================================================
-
-    /**
-     * ⚠ Make a chain the editor selection — `e17ak`'s enabling half.
-     *
-     * `DeviceLayer` is a `DeviceChain`, so it carries `selectInEditor()`, and
-     * `e17y` proved our call sets the identical flag a human click does.
-     *
-     * ⚠ It refuses a chain whose name is not the one the caller observed. The
-     * bank re-indexes when a chain is added or removed (E3, one level down), so a
-     * position learned from an earlier reply can name a different chain by the
-     * time it is used — and selecting the wrong one means duplicating the wrong
-     * one, silently, with a healthy acknowledgement.
-     */
-    private JsonElement chainSelect(JsonObject params) {
-        DeviceLayer layer = requireSlotLayer(params);
-        JsonObject r = describeSlotLayer(params, layer);
-        layer.selectInEditor();
-        return r;
-    }
-
-    /**
-     * ⚠⚠ `Channel.duplicate()` on an already-selected chain — the create itself.
-     *
-     * ⚠ It calls `selectInEditor()` again first, and that is belt AND braces
-     * rather than a substitute for `chain.select`. The load-bearing selection is
-     * the one made in the PREVIOUS request, which has had a turn to land; this
-     * one costs nothing, and covers the case where something moved the selection
-     * in between. If it were the only one, this row would depend on a same-turn
-     * visibility that E2 says does not exist.
-     *
-     * ⚠ Returns the source's identity read BEFORE the verb fires. Afterwards the
-     * bank re-indexes and this handle may describe whatever slid into the slot
-     * (E3, `e16t`) — and the brain identifies the COPY by diffing channelIds
-     * across two inventories, so what it needs from here is what was there
-     * before, not a guess about what is there now.
-     */
-    private JsonElement chainDuplicate(JsonObject params) {
-        DeviceLayer layer = requireSlotLayer(params);
-        JsonObject r = describeSlotLayer(params, layer);
-        layer.selectInEditor();
-        layer.duplicate();
-        return r;
-    }
-
-    /**
-     * ⚠⚠ Rename the chain carrying this `channelId` — BY IDENTITY, never by name
-     * and never by position.
-     *
-     * **Why it cannot be addressed like everything else.** A duplicate arrives
-     * carrying its source's NAME, so at the moment this runs the container holds
-     * two chains one name cannot tell apart; and a bank POSITION is exactly what
-     * the duplicate just invalidated. Either way a wrong guess renames the
-     * SOURCE and leaves the copy wearing the source's name — which breaks every
-     * address anyone held to the source, in a way nothing would report.
-     *
-     * ⚠ `channelId` is worthless ACROSS a project load — the loader mints it
-     * afresh (E17ad 8/8, E18b), which is why `ChainAddress` addresses by name —
-     * and it is exactly right WITHIN the turn that just observed it, which is
-     * the only window this is used in.
-     *
-     * ⚠ It REFUSES an id it cannot find, and refuses again if two chains somehow
-     * report the same one. Falling back to a position here would reintroduce the
-     * whole hazard the id exists to remove.
-     */
-    private JsonElement chainSetName(JsonObject params) {
-        int slot = requireSlotScope(params);
-        String channelId = params.get("channelId").getAsString();
-        String name = params.get("name").getAsString();
-        // Validated BEFORE the write: a chain's name is its only durable
-        // identifier (E18b), so a blank one is not a weak name but no name.
-        if (name.trim().isEmpty()) {
-            throw new IllegalArgumentException("name must not be blank");
-        }
-
-        DeviceLayer target = null;
-        int at = -1;
-        for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
-            DeviceLayer candidate = rig.slotLayerBanks[slot].getItemAt(l);
-            if (!candidate.exists().get() || !channelId.equals(candidate.channelId().get())) {
-                continue;
-            }
-            if (target != null) {
-                throw new IllegalArgumentException(
-                    "two chains in scope " + slot + " report channelId " + channelId
-                    + " — refusing rather than renaming whichever was enumerated first");
-            }
-            target = candidate;
-            at = l;
-        }
-        if (target == null) {
-            throw new IllegalArgumentException(
-                "no chain in scope " + slot + " has channelId " + channelId
-                + " — the container holds " + countSlotChains(slot) + " chains. Refusing rather "
-                + "than falling back to a position, which is what this id exists to avoid");
-        }
-
-        final DeviceLayer chain = target;
-        JsonObject r = ok();
-        r.addProperty("slot", slot);
-        r.addProperty("layerIndex", at);
-        r.addProperty("scopeStatus", rig.slotScopeStatus[slot]);
-        r.addProperty("requested", name);
-        // Read BEFORE the write, so a reply describes what was there rather than
-        // what we just put there (`e16t`).
-        putGuarded(r, "previousName", () -> chain.name().get());
-        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-        chain.name().set(name);
-        return r;
-    }
-
-    /** Make one chain the sole soloed chain in this container. */
-    private JsonElement chainActivate(JsonObject params) {
-        DeviceLayer target = requireSlotLayer(params);
-        String expectedTrack = params.get("expectedTrackChannelId").getAsString();
-        String actualTrack = rig.cursorTracks[0].channelId().get();
-        if (!expectedTrack.equals(actualTrack)) {
-            throw new IllegalArgumentException(
-                "chain.activate track identity changed: expected " + expectedTrack + ", got " + actualTrack);
-        }
-        int slot = params.get("slot").getAsInt();
-        int targetIndex = params.get("layerIndex").getAsInt();
-        JsonObject r = describeSlotLayer(params, target);
-
-        // Clear any exceptional multi-solo state first. Then use the measured
-        // exclusivity primitive only when the requested target is not already on;
-        // toggle(true) on an already-soloed target would turn it off.
-        for (int l = 0; l < Rig.SLOT_LAYER_BANK; l++) {
-            if (l == targetIndex) continue;
-            DeviceLayer sibling = rig.slotLayerBanks[slot].getItemAt(l);
-            if (sibling.exists().get() && sibling.solo().get()) {
-                sibling.solo().set(false);
-            }
-        }
-        if (!target.solo().get()) {
-            target.solo().toggle(true);
-        }
-        return r;
-    }
-
-    /**
-     * 8h4e: set the solo flag of one chain. It is not exclusive: the sibling flags do not change. The slot scope,
-     * the name guard, and the track identity check are the same as {@link #chainActivate}. The brain proves the
-     * result from a new container reading.
-     */
-    private JsonElement chainSetSolo(JsonObject params) {
-        if (!params.has("solo") || !params.get("solo").isJsonPrimitive()
-                || !params.get("solo").getAsJsonPrimitive().isBoolean()) {
-            throw new IllegalArgumentException("chain.setSolo needs a boolean solo");
-        }
-        boolean solo = params.get("solo").getAsBoolean();
-        DeviceLayer target = requireSlotLayer(params);
-        String expectedTrack = params.get("expectedTrackChannelId").getAsString();
-        String actualTrack = rig.cursorTracks[0].channelId().get();
-        if (!expectedTrack.equals(actualTrack)) {
-            throw new IllegalArgumentException(
-                "chain.setSolo track identity changed: expected " + expectedTrack + ", got " + actualTrack);
-        }
-        JsonObject r = describeSlotLayer(params, target);
-        r.addProperty("previousSolo", target.solo().get());
-        r.addProperty("requestedSolo", solo);
-        target.solo().set(solo);
-        return r;
-    }
-
     /** How many chains the scope can currently see — for a refusal's message only. */
     private int countSlotChains(int slot) {
         int existing = 0;
@@ -1701,168 +1823,6 @@ public final class ContainerHandlers extends HandlerGroup {
             }
         }
         return existing;
-    }
-
-    /**
-     * The scope index, validated — and validated BEFORE any Bitwig call.
-     *
-     * ⚠ Standing rule 3c: an exception Bitwig defers to its own thread escapes
-     * every extension frame and takes the DAW down (E14-A1).
-     *
-     * ⚠ Standing rule 13: a scope that was never BUILT and an API that declines
-     * are indistinguishable in the outcome, and three false ○s in E17 came from
-     * exactly that. A missing bank throws with its own recorded status rather
-     * than behaving like an empty container.
-     */
-    private int requireSlotScope(JsonObject params) {
-        int slot = params.get("slot").getAsInt();
-        if (slot < 0 || slot >= Rig.SLOT_SCOPES) {
-            throw new IllegalArgumentException("slot out of scope range: " + slot);
-        }
-        requireSettledScope(slot, params, "position", "expectedContainerName");
-        return slot;
-    }
-
-    /**
-     * B08: the scrolled-scope identity guard, before any chain write.
-     *
-     * The scope must have been built; it must be settled (`Rig.scopeSettled`:
-     * reported position equals the requested one, and the slot agrees with the
-     * 16-wide reference bank there on existence, name, and device position);
-     * when the caller names the position it observed, the scope must have been
-     * asked for that position, so a scope another handler moved in between is
-     * refused rather than written through; and when the caller names the
-     * container, the slot must carry that name. Each disagreement is staleness,
-     * and staleness refuses.
-     */
-    private void requireSettledScope(int slot, JsonObject params, String positionField, String containerField) {
-        if (rig.slotLayerBanks[slot] == null || rig.scopeBanks[slot] == null) {
-            throw new IllegalArgumentException(
-                "scope " + slot + " was never built: " + rig.slotScopeStatus[slot]
-                + " (standing rule 13 — a missing handle and an API refusal look identical)");
-        }
-        int requested = rig.scopeRequestedPosition[slot];
-        if (params.has(positionField) && !params.get(positionField).isJsonNull()) {
-            int position = params.get(positionField).getAsInt();
-            if (position != requested) {
-                throw new IllegalArgumentException(
-                    "scope " + slot + " was last scrolled to position " + requested + ", not " + position
-                    + " — scroll it again and re-read before writing through it");
-            }
-        }
-        if (!rig.scopeSettled(slot)) {
-            throw new IllegalArgumentException(
-                "scope " + slot + " has not settled at position " + requested + " (reports "
-                + rig.scopeBanks[slot].scrollPosition().get() + ", slot \"" + rig.scopeDevice(slot).name().get()
-                + "\" at device position " + rig.scopeDevice(slot).position().get()
-                + ") — re-read before writing through it");
-        }
-        if (params.has(containerField) && !params.get(containerField).isJsonNull()) {
-            String expected = params.get(containerField).getAsString();
-            String actual = rig.scopeDevice(slot).name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "scope " + slot + " at position " + requested + " shows \"" + actual + "\", not \""
-                    + expected + "\"");
-            }
-        }
-    }
-
-    /**
-     * B08: aim one scope at a top-level position. The hung layer bank and its
-     * nested device banks retarget within one wire round trip (E352); the next
-     * `chain.inventory` reports whether the scope settled. A request past the
-     * reference bank refuses here because the guard could never verify it; a
-     * request past the current item count is accepted, clamps, and never
-     * settles, which the inventory then reports.
-     */
-    private JsonElement chainScroll(JsonObject params) {
-        int slot = params.get("slot").getAsInt();
-        if (slot < 0 || slot >= Rig.SLOT_SCOPES) {
-            throw new IllegalArgumentException("slot out of scope range: " + slot);
-        }
-        if (rig.slotLayerBanks[slot] == null || rig.scopeBanks[slot] == null) {
-            throw new IllegalArgumentException(
-                "scope " + slot + " was never built: " + rig.slotScopeStatus[slot]);
-        }
-        if (!params.has("position") || !params.get("position").isJsonPrimitive()
-                || !params.get("position").getAsJsonPrimitive().isNumber()) {
-            throw new IllegalArgumentException("chain.scroll needs an integer position");
-        }
-        double raw = params.get("position").getAsDouble();
-        if (!Double.isFinite(raw) || raw != Math.rint(raw) || raw < 0 || raw >= rig.config.deviceBank) {
-            throw new IllegalArgumentException(
-                "chain.scroll position must be an integer in 0.." + (rig.config.deviceBank - 1) + ": " + raw);
-        }
-        int position = (int) raw;
-        JsonObject r = ok();
-        r.addProperty("slot", slot);
-        r.addProperty("previousRequestedPosition", rig.scopeRequestedPosition[slot]);
-        putGuarded(r, "previousPosition", () -> rig.scopeBanks[slot].scrollPosition().get());
-        r.addProperty("position", position);
-        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-        rig.scopeRequestedPosition[slot] = position;
-        rig.scopeBanks[slot].scrollPosition().set(position);
-        return r;
-    }
-
-    /**
-     * The chain a call is about to act on, resolved through the CURSOR-FREE slot
-     * scope and checked against the name the caller observed.
-     *
-     * ⚠ The name check is the whole point. A bank position is not an identity: a
-     * chain bank re-indexes when a chain is added or removed (E3, one level
-     * down), so a position learned from one reply can name a different chain in
-     * the next request. Aimed at the wrong chain, both verbs above succeed and
-     * report `ok`.
-     *
-     * ⚠ An absent chain throws rather than no-op'ing, for the e16o reason: aimed
-     * at an empty bank slot these verbs are silent no-ops byte-identical to an
-     * API refusal, and that has published false negatives in this codebase
-     * before.
-     */
-    private DeviceLayer requireSlotLayer(JsonObject params) {
-        int slot = requireSlotScope(params);
-        int layerIndex = params.get("layerIndex").getAsInt();
-        if (layerIndex < 0 || layerIndex >= Rig.SLOT_LAYER_BANK) {
-            throw new IllegalArgumentException("layerIndex out of bank range: " + layerIndex);
-        }
-        DeviceLayer layer = rig.slotLayerBanks[slot].getItemAt(layerIndex);
-        if (!layer.exists().get()) {
-            throw new IllegalArgumentException(
-                "no chain at scope " + slot + " index " + layerIndex + " — the slot device is "
-                + rig.scopeDevice(slot).name().get() + " at position " + rig.scopeRequestedPosition[slot]
-                + ", holding " + countSlotChains(slot) + " chains");
-        }
-        if (params.has("expectedName")) {
-            String expected = params.get("expectedName").getAsString();
-            String actual = layer.name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "chain at scope " + slot + " index " + layerIndex + " is named \"" + actual
-                    + "\", not \"" + expected + "\" — the bank re-indexed since it was observed, "
-                    + "and acting on a stale position would hit a chain nobody addressed");
-            }
-        }
-        return layer;
-    }
-
-    /** Identify the chain a call is about to act on, read BEFORE the act (`e16t`). */
-    private JsonObject describeSlotLayer(JsonObject params, DeviceLayer layer) {
-        JsonObject r = ok();
-        r.addProperty("slot", params.get("slot").getAsInt());
-        r.addProperty("layerIndex", params.get("layerIndex").getAsInt());
-        r.addProperty("scopeStatus", rig.slotScopeStatus[params.get("slot").getAsInt()]);
-        r.addProperty("position", rig.scopeRequestedPosition[params.get("slot").getAsInt()]);
-        putGuarded(r, "sourceName", () -> layer.name().get());
-        putGuarded(r, "sourceChannelId", () -> layer.channelId().get());
-        putGuarded(r, "containerName",
-            () -> rig.scopeDevice(params.get("slot").getAsInt()).name().get());
-        // ⚠ Named beside the rest: a scope index means nothing without knowing
-        // which TRACK the device bank is on (the e16o trap, one level up), and
-        // these banks follow `cursorTracks[0]`.
-        putGuarded(r, "trackChannelId", () -> rig.cursorTracks[0].channelId().get());
-        return r;
     }
 
     private JsonElement drumPadList() {

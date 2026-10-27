@@ -277,6 +277,15 @@ tasks.register('runtimeProfileTest', JavaExec) {
 
 tasks.named('check') { dependsOn 'runtimeProfileTest' }
 
+// B17: the extension-owned scope policy and the write lease, offline against an in-memory scope model.
+tasks.register('containerScopesTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ContainerScopesTest'
+}
+
+tasks.named('check') { dependsOn 'containerScopesTest' }
+
 // A source-only golden check cannot detect a failing Java static initializer.
 // Exercise it before replacing any installed runtime profile.
 ['copyExtension', 'copyCaptureExtension', 'copyProbeExtension'].each { name ->

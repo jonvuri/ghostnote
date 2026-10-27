@@ -112,6 +112,7 @@ export interface Golden {
   addedInD03?: string[];
   /** B08 scrollable container scope research. */
   addedInB08?: string[];
+  addedInB17?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

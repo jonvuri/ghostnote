@@ -3,7 +3,8 @@
  *
  *   npm run probe:b08-live -- --out NEW_DIRECTORY
  *
- * Runs only against the B08 normal build (NORMAL_B08) on `gn-scale-test`. Builds a scratch track `gn-b08i`,
+ * Historical (E353): runs only against the B08 normal build (NORMAL_B08) on `gn-scale-test`, and sends
+ * `chain.scroll`, which B17 retired; the current driver is `b17-extension-scopes-live.ts`. Builds a scratch track `gn-b08i`,
  * composes a container at position 3 and a second one at position 5, exercises read_devices, the five
  * layer-chain tools, and a cross-container move there, reads the solo back through the cursor route as well
  * (D15), measures the container read cost for the ledger, and deletes the scratch track. Every step is written

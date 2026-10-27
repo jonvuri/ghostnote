@@ -187,6 +187,64 @@ session inherits.
 Sessions 2 and 3 share the paging internals and may run as one session if
 session 2 finishes early.
 
+## Session 1 result
+
+Complete on 2026-10-26, verified live in
+[E354](../evidence/experiments/e354-extension-owned-container-scopes-live.md).
+The extension route was taken; the brain-side alternative above is not
+needed and is kept only as the record of the choice.
+
+- Extension: `ContainerScopes` (`extension-owned-scopes-v1`) owns the three
+  B08 scope banks. An aim settles one scope per distinct absolute position:
+  it polls every 5 ms with `host.scheduleTask` until cursor track 0 reports
+  the expected track and `Rig.scopeSettled` holds, re-issues an unsettled
+  scroll every 10 polls (E353), and refuses after 400 polls with
+  `track-not-confirmed`, `scope-not-settled`, or `scopes-unavailable`. Scope
+  choice: settled at the position; else asked for it; else the resting scope
+  for a position inside the scope count; else a displaced scope, highest
+  slot first; else the highest free slot; a slot chosen for one position of
+  the aim is excluded for the others. The aim holds a new
+  `WriteGate.writeLease()` (writes and clip reads wait, plain reads run) and
+  runs in the request's own task when everything is already settled.
+  `chain.observe {position, expectedTrackChannelId}` replies with the settled
+  scope in the `chain.inventory` scope shape, the reference `deviceCount`,
+  `cursorScope`, and the `aim` report. `chain.scroll` is retired; the chain
+  writes are `onAsync` and take `position` plus absolute `chainIndex`
+  (`chain.move`: `srcPosition`/`srcChain`, `dstPosition`/`dstChain`; a
+  named-slot endpoint names its container position). `batch.run` is
+  `onAsync` too: it runs ops in order and continues from a deferred op's
+  reply (`HandlerRegistry.invokeAsync`), refusing the clip-read class inside
+  a batch (review fix). Normal profile 93 methods, hash
+  `d6decf985f6b1f36`; `rig.info` carries `containerScopeRoute` and
+  `containerScopeStatus`. `ContainerScopesTest` covers the policy and the
+  lease offline against an in-memory scope model.
+- Brain: `LiveAdapter.containerScope` points cursor 0 when it is not held,
+  sends one `chain.observe`, re-points once on `track-not-confirmed`, and
+  maps a refusal to `unsupported`; the named-slot descent keeps the cursor
+  route (`devcursor.selectAt`, `devcursor.selectFirstInSlot`,
+  `chain.inventory` for `cursorScope`, re-selecting the parent on every
+  pass because each `selectFirstInSlot` appends a route step; review fix).
+  `scopeSlots`, `scopeSlotOf`,
+  `chooseScope`, the encoder's `scopeSlot`, and the `hold` argument are gone.
+  `chain.inventory` stays on the wire as the raw multi-scope read for the
+  descent and for independent readback. Offline: the B08 scroll tests became
+  B17 observe tests; the stubs answer `chain.observe`.
+- Cost: an isolated far container read is 6 turns and about 140 ms (was 11
+  turns, 305 ms); a resting read 6 turns and about 120 ms (was 8, 190 ms);
+  every chain write found its scope already settled (1 poll, 0 scrolls).
+- Interface decisions for sessions 2 and 3: positions and chain and device
+  indices on the wire are absolute; `scope.chains[].index` and
+  `devices[].index` stay absolute when the windows page; a paged reply
+  extends `scope.chains` and each chain's `devices` and keeps
+  `chainCount`/`deviceCount` as the totals, so `chainsComplete` and
+  `devicesComplete` describe the stitched container; `requireChainIndex`
+  and the `srcDevice` bound in `ContainerHandlers` are the only places that
+  still refuse an index past the first window page, and session 2 lifts
+  them with the paging. A deferred op inside `batch.run` must release its
+  lease before it replies. The resting-scope preference for positions 0 to
+  2 keeps scope 2 shuttling on a structure read; that policy now lives in
+  `ContainerScopes.choose` for P01.
+
 ## Risks and open questions
 
 - A paged read is two or more inventories per container; a container with

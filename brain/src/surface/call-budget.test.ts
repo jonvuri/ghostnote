@@ -270,9 +270,9 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
   assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
 });
 
-// B08: the same tools on a container at position 3, past the three scopes, cost the same adapter calls. The
-// scope is scrolled inside the adapter's container read (one `chain.scroll` wire call, E352), which these counts
-// do not see; the ledger `containerScope` row carries the wire cost.
+// B08/B17: the same tools on a container at position 3, past the three resting scopes, cost the same adapter
+// calls. The scope is scrolled inside the extension's `chain.observe`, which these counts do not see; the ledger
+// `containerScope` row carries the wire cost.
 test('call budget: the layer-chain tools on a container past position 2 (B08)', async () => {
   const fx = await fixture();
   const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });

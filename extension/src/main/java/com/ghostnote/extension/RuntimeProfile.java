@@ -104,7 +104,7 @@ public enum RuntimeProfile {
             "chain.duplicate",
             "chain.inventory",
             "chain.move",
-            "chain.scroll",
+            "chain.observe",
             "chain.select",
             "chain.setName",
             "chain.setSolo",

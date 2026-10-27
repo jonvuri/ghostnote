@@ -51,9 +51,6 @@ const ctx: EncodeContext = {
   // array offset or a hardcoded zero fails here rather than live.
   chainIndex: (c) => (c.name === 'A take' ? 2 : (c.name === 'B take' ? 3 : -1)),
   chainId: (c) => `id-${c.name}`,
-  // B08: the scope each container was observed through. Deliberately NOT the position, so a frame that
-  // sends the position as the slot fails here rather than live.
-  scopeSlot: (c) => 10 + c.chainIndex,
   deviceName: () => 'Polysynth',
   deviceEnabled: () => true,
   deviceTailIndex: () => 5,
@@ -441,7 +438,7 @@ test('4g-device-insert: every route carries the durable track and complete-chain
   }
 });
 
-test('E-chain: a create names its container by SLOT and its source by OBSERVED position', () => {
+test('E-chain: a create names its container by POSITION and its source by OBSERVED index', () => {
   // ⚠ The whole reason `chainIndex` is a context function. A chain is addressed
   // by NAME (E17ad, E18b), so its bank position exists nowhere in the address —
   // the only honest source is a `chain.inventory` reply, and the encoder must
@@ -452,15 +449,15 @@ test('E-chain: a create names its container by SLOT and its source by OBSERVED p
   assert.deepEqual(methods(frames), [WIRE.chainDuplicate],
     'ONE frame: the rename cannot be encoded, because nothing yet knows which chain to rename');
   const params = paramsOf(frames, WIRE.chainDuplicate);
-  // ⚠ `slot` is the SCOPE the container was observed through (B08: a scrolled
-  // one-wide bank, so it is not the container's position), `position` is the
-  // container's position in the track's own device chain, and `layerIndex` is
-  // the source chain's position inside that container. Three different numbers
-  // at three different levels; the stub answers 11 and 2 for this container and
-  // chain, so a frame that reused the container's 1 for either fails here.
-  assert.equal(params?.['slot'], 11);
+  // ⚠ `position` is the container's position in the track's own device chain,
+  // and `chainIndex` is the source chain's absolute index inside that
+  // container. Two different numbers at two different levels; the stub answers
+  // 2 for this chain, so a frame that reused the container's 1 fails here. B17:
+  // no scope slot — the extension chooses and settles the scope itself.
+  assert.equal(params?.['slot'], undefined);
   assert.equal(params?.['position'], 1);
-  assert.equal(params?.['layerIndex'], 2);
+  assert.equal(params?.['chainIndex'], 2);
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId, 'the track the extension polls before it reads a scope');
   // ⚠ Carried so the extension can refuse a position that re-indexed since it
   // was observed, instead of copying whatever slid into it (E3, one level down).
   assert.equal(params?.['expectedName'], 'A take');
@@ -478,7 +475,7 @@ test('E-chain: a source nobody observed is REFUSED, never given a guessed positi
   // The real context throws; this asserts the shape the encoder passes through,
   // so a future default of 0 would show up as a frame aimed at the first chain.
   const frames = encodeOp({ op: 'chain.create', source: unseen, name: 'B' }, ctx);
-  assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['layerIndex'], -1,
+  assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['chainIndex'], -1,
     'whatever the context says is what goes out — the encoder invents no position');
 });
 
@@ -487,11 +484,12 @@ test('E-chain-rename: a durable name write targets the freshly observed identity
   const frames = encodeOp({ op: 'chain.rename', chain: source, name: 'Original' }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainSetName]);
   const params = paramsOf(frames, WIRE.chainSetName);
-  assert.equal(params?.['slot'], 11);
+  assert.equal(params?.['slot'], undefined);
   assert.equal(params?.['position'], 1);
   assert.equal(params?.['channelId'], 'id-A take');
   assert.equal(params?.['name'], 'Original');
-  assert.equal(params?.['layerIndex'], undefined, 'a position is never the rename identity');
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.equal(params?.['chainIndex'], undefined, 'an index is never the rename identity');
 });
 
 test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {
@@ -513,21 +511,24 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
     ['top', 'chain', 'move'], ['chain', 'top', 'move'], ['chain', 'chain', 'copy'],
     ['top', 'slot', 'move'], ['slot', 'top', 'move'],
   ]);
-  assert.equal(params[0]?.['dstLayer'], 2);
+  assert.equal(params[0]?.['dstChain'], 2);
   assert.deepEqual(params[0]?.['expectedDeviceNames'], ['Tool', 'Polysynth']);
   assert.deepEqual(params[0]?.['expectedDeviceEnabled'], [true, false]);
-  assert.equal(params[1]?.['srcLayer'], 2);
-  assert.equal(params[2]?.['dstLayer'], 3);
+  assert.equal(params[1]?.['srcChain'], 2);
+  assert.equal(params[2]?.['dstChain'], 3);
   assert.equal(params[3]?.['expectedDestinationChain'], 'CHAIN');
   assert.equal(params[4]?.['expectedSourceChain'], 'CHAIN');
-  // B08: a layer-chain endpoint names its SCOPE and the container position the scope must be settled at; a
-  // named-slot endpoint names the container position (the cursor route), with no scope position.
-  assert.deepEqual([params[0]?.['dstSlot'], params[0]?.['dstPosition']], [10, 0]);
-  assert.deepEqual([params[1]?.['srcSlot'], params[1]?.['srcPosition']], [10, 0]);
-  assert.deepEqual([params[2]?.['srcSlot'], params[2]?.['srcPosition'], params[2]?.['dstSlot'], params[2]?.['dstPosition']],
-    [10, 0, 11, 1]);
-  assert.deepEqual([params[3]?.['dstSlot'], params[3]?.['dstPosition']], [1, undefined]);
-  assert.deepEqual([params[4]?.['srcSlot'], params[4]?.['srcPosition']], [1, undefined]);
+  // B17: every nested endpoint names its container's absolute position; a layer-chain endpoint adds the
+  // chain's absolute index, a named-slot endpoint (the cursor route) names no chain. No scope slot anywhere.
+  assert.deepEqual([params[0]?.['dstPosition'], params[0]?.['dstChain']], [0, 2]);
+  assert.deepEqual([params[1]?.['srcPosition'], params[1]?.['srcChain']], [0, 2]);
+  assert.deepEqual([params[2]?.['srcPosition'], params[2]?.['srcChain'], params[2]?.['dstPosition'], params[2]?.['dstChain']],
+    [0, 2, 1, 3]);
+  assert.deepEqual([params[3]?.['dstPosition'], params[3]?.['dstChain']], [1, undefined]);
+  assert.deepEqual([params[4]?.['srcPosition'], params[4]?.['srcChain']], [1, undefined]);
+  for (const value of params) {
+    for (const stale of ['srcSlot', 'dstSlot', 'srcLayer', 'dstLayer']) assert.equal(value?.[stale], undefined, stale);
+  }
   for (const value of params) {
     assert.equal(value?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(value?.['expectedSourceName'], 'Polysynth');
@@ -539,9 +540,9 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   const frames = encodeOp({ op: 'chain.activate', chain: target }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainActivate]);
   const params = paramsOf(frames, WIRE.chainActivate);
-  assert.equal(params?.['slot'], 11);
+  assert.equal(params?.['slot'], undefined);
   assert.equal(params?.['position'], 1);
-  assert.equal(params?.['layerIndex'], 3);
+  assert.equal(params?.['chainIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
 });
@@ -552,9 +553,9 @@ test('8h4e encoder: a solo set carries the identity guards and the requested fla
     const frames = encodeOp({ op: 'chain.solo', chain: target, solo }, ctx);
     assert.deepEqual(methods(frames), [WIRE.chainSetSolo]);
     const params = paramsOf(frames, WIRE.chainSetSolo);
-    assert.equal(params?.['slot'], 11);
+    assert.equal(params?.['slot'], undefined);
     assert.equal(params?.['position'], 1);
-    assert.equal(params?.['layerIndex'], 3);
+    assert.equal(params?.['chainIndex'], 3);
     assert.equal(params?.['expectedName'], 'B take');
     assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(params?.['solo'], solo);

@@ -1,5 +1,6 @@
 package com.ghostnote.extension.handlers;
 
+import com.ghostnote.extension.ContainerScopes;
 import com.ghostnote.extension.GroupPoint;
 import com.ghostnote.extension.Rig;
 import com.bitwig.extension.controller.api.ControllerHost;
@@ -98,6 +99,9 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("cursorIdentity", CursorHandlers.CURSOR_IDENTITY);
         // 8h4a5 deliberate build markers (E243).
         result.addProperty("groupPoint", GroupPoint.RULE);
+        // B17 deliberate build marker: the extension owns the container scopes.
+        result.addProperty("containerScopeRoute", ContainerScopes.RULE);
+        result.add("containerScopeStatus", rig.containerScopes.status());
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
         // 8h4f deliberate build marker: the track kinds that track.create accepts.
         result.add("trackCreateKinds", TrackHandlers.createKinds());

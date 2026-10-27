@@ -139,6 +139,8 @@ public class Rig {
     public final GroupPoint groupPoint;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
     public final WriteGate writeGate;
+    /** B17: the extension-owned container scopes; `chain.observe` and the chain writes settle through it. */
+    public final ContainerScopes containerScopes;
     /** D43: the owned cursor tracks that stay pinned, with their names for the report. */
     private final List<CursorTrack> pinnedTracks = new ArrayList<>();
     private final List<String> pinnedTrackNames = new ArrayList<>();
@@ -248,8 +250,9 @@ public class Rig {
      * within one wire round trip, so any top-level position inside the 16-wide
      * reference bank is observable through one of the three scopes. Scope `s`
      * rests at position `s`, which keeps the first three positions at the fixed
-     * cost; `chain.scroll` moves a scope and `scopeSettled` is the identity
-     * guard every chain write passes through.
+     * cost. B17: {@link ContainerScopes} owns the scrolling; `chain.observe`
+     * and every chain write name an absolute position, the extension aims and
+     * settles a scope for it, and `scopeSettled` is the identity guard.
      */
     public static final int SLOT_SCOPES = 3;
     public static final int SLOT_LAYER_BANK = 5;
@@ -1154,6 +1157,7 @@ public class Rig {
         clipReader = new ClipReader(host, this, config.scenes);
         groupPoint = new GroupPoint(host, this, clipReader.groups);
         writeGate = new WriteGate(task -> host.scheduleTask(task, 0), System::nanoTime, WriteGate.DEFAULT_LIMIT);
+        containerScopes = ContainerScopes.over(host, this);
 
         noteObserverTrack = host.createCursorTrack(
             "GN_CT_NOTE_OBSERVER", "ghostnote note observer", 0, config.scenes, false);
@@ -1311,7 +1315,7 @@ public class Rig {
                 }
                 // Rest scope `s` at position `s`: the first three positions then
                 // cost no scroll. Best effort only; a bank with fewer items clamps,
-                // and the brain re-scrolls whatever it finds unsettled.
+                // and ContainerScopes re-scrolls whatever it finds unsettled.
                 scopeRequestedPosition[s] = s;
                 scopeBanks[s].scrollPosition().set(s);
                 slotScopeStatus[s] = "held";

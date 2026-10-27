@@ -1,0 +1,23 @@
+{
+  "elapsedMs": 8338,
+  "value": {
+    "removed": [
+      "b92d43a9-48a4-473d-a007-ca16390398f7"
+    ],
+    "warnings": [
+      {
+        "code": "not-reversible",
+        "message": "revert_change cannot put a deleted track back."
+      }
+    ],
+    "tracks": 11,
+    "lay4Chains": [
+      [
+        "Phase-4",
+        "Polysynth",
+        "Organ",
+        "Sampler"
+      ]
+    ]
+  }
+}

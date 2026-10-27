@@ -116,11 +116,6 @@ export interface EncodeContext {
   readonly chainIndex: (chain: ChainAddress) => number;
   /** Within-turn identity from the same container observation as `chainIndex`. */
   readonly chainId: (chain: ChainAddress) => string;
-  /**
-   * B08: the container scope the observation this batch took settled on for this container. Sent beside the
-   * container's position so the extension refuses a scope aimed elsewhere since.
-   */
-  readonly scopeSlot: (container: import('../../contract/index.js').DeviceAddress) => number;
   /** Source name from the structural reading that immediately precedes relocation. */
   readonly deviceName?: (device: import('../../contract/index.js').DeviceAddress) => string;
   readonly deviceEnabled?: (device: import('../../contract/index.js').DeviceAddress) => boolean;
@@ -757,31 +752,31 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     // already has and for the same reason.
     //
     // ⚠ NO POINT FRAME, and its absence is deliberate. `chain.duplicate` reads
-    // `Rig.slotLayerBanks`, which hang off `cursorDeviceBanks[0]` on the track
-    // `cursorTracks[0]` points at — and a bank RE-SCOPE is not a same-turn
-    // effect the way a cursor retarget is. A point in this request would look
-    // like a precondition while guaranteeing nothing. The load-bearing point is
-    // the settled one `containerScope` makes immediately before this stage, and
-    // the identity guard on its reply is what proves it landed.
+    // `Rig.slotLayerBanks`, which hang off the scope banks on the track
+    // `cursorTracks[0]` points at. B17: the frame names the container's
+    // absolute position and the track; the extension settles a scope at that
+    // position, polling the track identity too, before it selects anything.
+    // The load-bearing point is the one `containerScope` made before this
+    // stage; the extension's own settle is what proves the frame acts there.
     case 'chain.create':
       return [frame(WIRE.chainDuplicate, {
-        slot: ctx.scopeSlot(op.source.container),
         position: op.source.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.source),
+        chainIndex: ctx.chainIndex(op.source),
         // ⚠ Sent so the extension can refuse a chain that is not the one we
         // observed. The index is a bank position and a bank re-indexes; the
         // handler compares this against `layer.name().get()` before it selects
         // anything, which turns a stale position into an error instead of a copy
         // of somebody else's chain.
         expectedName: op.source.name,
+        expectedTrackChannelId: op.source.container.track.channelId,
       })];
 
     case 'chain.rename':
       return [frame(WIRE.chainSetName, {
-        slot: ctx.scopeSlot(op.chain.container),
         position: op.chain.container.chainIndex,
         channelId: ctx.chainId(op.chain),
         name: op.name,
+        expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
     case 'chain.relocate': {
@@ -796,29 +791,19 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         src: sourceChain === undefined ? 'top'
           : sourceChain.kind === 'chain' ? 'chain' : 'slot',
         srcDevice: op.source.chainIndex,
-        // B08: a layer-chain endpoint names its SCOPE (`srcSlot`/`dstSlot`) and the container position the
-        // scope must be settled at; a named-slot endpoint names the container position, as the cursor route
-        // always took it.
+        // B17: every nested endpoint names its container's absolute top-level position; a layer-chain
+        // endpoint adds the chain's absolute index. The extension settles a scope for each chain endpoint;
+        // a named-slot endpoint goes through the cursor-bound slot handle.
         ...(sourceChain === undefined ? {} : {
-          ...(sourceChain.kind === 'chain'
-            ? {
-              srcSlot: ctx.scopeSlot(sourceChain.container),
-              srcPosition: sourceChain.container.chainIndex,
-              srcLayer: ctx.chainIndex(sourceChain),
-            }
-            : { srcSlot: sourceChain.container.chainIndex }),
+          srcPosition: sourceChain.container.chainIndex,
+          ...(sourceChain.kind === 'chain' ? { srcChain: ctx.chainIndex(sourceChain) } : {}),
           expectedSourceChain: sourceChain.name,
         }),
         dst: destinationChain === undefined ? 'top'
           : destinationChain.kind === 'chain' ? 'chain' : 'slot',
         ...(destinationChain === undefined ? { where: 'chainEnd' } : {
-          ...(destinationChain.kind === 'chain'
-            ? {
-              dstSlot: ctx.scopeSlot(destinationChain.container),
-              dstPosition: destinationChain.container.chainIndex,
-              dstLayer: ctx.chainIndex(destinationChain),
-            }
-            : { dstSlot: destinationChain.container.chainIndex }),
+          dstPosition: destinationChain.container.chainIndex,
+          ...(destinationChain.kind === 'chain' ? { dstChain: ctx.chainIndex(destinationChain) } : {}),
           expectedDestinationChain: destinationChain.name,
         }),
         verb: op.mode,
@@ -832,18 +817,16 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'chain.activate':
       return [frame(WIRE.chainActivate, {
-        slot: ctx.scopeSlot(op.chain.container),
         position: op.chain.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.chain),
+        chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
     case 'chain.solo':
       return [frame(WIRE.chainSetSolo, {
-        slot: ctx.scopeSlot(op.chain.container),
         position: op.chain.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.chain),
+        chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
         expectedTrackChannelId: op.chain.container.track.channelId,
         solo: op.solo,
