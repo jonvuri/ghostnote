@@ -165,6 +165,8 @@ export interface GeneralDeviceEntryVerification {
 
 export interface GeneralDeviceCompositionResult {
   readonly complete: boolean;
+  /** The first apply threw before returning a receipt; do not infer that it wrote nothing. */
+  readonly effectsPossible?: boolean;
   readonly failedStage?: string;
   readonly why?: string;
   readonly stages: readonly GeneralDeviceStageReceipt[];
@@ -203,6 +205,7 @@ export async function composeGeneralDeviceSources(
   const stages: GeneralDeviceStageReceipt[] = [];
   const verified: GeneralDeviceEntryVerification[] = [];
   let checkpoint: GeneralDeviceCompositionCheckpoint | undefined;
+  let insertionAttempted = false;
   let failedStage = 'preflight';
   try {
     const initial = await stableTop(host, request.track, request.expectedDeviceOrder);
@@ -225,6 +228,7 @@ export async function composeGeneralDeviceSources(
       const containerPath = join(directory, 'general-device-container.bwpreset');
       await writeFile(containerPath, containerPreset.preset);
       failedStage = 'insert-container';
+      insertionAttempted = true;
       const insertion = (await host.apply([{
         op: 'device.insert', track: request.track,
         source: { from: 'file', path: containerPath },
@@ -405,11 +409,14 @@ export async function composeGeneralDeviceSources(
     }
   } catch (error) {
     host.throwIfCancelled?.();
-    return failure(
+    const uncertainInsertion = insertionAttempted && checkpoint === undefined && stages.length === 0;
+    const outcome = failure(
       failedStage,
-      `${checkpoint === undefined ? 'Nothing was written.' : 'The workflow stopped after a project write.'} ${message(error)}`,
+      `${uncertainInsertion ? 'Container insertion may have applied; inspect the track before another write.'
+        : checkpoint === undefined ? 'Nothing was written.' : 'The workflow stopped after a project write.'} ${message(error)}`,
       stages, verified, checkpoint,
     );
+    return uncertainInsertion ? { ...outcome, effectsPossible: true } : outcome;
   }
 }
 

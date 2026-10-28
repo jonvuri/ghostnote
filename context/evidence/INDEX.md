@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-26
+updated: 2026-10-27
 ---
 
 # Evidence index
@@ -18,6 +18,9 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E357 | B17 integrated paged writes: overflow composition, sixth-chain controls, distant/mixed transfers and top-level mutations pass; discarded-read settlement and overflow deletion snapshots corrected; all originals and selection preserved after cleanup. Six-chain composition 44.4 s; dense container read 862 ms / 6 turns (2026-10-27) | [open](experiments/e357-integrated-paged-writes-live.md) |
+| E356 | B17 session 2: complete paged reads of eighteen top-level devices, six chains and five nested devices; restored windows, selection and cleanup pass (2026-10-27) | [open](experiments/e356-paged-device-and-layer-reads-live.md) |
+| E355 | B17 session 2 host-state corrections before final read acceptance (2026-10-27) | [open](experiments/e355-paged-read-host-state-corrections.md) |
 | E354 | B17 session 1: the extension owns the container scopes (`chain.observe` and self-settling chain writes replace `chain.scroll`); the E353 shape repeats with the same results at positions 3 and 5, an isolated far container read costs 6 turns and about 140 ms (was 11 turns, 305 ms), 136 aims with no refusal, cleanup and preserved state pass; `batch.run` continues across a deferred op (2026-10-26) | [open](experiments/e354-extension-owned-container-scopes-live.md) |
 | E353 | B08 implementation: the product scrollable scopes compose, read, solo, rename, duplicate, copy, and move layer chains at top-level positions 3 and 5, with independent readback and cleanup; a scope scrolled on a shorter track clamps and stays, repaired by re-issuing the scroll; far container read about 305 ms, 11 turns (2026-10-25) | [open](experiments/e353-scrollable-container-scopes-product-live.md) |
 | E352 | B08: a layer bank hung off a one-wide scrollable device bank retargets to the container at the scrolled position, complete identity on the first read at 0 ms wait (6/6 at every fixed wait, polled 23 ms = one status round trip); nested chain and device windows scroll with total `itemCount`; out-of-range scrolls clamp; a solo through a scrolled scope at position 3 reads back through an independent scope and the cursor route; go for implementation (2026-10-25) | [open](experiments/e352-scrollable-container-scopes-retarget-live.md) |

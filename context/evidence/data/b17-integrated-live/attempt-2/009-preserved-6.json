@@ -1,0 +1,792 @@
+{
+  "name": "read_devices",
+  "args": {
+    "trackId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+  },
+  "result": {
+    "schema": "ghostnote-devices/1",
+    "source": {
+      "host": "bitwig-devices",
+      "read": "fresh-structure-read"
+    },
+    "target": {
+      "trackId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+    },
+    "coverage": {
+      "status": "complete",
+      "devicesComplete": true,
+      "bankSize": 16,
+      "devicePages": 1,
+      "layerChainPositions": [
+        0
+      ]
+    },
+    "authority": {
+      "kind": "fresh-read"
+    },
+    "data": {
+      "trackId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+      "devices": [
+        {
+          "devicePosition": 0,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "A·take",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.639,
+                  "green": 0.475,
+                  "blue": 0.251
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  },
+                  {
+                    "devicePosition": 1,
+                    "name": "Polysynth"
+                  },
+                  {
+                    "devicePosition": 2,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.639,
+                  "green": 0.475,
+                  "blue": 0.251
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        }
+      ]
+    },
+    "warnings": [],
+    "timing": {
+      "totalMs": 481.4121669999995
+    }
+  },
+  "ms": 481.45654099999956,
+  "turns": 12,
+  "calls": [
+    {
+      "method": "selection.status",
+      "sent": 4600.732083,
+      "received": 4624.658625,
+      "bytes": 245,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "96",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 3,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"96\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":3,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 4624.710292,
+      "received": 4649.059917,
+      "bytes": 1326,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "97",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"97\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "6",
+        "trackIndex": 6
+      },
+      "sent": 4649.104125,
+      "received": 4672.532917,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "98",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"98\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "6"
+      },
+      "sent": 4698.655958,
+      "received": 4742.787458,
+      "bytes": 239,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "99",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            }
+          ],
+          "count": 1,
+          "itemCount": 1,
+          "trackChannelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+          "trackPosition": 5,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"99\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true}],\"count\":1,\"itemCount\":1,\"trackChannelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackPosition\":5,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "6",
+        "trackIndex": 6
+      },
+      "sent": 4768.950708,
+      "received": 4791.677458,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "100",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"100\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "6"
+      },
+      "sent": 4817.79875,
+      "received": 4864.317208,
+      "bytes": 240,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "101",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            }
+          ],
+          "count": 1,
+          "itemCount": 1,
+          "trackChannelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+          "trackPosition": 5,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"101\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true}],\"count\":1,\"itemCount\":1,\"trackChannelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackPosition\":5,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "revision.get",
+      "sent": 4864.416,
+      "received": 4889.685875,
+      "bytes": 2845,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "102",
+        "result": {
+          "revision": 21,
+          "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+          "project": "gn-scale-test",
+          "projectStatus": "marked",
+          "sceneEpoch": 2,
+          "sceneCount": 10,
+          "contentEpoch": 32793,
+          "unpinnedCursorTracks": [],
+          "contentEvents": [
+            {
+              "seq": 32770,
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+              "trackIndex": 0,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32771,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32772,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32773,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32774,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32775,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32776,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 3,
+              "filled": true
+            },
+            {
+              "seq": 32777,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32778,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32779,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 6,
+              "filled": true
+            },
+            {
+              "seq": 32780,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 7,
+              "filled": true
+            },
+            {
+              "seq": 32781,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 8,
+              "filled": true
+            },
+            {
+              "seq": 32782,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 9,
+              "filled": true
+            },
+            {
+              "seq": 32783,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32784,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32785,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32786,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32787,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32788,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32789,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32790,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32791,
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+              "trackIndex": 6,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32792,
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+              "trackIndex": 7,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32793,
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "trackIndex": 8,
+              "slotIndex": 0,
+              "filled": true
+            }
+          ]
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"102\",\"result\":{\"revision\":21,\"generation\":\"966a2dbe-e3d8-4a58-9221-e6db226d79fc\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 4864.460667,
+      "received": 4889.936208,
+      "bytes": 1327,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "103",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"103\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "selection.status",
+      "sent": 4890.01425,
+      "received": 4914.613083,
+      "bytes": 246,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "104",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 3,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"104\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":3,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4914.671042,
+      "received": 4938.392792,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "105",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"105\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 6
+      },
+      "sent": 4938.427125,
+      "received": 4961.349583,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "106",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"106\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 0,
+        "expectedTrackChannelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      "sent": 4961.391667,
+      "received": 5082.024083,
+      "bytes": 1681,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "107",
+        "result": {
+          "success": true,
+          "position": 0,
+          "slot": 0,
+          "deviceCount": 1,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 0,
+            "status": "held",
+            "requestedPosition": 0,
+            "position": 0,
+            "settled": true,
+            "canScrollForwards": false,
+            "canScrollBackwards": false,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 0,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "A·take",
+                "channelId": "43c97349-c3f6-4773-af97-7818901b1084",
+                "reportedChannelIndex": 47,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.639,0.475,0.251",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  },
+                  {
+                    "index": 1,
+                    "name": "Polysynth",
+                    "enabled": true
+                  },
+                  {
+                    "index": 2,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 3,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "a58556c8-fd2a-4e8f-9f3f-3bd7102a736f",
+                "reportedChannelIndex": 48,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.639,0.475,0.251",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 2,
+            "chainCount": 2,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 2
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-lay",
+          "trackChannelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 2,
+            "scrolls": 0,
+            "ms": 96.328791
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"107\",\"result\":{\"success\":true,\"position\":0,\"slot\":0,\"deviceCount\":1,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":0,\"status\":\"held\",\"requestedPosition\":0,\"position\":0,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":false,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":0,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"A·take\",\"channelId\":\"43c97349-c3f6-4773-af97-7818901b1084\",\"reportedChannelIndex\":47,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.639,0.475,0.251\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true},{\"index\":1,\"name\":\"Polysynth\",\"enabled\":true},{\"index\":2,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":3,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"a58556c8-fd2a-4e8f-9f3f-3bd7102a736f\",\"reportedChannelIndex\":48,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.639,0.475,0.251\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":2,\"chainCount\":2,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":2},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"gn-lay\",\"trackChannelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":0,\"slot\":0}],\"polls\":2,\"scrolls\":0,\"ms\":96.328791}}}"
+    }
+  ]
+}

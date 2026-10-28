@@ -1,0 +1,262 @@
+{
+  "scopes": [
+    {
+      "slot": 0,
+      "status": "held",
+      "requestedPosition": 0,
+      "position": 0,
+      "settled": true,
+      "canScrollForwards": true,
+      "canScrollBackwards": false,
+      "deviceExists": true,
+      "deviceName": "Tool",
+      "devicePosition": 0,
+      "hasLayers": false,
+      "hasSlots": false,
+      "slotNames": [],
+      "chains": [],
+      "visibleChainCount": 0,
+      "chainCount": 2,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": true
+    },
+    {
+      "slot": 1,
+      "status": "held",
+      "requestedPosition": 1,
+      "position": 1,
+      "settled": true,
+      "canScrollForwards": true,
+      "canScrollBackwards": true,
+      "deviceExists": true,
+      "deviceName": "Tool",
+      "devicePosition": 1,
+      "hasLayers": false,
+      "hasSlots": false,
+      "slotNames": [],
+      "chains": [],
+      "visibleChainCount": 0,
+      "chainCount": 6,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": true
+    },
+    {
+      "slot": 2,
+      "status": "held",
+      "requestedPosition": 17,
+      "position": 17,
+      "settled": true,
+      "canScrollForwards": true,
+      "canScrollBackwards": true,
+      "deviceExists": true,
+      "deviceName": "FX Layer",
+      "devicePosition": 17,
+      "hasLayers": true,
+      "hasSlots": false,
+      "slotNames": [],
+      "chains": [
+        {
+          "index": 0,
+          "name": "A",
+          "channelId": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+          "reportedChannelIndex": 58,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.639,0.475,0.251",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5
+        },
+        {
+          "index": 1,
+          "name": "B",
+          "channelId": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+          "reportedChannelIndex": 59,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.639,0.475,0.251",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5
+        },
+        {
+          "index": 2,
+          "name": "C",
+          "channelId": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+          "reportedChannelIndex": 60,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.639,0.475,0.251",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5
+        },
+        {
+          "index": 3,
+          "name": "D",
+          "channelId": "71b75a84-b266-45bf-abef-16e3bd769178",
+          "reportedChannelIndex": 61,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.639,0.475,0.251",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5
+        },
+        {
+          "index": 4,
+          "name": "E",
+          "channelId": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+          "reportedChannelIndex": 62,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.639,0.475,0.251",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5
+        }
+      ],
+      "visibleChainCount": 5,
+      "chainCount": 6,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": true
+    }
+  ],
+  "scopeCount": 3,
+  "deviceCount": 19,
+  "deviceBankSize": 16,
+  "cursorScope": {
+    "status": "held",
+    "deviceExists": false,
+    "deviceName": "",
+    "deviceIndex": -1,
+    "isNested": false,
+    "namedSlotComplete": false
+  },
+  "trackName": "gn-b17w",
+  "trackChannelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+}

@@ -6,42 +6,36 @@ updated: 2026-10-27
 
 ## Now
 
-[B17 session 6](work/b17-extension-owned-window-scrolling.md#session-6-cap-retirement-checkpoint)
-is checkpointed offline. The current source admits paged top-level mutations,
-layer controls and transfers, and composition beyond five chains or four devices
-per chain. Six-chain seeds grow through guarded duplication. D44's six-unit
-composition budget, named-slot bounds, and parameter restrictions remain.
-Descriptions are v57 (46 tools); the normal wire stays at 93 methods, hash
-`d6decf985f6b1f36`. No new build has been deployed.
-**Next: B17 session 7 — [integrated deployment and live acceptance](work/b17-extension-owned-window-scrolling.md#session-7--integrated-live-acceptance),
-in a fresh session.** The [session-6 handoff](work/b17-extension-owned-window-scrolling.md#session-7-build-and-driver-handoff)
-lists the required build markers and prepared scratch driver. Do not run overflow
-writes against the installed session-2 build. Sessions 3–6 remain offline
-checkpoints until that acceptance passes.
+[B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
+is complete and verified live in
+[E357](evidence/experiments/e357-integrated-paged-writes-live.md). The integrated
+normal build composes five-device and six-chain shapes at positions 17 and 18,
+duplicates and controls the sixth chain, transfers overflow devices between
+chains, containers and the track, and inserts, disables, reorders and deletes
+past the sixteen-device window. Width-derived admission caps are retired;
+D44's six-unit budget, named-slot bounds and parameter restrictions remain.
+Descriptions are v57 (46 tools); normal wire: 93 methods, hash
+`d6decf985f6b1f36`.
 
-[B17](work/b17-extension-owned-window-scrolling.md) **session 2 (paged reads)
-is complete and verified live** in
-[E356](evidence/experiments/e356-paged-device-and-layer-reads-live.md).
-The normal `paged-windows-v3` build reads eighteen top-level devices, a
-six-chain container at position 17, and five devices in chain A completely.
-Repeated reads agree; nested windows return to zero; selection is preserved
-during acceptance. The owned scratch track was removed, with original tracks
-and `gn-lay4` verified unchanged. No controller replacement is pending.
+Two live integration fixes are in the brain: a discarded population-changing
+read retries once without replaying a write, and overflow deletion uses a
+structural snapshot instead of an unsupported parameter cursor. An initial
+composition failure now reports possible effects truthfully. All 2,601 brain
+tests and extension checks pass. Both scratch fixtures were removed; original
+track/device inventories and selection match the baseline. No controller
+replacement is pending. No competing Ghostnote client was present.
 
-The overflow container structure read measured six wire turns / about 505 ms;
-one two-page top-level `device.list`, about 144 ms. Full `read_devices` on the
-fixture took 65 turns / about 2.6 s. These are fixture-specific measurements.
-Normal profile: 93 methods, hash `d6decf985f6b1f36`; descriptions v56.
-**Cap retirement/composition is checkpointed offline; integrated live acceptance remains in session 7.**
-The [session-2 result](work/b17-extension-owned-window-scrolling.md#session-2-result-and-session-3-handoff)
-records the inherited interface and remaining scope. Write width limits,
-named-slot paging, and parameter paging were not changed in session 2.
+E357's dense six-chain structure read costs six turns / median 862 ms.
+Five-device composition took 26.3 s; six-chain composition took 44.4 s, close
+to D44's exceptional 45 s ceiling. These are fixture-specific costs. P01 owns
+the repeated proof work and the six-unit budget review; the backlog remains
+ordered R01, R02, then P01. New clients load the current brain; an already
+running MCP server must restart to pick up these fixes.
 
-Session 1 was verified live in
-[E354](evidence/experiments/e354-extension-owned-container-scopes-live.md):
-the E353 shape produced the same results at positions 3 and 5, and an isolated
-far container read fell from 11 turns / 305 ms to 6 turns / about 140 ms.
-These are session-1 measurements; E356 records the session-2 overflow costs.
+Earlier checkpoints remain in [E354](evidence/experiments/e354-extension-owned-container-scopes-live.md)
+(session 1, extension-owned scopes) and
+[E356](evidence/experiments/e356-paged-device-and-layer-reads-live.md)
+(session 2, complete paged reads). Their smaller-fixture timings are historical.
 
 [B08](work/b08-scrollable-container-scopes.md) is complete and verified live.
 [E353](evidence/experiments/e353-scrollable-container-scopes-product-live.md)
@@ -50,8 +44,8 @@ records the product build composing FX Layers at top-level positions 3 and 5,
 the two far containers applying and reading back, the solo read back through
 the cursor route and a second scope, cleanup, and one defect fixed in the
 session (a scope scrolled on a track with fewer devices clamps and stays; the
-adapter now re-issues the scroll). The normal profile is 93 methods, hash
-`a44ce79ed75df81b`, with `chain.scroll`; descriptions are v55 (46 tools).
+adapter now re-issues the scroll). That build had 93 methods, hash
+`a44ce79ed75df81b`, with `chain.scroll`; descriptions were v55 (46 tools).
 The `containerScope` ledger row has a far-position variant (about 305 ms, 11
 turns). [D55](decisions/d55-proved-routes-run-with-one-readback.md) sets the new
 runtime posture: routes proved in tests and E records are trusted at
@@ -62,9 +56,6 @@ in the extension: skip non-containers, rotate the far scope, scope count and
 width) and rebuilds staged `compose_devices` under D55 (direct chain
 insertion in one batch, one readback, re-derived D44 weights), then applies
 the rule to the other staged paths.
-The running Ghostnote MCP server keeps the brain it started with; restart it
-to serve the B17 wire (the B08 brain sends `chain.scroll`, which the running
-extension no longer has). R01 and R02 follow in the [backlog](BACKLOG.md).
 
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
 complete. `resolve_device_name` (46 tools, descriptions v54 then) resolves an exact
@@ -111,25 +102,25 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive is the B17 session-2 v3 build, SHA-256
-  `081cdbb46b410bb651f3f01cb3af436b32fb75d1285c3fcff5f03db0624813f7`.
-  The operator replied “Controller replaced”; its fresh handshake passed at
-  initialization `2026-10-27T13:09:49.749Z`: `normal-v1`, API 25, 93 methods,
-  hash `d6decf985f6b1f36`, marker `paged-windows-v3`. The live acceptance
-  and cleanup passed on that instance. No write block or open scope remains.
-- Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  Owned scratch `gn-b17r` (`2c494622-de74-4d56-804e-7a40127afc47`) was removed.
-  Original tracks and `gn-lay4` entries match the pre-write baseline.
-  Mixer selection is `gn-sel` (index 8, channel
+- The integrated B17 normal `ghostnote` archive is deployed, SHA-256
+  `ac17f782d2ac4252c8259c06aee242d08f2356ac48072853973ef499c6eee5d8`.
+  The operator replied “Controller replaced”. Fresh handshake passed on
+  initialization `2026-10-28T02:58:49.135Z`: `normal-v1`, API 25, 93 methods,
+  hash `d6decf985f6b1f36`; markers `paged-windows-v3`,
+  `paged-chain-controls-v1`, `paged-chain-moves-v2`, and
+  `paged-device-mutations-v1`. No replacement is pending.
+- Last verified foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
+  Both owned `gn-b17w` tracks were removed: first
+  `f11d8e43-b4af-4f63-b94a-11f635dfcd38`, then
+  `d5082b46-5af5-4672-81ba-3b14f59a42bb`. All original track/device inventories
+  match their baseline. Mixer selection is `gn-sel` (index 8, channel
   `6fb96670-abde-4958-9147-f573a4b43918`); no Launcher slot is selected.
-  Selection revision advanced 1 → 5 during setup and UI restoration, then
-  stayed unchanged during acceptance and cleanup. No playback launch or
-  project save ran. One old MCP client (PID 46491) was left alone; owned
-  foreground drivers exited. Re-check live claims, project, selection,
-  clients, and targets on resume.
-  [E356](evidence/experiments/e356-paged-device-and-layer-reads-live.md) retains
-  acceptance, timings, setup results, and preservation comparisons; E355
-  retains the earlier host-state corrections.
+  Selection revision advanced 1 → 5 during the scratch lifecycles; selected
+  identity is preserved. No playback launch or project save ran. Final scope
+  status: closed, 435 aims, zero refusals; no write block. Owned drivers exited;
+  unrelated editor processes were left alone. Re-check live claims, project,
+  selection, clients and targets on resume. [E357](evidence/experiments/e357-integrated-paged-writes-live.md)
+  retains attempts, corrections, timings and preservation comparisons.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes

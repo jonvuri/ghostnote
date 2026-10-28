@@ -10,10 +10,11 @@
  * its kind, and `layer_chain` is one named parallel child. Do not use bare
  * `chain` in a public name.
  *
- * Reach: every top-level position inside the 16-wide device bank exposes its
- * layer chains (B08, E352: `Rig`'s three scopes are one-wide banks scrolled to
- * the requested position). Each limb reads the complete structure first and
- * refuses before a write when the route is not observable.
+ * Reach: every top-level position exposes its layer chains, whatever the
+ * device count (B08, E352: `Rig`'s three scopes are one-wide banks scrolled to
+ * the requested position; B17: the extension pages the 16-wide device bank and
+ * the nested chain and device windows). Each limb reads the complete structure
+ * first and refuses before a write when the route is not observable.
  *
  * This module imports only types from `tools.ts`. `tools.ts` calls
  * `agentNativeDeviceTools` with the stable tools, so there is no import cycle.
@@ -482,7 +483,7 @@ type DuplicateInput = z.infer<typeof duplicateInput>;
 
 const DUPLICATE_DESCRIPTION = `${PROFILE} Copy one complete layer chain, with its devices and device state, to a `
   + 'new layer chain with a new unique name. Bitwig has no typed route to create an empty layer chain, so a new '
-  + 'layer chain always starts as a copy. A container holds at most 5 layer chains here. The copy loads new '
+  + 'layer chain always starts as a copy. The copy loads new '
   + 'device instances and can add engine load; it is audible at once unless solo excludes it. readback gives the '
   + 'position where the copy landed. No typed operation deletes one layer chain, so revert_change cannot remove '
   + 'the copy: remove it with computer control in Bitwig, then read_devices again.';
@@ -1257,8 +1258,9 @@ async function composeStaged(
   const changeId = checkpoint?.containerInsertChangeId ?? stages[0]?.change.changeId;
   if (result['complete'] !== true) {
     throw new ToolFailure('unavailable', 'write', String(result['why'] ?? 'The composition did not complete.')
-      + ' revert_change with the composition change ID reverses the completed stages.', {
-      detail: { failedStage: result['failedStage'] ?? null, compositionChangeId: changeId ?? null } });
+      + (changeId === undefined ? '' : ' revert_change with the composition change ID reverses the completed stages.'), {
+      detail: { failedStage: result['failedStage'] ?? null, compositionChangeId: changeId ?? null,
+        ...(result['effectsPossible'] === true ? { effectsPossible: true } : {}) } });
   }
   const structure = result['structure'] as Record<string, unknown> | undefined;
   const outcome: WriteResult<unknown> = {

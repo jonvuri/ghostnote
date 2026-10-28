@@ -5585,11 +5585,14 @@ for (const [label, topCount, chainCount, deviceCount] of [
   });
 }
 
-test('B17 paged device list retries an arriving track once, and never retries restoration failure', async () => {
+test('B17 paged device list retries an arriving track or population once, never a restoration failure', async () => {
   for (const [message, failures, expectedReads] of [
     ['device.list track changed during paging', 1, 2],
     ['device.list track changed during paging', 2, 2],
+    ['window population changed during paging', 1, 2],
+    ['window population changed during paging', 2, 2],
     ['window did not restore; reload ghostnote before writes', 1, 1],
+    ['window did not restore; reload ghostnote before writes: window population changed during paging', 1, 1],
   ] as const) {
     const wire = new ObserveTransport([]);
     let reads = 0;
@@ -5700,3 +5703,37 @@ test('B17 live/fake: distant nested endpoints and mixed transfers use complete p
     assert.deepEqual(wire.layers.map(c => c.devices), row.devices[17]!.chains!.map(c => c.devices.map(d => d.name)));
   }
 });
+
+for (const count of [17, 20]) {
+  test(`B17 executor deletes device ${count - 1} using its structure without overflowing the parameter cursor`, async () => {
+    class PagedDeleteTransport extends DeviceChainTransport {
+      override async send(frame: Frame): Promise<unknown> {
+        if (frame.method === WIRE.deviceCursorSelectAt) {
+          throw new Error('overflow deletion must not select a parameter-bank handle');
+        }
+        if (frame.method === WIRE.chainObserve) {
+          this.frames.push(frame);
+          return new ObserveTransport((this.chains.get(0) ?? []).map(name => ({ name }))).send(frame);
+        }
+        const reply = await super.send(frame) as Record<string, any>;
+        return frame.method === WIRE.deviceList ? { ...reply, bankSize: 16, paged: true } : reply;
+      }
+    }
+    const wire = new PagedDeleteTransport();
+    const names = Array.from({ length: count }, (_, i) => `Tool ${i}`);
+    wire.chains.set(0, [...names]);
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+    const target = deviceAt(TRACK, count - 1);
+    const controls = await adapter.read([param(target, 'gain')]);
+    assert.equal(controls.unreachable.length, 1, 'parameter reads remain unsupported');
+    const take = await new Executor(adapter).run([{ op: 'device.delete', device: target,
+      expectedName: names.at(-1)!, expectedChain: names, expectedEnabledChain: names.map(() => true) }],
+    { clearance: directedDestruction('delete_device') });
+    assert(take.receipt.stages.every(stage => stage.applied && stage.ops.every(op => op.ok)));
+    assert.deepEqual(wire.chains.get(0), names.slice(0, -1));
+    const saved = take.stash.entries[addressKey(target)]!.value;
+    assert.equal(saved.of, 'device');
+    assert.equal(saved.of === 'device' && saved.device.params, undefined);
+    assert.equal(wire.frames.filter(f => f.method === WIRE.batchRun).length, 1, 'one delete only');
+  });
+}

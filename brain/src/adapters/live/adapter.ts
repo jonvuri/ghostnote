@@ -1783,10 +1783,11 @@ export class LiveAdapter implements BitwigAdapter {
     try {
       res = await read();
     } catch (error) {
-      // B17 live: the track identity can arrive during the paged read after a cursor point. The extension
+      // B17 live: track identity or a preceding insertion's item count can arrive during paging. The extension
       // discards that mixed reading and restores its window. Retry this read once; never retry a write or a
       // restoration failure. The reply below must still prove the requested track and complete item count.
-      if (!(error instanceof BridgeError) || !/device\.list track changed during paging/.test(error.message)) throw error;
+      if (!(error instanceof BridgeError)
+          || !/^Internal error: (device\.list track changed during paging|window population changed during paging)$/.test(error.message)) throw error;
       this.heldCursorTracks.delete(cursor);
       if (cursor === '0') this.heldDeviceTarget = undefined;
       await this.settle('cursorPoint');
@@ -2035,6 +2036,7 @@ export class LiveAdapter implements BitwigAdapter {
       readonly devices?: readonly WireDevice[];
       readonly itemCount?: number;
       readonly trackChannelId?: string;
+      readonly bankSize?: number;
     };
     let top: ParameterDeviceList | undefined;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
@@ -2057,6 +2059,11 @@ export class LiveAdapter implements BitwigAdapter {
     if (topTarget === undefined) {
       const blind = typeof top.itemCount === 'number' && top.itemCount > topDevices.length;
       return { standing: blind ? 'unreachable' : 'missing' };
+    }
+    // Paged device.list reaches beyond the physical parameter cursor bank. Parameter paging is not proved.
+    const parameterWidth = top.bankSize ?? this.deviceBankSize;
+    if (parameterWidth !== undefined && topAddress.chainIndex >= parameterWidth) {
+      return { standing: 'unreachable' };
     }
     await this.transport.send({
       method: WIRE.deviceCursorSelectAt, params: { deviceIndex: topAddress.chainIndex },
@@ -4673,7 +4680,9 @@ export class LiveAdapter implements BitwigAdapter {
             };
           }
           if (inventory.standing === 'unstable') return 'unstable';
-          if (inventory.standing === 'unreachable') return 'unreachable';
+          // The paged structure remains readable beyond the parameter cursor. In particular, deleting an
+          // overflow device needs its structural snapshot, not unavailable scalar state for reconstruction.
+          if (inventory.standing === 'unreachable') return this.readDeviceStructure(address);
           if (inventory.standing === 'ambiguous') return undefined;
           const absentScope = await this.containerScope(address.track, address.chainIndex);
           return absentScope.ok || absentScope.miss === 'absent' ? undefined : 'unreachable';

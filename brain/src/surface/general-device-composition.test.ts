@@ -1340,3 +1340,26 @@ test('B17: an uncertain seed-growth result preserves the effect and stops before
   assert.equal(fx.row.devices[2]!.chains!.length, 6);
   assert(fx.row.devices[2]!.chains!.every(c => c.devices.length === 0));
 });
+
+test('B17: lost first-insertion readback reports possible effects without replay or an invented reversal', async () => {
+  const fx = fixture();
+  let attempts = 0;
+  const workspace: Workspace = { ...fx.workspace, async apply(ops, run) {
+    attempts++;
+    await fx.workspace.apply(ops, run);
+    throw new Error('window population changed during paging');
+  } };
+  const result = await callTool(workspace, 'compose_devices', {
+    trackId: fx.trackId, containerKind: 'FX Layer',
+    layerChains: [{ name: 'A', devices: Array.from({ length: 5 }, () => ({ source: { kind: 'native', name: 'Tool' } })) }],
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  assert.equal(attempts, 1);
+  assert.equal(fx.row.devices.length, 3);
+  assert.equal(fx.row.devices[2]!.name, 'FX Layer');
+  assert.equal(result.failure.code, 'unavailable');
+  assert.equal(result.failure.stage, 'write');
+  assert.equal(result.detail.effectsPossible, true);
+  assert.equal(result.detail.compositionChangeId, null);
+  assert.match(result.message, /insertion may have applied/);
+  assert.doesNotMatch(result.message, /Nothing was written|revert_change/);
+});

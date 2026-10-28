@@ -1,0 +1,2932 @@
+{
+  "name": "read_devices",
+  "args": {
+    "trackId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+  },
+  "result": {
+    "schema": "ghostnote-devices/1",
+    "source": {
+      "host": "bitwig-devices",
+      "read": "fresh-structure-read"
+    },
+    "target": {
+      "trackId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+    },
+    "coverage": {
+      "status": "complete",
+      "devicesComplete": true,
+      "bankSize": 16,
+      "devicePages": 1,
+      "layerChainPositions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "authority": {
+      "kind": "fresh-read"
+    },
+    "data": {
+      "trackId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "devices": [
+        {
+          "devicePosition": 0,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 1,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 2,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 3,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 4,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 5,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 6,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Phase-4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Phase-4"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 1,
+                "name": "Polysynth",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Polysynth"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "Organ",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Organ"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "Sampler",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Sampler"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 7,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "gn test - instrument layer 4",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 1,
+                  "green": 0.341,
+                  "blue": 0.016
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Instrument Layer"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        }
+      ]
+    },
+    "warnings": [],
+    "timing": {
+      "totalMs": 2083.2842920000003
+    }
+  },
+  "ms": 2083.497334,
+  "turns": 36,
+  "calls": [
+    {
+      "method": "selection.status",
+      "sent": 562.3525,
+      "received": 587.169458,
+      "bytes": 245,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "12",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 1,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"12\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":1,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 587.297083,
+      "received": 612.055125,
+      "bytes": 1326,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "13",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"13\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 612.375458,
+      "received": 637.492167,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "14",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"14\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 637.609333,
+      "received": 662.378542,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "15",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"15\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "0"
+      },
+      "sent": 688.590333,
+      "received": 757.696208,
+      "bytes": 120,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "16",
+        "error": {
+          "code": -32603,
+          "message": "Internal error: device.list track changed during paging"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"16\",\"error\":{\"code\":-32603,\"message\":\"Internal error: device.list track changed during paging\"}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "0"
+      },
+      "sent": 783.039208,
+      "received": 828.478083,
+      "bytes": 610,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "17",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 4,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 5,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 6,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 7,
+              "name": "Instrument Layer",
+              "enabled": true
+            }
+          ],
+          "count": 8,
+          "itemCount": 8,
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "trackPosition": 0,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"17\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":1,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":2,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":3,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":4,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":5,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":6,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":7,\"name\":\"Instrument Layer\",\"enabled\":true}],\"count\":8,\"itemCount\":8,\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackPosition\":0,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 854.222042,
+      "received": 873.547042,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "18",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"18\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 873.591042,
+      "received": 897.044542,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "19",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"19\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "0"
+      },
+      "sent": 923.007417,
+      "received": 970.622583,
+      "bytes": 610,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "20",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 4,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 5,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 6,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 7,
+              "name": "Instrument Layer",
+              "enabled": true
+            }
+          ],
+          "count": 8,
+          "itemCount": 8,
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "trackPosition": 0,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"20\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":1,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":2,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":3,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":4,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":5,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":6,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":7,\"name\":\"Instrument Layer\",\"enabled\":true}],\"count\":8,\"itemCount\":8,\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackPosition\":0,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "revision.get",
+      "sent": 971.076458,
+      "received": 994.548167,
+      "bytes": 2843,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "21",
+        "result": {
+          "revision": 0,
+          "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+          "project": "gn-scale-test",
+          "projectStatus": "marked",
+          "sceneEpoch": 2,
+          "sceneCount": 10,
+          "contentEpoch": 32793,
+          "unpinnedCursorTracks": [],
+          "contentEvents": [
+            {
+              "seq": 32770,
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+              "trackIndex": 0,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32771,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32772,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32773,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32774,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32775,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32776,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 3,
+              "filled": true
+            },
+            {
+              "seq": 32777,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32778,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32779,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 6,
+              "filled": true
+            },
+            {
+              "seq": 32780,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 7,
+              "filled": true
+            },
+            {
+              "seq": 32781,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 8,
+              "filled": true
+            },
+            {
+              "seq": 32782,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 9,
+              "filled": true
+            },
+            {
+              "seq": 32783,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32784,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32785,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32786,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32787,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32788,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32789,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32790,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32791,
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+              "trackIndex": 6,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32792,
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+              "trackIndex": 7,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32793,
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "trackIndex": 8,
+              "slotIndex": 0,
+              "filled": true
+            }
+          ]
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"21\",\"result\":{\"revision\":0,\"generation\":\"966a2dbe-e3d8-4a58-9221-e6db226d79fc\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 971.11,
+      "received": 994.687292,
+      "bytes": 1326,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "22",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"22\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "selection.status",
+      "sent": 994.818792,
+      "received": 1020.207875,
+      "bytes": 245,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "23",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 1,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"23\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":1,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 1020.751917,
+      "received": 1043.289875,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "24",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"24\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 1043.333208,
+      "received": 1066.597708,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "25",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"25\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 0,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 1066.655083,
+      "received": 1211.181833,
+      "bytes": 2210,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "26",
+        "result": {
+          "success": true,
+          "position": 0,
+          "slot": 0,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 0,
+            "status": "held",
+            "requestedPosition": 0,
+            "position": 0,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": false,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 0,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "4861ff66-e57f-43c6-90ff-855a35758287",
+                "reportedChannelIndex": 1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "fcff727f-3dc6-4e0a-90c3-5bc236de454e",
+                "reportedChannelIndex": 2,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "994f7efb-4867-45a3-a3ab-0b79120ba764",
+                "reportedChannelIndex": 3,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "8a12ad98-7a35-4ce8-b013-7cc48c51f3f2",
+                "reportedChannelIndex": 4,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 119.647208
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"26\",\"result\":{\"success\":true,\"position\":0,\"slot\":0,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":0,\"status\":\"held\",\"requestedPosition\":0,\"position\":0,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":false,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":0,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"4861ff66-e57f-43c6-90ff-855a35758287\",\"reportedChannelIndex\":1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"fcff727f-3dc6-4e0a-90c3-5bc236de454e\",\"reportedChannelIndex\":2,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"994f7efb-4867-45a3-a3ab-0b79120ba764\",\"reportedChannelIndex\":3,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"8a12ad98-7a35-4ce8-b013-7cc48c51f3f2\",\"reportedChannelIndex\":4,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":0,\"slot\":0}],\"polls\":1,\"scrolls\":0,\"ms\":119.647208}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 1211.466875,
+      "received": 1235.6325,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "27",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"27\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 1235.706125,
+      "received": 1259.206417,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "28",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"28\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 1,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 1259.25025,
+      "received": 1430.212583,
+      "bytes": 2209,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "29",
+        "result": {
+          "success": true,
+          "position": 1,
+          "slot": 1,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 1,
+            "status": "held",
+            "requestedPosition": 1,
+            "position": 1,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 1,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "2f5006b1-01af-4b52-a544-d33db430900e",
+                "reportedChannelIndex": 5,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "a187b1b4-1653-44a7-ac27-645dbe04692e",
+                "reportedChannelIndex": 6,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "16d3cf2b-ec4c-45cc-af6e-d852b31f5215",
+                "reportedChannelIndex": 7,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "084bf076-1cc4-4cdc-9265-0c1698d8e319",
+                "reportedChannelIndex": 8,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 1,
+                "slot": 1
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 146.908416
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"29\",\"result\":{\"success\":true,\"position\":1,\"slot\":1,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":1,\"status\":\"held\",\"requestedPosition\":1,\"position\":1,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":1,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"2f5006b1-01af-4b52-a544-d33db430900e\",\"reportedChannelIndex\":5,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"a187b1b4-1653-44a7-ac27-645dbe04692e\",\"reportedChannelIndex\":6,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"16d3cf2b-ec4c-45cc-af6e-d852b31f5215\",\"reportedChannelIndex\":7,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"084bf076-1cc4-4cdc-9265-0c1698d8e319\",\"reportedChannelIndex\":8,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":1,\"slot\":1}],\"polls\":2,\"scrolls\":1,\"ms\":146.908416}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 1430.361875,
+      "received": 1452.92125,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "30",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"30\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 1452.972583,
+      "received": 1477.417,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "31",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"31\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 2,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 1477.461333,
+      "received": 1646.448917,
+      "bytes": 2212,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "32",
+        "result": {
+          "success": true,
+          "position": 2,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 2,
+            "position": 2,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 2,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "4cf6a59d-e77c-4b3a-a624-e7dfa0f592ab",
+                "reportedChannelIndex": 9,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "5f7347f2-3df4-4a9b-9509-ebb9372698f8",
+                "reportedChannelIndex": 10,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "74f7fc34-256b-4301-bca4-f45c95fcab93",
+                "reportedChannelIndex": 11,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "ee7c170f-b9af-4608-a925-286b2ff90024",
+                "reportedChannelIndex": 12,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 2,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 144.822042
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"32\",\"result\":{\"success\":true,\"position\":2,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":2,\"position\":2,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":2,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"4cf6a59d-e77c-4b3a-a624-e7dfa0f592ab\",\"reportedChannelIndex\":9,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"5f7347f2-3df4-4a9b-9509-ebb9372698f8\",\"reportedChannelIndex\":10,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"74f7fc34-256b-4301-bca4-f45c95fcab93\",\"reportedChannelIndex\":11,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"ee7c170f-b9af-4608-a925-286b2ff90024\",\"reportedChannelIndex\":12,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":2,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":144.822042}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 1646.615167,
+      "received": 1669.232125,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "33",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"33\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 1669.286375,
+      "received": 1692.997083,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "34",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"34\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 3,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 1693.065875,
+      "received": 1858.998792,
+      "bytes": 2213,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "35",
+        "result": {
+          "success": true,
+          "position": 3,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 3,
+            "position": 3,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 3,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "304f910c-1b64-4d40-a148-447cac971a5d",
+                "reportedChannelIndex": 13,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "5cd54853-6d02-47f8-94f0-7cbc5c4a4b75",
+                "reportedChannelIndex": 14,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "26ede9c1-9a03-4fca-a3b1-8dff233f6b52",
+                "reportedChannelIndex": 15,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "815cf21e-75e0-47c9-83ab-5d33980ba6c7",
+                "reportedChannelIndex": 16,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 3,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 142.244875
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"35\",\"result\":{\"success\":true,\"position\":3,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":3,\"position\":3,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":3,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"304f910c-1b64-4d40-a148-447cac971a5d\",\"reportedChannelIndex\":13,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"5cd54853-6d02-47f8-94f0-7cbc5c4a4b75\",\"reportedChannelIndex\":14,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"26ede9c1-9a03-4fca-a3b1-8dff233f6b52\",\"reportedChannelIndex\":15,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"815cf21e-75e0-47c9-83ab-5d33980ba6c7\",\"reportedChannelIndex\":16,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":3,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":142.244875}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 1859.1045,
+      "received": 1883.407542,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "36",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"36\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 1883.450625,
+      "received": 1907.452417,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "37",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"37\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 4,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 1907.492625,
+      "received": 2073.777542,
+      "bytes": 2213,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "38",
+        "result": {
+          "success": true,
+          "position": 4,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 4,
+            "position": 4,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 4,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "7b8af81e-09ce-4996-9780-c90430885f69",
+                "reportedChannelIndex": 17,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "a41e627a-6474-4c2f-914b-87183a2d6d27",
+                "reportedChannelIndex": 18,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "1e2dfd43-5f62-428c-a841-cb25d89c51e5",
+                "reportedChannelIndex": 19,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "b91f1ad1-d3a8-420d-9b6f-11bb1dc65bb4",
+                "reportedChannelIndex": 20,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 4,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 143.713542
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"38\",\"result\":{\"success\":true,\"position\":4,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":4,\"position\":4,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":4,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"7b8af81e-09ce-4996-9780-c90430885f69\",\"reportedChannelIndex\":17,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"a41e627a-6474-4c2f-914b-87183a2d6d27\",\"reportedChannelIndex\":18,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"1e2dfd43-5f62-428c-a841-cb25d89c51e5\",\"reportedChannelIndex\":19,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"b91f1ad1-d3a8-420d-9b6f-11bb1dc65bb4\",\"reportedChannelIndex\":20,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":4,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":143.713542}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 2073.8715,
+      "received": 2097.0935,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "39",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"39\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 2097.144,
+      "received": 2122.393917,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "40",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"40\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 5,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 2122.525375,
+      "received": 2292.815042,
+      "bytes": 2212,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "41",
+        "result": {
+          "success": true,
+          "position": 5,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 5,
+            "position": 5,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 5,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "21058252-7313-4720-8301-59cb9daf07c7",
+                "reportedChannelIndex": 21,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "d177fd94-ed88-4afe-b222-c854e716fb52",
+                "reportedChannelIndex": 22,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "b7c2d494-d96d-4486-9436-cb57e9601c29",
+                "reportedChannelIndex": 23,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "0b54cb9e-03bd-4879-aece-1840fa8df175",
+                "reportedChannelIndex": 24,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 5,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 148.11175
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"41\",\"result\":{\"success\":true,\"position\":5,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":5,\"position\":5,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":5,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"21058252-7313-4720-8301-59cb9daf07c7\",\"reportedChannelIndex\":21,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"d177fd94-ed88-4afe-b222-c854e716fb52\",\"reportedChannelIndex\":22,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"b7c2d494-d96d-4486-9436-cb57e9601c29\",\"reportedChannelIndex\":23,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"0b54cb9e-03bd-4879-aece-1840fa8df175\",\"reportedChannelIndex\":24,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":5,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":148.11175}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 2292.920667,
+      "received": 2312.628875,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "42",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"42\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 2312.673958,
+      "received": 2336.425292,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "43",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"43\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 6,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 2336.475167,
+      "received": 2503.374917,
+      "bytes": 2213,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "44",
+        "result": {
+          "success": true,
+          "position": 6,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 6,
+            "position": 6,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 6,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Phase-4",
+                "channelId": "c456f03d-296f-4b53-9872-9911b6a6b391",
+                "reportedChannelIndex": 25,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Phase-4",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 1,
+                "name": "Polysynth",
+                "channelId": "fc96b990-722e-4d54-8b70-515cadd20c87",
+                "reportedChannelIndex": 26,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Polysynth",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "Organ",
+                "channelId": "7a6c38ed-d8d5-4111-b04c-efa55623d9ae",
+                "reportedChannelIndex": 27,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Organ",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "Sampler",
+                "channelId": "2652bd1a-ee85-43ea-b8bb-90c34805ec3b",
+                "reportedChannelIndex": 28,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Sampler",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 4,
+            "chainCount": 4,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 4
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 6,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 142.323333
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"44\",\"result\":{\"success\":true,\"position\":6,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":6,\"position\":6,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":6,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Phase-4\",\"channelId\":\"c456f03d-296f-4b53-9872-9911b6a6b391\",\"reportedChannelIndex\":25,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Phase-4\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":1,\"name\":\"Polysynth\",\"channelId\":\"fc96b990-722e-4d54-8b70-515cadd20c87\",\"reportedChannelIndex\":26,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Polysynth\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"Organ\",\"channelId\":\"7a6c38ed-d8d5-4111-b04c-efa55623d9ae\",\"reportedChannelIndex\":27,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Organ\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"Sampler\",\"channelId\":\"2652bd1a-ee85-43ea-b8bb-90c34805ec3b\",\"reportedChannelIndex\":28,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Sampler\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":4,\"chainCount\":4,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":4},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":6,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":142.323333}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 2503.492292,
+      "received": 2525.766875,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "45",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"45\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 0
+      },
+      "sent": 2525.810875,
+      "received": 2550.556625,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "46",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"46\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 7,
+        "expectedTrackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      "sent": 2550.605792,
+      "received": 2645.239625,
+      "bytes": 1310,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "47",
+        "result": {
+          "success": true,
+          "position": 7,
+          "slot": 2,
+          "deviceCount": 8,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 7,
+            "position": 7,
+            "settled": true,
+            "canScrollForwards": false,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 7,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "gn test - instrument layer 4",
+                "channelId": "b97f6cce-def4-4f02-8b68-10cae43d8aad",
+                "reportedChannelIndex": 29,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "1.000,0.341,0.016",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Instrument Layer",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 1,
+            "chainCount": 1,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 1
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "Instrument Layer",
+          "trackChannelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 7,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 71.685708
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"47\",\"result\":{\"success\":true,\"position\":7,\"slot\":2,\"deviceCount\":8,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":7,\"position\":7,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":7,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"gn test - instrument layer 4\",\"channelId\":\"b97f6cce-def4-4f02-8b68-10cae43d8aad\",\"reportedChannelIndex\":29,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"1.000,0.341,0.016\",\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":1,\"chainCount\":1,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":1},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"Instrument Layer\",\"trackChannelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":7,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":71.685708}}}"
+    }
+  ]
+}

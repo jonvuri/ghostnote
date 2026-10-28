@@ -1,0 +1,6 @@
+{
+  "scratchId": "f11d8e43-b4af-4f63-b94a-11f635dfcd38",
+  "scratchName": "gn-b17w",
+  "error": "AssertionError [ERR_ASSERTION]: {\"schema\":\"ghostnote-device-compose/2\",\"failure\":{\"code\":\"unsupported\",\"stage\":\"plan\",\"effects\":[]},\"message\":\"Nothing was written. Internal error: window population changed during paging\",\"target\":{\"trackId\":\"f11d8e43-b4af-4f63-b94a-11f635dfcd38\",\"containerKind\":\"FX Layer\"},\"detail\":{\"reason\":\"composition-refused\"}}\n+ actual - expected\n\n+ {\n+   code: 'unsupported',\n+   effects: [],\n+   stage: 'plan'\n+ }\n- undefined\n",
+  "next": "Inspect recorded effects and current state before any further write; do not repeat this driver."
+}

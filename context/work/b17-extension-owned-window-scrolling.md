@@ -171,11 +171,11 @@ and live acceptance in session 7.
 | --- | --- | --- |
 | 1 | Extension-owned scopes; absolute wire positions and indices | Complete, live E354 |
 | 2 | Paged top-level and nested reads | Complete, live E356 |
-| 3 | Write-window foundation and paged chain controls | Checkpointed; offline checks pass; not deployed |
-| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Checkpointed; offline checks pass; not deployed |
-| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Checkpointed; offline checks pass; not deployed |
-| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Checkpointed; offline checks pass; not deployed |
-| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Next; fresh session |
+| 3 | Write-window foundation and paged chain controls | Complete; integrated live acceptance E357 |
+| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Complete; integrated live acceptance E357 |
+| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Complete; integrated live acceptance E357 |
+| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Complete; integrated live acceptance E357 |
+| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Complete, live E357 |
 
 Each fresh session starts with `context/NOW.md`, its section below, and the
 relevant implementation/result sections. Record the completed scope, checks,
@@ -824,7 +824,7 @@ session-6 composition/parity regressions; host acceptance of these newly admitte
 writes is still owed in session 7.
 
 Descriptions are **v57**, SHA-256
-`9711630d8c69ed010917a81187036b31f766f60936648fda9e34974dd6997c41`.
+`bdf8baac6b9a610827c00d6354b543ccca5153eff7a8a810834ffc77c2ddbad2`.
 The current inventory adds `chain.create` to `compose_devices` emissions.
 The retired `stable-v1` registration and v25 artifact stay frozen; the current
 composer uses a separate paged input validator, and current `revert_change`
@@ -880,3 +880,66 @@ The driver was typechecked but **not run against Bitwig** in session 6. It adds
 no authorization beyond the resumed session's fresh operator context. Session 7
 must record actual host results, cleanup and preserved state in a new E record,
 then update the ledger and backlog. B17 remains in progress until that passes.
+
+### Session 7 deployment checkpoint
+
+Started on 2026-10-27 (local date). Extension `./gradlew check` and brain
+`npm run typecheck` pass. `./gradlew copyExtension` deployed the normal
+integrated archive; built and installed SHA-256 both equal
+`ac17f782d2ac4252c8259c06aee242d08f2356ac48072853973ef499c6eee5d8`.
+Deployment finished before `2026-10-28T02:57:11Z`. Local logs are under
+`.tmp/b17-session7/`.
+
+The operator replied **“Controller replaced”**. The fresh handshake passed at
+`2026-10-28T02:58:49.135Z`, with API 25, `normal-v1`, 93 methods, hash
+`d6decf985f6b1f36`, and all four markers in the handoff. The driver now excludes
+unrelated editor ACP servers from its brain-entry-point process match. No
+unrelated process was stopped.
+
+### Session 7 result
+
+**Complete**, including sessions 3–6's integrated host acceptance, in
+[E357](../evidence/experiments/e357-integrated-paged-writes-live.md).
+The five-device composition at position 17, six-chain seed growth at 18,
+sixth-chain duplication/solo/rename, top-level-to-chain copy, chain-to-track
+move, distant same-container move, cross-container move, and overflow
+insertion/enabled-state/reorder/deletion all read back independently. Nested
+windows restore to zero. Both owned scratch fixtures were removed; all
+original track/device inventories and selected identity match the baseline.
+No open scope, write block or pending replacement remains. No playback launch
+or project save ran.
+
+Two integration gaps were corrected in the brain. A just-inserted device's
+count can arrive during paging; the adapter discards and retries that exact
+read once, never a write or restoration failure. If the first composition
+apply throws without a receipt, the error now reports possible effects rather
+than claiming nothing was written or inventing a reversal ID. The deletion
+snapshot also reached the fixed parameter cursor at position 19: parameter
+acquisition now honors the physical bank, and the ordinary device snapshot
+falls back to paged structure when scalar access is unreachable. D15's claim
+for that snapshot is structure only; it neither reconstructs deleted devices
+nor claims scalar preservation. E357 and full-executor regressions at
+positions 16 and 19 retain the evidence. Parameter and named-slot bounds stay.
+
+The first stopped fixture was inspected, then removed with preservation checks.
+A later preflight stopped on an offline test process before writing. The third
+attempt passed through overflow insertion and then refused the deletion before
+sending its mutation; inspection proved the Gate remained and prior effects
+were correct. A guarded continuation completed only the remaining steps after
+the deletion fix. No successful composition or transfer was replayed.
+
+Verification: extension `./gradlew check`, brain `npm run check` (**2,601 tests**,
+including wire goldens and call budgets), documentation links and diff checks.
+Descriptions remain v57, 46 tools; no wire change or second deployment was
+needed. Review found one retired cap still in the `duplicate_layer_chain`
+description ("at most 5 layer chains"); the sentence was removed and the v57
+artifact hash above updated, since v57 had not shipped or run live.
+E357 retains all actual replies and raw exchange records.
+
+Fixture costs: five-device composition 26.3 s; six-chain composition 44.4 s /
+703 turns; isolated dense six-chain read median 862 ms / six turns. The latter
+fixture has 29 nested devices, so E356's smaller-fixture latency is not directly
+comparable. The six-chain composition uses D44's under-45-second exception:
+repeated paged inventories, extra seed growth and the existing insert-then-move
+stages account for the cost. P01 owns the D55 rewrite and remeasurement;
+this session makes no new live reversal-latency claim. B17 is done.

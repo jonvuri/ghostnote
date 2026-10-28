@@ -1,0 +1,37 @@
+entry
+connection
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+clients
+stopped
+failure-track-list
+failure-selection-status
+failure-rig-info
+failure-chain-inventory
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: competing probe driver 89421
+    at checkDrivers (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:75:5)
+    at <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:107:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

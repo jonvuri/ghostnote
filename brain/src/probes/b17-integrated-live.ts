@@ -67,8 +67,9 @@ function checkDrivers(): void {
     if (!row) break;
     pid = row.ppid;
   }
+  // Match brain entry points, not unrelated editor servers in node_modules/*/dist.
   const clients = processes.filter(p => !ancestors.has(p.pid)
-    && /(?:src\/probes\/|(?:src|dist)\/(?:index|main|server)\.[jt]s)/.test(p.command));
+    && /(?:src\/probes\/|(?:^|\s|\/brain\/)(?:src|dist)\/(?:index|main|server)\.[jt]s(?:\s|$))/.test(p.command));
   record('clients', { clients, allowedIdleClients: values['idle-client'] });
   for (const client of clients) {
     assert(!client.command.includes('/probes/'), `competing probe driver ${client.pid}`);

@@ -1,0 +1,984 @@
+{
+  "name": "read_devices",
+  "args": {
+    "trackId": "e75d9383-425e-4bff-9ca6-802bb9caed02"
+  },
+  "result": {
+    "schema": "ghostnote-devices/1",
+    "source": {
+      "host": "bitwig-devices",
+      "read": "fresh-structure-read"
+    },
+    "target": {
+      "trackId": "e75d9383-425e-4bff-9ca6-802bb9caed02"
+    },
+    "coverage": {
+      "status": "complete",
+      "devicesComplete": true,
+      "bankSize": 16,
+      "devicePages": 1,
+      "layerChainPositions": [
+        0,
+        1,
+        2
+      ]
+    },
+    "authority": {
+      "kind": "fresh-read"
+    },
+    "data": {
+      "trackId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "devices": [
+        {
+          "devicePosition": 0,
+          "name": "Instrument Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "Instrument Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "Instrument Layer",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.149,
+                  "green": 0.749,
+                  "blue": 0.541
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Instrument Layer"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceWindowSize": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "chainWindowSize": 5,
+            "chainPages": 1
+          }
+        },
+        {
+          "devicePosition": 1,
+          "name": "Zebra3",
+          "enabled": true
+        },
+        {
+          "devicePosition": 2,
+          "name": "Polysynth",
+          "enabled": true
+        }
+      ]
+    },
+    "warnings": [],
+    "timing": {
+      "totalMs": 614.5958340000034
+    }
+  },
+  "ms": 614.6414580000019,
+  "turns": 18,
+  "calls": [
+    {
+      "method": "selection.status",
+      "sent": 18487.177833,
+      "received": 18510.419583,
+      "bytes": 246,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "338",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 5,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"338\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 18510.44875,
+      "received": 18534.463833,
+      "bytes": 1327,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "339",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"339\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "5",
+        "trackIndex": 5
+      },
+      "sent": 18534.501208,
+      "received": 18559.428666,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "340",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"340\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "5"
+      },
+      "sent": 18585.537583,
+      "received": 18628.941083,
+      "bytes": 329,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "341",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Zebra3",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "count": 3,
+          "itemCount": 3,
+          "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "trackPosition": 0,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"341\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":1,\"name\":\"Zebra3\",\"enabled\":true},{\"index\":2,\"name\":\"Polysynth\",\"enabled\":true}],\"count\":3,\"itemCount\":3,\"trackChannelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackPosition\":0,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "5",
+        "trackIndex": 5
+      },
+      "sent": 18655.149083,
+      "received": 18676.874708,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "342",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"342\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "5"
+      },
+      "sent": 18703.010916,
+      "received": 18748.316208,
+      "bytes": 329,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "343",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Zebra3",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "count": 3,
+          "itemCount": 3,
+          "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "trackPosition": 0,
+          "bankSize": 16,
+          "pages": 1,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"343\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true},{\"index\":1,\"name\":\"Zebra3\",\"enabled\":true},{\"index\":2,\"name\":\"Polysynth\",\"enabled\":true}],\"count\":3,\"itemCount\":3,\"trackChannelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackPosition\":0,\"bankSize\":16,\"pages\":1,\"paged\":true}}"
+    },
+    {
+      "method": "revision.get",
+      "sent": 18748.396291,
+      "received": 18772.254458,
+      "bytes": 2845,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "344",
+        "result": {
+          "revision": 89,
+          "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+          "project": "gn-scale-test",
+          "projectStatus": "marked",
+          "sceneEpoch": 2,
+          "sceneCount": 10,
+          "contentEpoch": 32793,
+          "unpinnedCursorTracks": [],
+          "contentEvents": [
+            {
+              "seq": 32770,
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+              "trackIndex": 0,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32771,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32772,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32773,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32774,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32775,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32776,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 3,
+              "filled": true
+            },
+            {
+              "seq": 32777,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32778,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32779,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 6,
+              "filled": true
+            },
+            {
+              "seq": 32780,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 7,
+              "filled": true
+            },
+            {
+              "seq": 32781,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 8,
+              "filled": true
+            },
+            {
+              "seq": 32782,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 9,
+              "filled": true
+            },
+            {
+              "seq": 32783,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32784,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32785,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32786,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32787,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32788,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32789,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32790,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32791,
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+              "trackIndex": 6,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32792,
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+              "trackIndex": 7,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32793,
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "trackIndex": 8,
+              "slotIndex": 0,
+              "filled": true
+            }
+          ]
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"344\",\"result\":{\"revision\":89,\"generation\":\"966a2dbe-e3d8-4a58-9221-e6db226d79fc\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 18748.433541,
+      "received": 18772.413416,
+      "bytes": 1327,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "345",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "FX 1",
+              "position": 9,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 10,
+              "name": "Master",
+              "position": 10,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 11,
+          "itemCount": 11,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"345\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"FX 1\",\"position\":9,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":10,\"name\":\"Master\",\"position\":10,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":11,\"itemCount\":11,\"bankSize\":256}}"
+    },
+    {
+      "method": "selection.status",
+      "sent": 18772.45125,
+      "received": 18798.272,
+      "bytes": 246,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "346",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 5,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"346\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 18798.325291,
+      "received": 18820.302166,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "347",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"347\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 5
+      },
+      "sent": 18820.334583,
+      "received": 18843.12725,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "348",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"348\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 0,
+        "expectedTrackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02"
+      },
+      "sent": 18843.153916,
+      "received": 18915.924541,
+      "bytes": 1289,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "349",
+        "result": {
+          "success": true,
+          "position": 0,
+          "slot": 0,
+          "deviceCount": 3,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 0,
+            "status": "held",
+            "requestedPosition": 0,
+            "position": 0,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": false,
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "devicePosition": 0,
+            "hasLayers": true,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [
+              {
+                "index": 0,
+                "name": "Instrument Layer",
+                "channelId": "fcdd233a-cf77-4708-a33a-1d3ccb4abb64",
+                "reportedChannelIndex": 43,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.149,0.749,0.541",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Instrument Layer",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 1,
+            "chainCount": 1,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 1,
+            "devicePages": 1
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-E16",
+          "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 49.458333
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"349\",\"result\":{\"success\":true,\"position\":0,\"slot\":0,\"deviceCount\":3,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":0,\"status\":\"held\",\"requestedPosition\":0,\"position\":0,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":false,\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"devicePosition\":0,\"hasLayers\":true,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[{\"index\":0,\"name\":\"Instrument Layer\",\"channelId\":\"fcdd233a-cf77-4708-a33a-1d3ccb4abb64\",\"reportedChannelIndex\":43,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.149,0.749,0.541\",\"devices\":[{\"index\":0,\"name\":\"Instrument Layer\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":1,\"chainCount\":1,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":1,\"devicePages\":1},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"gn-E16\",\"trackChannelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":0,\"slot\":0}],\"polls\":1,\"scrolls\":0,\"ms\":49.458333}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 18915.991166,
+      "received": 18938.982583,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "350",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"350\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 5
+      },
+      "sent": 18939.018833,
+      "received": 18962.901916,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "351",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"351\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 1,
+        "expectedTrackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02"
+      },
+      "sent": 18962.9315,
+      "received": 19009.161708,
+      "bytes": 951,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "352",
+        "result": {
+          "success": true,
+          "position": 1,
+          "slot": 1,
+          "deviceCount": 3,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 1,
+            "status": "held",
+            "requestedPosition": 1,
+            "position": 1,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Zebra3",
+            "devicePosition": 1,
+            "hasLayers": false,
+            "hasSlots": true,
+            "slotNames": [
+              "FX"
+            ],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-E16",
+          "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 1,
+                "slot": 1
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 23.516333
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"352\",\"result\":{\"success\":true,\"position\":1,\"slot\":1,\"deviceCount\":3,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":1,\"status\":\"held\",\"requestedPosition\":1,\"position\":1,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Zebra3\",\"devicePosition\":1,\"hasLayers\":false,\"hasSlots\":true,\"slotNames\":[\"FX\"],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"gn-E16\",\"trackChannelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":1,\"slot\":1}],\"polls\":2,\"scrolls\":1,\"ms\":23.516333}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 19009.257666,
+      "received": 19031.777791,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "353",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"353\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 5
+      },
+      "sent": 19031.808833,
+      "received": 19054.673625,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "354",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"354\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 2,
+        "expectedTrackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02"
+      },
+      "sent": 19054.701458,
+      "received": 19101.682916,
+      "bytes": 965,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "355",
+        "result": {
+          "success": true,
+          "position": 2,
+          "slot": 2,
+          "deviceCount": 3,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 2,
+            "position": 2,
+            "settled": true,
+            "canScrollForwards": false,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Polysynth",
+            "devicePosition": 2,
+            "hasLayers": false,
+            "hasSlots": true,
+            "slotNames": [
+              "FX",
+              "Note FX"
+            ],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": false,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Instrument Layer",
+            "deviceIndex": 0,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-E16",
+          "trackChannelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 2,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 23.749208
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"355\",\"result\":{\"success\":true,\"position\":2,\"slot\":2,\"deviceCount\":3,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":2,\"position\":2,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Polysynth\",\"devicePosition\":2,\"hasLayers\":false,\"hasSlots\":true,\"slotNames\":[\"FX\",\"Note FX\"],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":false,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Instrument Layer\",\"deviceIndex\":0,\"isNested\":false,\"namedSlotComplete\":false},\"trackName\":\"gn-E16\",\"trackChannelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":2,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":23.749208}}}"
+    }
+  ]
+}

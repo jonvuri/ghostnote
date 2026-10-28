@@ -343,12 +343,16 @@ it reads a scope, and the brain re-points once on a refusal.
   refuses after 400 polls (about 2 s); waiting for such a scope never ends
   [K, E353].
 
-- **Paged product writes (B17 sessions 3–6, offline checkpoint).** The current
-  source admits paged layer controls, move/copy, and top-level mutations, and
-  composition beyond five chains/four devices. No replacement structural capacity
-  is imposed. Named-slot and parameter restrictions and D44 remain. Session 7
-  must verify these writes in Bitwig; the installed archive is still session 2.
-  See the [checkpoint and driver handoff](../../work/b17-extension-owned-window-scrolling.md#session-6-cap-retirement-checkpoint).
+- **Paged product writes (B17 sessions 3–7, verified live).** Layer controls,
+  move/copy, and top-level mutations work past the physical windows. Composition
+  supports six chains and five devices per chain, with no replacement structural
+  capacity; named-slot and parameter restrictions and D44 remain. E357 proves
+  containers at 17/18, sixth-chain controls, distant/mixed transfers, overflow
+  insertion, enabled-state, reordering and deletion, and cleanup. An overflow
+  device snapshot contains structure without claiming unavailable scalar state.
+  A discarded population-changing read retries once; no write is replayed.
+  See [E357](../experiments/e357-integrated-paged-writes-live.md) for the two
+  integration fixes and the six-chain composition's 44.4 s cost.
 
 ---
 
