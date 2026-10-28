@@ -2596,12 +2596,20 @@ test('4g-device-enabled: a raw unrelated toggle fails the full enabled fingerpri
 for (const count of [17, 18]) {
   for (const position of [0, count - 1]) {
     for (const op of ['device.setEnabled', 'device.delete', 'device.insert', 'device.relocate'] as const) {
-      test(`B17 live/fake ${op}: refuses ${count}-device chain at ${position} before mutation`, async () => {
+      test(`B17 live/fake ${op}: pages ${count}-device chain at ${position}`, async () => {
         class PagedTransport extends DeviceChainTransport {
+          disabled = new Set<number>();
           protected override dispatch(method: string, params: Record<string, unknown>): unknown {
-            const reply = super.dispatch(method, params);
+            if (method === WIRE.deviceSetEnabled) {
+              this.disabled.add(params['deviceIndex'] as number);
+              this.revision++;
+              return {};
+            }
+            const reply = super.dispatch(method, params) as Record<string, any>;
             return method === WIRE.deviceList
-              ? { ...(reply as object), bankSize: 16, paged: true } : reply;
+              ? { ...reply, bankSize: 16, paged: true,
+                devices: reply['devices'].map((item: any) => ({ ...item, enabled: !this.disabled.has(item.index) })) }
+              : reply;
           }
         }
         const wire = new PagedTransport();
@@ -2612,11 +2620,12 @@ for (const count of [17, 18]) {
         assert.equal(read.devicesComplete, true);
         assert.equal(read.devices.length, count);
         const operation: Op = op === 'device.insert'
-          ? { op, track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }
+          ? { op, track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID }, expectedDeviceName: 'Phaser' }
           : op === 'device.relocate'
             ? { op, track: TRACK, sourceFromEnd: 0, expectedName: names.at(-1)!, before: deviceAt(TRACK, 0) }
             : { op, device: deviceAt(TRACK, position), enabled: false };
-        await assert.rejects(adapter.apply({ ops: [operation] }), op === 'device.insert' ? /width is 16/ : /first window/);
+        const liveResult = await adapter.apply({ ops: [operation] });
+        assert(liveResult.stages.every(stage => stage.ops.every(item => item.ok)), JSON.stringify(liveResult));
         const { FakeAdapter } = await import('../fake/adapter.js');
         const fake = new FakeAdapter({ tracks: ['paged'] });
         const fakeTrack = fake.model.visibleTracks()[0]!;
@@ -2626,14 +2635,16 @@ for (const count of [17, 18]) {
         const fakeRead = await fake.devices(TRACK);
         assert.equal(fakeRead.devicesComplete, true);
         assert.equal(fakeRead.devices.length, count);
-        // The legacy insert/reorder preflight still truncates its private observation; session 6 retires it.
-        await assert.rejects(fake.apply({ ops: [operation] }),
-          op === 'device.insert' || op === 'device.relocate' ? /must be observable/ : /first window/);
-        assert.deepEqual(fakeTrack.devices, before, 'fake retains the same admission and preserves contents');
-        assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun
-          || frame.method === WIRE.deviceDelete || frame.method === WIRE.deviceSetEnabled
-          || frame.method === WIRE.deviceInsertBitwig || frame.method === WIRE.deviceMoveTo), false);
-        assert.deepEqual(wire.chains.get(0), names);
+        const fakeResult = await fake.apply({ ops: [operation] });
+        assert(fakeResult.stages.every(stage => stage.ops.every(item => item.ok)), JSON.stringify(fakeResult));
+        assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), true);
+        assert.deepEqual(wire.chains.get(0), fakeTrack.devices.map(item => item.name));
+        const wanted = [...names];
+        if (op === 'device.insert') wanted.push('Phaser');
+        if (op === 'device.delete') wanted.splice(position, 1);
+        if (op === 'device.relocate') wanted.unshift(wanted.pop()!);
+        assert.deepEqual(wire.chains.get(0), wanted);
+        if (op === 'device.setEnabled') assert.equal(fakeTrack.devices[position]!.enabled, false);
       });
     }
   }
@@ -4808,7 +4819,7 @@ test('L-chain-create: a container with no observable scope is refused, not writt
     adapter.apply({
       ops: [{ op: 'chain.create', source: chainAt(deviceAt(TRACK, 4), 'gn-shipped'), name: 'gn-B' }],
     }),
-    /did not report how wide the chain bank is/,
+    /is absent from/,
   );
   assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
 });
@@ -5597,5 +5608,95 @@ test('B17 paged device list retries an arriving track once, and never retries re
       await assert.rejects(live['deviceChain'](TRACK), new RegExp(message));
     }
     assert.equal(reads, expectedReads);
+  }
+});
+
+test('B17 live/fake: six-chain controls duplicate, rename and solo absolute overflow targets', async () => {
+  const { FakeAdapter } = await import('../fake/adapter.js');
+  const wire = new ChainCreateTransport();
+  wire.chains.splice(0, 1, ...Array.from({ length: 6 }, (_, i) => ({
+    name: `Chain ${i}`, channelId: `original-${i}`, solo: false,
+  })));
+  const send = wire.send.bind(wire);
+  wire.send = async frame => {
+    const reply = await send(frame) as any;
+    if (frame.method === WIRE.chainObserve && reply.scope) {
+      reply.scope.paged = true;
+      reply.scope.chainBankSize = 5;
+      reply.scope.chains.forEach((c: any) => { c.deviceCount = 0; });
+    }
+    return reply;
+  };
+  const live = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const fake = new FakeAdapter({ tracks: ['paged'] });
+  const row = fake.model.visibleTracks()[0]!;
+  row.channelId = CHANNEL_ID;
+  row.devices.push({ name: 'FX Layer', params: [], paramsLive: true,
+    chains: wire.chains.map(c => ({ name: c.name, id: c.channelId, solo: c.solo, devices: [] })) });
+  const container = deviceAt(TRACK, 0);
+  const ops: Op[] = [
+    { op: 'chain.create', source: chainAt(container, 'Chain 5'), name: 'Seventh' },
+    { op: 'chain.rename', chain: chainAt(container, 'Seventh'), name: 'Renamed' },
+    { op: 'chain.activate', chain: chainAt(container, 'Renamed') },
+    { op: 'chain.solo', chain: chainAt(container, 'Renamed'), solo: false },
+  ];
+  for (const op of ops) {
+    for (const adapter of [live, fake]) {
+      const result = await adapter.apply({ ops: [op] });
+      assert(result.stages.every(s => s.ops.every(item => item.ok)), JSON.stringify(result));
+    }
+    assert.deepEqual(wire.chains.map(c => [c.name, c.solo]), row.devices[0]!.chains!.map(c => [c.name, c.solo]));
+  }
+});
+
+test('B17 live/fake: distant nested endpoints and mixed transfers use complete paged sequences', async () => {
+  const { FakeAdapter } = await import('../fake/adapter.js');
+  class PagedMoves extends DeviceChainTransport {
+    layers = Array.from({ length: 6 }, (_, i) => ({ name: `Chain ${i}`, channelId: `id-${i}`,
+      devices: Array.from({ length: 5 }, (_, j) => `Nested ${i}-${j}`) }));
+    override dispatch(method: string, p: Record<string, any>): unknown {
+      if (method === WIRE.chainObserve) return {
+        trackChannelId: CHANNEL_ID, position: p.position, slot: 2, deviceCount: this.chains.get(0)!.length,
+        scope: { slot: 2, status: 'held', deviceExists: true, deviceName: 'FX Layer', hasLayers: true,
+          paged: true, chainBankSize: 5, deviceBankSize: 4, chainCount: this.layers.length,
+          namedSlotComplete: true, slotNames: [],
+          chains: this.layers.map((c, index) => ({ ...c, index, solo: false, deviceCount: c.devices.length,
+            devices: c.devices.map((name, index) => ({ name, index, enabled: true })) })) },
+      };
+      if (method === WIRE.chainMove) {
+        const source = p.src === 'top' ? this.chains.get(0)! : this.layers[p.srcChain]!.devices;
+        const destination = p.dst === 'top' ? this.chains.get(0)! : this.layers[p.dstChain]!.devices;
+        assert.equal(source[p.srcDevice], p.expectedSourceName);
+        const name = source[p.srcDevice]!;
+        if (p.verb === 'move') source.splice(p.srcDevice, 1);
+        destination.push(name);
+        this.revision++;
+        return {};
+      }
+      const reply = super.dispatch(method, p) as object;
+      return method === WIRE.deviceList ? { ...reply, paged: true, bankSize: 16 } : reply;
+    }
+  }
+  const wire = new PagedMoves();
+  wire.chains.set(0, [...Array.from({ length: 17 }, (_, i) => `Top ${i}`), 'FX Layer']);
+  const live = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const fake = new FakeAdapter({ tracks: ['paged'] });
+  const row = fake.model.visibleTracks()[0]!;
+  row.channelId = CHANNEL_ID;
+  row.devices.push(...wire.chains.get(0)!.map(name => ({ name, paramsLive: true, params: [], enabled: true })));
+  row.devices[17]!.chains = wire.layers.map(c => ({ name: c.name, id: c.channelId, solo: false,
+    devices: c.devices.map(name => ({ name, params: [], paramsLive: true, enabled: true })) }));
+  const container = deviceAt(TRACK, 17);
+  for (const op of [
+    { op: 'chain.relocate', source: deviceInAt(chainAt(container, 'Chain 5'), 4), destination: chainAt(container, 'Chain 0'), mode: 'copy' },
+    { op: 'chain.relocate', source: deviceInAt(chainAt(container, 'Chain 0'), 5), destination: TRACK, mode: 'move' },
+    { op: 'chain.relocate', source: deviceAt(TRACK, 18), destination: chainAt(container, 'Chain 5'), mode: 'move' },
+  ] as const) {
+    for (const adapter of [live, fake]) {
+      const result = await adapter.apply({ ops: [op] });
+      assert(result.stages.every(s => s.ops.every(item => item.ok)), JSON.stringify(result));
+    }
+    assert.deepEqual(wire.chains.get(0), row.devices.map(d => d.name));
+    assert.deepEqual(wire.layers.map(c => c.devices), row.devices[17]!.chains!.map(c => c.devices.map(d => d.name)));
   }
 });

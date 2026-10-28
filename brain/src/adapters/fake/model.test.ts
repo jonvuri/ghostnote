@@ -836,78 +836,19 @@ test('T-create: a source name the container does not hold copies nothing', () =>
   assert.equal(track.devices[0]!.chains!.length, 1);
 });
 
-test('T-create: the LAST bank slot is usable, and the create after it refuses', async () => {
-  // ⚠⚠ The boundary the mint diff is written around. A container filled to its
-  // bank width reports itself INCOMPLETE, because the enumeration omits nothing
-  // past the window and a full bank is byte-identical to an overflowing one. If
-  // the diff demanded completeness on both sides, this create would copy the
-  // chain and then decline to name it — leaving it wearing the source's name,
-  // every time, in every container's last slot.
+test('B17: chain duplication crosses the physical window, including a projected batch', async () => {
   const adapter = new FakeAdapter({ tracks: ['gn-A'] });
   const first = (await adapter.tracks())[0]!;
-  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
-  const bank = adapter.model.chainBankSize;
-  model.devices.push({
-    name: 'container',
-    paramsLive: true,
-    params: [],
-    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
-  });
+  const row = adapter.model.visibleTracks()[0]!;
+  row.devices.push({ name: 'container', paramsLive: true, params: [],
+    chains: Array.from({ length: 5 }, (_, i) => someChain(`c${i}`)) });
   const container = deviceAddress(track(first.channelId), 0);
-  const source = chainAddress(container, 'c0');
-
-  const filled = await adapter.apply({ ops: [{ op: 'chain.create', source, name: 'last' }] });
-  assert.deepEqual(filled.minted[0], chainAddress(container, 'last'),
-    'the chain that fills the bank is still identified and still named');
-  const hit = (await adapter.resolve([chainAddress(container, 'last')])).resolved[0];
-  assert.equal(hit?.found, true, 'and it resolves, because a visible name resolves either way');
-
-  // ⚠ And now the bank IS full, so standing rule 5 refuses the next one before
-  // anything is copied. A chain created past the window could be resolved by
-  // nothing and removed by nothing — there is no typed chain delete at all.
-  await assert.rejects(
-    adapter.apply({ ops: [{ op: 'chain.create', source, name: 'overflow' }] }),
-    /outside the window/,
-  );
-  assert.equal(model.devices[0]!.chains!.length, bank, 'nothing was copied');
-});
-
-test('T-create: two creates in ONE batch are SUMMED against the bank, not checked one at a time', async () => {
-  // ⚠⚠ The regression, and it is the mistake `assertSceneRoom`'s header already
-  // names one population up: nothing has been applied when the guard runs, so
-  // every create in a batch sees the same reading, and checking each against it
-  // independently is a post-hoc check wearing a precondition's clothes.
-  //
-  // Measured before the fix, on exactly this fixture: two creates against a
-  // 4-of-5 container produced SIX chains — one stranded past a bank that can
-  // address five, unresolvable and with no typed delete to remove it — and both
-  // stage receipts reported `ok: true`.
-  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
-  const first = (await adapter.tracks())[0]!;
-  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
-  const bank = adapter.model.chainBankSize;
-  model.devices.push({
-    name: 'container',
-    paramsLive: true,
-    params: [],
-    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
-  });
-  const container = deviceAddress(track(first.channelId), 0);
-  const source = chainAddress(container, 'c0');
-
-  await assert.rejects(
-    adapter.apply({
-      ops: [
-        { op: 'chain.create', source, name: 'x1' },
-        { op: 'chain.create', source, name: 'x2' },
-      ],
-    }),
-    /would leave the container holding 6 chains in a bank 5 wide/,
-  );
-  // ⚠ The WHOLE batch is refused, so not even the first create ran. A create
-  // that landed and a create that was refused cannot be mixed here: there is no
-  // typed delete, so a partial batch is a partial batch forever.
-  assert.equal(model.devices[0]!.chains!.length, bank - 1, 'nothing was copied');
+  const copied = await adapter.apply({ ops: [
+    { op: 'chain.create', source: chainAddress(container, 'c4'), name: 'sixth' },
+    { op: 'chain.create', source: chainAddress(container, 'sixth'), name: 'seventh' },
+  ] });
+  assert.equal(copied.stages.every(stage => stage.ops.every(op => op.ok)), true);
+  assert.deepEqual(row.devices[0]!.chains!.map(c => c.name), ['c0', 'c1', 'c2', 'c3', 'c4', 'sixth', 'seventh']);
 });
 
 test('T-create: two creates in ONE batch cannot claim the same name', async () => {

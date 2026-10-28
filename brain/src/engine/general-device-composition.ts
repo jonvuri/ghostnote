@@ -89,7 +89,7 @@ export interface GeneralDeviceFingerprint {
 }
 
 export interface GeneralDeviceStageReceipt {
-  readonly stage: 'insert-container' | 'position-container' | 'prepare-entry-name'
+  readonly stage: 'insert-container' | 'position-container' | 'grow-entries' | 'prepare-entry-name'
     | 'confirm-entry-name' | 'insert-source' | 'relocate-source'
     | 'extract-source' | 'restore-position' | 'remove-source' | 'remove-container';
   readonly entryIndex?: number;
@@ -206,7 +206,7 @@ export async function composeGeneralDeviceSources(
   let failedStage = 'preflight';
   try {
     const initial = await stableTop(host, request.track, request.expectedDeviceOrder);
-    assertRequest(request, initial.bankSize);
+    assertRequest(request);
     const outerRequests: GeneralDeviceContainerModulation[] = request.entries.flatMap(
       (entry, entryIndex) => entry.devices.flatMap((entryDevice, deviceIndex) =>
         entryDevice.modulators
@@ -218,7 +218,7 @@ export async function composeGeneralDeviceSources(
     );
     const containerPreset = await composeGeneralDeviceContainerPreset(request.containerKind, outerRequests, {
       ...(options.templatePath === undefined ? {} : { templatePath: options.templatePath }),
-      entryCount: request.entries.length,
+      entryCount: Math.min(5, request.entries.length),
     });
     const directory = await mkdtemp(join(options.tempRoot ?? tmpdir(), 'ghostnote-general-compose-'));
     try {
@@ -278,13 +278,32 @@ export async function composeGeneralDeviceSources(
       const initialEntries = initialStructure === undefined
         ? undefined : observedEntries(initialStructure, request.containerKind);
       const initialNames = initialEntries?.map((entry) => entry.name) ?? [];
-      if (initialEntries === undefined || initialEntries.length !== request.entries.length
+      if (initialEntries === undefined || initialEntries.length !== Math.min(5, request.entries.length)
           || new Set(initialNames).size !== initialNames.length
           || initialEntries.some((entry) =>
             !entry.sequence.devicesComplete || entry.sequence.devices.length !== 0)) {
         return failure('container-witness', 'The exact empty seed structure did not read back.', stages, verified, checkpoint);
       }
       checkpoint = { ...checkpoint, preparedEntryNames: initialNames };
+      // Extend the validated seed through the ordinary guarded duplicate route.
+      // Duplicating the last empty chain appends without changing existing entry indices.
+      while (initialNames.length < request.entries.length) {
+        failedStage = 'grow-entries';
+        const name = uniqueTemporaryNames([...initialNames, ...request.entries.map((entry) => entry.entryName)], 1)[0]!;
+        checkpoint = { ...checkpoint, seedUnchanged: false };
+        const grown = (await host.apply([{
+          op: 'chain.create', source: chain(container, initialNames.at(-1)!), name,
+        }], { ...options.run, ifRevision: current.at.revision })).take;
+        stages.push(receipt('grow-entries', grown));
+        checkpoint = { ...checkpoint, seedUnchanged: false, lastWriteAt: minimalMark(grown.verify.at) };
+        if (!accepted(grown)) {
+          return failure(failedStage, 'The additional empty chain was not proved.', stages, verified, checkpoint);
+        }
+        initialNames.push(name);
+        checkpoint = { ...checkpoint, preparedEntryNames: [...initialNames] };
+        current = await stableTop(host, request.track);
+      }
+
       const requestedNames = request.entries.map((item) => item.entryName);
       if (JSON.stringify(initialNames) !== JSON.stringify(requestedNames)) {
         // 8i3 (E252): all entry names in one guarded stage, as the offline path does. A requested name that is
@@ -435,8 +454,10 @@ async function addEntry(
         || observed.name !== expected.name || observed.enabled !== expected.enabled) {
       return { why: 'The existing source identity or enabled state changed before its stage.' };
     }
-    const inventory = await stableInventory(host, device(request.track, sourcePosition));
-    beforeFingerprint = fingerprint(inventory.params);
+    if (sourcePosition < 16 && currentContainerPosition < 16 && request.entries.length <= 5 && deviceIndex < 4) {
+      const inventory = await stableInventory(host, device(request.track, sourcePosition));
+      beforeFingerprint = fingerprint(inventory.params);
+    }
     observedName = observed.name;
     observedEnabled = observed.enabled!;
   } else {
@@ -564,12 +585,15 @@ async function addEntry(
   const fingerprintLocation = deviceMods.length > 0 && source.kind === 'preset'
       && source.modulatorLocation?.kind === 'entry'
     ? source.modulatorLocation : undefined;
-  const inventory = await stableInventory(host, deviceWitness.address, options.wait ?? wait);
+  // The structural route pages; parameter descent remains a first-window route.
+  const parameterReach = currentContainerPosition < 16 && request.entries.length <= 5 && deviceIndex < 4;
+  const inventory = parameterReach
+    ? await stableInventory(host, deviceWitness.address, options.wait ?? wait) : undefined;
   if (deviceWitness.expectedName !== undefined
-      && inventory.name !== deviceWitness.expectedName) {
+      && inventory?.name !== deviceWitness.expectedName) {
     return { why: 'The preset device modulation host did not match its semantic location.' };
   }
-  const afterFingerprint = fingerprint(inventory.params);
+  const afterFingerprint = inventory === undefined ? undefined : fingerprint(inventory.params);
   const expectedEntries = [...checkpoint.completedEntries, {
     entryIndex, deviceIndex, entryName, sourceKind: source.kind,
     observedName, enabled: observedEnabled,
@@ -612,7 +636,7 @@ async function addEntry(
     }
   }
 
-  const preserved = beforeFingerprint === undefined
+  const preserved = beforeFingerprint === undefined || afterFingerprint === undefined
     ? undefined : sameFingerprint(beforeFingerprint, afterFingerprint);
   const instance = source.kind === 'existing-move' ? 'preserved' as const : 'new' as const;
   const sourceIdentity = source.kind === 'native'
@@ -630,11 +654,11 @@ async function addEntry(
       : source.kind === 'existing-copy'
         ? 'The copy is a new instance. No state-identity claim is made.'
         : 'The source created a new device instance.',
-    scalarFingerprint: {
+    ...(afterFingerprint === undefined ? {} : { scalarFingerprint: {
       ...(beforeFingerprint === undefined ? {} : { before: beforeFingerprint }),
       after: afterFingerprint,
       ...(preserved === undefined ? {} : { preserved }),
-    },
+    } }),
     pages, containerPages, behaviors,
     verified: (preserved ?? true) && pages.verified && containerPages.verified
       && behaviors.length === entryDevice.modulators.filter((item) => item.behaviorCheck !== 'page-only').length
@@ -889,14 +913,15 @@ export async function reverseGeneralDeviceSources(
       );
       const nested = deviceIn(chain(currentContainer, item.entryName), item.deviceIndex);
       const fingerprintWitness = deviceModulationWitness(nested, item.fingerprintLocation);
-      const inventory = await stableInventory(host, fingerprintWitness.address, wait);
-      if (inventory.name !== (fingerprintWitness.expectedName ?? item.observedName)
+      const inventory = item.fingerprint === undefined ? undefined
+        : await stableInventory(host, fingerprintWitness.address, wait);
+      if (inventory !== undefined && (inventory.name !== (fingerprintWitness.expectedName ?? item.observedName)
           || (item.fingerprint !== undefined
-            && !sameFingerprint(fingerprint(inventory.params), item.fingerprint))) {
+            && !sameFingerprint(fingerprint(inventory.params), item.fingerprint)))) {
         return failed('reversal-boundary', `Entry ${item.entryIndex} changed.`);
       }
       current = await stableTop(host, checkpoint.track, projectedNestedTop(checkpoint, remaining));
-      if (!sameMark(inventory.at, current.at)) {
+      if (inventory !== undefined && !sameMark(inventory.at, current.at)) {
         return failed('reversal-boundary', `Entry ${item.entryIndex} changed during inspection.`);
       }
       const extracted = (await host.apply([{
@@ -1163,30 +1188,24 @@ function observedEntries(
   return structure.chains.map((entry) => ({ name: entry.name, sequence: entry }));
 }
 
-function assertRequest(request: GeneralDeviceCompositionRequest, topBankSize: number): void {
+function assertRequest(request: GeneralDeviceCompositionRequest): void {
   if (!Number.isInteger(request.containerPosition) || request.containerPosition < 0
-      || request.containerPosition >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.topLevelContainerPositions
       || request.containerPosition > request.expectedDeviceOrder.length) {
     throw new Error('containerPosition is outside the complete top-level container scope');
   }
-  const maxEntries = GENERAL_DEVICE_COMPOSITION_CAPACITIES.entriesPerLayer;
-  if (request.entries.length < 1 || request.entries.length > maxEntries) {
-    throw new Error(`the container accepts one through ${maxEntries} entries`);
-  }
+  if (request.entries.length < 1) throw new Error('the container needs at least one entry');
   const entryNames = request.entries.map((item) => item.entryName);
   if (new Set(entryNames).size !== entryNames.length) throw new Error('each entry name must be unique');
-  if (request.expectedDeviceOrder.length + 1 > topBankSize) {
-    throw new Error('the top-level device bank has no room for the owned container');
-  }
-  const devices = request.entries.flatMap((entry) => entry.devices);
-  if (devices.some((item) => item.source.kind !== 'existing-move')
-      && request.expectedDeviceOrder.length + 2 > topBankSize) {
-    throw new Error('the top-level device bank has no scratch slot for exact reversal');
+  // Refuse unsupported modulation before inserting the container, even if moving
+  // existing sources could eventually bring it back into the parameter window.
+  if (request.entries.some((entry) => entry.devices.some((item) => item.modulators.length > 0))
+      && (request.entries.length > 5 || request.containerPosition >= 16
+        || request.entries.some((entry) => entry.devices.length > 4))) {
+    throw new Error('modulation requires the first parameter windows (16 top-level positions, 5 chains, 4 devices)');
   }
   for (const entry of request.entries) {
-    if (entry.devices.length < 1
-        || entry.devices.length > GENERAL_DEVICE_COMPOSITION_CAPACITIES.devicesPerEntry) {
-      throw new Error('each entry accepts one through four ordered devices');
+    if (entry.devices.length < 1) {
+      throw new Error('each entry needs at least one ordered device');
     }
     for (const entryDevice of entry.devices) {
       if (entryDevice.source.kind === 'preset'
@@ -1205,6 +1224,7 @@ function assertRequest(request: GeneralDeviceCompositionRequest, topBankSize: nu
       }
     }
   }
+  const devices = request.entries.flatMap((entry) => entry.devices);
   const moved = devices.filter((item) => item.source.kind === 'existing-move')
     .map((item) => (item.source as Extract<GeneralDeviceSourceRequest, { kind: 'existing-move' }>).devicePosition);
   if (new Set(moved).size !== moved.length) throw new Error('one existing device cannot move twice');

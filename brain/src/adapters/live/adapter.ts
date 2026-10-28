@@ -4999,7 +4999,8 @@ export class LiveAdapter implements BitwigAdapter {
       if (destination.bankSize === undefined) {
         throw new InvalidOpError(op.op, 'the destination did not report its device-bank width');
       }
-      if (destination.devices.length >= destination.bankSize) {
+      if ((op.source.chain?.kind === 'deviceSlot' || op.destination.kind === 'deviceSlot')
+          && destination.devices.length >= destination.bankSize) {
         throw new InvalidOpError(
           op.op,
           `the destination device bank is full at ${destination.devices.length}/${destination.bankSize}`,

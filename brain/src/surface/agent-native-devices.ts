@@ -55,7 +55,7 @@ import {
   existingDeviceModulationWrapperSchemas, runExistingDeviceModulationWrapper,
 } from './existing-device-modulation-wrapper.js';
 import {
-  generalDeviceCompositionInputValidator, modulation, runGeneralDeviceComposition,
+  pagedDeviceCompositionInputValidator, modulation, runGeneralDeviceComposition,
   source as compositionSource,
 } from './general-device-composition.js';
 import { modulatorAuthoringSchemas, runModulatorAuthoring } from './modulator-authoring.js';
@@ -77,13 +77,6 @@ export const MOVE_SCHEMA = 'ghostnote-device-move/1';
 export const COPY_SCHEMA = 'ghostnote-device-copy/1';
 export const SOLO_SCHEMA = 'ghostnote-layer-chain-solo/1';
 export const DELETE_DEVICE_SCHEMA = 'ghostnote-device-delete/1';
-
-/**
- * The top-level positions whose layer chains `Rig` can observe: the whole 16-wide device bank, through a
- * scope scrolled to the position (B08, E352). The adapter reports the observed bank width on each read;
- * this is the schema bound.
- */
-export const LAYER_CHAIN_POSITIONS = 16;
 
 const PROFILE = `Profile ${AGENT_NATIVE_TOOL_PROFILE}.`;
 
@@ -110,8 +103,8 @@ const trackId = z.string().min(1).describe('Durable track ID from list_tracks.')
 const { deviceTarget, parameterSetting, expectedDeviceOrder } = deviceControlSchemas(
   trackId, AGENT_NATIVE_DEVICE_NAMES,
 );
-const containerPosition = z.number().int().min(0).max(LAYER_CHAIN_POSITIONS - 1).describe(
-  'Top-level position of the container, from read_devices (any position inside the 16-device bank).',
+const containerPosition = z.number().int().min(0).describe(
+  'Top-level position of the container, from read_devices.',
 );
 const layerChainName = z.string().min(1).describe('Exact layer-chain name from read_devices.');
 const newLayerChainName = z.string().min(1).refine((name) => name.trim().length > 0, {
@@ -228,10 +221,6 @@ interface ReadContainer {
 /** One complete layer container at a top-level position, or a typed failure. */
 async function readContainer(workspace: Workspace, id: string, position: number): Promise<ReadContainer> {
   const track = trackAt(id);
-  if (position >= LAYER_CHAIN_POSITIONS) {
-    throw new ToolFailure('outside-limit', 'acquire', `Top-level positions 0 through ${LAYER_CHAIN_POSITIONS - 1} `
-      + 'expose layer chains.');
-  }
   const read = (await structureAt(workspace, track, [position])).get(position);
   if (read === 'missing' || read === undefined) {
     throw new ToolFailure('absent', 'acquire', `No device is at top-level position ${position}. Use read_devices.`);
@@ -247,9 +236,6 @@ async function readContainer(workspace: Workspace, id: string, position: number)
   }
   if (!container.chainsComplete) {
     throw new ToolFailure('partial', 'acquire', 'The complete layer-chain list is not visible. Nothing was written.');
-  }
-  if (container.chainsBankSize !== undefined && container.chains.length > container.chainsBankSize) {
-    throw new ToolFailure('outside-limit', 'acquire', 'Layer-chain writes beyond the first window are not yet supported.');
   }
   return { device: read, container, address: deviceAt(track, position) };
 }
@@ -284,7 +270,7 @@ function publicLayerChain(item: ObservedChain) {
     color: item.color ?? null,
     devices: item.devices.map((nested) => ({ devicePosition: nested.index, name: nested.name })),
     devicesComplete: item.devicesComplete,
-    deviceCapacity: item.devicesBankSize ?? null,
+    deviceWindowSize: item.devicesBankSize ?? null,
     devicePages: item.devicesComplete && item.devicesBankSize
       ? Math.max(1, Math.ceil(item.devices.length / item.devicesBankSize)) : null,
   };
@@ -296,7 +282,7 @@ function publicContainer(device: DeviceState) {
     containerKind: device.name,
     layerChains: container.chains.map(publicLayerChain),
     complete: container.chainsComplete && container.chains.every((item) => item.devicesComplete),
-    capacity: container.chainsBankSize ?? null,
+    chainWindowSize: container.chainsBankSize ?? null,
     chainPages: container.chainsComplete && container.chainsBankSize
       ? Math.max(1, Math.ceil(container.chains.length / container.chainsBankSize)) : null,
   };
@@ -319,7 +305,7 @@ const READ_DESCRIPTION = `${PROFILE} Read the complete top-level device order of
   + 'name, solo, mute, volume, pan, colour, and the ordered devices in each. Positions are not IDs: a device-order '
   + 'edit changes later positions, so read again after each structural edit. Layer-chain names are the address '
   + 'of a layer chain. A container whose chains did not read reports layerChains unavailable. '
-  + 'coverage states the bank size and completeness; a partial view is not evidence that the hidden '
+  + 'coverage states paging width and completeness; chainWindowSize and deviceWindowSize are physical widths, not capacities. A partial view is not evidence that the hidden '
   + 'tail is empty. Instrument Layer chains all receive the same MIDI input and run in parallel; there is no '
   + 'per-note routing. This reads no parameters (use read_device_controls).\n'
   + 'Recipes over the generic limbs. A/B audition: compose_devices or duplicate_layer_chain makes the named layer '
@@ -512,11 +498,6 @@ async function duplicateLayerChain(workspace: Workspace, args: DuplicateInput): 
     if (!source.devicesComplete) {
       throw new ToolFailure('partial', 'acquire', 'The device list of the source layer chain is not complete.');
     }
-    const capacity = before.container.chainsBankSize;
-    if (capacity === undefined || before.container.chains.length >= capacity) {
-      throw new ToolFailure('outside-limit', 'acquire', `The container already holds ${before.container.chains.length} `
-        + `layer chains, the observable limit${capacity === undefined ? '' : ` of ${capacity}`}.`);
-    }
     state.stage = 'write';
     const change = await workspace.apply([{
       op: 'chain.create', source: chainAt(before.address, args.layerChain), name: args.name }]);
@@ -573,8 +554,8 @@ const toTopLevelPosition = z.object({
 
 const moveInput = z.object({
   trackId,
-  devices: z.array(deviceSource).min(1).max(4).describe(
-    'One through four devices, in the order to place them. All come from the top level, or all from one layer '
+  devices: z.array(deviceSource).min(1).describe(
+    'Devices in the order to place them. All come from the top level, or all from one layer '
     + 'chain. Positions are from one starting read.',
   ),
   destination: z.discriminatedUnion('to', [toLayerChain, toTrackEnd, toTopLevelPosition]),
@@ -583,8 +564,8 @@ type MoveInput = z.infer<typeof moveInput>;
 
 const copyInput = z.object({
   trackId,
-  devices: z.array(deviceSource).min(1).max(4).describe(
-    'One through four devices, in the order to place them. All come from the top level, or all from one layer '
+  devices: z.array(deviceSource).min(1).describe(
+    'Devices in the order to place them. All come from the top level, or all from one layer '
     + 'chain. Positions are from one starting read.',
   ),
   destination: toLayerChain,
@@ -675,16 +656,6 @@ async function planRelocation(
   };
   const destinationChain = destination.to === 'layer-chain'
     ? chainOf(destination.containerPosition, destination.layerChain) : undefined;
-  const destinationCapacity = destination.to === 'layer-chain'
-    ? requireChain(containers.get(destination.containerPosition)!.container, destination.layerChain).devicesBankSize
-    : undefined;
-  if (destinationChain !== undefined
-      && (destinationCapacity === undefined || destinationChain.devices.length + args.devices.length
-        > destinationCapacity)) {
-    throw new ToolFailure('outside-limit', 'acquire', 'The destination layer chain has no room for the devices '
-      + `(capacity ${destinationCapacity ?? 'not observed'}).`);
-  }
-
   const ops: Op[] = [];
   const top = [...topNames];
   if (first.from === 'top-level') {
@@ -771,10 +742,7 @@ async function planRelocation(
       const removed = new Set(positions);
       sourceChain.devices.splice(0, sourceChain.devices.length, ...startNames.filter((_, index) => !removed.has(index)));
     }
-    if (destination.to === 'track-end' && top.length > bank.bankSize) {
-      throw new ToolFailure('outside-limit', 'plan', `The top-level order would hold ${top.length} devices, more than `
-        + `the observable bank of ${bank.bankSize}.`);
-    }
+
   }
   return { ops, topLevel: top, chains, containerPositions };
 }
@@ -924,9 +892,6 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
         expected = undefined;
       } else {
         const bank = await completeBank(workspace, track);
-        if (bank.devices.length >= bank.bankSize) {
-          throw new ToolFailure('outside-limit', 'acquire', 'The device bank has no position for another device.');
-        }
         names = bank.devices.map((entry) => entry.name);
         enabled = [...bank.enabled];
       }
@@ -992,14 +957,14 @@ const composeInput = z.object({
     'Instrument Layer: parallel layer chains with the same MIDI input. FX Layer: parallel layer chains with the '
     + 'same audio input. Drum Machine: one pad for each MIDI note from 36 through 51.',
   ),
-  containerPosition: z.number().int().min(0).max(LAYER_CHAIN_POSITIONS - 1).optional().describe(
+  containerPosition: z.number().int().min(0).optional().describe(
     'Final top-level position of a layer container. Default: the end of the track.',
   ),
   expectedDeviceOrder: expectedDeviceOrder.optional(),
   layerChains: z.array(z.object({
     name: newLayerChainName,
-    devices: z.array(composeDevice).min(1).max(4),
-  }).strict()).min(1).max(5).optional().describe('One through five named layer chains (layer containers only). '
+    devices: z.array(composeDevice).min(1),
+  }).strict()).min(1).optional().describe('Named layer chains (layer containers only). '
     + atMost('stagedCompositionDevices', 'device units in all layer chains (a VST3 or CLAP source counts as two, and '
       + 'a device with modulators or modulator edits counts two more)')),
   pads: z.array(drumPadAssignment).min(1).max(16).optional().describe('Drum Machine pads only.'),
@@ -1046,12 +1011,12 @@ export function compositionBackend(input: ComposeInput, deviceCount: number): Co
     && devices.every((item) => item.source.kind === 'native' && item.modulators === undefined)
     && new Set(nativeNames).size === nativeNames.length
     && (input.containerPosition === undefined || input.containerPosition === deviceCount)
-    && deviceCount < LAYER_CHAIN_POSITIONS;
+    && deviceCount < 16; // The offline preset backend retains its parameter/control reach.
   return offline ? 'offline' : 'staged';
 }
 
 const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with explicit sources: an Instrument Layer or `
-  + 'FX Layer with one through five named layer chains of one through four devices each, or a Drum Machine with '
+  + 'FX Layer with named layer chains of ordered devices, or a Drum Machine with '
   + 'one through 16 pads. Instrument Layer chains run in parallel and receive the same MIDI input (no per-note '
   + 'routing); FX Layer chains receive the same audio input; a Drum Machine routes each MIDI note from 36 through '
   + '51 to one pad. Device sources: an exact native catalog name, a VST3 class UID, a CLAP id, an absolute preset '
@@ -1061,13 +1026,13 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
   + 'are only for this path); each layer chain is then renamed. Every other shape runs as guarded host stages: '
-  + 'container insertion, one layer-chain naming stage, and one insertion and one move for each device: about 3.5 '
+  + 'container insertion, an empty-chain duplication stage for each chain beyond the five-chain seed, one layer-chain naming stage, and one insertion and one move for each device: about 3.5 '
   + 's for each native device and 6.5 s for each plug-in, and revert_change takes about as long. One composition '
   + 'admits at most 6 device units (a VST3 or CLAP source counts as two, and a device with modulators or modulator '
   + 'edits counts two more: its checks add about 2 s) and 4 modulators and modulator edits; a '
   + 'larger request refuses before any read or write (code outside-limit, the limit in detail). Add more devices '
   + 'later with add_devices and move_devices. '
-  + 'The final container position must be inside the 16-device bank (layer chains are observable there). Every request is '
+  + 'Layer and device windows page automatically. Composition without modulation can exceed those windows; scalar fingerprints are omitted where parameter reads are unsupported. Modulation still requires first-window parameter access. Every request is '
   + 'validated before the first write; a later failure returns the completed effects.\n'
   + 'Result: effects with change IDs, readback with the complete structure, and next.revert. revert_change with '
   + 'that change ID reverses the whole composition: it restores moved existing devices and removes only the owned '
@@ -1127,11 +1092,6 @@ export async function composeDevices(
       throw new ToolFailure('unsupported', 'input', 'modulatorEdits work only on the offline Instrument Layer path: '
         + 'one through four layer chains with one native device each, appended at the end.',
       { detail: { reason: 'offline-only-edits' } });
-    }
-    if (backend !== 'drum-machine' && args.containerPosition === undefined
-        && bank.devices.length >= LAYER_CHAIN_POSITIONS) {
-      throw new ToolFailure('outside-limit', 'input', `The end of the track is after position ${LAYER_CHAIN_POSITIONS - 1}, `
-        + 'the last observable layer-container position.');
     }
     state.stage = 'write';
     if (backend === 'drum-machine') return composeDrumMachine(workspace, args, state, started, target);
@@ -1275,7 +1235,7 @@ async function composeStaged(
   workspace: Workspace, args: ComposeInput, bank: ObservedDeviceBank & { readonly enabled: readonly boolean[] },
   state: RunState, started: number, target: Record<string, unknown>,
 ): Promise<unknown> {
-  const result = await runGeneralDeviceComposition(workspace, validated(generalDeviceCompositionInputValidator, {
+  const result = await runGeneralDeviceComposition(workspace, validated(pagedDeviceCompositionInputValidator, {
     trackId: args.trackId,
     expectedDeviceOrder: bank.devices.map((item, index) => ({ name: item.name, enabled: bank.enabled[index]! })),
     containerKind: args.containerKind as 'Instrument Layer' | 'FX Layer',
@@ -1366,7 +1326,7 @@ async function deleteDevices(workspace: Workspace, args: DeleteInput, stable: To
     state.stage = 'acquire';
     const inside: Array<Record<string, unknown>> = [];
     for (const [id, positions] of groupBy(args.devices)) {
-      const scoped = positions.filter((position) => position < LAYER_CHAIN_POSITIONS);
+      const scoped = positions;
       const read = await structureAt(workspace, trackAt(id), scoped);
       for (const [position, device] of read) {
         if (typeof device === 'object' && device.container !== undefined && device.container.chains.length > 0) {
@@ -1662,7 +1622,7 @@ export function agentNativeDeviceTools(stable: readonly ToolSpec[]): {
     spec('add_devices', 'write', 'Add devices to a track', ADD_DESCRIPTION, addInput, ADD_DEVICES_SCHEMA,
       ['device.insert'], (workspace, input) => addDevices(workspace, input as AddInput)),
     spec('compose_devices', 'write', 'Compose a device container', COMPOSE_DESCRIPTION, composeInput, COMPOSE_SCHEMA,
-      ['device.insert', 'device.relocate', 'chain.rename', 'chain.relocate', 'drumPad.insert'],
+      ['device.insert', 'device.relocate', 'chain.create', 'chain.rename', 'chain.relocate', 'drumPad.insert'],
       (workspace, input) => composeDevices(workspace, input as ComposeInput),
       { backends: ['offline', 'staged', 'drum-machine'] }),
     spec('duplicate_layer_chain', 'write', 'Duplicate a layer chain', DUPLICATE_DESCRIPTION, duplicateInput,

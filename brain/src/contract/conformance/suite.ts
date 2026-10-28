@@ -732,7 +732,7 @@ export function runConformance(h: AdapterHarness): void {
         );
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'param.set', param: param(inner, 0), value: 0.5 }] }),
-          /parameter.*(missing|absent)|target is absent/i,
+          /parameter.*(missing|absent|unreachable)|target is (absent|outside-bank-window)/i,
         );
         // The route looked at the complete nested path and found no target.
         const snapshot = await adapter.read([alt, inner, innerParam]);
@@ -956,31 +956,16 @@ export function runConformance(h: AdapterHarness): void {
           /already used by a chain in this container at the point this op runs/,
         );
 
-        // ⚠⚠ DISTINCT names do not make a batch safe when its projected total
-        // outgrows the fixed five-wide chain bank. The container has two chains
-        // here (the shipped source and MADE), so this four-create batch would
-        // place the last copy at position 5, outside every observable slot scope.
-        // The projection must reject the WHOLE batch before even its first copy.
-        await assert.rejects(
-          adapter.apply({
-            ops: [
-              { op: 'chain.create', source, name: 'gn-conf-cap-a' },
-              { op: 'chain.create', source, name: 'gn-conf-cap-b' },
-              { op: 'chain.create', source, name: 'gn-conf-cap-c' },
-              { op: 'chain.create', source, name: 'gn-conf-cap-d' },
-            ],
-          }),
-          /would leave the container holding 6 chains in a bank 5 wide/,
-        );
-        const unchanged = (await adapter.read([container])).entries[addressKey(container)];
-        const chainsNow = unchanged?.value.of === 'device' ? unchanged.value.device.container : undefined;
-        assert.equal(chainsNow?.chains.length, observed.chains.length + 1,
-          'all refusals happened before any copy was made');
-        assert.deepEqual(
-          [...(chainsNow?.chains ?? [])].map((c) => c.name).sort(),
-          [source.name, MADE].sort(),
-          'the refused batches left the container names unchanged',
-        );
+        // Complete paging admits six siblings and preserves both existing names.
+        const overflow = await adapter.apply({ ops: ['a', 'b', 'c', 'd'].map(suffix => ({
+          op: 'chain.create' as const, source, name: `gn-conf-cap-${suffix}`,
+        })) });
+        assert(overflow.stages.every(stage => stage.ops.every(op => op.ok)));
+        const grownView = (await adapter.read([container], { structure: true })).entries[addressKey(container)];
+        const chainsNow = grownView?.value.of === 'device' ? grownView.value.device.container : undefined;
+        assert.equal(chainsNow?.chainsComplete, true);
+        assert.deepEqual(chainsNow?.chains.map(c => c.name).sort(),
+          [source.name, MADE, ...['a', 'b', 'c', 'd'].map(suffix => `gn-conf-cap-${suffix}`)].sort());
 
         // Nested device deletion is still unsupported. Nested parameter writes
         // use their own route and report that this new chain is empty.
@@ -990,7 +975,7 @@ export function runConformance(h: AdapterHarness): void {
         );
         await assert.rejects(
           adapter.apply({ ops: [{ op: 'param.set', param: param(deviceIn(minted, 0), 0), value: 0.5 }] }),
-          /parameter.*(missing|absent)|target is absent/i,
+          /parameter.*(missing|absent|unreachable)|target is (absent|outside-bank-window)/i,
         );
       } finally {
         // ⚠ LIVE RESIDUE, and worse here than for the rows above: there is no
@@ -1172,21 +1157,18 @@ export function runConformance(h: AdapterHarness): void {
           }] });
           assert.equal(prefill.stages[0]?.ops[0]?.ok, true);
         }
-        const beforeCapacity = (await adapter.read([container])).entries[addressKey(container)];
-        const beforeCapacityRevision = (await adapter.revision()).revision;
-        await assert.rejects(
-          adapter.apply({ ops: [
-            { op: 'chain.relocate', source: deviceIn(first, 0), destination: alt, mode: 'copy' },
-            { op: 'chain.relocate', source: device(trackA, 1), destination: alt, mode: 'copy' },
-          ] }),
-          /complete request would leave 5 devices in a destination bank 4 wide/,
-        );
-        assert.equal((await adapter.revision()).revision, beforeCapacityRevision,
-          'a cumulative-capacity refusal emitted zero stages');
-        const afterCapacity = (await adapter.read([container])).entries[addressKey(container)];
-        assert.deepEqual(afterCapacity, beforeCapacity,
-          'source and destination structure stayed byte-for-byte unchanged');
-        assert.equal(await readName(1), aName, 'the top-level source stayed in place');
+        const overflow = await adapter.apply({ ops: [
+          { op: 'chain.relocate', source: deviceIn(first, 0), destination: alt, mode: 'copy' },
+          { op: 'chain.relocate', source: device(trackA, 1), destination: alt, mode: 'copy' },
+        ] });
+        assert(overflow.stages.every(stage => stage.ops.every(op => op.ok)));
+        assert.deepEqual(await chainDevices(container, alt.name), [bName, aName, aName, aName, aName]);
+        assert.equal(await readName(1), aName, 'the copied top-level source stayed in place');
+        // Put the two newly copied devices in the disposable sibling for the collapse below.
+        await adapter.apply({ ops: [
+          { op: 'chain.relocate', source: deviceIn(alt, 4), destination: first, mode: 'move' },
+          { op: 'chain.relocate', source: deviceIn(alt, 3), destination: first, mode: 'move' },
+        ] });
 
         // The general nested-device refusal is untouched outside this verb.
         await assert.rejects(

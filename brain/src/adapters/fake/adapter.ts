@@ -987,9 +987,8 @@ export class FakeAdapter implements BitwigAdapter {
       const hit = this.model.findByChannelId(trackRef.channelId);
       if (hit === undefined) return undefined;
       return {
-        devices: hit.track.devices.slice(0, this.model.deviceBankSize)
-          .map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
-        devicesComplete: hit.track.devices.length <= this.model.deviceBankSize,
+        devices: hit.track.devices.map((item, index) => ({ index, name: item.name, enabled: item.enabled ?? true })),
+        devicesComplete: true,
         bankSize: this.model.deviceBankSize,
       };
     });
@@ -1008,9 +1007,8 @@ export class FakeAdapter implements BitwigAdapter {
       (trackRef) => {
         const track = this.requireTrack(trackRef, 'chain.relocate');
         return {
-          devices: track.devices.slice(0, this.model.deviceBankSize)
-            .map((item, index) => ({ index, name: item.name })),
-          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+          devices: track.devices.map((item, index) => ({ index, name: item.name })),
+          devicesComplete: true,
           bankSize: this.model.deviceBankSize,
         };
       },
@@ -1019,19 +1017,13 @@ export class FakeAdapter implements BitwigAdapter {
     assertDeviceRelocatable(batch.ops, (trackRef) => {
       const track = this.requireTrack(trackRef, 'device.relocate');
       return {
-        devices: track.devices.slice(0, this.model.deviceBankSize)
-          .map((item, index) => ({ index, name: item.name })),
-        devicesComplete: track.devices.length <= this.model.deviceBankSize,
+        devices: track.devices.map((item, index) => ({ index, name: item.name })),
+        devicesComplete: true,
         bankSize: this.model.deviceBankSize,
       };
     });
-    // Refuse device writes outside the first window before staging. Parameter
-    // and remote writes also confirm their recursive target, as live does.
+    // Parameter and remote writes still confirm their bounded recursive targets.
     for (const op of batch.ops) {
-      if (op.op === 'device.setEnabled' || op.op === 'device.delete') {
-        const track = this.requireTrack(op.device.track, op.op);
-        assertTopLevelDeviceWriteWindow(op.op, track.devices.length, this.model.deviceBankSize);
-      }
       if (op.op === 'param.set') {
         const target = this.deepDevice(
           this.requireTrack(op.param.device.track, op.op), op.param.device,
@@ -1677,7 +1669,7 @@ export class FakeAdapter implements BitwigAdapter {
         this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
         const before = {
           devices: track.devices.map((item, index) => ({ index, name: item.name })),
-          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+          devicesComplete: true,
         };
         const sourceIndex = track.devices.length - 1 - op.sourceFromEnd;
         const source = track.devices[sourceIndex];
@@ -1690,7 +1682,7 @@ export class FakeAdapter implements BitwigAdapter {
         track.devices.splice(anchorAt, 0, source);
         const after = {
           devices: track.devices.map((item, index) => ({ index, name: item.name })),
-          devicesComplete: track.devices.length <= this.model.deviceBankSize,
+          devicesComplete: true,
         };
         const proof = verifyDeviceReorder(
           sourceIndex, op.before.chainIndex, before, after);
@@ -1852,16 +1844,17 @@ export class FakeAdapter implements BitwigAdapter {
         const destinationLimit = op.destination.kind === 'track'
           ? this.model.deviceBankSize
           : this.model.chainDeviceBankSize;
-        if (sourceDevices.length > sourceLimit || destinationDevices.length >= destinationLimit) {
+        if ((op.source.chain?.kind === 'deviceSlot' || op.destination.kind === 'deviceSlot')
+            && (sourceDevices.length > sourceLimit || destinationDevices.length >= destinationLimit)) {
           throw new UnsupportedOpError(
             `${op.op}: source or destination is outside its device bank window`, 'fake');
         }
-        const observe = (devices: readonly FakeDevice[], limit: number) => ({
-          devices: devices.slice(0, limit).map((device, index) => ({ index, name: device.name })),
-          devicesComplete: devices.length <= limit,
+        const observe = (devices: readonly FakeDevice[]) => ({
+          devices: devices.map((device, index) => ({ index, name: device.name })),
+          devicesComplete: true,
         });
-        const beforeSource = observe(sourceDevices, sourceLimit);
-        const beforeDestination = observe(destinationDevices, destinationLimit);
+        const beforeSource = observe(sourceDevices);
+        const beforeDestination = observe(destinationDevices);
         const source = sourceDevices[op.source.chainIndex];
         if (source === undefined) {
           throw new UnsupportedOpError(`${op.op}: no source device at index ${op.source.chainIndex}`, 'fake');
@@ -1888,8 +1881,8 @@ export class FakeAdapter implements BitwigAdapter {
           op.mode,
           beforeSource,
           beforeDestination,
-          observe(sourceDevices, sourceLimit),
-          observe(destinationDevices, destinationLimit),
+          observe(sourceDevices),
+          observe(destinationDevices),
         );
         if (!proof.ok) throw new UnsupportedOpError(`${op.op}: ${proof.why}`, 'fake');
         return;

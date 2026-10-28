@@ -6,16 +6,18 @@ updated: 2026-10-27
 
 ## Now
 
-[B17 session 5](work/b17-extension-owned-window-scrolling.md#session-5-top-level-mutation-checkpoint)
-now has offline-tested top-level mutation paging. Insert, delete, enabled-state,
-and reorder handlers validate complete paged fingerprints and acquire absolute
-targets. Each pool cursor owns an independent one-device reorder anchor;
-mixed track/chain transfers also acquire overflow top-level endpoints.
-**Session 5 is checkpointed offline. Next: B17 session 6 —
-[cap retirement and composition](work/b17-extension-owned-window-scrolling.md#session-6--cap-retirement-and-composition),
-in a fresh session.** Sessions 3 and 4 remain checkpointed too. Public width
-limits remain, and session 7 supplies integrated deployment and outstanding
-host verification. No new build has been deployed.
+[B17 session 6](work/b17-extension-owned-window-scrolling.md#session-6-cap-retirement-checkpoint)
+is checkpointed offline. The current source admits paged top-level mutations,
+layer controls and transfers, and composition beyond five chains or four devices
+per chain. Six-chain seeds grow through guarded duplication. D44's six-unit
+composition budget, named-slot bounds, and parameter restrictions remain.
+Descriptions are v57 (46 tools); the normal wire stays at 93 methods, hash
+`d6decf985f6b1f36`. No new build has been deployed.
+**Next: B17 session 7 — [integrated deployment and live acceptance](work/b17-extension-owned-window-scrolling.md#session-7--integrated-live-acceptance),
+in a fresh session.** The [session-6 handoff](work/b17-extension-owned-window-scrolling.md#session-7-build-and-driver-handoff)
+lists the required build markers and prepared scratch driver. Do not run overflow
+writes against the installed session-2 build. Sessions 3–6 remain offline
+checkpoints until that acceptance passes.
 
 [B17](work/b17-extension-owned-window-scrolling.md) **session 2 (paged reads)
 is complete and verified live** in
@@ -30,7 +32,7 @@ The overflow container structure read measured six wire turns / about 505 ms;
 one two-page top-level `device.list`, about 144 ms. Full `read_devices` on the
 fixture took 65 turns / about 2.6 s. These are fixture-specific measurements.
 Normal profile: 93 methods, hash `d6decf985f6b1f36`; descriptions v56.
-**Cap retirement/composition and integrated live acceptance remain in sessions 6–7.**
+**Cap retirement/composition is checkpointed offline; integrated live acceptance remains in session 7.**
 The [session-2 result](work/b17-extension-owned-window-scrolling.md#session-2-result-and-session-3-handoff)
 records the inherited interface and remaining scope. Write width limits,
 named-slot paging, and parameter paging were not changed in session 2.
@@ -137,7 +139,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Current source: 46 normal tools, descriptions v56; running server version unconfirmed.
+  Current source: 46 normal tools, descriptions v57; running server version unconfirmed.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

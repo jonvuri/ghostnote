@@ -374,7 +374,7 @@ test('5q-preset-local: sampled preset modulation keeps semantic and sample-refer
   assert.equal(reversed['complete'], true, JSON.stringify(reversed));
 });
 
-test('5r-capacity: the fifth entry completes and the sixth refuses before a write', async () => {
+test('B17: a sixth modulated entry still refuses before writing', async () => {
   const fx = fixture();
   const request = fourSourceRequest(fx.trackId);
   const fifth = await callTool(fx.workspace, 'compose_device_sources', {
@@ -446,8 +446,8 @@ test('5r-route-depth: total depth 2 completes and total depth 3 refuses before a
     entry.source.modulatorLocation,
   );
   assert.deepEqual(accepted['capacities'], {
-    topLevelContainerPositions: 16, entriesPerLayer: 5,
-    devicesPerEntry: 4, parameterRouteDepth: 2,
+    parameterTopLevelPositions: 16, parameterEntriesPerLayer: 5,
+    parameterDevicesPerEntry: 4, parameterRouteDepth: 2,
   });
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint: accepted['reversalCheckpoint'],
@@ -499,8 +499,8 @@ test('5r-position-and-device-capacity: position 2 and four ordered devices rever
   }) as Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   assert.deepEqual(result['capacities'], {
-    topLevelContainerPositions: 16, entriesPerLayer: 5,
-    devicesPerEntry: 4, parameterRouteDepth: 2,
+    parameterTopLevelPositions: 16, parameterEntriesPerLayer: 5,
+    parameterDevicesPerEntry: 4, parameterRouteDepth: 2,
   });
   const structure = result['structure'] as { devices: { position: number }[] }[];
   assert.deepEqual(structure[0]!.devices.map((item) => item.position), [0, 1, 2, 3]);
@@ -546,9 +546,9 @@ test('5r-position-and-device-capacity: position 2 and four ordered devices rever
       })),
     }],
   }) as Record<string, unknown>;
-  assert.equal(tooWide['refused'], true, JSON.stringify(tooWide));
+  assert.equal(tooWide['complete'], true, JSON.stringify(tooWide));
   assert.deepEqual(tooWide['capacities'], result['capacities']);
-  assert.equal(fx.workspace.changes.list().length, changes);
+  assert.ok(fx.workspace.changes.list().length > changes);
 });
 
 test('5r-position: moving a source before position 2 updates the container checkpoint', async () => {
@@ -575,7 +575,7 @@ test('5r-position: moving a source before position 2 updates the container check
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
 });
 
-test('5r-reversal-capacity: an owned source reserves one top-level scratch slot', async () => {
+test('B17: composition needs no spare physical top-level slot', async () => {
   const fx = fixture();
   fx.fake.model.deviceBankSize = 3;
   const changes = fx.workspace.changes.list().length;
@@ -589,10 +589,8 @@ test('5r-reversal-capacity: an owned source reserves one top-level scratch slot'
       entryName: 'Copy', source: { kind: 'existing-copy', devicePosition: 0 }, modulators: [],
     }],
   }) as Record<string, unknown>;
-  assert.equal(result['refused'], true, JSON.stringify(result));
-  assert.match(String(result['why']), /scratch slot/);
-  assert.equal(fx.workspace.changes.list().length, changes);
-  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
+  assert.equal(result['complete'], true, JSON.stringify(result));
+  assert.ok(fx.workspace.changes.list().length > changes);
 });
 
 test('5r-shapes: Instrument Layer passes later behavior and reversal', async () => {
@@ -1273,4 +1271,72 @@ test('8i5 review: agent-native compose_devices keeps the exact target identity c
   }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
   assert.equal(valid['readback']?.status, 'verified', JSON.stringify(valid).slice(0, 800));
   assert.equal(valid['readback'].modulationClaim.behaviorWitness, 'not-run');
+});
+
+for (const [chainCount, devicesPerChain, initialCount] of [[6, 1, 2], [1, 5, 2], [6, 1, 18], [1, 5, 18]]) {
+  test(`B17 composition: ${chainCount}x${devicesPerChain} at position ${initialCount}, and reversal`, async () => {
+    const fx = fixture();
+    while (fx.row.devices.length < initialCount!) {
+      fx.row.devices.push({ name: `Anchor ${fx.row.devices.length}`, enabled: true, paramsLive: true, params: [] });
+    }
+    const before = structuredClone(fx.row.devices);
+    const result = await callTool(fx.workspace, 'compose_devices', {
+      trackId: fx.trackId, containerKind: 'FX Layer',
+      layerChains: Array.from({ length: chainCount! }, (_, index) => ({ name: `Chain ${index}`,
+        devices: Array.from({ length: devicesPerChain! }, () => ({ source: { kind: 'native', name: 'Tool' } })),
+      })),
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    assert.equal(result.applied, true, JSON.stringify(result));
+    assert.equal(result.readback.status, 'verified');
+    assert.equal(result.effects.filter((effect: { summary: string }) =>
+      effect.summary === 'Composition stage grow-entries.').length, Math.max(0, chainCount! - 5));
+    const container = fx.row.devices[initialCount!]!;
+    assert.equal(container.chains!.length, chainCount);
+    assert.deepEqual(container.chains!.map(c => c.devices.length), Array(chainCount).fill(devicesPerChain));
+    assert.deepEqual(fx.row.devices.slice(0, initialCount), before);
+    const reversed = await callTool(fx.workspace, 'revert_change', {
+      changeId: result.next.revert.changeId,
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    assert.equal(reversed.failure, undefined, JSON.stringify(reversed));
+    assert.deepEqual(fx.row.devices, before);
+  });
+}
+
+test('B17: D44 still refuses seven unmodulated devices before any write', async () => {
+  const fx = fixture();
+  const before = fx.workspace.changes.list().length;
+  const result = await callTool(fx.workspace, 'compose_devices', {
+    trackId: fx.trackId, containerKind: 'FX Layer', layerChains: Array.from({ length: 7 }, (_, i) => ({
+      name: `Chain ${i}`, devices: [{ source: { kind: 'native', name: 'Tool' } }],
+    })),
+  }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+  assert.equal(result.failure.code, 'outside-limit');
+  assert.equal(fx.workspace.changes.list().length, before);
+});
+
+test('B17: an uncertain seed-growth result preserves the effect and stops before source insertion', async () => {
+  const fx = fixture();
+  let attempts = 0;
+  const workspace: Workspace = { ...fx.workspace, async apply(ops, run) {
+    const result = await fx.workspace.apply(ops, run);
+    if (ops.some(op => op.op === 'chain.create')) {
+      attempts++;
+      throw new Error('growth acknowledgement lost');
+    }
+    return result;
+  } };
+  const result = await callTool(workspace, 'compose_device_sources', {
+    trackId: fx.trackId, expectedDeviceOrder: [{ name: 'Existing Twin', enabled: true }, { name: 'Tool', enabled: false }],
+    containerKind: 'FX Layer', containerPosition: 2,
+    entries: Array.from({ length: 6 }, (_, i) => ({ entryName: `Chain ${i}`,
+      source: { kind: 'native', name: 'Tool' }, modulators: [] })),
+  }) as Record<string, any>;
+  assert.equal(result.complete, false);
+  assert.equal(result.partialCompletion, true);
+  assert.equal(result.failedStage, 'grow-entries');
+  assert.equal(result.reversalCheckpoint.seedUnchanged, false);
+  assert.equal(attempts, 1);
+  assert.equal(fx.row.devices.length, 3);
+  assert.equal(fx.row.devices[2]!.chains!.length, 6);
+  assert(fx.row.devices[2]!.chains!.every(c => c.devices.length === 0));
 });

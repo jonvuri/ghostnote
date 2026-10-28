@@ -821,17 +821,11 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   }
 }
 
-/** Public top-level write admission stays bounded until B17 session 6 retires the width caps. */
+/** Parameter and other legacy routes still require the first top-level window. */
 export function assertTopLevelDeviceWriteWindow(op: string, count: number, bankSize: number | undefined): void {
+  if (['device.insert', 'device.delete', 'device.setEnabled', 'device.relocate', 'chain.relocate'].includes(op)) return;
   if (bankSize === undefined || count > bankSize) {
-    throw new InvalidOpError(op, 'top-level device writes require the entire chain to fit in the first window');
-  }
-}
-
-/** Public chain-write admission stays bounded until B17 session 6; extension paging is checkpointed. */
-function assertChainWriteWindow(op: string, observed: ObservedContainer): void {
-  if (observed.chainsBankSize !== undefined && observed.chains.length > observed.chainsBankSize) {
-    throw new InvalidOpError(op, 'layer-chain writes beyond the first window are not yet supported');
+    throw new InvalidOpError(op, 'this legacy route requires the entire chain to fit in the first window');
   }
 }
 
@@ -850,7 +844,6 @@ export function assertChainActivatable(
     if (observed === undefined) {
       throw new InvalidOpError(op.op, 'the addressed container is not observable through a slot scope');
     }
-    assertChainWriteWindow(op.op, observed);
     if (!observed.chainsComplete) {
       throw new InvalidOpError(op.op, 'the container chain view is partial, so every sibling cannot be switched safely');
     }
@@ -868,58 +861,13 @@ export function assertChainActivatable(
   }
 }
 
-/**
- * ⚠⚠ Everything `chain.create` needs to be TRUE about the container before the
- * copy is made — checked against a real observation, never assumed, and
- * PROJECTED ACROSS THE BATCH.
- *
- * ⚠ The RULE is here and the OBSERVATION is not, exactly as `assertSlotsFree`
- * splits them: each adapter supplies the lookup (live through `chain.inventory`,
- * the fake through its own model) and the refusal stays identical, which is what
- * lets a conformance row assert it on both and stops the fake from being the
- * lenient one.
- *
- * ⚠⚠ **The projection is not a refinement, it is the guard.** Nothing has been
- * applied when this runs, so every create in a batch sees the SAME reading —
- * and checking each one against it independently is the post-hoc check wearing a
- * precondition's clothes, which is the exact mistake `assertSceneRoom`'s header
- * already names ("two `scene.create`s of 4 in one batch are a create of 8").
- * Measured here, before the fix: two creates against a 3-of-4 container produced
- * FIVE chains, stranding one past a bank nothing can address; two creates named
- * `dup` produced two chains called `dup`, and both stage receipts said `ok`.
- * So each create is checked against the container as the creates BEFORE it
- * leave it, in caller order — the same shape `assertSlotsFree` uses for slot
- * occupancy, and for the same reason.
- *
- * Four preconditions, and each of them is a different way the create would
- * otherwise leave the container in a state nothing can address:
- *
- *   1. **We could look at all.** `undefined` is a refusal, not a pass. The
- *      container scopes exist on the first few top-level device positions only
- *      (D7, init-allocated), and a create aimed through a scope that was never
- *      built is a write nothing could then observe or name.
- *   2. ⚠⚠ **Standing rule 5, one population down, and CUMULATIVE.** The same
- *      hazard E19 paid for with a scene stranded at project index 99 of a
- *      16-wide window: the chain bank is FIVE wide (`Rig.SLOT_LAYER_BANK`), the
- *      enumeration reports nothing past it, and a chain created out there can be
- *      resolved by nothing, renamed by nothing and removed by nothing — there is
- *      no typed chain delete at all. Counting requires the bank SIZE, which is
- *      why `ObservedContainer` carries one; a reading that omits it is refused
- *      rather than treated as room.
- *   3. **The source resolves, uniquely** — against the projected container, so a
- *      chain an earlier create in the same batch made is a usable source, and a
- *      name that earlier creates made ambiguous is refused. `Channel.duplicate()`
- *      copies the chain that is SELECTED (`e17ak`), so a source that does not
- *      identify exactly one chain would copy whichever one we picked.
- *   4. **The new name is free, and provably so** — also against the projection,
- *      which is what stops two creates in one batch claiming one name.
- */
+/** Require complete siblings, a unique source and a free name, projected across the batch. */
 export function assertChainCreatable(
   ops: readonly Op[],
   observe: (container: DeviceAddress) => ObservedContainer | undefined,
 ): void {
-  /** The container as the creates so far leave it: the names in it, and how wide it is. */
-  const projected = new Map<string, { names: string[]; bankSize: number }>();
+  /** Names projected through earlier creates in this batch. */
+  const projected = new Map<string, { names: string[] }>();
 
   for (const op of ops) {
     if (op.op !== 'chain.create') continue;
@@ -944,49 +892,13 @@ export function assertChainCreatable(
           + 'blind — a chain we cannot see is one nothing can name, and there is no typed delete',
         );
       }
-      // ⚠ Both checks, because they fail for different reasons and only one of
-      // them is arithmetic. `chainsComplete` is the ADAPTER's own answer to "did
-      // this reading see everything"; the size is what the projection below
-      // counts against. An extension too old to report the size makes
-      // `chainsComplete` false as well, so neither check is reachable alone
-      // today — and neither may be dropped on that basis.
-      if (observed.chainsBankSize === undefined) {
-        throw new InvalidOpError(
-          op.op,
-          'the container enumeration did not report how wide the chain bank is, so there is no '
-          + 'way to prove this create lands inside it. Refused rather than counted on',
-        );
-      }
       if (!observed.chainsComplete) {
-        // ⚠ Deliberately NOT a `BankWindowOverflowError`. That error's whole
-        // remedy is *"raise the knob in ~/.ghostnote/rig.json"*, and this window
-        // has no knob: it is `Rig.SLOT_LAYER_BANK`, fixed in the extension and
-        // allocated at init (D7). Reusing the class would put a false
-        // instruction in a refusal, which is worse than a plainer error.
-        throw new InvalidOpError(
-          op.op,
-          `the container's chain bank is full at ${observed.chains.length} visible chains, so a `
-          + 'new chain would land outside the window — unresolvable, un-nameable, and with no '
-          + 'typed delete to take it back. Refused before the copy is made (standing rule 5)',
-        );
+        throw new InvalidOpError(op.op, 'the complete sibling set must be observable before duplication');
       }
       state = {
         names: observed.chains.map((c) => c.name),
-        bankSize: observed.chainsBankSize,
       };
       projected.set(key, state);
-    }
-
-    // ⚠ The cumulative half of rule 5. The FIRST create is covered by
-    // `chainsComplete` above; every one after it is covered only here.
-    if (state.names.length >= state.bankSize) {
-      throw new InvalidOpError(
-        op.op,
-        `this batch would leave the container holding ${state.names.length + 1} chains in a bank `
-        + `${state.bankSize} wide, so a chain would land outside the window — unresolvable, `
-        + 'un-nameable, and with no typed delete to take it back. The whole batch is refused '
-        + 'before any copy is made (standing rule 5, summed over the batch)',
-      );
     }
 
     // ⚠ Against the PROJECTION, not the reading. Counted rather than looked up,
@@ -1034,7 +946,6 @@ export function assertChainRenamable(
       if (observed === undefined || !observed.chainsComplete) {
         throw new InvalidOpError(op.op, 'the complete sibling set must be observable before a rename');
       }
-      assertChainWriteWindow(op.op, observed);
       chains = observed.chains.map((item) => ({ ...item }));
       projected.set(key, chains);
     }
@@ -1056,7 +967,7 @@ export function assertChainRenamable(
   }
 }
 
-/** A complete device enumeration plus the fixed bank width it must fit inside. */
+/** A device enumeration plus its physical paging width, not a capacity. */
 export interface ObservedDeviceBank extends ObservedDeviceSequence {
   readonly bankSize?: number;
 }
@@ -1078,38 +989,21 @@ export interface ObservedDrumPadBank {
   readonly bankSize?: number;
 }
 
-/** Refuse inserts unless every affected top-level chain is complete and has room. */
+/** Refuse inserts unless every affected top-level chain is completely observed. */
 export function assertDeviceInsertable(
   ops: readonly Op[],
   observeTrack: (track: TrackAddress) => ObservedDeviceBank | undefined,
 ): void {
-  const requested = new Map<string, { track: TrackAddress; count: number }>();
+  const requested = new Map<string, TrackAddress>();
   for (const op of ops) {
-    if (op.op !== 'device.insert') continue;
-    const current = requested.get(op.track.channelId);
-    requested.set(op.track.channelId, {
-      track: op.track,
-      count: (current?.count ?? 0) + 1,
-    });
+    if (op.op === 'device.insert') requested.set(op.track.channelId, op.track);
   }
-  for (const { track, count } of requested.values()) {
+  for (const track of requested.values()) {
     const observed = observeTrack(track);
     if (observed === undefined || !observed.devicesComplete) {
       throw new InvalidOpError(
         'device.insert',
         `the complete top-level device chain on ${track.channelId} must be observable`,
-      );
-    }
-    if (observed.bankSize === undefined) {
-      throw new InvalidOpError(
-        'device.insert',
-        `device-bank room on ${track.channelId} cannot be proved because the bank size was not observed`,
-      );
-    }
-    if (observed.devices.length + count > observed.bankSize) {
-      throw new InvalidOpError(
-        'device.insert',
-        `the top-level device bank would hold ${observed.devices.length + count} devices, but its width is ${observed.bankSize}`,
       );
     }
   }
@@ -1162,7 +1056,7 @@ export function assertDrumPadInsertable(ops: readonly Op[]): void {
  * Top-level positions are simulated in caller order. A move compacts the list,
  * so a later container address is resolved to the same initial device identity
  * through the projected list rather than re-read at its future position. Each
- * nested destination is then counted cumulatively against its reported bank.
+ * named-slot route retains its physical bounds; layer and track sequences page.
  */
 export function assertChainRelocatable(
   ops: readonly Op[],
@@ -1175,7 +1069,7 @@ export function assertChainRelocatable(
     /** Present only for a device independently observed at top level now. */
     readonly origin?: DeviceAddress;
   };
-  type ProjectedSequence = { devices: ProjectedDevice[]; bankSize: number };
+  type ProjectedSequence = { devices: ProjectedDevice[]; bankSize?: number; legacyReach?: boolean };
 
   let nextToken = 0;
   const tracks = new Map<string, ProjectedSequence>();
@@ -1236,7 +1130,6 @@ export function assertChainRelocatable(
     }
     let entry: ObservedDeviceSequence;
     if (endpoint.kind === 'chain') {
-      assertChainWriteWindow('chain.relocate', observed);
       const found = lookupChain(observed, endpoint.name);
       if (!found.ok) {
         throw new InvalidOpError('chain.relocate', `the addressed device alternate is ${found.miss}`);
@@ -1249,7 +1142,7 @@ export function assertChainRelocatable(
       }
       entry = found.slot;
     }
-    if (!entry.devicesComplete || (entry.devicesBankSize !== undefined && entry.devices.length > entry.devicesBankSize)) {
+    if (!entry.devicesComplete) {
       throw new InvalidOpError('chain.relocate', 'the complete device order of the addressed alternate must be observable');
     }
     if (entry.devicesBankSize === undefined) {
@@ -1257,6 +1150,8 @@ export function assertChainRelocatable(
     }
     state = {
       bankSize: entry.devicesBankSize,
+      legacyReach: endpoint.kind !== 'chain' || (observed.chainsBankSize !== undefined
+        && observed.chains.length <= observed.chainsBankSize),
       devices: entry.devices.map((item) => ({ token: nextToken++, name: item.name })),
     };
     nested.set(key, state);
@@ -1277,10 +1172,14 @@ export function assertChainRelocatable(
         `no source device exists at projected position ${op.source.chainIndex}`,
       );
     }
-    if (destination.devices.length >= destination.bankSize) {
+    const legacy = op.source.chain?.kind === 'deviceSlot' || op.destination.kind === 'deviceSlot';
+    if (legacy && (source.legacyReach === false || destination.legacyReach === false
+        || top(op.source.track).devices.length > (top(op.source.track).bankSize ?? 0)
+        || source.devices.length > (source.bankSize ?? 0)
+        || destination.devices.length >= (destination.bankSize ?? 0))) {
       throw new InvalidOpError(
         op.op,
-        `the complete request would leave ${destination.devices.length + 1} devices in a destination bank `
+        `the named-slot route cannot page its endpoints; the request would leave ${destination.devices.length + 1} devices in a destination bank `
         + `${destination.bankSize} wide; the whole request was refused before any device moved`,
       );
     }

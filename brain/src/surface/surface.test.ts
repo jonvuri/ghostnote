@@ -2652,7 +2652,7 @@ test('T-device-alternate names: a requested name matching the shipped entry is s
     'both explicit naming writes travelled through the recorded executor path');
 });
 
-test('T-fill preflight: cumulative capacity refuses the whole request without state, history, or emitted writes', async () => {
+test('B17: fill pages a destination narrower than the requested shape', async () => {
   const fx = fixture();
   const made = await call(fx, 'create_device_alternates', {
     trackId: fx.trackA, containerType: 'effect', names: ['destination'],
@@ -2677,12 +2677,10 @@ test('T-fill preflight: cumulative capacity refuses the whole request without st
     sourceDevicePositions: [1, 2],
     mode: 'copy',
   });
-  assert.equal(result['refused'], true, JSON.stringify(result));
-  assert.equal(result['nothingWasWritten'], true);
-  assert.equal(JSON.stringify(track.devices), before, 'both sources and the destination are unchanged');
-  assert.equal(fx.stash.list().length, beforeChanges, 'no change was recorded');
-  assert.equal(fx.sent.length, beforeSent, 'no write batch was emitted by the adapter');
-  assert.equal((await fx.fake.revision()).revision, beforeRevision, 'no stage ran');
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.deepEqual(track.devices[0]!.chains![0]!.devices.map(item => item.name), ['source-a', 'source-b']);
+  assert.ok(fx.stash.list().length > beforeChanges);
+  assert.ok(fx.sent.length > beforeSent);
 });
 
 test('T-fill preflight: a valid first source followed by an invalid source writes nothing', async () => {

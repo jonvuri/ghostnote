@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v56';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v57';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -907,3 +907,6 @@ export const TOOL_DESCRIPTION_V55_SHA256 = '484c2f3f0514c7586e8daa844befa0658ffa
 
 /** v56 (B17 session 2): read_devices pages the top-level, chain, and chain-device windows. Write limits stay. */
 export const TOOL_DESCRIPTION_V56_SHA256 = '76cf46f587e86e1c1d7db37b89fed80e20aa74841ad47bb1d22faa813c433df3';
+
+/** v57 (B17 session 6): paged write admission and composition; physical widths are not capacities. */
+export const TOOL_DESCRIPTION_V57_SHA256 = '9711630d8c69ed010917a81187036b31f766f60936648fda9e34974dd6997c41';

@@ -698,7 +698,7 @@ export class ProjectModel {
     return true;
   }
 
-  /** The stitched container reading; bank widths remain write limits until B17 session 3. */
+  /** The stitched layer reading; named slots retain their first-window limits. */
   observeContainer(track: FakeTrack, containerIndex: number): ObservedContainer | undefined {
     if (containerIndex < 0) return undefined;
     const device = track.devices[containerIndex];
@@ -730,10 +730,7 @@ export class ProjectModel {
         };
       }),
       chainsComplete: true,
-      // ⚠ Reported for the guards that have to reason about a container two
-      // creates from now — see `ObservedContainer.chainsBankSize`. The fake
-      // carries the same number the rig does (`Rig.SLOT_LAYER_BANK`), because a
-      // fake with a roomier bank would pass batches live Bitwig strands.
+      // Physical window size, not a limit on the stitched layer inventory.
       chainsBankSize: this.chainBankSize,
       slots: Object.entries(device?.deviceSlots ?? {}).map(([name, heldDevices]) => {
         const devices = heldDevices.slice(0, this.chainDeviceBankSize);

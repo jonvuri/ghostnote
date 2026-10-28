@@ -50,7 +50,7 @@ const abFixture = () => fixture((id) => [
 for (const count of [16, 17, 18]) {
   for (const position of [0, count - 1]) {
     for (const tool of ['set_device_enabled', 'delete_device']) {
-      test(`B17 ${tool}: ${count} devices, position ${position}, preserves the write window`, async () => {
+      test(`B17 ${tool}: ${count} devices, position ${position}, pages the write window`, async () => {
         const fx = fixture(() => Array.from({ length: count }, (_, index) => device(`Tool ${index}`)));
         const before = structuredClone(fx.row.devices);
         const read = await fx.native('read_devices', { trackId: fx.trackId });
@@ -59,16 +59,11 @@ for (const count of [16, 17, 18]) {
         const target = { trackId: fx.trackId, devicePosition: position };
         const result = await fx.native(tool, tool === 'delete_device'
           ? { devices: [target] } : { settings: [{ ...target, enabled: false }] });
-        if (count > 16) {
-          assert.notEqual(result.applied, true, JSON.stringify(result));
-          assert.deepEqual(fx.row.devices, before, 'refused writes preserve every device');
-          assert.match(JSON.stringify(result), /first window/);
-        } else {
-          assert.equal(result.applied, true, JSON.stringify(result));
-          assert.equal(result.readback.status, 'verified');
-          if (tool === 'delete_device') assert.equal(fx.row.devices.length, count - 1);
-          else assert.equal(fx.row.devices[position]!.enabled, false);
-        }
+        assert.equal(result.applied, true, JSON.stringify(result));
+        assert.equal(result.readback.status, 'verified');
+        if (tool === 'delete_device') before.splice(position, 1);
+        else before[position]!.enabled = false;
+        assert.deepEqual(fx.row.devices, before, 'unrelated devices are preserved');
       });
     }
   }

@@ -18,10 +18,10 @@ export const EXISTING_DEVICE_WRAPPER_ENTRY = 'Layer 1' as const;
 export const GENERAL_DEVICE_CONTAINER_KINDS = ['Instrument Layer', 'FX Layer'] as const;
 export type GeneralDeviceContainerKind = typeof GENERAL_DEVICE_CONTAINER_KINDS[number];
 export const GENERAL_DEVICE_COMPOSITION_CAPACITIES = Object.freeze({
-  // B08 (E352): the container scopes scroll over the whole 16-wide top-level device bank.
-  topLevelContainerPositions: 16,
-  entriesPerLayer: 5,
-  devicesPerEntry: 4,
+  // Structural windows page; only parameter routes retain fixed limits.
+  parameterTopLevelPositions: 16,
+  parameterEntriesPerLayer: 5,
+  parameterDevicesPerEntry: 4,
   parameterRouteDepth: 2,
 });
 
@@ -159,19 +159,19 @@ export async function composeGeneralDeviceContainerPreset(
   } = {},
 ): Promise<ExistingDeviceWrapperPreset> {
   if (requests.some((item) => !Number.isInteger(item.entryIndex)
-      || item.entryIndex < 0 || item.entryIndex >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.entriesPerLayer)) {
+      || item.entryIndex < 0 || item.entryIndex >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.parameterEntriesPerLayer)) {
     throw new ExistingDeviceWrapperPresetError('entry index must be from 0 through 4');
   }
   if (requests.some((item) => !Number.isInteger(item.deviceIndex)
-      || item.deviceIndex < 0 || item.deviceIndex >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.devicesPerEntry)) {
+      || item.deviceIndex < 0 || item.deviceIndex >= GENERAL_DEVICE_COMPOSITION_CAPACITIES.parameterDevicesPerEntry)) {
     throw new ExistingDeviceWrapperPresetError('device index must be from 0 through 3');
   }
   const entryCount = options.entryCount ?? Math.max(
     1, ...requests.map((item) => item.entryIndex + 1),
   );
   if (!Number.isInteger(entryCount) || entryCount < 1
-      || entryCount > GENERAL_DEVICE_COMPOSITION_CAPACITIES.entriesPerLayer) {
-    throw new ExistingDeviceWrapperPresetError('entry count is outside the complete container capacity');
+      || entryCount > 5) {
+    throw new ExistingDeviceWrapperPresetError('the seed supplies one through five entries; grow additional empty chains through the host');
   }
   if (requests.some((item) => item.entryIndex >= entryCount)) {
     throw new ExistingDeviceWrapperPresetError('a route names an entry outside the requested container shape');
@@ -225,7 +225,7 @@ export async function composeGeneralDeviceContainerPreset(
 
 function trimLayerSeed(source: Buffer, entryCount: number): Buffer {
   const chains = listChains(source);
-  if (chains.length !== GENERAL_DEVICE_COMPOSITION_CAPACITIES.entriesPerLayer) {
+  if (chains.length !== 5) {
     throw new ExistingDeviceWrapperPresetError('the layer seed does not have five complete entries');
   }
   let preset = Buffer.from(source);

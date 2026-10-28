@@ -523,10 +523,36 @@ for (const [label, topCount, chainCount, deviceCount] of [
     assert.equal(chains.at(-1).devicePages, Math.ceil(deviceCount / 4));
     assert.deepEqual(counts, { devices: 1, read: 1 });
     if (chainCount > 5) {
-      const refusal = await fx.call('rename_layer_chain', { trackId: fx.trackId,
+      const renamed = await fx.call('rename_layer_chain', { trackId: fx.trackId,
         containerPosition: 0, layerChain: 'Chain 5', name: 'renamed' });
-      assert.equal(refusal.result.failure.code, 'outside-limit');
-      assert.equal(refusal.counts.apply, undefined, 'write reach is retained until session 3');
+      assert.equal(renamed.result.readback.status, 'verified');
+      assert.deepEqual(renamed.counts, EXPECTED_DEVICE_BUDGETS.rename);
     }
   });
 }
+
+test('B17 call budget: overflow chain controls and transfers use the same adapter calls', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+  const row = fx.fake.model.visibleTracks()[0]!;
+  row.devices.push(...Array.from({ length: 17 }, (_, i) => dev(`Top ${i}`)), {
+    ...dev('FX Layer'), chains: Array.from({ length: 6 }, (_, i) => ({
+      name: `Chain ${i}`, id: `budget-overflow-${i}`, solo: false,
+      devices: Array.from({ length: 5 }, (_, j) => dev(`Nested ${i}-${j}`)),
+    })),
+  });
+  for (const [label, tool, args, expected] of [
+    ['solo', 'set_layer_chain_solo', { containerPosition: 17, layerChain: 'Chain 5', mode: 'exclusive' }, EXPECTED_DEVICE_BUDGETS.solo],
+    ['rename', 'rename_layer_chain', { containerPosition: 17, layerChain: 'Chain 5', name: 'Sixth' }, EXPECTED_DEVICE_BUDGETS.rename],
+    ['duplicate', 'duplicate_layer_chain', { containerPosition: 17, layerChain: 'Sixth', name: 'Seventh' }, EXPECTED_8H4G_BUDGETS['duplicate-chain']],
+    ['copy', 'copy_devices', { devices: [{ from: 'layer-chain', containerPosition: 17, layerChain: 'Seventh', devicePosition: 4 }],
+      destination: { to: 'layer-chain', containerPosition: 17, layerChain: 'Chain 0' } }, EXPECTED_8H4G_BUDGETS['copy-devices']],
+    ['move', 'move_devices', { devices: [{ from: 'layer-chain', containerPosition: 17, layerChain: 'Chain 0', devicePosition: 5 }],
+      destination: { to: 'track-end' } }, EXPECTED_DEVICE_BUDGETS.move],
+  ] as const) {
+    const { result, counts } = await fx.call(tool, { trackId: fx.trackId, ...args });
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result)}`);
+    assert.equal(result.readback.status, 'verified');
+    assert.deepEqual(counts, expected, label);
+  }
+});

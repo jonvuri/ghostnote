@@ -174,8 +174,8 @@ and live acceptance in session 7.
 | 3 | Write-window foundation and paged chain controls | Checkpointed; offline checks pass; not deployed |
 | [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Checkpointed; offline checks pass; not deployed |
 | [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Checkpointed; offline checks pass; not deployed |
-| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Next; fresh session |
-| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Queued; fresh session |
+| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Checkpointed; offline checks pass; not deployed |
+| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Next; fresh session |
 
 Each fresh session starts with `context/NOW.md`, its section below, and the
 relevant implementation/result sections. Record the completed scope, checks,
@@ -564,8 +564,8 @@ current product baseline.
   runtime costs are unchanged; no new live measurement is claimed.
 
 The remaining work was assigned to [sessions 4–7](#sessions). Session 4 is
-now checkpointed below, as is session 5; the next fresh session is
-[cap retirement and composition](#session-6--cap-retirement-and-composition).
+now checkpointed below, as are sessions 5 and 6; the next fresh session is
+[integrated live acceptance](#session-7--integrated-live-acceptance).
 
 ## Session 3 chain-control integration
 
@@ -776,3 +776,107 @@ wire stays at 93 methods, hash `d6decf985f6b1f36`. Source `rig.info` adds
 `chainMoveRoute` to `paged-chain-moves-v2`; `containerScope.rule` remains
 `paged-windows-v3`. Session 7 must check these alongside the session-3 chain
 control marker after deployment. The running session-2 archive is unchanged.
+
+
+## Session 6 cap-retirement checkpoint
+
+Implemented on 2026-10-27; **verified offline, not deployed or checked in
+Bitwig**. Continue with session 7 in a fresh session.
+
+The current `agent-native-v1` surface no longer treats physical device or layer
+windows as capacities. Shared preflight, live/fake adapters, and public planning
+admit top-level insertion, deletion, enabled-state changes and reordering on
+tracks wider than sixteen, chain controls beyond five siblings, and transfers
+beyond four nested devices. Complete observations, identity/fingerprint guards,
+unique names, supported nesting, selection protection, and independent final
+readback remain required. Incomplete observations still refuse before writing.
+The fake's private preflight and relocation proofs now use complete sequences.
+
+**Bounds decision:** the earlier proposal of sixteen chains/devices is not
+adopted. No measured product capacity justifies it. The physical 16/5/4 widths
+remain paging metadata, reported by `read_devices` as `bankSize`,
+`chainWindowSize`, and `deviceWindowSize`; the misleading `capacity` and
+`deviceCapacity` fields are retired from that current tool. The move/copy input's
+four-device shape limit is retired too. D44's six device units and four modulators
+per composition remain unchanged. Named-slot routes retain their legacy limits
+for both endpoints, including mixed slot/layer transfers. Parameter descent,
+Drum Machine pads, and the separate offline four-entry Instrument Layer template
+retain their own supported routes. No named-slot or parameter paging is claimed.
+
+Composition keeps the manifest-validated five-chain seed. When more chains are
+requested, it duplicates the last empty chain through `chain.create`, names the
+new identity, then performs the existing naming and source stages. This avoids
+inventing a new preset serialization route. One extra chain costs one guarded
+apply stage plus the existing stable top-level inspection. Uncertain growth
+stops before source insertion; it preserves the real effect and marks the seed
+as changed rather than retrying or assuming the old seed survived.
+
+**D15 claim amendment:** for unmodulated overflow composition, the proved claim
+is the exact ordered container/chain/device structure and enabled state, plus
+the source instance semantics of move/copy. Scalar fingerprints are omitted
+where parameter descent is unsupported; no scalar-state preservation claim is
+made there. Reversal uses the issued structural checkpoint and checks any
+fingerprints actually recorded. It does not require an unavailable parameter
+read. Modulation that needs an overflow parameter route refuses before container
+insertion. Existing in-window scalar and modulation proofs remain. Retained
+support: E356's live paged structure reading, sessions 3–5 handler tests, and
+session-6 composition/parity regressions; host acceptance of these newly admitted
+writes is still owed in session 7.
+
+Descriptions are **v57**, SHA-256
+`9711630d8c69ed010917a81187036b31f766f60936648fda9e34974dd6997c41`.
+The current inventory adds `chain.create` to `compose_devices` emissions.
+The retired `stable-v1` registration and v25 artifact stay frozen; the current
+composer uses a separate paged input validator, and current `revert_change`
+uses its issued checkpoint by change ID. C01 still owns retirement of that
+legacy surface.
+
+Verification: extension `./gradlew check`; brain `npm run check` (all 2,598 tests), including
+wire goldens, profile artifacts and call budgets; documentation links and diff
+checks. New coverage includes live/fake writes on seventeen/eighteen-device
+tracks, sixth-chain controls, five-device and distant same-container transfers,
+six-chain/five-device compositions at positions 2 and 18, their reversals and
+unrelated-state preservation, uncertain seed growth without replay, D44 refusal,
+and incomplete/named-slot admission regressions. Overflow layer tools retain
+the existing adapter call budgets. No new host latency is claimed.
+
+### Session 7 build and driver handoff
+
+Deploy **normal ghostnote** using `./gradlew copyExtension` from `extension/`.
+Have the operator replace that controller, retain the actual confirmation, then
+run `npm run probe:hello` from `brain/`. Confirm a fresh initialization after
+deployment, API 25, `normal-v1`, **93 methods**, hash **`d6decf985f6b1f36`**,
+and these deliberate `rig.info` markers:
+
+| Field | Required value |
+| --- | --- |
+| `containerScopeRoute` | `paged-windows-v3` |
+| `layerControlRoute` | `paged-chain-controls-v1` |
+| `chainMoveRoute` | `paged-chain-moves-v2` |
+| `deviceMutationRoute` | `paged-device-mutations-v1` |
+
+The source driver is
+[`b17-integrated-live.ts`](../../brain/src/probes/b17-integrated-live.ts).
+From `brain/`, run
+`node --import tsx src/probes/b17-integrated-live.ts --out NEW_DIRECTORY`
+after fresh operator/context checks. It defaults to `gn-scale-test`, creates
+only `gn-b17w` (refusing an existing name), records clients before its first
+write, and rejects other probe drivers. `--idle-client PID` permits an MCP
+client only after inspecting it and confirming it will stay idle. The driver
+owns one foreground transport and does not stop unrelated processes.
+
+It composes five devices in one chain at position 17, grows that container to
+six chains, composes a second six-chain container at position 18, copies and
+moves overflow devices (same-container, cross-container, and track endpoints),
+solos/renames the sixth chain, and exercises top-level enabled-state, distant
+reordering, insertion and deletion. It records each tool's independent readback,
+additional structure assertions, five isolated overflow-read timings, raw restored
+windows, and the refusal latch. Successful completion removes the owned track
+and compares original track/device inventories and selection to the baseline.
+Any failure stops writes, records diagnostics and leaves scratch for inspection;
+it never retries an uncertain write or automatically deletes its evidence.
+
+The driver was typechecked but **not run against Bitwig** in session 6. It adds
+no authorization beyond the resumed session's fresh operator context. Session 7
+must record actual host results, cleanup and preserved state in a new E record,
+then update the ledger and backlog. B17 remains in progress until that passes.

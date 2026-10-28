@@ -128,6 +128,11 @@ export const generalDeviceCompositionInputValidator = z.object(
   }
 });
 
+/** Current compose_devices backend input; the retired stable-v1 artifact remains frozen. */
+export const pagedDeviceCompositionInputValidator = generalDeviceCompositionInputValidator.safeExtend({
+  expectedDeviceOrder: z.array(orderItem),
+});
+
 const checkpointEntry = z.object({
   entryIndex: z.number().int().min(0), deviceIndex: z.number().int().min(0),
   entryName: z.string().min(1),

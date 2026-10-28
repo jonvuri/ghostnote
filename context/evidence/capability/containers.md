@@ -332,8 +332,8 @@ it reads a scope, and the brain re-points once on a refusal.
   total count, and its own absolute device position. Layer channel indices
   are not local bank positions (E355); channel-ID witnesses reject stale
   pages. Non-layer devices can retain stale layer counts and skip layer
-  traversal. Write width limits remain until session 3; named-slot and
-  parameter paging are outside this evidence. [K,
+  traversal. This evidence proves reads; named-slot and parameter paging
+  remain outside its scope. [K,
   [E355](../experiments/e355-paged-read-host-state-corrections.md),
   [E356](../experiments/e356-paged-device-and-layer-reads-live.md)]
 - ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
@@ -342,6 +342,13 @@ it reads a scope, and the brain re-points once on a refusal.
   extension re-issues the scroll every 10 polls of an unsettled scope and
   refuses after 400 polls (about 2 s); waiting for such a scope never ends
   [K, E353].
+
+- **Paged product writes (B17 sessions 3–6, offline checkpoint).** The current
+  source admits paged layer controls, move/copy, and top-level mutations, and
+  composition beyond five chains/four devices. No replacement structural capacity
+  is imposed. Named-slot and parameter restrictions and D44 remain. Session 7
+  must verify these writes in Bitwig; the installed archive is still session 2.
+  See the [checkpoint and driver handoff](../../work/b17-extension-owned-window-scrolling.md#session-6-cap-retirement-checkpoint).
 
 ---
 
