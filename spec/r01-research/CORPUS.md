@@ -109,8 +109,10 @@ trial protocol and selection rule are frozen.
 Under the pilot's [development stage](PILOT-DRAFT.md#trial-stages), the seeded
 selection opened works A–C, Re:turning, Our Taproot and Good Lies, one MIDI
 file each; input v2 scanned all seven of their pitched pool files
-([E367](../../context/evidence/experiments/e367-r01-pilot-inputs-v2-dense-windows-velocities.md)). These works are now development material. The other eight reserved
-works remain unopened, in their seeded order, for the rigorous stage
+([E367](../../context/evidence/experiments/e367-r01-pilot-inputs-v2-dense-windows-velocities.md)). These works are now development material. The rigorous stage opened works
+4–6 (*trailing*, *the gapra whitewood*, *open spaces*;
+[E378](../../context/evidence/experiments/e378-r01-rigorous-inputs-and-execution-manifest.md)).
+Works 7–11 remain unopened in their seeded order
 ([E366](../../context/evidence/experiments/e366-r01-pilot-development-inputs.md)).
 
 ## Reproduction

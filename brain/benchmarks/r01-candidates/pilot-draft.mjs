@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ARMS, DIAGNOSTICS, eligibility } from './development-surfaces.mjs';
-import { PROFILES } from './cli-controls.mjs';
+import { DEVELOPMENT_PROFILES as PROFILES } from './cli-controls.mjs';
 import { CLAUDE_CONTEXT_POLICY, CLAUDE_CONTEXT_POLICY_SHA256, CLAUDE_CONTEXT_POLICY_V2,
   CLAUDE_CONTEXT_POLICY_V2_SHA256 } from './claude-context-policy.mjs';
 

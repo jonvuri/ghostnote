@@ -1,7 +1,7 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 ## Now
@@ -166,11 +166,40 @@ multi-step tasks. The p10 refusal fell from 9 to 4 of 18, and the C3/C4 FIELDS
 gap on source tasks narrowed (C3 6 → 10, C4 15 → 16 of 24).
 [D64](../spec/r01-research/decisions/d64-r01-luna-cohort-effort-medium.md) records the operator's
 answer to freeze item 4a: Luna runs at `medium` in the rigorous stage, and
-Haiku stays at `low`. The other freeze items remain open.
-**Next: the operator answers the
-[freeze-review list](../spec/r01-research/PILOT-DRAFT.md#freeze-review-v5).**
-Do not freeze, open works 4–6 or start the rigorous stage before that. Works A–C are now
-development material (E366); only development runs have occurred. E353 remains the
+Haiku stays at `low`. The operator then answered items 1–7 as proposed
+([R01-D1](../spec/r01-research/decisions/r01-d1-rigorous-freeze-versions.md)
+to [R01-D7](../spec/r01-research/decisions/r01-d7-rigorous-reporting.md)) and
+**confirmed the freeze** on 2026-10-28. The rigorous path is implemented
+offline: stage-keyed profiles (`codex-current` at `medium`; development plans
+keep `low`), seeded task generation, rigorous window selection with the
+target-rule refusal, package `pilot-rigorous-v1`, a stage-aware execution
+manifest and a once-only cohort restart in the pinned order. 246 focused
+tests pass. On the development windows, the new seeds rehearse cleanly.
+[E378](evidence/experiments/e378-r01-rigorous-inputs-and-execution-manifest.md)
+materializes the rigorous stage. Works 4–6 fill roles A–C (126, 128 and 62
+notes), and one target-rule refusal occurred. Package `pilot-rigorous-v1` and a
+rigorous execution manifest are pinned (Haiku `low`, Luna `medium`, 261 runs
+each); the rehearsal rejects all 568 wrong answers.
+[E379](evidence/experiments/e379-r01-rigorous-three-repeat-run.md) is the
+rigorous run: 522/522 runs in 752 submissions, with no control failure or
+halt and two recovered stalls. Haiku `low` passed 247/261 on the first
+attempt (261 within budget) and Luna `medium` 138/261 (187). On source
+tasks, C3 versus C4 FIELDS was 24 versus 23 for Haiku and 8 versus 15 for
+Luna. C4 leads on onset-changing edits, and C3 on reading one derived onset.
+bar|beat is the hardest performed arm. Because Haiku sits at the ceiling and
+Luna near the floor, the operator approved a second development round:
+difficulty ladders, saturation-resistant measures, a Terra assessment and a
+later decision on an agentic tool-loop evaluation. Round 2 is a version reset
+whose rigorous round restarts at works 1–3
+([R01-D8](../spec/r01-research/decisions/r01-d8-round-2-version-reset-and-work-reuse.md)).
+The operator answered the
+[round 2 brief](work/r01-round-2-difficulty-scaling.md)'s decisions
+(R01-D9–R01-D12): Terra (`gpt-5.6-terra`, `low`) and Haiku 4.5 join
+development, calibration uses one repeat and full runs three, and the timeout
+scales with output. **Next: round 2 step 2** (catalog refresh and probes),
+then offline implementation.
+R01's outcome (adoption, claims, naming) waits for round 2.
+Works A–C are development material (E366); only development runs have occurred. E353 remains the
 initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,
 product runtime change or scored model comparison occurred. Annotation persistence,
 storage ownership and live checks remain deferred. The live state below was

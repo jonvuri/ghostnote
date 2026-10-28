@@ -19,7 +19,7 @@ part of this research.
 
 ### R01 protocol decisions
 
-R01's research-protocol decisions D55–D64 are kept with the R01 specification
+R01's research-protocol decisions D55–D64 and R01-D1 onward are kept with the R01 specification
 in [`spec/r01-research/decisions/`](../../spec/r01-research/decisions/), not in
 the project's [decision index](../decisions/INDEX.md). They govern only this
 research, not general Ghostnote development. They were first written to
@@ -39,6 +39,18 @@ and manifests. They keep their IDs because retained, hashed artifacts cite them
 | [D62](../../spec/r01-research/decisions/d62-r01-codex-access-programs-optional.md) | Codex policy v2: `access_programs` may be absent |
 | [D63](../../spec/r01-research/decisions/d63-r01-package-v5-group-timing-tasks.md) | Package v5: group-timing tasks p13–p16 |
 | [D64](../../spec/r01-research/decisions/d64-r01-luna-cohort-effort-medium.md) | Luna runs at `medium` in the rigorous stage |
+| [R01-D1](../../spec/r01-research/decisions/r01-d1-rigorous-freeze-versions.md) | Rigorous freeze: package v5 tasks, prompts, cards, scoring, feedback, policies, effort and tooling |
+| [R01-D2](../../spec/r01-research/decisions/r01-d2-rigorous-fresh-inputs-and-seeds.md) | Rigorous inputs: works 4–6 as roles A–C, densest windows, seeds `synthetic-v2`/`velocity-v2`, order seed unchanged |
+| [R01-D3](../../spec/r01-research/decisions/r01-d3-target-rule-window-refusal.md) | A target rule without an eligible case refuses the window; the next-densest candidate, then the next work, follows |
+| [R01-D4](../../spec/r01-research/decisions/r01-d4-floor-tasks-kept.md) | Keep p13 and p14; report p13 as a Luna near-floor task |
+| [R01-D5](../../spec/r01-research/decisions/r01-d5-rigorous-repeats.md) | Three repeats: 261 initial and at most 783 submissions per cohort |
+| [R01-D6](../../spec/r01-research/decisions/r01-d6-rigorous-stop-and-restart.md) | Development stop rules; a halted pass restarts its unfinished cohorts once, in the pinned order |
+| [R01-D7](../../spec/r01-research/decisions/r01-d7-rigorous-reporting.md) | Report C3 vs C4 FIELDS per task and cohort; six primary arms on performed tasks |
+| [R01-D8](../../spec/r01-research/decisions/r01-d8-round-2-version-reset-and-work-reuse.md) | Round 2 is a version reset; it develops on works 4–6, and its rigorous round restarts at works 1–3 |
+| [R01-D9](../../spec/r01-research/decisions/r01-d9-round-2-terra-cohort.md) | Round 2 assesses `gpt-5.6-terra` at `low` |
+| [R01-D10](../../spec/r01-research/decisions/r01-d10-round-2-haiku45-cohort.md) | Haiku 4.5 is a round-2 development cohort (thinking 1,024, no output cap) |
+| [R01-D11](../../spec/r01-research/decisions/r01-d11-round-2-ladders-and-repeats.md) | Round-2 ladders as proposed; calibration one repeat, full runs three |
+| [R01-D12](../../spec/r01-research/decisions/r01-d12-round-2-output-scaled-timeout.md) | Round-2 timeout scales with expected output |
 
 Record further R01 protocol decisions, including the freeze-review answers,
 in that directory and this table; do not add them to the project decision
@@ -194,9 +206,89 @@ that governed this package.
   extract fresh works and a new synthetic seed, pin materialized inputs and
   prompts, and run under the full protocol.
 
+### Resume: rigorous stage
+
+This is the current entry point. On 2026-10-28 the operator answered the
+[freeze-review list](../../spec/r01-research/PILOT-DRAFT.md#freeze-review-v5)
+as proposed (R01-D1 to R01-D7, with D64) and confirmed the freeze.
+
+**Implemented offline (staged).** The rigorous path runs beside the
+development one; development package v5 and its manifest are unchanged and
+still start.
+
+- *Profiles.* `codex-current` is `medium` (D64). Plans take profiles by stage
+  (`profilesFor` in `cli-controls.mjs`): development-stage plans keep Luna at
+  `low`, so v2–v5 manifests and E369–E377 still regenerate. The
+  `codex-current-medium` probe remains development-only.
+- *Tasks.* `pilotTasks(windows, { revision, seeds })` takes the synthetic and
+  velocity seeds; `RIGOROUS_SEEDS` are `r01-pilot-synthetic-v2` and
+  `r01-pilot-velocity-v2`. `targetRuleFailure(role, notes)` runs a role's
+  target rules (A p08; B p05, p09; C p01, p06) and names the first that
+  finds no case.
+- *Inputs.* `selectRigorousWindows` (rules `r01-pilot-selection-rules-v3`)
+  skips the development works, ranks every admissible window of a work's pool
+  assets by note count, asset order and start, and accepts the first that has
+  no collision and passes the role's target rules (R01-D3). Without a target
+  refusal it equals input v2's rule (tested). The CLI's fifth argument
+  `rigorous` writes `r01-pilot-windows-rigorous-v1`.
+- *Package.* `buildRigorousPackage` builds `pilot-rigorous-v1`: v5's task
+  revision 5, prompt revision 2 and cards on the rigorous windows, with the
+  rigorous seeds stated beside the unchanged rules schema v4.
+- *Execution manifest.* `buildExecutionManifest` follows the package stage;
+  a rigorous manifest records the freeze decisions and Luna at `medium`.
+- *Runner.* The stage comes from the package. A rigorous start needs a pinned
+  manifest and is a full pass, or `--restart-of HALTED_OUTPUT --cohorts …` for
+  the halted pass's unfinished cohorts (R01-D6). Each restarted cohort must
+  match the pinned configuration and order; a restart cannot be restarted.
+- *Check.* Nine new tests in `pilot-rigorous.test.mjs`; 246 focused tests
+  pass. An end-to-end build on the development windows relabeled `rigorous`
+  (no new work opened) shows that the new seeds rehearse cleanly: 87 goldens
+  pass, all 568 wrong answers and 81 gratuitous refusals are rejected, and no
+  variant is non-distinguishing.
+
+**Materialized — [E378](../evidence/experiments/e378-r01-rigorous-inputs-and-execution-manifest.md).**
+With the operator's go-ahead, steps 1–3 below ran. Works 4–6 fill roles A–C
+(126, 128 and 62 notes); one R01-D3 refusal moved *trailing* from its 128-note
+window to a 126-note one. Package `pilot-rigorous-v1` and its
+[execution manifest](../evidence/data/r01-pilot-inputs/rigorous/execution/manifest.json)
+are pinned; the rehearsal accepts every golden and rejects all 568 wrong
+answers. The operator approved the run (step 4), and it is
+[E379](../evidence/experiments/e379-r01-rigorous-three-repeat-run.md):
+522/522 runs, no control failure or halt, and two recovered stalls. Haiku
+passed 247/261 first-attempt and Luna 138/261. Source tasks repeat the
+development split: C4 FIELDS leads on onset-changing edits and C3 on reading
+one derived onset (Luna C3 8 versus C4 15 of 24). bar|beat is the hardest
+performed arm. Haiku's ceiling and Luna's floor limit what E379 says about
+capable agents, so the operator approved a second development round with
+difficulty-scaled tasks: the operator answered the
+[round 2 brief](r01-round-2-difficulty-scaling.md)'s decisions (R01-D8–R01-D12);
+**next is its step 2** (catalog refresh and probes). R01's outcome (format adoption, claims and naming)
+waits for round 2. Works 7–11 remain unopened. The steps as run, from `brain/`:
+
+1. Refresh the inventory and run `node --import tsx
+   benchmarks/r01-candidates/pilot-inputs.mjs RAW_INVENTORY LIBRARY_ROOT
+   ../context/evidence/data/r01-pilot-inputs/rigorous/windows.json
+   ../context/evidence/data/r01-pilot-inputs/inventory.json rigorous`
+   (as in E366/E367; the lineage check must pass, and the reduced inventory
+   must match). Record every refusal.
+2. `pilot-package.mjs PINNED_PP TOOLING
+   ../context/evidence/data/r01-pilot-inputs/rigorous/package rigorous`.
+3. `pilot-execution.mjs PINNED_PP pilot-rigorous-v1
+   ../context/evidence/data/r01-pilot-inputs/rigorous/execution`; the
+   rehearsal must accept every golden and reject every wrong answer.
+4. After the operator's go: run `node --import tsx
+   benchmarks/r01-candidates/cli-pilot-runner.mjs start
+   /tmp/ghostnote-r01-producer-pal /tmp/ghostnote-r01-tooling
+   pilot-rigorous-v1 ../.tmp/NEW_OUTPUT` in the background (both cohorts,
+   three repeats, about 2 hours or more with Luna at `medium`). Check the CLI
+   versions first. If it halts, apply R01-D6 (`--restart-of`). Copy the
+   outputs to `context/evidence/data/r01-pilot-runs/`, analyse them under
+   R01-D7 and record an E record.
+
 ### Resume: development runs
 
-This is the current entry point. Pilot draft 2's
+**Complete; superseded by [resume: rigorous stage](#resume-rigorous-stage).**
+The text below is retained as the development record. Pilot draft 2's
 [materialization](../../spec/r01-research/PILOT-DRAFT.md#materialization),
 [source rules](../../spec/r01-research/PILOT-DRAFT.md#reserved-sources-and-extraction-rules),
 [execution rules](../../spec/r01-research/PILOT-DRAFT.md#execution-scoring-and-stop-rules)

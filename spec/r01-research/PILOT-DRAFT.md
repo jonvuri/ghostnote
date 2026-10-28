@@ -1,6 +1,8 @@
-# R01 Stage-A pilot, draft 2 — review answered, development stage
+# R01 Stage-A pilot, draft 2 — development complete, rigorous stage frozen
 
-**Status: review answers recorded; both cohorts admitted for development.** The operator
+**Status (2026-10-28): development is complete and the rigorous stage is
+frozen ([freeze review](#freeze-review-v5)); its inputs are materialized in
+[E378](../../context/evidence/experiments/e378-r01-rigorous-inputs-and-execution-manifest.md), and the three-repeat rigorous run is [E379](../../context/evidence/experiments/e379-r01-rigorous-three-repeat-run.md).** Earlier status: review answers recorded; both cohorts admitted for development. The operator
 answered the draft-1 review list on 2026-10-26 ([answers](#review-answers)).
 Under the [trial stages](#trial-stages) below,
 this pilot is in the **development** stage: its inputs may be reused, and the
@@ -303,8 +305,17 @@ rigorous stage repeats this with fresh inputs after its freeze.
 
 Drafted 2026-10-27 after [E374](../../context/evidence/experiments/e374-r01-package-v5-group-timing-one-repeat.md)
 and [E375](../../context/evidence/experiments/e375-r01-package-v5-three-repeat-development-pass.md).
-**Nothing is frozen and no new work has been opened.** Each item gives the
-proposed value; the operator accepts, changes or rejects it.
+
+**Answered and frozen 2026-10-28.** The operator accepted every item as
+proposed (4a earlier as D64) and confirmed the freeze: items 1–7 are
+[R01-D1](decisions/r01-d1-rigorous-freeze-versions.md) to
+[R01-D7](decisions/r01-d7-rigorous-reporting.md). For item 2 the order seed
+stays `r01-pilot-order-v1`; for item 3 the next window is the next-densest
+admissible candidate; for item 6 a halted pass may restart its unfinished
+cohorts once, in the pinned order. The rigorous path is implemented offline
+(the brief's [rigorous resume](../../context/work/r01-format-comparison.md#resume-rigorous-stage));
+works 4–6 were then extracted (E378). The list below is
+retained as proposed.
 
 **1. Versions to freeze.**
 

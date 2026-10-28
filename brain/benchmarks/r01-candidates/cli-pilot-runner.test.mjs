@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { PACKAGES, PILOT, pilotSelection, pilotPlan, cohortOf, countsByCohort, resolvePackage, loadPackageDirectory } from './cli-pilot-runner.mjs';
 import { runSequence } from './cli-paired-runner.mjs';
-import { PROFILES } from './cli-controls.mjs';
+import { PROFILES, DEVELOPMENT_PROFILES } from './cli-controls.mjs';
 import { INSTANCES, draftCells, draftCounts } from './pilot-draft.mjs';
 import { surfaces, goldenResponse } from './development-surfaces.mjs';
 
@@ -30,7 +30,7 @@ test('the full pilot plan matches draft 2: 201 initial and 603 maximum submissio
   assert.equal(plan.stage, 'development');
   assert.equal(plan.seed, 'r01-pilot-order-v1');
   assert.deepEqual(plan.cohorts.map(c => c.id), ['claude-current', 'codex-current']);
-  assert.deepEqual(plan.cohorts.map(c => c.profile), [PROFILES['claude-current'], PROFILES['codex-current']]);
+  assert.deepEqual(plan.cohorts.map(c => c.profile), [DEVELOPMENT_PROFILES['claude-current'], DEVELOPMENT_PROFILES['codex-current']]);
   assert.deepEqual([plan.counts.initialAttempts, plan.counts.maximumTaskAttempts, plan.counts.exclusions],
     [expected.allCohorts.initialAttempts, expected.allCohorts.maximumSubmissions, expected.exclusions * 2]);
   for (const cohort of plan.cohorts) {

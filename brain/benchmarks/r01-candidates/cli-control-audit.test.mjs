@@ -5,9 +5,9 @@ import { mkdtempSync, cpSync, rmSync, readFileSync, writeFileSync, readdirSync }
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { auditControl, auditProbe, loadClaudeCapture } from './cli-control-audit.mjs';
-import { PROFILES } from './cli-controls.mjs';
+import { PROFILES, DEVELOPMENT_PROFILES } from './cli-controls.mjs';
 
-const base = () => ({ provider: 'codex', profile: { ...PROFILES['codex-current'] },
+const base = () => ({ provider: 'codex', profile: { ...DEVELOPMENT_PROFILES['codex-current'] },
   processResult: { exitCode: 0, signal: null, error: null },
   events: [{ type: 'turn.completed', usage: { input_tokens: 100, cached_input_tokens: 70, output_tokens: 10 } }],
   requests: [{ model: 'gpt-6-luna', reasoning: { effort: 'low' }, max_output_tokens: 12000, input: [{ role: 'user', content: 'task' }] }],

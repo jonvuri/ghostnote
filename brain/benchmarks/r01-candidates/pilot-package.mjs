@@ -6,7 +6,8 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { buildPackage, writePackage } from './development-pairs.mjs';
-import { pilotTasks, TASK_RULES, TASK_RULES_V4, TASK_RULES_V5, SYNTHETIC_SEED, VELOCITY_SEED, WINDOWS_PATH } from './pilot-tasks.mjs';
+import { pilotTasks, loadWindows, TASK_RULES, TASK_RULES_V4, TASK_RULES_V5, SYNTHETIC_SEED, VELOCITY_SEED, WINDOWS_PATH,
+  RIGOROUS_SEEDS, RIGOROUS_WINDOWS_PATH } from './pilot-tasks.mjs';
 import { createAdapter } from './precision.mjs';
 
 // Package versions over input v2. Version 2 is E367's package; version 3
@@ -55,6 +56,32 @@ const LIMITS_V5 = [
   ...LIMITS_V4.slice(5),
 ];
 
+// Rigorous stage (R01-D1, R01-D2): package v5's frozen tasks, prompts and
+// cards on works 4-6 (roles A-C) with the rigorous seeds. Task rules keep
+// schema v4; the seed and window-selection changes are stated beside them.
+export const RIGOROUS = Object.freeze({ name: 'pilot-rigorous-v1', basedOn: 5, windows: RIGOROUS_WINDOWS_PATH, seeds: RIGOROUS_SEEDS });
+export const rigorousHeader = () => Object.freeze({ schema: 'r01-pilot-package-v1', status: 'offline-materialized', stage: 'rigorous',
+  inputVersion: 'rigorous-1', packageVersion: RIGOROUS.basedOn, taskRevision: PACKAGE_VERSIONS[RIGOROUS.basedOn].taskRevision,
+  windows: RIGOROUS.windows, taskRules: rulesFor(RIGOROUS.basedOn),
+  stageRules: { decisions: ['R01-D1', 'R01-D2', 'R01-D3'],
+    seeds: `The synthetic draws use ${RIGOROUS_SEEDS.synthetic} and the real-source velocities ${RIGOROUS_SEEDS.velocity}, in place of the development seeds named in taskRules.`,
+    roles: 'Works 4-6 of the seeded order (or their replacements) fill roles A, B and C; taskRules\' Work A/B/C refer to these roles.',
+    windows: 'Densest admissible window with target-rule refusal (r01-pilot-selection-rules-v3).' },
+  syntheticSeed: RIGOROUS_SEEDS.synthetic, velocitySeed: RIGOROUS_SEEDS.velocity });
+
+const LIMITS_RIGOROUS = [
+  'Rigorous stage: versions frozen by R01-D1; works and seeds are fresh (R01-D2) and were not seen in development.',
+  ...LIMITS_V5.slice(1),
+];
+
+/** The rigorous package over the given rigorous windows (default: the retained file). */
+export function buildRigorousPackage(adapter, tokenizer, { windows = loadWindows(RIGOROUS.windows) } = {}) {
+  assert.equal(windows.stage, 'rigorous', 'rigorous package needs rigorous windows');
+  const { taskRevision, promptRevision } = PACKAGE_VERSIONS[RIGOROUS.basedOn];
+  return buildPackage(adapter, tokenizer, { tasks: pilotTasks(windows, { revision: taskRevision, seeds: RIGOROUS.seeds }),
+    header: rigorousHeader(), limits: LIMITS_RIGOROUS, promptRevision });
+}
+
 export function buildPilotPackage(adapter, tokenizer, { version = 5 } = {}) {
   const { taskRevision, promptRevision } = PACKAGE_VERSIONS[version] ?? {};
   assert(taskRevision, `unknown package version ${version}`);
@@ -64,15 +91,18 @@ export function buildPilotPackage(adapter, tokenizer, { version = 5 } = {}) {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const [upstream, tooling, output, version = '5'] = process.argv.slice(2);
-  assert(upstream && tooling && output, 'usage: node --import tsx pilot-package.mjs PINNED_PP TOOLING NEW_OUTPUT_DIRECTORY [PACKAGE_VERSION=5]');
+  assert(upstream && tooling && output, 'usage: node --import tsx pilot-package.mjs PINNED_PP TOOLING NEW_OUTPUT_DIRECTORY [PACKAGE_VERSION=5|rigorous]');
+  const rigorous = version === 'rigorous';
   const tokenizerPackage = JSON.parse(readFileSync(resolve(tooling, 'node_modules/js-tiktoken/package.json')));
   assert.equal(tokenizerPackage.version, '1.0.21');
   const { getEncoding } = await import(pathToFileURL(resolve(tooling, 'node_modules/js-tiktoken/dist/index.js')));
   const adapter = await createAdapter(upstream);
   try {
-    const built = buildPilotPackage(adapter, getEncoding('o200k_base'), { version: Number(version) });
+    const built = rigorous ? buildRigorousPackage(adapter, getEncoding('o200k_base'))
+      : buildPilotPackage(adapter, getEncoding('o200k_base'), { version: Number(version) });
     writePackage(built, resolve(output), { extraSources: ['brain/benchmarks/r01-candidates/pilot-tasks.mjs',
-      'brain/benchmarks/r01-candidates/pilot-inputs.mjs', 'brain/benchmarks/r01-candidates/pilot-package.mjs', WINDOWS_PATH] });
+      'brain/benchmarks/r01-candidates/pilot-inputs.mjs', 'brain/benchmarks/r01-candidates/pilot-package.mjs',
+      rigorous ? RIGOROUS.windows : WINDOWS_PATH] });
     console.log(JSON.stringify(built.manifest.counts, null, 2));
   } finally { adapter.dispose(); }
 }

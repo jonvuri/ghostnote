@@ -6,12 +6,19 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { add, cmp, numeric, rational, spell } from './common.mjs';
-import { DATA } from './pilot-inputs.mjs';
+// Same as pilot-inputs.mjs's DATA; defined here so pilot-inputs can import this module without a cycle.
+export const DATA = 'context/evidence/data/r01-pilot-inputs';
 
 const clone = structuredClone;
 export const SYNTHETIC_SEED = 'r01-pilot-synthetic-v1';
 export const VELOCITY_SEED = 'r01-pilot-velocity-v1';
 export const WINDOWS_PATH = `${DATA}/v2/windows.json`;
+// Rigorous stage (R01-D2): fresh works 4-6 and new synthetic and velocity seeds.
+export const RIGOROUS_SEEDS = Object.freeze({ synthetic: 'r01-pilot-synthetic-v2', velocity: 'r01-pilot-velocity-v2' });
+export const RIGOROUS_WINDOWS_PATH = `${DATA}/rigorous/windows.json`;
+const DEVELOPMENT_SEEDS = Object.freeze({ synthetic: SYNTHETIC_SEED, velocity: VELOCITY_SEED });
+// The seeds in force while pilotTasks generates; development seeds otherwise.
+let active = DEVELOPMENT_SEEDS;
 export const TASK_RULES = Object.freeze({
   schema: 'r01-pilot-task-rules-v2',
   target: 'Sort notes by onset, then pitch, then ID. From index floor(n/2), take the first note whose pitch/onset address is unique and whose edited result neither collides with another note address nor leaves MIDI range 0-127. Instances sharing a window choose in instance order; a later instance skips notes already targeted.',
@@ -42,7 +49,7 @@ export const TASK_RULES_V5 = Object.freeze({ ...TASK_RULES_V4, schema: 'r01-pilo
 });
 
 /** Deterministic integer in [low, high] from a hash domain. */
-export function draw(domain, low, high, seed = SYNTHETIC_SEED) {
+export function draw(domain, low, high, seed = active.synthetic) {
   const bound = high - low + 1, limit = Math.floor(0x100000000 / bound) * bound;
   for (let counter = 0; ; counter++) {
     const value = createHash('sha256').update(JSON.stringify([seed, domain, counter])).digest().readUInt32BE(0);
@@ -131,13 +138,32 @@ export function nearMiss(notes, taken = new Set()) {
   throw new Error('no eligible near miss');
 }
 
-export function loadWindows() {
-  return JSON.parse(readFileSync(new URL(`../../../${WINDOWS_PATH}`, import.meta.url), 'utf8'));
+export function loadWindows(path = WINDOWS_PATH) {
+  return JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8'));
+}
+
+/**
+ * R01-D3: the first revision-5 target rule of a role that finds no eligible
+ * case in a window, or null. Roles A-C check the rules their tasks use:
+ * A p08; B p05 and p09; C p01 and p06. `notes` carry the stage's velocities.
+ */
+export function targetRuleFailure(role, notes) {
+  const checks = {
+    A: [['p08-shift-transpose-range', () => shiftTransposeRange(notes)]],
+    B: [['p05-edit-target', () => editTarget(notes, x => x)],
+      ['p09-near-miss', () => nearMiss(notes, new Set([editTarget(notes, x => x).id]))]],
+    C: [['p01-boundary-time', () => soundingTime(notes)], ['p06-transpose-pitch', () => transposePitch(notes)]],
+  }[role];
+  assert(checks, `unknown role ${role}`);
+  for (const [rule, check] of checks) {
+    try { check(); } catch (error) { if (/^no (eligible|boundary)/.test(error.message)) return rule; throw error; }
+  }
+  return null;
 }
 
 /** Seeded synthetic dynamics over one work's normalized notes (see TASK_RULES.velocity). */
-export function synthesizeVelocities(notes, workId) {
-  const v = (domain, low, high) => draw([workId, ...domain], low, high, VELOCITY_SEED);
+export function synthesizeVelocities(notes, workId, seed = active.velocity) {
+  const v = (domain, low, high) => draw([workId, ...domain], low, high, seed);
   const base = v(['base'], 64, 84), depth = v(['depth'], 6, 12), phase = v(['phase'], 0, 7);
   const pitches = notes.map(n => n.pitch).sort((a, b) => a - b), median = pitches[Math.floor(pitches.length / 2)];
   return notes.map(note => {
@@ -466,9 +492,15 @@ function harderRealTasks({ a, b, c, src, select }) {
 }
 
 /** The pilot tasks in instance order at a task revision (5 is current): p01-p12, plus p13-p16 from revision 5. */
-export function pilotTasks(windows = loadWindows(), { revision = 5 } = {}) {
-  const all = versioned([...realTasks(windows, revision), ...syntheticTasks(revision),
-    ...(revision >= 5 ? groupTimingTasks() : [])], revision);
+export function pilotTasks(windows = loadWindows(), { revision = 5, seeds = DEVELOPMENT_SEEDS } = {}) {
+  assert(typeof seeds?.synthetic === 'string' && typeof seeds?.velocity === 'string', 'seeds need synthetic and velocity');
+  const previous = active;
+  active = seeds;
+  let all;
+  try {
+    all = versioned([...realTasks(windows, revision), ...syntheticTasks(revision),
+      ...(revision >= 5 ? groupTimingTasks() : [])], revision);
+  } finally { active = previous; }
   const order = ['p01', 'p02', 'p03', 'p04', 'p05', 'p06', 'p07', 'p08', 'p09', 'p10', 'p11', 'p12',
     ...(revision >= 5 ? ['p13', 'p14', 'p15', 'p16'] : [])];
   return order.map(prefix => all.find(t => t.id.startsWith(`${prefix}-`)));

@@ -24,7 +24,7 @@ supply known intent and edge cases that transcriptions cannot establish.
 | Matched examples and deterministic results | [Screen artifact](../../context/evidence/data/r01-candidates/screen.json), including complete before/after examples |
 | Matched development cards/tasks | [Contracts and reproduction](DEVELOPMENT-PAIRS.md); [manifest and local prompt accounting](../../context/evidence/data/r01-development-pairs/manifest.json) |
 | Future agent experiment | [Protocol](TRIAL-PROTOCOL.md); [pilot draft 2](PILOT-DRAFT.md); [CLI controls](CLI-CONTROLS.md); [trial stages](PILOT-DRAFT.md#trial-stages) |
-| Protocol decisions | [D55–D64](decisions/), listed in the [R01 brief](../../context/work/r01-format-comparison.md#r01-protocol-decisions); R01-only, not in the project decision index |
+| Protocol decisions | [D55–D64 and R01-D1–R01-D7](decisions/), listed in the [R01 brief](../../context/work/r01-format-comparison.md#r01-protocol-decisions); R01-only, not in the project decision index |
 | Current claims controls | [Selective/timing-rich baseline builder](../../brain/benchmarks/r01-candidates/claims-control.mjs) |
 
 ## Common musical state and normalization

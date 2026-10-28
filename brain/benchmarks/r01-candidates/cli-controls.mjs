@@ -7,14 +7,22 @@ export const PROFILES = {
   // Historical settings remain reproducible; current cohorts use client defaults
   // for output length and calibrate adaptive effort during development (D57).
   'codex-historical': { provider: 'codex', model: 'gpt-5.4-mini-2026-03-17', effort: 'low', maxOutputTokens: 12000, version: 'codex-cli 0.163.0' },
-  'codex-current': { provider: 'codex', model: 'gpt-6-luna', effort: 'low', version: 'codex-cli 0.163.0' },
-  // Development effort probe (E376); not a pilot cohort. The runner admits it only in subsets.
+  // Luna runs at medium from the rigorous freeze (D64, R01-D1). Development
+  // runs E369-E375 used low; their plans and execution manifests record it.
+  // The rigorous Luna cohort runs at medium (D64, R01-D1). Development-stage
+  // plans use DEVELOPMENT_PROFILES below, which keep the pre-freeze low.
+  'codex-current': { provider: 'codex', model: 'gpt-6-luna', effort: 'medium', version: 'codex-cli 0.163.0' },
+  // Development effort probe (E376); not a pilot cohort. The runner admits it only in development subsets.
   'codex-current-medium': { provider: 'codex', model: 'gpt-6-luna', effort: 'medium', version: 'codex-cli 0.163.0' },
   'claude-historical': { provider: 'claude', model: 'claude-haiku-4-5-20251001', thinkingBudget: 1024, maxOutputTokens: 12000, version: '2.1.302 (Claude Code)' },
   // Low is Haiku 5.5's lowest effort and the calibrated cohort setting (E365);
   // it still generates more than Luna low, which reported no reasoning.
   'claude-current': { provider: 'claude', model: 'claude-haiku-5-5', effort: 'low', version: '2.1.302 (Claude Code)' },
 };
+// Development-stage cohorts keep Luna at low, as in E369-E375 and the v2-v5
+// execution manifests (D64); only the rigorous stage uses medium.
+export const DEVELOPMENT_PROFILES = Object.freeze({ ...PROFILES, 'codex-current': { ...PROFILES['codex-current'], effort: 'low' } });
+export const profilesFor = stage => stage === 'rigorous' ? PROFILES : DEVELOPMENT_PROFILES;
 export const INHERITED_NAMES = ['HOME', 'CODEX_HOME', 'PATH', 'TMPDIR', 'USER', 'LOGNAME',
   'SHELL', 'LANG', 'LC_ALL', 'TERM', 'SSL_CERT_FILE', 'SSL_CERT_DIR', 'NODE_EXTRA_CA_CERTS',
   'HTTPS_PROXY', 'HTTP_PROXY', 'ALL_PROXY', 'NO_PROXY', 'https_proxy', 'http_proxy', 'all_proxy', 'no_proxy'];

@@ -19,14 +19,16 @@ const rehearsal = rehearseExecution(pkg, codec);
 
 test('the retained execution manifest and rehearsal regenerate byte for byte', () => {
   assert.equal(json(rehearsal), executionFile(5, 'rehearsal.json'));
-  // E376 changed two harness sources (probe profile, Codex policy v3) after pinning;
-  // everything the runner checks at start still regenerates exactly.
+  // E376 changed two harness sources (probe profile, Codex policy v3) after pinning,
+  // and the rigorous path (R01-D1-D3) changed the task, package and execution
+  // sources; everything the runner checks at start still regenerates exactly.
   const { sources, ...rebuilt } = buildExecutionManifest(pkg, rehearsal);
   const { sources: retainedSources, ...retained } = JSON.parse(executionFile(5, 'manifest.json'));
   assert.deepEqual(rebuilt, retained);
   assert.deepEqual(sources.map(s => s.path), retainedSources.map(s => s.path));
   const drifted = sources.filter((s, i) => s.sha256 !== retainedSources[i].sha256).map(s => s.path.split('/').at(-1));
-  assert(drifted.every(p => ['cli-controls.mjs', 'cli-pilot-runner.mjs'].includes(p)), drifted.join());
+  assert(drifted.every(p => ['cli-controls.mjs', 'cli-pilot-runner.mjs', 'pilot-execution.mjs', 'pilot-tasks.mjs',
+    'pilot-package.mjs'].includes(p)), drifted.join());
   assert.equal(pinned.stage, 'development');
   assert.equal(pinned.selection.seed, 'r01-pilot-order-v1');
   assert.equal(pinned.selection.subset, false);

@@ -1,5 +1,5 @@
 // R01 pilot execution manifest and task-specific offline rehearsal
-// (development stage). The manifest pins one package's payload, oracle and
+// (development or rigorous stage). The manifest pins one package's payload, oracle and
 // prompt hashes together with the pilot runner's materialized order. The
 // rehearsal scores named, task-specific wrong answers on every eligible cell
 // and requires each to fail while every golden passes. No model call occurs.
@@ -464,21 +464,30 @@ export function rehearseExecution(pkg, codec) {
 export const EXECUTION_SOURCES = ['pilot-execution.mjs', 'cli-pilot-runner.mjs', 'cli-paired-runner.mjs', 'cli-trial-plan.mjs',
   'cli-controls.mjs', 'development-surfaces.mjs', 'pilot-tasks.mjs', 'pilot-package.mjs'];
 
-export function buildExecutionManifest(pkg, rehearsal, { selection = pilotSelection() } = {}) {
-  const m = pkg.manifest;
-  assert.equal(m.stage, 'development', 'this manifest builder is for the development stage');
+// Rigorous-stage freeze (R01-D1-D7); recorded in a rigorous manifest.
+export const RIGOROUS_FREEZE = Object.freeze({ decisions: ['D64', 'R01-D1', 'R01-D2', 'R01-D3', 'R01-D4', 'R01-D5', 'R01-D6', 'R01-D7'],
+  contextPolicies: { claude: 'r01-claude-context-policy-v2', codex: 'r01-codex-context-policy-v3' }, retries: 'r01-retries-reported-v1',
+  stopRules: 'A control failure halts; a stall gets one identical resubmission and a second consecutive stall halts; a quota pause resumes with a labeled resubmission. A halted full pass may restart its unfinished cohorts once, in the pinned order (R01-D6).' });
+
+export function buildExecutionManifest(pkg, rehearsal, { selection = null, readWindows = path => readFileSync(join(root, path)) } = {}) {
+  const m = pkg.manifest, stage = m.stage ?? 'development';
+  assert(['development', 'rigorous'].includes(stage), `unknown package stage ${stage}`);
+  selection ??= pilotSelection({ stage });
+  assert.equal(selection.stage, stage, 'selection stage differs from the package');
   assert.equal(selection.subset, false, 'pin the full pilot pass, not a subset');
   const plan = pilotPlan(m, selection);
   const oracles = new Map(readOracles(pkg).map(o => [o.id, o.sha256]));
   const pairs = new Map(pkg.pairs.map(p => [p.id, p]));
   const rehearsalBytes = json(rehearsal);
   return {
-    schema: 'r01-pilot-execution-manifest-v1', stage: 'development', status: 'pinned-not-submitted',
+    schema: 'r01-pilot-execution-manifest-v1', stage, status: 'pinned-not-submitted',
     scoring: SCORING_VERSION, feedback: FEEDBACK_VERSION,
-    evidence: 'development stage: supports design iteration only, not candidate comparison',
+    evidence: stage === 'development' ? 'development stage: supports design iteration only, not candidate comparison'
+      : 'rigorous stage: frozen versions on fresh inputs',
+    ...(stage === 'rigorous' ? { freeze: RIGOROUS_FREEZE } : {}),
     package: { name: pkg.name, directory: relative(root, pkg.directory), manifestSha256: pkg.manifestSha256,
       schema: m.schema, inputVersion: m.inputVersion, windows: m.windows,
-      windowsSha256: sha(readFileSync(join(root, m.windows))), taskRules: m.taskRules.schema,
+      windowsSha256: sha(readWindows(m.windows)), taskRules: m.taskRules.schema,
       syntheticSeed: m.syntheticSeed, velocitySeed: m.velocitySeed, counts: m.counts },
     tooling: { node: m.node, upstreamPin: m.upstreamPin, precisionPatchSha256: m.precisionPatchSha256, tokenizer: m.tokenizer },
     hashEncoding: { artifacts: 'SHA-256 of the exact UTF-8 bytes', tasks: 'SHA-256 of canonical sorted-key JSON',
@@ -496,7 +505,7 @@ export function buildExecutionManifest(pkg, rehearsal, { selection = pilotSelect
       : { id: c.id, task: c.task, arm: c.arm, role: c.role, eligible: false, reason: c.reason }),
     order: Object.fromEntries(plan.cohorts.map(c => [c.id, orderOf(plan, c)])),
     rehearsal: { path: 'rehearsal.json', sha256: sha(rehearsalBytes), counts: rehearsal.counts },
-    sources: EXECUTION_SOURCES.map(p => ({ path: `brain/benchmarks/r01-candidates/${p}`,
+    sources: [...EXECUTION_SOURCES, ...(stage === 'rigorous' ? ['pilot-inputs.mjs'] : [])].map(p => ({ path: `brain/benchmarks/r01-candidates/${p}`,
       sha256: sha(readFileSync(new URL(p, import.meta.url))) })),
   };
 }

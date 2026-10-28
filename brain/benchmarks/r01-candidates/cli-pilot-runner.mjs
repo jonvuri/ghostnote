@@ -5,11 +5,11 @@ import assert from 'node:assert/strict';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { PROFILES } from './cli-controls.mjs';
+import { profilesFor } from './cli-controls.mjs';
 import { buildTrialPlan, STAGES } from './cli-trial-plan.mjs';
 import { SCORING_VERSION, surfaces } from './development-surfaces.mjs';
 import { developmentTasks } from './development-tasks.mjs';
-import { pilotTasks } from './pilot-tasks.mjs';
+import { pilotTasks, loadWindows, RIGOROUS_SEEDS, RIGOROUS_WINDOWS_PATH } from './pilot-tasks.mjs';
 import { canonical } from './common.mjs';
 import { auditAttempt } from './cli-control-audit.mjs';
 import { preflightProvider, runCliAttempt, sha } from './cli-attempt.mjs';
@@ -50,10 +50,11 @@ export function pilotSelection({ cohorts = PILOT.cohorts, tasks = null, repeats 
 /** The planner's seeded order over the selection, with each cohort's configuration hash. */
 export function pilotPlan(manifest, selection) {
   const scoped = selection.tasks ? selectTasks(manifest, selection.tasks) : manifest;
-  const plan = buildTrialPlan(scoped, { models: selection.cohorts.map(id => modelConfig(PROFILES[id])),
+  const profiles = profilesFor(selection.stage);
+  const plan = buildTrialPlan(scoped, { models: selection.cohorts.map(id => modelConfig(profiles[id])),
     seed: selection.seed, repeats: selection.repeats, maxRepairs: selection.maxRepairs,
     timeoutMs: selection.timeoutMs, stage: selection.stage });
-  const cohorts = selection.cohorts.map((id, i) => ({ id, configSha256: plan.models[i].configSha256, profile: PROFILES[id] }));
+  const cohorts = selection.cohorts.map((id, i) => ({ id, configSha256: plan.models[i].configSha256, profile: profiles[id] }));
   return { ...plan, selection, cohorts };
 }
 
@@ -84,10 +85,14 @@ export const PACKAGES = {
   'pilot-development-v4': { directory: 'context/evidence/data/r01-pilot-inputs/v4/package',
     regenerate: () => pilotTasks(undefined, { revision: 4 }),
     execution: 'context/evidence/data/r01-pilot-inputs/v4/execution/manifest.json', retired: 'pilot-development-v5' },
-  // v4 plus four synthetic group-timing tasks p13-p16 (D63); current.
+  // v4 plus four synthetic group-timing tasks p13-p16 (D63); the last development package.
   'pilot-development-v5': { directory: 'context/evidence/data/r01-pilot-inputs/v5/package',
     regenerate: () => pilotTasks(undefined, { revision: 5 }),
     execution: 'context/evidence/data/r01-pilot-inputs/v5/execution/manifest.json' },
+  // Rigorous stage (R01-D1-D3): v5's frozen tasks on works 4-6 with fresh seeds.
+  'pilot-rigorous-v1': { directory: 'context/evidence/data/r01-pilot-inputs/rigorous/package',
+    regenerate: () => pilotTasks(loadWindows(RIGOROUS_WINDOWS_PATH), { revision: 5, seeds: RIGOROUS_SEEDS }),
+    execution: 'context/evidence/data/r01-pilot-inputs/rigorous/execution/manifest.json' },
 };
 
 /** Canonical hash of the plan as the runner writes it to plan.json. */
@@ -107,12 +112,37 @@ export function checkExecution(pinned, pkg, plan) {
   assert.equal(pinned.feedback ?? null, FEEDBACK_VERSION, 'feedback version differs from the execution manifest');
   const cells = new Map(pinned.cells.map(c => [c.id, c]));
   for (const run of plan.runs) assert.equal(run.promptSha256, cells.get(run.cell)?.promptSha256, `${run.cell}: prompt differs from the execution manifest`);
-  if (!plan.selection.subset) {
-    assert.equal(planSha256(plan, pkg), pinned.plan.planSha256, 'plan differs from the execution manifest');
-    for (const cohort of plan.cohorts) assert.deepEqual(orderOf(plan, cohort), pinned.order[cohort.id], `${cohort.id}: order differs from the execution manifest`);
+  if (!plan.selection.subset) assert.equal(planSha256(plan, pkg), pinned.plan.planSha256, 'plan differs from the execution manifest');
+  // A full pass and a rigorous cohort restart (R01-D6) both follow the pinned order of each cohort.
+  if (!plan.selection.subset || plan.stage === 'rigorous') {
+    for (const cohort of plan.cohorts) {
+      assert.equal(cohort.configSha256, pinned.cohorts.find(c => c.id === cohort.id)?.configSha256, `${cohort.id}: configuration differs from the execution manifest`);
+      assert.deepEqual(orderOf(plan, cohort), pinned.order[cohort.id], `${cohort.id}: order differs from the execution manifest`);
+    }
   }
   return true;
 }
+
+/**
+ * R01-D6: a rigorous subset is only a restart of a halted full pass. It names
+ * that pass, which must be a rigorous full pass of the same package and a
+ * non-restart, and covers exactly the cohorts that did not finish there.
+ */
+export function checkRestart(plan, pkg, halted) {
+  if (plan.stage !== 'rigorous') { assert.equal(halted, null, '--restart-of is for the rigorous stage'); return null; }
+  if (!halted) { assert(!plan.selection.subset, 'a rigorous run is a full pass or a --restart-of restart'); return null; }
+  const { plan: prior, results } = halted;
+  assert.equal(prior.stage, 'rigorous', 'restart target is not a rigorous run');
+  assert.equal(prior.package.manifestSha256, pkg.manifestSha256, 'restart target used another package');
+  assert(!prior.selection.subset && !prior.selection.restartOf, 'restart target must be a full pass; a restart cannot be restarted');
+  assert.match(results.status, /^halted-/, 'restart target did not halt');
+  assert(plan.selection.tasks === null && plan.selection.repeats === prior.selection.repeats, 'a restart covers whole cohorts');
+  const unfinished = prior.cohorts.filter(c => prior.runs.filter(r => r.configSha256 === c.configSha256)
+    .some(r => !TERMINAL_STATUSES.has(results.runs.find(x => x.id === r.id)?.status))).map(c => c.id);
+  assert.deepEqual(plan.cohorts.map(c => c.id), unfinished, `restart must cover exactly the unfinished cohorts: ${unfinished.join(', ')}`);
+  return { output: halted.output, planSha256: sha(canonical(prior)), cohorts: unfinished };
+}
+const TERMINAL_STATUSES = new Set(['complete', 'exhausted']);
 
 export function loadExecution(name) {
   const path = PACKAGES[name]?.execution;
@@ -154,16 +184,18 @@ function parseOptions(args) {
     if (!args[i].startsWith('--')) { positional.push(args[i]); continue; }
     const key = args[i].slice(2);
     if (key === 'after-interruption') { options.afterInterruption = true; continue; }
-    assert(['cohorts', 'tasks', 'repeats', 'transport'].includes(key) && i + 1 < args.length, `unknown or incomplete option --${key}`);
+    assert(['cohorts', 'tasks', 'repeats', 'transport', 'restart-of'].includes(key) && i + 1 < args.length, `unknown or incomplete option --${key}`);
     options[key] = args[++i];
   }
   return { options, positional };
 }
 
 const USAGE = `usage:
-  node --import tsx cli-pilot-runner.mjs start PINNED_PP TOOLING PACKAGE NEW_OUTPUT [--cohorts a,b] [--tasks t1,t2] [--repeats n] [--transport claude=SUMMARY_JSON]
+  node --import tsx cli-pilot-runner.mjs start PINNED_PP TOOLING PACKAGE NEW_OUTPUT [--cohorts a,b] [--tasks t1,t2] [--repeats n] [--transport claude=SUMMARY_JSON] [--restart-of HALTED_OUTPUT]
   node --import tsx cli-pilot-runner.mjs resume PINNED_PP TOOLING OUTPUT [--after-interruption]
-PACKAGE is "development", "pilot-development-v5" or a package directory (v1-v4 are retired).`;
+PACKAGE is "pilot-rigorous-v1", "pilot-development-v5", "development" or a package directory (v1-v4 are retired).
+The stage comes from the package. A rigorous start is a full pass, or a restart of the halted
+full pass's unfinished cohorts with --restart-of and --cohorts (R01-D6).`;
 
 async function main(args) {
   const { options, positional: [command, upstream, tooling, ...rest] } = parseOptions(args);
@@ -177,12 +209,18 @@ async function main(args) {
   if (command === 'start') {
     const [packageName, outputArg] = rest;
     assert(packageName && outputArg && !options.afterInterruption, USAGE);
-    const selection = pilotSelection({ cohorts: options.cohorts?.split(','), tasks: options.tasks?.split(','),
-      repeats: options.repeats === undefined ? undefined : Number(options.repeats) });
     assert(!PACKAGES[packageName]?.retired, `${packageName} is retired; use ${PACKAGES[packageName]?.retired}`);
     pkg = resolvePackage(packageName);
+    const stage = pkg.manifest.stage ?? 'development';
+    const halted = options['restart-of'] ? { output: resolve(options['restart-of']),
+      plan: readJson(join(resolve(options['restart-of']), 'plan.json')), results: readJson(join(resolve(options['restart-of']), 'results.json')) } : null;
+    const selection = pilotSelection({ cohorts: options.cohorts?.split(','), tasks: options.tasks?.split(','),
+      repeats: options.repeats === undefined ? undefined : Number(options.repeats), stage });
     plan = pilotPlan(pkg.manifest, selection);
+    const restartOf = checkRestart(plan, pkg, halted);
+    if (restartOf) plan = { ...plan, selection: { ...plan.selection, restartOf } };
     const pinned = loadExecution(packageName);
+    assert(pinned || stage === 'development', 'a rigorous start needs a pinned execution manifest');
     if (pinned) checkExecution(pinned, pkg, plan);
     output = resolve(outputArg);
     assert(!existsSync(output), 'output already exists');
@@ -198,6 +236,7 @@ async function main(args) {
     pkg = resolvePackage(saved.package.name);
     assert.equal(pkg.manifestSha256, saved.package.manifestSha256, 'package changed since the plan was written');
     plan = pilotPlan(pkg.manifest, pilotSelection(saved.selection));
+    if (saved.selection.restartOf) plan = { ...plan, selection: { ...plan.selection, restartOf: saved.selection.restartOf } };
     assert.equal(canonical({ ...plan, package: saved.package }), canonical(saved), 'rebuilt plan differs; start a new versioned run');
     prior = results.runs;
     const sessions = readdirSync(join(output, 'sessions')).sort();
