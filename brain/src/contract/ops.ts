@@ -821,14 +821,14 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
   }
 }
 
-/** Paged reads do not expand the complete-chain fingerprint accepted by device writers. */
+/** Public top-level write admission stays bounded until B17 session 6 retires the width caps. */
 export function assertTopLevelDeviceWriteWindow(op: string, count: number, bankSize: number | undefined): void {
   if (bankSize === undefined || count > bankSize) {
     throw new InvalidOpError(op, 'top-level device writes require the entire chain to fit in the first window');
   }
 }
 
-/** B17 session 2 expands reads; all chain writers still require their first window. */
+/** Public chain-write admission stays bounded until B17 session 6; extension paging is checkpointed. */
 function assertChainWriteWindow(op: string, observed: ObservedContainer): void {
   if (observed.chainsBankSize !== undefined && observed.chains.length > observed.chainsBankSize) {
     throw new InvalidOpError(op, 'layer-chain writes beyond the first window are not yet supported');

@@ -111,6 +111,8 @@ public class Rig {
 
     /** Device chain view for each pool cursor track (E3/E4). */
     public final DeviceBank[] cursorDeviceBanks;
+    /** Independent one-device reorder anchor on each pool cursor; never borrows cursor-0 scopes. */
+    public final DeviceBank[] cursorDeviceAnchors;
 
     /** Host-level cursor clip: always follows the user's clip selection. */
     public final Clip followerClip;
@@ -868,6 +870,7 @@ public class Rig {
         cursorTracks = new CursorTrack[config.cursorPool];
         cursorClips = new PinnableCursorClip[config.cursorPool];
         cursorDeviceBanks = new DeviceBank[config.cursorPool];
+        cursorDeviceAnchors = new DeviceBank[config.cursorPool];
         remotePages0 = new CursorRemoteControlsPage[config.remotePages];
         remoteControls0 = new RemoteControl[config.remotePages][REMOTE_BANK];
         remotePageObservedGeneration = new long[config.remotePages];
@@ -1115,6 +1118,15 @@ public class Rig {
             cursorClips[i] = cursorTracks[i].createLauncherCursorClip(config.fineSteps, config.gridKeys);
             markClip(cursorClips[i]);
             cursorClips[i].isPinned().markInterested();
+
+            cursorDeviceAnchors[i] = cursorTracks[i].createDeviceBank(1);
+            cursorDeviceAnchors[i].itemCount().markInterested();
+            cursorDeviceAnchors[i].scrollPosition().markInterested();
+            Device anchor = cursorDeviceAnchors[i].getDevice(0);
+            anchor.position().markInterested();
+            anchor.exists().markInterested();
+            anchor.name().markInterested();
+            anchor.isEnabled().markInterested();
 
             cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(config.deviceBank);
             cursorDeviceBanks[i].itemCount().markInterested();

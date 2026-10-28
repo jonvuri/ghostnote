@@ -173,8 +173,8 @@ and live acceptance in session 7.
 | 2 | Paged top-level and nested reads | Complete, live E356 |
 | 3 | Write-window foundation and paged chain controls | Checkpointed; offline checks pass; not deployed |
 | [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Checkpointed; offline checks pass; not deployed |
-| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Next; fresh session |
-| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Queued; fresh session |
+| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Checkpointed; offline checks pass; not deployed |
+| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Next; fresh session |
 | [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Queued; fresh session |
 
 Each fresh session starts with `context/NOW.md`, its section below, and the
@@ -564,8 +564,8 @@ current product baseline.
   runtime costs are unchanged; no new live measurement is claimed.
 
 The remaining work was assigned to [sessions 4–7](#sessions). Session 4 is
-now checkpointed below; the next fresh session is
-[top-level mutation paging](#session-5--top-level-mutation-paging).
+now checkpointed below, as is session 5; the next fresh session is
+[cap retirement and composition](#session-6--cap-retirement-and-composition).
 
 ## Session 3 chain-control integration
 
@@ -708,3 +708,71 @@ work without claiming new live latency.
 - `duplicate_layer_chain` always appends after its source (E353), so a copy
   of a chain on page one can land on page two; the create's minted-chain
   diff must run over the stitched reading.
+
+## Session 5 top-level mutation checkpoint
+
+Implemented on 2026-10-27; **verified offline, not deployed or verified in
+Bitwig**. Continue with [session 6](#session-6--cap-retirement-and-composition)
+in a fresh session. Public width admission remains unchanged; session 7 owns
+the coordinated deployment and live acceptance.
+
+`DeviceMutationHandlers` now registers the existing insertion (`insertBitwig`,
+`insertClap`, `insertVst3`, `insertFile`), deletion, enabled-state, and reorder
+commands as asynchronous handlers. `DeviceFingerprint` validates the complete
+paged name/enabled sequence and durable track identity. `WindowAccess` then
+acquires the absolute source and, for relative reordering, the independent
+anchor. The selected page must agree with that fingerprint before the single
+mutation attempt. Appending needs the track insertion point only. The existing
+brain encoder already carries complete arrays and absolute positions; cursor
+references remain compatible with both product decimal strings and numeric
+probe inputs.
+
+**Pool ownership:** each pool track now owns one additional one-device bank
+for reorder anchors. Source and anchor can therefore be arbitrarily far apart
+on any pool cursor, without repointing another cursor or borrowing container
+scopes owned by cursor 0. With the default eight-cursor pool, this adds eight
+banks, eight device handles, and 48 marked values. `rig.info` accounts for the
+new banks, slots, marked values, and total host objects. No host handles are
+allocated at request time.
+
+`ChainMoveHandlers` uses the same paged top-level fingerprint. Its mixed
+track/layer-chain routes no longer impose a sixteen-device internal bound.
+The top-level source window can remain displaced while the destination chain
+is held, then restores before the enclosing chain windows. Existing index
+projection follows containers shifted by source removal or insertion at the
+track start. Named-slot routes still delegate to the bounded legacy handler.
+
+All work holds one write lease through acquisition, the mutation, and window
+restoration. A host exception after the attempt reports possible effects;
+correct effects remain and the write is never repeated. A restoration failure
+latches write refusal before releasing the lease. The brain retains its
+independent final readback; these acknowledgements are not proof of effects.
+
+Verification covers eleven registered device-mutation test groups and fourteen
+relocation groups: first/last devices on seventeen/eighteen-device tracks,
+all four insert sources across sixteen, distant reorders on two pool cursors,
+complete name/enabled guards, unavailable populations, malformed inputs,
+delayed observer delivery, far mixed transfers and container shifts, no-op/partial writes, failed source
+or anchor restoration, unrelated state, and queued/batch continuation. The
+live/fake adapter tests keep complete reads separate from current write
+admission for insertion, deletion, enabled-state, and reordering. Encoder
+regressions retain full fingerprints and absolute indices on a nonzero pool
+cursor. `./gradlew check` from `extension/` and `npm run check` from `brain/`
+pass: all 2,586 brain tests, including wire goldens and call budgets.
+`LANG=en_US.UTF-8 ruby context/check.rb` and `git diff --check` pass too.
+No live latency is claimed.
+
+**Session-6 handoff:** remove width admission only for the implemented routes,
+in shared preflight, both adapters, schemas/descriptions, and composition.
+The fake insert/reorder/mixed-transfer preflight still supplies a truncated
+private observation even though its public reads are complete; retire those
+slices with the admission changes. The five-entry preset seed still needs
+a composition implementation beyond five chains; D44's time budget stays. Preserve parameter and named-slot
+restrictions and their legacy first-window handlers. Probe-only
+`device.duplicate`, editor selection, and cursor-relative `insertFileAt` were
+not migrated by this session. The public descriptions remain v56; the normal
+wire stays at 93 methods, hash `d6decf985f6b1f36`. Source `rig.info` adds
+`deviceMutationRoute: paged-device-mutations-v1` and advances
+`chainMoveRoute` to `paged-chain-moves-v2`; `containerScope.rule` remains
+`paged-windows-v3`. Session 7 must check these alongside the session-3 chain
+control marker after deployment. The running session-2 archive is unchanged.

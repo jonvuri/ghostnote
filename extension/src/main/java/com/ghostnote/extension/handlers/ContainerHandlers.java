@@ -68,7 +68,7 @@ public final class ContainerHandlers extends HandlerGroup {
         // write name an absolute container position; each aims and settles a
         // scope for it in later tasks and replies once (`ContainerScopes`).
         r.onAsync("chain.observe", this::chainObserve);
-        ChainMoveHandlers.over(host, rig, this::verifyExpectedTopLevelDevices).register(r, this::chainMove);
+        ChainMoveHandlers.over(host, rig).register(r, this::chainMove);
         ChainControlHandlers.over(host, rig).register(r);
         r.on("drumpad.list", params -> drumPadList());
         r.on("drumpad.insertDevice", params -> drumPadInsertDevice(params));

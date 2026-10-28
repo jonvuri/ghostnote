@@ -635,7 +635,7 @@ test('5o: the refused empty named-slot move remains probe-only', () => {
     'utf8',
   );
   const start = source.indexOf('private JsonElement deviceMoveIntoSlot(JsonObject params)');
-  const end = source.indexOf('private JsonElement deviceInsertFile(JsonObject params)', start);
+  const end = source.indexOf('\n    /**', start);
   const handler = source.slice(start, end);
   assert.ok(start >= 0 && end > start, 'the named-slot move handler must exist');
   assert.match(handler, /if \(cursorIndex != 0\)/,
@@ -800,50 +800,17 @@ test('5d: a named slot descent proves its parent before remote readback', () => 
   assert.ok(WIRE_METHODS_USED.includes('devcursor.selectParent'));
 });
 
-test('4g: guarded device mutations check durable track identity before mutation', () => {
-  const source = readFileSync(
-    join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote',
-      'extension', 'handlers', 'DeviceHandlers.java'),
-    'utf8',
-  );
-  const routes = [
-    ['deviceInsertBitwig', 'insertBitwigDevice'],
-    ['deviceInsertVst3', 'insertVST3Device'],
-    ['deviceInsertClap', 'insertCLAPDevice'],
-    ['deviceInsertFile', 'insertFile(path)'],
-  ] as const;
-  for (const [handler, typedCall] of routes) {
-    const start = source.indexOf(`private JsonElement ${handler}(`);
-    const end = source.indexOf('\n    /**', start);
-    const body = source.slice(start, end);
-    const trackGuard = body.indexOf('verifyExpectedTrackChannelId(');
-    const chainGuard = body.indexOf('verifyExpectedDeviceChain(');
-    const mutation = body.indexOf(typedCall);
-    assert.ok(start >= 0 && trackGuard >= 0 && trackGuard < chainGuard && chainGuard < mutation,
-      `${handler} must check track identity, then the complete chain, before its typed mutation`);
-  }
-
-  const helperStart = source.indexOf('private void verifyExpectedTrackChannelId(');
-  const helperEnd = source.indexOf('\n    /** Compare the current complete bank', helperStart);
-  const helper = source.slice(helperStart, helperEnd);
-  assert.match(helper, /if \(expectedNames == null\) \{\s*return;/,
-    'legacy raw probes without a chain fingerprint stay compatible');
-  assert.match(helper, /!params\.has\("expectedTrackChannelId"\)/,
-    'a guarded insert must supply the durable track identity');
-  assert.match(helper, /channelId\(\)\.get\(\)/,
-    'the guard must read the cursor track identity in the mutation callback');
-  assert.match(helper, /!expected\.equals\(actual\)/,
-    'the observed cursor track must match the durable expected identity');
-
-  for (const handler of ['deviceDelete', 'deviceMoveTo']) {
-    const start = source.indexOf(`private JsonElement ${handler}(`);
-    const end = source.indexOf('\n    /**', start);
-    const body = source.slice(start, end);
-    const trackGuard = body.indexOf('verifyExpectedTrackChannelId(');
-    const chainGuard = body.indexOf('verifyExpectedDeviceChain(');
-    assert.ok(start >= 0 && trackGuard >= 0 && trackGuard < chainGuard,
-      `${handler} must require durable track identity before its complete-chain guard`);
-  }
+test('B17: device mutations register the paged handler and own anchors on every pool cursor', () => {
+  const root = join(process.cwd(), '..', 'extension', 'src', 'main', 'java', 'com', 'ghostnote', 'extension');
+  const handlers = readFileSync(join(root, 'handlers', 'DeviceHandlers.java'), 'utf8');
+  const mutations = readFileSync(join(root, 'handlers', 'DeviceMutationHandlers.java'), 'utf8');
+  const rig = readFileSync(join(root, 'Rig.java'), 'utf8');
+  assert.match(handlers, /DeviceMutationHandlers\.over\(host, rig\)\.register\(r\)/);
+  assert.match(mutations, /registry\.onAsync\("device.moveTo",/);
+  assert.match(rig, /cursorDeviceAnchors\[i\] = cursorTracks\[i\]\.createDeviceBank\(1\)/);
+  assert.doesNotMatch(mutations, /containerScopes|scopeBanks/,
+    'pool-cursor reordering must not borrow scopes bound to cursor 0');
+  // Registered-handler tests exercise the guard ordering, overflow effects, and restoration.
 });
 
 test('4g: guarded parameter writes recheck the top-level target immediately before mutation', () => {

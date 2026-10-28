@@ -103,6 +103,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("containerScopeRoute", ContainerScopes.RULE);
         result.addProperty("layerControlRoute", ChainControlHandlers.RULE);
         result.addProperty("chainMoveRoute", ChainMoveHandlers.RULE);
+        result.addProperty("deviceMutationRoute", DeviceMutationHandlers.RULE);
         result.addProperty("windowWriteBlock", rig.writeGate.blockedReason());
         result.add("containerScopeStatus", rig.containerScopes.status());
         result.addProperty("parameterSettle", Rig.DIRECT_PARAMETER_SETTLE);
@@ -167,17 +168,20 @@ public final class CoreHandlers extends HandlerGroup {
         int drumPadDeviceBanks = Rig.DRUM_PAD_BANK;
         JsonObject resources = new JsonObject();
         resources.addProperty("cursorDeviceBanks", cursorDeviceBanks);
+        resources.addProperty("cursorDeviceAnchorBanks", rig.config.cursorPool);
+        resources.addProperty("cursorDeviceAnchorSlots", rig.config.cursorPool);
+        resources.addProperty("cursorDeviceAnchorMarkedValues", 6 * rig.config.cursorPool);
         resources.addProperty("siblingDeviceBanks", 1);
         resources.addProperty("layerDeviceBanks", layerDeviceBanks);
         resources.addProperty("slotDeviceBanks", slotDeviceBanks);
         resources.addProperty("scopeDeviceBanks", scopeDeviceBanks);
-        // B17 reuses every handle. Only scroll positions and item-position witnesses are newly subscribed.
+        // Read paging reuses existing handles; session-5 reorder anchors are accounted for separately.
         resources.addProperty("pagingMarkedValues", cursorDeviceBanks * (1 + rig.config.deviceBank)
             + Rig.SLOT_SCOPES * (1 + Rig.SLOT_LAYER_BANK * (2 + Rig.SLOT_LAYER_DEVICE_BANK)));
         resources.addProperty("namedSlotDeviceBanks", namedSlotDeviceBanks);
         resources.addProperty("drumPadDeviceBanks", drumPadDeviceBanks);
         resources.addProperty("deviceBanks",
-            cursorDeviceBanks + 1 + layerDeviceBanks + slotDeviceBanks + scopeDeviceBanks
+            cursorDeviceBanks + rig.config.cursorPool + 1 + layerDeviceBanks + slotDeviceBanks + scopeDeviceBanks
                 + namedSlotDeviceBanks + drumPadDeviceBanks);
         resources.addProperty("cursorDeviceSlots",
             (long) cursorDeviceBanks * rig.config.deviceBank);
@@ -194,6 +198,7 @@ public final class CoreHandlers extends HandlerGroup {
             (long) namedSlotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK);
         resources.addProperty("deviceSlots",
             (long) cursorDeviceBanks * rig.config.deviceBank
+                + rig.config.cursorPool
                 + rig.config.deviceBank
                 + (long) layerDeviceBanks * Rig.LAYER_DEVICE_BANK
                 + (long) slotDeviceBanks * Rig.SLOT_LAYER_DEVICE_BANK

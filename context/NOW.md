@@ -6,17 +6,16 @@ updated: 2026-10-27
 
 ## Now
 
-[B17 session 4](work/b17-extension-owned-window-scrolling.md#session-4-nested-relocation-checkpoint)
-now has offline-tested nested move/copy paging. The relocation handler holds
-independent chain scopes, acquires overflow source devices, restores device
-windows before chain windows, and follows container indices shifted by mixed
-track/chain transfers. Extension checks, brain typecheck, and all 2,575 brain
-tests pass. **Session 4 is checkpointed offline. Next: B17 session 5 —
-[top-level mutation paging](work/b17-extension-owned-window-scrolling.md#session-5--top-level-mutation-paging),
-in a fresh session.** Session 3's chain controls remain checkpointed too.
-Sessions 5 and 6 (cap retirement/composition) are implementation checkpoints;
-session 7 supplies integrated deployment and outstanding host verification.
-Public width limits remain; no new build has been deployed.
+[B17 session 5](work/b17-extension-owned-window-scrolling.md#session-5-top-level-mutation-checkpoint)
+now has offline-tested top-level mutation paging. Insert, delete, enabled-state,
+and reorder handlers validate complete paged fingerprints and acquire absolute
+targets. Each pool cursor owns an independent one-device reorder anchor;
+mixed track/chain transfers also acquire overflow top-level endpoints.
+**Session 5 is checkpointed offline. Next: B17 session 6 —
+[cap retirement and composition](work/b17-extension-owned-window-scrolling.md#session-6--cap-retirement-and-composition),
+in a fresh session.** Sessions 3 and 4 remain checkpointed too. Public width
+limits remain, and session 7 supplies integrated deployment and outstanding
+host verification. No new build has been deployed.
 
 [B17](work/b17-extension-owned-window-scrolling.md) **session 2 (paged reads)
 is complete and verified live** in
@@ -31,7 +30,7 @@ The overflow container structure read measured six wire turns / about 505 ms;
 one two-page top-level `device.list`, about 144 ms. Full `read_devices` on the
 fixture took 65 turns / about 2.6 s. These are fixture-specific measurements.
 Normal profile: 93 methods, hash `d6decf985f6b1f36`; descriptions v56.
-**The remaining write paging and cap retirement are split across sessions 5–7.**
+**Cap retirement/composition and integrated live acceptance remain in sessions 6–7.**
 The [session-2 result](work/b17-extension-owned-window-scrolling.md#session-2-result-and-session-3-handoff)
 records the inherited interface and remaining scope. Write width limits,
 named-slot paging, and parameter paging were not changed in session 2.

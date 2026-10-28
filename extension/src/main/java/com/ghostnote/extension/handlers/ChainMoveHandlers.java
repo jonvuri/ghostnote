@@ -6,6 +6,7 @@ import com.bitwig.extension.controller.api.InsertionPoint;
 import com.ghostnote.extension.Bridge;
 import com.ghostnote.extension.ContainerScopes;
 import com.ghostnote.extension.DeviceWindow;
+import com.ghostnote.extension.DeviceFingerprint;
 import com.ghostnote.extension.LayerPageWitness;
 import com.ghostnote.extension.Rig;
 import com.ghostnote.extension.WindowAccess;
@@ -18,7 +19,7 @@ import java.util.function.Consumer;
 
 /** One transfer with independently held chain endpoints; named slots retain their existing route. */
 public final class ChainMoveHandlers {
-    public static final String RULE = "paged-chain-moves-v1";
+    public static final String RULE = "paged-chain-moves-v2";
 
     /** Absolute wire endpoint plus the local handles acquired for this operation. */
     public static final class Endpoint {
@@ -33,13 +34,12 @@ public final class ChainMoveHandlers {
         ContainerScopes scopes();
         String track();
         int topCount();
-        int topWidth();
+        WindowPager.Window topWindow();
         WindowPager.Window layers(int slot);
         String containerName(int slot);
         WindowPager.Window devices(Endpoint source);
         /** May re-aim a scope after the transfer shifts its container's top-level position. */
         boolean ready(Endpoint endpoint, int position, String track, boolean afterWork);
-        void validateTop(JsonObject params);
         void transfer(Endpoint source, int localDevice, Endpoint destination, String verb, String where);
         void schedule(Runnable task, int ms);
         void blockWrites(String reason);
@@ -48,14 +48,14 @@ public final class ChainMoveHandlers {
     private final Host host;
     public ChainMoveHandlers(Host host) { this.host = host; }
 
-    public static ChainMoveHandlers over(ControllerHost controller, Rig rig, Consumer<JsonObject> validateTop) {
+    public static ChainMoveHandlers over(ControllerHost controller, Rig rig) {
         var controls = ChainControlHandlers.over(controller, rig);
         return new ChainMoveHandlers(new Host() {
             final int[] reaimChecks = new int[Rig.SLOT_SCOPES];
             public ContainerScopes scopes() { return rig.containerScopes; }
             public String track() { return rig.cursorTracks[0].channelId().get(); }
             public int topCount() { return rig.cursorDeviceBanks[0].itemCount().get(); }
-            public int topWidth() { return rig.config.deviceBank; }
+            public WindowPager.Window topWindow() { return new DeviceWindow(rig.cursorDeviceBanks[0], rig.config.deviceBank); }
             public WindowPager.Window layers(int slot) { return controls.layers(slot); }
             public String containerName(int slot) { return rig.scopeDevice(slot).name().get(); }
             public WindowPager.Window devices(Endpoint endpoint) {
@@ -65,7 +65,7 @@ public final class ChainMoveHandlers {
             }
             public boolean ready(Endpoint endpoint, int position, String expectedTrack, boolean afterWork) {
                 if (!expectedTrack.equals(track())) throw new IllegalStateException("chain.move track identity changed");
-                if (endpoint.top()) return rig.cursorDeviceBanks[0].scrollPosition().get() == 0;
+                if (endpoint.top()) return true;
                 int slot = endpoint.slot;
                 if (afterWork) {
                     boolean changed = rig.scopeRequestedPosition[slot] != position;
@@ -80,7 +80,6 @@ public final class ChainMoveHandlers {
                 return rig.scopeRequestedPosition[slot] == position && rig.scopeSettled(slot)
                     && rig.scopeDevice(slot).hasLayers().get();
             }
-            public void validateTop(JsonObject params) { validateTop.accept(params); }
             public void transfer(Endpoint source, int localDevice, Endpoint destination, String verb, String where) {
                 Device device = source.top() ? rig.cursorDeviceBanks[0].getDevice(localDevice)
                     : rig.slotLayerDeviceBanks[source.slot][source.local].getDevice(localDevice);
@@ -136,7 +135,7 @@ public final class ChainMoveHandlers {
         int device = index(params, "srcDevice");
         Endpoint source = endpoint(params, src, "src"), destination = endpoint(params, dst, "dst");
         if (source.top() && destination.top()) throw new IllegalArgumentException("use device.move for top-level reordering");
-        if (source.top() && device >= host.topWidth()) throw new IllegalArgumentException("srcDevice out of bank range");
+        DeviceFingerprint.validate(params, false);
         if (source.position == destination.position && source.chain == destination.chain)
             throw new IllegalArgumentException("destination chain is the source chain");
         if (source.top() && device == destination.position)
@@ -181,6 +180,7 @@ public final class ChainMoveHandlers {
         final List<JsonArray> metadata = new ArrayList<>();
         boolean effectsPossible, completed;
         JsonObject result;
+        JsonArray topFingerprint;
 
         Operation(JsonObject params, Endpoint source, Endpoint destination, List<Endpoint> endpoints, int device,
                 String verb, String where, ContainerScopes.Settled scopes, Bridge.Reply reply) {
@@ -190,11 +190,11 @@ public final class ChainMoveHandlers {
         }
 
         void start() {
-            if ((source.top() || destination.top()) && (beforeTopCount > host.topWidth()
-                    || (destination.top() && beforeTopCount == host.topWidth())))
-                throw new IllegalArgumentException("mixed relocation exceeds the top-level write window");
-            host.validateTop(params);
-            readMetadata(0);
+            DeviceFingerprint.read(params, host.topWindow(), host::track, host::schedule, (rows, error) -> {
+                if (error != null) { finish(error); return; }
+                topFingerprint = rows;
+                try { readMetadata(0); } catch (Exception failure) { finish(failure); }
+            });
         }
 
         /** Container positions can shift under a mixed transfer; follow only its observed count projection. */
@@ -257,7 +257,8 @@ public final class ChainMoveHandlers {
             WindowPager.Window window = guarded(host.devices(source), () -> endpointHeld(source), null);
             access.<Void>withWindow(window, device, device, (offset, page, next) -> {
                 if (!endpointHeld(source) || !endpointHeld(destination)) throw new IllegalStateException("endpoint identity changed before transfer");
-                host.validateTop(params);
+                if (source.top() && !page.get(device - offset).equals(topFingerprint.get(device)))
+                    throw new IllegalStateException("top-level source identity changed");
                 String name = page.get(device - offset).getAsJsonObject().get("name").getAsString();
                 expect("expectedSourceName", name);
                 result = new JsonObject();

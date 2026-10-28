@@ -1015,3 +1015,36 @@ test('E-row: a row past the window REFUSES rather than emitting a frame the bank
     () => encodeOp({ op: 'note.write', clip: clip(slot(TRACK_A, outside)), notes: [note()] }, ctx),
     BlindSpotError);
 });
+
+for (const count of [17, 18]) {
+  test(`B17 encoder: complete ${count}-device fingerprints and distant positions retain the pool cursor`, () => {
+    const names = Array.from({ length: count }, (_, index) => `Device ${index}`);
+    const enabled = names.map((_, index) => index % 2 === 0);
+    const paged: EncodeContext = {
+      ...ctx, cursorForTrack: () => '2', deviceChainNames: () => names, deviceChainEnabled: () => enabled,
+      deviceTailIndex: () => count - 1, deviceName: (d) => names[d.chainIndex]!,
+      deviceEnabled: (d) => enabled[d.chainIndex]!,
+    };
+    const operations: Op[] = [
+      { op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: 'example.plugin' } },
+      ...[0, count - 1].flatMap((index): Op[] => [
+        { op: 'device.delete', device: device(TRACK_A, index) },
+        { op: 'device.setEnabled', device: device(TRACK_A, index), enabled: false },
+      ]),
+      { op: 'device.relocate', track: TRACK_A, sourceFromEnd: 0, expectedName: names.at(-1)!, before: device(TRACK_A, 0) },
+    ];
+    for (const op of operations) {
+      const frames = encodeOp(op, paged);
+      assert.equal(frames.length, 2, 'paging stays inside one extension command after pointing');
+      const params = frames[1]!.params as Record<string, unknown>;
+      assert.equal(params['cursor'], '2');
+      assert.equal(params['expectedTrackChannelId'], TRACK_A.channelId);
+      assert.deepEqual(params['expectedDeviceNames'], names);
+      assert.deepEqual(params['expectedDeviceEnabled'], enabled);
+      if (op.op === 'device.delete' || op.op === 'device.setEnabled') assert.equal(params['deviceIndex'], op.device.chainIndex);
+      if (op.op === 'device.relocate') {
+        assert.equal(params['deviceIndex'], count - 1); assert.equal(params['anchorIndex'], 0);
+      }
+    }
+  });
+}

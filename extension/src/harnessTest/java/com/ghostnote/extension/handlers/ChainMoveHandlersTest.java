@@ -55,7 +55,7 @@ public final class ChainMoveHandlersTest {
         public ContainerScopes scopes() { return scopes; }
         public String track() { return track; }
         public int topCount() { return top.size(); }
-        public int topWidth() { return 16; }
+        public WindowPager.Window topWindow() { return topBank; }
         public WindowPager.Window layers(int slot) { return layers[slot]; }
         public String containerName(int slot) { return top.get(reported[slot]).name; }
         public WindowPager.Window devices(ChainMoveHandlers.Endpoint endpoint) {
@@ -63,17 +63,9 @@ public final class ChainMoveHandlersTest {
         }
         public boolean ready(ChainMoveHandlers.Endpoint endpoint, int position, String expected, boolean after) {
             if (!track.equals(expected)) throw new IllegalStateException("track changed");
-            if (endpoint.top()) return topBank.position == 0;
+            if (endpoint.top()) return true;
             if (after && (wanted[endpoint.slot] != position || !settled(endpoint.slot))) scroll(endpoint.slot, position);
             return wanted[endpoint.slot] == position && settled(endpoint.slot);
-        }
-        public void validateTop(JsonObject params) {
-            if (params.has("expectedDeviceNames")) {
-                JsonArray names = params.getAsJsonArray("expectedDeviceNames");
-                if (top.size() > 16 || names.size() != top.size()) throw new IllegalStateException("top count changed");
-                for (int i = 0; i < top.size(); i++)
-                    if (!names.get(i).getAsString().equals(top.get(i).name)) throw new IllegalStateException("top fingerprint changed");
-            }
         }
         Layer layer(int slot, int local) { return top.get(reported[slot]).layers.get(layers[slot].position + local); }
         public void transfer(ChainMoveHandlers.Endpoint src, int local, ChainMoveHandlers.Endpoint dst, String verb, String where) {
@@ -85,13 +77,13 @@ public final class ChainMoveHandlersTest {
             }
             Bank bank = (Bank) devices(src);
             check(bank.position == bank.seenPosition && local >= 0 && local < bank.width(), "settled source device handle");
-            String name = src.top() ? top.get(local).name : layer(src.slot, src.local).devices.get(bank.position + local);
+            String name = src.top() ? top.get(bank.position + local).name : layer(src.slot, src.local).devices.get(bank.position + local);
             check(name.equals(bank.seen.get(local).getAsJsonObject().get("name").getAsString()), "source observed before index shift");
             writes++; events.add("write:" + name);
             if (noOp) return;
             Layer destination = dst.top() ? null : layer(dst.slot, dst.local);
             if (verb.equals("move")) {
-                if (src.top()) top.remove(local); else layer(src.slot, src.local).devices.remove(bank.position + local);
+                if (src.top()) top.remove(bank.position + local); else layer(src.slot, src.local).devices.remove(bank.position + local);
             }
             if (destination == null) top.add(where.equals("chainStart") ? 0 : top.size(), new Container(name));
             else destination.devices.add(where.equals("chainStart") ? 0 : destination.devices.size(), name);
@@ -135,6 +127,7 @@ public final class ChainMoveHandlersTest {
                 check(layers[slot].position == 0, "chain window restored");
                 for (Bank bank : devices[slot]) check(bank.position == 0, "device window restored");
             }
+            check(topBank.position == 0, "top window restored");
             check(gate.blockedReason() == null || gate.blockedReason().isEmpty(), "no false write latch");
         }
         final class Bank implements WindowPager.Window {
@@ -332,14 +325,60 @@ public final class ChainMoveHandlersTest {
                 check(m.top.size() == (noOp ? 3 : toTop ? 4 : 2), "retain actual mixed effects"); m.restored();
             }
         });
-        run("top-level overflow, full top destinations and named slots keep their existing bounds", () -> {
-            for (int count : new int[] {16, 17}) {
+        run("seventeen/eighteen-device mixed transfers page top-level sources and guards", () -> {
+            for (int count : new int[] {16, 17, 18}) for (String verb : List.of("move", "copy"))
+                for (boolean toTop : new boolean[] {true, false}) for (String where : List.of("chainStart", "chainEnd")) {
+                    Model m = new Model();
+                    while (m.top.size() < count) m.top.add(new Container("container-" + m.top.size()));
+                    m.refresh();
+                    JsonObject p = toTop ? params(count - 1, 10, 9, -1, -1, verb)
+                        : params(-1, -1, count - 1, 1, 10, verb);
+                    p.addProperty("where", where);
+                    JsonArray names = new JsonArray(), enabled = new JsonArray();
+                    for (Container item : m.top) { names.add(item.name); enabled.add(true); }
+                    p.add("expectedDeviceNames", names); p.add("expectedDeviceEnabled", enabled);
+                    Container preserved = m.top.get(2);
+                    Capture result = m.send(p);
+                    check(result.error == null, "mixed overflow: " + result.error);
+                    check(m.writes == 1 && m.top.contains(preserved), "one transfer preserves unrelated container");
+                    check(m.top.size() == count + (toTop ? 1 : verb.equals("move") ? -1 : 0), "population projection");
+                    if (toTop) check(m.top.get(where.equals("chainStart") ? 0 : count).name
+                        .equals("container-" + (count - 1) + "-10-device-9"), "overflow source device");
+                    else check(m.top.get(1).layers.get(10).devices.contains("container-" + (count - 1)), "overflow top source");
+                    m.restored();
+                }
+        });
+        run("overflow top-source shifts, partial effects, and restoration failures retain their destination", () -> {
+            for (int source : new int[] {0, 17}) for (String mode : List.of("apply", "no-op", "throw", "restore")) {
                 Model m = new Model();
-                while (m.top.size() < count) m.top.add(new Container("extra-" + m.top.size()));
+                while (m.top.size() < 18) m.top.add(new Container("container-" + m.top.size()));
+                int destination = source == 0 ? 17 : 16;
+                Container preserved = m.top.get(destination); Layer chain = preserved.layers.get(10);
+                m.noOp = mode.equals("no-op"); m.throwAfterWrite = mode.equals("throw");
+                m.failDeviceRestore = mode.equals("restore"); m.refresh();
+                Capture result = m.send(params(-1, -1, source, destination, 10, "move"));
+                check(m.writes == 1 && m.top.contains(preserved), "one write retains destination");
+                check(chain.devices.size() == (m.noOp ? 10 : 11), "actual effects retained");
+                check(m.top.indexOf(preserved) == destination - (!m.noOp && source < destination ? 1 : 0), "far container shift");
+                if (mode.equals("throw") || (mode.equals("restore") && source == 17))
+                    check(result.error != null && result.error.getMessage().contains("effects may have applied"), "partial result");
+                else check(result.error == null, "completed transfer: " + result.error);
+                if (mode.equals("restore") && source == 17) check(m.gate.blockedReason() != null, "top restoration failure latched");
+                else m.restored();
+            }
+        });
+        run("overflow fingerprint mismatches and named slots refuse", () -> {
+            for (boolean enabledMismatch : new boolean[] {true, false}) {
+                Model m = new Model();
+                while (m.top.size() < 18) m.top.add(new Container("container-" + m.top.size()));
                 m.refresh();
-                check(m.send(params(0, 5, 4, -1, -1, "copy")).error != null && m.writes == 0, "top destination width");
-                if (count == 17) check(m.send(params(-1, -1, 0, 1, 5, "move")).error != null && m.writes == 0, "top source width");
-                m.restored();
+                JsonObject p = params(-1, -1, 17, 1, 5, "copy");
+                JsonArray names = new JsonArray(), enabled = new JsonArray();
+                for (Container item : m.top) { names.add(item.name); enabled.add(true); }
+                if (enabledMismatch) enabled.set(17, new com.google.gson.JsonPrimitive(false));
+                else names.set(17, new com.google.gson.JsonPrimitive("wrong"));
+                p.add("expectedDeviceNames", names); p.add("expectedDeviceEnabled", enabled);
+                check(m.send(p).error != null && m.writes == 0, "complete overflow guard"); m.restored();
             }
             Model m = new Model(); JsonObject p = params(0, 5, 4, 1, 5, "copy"); p.addProperty("dst", "slot");
             Capture result = m.send(p);

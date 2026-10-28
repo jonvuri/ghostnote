@@ -23,7 +23,7 @@ import {
   deviceIn as deviceInAt, deviceSlot,
   drumPad, mixer, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   clipSnapshotFrom, decodeClipSnapshotRef, encodeClipSnapshotRef, unpinnedCursorTracksOf,
-  type ClipAddress, type NoteRecord, type RevisionMark, type SelectionOutcome, type TrackAddress,
+  type ClipAddress, type NoteRecord, type Op, type RevisionMark, type SelectionOutcome, type TrackAddress,
   CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
@@ -2595,8 +2595,8 @@ test('4g-device-enabled: a raw unrelated toggle fails the full enabled fingerpri
 
 for (const count of [17, 18]) {
   for (const position of [0, count - 1]) {
-    for (const op of ['device.setEnabled', 'device.delete'] as const) {
-      test(`B17 live ${op}: refuses ${count}-device chain at ${position} before a mutation frame`, async () => {
+    for (const op of ['device.setEnabled', 'device.delete', 'device.insert', 'device.relocate'] as const) {
+      test(`B17 live/fake ${op}: refuses ${count}-device chain at ${position} before mutation`, async () => {
         class PagedTransport extends DeviceChainTransport {
           protected override dispatch(method: string, params: Record<string, unknown>): unknown {
             const reply = super.dispatch(method, params);
@@ -2611,11 +2611,28 @@ for (const count of [17, 18]) {
         const read = await adapter.devices(TRACK);
         assert.equal(read.devicesComplete, true);
         assert.equal(read.devices.length, count);
-        await assert.rejects(adapter.apply({ ops: [{
-          op, device: deviceAt(TRACK, position), enabled: false,
-        }] }), /first window/);
+        const operation: Op = op === 'device.insert'
+          ? { op, track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID } }
+          : op === 'device.relocate'
+            ? { op, track: TRACK, sourceFromEnd: 0, expectedName: names.at(-1)!, before: deviceAt(TRACK, 0) }
+            : { op, device: deviceAt(TRACK, position), enabled: false };
+        await assert.rejects(adapter.apply({ ops: [operation] }), op === 'device.insert' ? /width is 16/ : /first window/);
+        const { FakeAdapter } = await import('../fake/adapter.js');
+        const fake = new FakeAdapter({ tracks: ['paged'] });
+        const fakeTrack = fake.model.visibleTracks()[0]!;
+        fakeTrack.channelId = CHANNEL_ID;
+        fakeTrack.devices.push(...names.map(name => ({ name, enabled: true, paramsLive: true, params: [] })));
+        const before = structuredClone(fakeTrack.devices);
+        const fakeRead = await fake.devices(TRACK);
+        assert.equal(fakeRead.devicesComplete, true);
+        assert.equal(fakeRead.devices.length, count);
+        // The legacy insert/reorder preflight still truncates its private observation; session 6 retires it.
+        await assert.rejects(fake.apply({ ops: [operation] }),
+          op === 'device.insert' || op === 'device.relocate' ? /must be observable/ : /first window/);
+        assert.deepEqual(fakeTrack.devices, before, 'fake retains the same admission and preserves contents');
         assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun
-          || frame.method === WIRE.deviceDelete || frame.method === WIRE.deviceSetEnabled), false);
+          || frame.method === WIRE.deviceDelete || frame.method === WIRE.deviceSetEnabled
+          || frame.method === WIRE.deviceInsertBitwig || frame.method === WIRE.deviceMoveTo), false);
         assert.deepEqual(wire.chains.get(0), names);
       });
     }
@@ -5511,7 +5528,7 @@ test('B17 container scope: a track the cursor did not confirm is re-pointed once
 });
 
 for (const [label, topCount, chainCount, deviceCount] of [
-  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen devices', 17, 1, 1],
+  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen devices', 17, 1, 1], ['eighteen devices', 18, 1, 1],
 ] as const) {
   test(`B17 paged live/fake conformance: ${label}`, async () => {
     const { FakeAdapter } = await import('../fake/adapter.js');

@@ -32,16 +32,10 @@ public final class DeviceHandlers extends HandlerGroup {
 
     @Override
     public void register(HandlerRegistry r) {
-        r.on("device.insertBitwig", params -> deviceInsertBitwig(params));
-        r.on("device.insertClap", params -> deviceInsertClap(params));
-        r.on("device.insertVst3", params -> deviceInsertVst3(params));
+        DeviceMutationHandlers.over(host, rig).register(r);
         r.onAsync("device.list", this::deviceList);
-        r.on("device.setEnabled", params -> deviceSetEnabled(params));
-        r.on("device.delete", params -> deviceDelete(params));
         r.on("device.duplicate", params -> deviceDuplicate(params));
-        r.on("device.moveTo", params -> deviceMoveTo(params));
         r.on("device.moveIntoSlot", params -> deviceMoveIntoSlot(params));
-        r.on("device.insertFile", params -> deviceInsertFile(params));
         r.on("device.insertFileAt", params -> deviceInsertFileAt(params));
         r.on("device.nesting", params -> deviceNesting());
         r.on("device.selectInEditor", params -> deviceSelectInEditor(params));
@@ -60,73 +54,7 @@ public final class DeviceHandlers extends HandlerGroup {
 
     // ---------------------------------------- E3: structural ops & revert
 
-    /**
-     * Insert a Bitwig device (by UUID) at the end of a pool cursor's track
-     * device chain. The cursor must already be pointed at the target track.
-     * Product callers supply the complete chain fingerprint. Archived probes
-     * can omit it.
-     */
-    private JsonElement deviceInsertBitwig(JsonObject params) {
-        int cursorIndex = params.get("cursor").getAsInt();
-        java.util.UUID uuid = java.util.UUID.fromString(params.get("uuid").getAsString());
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.insertBitwig", false);
-        requireInsertCapacity(expectedNames, "device.insertBitwig");
-
-        verifyExpectedTrackChannelId(
-            params, cursorIndex, expectedNames, "device.insertBitwig");
-        verifyExpectedDeviceChain(params, cursorIndex, expectedNames, "device.insertBitwig");
-        rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().insertBitwigDevice(uuid);
-        return ok();
-    }
-
-    /** Insert a CLAP device by its CLAP id string at end of chain. */
-    private JsonElement deviceInsertClap(JsonObject params) {
-        int cursorIndex = params.get("cursor").getAsInt();
-        String clapId = params.get("clapId").getAsString();
-        if (clapId.isBlank() || !clapId.equals(clapId.trim())
-                || clapId.chars().anyMatch(c -> c < 0x20 || c == 0x7f)) {
-            throw new IllegalArgumentException(
-                "clapId must be non-empty and contain no surrounding space or control characters");
-        }
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.insertClap", false);
-        requireInsertCapacity(expectedNames, "device.insertClap");
-
-        verifyExpectedTrackChannelId(
-            params, cursorIndex, expectedNames, "device.insertClap");
-        verifyExpectedDeviceChain(params, cursorIndex, expectedNames, "device.insertClap");
-        rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().insertCLAPDevice(clapId);
-        return ok();
-    }
-
-    /**
-     * Insert a VST3 by its class UID (E16 row B2).
-     *
-     * E4 reached VST3s only through presets; kill criterion 2 asks specifically
-     * whether duplication carries **opaque VST3 state**, which needs a real one
-     * in the chain. The ID is the 32-hex-char VST3 class UID — the same string
-     * Bitwig caches in `~/Library/Caches/Bitwig/vst3-metadata-*`, which is where
-     * the probe gets it (there is no plugin-enumeration API).
-     */
-    private JsonElement deviceInsertVst3(JsonObject params) {
-        int cursorIndex = params.get("cursor").getAsInt();
-        String id = params.get("vst3Id").getAsString();
-        if (!id.matches("[0-9A-Fa-f]{32}")) {
-            throw new IllegalArgumentException("vst3Id must be 32 hex chars, got: " + id);
-        }
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.insertVst3", false);
-        requireInsertCapacity(expectedNames, "device.insertVst3");
-
-        verifyExpectedTrackChannelId(
-            params, cursorIndex, expectedNames, "device.insertVst3");
-        verifyExpectedDeviceChain(params, cursorIndex, expectedNames, "device.insertVst3");
-        rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().insertVST3Device(id);
-        return ok();
-    }
-
-    /** Page the existing bank, restoring its fixed-index write view before replying. */
+    /** Page the existing bank and restore zero for the next operation. */
     private void deviceList(JsonObject params, Bridge.Reply reply) {
         int cursor = params.get("cursor").getAsInt();
         if (cursor < 0 || cursor >= rig.config.cursorPool) throw new IllegalArgumentException("cursor out of range");
@@ -188,14 +116,6 @@ public final class DeviceHandlers extends HandlerGroup {
             names[i] = name.getAsString();
         }
         return names;
-    }
-
-    /** Refuse an insert that would move the result outside the observable bank. */
-    private void requireInsertCapacity(String[] expectedNames, String method) {
-        if (expectedNames != null && expectedNames.length >= rig.config.deviceBank) {
-            throw new IllegalArgumentException(
-                method + " cannot insert because the complete device bank is full");
-        }
     }
 
     /** Verify the durable track identity for a guarded product mutation. */
@@ -294,113 +214,6 @@ public final class DeviceHandlers extends HandlerGroup {
         return bank;
     }
 
-    /** Set one device's enabled state after all identity and state guards pass. */
-    private JsonElement deviceSetEnabled(JsonObject params) {
-        int cursorIndex = params.get("cursor").getAsInt();
-        int deviceIndex = params.get("deviceIndex").getAsInt();
-        boolean enabled = params.get("enabled").getAsBoolean();
-
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.setEnabled", true);
-        if (deviceIndex < 0 || deviceIndex >= rig.config.deviceBank) {
-            throw new IllegalArgumentException("deviceIndex out of bank range: " + deviceIndex);
-        }
-        if (deviceIndex >= expectedNames.length) {
-            throw new IllegalArgumentException("no expected device at index " + deviceIndex);
-        }
-        if (!params.has("expectedTrackChannelId")) {
-            throw new IllegalArgumentException("expectedTrackChannelId is required");
-        }
-        if (!params.has("expectedEnabled")) {
-            throw new IllegalArgumentException("expectedEnabled is required");
-        }
-        if (params.has("expectedName")) {
-            String expectedName = params.get("expectedName").getAsString();
-            if (!expectedName.equals(expectedNames[deviceIndex])) {
-                throw new IllegalArgumentException(
-                    "device.setEnabled expectedName disagrees with expectedDeviceNames["
-                        + deviceIndex + "]");
-            }
-        }
-
-        String expectedTrackChannelId = params.get("expectedTrackChannelId").getAsString();
-        String actualTrackChannelId = rig.cursorTracks[cursorIndex].channelId().get();
-        if (!expectedTrackChannelId.equals(actualTrackChannelId)) {
-            throw new IllegalArgumentException(
-                "device.setEnabled track identity changed: expected " + expectedTrackChannelId
-                    + ", got " + actualTrackChannelId);
-        }
-
-        DeviceBank bank = verifyExpectedDeviceChain(
-            params, cursorIndex, expectedNames, "device.setEnabled");
-        Device target = bank.getDevice(deviceIndex);
-        // Keep both observed comparisons adjacent to the write. They close the
-        // races between the caller's independent read and this mutation.
-        boolean expectedEnabled = params.get("expectedEnabled").getAsBoolean();
-        boolean actualEnabled = target.isEnabled().get();
-        if (expectedEnabled != actualEnabled) {
-            throw new IllegalArgumentException(
-                "device.setEnabled state changed: expected " + expectedEnabled
-                    + ", got " + actualEnabled);
-        }
-        target.isEnabled().set(enabled);
-        return ok();
-    }
-
-    /**
-     * Delete a device by chain index on a pool cursor's track.
-     *
-     * ⚠⚠ Two guards, and they answer different questions. `expectedName` says
-     * *is this the device we meant*; `expectedTrackChannelId` says *is this even
-     * the track we meant*. The second is the one a positional cursor needs: the
-     * caller points the cursor by BANK ROW, and a track bank that changed since
-     * that reading aims the same number at another track — where an identically
-     * named container (an "FX Layer" is not a rare name) would satisfy the name
-     * guard and be deleted with an `ok` reply. Same guard, same wording, same
-     * reason as `device.moveTo` below; a delete cannot be taken back.
-     *
-     * Product callers also send `expectedDeviceNames`. It verifies the complete
-     * observable chain immediately before this method resolves the target.
-     * Archived probes can omit that fingerprint.
-     */
-    private JsonElement deviceDelete(JsonObject params) {
-        int i = params.get("cursor").getAsInt();
-        int deviceIndex = params.get("deviceIndex").getAsInt();
-        String[] expectedNames = readExpectedDeviceNames(
-            params, i, "device.delete", false);
-        if (deviceIndex < 0 || deviceIndex >= rig.config.deviceBank) {
-            throw new IllegalArgumentException("deviceIndex out of bank range: " + deviceIndex);
-        }
-        if (expectedNames != null && deviceIndex >= expectedNames.length) {
-            throw new IllegalArgumentException("no expected device at index " + deviceIndex);
-        }
-        if (expectedNames != null && params.has("expectedName")) {
-            String expectedName = params.get("expectedName").getAsString();
-            if (!expectedName.equals(expectedNames[deviceIndex])) {
-                throw new IllegalArgumentException(
-                    "device.delete expectedName disagrees with expectedDeviceNames["
-                        + deviceIndex + "]");
-            }
-        }
-        verifyExpectedTrackChannelId(params, i, expectedNames, "device.delete");
-
-        DeviceBank bank = verifyExpectedDeviceChain(params, i, expectedNames, "device.delete");
-        Device target = bank.getDevice(deviceIndex);
-        if (expectedNames == null && !target.exists().get()) {
-            throw new IllegalArgumentException("no device at index " + deviceIndex);
-        }
-        if (expectedNames == null && params.has("expectedName")) {
-            String expected = params.get("expectedName").getAsString();
-            String actual = target.name().get();
-            if (!expected.equals(actual)) {
-                throw new IllegalArgumentException(
-                    "device.delete target changed: expected \"" + expected + "\", got \"" + actual + "\"");
-            }
-        }
-        target.deleteObject();
-        return ok();
-    }
-
     /**
      * ⚠ E17 row 1 — make a DEVICE the UI selection. `Device.selectInEditor()`
      * (API v1, not deprecated): *"Selects the device in Bitwig Studio."*
@@ -459,168 +272,6 @@ public final class DeviceHandlers extends HandlerGroup {
         return ok();
     }
 
-    /**
-     * ⚠ E16 §3.1 — `InsertionPoint.moveDevices` to a SAME-TRACK destination.
-     *
-     * **This is the control, and without it the row measures nothing.**
-     *
-     * `layer.moveDeviceInto` asks whether a device can be moved INTO a layer.
-     * If that comes back a silent no-op, there are two completely different
-     * worlds consistent with the observation — "layers refuse relocation" and
-     * "`moveDevices` does nothing anywhere" — and the first is a finding about
-     * layers while the second is a finding about the verb. A probe that cannot
-     * separate them has repeated E6's mistake, whose control was a different
-     * object read through a different oracle and therefore could not distinguish
-     * "the channel is dead" from "this action does nothing".
-     *
-     * So this moves a device to a destination we have every reason to expect
-     * works: another position in the SAME flat device chain, which involves no
-     * nesting, no container and no re-parenting — just reordering. A ● here plus
-     * a ○ in the layer makes the layer result mean something. A ○ here makes the
-     * whole row inconclusive, and the probe should say so rather than writing up
-     * a negative about layers.
-     *
-     * Four destinations, because `InsertionPoint` is reachable from two kinds of
-     * anchor and they are not the same object:
-     *
-     *   before / after   `Device.beforeDeviceInsertionPoint()` / `after…`
-     *   chainStart / chainEnd  `DeviceChain.startOfDeviceChainInsertionPoint()` / `end…`
-     *
-     * ⚠ Every input is validated BEFORE the call (standing rule 3c): an
-     * exception Bitwig defers to its own thread escapes every extension frame
-     * and takes the DAW down (E14-A1). An unknown `where` throws here, before
-     * anything Bitwig-side is touched.
-     *
-     * Product callers send the complete top-level device-name sequence. The
-     * method compares it immediately before it resolves the move endpoints.
-     * Archived probes can omit this fingerprint.
-     */
-    private JsonElement deviceMoveTo(JsonObject params) {
-        int cursorIndex = params.has("cursor") ? params.get("cursor").getAsInt() : 0;
-        int deviceIndex = params.get("deviceIndex").getAsInt();
-        String where = params.has("where") ? params.get("where").getAsString() : "after";
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.moveTo", false);
-        if (deviceIndex < 0 || deviceIndex >= rig.config.deviceBank) {
-            throw new IllegalArgumentException("deviceIndex out of bank range: " + deviceIndex);
-        }
-        if (expectedNames != null && deviceIndex >= expectedNames.length) {
-            throw new IllegalArgumentException("no expected source device at index " + deviceIndex);
-        }
-        if (!"before".equals(where) && !"after".equals(where)
-            && !"chainStart".equals(where) && !"chainEnd".equals(where)) {
-            throw new IllegalArgumentException(
-                "where must be before, after, chainStart or chainEnd: " + where);
-        }
-
-        int anchorIndex = -1;
-        if ("before".equals(where) || "after".equals(where)) {
-            if (!params.has("anchorIndex")) {
-                throw new IllegalArgumentException("anchorIndex is required for " + where);
-            }
-            anchorIndex = params.get("anchorIndex").getAsInt();
-            if (anchorIndex < 0 || anchorIndex >= rig.config.deviceBank) {
-                throw new IllegalArgumentException("anchorIndex out of bank range: " + anchorIndex);
-            }
-            if (anchorIndex == deviceIndex) {
-                throw new IllegalArgumentException(
-                    "anchorIndex must differ from deviceIndex, or the move is a no-op by construction");
-            }
-            if (expectedNames != null && anchorIndex >= expectedNames.length) {
-                throw new IllegalArgumentException("no expected anchor device at index " + anchorIndex);
-            }
-        }
-        if (expectedNames != null && params.has("expectedSourceName")) {
-            String expectedSourceName = params.get("expectedSourceName").getAsString();
-            if (!expectedSourceName.equals(expectedNames[deviceIndex])) {
-                throw new IllegalArgumentException(
-                    "device.moveTo expectedSourceName disagrees with expectedDeviceNames["
-                        + deviceIndex + "]");
-            }
-        }
-        if (expectedNames != null && anchorIndex >= 0 && params.has("expectedAnchorName")) {
-            String expectedAnchorName = params.get("expectedAnchorName").getAsString();
-            if (!expectedAnchorName.equals(expectedNames[anchorIndex])) {
-                throw new IllegalArgumentException(
-                    "device.moveTo expectedAnchorName disagrees with expectedDeviceNames["
-                        + anchorIndex + "]");
-            }
-        }
-        verifyExpectedTrackChannelId(
-            params, cursorIndex, expectedNames, "device.moveTo");
-
-        JsonObject r = ok();
-        r.addProperty("where", where);
-        r.addProperty("deviceIndex", deviceIndex);
-        if (anchorIndex >= 0) {
-            r.addProperty("anchorIndex", anchorIndex);
-        }
-        if (expectedNames != null) {
-            r.addProperty("sourceName", expectedNames[deviceIndex]);
-            r.addProperty("sourceExists", true);
-            if (anchorIndex >= 0) {
-                r.addProperty("anchorName", expectedNames[anchorIndex]);
-            }
-        }
-
-        DeviceBank bank = verifyExpectedDeviceChain(
-            params, cursorIndex, expectedNames, "device.moveTo");
-        Device source = bank.getDevice(deviceIndex);
-        if (expectedNames == null) {
-            if (!source.exists().get()) {
-                throw new IllegalArgumentException("no source device at index " + deviceIndex);
-            }
-            if (params.has("expectedSourceName")) {
-                String expected = params.get("expectedSourceName").getAsString();
-                String actual = source.name().get();
-                if (!expected.equals(actual)) {
-                    throw new IllegalArgumentException(
-                        "device.moveTo source changed: expected \"" + expected
-                            + "\", got \"" + actual + "\"");
-                }
-            }
-            // Read before the move. The source handle can refer to another
-            // device after the chain re-indexes.
-            putGuarded(r, "sourceName", () -> source.name().get());
-            putGuarded(r, "sourceExists", () -> source.exists().get());
-        }
-        switch (where) {
-            case "before":
-            case "after": {
-                Device anchor = bank.getDevice(anchorIndex);
-                if (expectedNames == null) {
-                    if (!anchor.exists().get()) {
-                        throw new IllegalArgumentException("no anchor device at index " + anchorIndex);
-                    }
-                    if (params.has("expectedAnchorName")) {
-                        String expected = params.get("expectedAnchorName").getAsString();
-                        String actual = anchor.name().get();
-                        if (!expected.equals(actual)) {
-                            throw new IllegalArgumentException(
-                                "device.moveTo anchor changed: expected \"" + expected
-                                    + "\", got \"" + actual + "\"");
-                        }
-                    }
-                    putGuarded(r, "anchorName", () -> anchor.name().get());
-                }
-                if ("before".equals(where)) {
-                    anchor.beforeDeviceInsertionPoint().moveDevices(source);
-                } else {
-                    anchor.afterDeviceInsertionPoint().moveDevices(source);
-                }
-                break;
-            }
-            case "chainStart":
-                rig.cursorTracks[cursorIndex].startOfDeviceChainInsertionPoint().moveDevices(source);
-                break;
-            case "chainEnd":
-            default:
-                rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().moveDevices(source);
-                break;
-        }
-        return r;
-    }
-
     /** Move one top-level device into the selected named slot of a container. */
     private JsonElement deviceMoveIntoSlot(JsonObject params) {
         int cursorIndex = params.has("cursor") ? params.get("cursor").getAsInt() : 0;
@@ -670,26 +321,6 @@ public final class DeviceHandlers extends HandlerGroup {
         result.addProperty("slotName", rig.cursorDeviceSlot0.name().get());
         rig.cursorDeviceSlot0.endOfDeviceChainInsertionPoint().moveDevices(source);
         return result;
-    }
-
-    /**
-     * Insert a file at the end of the track's device chain. A .bwpreset of a
-     * multi-layer container would create the whole structure in one call.
-     * Product callers supply the complete chain fingerprint. Archived probes
-     * can omit it.
-     */
-    private JsonElement deviceInsertFile(JsonObject params) {
-        int cursorIndex = params.has("cursor") ? params.get("cursor").getAsInt() : 0;
-        String path = params.get("path").getAsString();
-        String[] expectedNames = readExpectedDeviceNames(
-            params, cursorIndex, "device.insertFile", false);
-        requireInsertCapacity(expectedNames, "device.insertFile");
-
-        verifyExpectedTrackChannelId(
-            params, cursorIndex, expectedNames, "device.insertFile");
-        verifyExpectedDeviceChain(params, cursorIndex, expectedNames, "device.insertFile");
-        rig.cursorTracks[cursorIndex].endOfDeviceChainInsertionPoint().insertFile(path);
-        return ok();
     }
 
     /**
