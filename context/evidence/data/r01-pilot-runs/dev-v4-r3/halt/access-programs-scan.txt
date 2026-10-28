@@ -1,0 +1,7 @@
+.tmp/r01-pilot-dev-v4-r3 present 134 absent 1 347 other [] no-trace 0
+.tmp/r01-pilot-dev-v4-r3-luna present 382 absent 0  other [] no-trace 0
+.tmp/r01-pilot-dev-v4-r1 present 125 absent 0  other [] no-trace 0
+.tmp/r01-pilot-dev-v3-r1 present 120 absent 0  other [] no-trace 0
+.tmp/r01-pilot-dev-v2-r1 present 120 absent 0  other [] no-trace 0
+.tmp/r01-pilot-dev-v2-r1b present 62 absent 0  other [] no-trace 0
+.tmp/r01-pilot-dev-v2-r1c present 80 absent 0  other [] no-trace 0

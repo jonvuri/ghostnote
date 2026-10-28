@@ -1,0 +1,181 @@
+---
+title: Current state
+kind: status
+updated: 2026-10-26
+---
+
+## Now
+
+[R01](work/r01-format-comparison.md)'s [candidate package](../spec/r01-research/README.md)
+is ready for review: contracts, bounded offline prototypes for ideas 1–4,
+matched examples, a common oracle, and a staged agent-trial protocol.
+[E354](evidence/experiments/e354-r01-candidate-prototypes-and-shard-corpus.md)
+records four Ghostworks excerpts (128 notes), synthetic stress cases, 44 passing
+supported format/fixture cells and four explicit full-state exclusions.
+Producer Pal precision adaptations preserve tested normalized state or explicitly
+refuse; a 55,296-input boundary sweep includes 2,048 bar|beat precision refusals.
+All 35 new tests and 286 existing document/binding tests pass. Eleven MIDI work
+families are reserved for future evaluation. The
+[checkpoint](work/r01-format-comparison.md#current-checkpoint-candidate-package-ready)
+identifies contract review and a frozen agent pilot as next.
+[E355](evidence/experiments/e355-r01-subscription-cli-smoke.md) records two successful
+unscored subscription CLI edits, provider token counters, and isolation/accounting
+traps. [E356](evidence/experiments/e356-r01-nested-fields-prototype.md) adds the
+accepted group-local FIELDS surface for C4: 12 fixtures preserve exact state,
+59 focused tests pass, and two unscored subscription edits succeed without
+repairs. Its eight development payloads use 31.98% fewer local tokens than
+equivalent C4 JSON; this is not comparative agent evidence.
+[E357](evidence/experiments/e357-r01-compact-fields-prototype.md) completes C3's
+FIELDS surface with adjacent nominal columns, 12 passing fixture checks and
+82 passing focused tests. [E358](evidence/experiments/e358-r01-matched-development-pairs.md)
+adds 11 matched cards and 14 development tasks: 76 eligible pairs pass offline
+fact/golden checks, with 23 explicit exclusions and a bounded layout control.
+[E359](evidence/experiments/e359-r01-cli-controls-and-model-selection.md) adds
+CLI request audits, seeded paired ordering, bounded explicit repairs and a
+historical model inventory; 148 focused tests pass. The historical GPT-5.4 mini
+snapshot is rejected by ChatGPT-backed Codex. A Luna edit succeeds but fails
+control admission because of advertised tools, injected instructions, missing
+served-model evidence and unresolved transport retries.
+[E360](evidence/experiments/e360-r01-historical-haiku-cli-capture.md) verifies the
+exact historical Haiku model, 1,024-token thinking budget and 12,000 output cap
+through a correct subscription CLI edit with raw capture. The operator monitors
+subscription usage; disabled-credit confirmation is not required. All 152
+focused tests pass.
+[E361](evidence/experiments/e361-r01-claude-controls-and-paired-rehearsal.md)
+closes the Claude gates: a versioned context policy admits only the captured
+client blocks with exact task bytes, and a local fault suite on the pinned
+binary shows one HTTP attempt and one captured request per submission, with
+positive controls detecting permitted retries. The paired runner completed the
+11-attempt historical-Haiku development slice: 15 admitted submissions, 9
+first-attempt passes, two C3 group edits exhausted both corrections. This is
+development evidence only; 168 focused tests pass. Codex controls were not
+advanced. The operator answered the [pilot draft](../spec/r01-research/PILOT-DRAFT.md#review-answers)'s
+review list: cohorts Haiku 5.5 and GPT-6 Luna, 12 instances × 3 repeats
+(201 initial attempts and 603 maximum submissions per cohort), C3/C4-only
+source tasks with exclusions reported, collision windows refused.
+The draft's [trial stages](../spec/r01-research/PILOT-DRAFT.md#trial-stages) add a labeled
+development stage, with reused inputs and tunable formats, before a frozen
+rigorous stage on fresh inputs. Next: Haiku 5.5 and Codex admission in
+separate sessions, then development runs; the Codex investigation below has
+since stopped at retained blockers.
+[E362](evidence/experiments/e362-r01-codex-isolation-and-remaining-gates.md)
+completes the focused Codex investigation: an isolated `CODEX_HOME` removes
+global AGENTS and skills; two unscored Luna edits succeed. Stronger controls
+leave four function tools advertised. Local custom-provider fault tests show
+one HTTP request with retries disabled and two with one retry allowed, both
+represented as one logical inference. Luna stays unadmitted pending tools,
+remaining context policy, subscription-route retries and an effective output
+ceiling. [D55](decisions/d55-r01-luna-model-selection-evidence.md) subsequently
+relaxes model admission to a captured matching request, successful completion
+and no observed reroute or conflicting evidence; server attestation remains
+unavailable but is not a gate. E362 stopped under the earlier policy as requested;
+58 focused regressions pass. No reserved-note access or pilot
+run has occurred. E353 remains the
+initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,
+product runtime change or scored model comparison occurred. Annotation persistence,
+storage ownership and live checks remain deferred. The live state below was
+not rechecked by R01.
+
+[B08](work/b08-scrollable-container-scopes.md) research is complete with a
+**go** verdict. [E352](evidence/experiments/e352-scrollable-container-scopes-retarget-live.md)
+records that a layer bank hung off a one-wide scrollable device bank retargets
+to the container at the scrolled position, including position 3, with the
+complete identity correct on the first read at 0 ms wait (polled 23 ms, one
+status round trip); nested chain and device windows scroll with total
+`itemCount`; out-of-range scrolls clamp; a solo written through a scrolled
+scope read back through an independent scope and the cursor route. The probe
+profile gained `probe.scopeScroll` (120 methods, hash `eee07e622b789114`)
+with an offline-tested driver. B08 implementation is next in the
+[backlog](BACKLOG.md): scrollable product scopes, the five chain tools and
+`compose_devices` past position 2, call-budget tests, and a re-measured
+`containerScope` ledger row. The brief's result section lists the design
+notes from the probe. R01, R02, and P01 follow.
+
+[V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
+complete. `resolve_device_name` (46 tools, descriptions v54) resolves an exact
+stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
+installation, preferences, indexes, and content locations with no Bitwig call.
+[E351](evidence/experiments/e351-device-name-resolution-live.md) records all
+four live insertions, configuration refresh and removal in one session,
+ambiguity with explicit disambiguation, and cleanup.
+
+V01's [Engram / Via Purifico sketch](work/v01-engram-purifico.md) is complete:
+two saved eight-bar Launcher sections at 130 BPM, independently verified and
+accepted after operator audition. No blocking V01 implementation defect was
+observed. [R05](work/r05-browser-name-resolution.md) research is complete
+with a positive native-discovery route. [E348](evidence/experiments/e348-browser-native-result-identities.md)
+records 60 sampled native/VST3/CLAP/preset identities checked against independent
+sources, successful cleanup, and the limits of coverage. The brief proposes a
+minimal resolver contract; no public resolver or new insertion route was added.
+Normal controller restoration and its fresh handshake are complete. Existing
+catalog/explicit-ID/path tools remain the product interface.
+
+[R06](work/r06-native-index-discovery.md) establishes a fast offline plug-in
+route: 407 VST3/CLAP entries, 28 identity checks, and complete prior instrument
+name lists match. [E349](evidence/experiments/e349-direct-plugin-index-discovery.md)
+records 7.69 ms median local read/parse/check cost, an undecoded native/preset
+preamble, and remaining index-refresh limits.
+[E350](evidence/experiments/e350-library-roots-from-preferences.md) adds a
+preferences-based root-discovery route: a temporary sound-content location was
+detected on disk after addition and removal while Bitwig remained running.
+Original location settings and project/selection context were verified afterward.
+V14 turned these results into the public resolver.
+
+The [backlog](BACKLOG.md) now orders B08, R01, R02, then the P01 offline audit.
+R01 also assesses the first-save annotation-continuity limitation
+recorded in the V01 closeout.
+
+[DIET](work/instruction-diet.md) is complete and independently reviewed.
+Use the shorter [context guide](README.md) for relevant reading. D54 governs
+inherited prescriptions; P01 examines runtime checks and recovery costs.
+The [V10 brief](work/v10-grid-instrument.md) retains the Grid design and
+identifies proposed mechanisms for assessment during implementation.
+
+## Live state
+
+- Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
+  `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
+  35,778,607 bytes, mtime `1790948299000000000`.
+- The normal `ghostnote` archive was restored with `copyExtension` after the
+  B08 probe (SHA-256
+  `ae998a5d238b34665243523c48c4dd073d7cc82dd3e5d872525e7ea0051f7524`; the jar
+  now carries the probe class, normal profile unchanged). The operator
+  confirmed replacement; `npm run probe:hello` passed: `normal-v1`, API 25,
+  92 methods, hash `8be1975eaa99d78f`, expected build markers, fresh
+  initialization at `2026-10-25T20:05:43.639Z`. The Ghostnote MCP server
+  answered product tools again after that replacement; it had stopped
+  answering after the earlier replacement to the probe build (E352).
+- Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
+  E352 deleted its scratch track `gn-b08`; `list_tracks` then listed the
+  original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure
+  read back unchanged, and the mixer selection stayed on `gn-sel`. No scratch
+  track, solo flag, or popup remains. Re-read project, target, and selection
+  before more writes.
+- Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
+  of the same name. It contains Addictive Drums 2 (operator set GM mapping),
+  Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
+  hold six verified clips, accepted after operator audition. Playback state
+  has not been re-read since that audition. The last mixer read showed the
+  three musical tracks at -10 dB, centered, unmuted, and unsoloed.
+  Source contributions are confirmed; the saved-project path and verification
+  summary are in the V01 brief. Its temporary working files were removed.
+  Re-read project, target, and selection before further writes.
+  Baseline: 46 normal tools, descriptions v54.
+- `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
+  attempt records; the admission reader and doctor drivers now use this path.
+  The whole `.tmp/` directory is ignored. Experimental evidence remains under
+  `context/evidence/`; historical records retain their original `.local/` paths.
+  A running brain process must restart to pick up the changed default path.
+  [V10](work/v10-grid-instrument.md#operational-doctor-storage) will replace
+  this development path with durable per-user application-data storage.
+
+## Preserve
+
+- The 6.0.6 install, backups, and donors under
+  `/Users/jonvuri/Bitwig Upgrade Backups/2026-10-21-pre-6.1/`: the baseline
+  jar for the upgrade tool.
+- Evidence data under `evidence/data/phase9b-doctor/` and the E records it
+  belongs to. Nineteen older `/tmp/gn-*` entries from 9b.5 and 9b.6i remain
+  and are not named by any plan.
+- Timing increases in E342 are research limits; no stable latency claim or
+  timing retry is authorized.

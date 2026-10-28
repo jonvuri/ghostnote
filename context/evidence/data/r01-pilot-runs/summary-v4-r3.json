@@ -1,0 +1,278 @@
+{
+ "claude": {
+  "runs": 201,
+  "submissions": 212,
+  "first": 192,
+  "within": 200,
+  "perRepeat": [
+   62,
+   65,
+   65
+  ],
+  "byTask": {
+   "p03-author-constrained": {
+    "f": 16,
+    "w": 18,
+    "n": 18
+   },
+   "p05-edit-velocity-large": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p01-read-sounding-at": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p02-read-group-timing": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 15,
+    "w": 17,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 13,
+    "w": 15,
+    "n": 15
+   },
+   "p06-transpose-every-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 11,
+    "w": 12,
+    "n": 12
+   },
+   "p08-shift-transpose-range": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   }
+  },
+  "byArm": {
+   "pp-barbeat": {
+    "f": 20,
+    "w": 23,
+    "n": 24
+   },
+   "baseline-fields": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   },
+   "pp-midi-json": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "c3-fields": {
+    "f": 34,
+    "w": 36,
+    "n": 36
+   },
+   "c4-fields": {
+    "f": 36,
+    "w": 36,
+    "n": 36
+   },
+   "c4-json": {
+    "f": 12,
+    "w": 12,
+    "n": 12
+   },
+   "c4-detached-fields": {
+    "f": 8,
+    "w": 9,
+    "n": 9
+   },
+   "c3-json": {
+    "f": 11,
+    "w": 12,
+    "n": 12
+   }
+  },
+  "byRole": {
+   "primary": {
+    "f": 161,
+    "w": 167,
+    "n": 168
+   },
+   "diagnostic": {
+    "f": 31,
+    "w": 33,
+    "n": 33
+   }
+  },
+  "consistency": {
+   "allPass": 60,
+   "allFail": 0,
+   "mixed": 7
+  },
+  "stalls": 0
+ },
+ "codex": {
+  "runs": 201,
+  "submissions": 382,
+  "first": 103,
+  "within": 125,
+  "perRepeat": [
+   35,
+   33,
+   35
+  ],
+  "byTask": {
+   "p06-transpose-every-pitch": {
+    "f": 13,
+    "w": 13,
+    "n": 18
+   },
+   "p05-edit-velocity-large": {
+    "f": 13,
+    "w": 15,
+    "n": 18
+   },
+   "p02-read-group-timing": {
+    "f": 6,
+    "w": 6,
+    "n": 15
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 6,
+    "w": 6,
+    "n": 15
+   },
+   "p08-shift-transpose-range": {
+    "f": 0,
+    "w": 0,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 6,
+    "w": 8,
+    "n": 15
+   },
+   "p11-preserve-window": {
+    "f": 17,
+    "w": 17,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 9,
+    "w": 16,
+    "n": 18
+   },
+   "p03-author-constrained": {
+    "f": 15,
+    "w": 15,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 12,
+    "w": 12,
+    "n": 12
+   },
+   "p01-read-sounding-at": {
+    "f": 1,
+    "w": 5,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 5,
+    "w": 12,
+    "n": 18
+   }
+  },
+  "byArm": {
+   "pp-barbeat": {
+    "f": 2,
+    "w": 3,
+    "n": 24
+   },
+   "baseline-fields": {
+    "f": 17,
+    "w": 19,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 13,
+    "w": 16,
+    "n": 24
+   },
+   "c3-fields": {
+    "f": 20,
+    "w": 25,
+    "n": 36
+   },
+   "c4-fields": {
+    "f": 24,
+    "w": 28,
+    "n": 36
+   },
+   "pp-midi-json": {
+    "f": 12,
+    "w": 17,
+    "n": 24
+   },
+   "c3-json": {
+    "f": 6,
+    "w": 6,
+    "n": 12
+   },
+   "c4-json": {
+    "f": 6,
+    "w": 8,
+    "n": 12
+   },
+   "c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 9
+   }
+  },
+  "byRole": {
+   "primary": {
+    "f": 88,
+    "w": 108,
+    "n": 168
+   },
+   "diagnostic": {
+    "f": 15,
+    "w": 17,
+    "n": 33
+   }
+  },
+  "consistency": {
+   "allPass": 28,
+   "allFail": 27,
+   "mixed": 12
+  },
+  "stalls": 2
+ }
+}

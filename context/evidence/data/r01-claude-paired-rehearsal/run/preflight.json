@@ -1,0 +1,69 @@
+{
+  "selection": {
+    "schema": "r01-paired-rehearsal-selection-v1",
+    "seed": "r01-paired-rehearsal-v1",
+    "profileId": "claude-historical",
+    "tasks": [
+      "edit-velocity-guitar",
+      "halve-group-spread"
+    ],
+    "repeats": 1,
+    "maxRepairs": 2,
+    "timeoutMs": 120000
+  },
+  "profile": {
+    "provider": "claude",
+    "model": "claude-haiku-4-5-20251001",
+    "thinkingBudget": 1024,
+    "maxOutputTokens": 12000,
+    "version": "2.1.302 (Claude Code)"
+  },
+  "binary": {
+    "name": "claude",
+    "path": "/Users/jonvuri/.local/bin/claude",
+    "realPath": "/Users/jonvuri/.local/share/claude/versions/2.1.302",
+    "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+  },
+  "version": "2.1.302 (Claude Code)",
+  "authentication": {
+    "authMethod": "claude.ai",
+    "apiProvider": "firstParty",
+    "subscriptionType": "pro"
+  },
+  "transportEvidenceSha256": "c05d6c46afa6833fc024c254f1a9ee3f0c420924f194ba42f1ffe308b1ff681f",
+  "startedAt": "2026-10-26T02:39:00.047Z",
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "319bcf4980bfb8f49bbd563cca40df5377a44f7ec261027e5916e3ceffc3eb3f"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "8e65ece6487acad6dccb0c71035ddfc683c05a3039bdbf31944b8e4b2e10d28c"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "2e16a0bf1777c0a893b111edc907a0e2733723d1254fc88c8c211931a0cb7789"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "2124794c465e2933391244c7a08bec05f81a827eb77d90500f33aeb35b4defcc"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "c41dc334756cf36df48da2a2f8290594ce41e5a637e92fdb18e40ef03e826955"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-transport-faults.mjs",
+      "sha256": "08796eca2d75fa8992d6a96edf9b1a51d95356c429b7be7bf5d14ddacced73e3"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "16271800f52e734f18deead63616fdb109c0bfd3e8acf24329dd8e17ae7bf15c"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "3ff779f5f1c1069dcb7f33bec43b86d890e2331f85ffdd664ed1d979396e4ba9"
+    }
+  ]
+}

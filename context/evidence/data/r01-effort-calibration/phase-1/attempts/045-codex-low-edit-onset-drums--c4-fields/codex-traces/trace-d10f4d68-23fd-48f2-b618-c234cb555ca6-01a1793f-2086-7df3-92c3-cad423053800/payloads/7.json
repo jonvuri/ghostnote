@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793f-235b-7691-8688-451c3616e1bc",
+  "turn_id": "01a1793f-235b-7691-8688-451c3616e1bc",
+  "last_agent_message": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 39 5/512 7/256 64\n  NOTE t1n2 39 777/256 7/256 64\n  NOTE t1n3 49 777/256 7/256 64\n  NOTE t1n4 49 2209/512 7/256 64\n  NOTE t1n5 51 2209/512 7/256 64\n  NOTE t1n6 49 2551/512 7/256 64\n  NOTE t1n7 51 2551/512 7/256 64\n  NOTE t1n8 51 1525/256 7/256 64\n  NOTE t1n9 51 423/64 7/256 64\n  NOTE t1n10 39 221/32 7/256 64\n  NOTE t1n11 39 1043/128 13/512 64\n  NOTE t1n12 39 2399/256 7/256 64\n  NOTE t1n13 38 2701/256 7/256 64\n  NOTE t1n14 38 759/64 7/256 64\n  NOTE t1n15 38 3363/256 7/256 64\n  NOTE t1n16 38 7359/512 13/512 64\n  NOTE t1n17 38 1995/128 13/512 64\n}",
+  "started_at": 1793035543,
+  "completed_at": 1793035548,
+  "duration_ms": 4955,
+  "time_to_first_token_ms": 2426
+}

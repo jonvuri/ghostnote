@@ -1,0 +1,150 @@
+{
+  "schema": "r01-claude-cli-controls-evidence-v1",
+  "status": "historical-model-verified-context-and-retry-gates-open",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "sha256": "f3ed682e7c701b39ffeb958cfb13b3686b10dac554d2b4691328f739472f2446",
+      "bytes": 4263
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "bdf2decb1bfab93c65eebdbeca5ad8da4dcea8b1ac68874227dafe1daeba2360",
+      "bytes": 11483
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "54f9fd4992fada0a9f1157f237a10de91835cce25a4c61550d8851a3dc09afe3",
+      "bytes": 11179
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "2e16a0bf1777c0a893b111edc907a0e2733723d1254fc88c8c211931a0cb7789",
+      "bytes": 4377
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-smoke-audit.mjs",
+      "sha256": "2bdac67d77be8a5400c24e047de0fdbae628571b12da2b2004f29c8bebabae7d",
+      "bytes": 2181
+    },
+    {
+      "path": "spec/r01-research/CLI-CONTROLS.md",
+      "sha256": "fd901907b74785b6c991455c35f6ed5f625a57984b484f803142cdcad8b45579",
+      "bytes": 12793
+    }
+  ],
+  "e359SourceSnapshots": [
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-probe.mjs",
+      "sha256": "858dc3285c23905344d992d780d8d648a853303d3ffca7cd3dab881046db6ee8",
+      "bytes": 4397
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-audit.mjs",
+      "sha256": "af5e254829dd081146031df9c521fb5288b9ce7163b2e4f0b39fae26b31f3013",
+      "bytes": 8476
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-audit.test.mjs",
+      "sha256": "d5c427cc96b9ff3890295c055c7bcfa998eeccdb0efabd5343d77ffdd2d6e567",
+      "bytes": 7843
+    },
+    {
+      "originalPath": "spec/r01-research/CLI-CONTROLS.md",
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/CLI-CONTROLS.md",
+      "sha256": "7de9b8acf6d34595aa6e7ac9884a5c6d93bcfb1d589f373efb8b48d9853d5f98",
+      "bytes": 11674
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/api-bodies/0c21aef8-ebaf-46ac-ba1f-94d47360b7aa.request.json",
+      "sha256": "ffcb9c511e3623f842b6b873be2460faf6d56e166498d0c3fbbd3965b283616b",
+      "bytes": 3708
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/api-bodies/index.jsonl",
+      "sha256": "c3f3e0d56757aacc8b1fcca713d36d04699fb8bd8c4da09c1e9d1d77165a16c9",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/api-bodies/req_011CgQ35g1YPfBgsxtZopznA.response.json",
+      "sha256": "1266047040afa8a4970bdf9ab8e9e7e99fbf38c3784606c1132b2f0965646a40",
+      "bytes": 2279
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/audit.json",
+      "sha256": "8ccaeada6fb39dabc77a335e9961c2ab3e5cc0591dead4cbe28b27e123aab24f",
+      "bytes": 3290
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/cli-control-probe.mjs",
+      "sha256": "f3ed682e7c701b39ffeb958cfb13b3686b10dac554d2b4691328f739472f2446",
+      "bytes": 4263
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/cli-controls.mjs",
+      "sha256": "2e16a0bf1777c0a893b111edc907a0e2733723d1254fc88c8c211931a0cb7789",
+      "bytes": 4377
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/manifest.json",
+      "sha256": "72563fa4b01516158a349d1bc2037ec38ab0d300599ebc5bb757e48840dd7471",
+      "bytes": 2959
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/process.json",
+      "sha256": "616b3a51759a51ef048a42831905e88d171bdf3fdbc2e0804d4efd40f1be0b5f",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/prompt.txt",
+      "sha256": "b4cbe1898e81f1779acbb7071dbc72f9497810d985ba4555beebc624a8d15f10",
+      "bytes": 222
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/stdout.jsonl",
+      "sha256": "a5cb18eb3aba3266ef92c6d7adae05a6adf4bb9268ab259083e72db29eeab352",
+      "bytes": 7215
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/claude-historical/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/CLI-CONTROLS.md",
+      "sha256": "7de9b8acf6d34595aa6e7ac9884a5c6d93bcfb1d589f373efb8b48d9853d5f98",
+      "bytes": 11674
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-audit.mjs",
+      "sha256": "af5e254829dd081146031df9c521fb5288b9ce7163b2e4f0b39fae26b31f3013",
+      "bytes": 8476
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-audit.test.mjs",
+      "sha256": "d5c427cc96b9ff3890295c055c7bcfa998eeccdb0efabd5343d77ffdd2d6e567",
+      "bytes": 7843
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/e359-source-snapshots/cli-control-probe.mjs",
+      "sha256": "858dc3285c23905344d992d780d8d648a853303d3ffca7cd3dab881046db6ee8",
+      "bytes": 4397
+    },
+    {
+      "path": "context/evidence/data/r01-cli-claude-controls/operator-context.json",
+      "sha256": "45e693b081c2aa69d6c620377680aef1190f610390965bffc445b59daaaf6eda",
+      "bytes": 302
+    }
+  ]
+}

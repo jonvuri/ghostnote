@@ -1,0 +1,4392 @@
+{
+  "schema": "r01-effort-calibration-results-v1",
+  "stage": "development",
+  "status": "complete",
+  "evidence": "development calibration; correctness recorded, not used for selection",
+  "summary": {
+    "claude-low": {
+      "submissions": 38,
+      "admitted": 38,
+      "generated": {
+        "n": 38,
+        "min": 12,
+        "p25": 148.25,
+        "median": 401.5,
+        "p75": 754,
+        "max": 7715,
+        "mean": 878.421052631579
+      },
+      "reasoning": {
+        "n": 38,
+        "min": 0,
+        "p25": 92.5,
+        "median": 149,
+        "p75": 516.5,
+        "max": 7459,
+        "mean": 495.63157894736844
+      },
+      "totalInput": {
+        "n": 38,
+        "min": 1760,
+        "p25": 1967.5,
+        "median": 2195.5,
+        "p75": 2524.75,
+        "max": 6258,
+        "mean": 2580.2368421052633
+      },
+      "elapsedMs": {
+        "n": 38,
+        "min": 1472.1356249999953,
+        "p25": 2530.6604584999986,
+        "median": 3402.992541500007,
+        "p75": 4751.401521250009,
+        "max": 31411.67499999999,
+        "mean": 4911.647083342107
+      },
+      "byFamilyMedianGenerated": {
+        "comprehension": 414.5,
+        "constrained-authoring": 399,
+        "count-change": 292,
+        "group-transform": 1231.5,
+        "individual-edit": 621.5,
+        "preservation": 2191,
+        "refusal": 60
+      },
+      "passes": 36,
+      "failures": [
+        {
+          "cell": "halve-group-spread--c3-fields",
+          "outcome": "fail",
+          "reason": "source-state-mismatch"
+        },
+        {
+          "cell": "edit-inferred-nominal--c4-fields",
+          "outcome": "fail",
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "medianRatioToReference": 6.129770992366412,
+      "pairedRatioToReference": {
+        "n": 38,
+        "min": 1.2364559819413092,
+        "p25": 1.9028716216216215,
+        "median": 6.315972222222222,
+        "p75": 9.625,
+        "max": 72.92857142857143,
+        "mean": 12.301444334680076
+      }
+    },
+    "codex-low": {
+      "submissions": 38,
+      "admitted": 38,
+      "generated": {
+        "n": 38,
+        "min": 8,
+        "p25": 14,
+        "median": 65.5,
+        "p75": 209.25,
+        "max": 3073,
+        "mean": 285.7631578947368
+      },
+      "reasoning": {
+        "n": 38,
+        "min": 0,
+        "p25": 0,
+        "median": 0,
+        "p75": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "totalInput": {
+        "n": 38,
+        "min": 3634,
+        "p25": 3770.25,
+        "median": 3920,
+        "p75": 4077.25,
+        "max": 6753,
+        "mean": 4211.368421052632
+      },
+      "elapsedMs": {
+        "n": 38,
+        "min": 2244.327500000014,
+        "p25": 2643.621906250002,
+        "median": 3779.190603999996,
+        "p75": 5004.794948500006,
+        "max": 30386.347375000012,
+        "mean": 5146.454429815791
+      },
+      "byFamilyMedianGenerated": {
+        "comprehension": 16,
+        "constrained-authoring": 170,
+        "count-change": 57,
+        "group-transform": 204.5,
+        "individual-edit": 258,
+        "preservation": 1772,
+        "refusal": 9
+      },
+      "passes": 32,
+      "failures": [
+        {
+          "cell": "edit-inferred-nominal--c3-fields",
+          "outcome": "fail",
+          "reason": "source-state-mismatch"
+        },
+        {
+          "cell": "halve-group-spread--c3-fields",
+          "outcome": "fail",
+          "reason": "parse-or-validation-error"
+        },
+        {
+          "cell": "delete-one-note--pp-barbeat",
+          "outcome": "fail",
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "cell": "edit-inferred-nominal--c4-fields",
+          "outcome": "fail",
+          "reason": "source-state-mismatch"
+        },
+        {
+          "cell": "edit-onset-drums--pp-barbeat",
+          "outcome": "fail",
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "cell": "read-group-timing--c4-fields",
+          "outcome": "fail",
+          "reason": "answer-mismatch"
+        }
+      ],
+      "medianRatioToReference": 1,
+      "pairedRatioToReference": {
+        "n": 38,
+        "min": 1,
+        "p25": 1,
+        "median": 1,
+        "p75": 1,
+        "max": 1,
+        "mean": 1
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "codex-low:r0:refuse-ambiguous-selector--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--c3-fields",
+      "task": "refuse-ambiguous-selector",
+      "arm": "c3-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "19c32e677ce2f6255170cdc6d18deddd59a334a1d19b5ac8abc82c5ba4f5807e",
+      "directory": "attempts/001-codex-low-refuse-ambiguous-selector--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3634,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3634,
+      "generated": 8,
+      "reasoning": 0,
+      "elapsedMs": 2516.591875,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2516.591875
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-ambiguous-selector--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--c3-fields",
+      "task": "refuse-ambiguous-selector",
+      "arm": "c3-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "19c32e677ce2f6255170cdc6d18deddd59a334a1d19b5ac8abc82c5ba4f5807e",
+      "directory": "attempts/002-claude-low-refuse-ambiguous-selector--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1786,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 58,
+        "output_tokens_details": {
+          "thinking_tokens": 43
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1786,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 58,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1786,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1786
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1788,
+      "generated": 58,
+      "reasoning": 43,
+      "elapsedMs": 1623.085333,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 1623.085333
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-velocity-guitar--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--c3-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c3-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1777e9df93bb3dec97ae8d9e5a1ee7c15c179e439b3c52bf9967511964c7d55a",
+      "directory": "attempts/003-codex-low-edit-velocity-guitar--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3771,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 204,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3771,
+      "generated": 204,
+      "reasoning": 0,
+      "elapsedMs": 8057.686667,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 8057.686667
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-velocity-guitar--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--c3-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c3-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1777e9df93bb3dec97ae8d9e5a1ee7c15c179e439b3c52bf9967511964c7d55a",
+      "directory": "attempts/004-claude-low-edit-velocity-guitar--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1926,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 340,
+        "output_tokens_details": {
+          "thinking_tokens": 92
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1926,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 340,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1926,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1926
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1928,
+      "generated": 340,
+      "reasoning": 92,
+      "elapsedMs": 4094.788124999999,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4094.788124999999
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-ambiguous-selector--pp-midi-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--pp-midi-json",
+      "task": "refuse-ambiguous-selector",
+      "arm": "pp-midi-json",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "f1989d77c97b99d7ee5021c6a42bb8758e85bc7d554e6f32cd22d289ae15f4ab",
+      "directory": "attempts/005-claude-low-refuse-ambiguous-selector--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1761,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 60,
+        "output_tokens_details": {
+          "thinking_tokens": 45
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1761,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 60,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1761,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1761
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1763,
+      "generated": 60,
+      "reasoning": 45,
+      "elapsedMs": 1977.406167000001,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 1977.406167000001
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-ambiguous-selector--pp-midi-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--pp-midi-json",
+      "task": "refuse-ambiguous-selector",
+      "arm": "pp-midi-json",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "f1989d77c97b99d7ee5021c6a42bb8758e85bc7d554e6f32cd22d289ae15f4ab",
+      "directory": "attempts/006-codex-low-refuse-ambiguous-selector--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3646,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3646,
+      "generated": 8,
+      "reasoning": 0,
+      "elapsedMs": 3293.783958,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3293.783958
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:halve-group-spread--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "halve-group-spread--c4-fields",
+      "task": "halve-group-spread",
+      "arm": "c4-fields",
+      "family": "group-transform",
+      "cohort": "source",
+      "promptSha256": "997fc47765177ab974549db35ce032adbe1ea3df13261f3fbea7d33b0536ab75",
+      "directory": "attempts/007-codex-low-halve-group-spread--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4085,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 176,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4085,
+      "generated": 176,
+      "reasoning": 0,
+      "elapsedMs": 4245.159167000002,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4245.159167000002
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:halve-group-spread--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "halve-group-spread--c4-fields",
+      "task": "halve-group-spread",
+      "arm": "c4-fields",
+      "family": "group-transform",
+      "cohort": "source",
+      "promptSha256": "997fc47765177ab974549db35ce032adbe1ea3df13261f3fbea7d33b0536ab75",
+      "directory": "attempts/008-claude-low-halve-group-spread--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2556,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 953,
+        "output_tokens_details": {
+          "thinking_tokens": 692
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2556,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 953,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2556,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2556
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2558,
+      "generated": 953,
+      "reasoning": 692,
+      "elapsedMs": 5225.6753750000025,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5225.6753750000025
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-missing-timing--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-missing-timing--c4-fields",
+      "task": "refuse-missing-timing",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "source",
+      "promptSha256": "b651ff39a901127462271c3dc268ef0dfb8ddaf908561f6ed9752ed9020b8217",
+      "directory": "attempts/009-claude-low-refuse-missing-timing--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2416,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 106,
+        "output_tokens_details": {
+          "thinking_tokens": 94
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2416,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 106,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2416,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2416
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2418,
+      "generated": 106,
+      "reasoning": 94,
+      "elapsedMs": 2089.590083000003,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2089.590083000003
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-missing-timing--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-missing-timing--c4-fields",
+      "task": "refuse-missing-timing",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "source",
+      "promptSha256": "b651ff39a901127462271c3dc268ef0dfb8ddaf908561f6ed9752ed9020b8217",
+      "directory": "attempts/010-codex-low-refuse-missing-timing--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3985,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3985,
+      "generated": 9,
+      "reasoning": 0,
+      "elapsedMs": 6018.717791999996,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 6018.717791999996
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:preserve-exact-wider--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "preserve-exact-wider--c3-fields",
+      "task": "preserve-exact-wider",
+      "arm": "c3-fields",
+      "family": "preservation",
+      "cohort": "source",
+      "promptSha256": "0fddd9d0694682c83ae1c5a3974881e41bccb9a5ab2f604d091036356b63b12a",
+      "directory": "attempts/011-codex-low-preserve-exact-wider--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3980,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 150,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3980,
+      "generated": 150,
+      "reasoning": 0,
+      "elapsedMs": 5076.008459000004,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5076.008459000004
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:preserve-exact-wider--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "preserve-exact-wider--c3-fields",
+      "task": "preserve-exact-wider",
+      "arm": "c3-fields",
+      "family": "preservation",
+      "cohort": "source",
+      "promptSha256": "0fddd9d0694682c83ae1c5a3974881e41bccb9a5ab2f604d091036356b63b12a",
+      "directory": "attempts/012-claude-low-preserve-exact-wider--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2390,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 404,
+        "output_tokens_details": {
+          "thinking_tokens": 174
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2390,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 404,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2390,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2390
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2392,
+      "generated": 404,
+      "reasoning": 174,
+      "elapsedMs": 3340.002625000001,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3340.002625000001
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-inferred-nominal--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-inferred-nominal--c3-fields",
+      "task": "edit-inferred-nominal",
+      "arm": "c3-fields",
+      "family": "individual-edit",
+      "cohort": "source",
+      "promptSha256": "7cd0776af45e9dfc8975e83a64bcadcc7c2952ddb44afa23fdaea5cefdbeacf4",
+      "directory": "attempts/013-claude-low-edit-inferred-nominal--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2459,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1518,
+        "output_tokens_details": {
+          "thinking_tokens": 1196
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2459,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1518,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2459,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2459
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2461,
+      "generated": 1518,
+      "reasoning": 1196,
+      "elapsedMs": 7795.143667000004,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 7795.143667000004
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-inferred-nominal--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-inferred-nominal--c3-fields",
+      "task": "edit-inferred-nominal",
+      "arm": "c3-fields",
+      "family": "individual-edit",
+      "cohort": "source",
+      "promptSha256": "7cd0776af45e9dfc8975e83a64bcadcc7c2952ddb44afa23fdaea5cefdbeacf4",
+      "directory": "attempts/014-codex-low-edit-inferred-nominal--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4037,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 211,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4037,
+      "generated": 211,
+      "reasoning": 0,
+      "elapsedMs": 4079.841916000005,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4079.841916000005
+      },
+      "outcome": "fail",
+      "reason": "source-state-mismatch"
+    },
+    {
+      "id": "codex-low:r0:refuse-ambiguous-selector--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--c4-fields",
+      "task": "refuse-ambiguous-selector",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "a424ab497d4ba24c141c7cd47c1390681abdf366b82b9c130819600690ef9049",
+      "directory": "attempts/015-codex-low-refuse-ambiguous-selector--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3761,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3761,
+      "generated": 8,
+      "reasoning": 0,
+      "elapsedMs": 2289.7942079999993,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2289.7942079999993
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-ambiguous-selector--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--c4-fields",
+      "task": "refuse-ambiguous-selector",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "a424ab497d4ba24c141c7cd47c1390681abdf366b82b9c130819600690ef9049",
+      "directory": "attempts/016-claude-low-refuse-ambiguous-selector--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1988,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 15,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1988,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 15,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1988,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1988
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1990,
+      "generated": 15,
+      "reasoning": 0,
+      "elapsedMs": 1472.1356249999953,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 1472.1356249999953
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-stale-snapshot--pp-midi-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--pp-midi-json",
+      "task": "refuse-stale-snapshot",
+      "arm": "pp-midi-json",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "7c60d843c16f58fb7bb9154308ff009fbeef67282cc5b747582eeb1fa9152863",
+      "directory": "attempts/017-codex-low-refuse-stale-snapshot--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3733,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3733,
+      "generated": 9,
+      "reasoning": 0,
+      "elapsedMs": 3636.247583000004,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3636.247583000004
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-stale-snapshot--pp-midi-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--pp-midi-json",
+      "task": "refuse-stale-snapshot",
+      "arm": "pp-midi-json",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "7c60d843c16f58fb7bb9154308ff009fbeef67282cc5b747582eeb1fa9152863",
+      "directory": "attempts/018-claude-low-refuse-stale-snapshot--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1871,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 58,
+        "output_tokens_details": {
+          "thinking_tokens": 44
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1871,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 58,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1871,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1871
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1873,
+      "generated": 58,
+      "reasoning": 44,
+      "elapsedMs": 2518.4576249999955,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2518.4576249999955
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:author-four-notes--baseline-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "author-four-notes--baseline-json",
+      "task": "author-four-notes",
+      "arm": "baseline-json",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "6333fdaa2bb32eed2e988c52275aa6d7ef6e55484f0c98b2b5fd60c7ac444d80",
+      "directory": "attempts/019-codex-low-author-four-notes--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3833,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 245,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3833,
+      "generated": 245,
+      "reasoning": 0,
+      "elapsedMs": 3922.1336249999877,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3922.1336249999877
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:author-four-notes--baseline-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "author-four-notes--baseline-json",
+      "task": "author-four-notes",
+      "arm": "baseline-json",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "6333fdaa2bb32eed2e988c52275aa6d7ef6e55484f0c98b2b5fd60c7ac444d80",
+      "directory": "attempts/020-claude-low-author-four-notes--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2019,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 599,
+        "output_tokens_details": {
+          "thinking_tokens": 243
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2019,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 599,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2019,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2019
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2021,
+      "generated": 599,
+      "reasoning": 243,
+      "elapsedMs": 4589.385208000007,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4589.385208000007
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-missing-timing--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-missing-timing--c3-fields",
+      "task": "refuse-missing-timing",
+      "arm": "c3-fields",
+      "family": "refusal",
+      "cohort": "source",
+      "promptSha256": "60fca6995c6a575c0c29eb192f063fac93123232d5ea5df3c13ca8b26e5f8447",
+      "directory": "attempts/021-claude-low-refuse-missing-timing--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2349,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 12,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2349,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 12,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2349,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2349
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2351,
+      "generated": 12,
+      "reasoning": 0,
+      "elapsedMs": 2288.0336249999964,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2288.0336249999964
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-missing-timing--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-missing-timing--c3-fields",
+      "task": "refuse-missing-timing",
+      "arm": "c3-fields",
+      "family": "refusal",
+      "cohort": "source",
+      "promptSha256": "60fca6995c6a575c0c29eb192f063fac93123232d5ea5df3c13ca8b26e5f8447",
+      "directory": "attempts/022-codex-low-refuse-missing-timing--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3939,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3939,
+      "generated": 9,
+      "reasoning": 0,
+      "elapsedMs": 3031.9126670000114,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3031.9126670000114
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-count-piano--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-count-piano--c3-fields",
+      "task": "read-count-piano",
+      "arm": "c3-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "ad72928bb30b5a21ded2692d791730e6c08fdb0813c80f8f5925042bd79fa1fa",
+      "directory": "attempts/023-claude-low-read-count-piano--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 3751,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1021,
+        "output_tokens_details": {
+          "thinking_tokens": 1007
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 3751,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1021,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 3751,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3751
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 3753,
+      "generated": 1021,
+      "reasoning": 1007,
+      "elapsedMs": 5820.833916999996,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5820.833916999996
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-count-piano--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-count-piano--c3-fields",
+      "task": "read-count-piano",
+      "arm": "c3-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "ad72928bb30b5a21ded2692d791730e6c08fdb0813c80f8f5925042bd79fa1fa",
+      "directory": "attempts/024-codex-low-read-count-piano--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 5337,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 5337,
+      "generated": 14,
+      "reasoning": 0,
+      "elapsedMs": 3013.4898340000072,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3013.4898340000072
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-velocity-guitar--baseline-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--baseline-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "682676fdd8dbe3ba5143112c37bc8ce1805002e8ceae3c351d45f8e16d1b29a1",
+      "directory": "attempts/025-codex-low-edit-velocity-guitar--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4004,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 316,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4004,
+      "generated": 316,
+      "reasoning": 0,
+      "elapsedMs": 4118.205125000008,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4118.205125000008
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-velocity-guitar--baseline-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--baseline-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "682676fdd8dbe3ba5143112c37bc8ce1805002e8ceae3c351d45f8e16d1b29a1",
+      "directory": "attempts/026-claude-low-edit-velocity-guitar--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2283,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 520,
+        "output_tokens_details": {
+          "thinking_tokens": 100
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2283,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 520,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2283,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2283
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2285,
+      "generated": 520,
+      "reasoning": 100,
+      "elapsedMs": 2904.7790410000016,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2904.7790410000016
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-earliest-bass--pp-midi-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--pp-midi-json",
+      "task": "read-earliest-bass",
+      "arm": "pp-midi-json",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "959a7ba321735afa4b8b8a3213890173dedd1223932d2f70604d736fe044fa98",
+      "directory": "attempts/027-claude-low-read-earliest-bass--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1856,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 152,
+        "output_tokens_details": {
+          "thinking_tokens": 131
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1856,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 152,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1856,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1856
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1858,
+      "generated": 152,
+      "reasoning": 131,
+      "elapsedMs": 2567.268959000008,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2567.268959000008
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-earliest-bass--pp-midi-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--pp-midi-json",
+      "task": "read-earliest-bass",
+      "arm": "pp-midi-json",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "959a7ba321735afa4b8b8a3213890173dedd1223932d2f70604d736fe044fa98",
+      "directory": "attempts/028-codex-low-read-earliest-bass--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3721,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3721,
+      "generated": 16,
+      "reasoning": 0,
+      "elapsedMs": 2383.4691659999953,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2383.4691659999953
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:halve-group-spread--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "halve-group-spread--c3-fields",
+      "task": "halve-group-spread",
+      "arm": "c3-fields",
+      "family": "group-transform",
+      "cohort": "source",
+      "promptSha256": "cc2b36dbf323f6be84f613e4c2ae6a233cf7ba7941b9fac09d1992048de46612",
+      "directory": "attempts/029-codex-low-halve-group-spread--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4075,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 233,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4075,
+      "generated": 233,
+      "reasoning": 0,
+      "elapsedMs": 4791.1544170000125,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4791.1544170000125
+      },
+      "outcome": "fail",
+      "reason": "parse-or-validation-error"
+    },
+    {
+      "id": "claude-low:r0:halve-group-spread--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "halve-group-spread--c3-fields",
+      "task": "halve-group-spread",
+      "arm": "c3-fields",
+      "family": "group-transform",
+      "cohort": "source",
+      "promptSha256": "cc2b36dbf323f6be84f613e4c2ae6a233cf7ba7941b9fac09d1992048de46612",
+      "directory": "attempts/030-claude-low-halve-group-spread--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2519,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1510,
+        "output_tokens_details": {
+          "thinking_tokens": 1164
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2519,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1510,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2519,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2519
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2521,
+      "generated": 1510,
+      "reasoning": 1164,
+      "elapsedMs": 7463.156000000003,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 7463.156000000003
+      },
+      "outcome": "fail",
+      "reason": "source-state-mismatch"
+    },
+    {
+      "id": "claude-low:r0:refuse-ambiguous-selector--pp-barbeat",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--pp-barbeat",
+      "task": "refuse-ambiguous-selector",
+      "arm": "pp-barbeat",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "b8d0388089b72d6d71a97f35529590e930892a186c9099591b1e7b09b87657e5",
+      "directory": "attempts/031-claude-low-refuse-ambiguous-selector--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1878,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 359,
+        "output_tokens_details": {
+          "thinking_tokens": 344
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1878,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 359,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1878,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1878
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1880,
+      "generated": 359,
+      "reasoning": 344,
+      "elapsedMs": 4043.7731249999924,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4043.7731249999924
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-ambiguous-selector--pp-barbeat",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-ambiguous-selector--pp-barbeat",
+      "task": "refuse-ambiguous-selector",
+      "arm": "pp-barbeat",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "b8d0388089b72d6d71a97f35529590e930892a186c9099591b1e7b09b87657e5",
+      "directory": "attempts/032-codex-low-refuse-ambiguous-selector--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3716,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 8,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3716,
+      "generated": 8,
+      "reasoning": 0,
+      "elapsedMs": 2476.390041999999,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2476.390041999999
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-onset-drums--pp-midi-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--pp-midi-json",
+      "task": "edit-onset-drums",
+      "arm": "pp-midi-json",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "484f18132d609111ebc3cd61bb0fb7d3b6931efdeb330c50fb65d33d3c3a9fa2",
+      "directory": "attempts/033-claude-low-edit-onset-drums--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2063,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 525,
+        "output_tokens_details": {
+          "thinking_tokens": 153
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2063,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 525,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2063,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2063
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2065,
+      "generated": 525,
+      "reasoning": 153,
+      "elapsedMs": 4225.309916999991,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4225.309916999991
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-onset-drums--pp-midi-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--pp-midi-json",
+      "task": "edit-onset-drums",
+      "arm": "pp-midi-json",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "484f18132d609111ebc3cd61bb0fb7d3b6931efdeb330c50fb65d33d3c3a9fa2",
+      "directory": "attempts/034-codex-low-edit-onset-drums--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3901,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 305,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3901,
+      "generated": 305,
+      "reasoning": 0,
+      "elapsedMs": 5545.742291999981,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5545.742291999981
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:preserve-piano--baseline-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "preserve-piano--baseline-fields",
+      "task": "preserve-piano",
+      "arm": "baseline-fields",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "daf9c3e5f4d9d76cbb6b242ec773d859ce0b93f2ff7171290808d13164ee4c6e",
+      "directory": "attempts/035-claude-low-preserve-piano--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4690,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2973,
+        "output_tokens_details": {
+          "thinking_tokens": 145
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4690,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2973,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 4690,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4690
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 4692,
+      "generated": 2973,
+      "reasoning": 145,
+      "elapsedMs": 9629.395624999976,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 9629.395624999976
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:preserve-piano--baseline-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "preserve-piano--baseline-fields",
+      "task": "preserve-piano",
+      "arm": "baseline-fields",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "daf9c3e5f4d9d76cbb6b242ec773d859ce0b93f2ff7171290808d13164ee4c6e",
+      "directory": "attempts/036-codex-low-preserve-piano--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 5901,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2220,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 5901,
+      "generated": 2220,
+      "reasoning": 0,
+      "elapsedMs": 17080.664541000006,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 17080.664541000006
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:delete-one-note--pp-midi-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "delete-one-note--pp-midi-json",
+      "task": "delete-one-note",
+      "arm": "pp-midi-json",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "34ba7e4a898963594d40ce5e5cc5836bd9281c5019cdfced07baaa23cebf4e0b",
+      "directory": "attempts/037-codex-low-delete-one-note--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3655,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 52,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3655,
+      "generated": 52,
+      "reasoning": 0,
+      "elapsedMs": 2560.5369169999904,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2560.5369169999904
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:delete-one-note--pp-midi-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "delete-one-note--pp-midi-json",
+      "task": "delete-one-note",
+      "arm": "pp-midi-json",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "34ba7e4a898963594d40ce5e5cc5836bd9281c5019cdfced07baaa23cebf4e0b",
+      "directory": "attempts/038-claude-low-delete-one-note--pp-midi-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1758,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 292,
+        "output_tokens_details": {
+          "thinking_tokens": 229
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1758,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 292,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1758,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1758
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1760,
+      "generated": 292,
+      "reasoning": 229,
+      "elapsedMs": 3079.1817080000183,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3079.1817080000183
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:preserve-piano--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "preserve-piano--c3-fields",
+      "task": "preserve-piano",
+      "arm": "c3-fields",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "c92b826a24e03efbffcc61d39fd9d8cdc039f49d19a48d6d5caf8991cf0d10c0",
+      "directory": "attempts/039-claude-low-preserve-piano--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 3743,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2191,
+        "output_tokens_details": {
+          "thinking_tokens": 123
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 3743,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2191,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 3743,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3743
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 3745,
+      "generated": 2191,
+      "reasoning": 123,
+      "elapsedMs": 7167.328707999986,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 7167.328707999986
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:preserve-piano--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "preserve-piano--c3-fields",
+      "task": "preserve-piano",
+      "arm": "c3-fields",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "c92b826a24e03efbffcc61d39fd9d8cdc039f49d19a48d6d5caf8991cf0d10c0",
+      "directory": "attempts/040-codex-low-preserve-piano--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 5334,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1772,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 5334,
+      "generated": 1772,
+      "reasoning": 0,
+      "elapsedMs": 14625.415332999983,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 14625.415332999983
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:preserve-piano--baseline-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "preserve-piano--baseline-json",
+      "task": "preserve-piano",
+      "arm": "baseline-json",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "3476edc533748d1f80f598c003f046508f7e08b6a9642576d5f18fb5cb98d108",
+      "directory": "attempts/041-codex-low-preserve-piano--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 6748,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 3073,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 6748,
+      "generated": 3073,
+      "reasoning": 0,
+      "elapsedMs": 30386.347375000012,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 30386.347375000012
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:preserve-piano--baseline-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "preserve-piano--baseline-json",
+      "task": "preserve-piano",
+      "arm": "baseline-json",
+      "family": "preservation",
+      "cohort": "performed",
+      "promptSha256": "3476edc533748d1f80f598c003f046508f7e08b6a9642576d5f18fb5cb98d108",
+      "directory": "attempts/042-claude-low-preserve-piano--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 6248,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 4528,
+        "output_tokens_details": {
+          "thinking_tokens": 100
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 6248,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 4528,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 6248,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 6248
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 6250,
+      "generated": 4528,
+      "reasoning": 100,
+      "elapsedMs": 13701.900832999992,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 13701.900832999992
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-earliest-bass--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--c4-fields",
+      "task": "read-earliest-bass",
+      "arm": "c4-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "3f6b4e42e0cceecb0fd9c429291c33167655174934786cc50122f1b4ef33aa3e",
+      "directory": "attempts/043-codex-low-read-earliest-bass--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3852,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3852,
+      "generated": 16,
+      "reasoning": 0,
+      "elapsedMs": 4420.097041000001,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4420.097041000001
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-earliest-bass--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--c4-fields",
+      "task": "read-earliest-bass",
+      "arm": "c4-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "3f6b4e42e0cceecb0fd9c429291c33167655174934786cc50122f1b4ef33aa3e",
+      "directory": "attempts/044-claude-low-read-earliest-bass--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2090,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 99,
+        "output_tokens_details": {
+          "thinking_tokens": 78
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2090,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 99,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2090,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2090
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2092,
+      "generated": 99,
+      "reasoning": 78,
+      "elapsedMs": 2069.4979170000006,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2069.4979170000006
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-onset-drums--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--c4-fields",
+      "task": "edit-onset-drums",
+      "arm": "c4-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1238612bc713d4ee8a07cc92b3adb2f678acba5d0bbee8b5bf139b37f6539387",
+      "directory": "attempts/045-codex-low-edit-onset-drums--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4056,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 361,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4056,
+      "generated": 361,
+      "reasoning": 0,
+      "elapsedMs": 5743.893624999997,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5743.893624999997
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-onset-drums--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--c4-fields",
+      "task": "edit-onset-drums",
+      "arm": "c4-fields",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1238612bc713d4ee8a07cc92b3adb2f678acba5d0bbee8b5bf139b37f6539387",
+      "directory": "attempts/046-claude-low-edit-onset-drums--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2306,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 585,
+        "output_tokens_details": {
+          "thinking_tokens": 157
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2306,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 585,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2306,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2306
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2308,
+      "generated": 585,
+      "reasoning": 157,
+      "elapsedMs": 3581.6050410000025,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3581.6050410000025
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-stale-snapshot--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--c4-fields",
+      "task": "refuse-stale-snapshot",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "1ce2fb68d584fbbe842bd85216eba292e13fc901c7ddfe42037451071ee50156",
+      "directory": "attempts/047-codex-low-refuse-stale-snapshot--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3864,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3864,
+      "generated": 9,
+      "reasoning": 0,
+      "elapsedMs": 2846.9472499999974,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2846.9472499999974
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-stale-snapshot--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--c4-fields",
+      "task": "refuse-stale-snapshot",
+      "arm": "c4-fields",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "1ce2fb68d584fbbe842bd85216eba292e13fc901c7ddfe42037451071ee50156",
+      "directory": "attempts/048-claude-low-refuse-stale-snapshot--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2104,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 128,
+        "output_tokens_details": {
+          "thinking_tokens": 114
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2104,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 128,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2104,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2104
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2106,
+      "generated": 128,
+      "reasoning": 114,
+      "elapsedMs": 2156.8722919999855,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2156.8722919999855
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:refuse-stale-snapshot--pp-barbeat",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--pp-barbeat",
+      "task": "refuse-stale-snapshot",
+      "arm": "pp-barbeat",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "d661dd43fe1957661e5c0eb1e0f4898a8ff47c5b9c50c9e6aab1e9466b986468",
+      "directory": "attempts/049-claude-low-refuse-stale-snapshot--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1976,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 87,
+        "output_tokens_details": {
+          "thinking_tokens": 73
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1976,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 87,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1976,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1976
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1978,
+      "generated": 87,
+      "reasoning": 73,
+      "elapsedMs": 2335.103541999997,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2335.103541999997
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:refuse-stale-snapshot--pp-barbeat",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "refuse-stale-snapshot--pp-barbeat",
+      "task": "refuse-stale-snapshot",
+      "arm": "pp-barbeat",
+      "family": "refusal",
+      "cohort": "performed",
+      "promptSha256": "d661dd43fe1957661e5c0eb1e0f4898a8ff47c5b9c50c9e6aab1e9466b986468",
+      "directory": "attempts/050-codex-low-refuse-stale-snapshot--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3798,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 9,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3798,
+      "generated": 9,
+      "reasoning": 0,
+      "elapsedMs": 2331.410459000006,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2331.410459000006
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:author-four-notes--baseline-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "author-four-notes--baseline-fields",
+      "task": "author-four-notes",
+      "arm": "baseline-fields",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "776293920da43469801d90b920c6d14e0100f7eaa05fc298e885d016f730b2ed",
+      "directory": "attempts/051-claude-low-author-four-notes--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2059,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 399,
+        "output_tokens_details": {
+          "thinking_tokens": 161
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2059,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 399,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2059,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2059
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2061,
+      "generated": 399,
+      "reasoning": 161,
+      "elapsedMs": 2610.495834000001,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2610.495834000001
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:author-four-notes--baseline-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "author-four-notes--baseline-fields",
+      "task": "author-four-notes",
+      "arm": "baseline-fields",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "776293920da43469801d90b920c6d14e0100f7eaa05fc298e885d016f730b2ed",
+      "directory": "attempts/052-codex-low-author-four-notes--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3831,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 170,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3831,
+      "generated": 170,
+      "reasoning": 0,
+      "elapsedMs": 4705.431417000014,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4705.431417000014
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:delete-one-note--pp-barbeat",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "delete-one-note--pp-barbeat",
+      "task": "delete-one-note",
+      "arm": "pp-barbeat",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "c1340bf16b40309041130c07117490450faa70c0dd9295b57595f3b8cf52bb0a",
+      "directory": "attempts/053-claude-low-delete-one-note--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1871,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 619,
+        "output_tokens_details": {
+          "thinking_tokens": 574
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1871,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 619,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1871,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1871
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1873,
+      "generated": 619,
+      "reasoning": 574,
+      "elapsedMs": 3809.8717500000494,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3809.8717500000494
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:delete-one-note--pp-barbeat",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "delete-one-note--pp-barbeat",
+      "task": "delete-one-note",
+      "arm": "pp-barbeat",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "c1340bf16b40309041130c07117490450faa70c0dd9295b57595f3b8cf52bb0a",
+      "directory": "attempts/054-codex-low-delete-one-note--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3726,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 57,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3726,
+      "generated": 57,
+      "reasoning": 0,
+      "elapsedMs": 2660.1636249999865,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2660.1636249999865
+      },
+      "outcome": "fail",
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    {
+      "id": "claude-low:r0:preserve-exact-wider--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "preserve-exact-wider--c4-fields",
+      "task": "preserve-exact-wider",
+      "arm": "c4-fields",
+      "family": "preservation",
+      "cohort": "source",
+      "promptSha256": "6ce156b75fc2e2b743f324e1b706024b6c90429a49ac3c6c1f8636fed23673cd",
+      "directory": "attempts/055-claude-low-preserve-exact-wider--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2524,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 376,
+        "output_tokens_details": {
+          "thinking_tokens": 134
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2524,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 376,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2524,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2524
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2526,
+      "generated": 376,
+      "reasoning": 134,
+      "elapsedMs": 3174.086500000034,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3174.086500000034
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:preserve-exact-wider--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "preserve-exact-wider--c4-fields",
+      "task": "preserve-exact-wider",
+      "arm": "c4-fields",
+      "family": "preservation",
+      "cohort": "source",
+      "promptSha256": "6ce156b75fc2e2b743f324e1b706024b6c90429a49ac3c6c1f8636fed23673cd",
+      "directory": "attempts/056-codex-low-preserve-exact-wider--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4058,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 159,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4058,
+      "generated": 159,
+      "reasoning": 0,
+      "elapsedMs": 5158.060166000039,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 5158.060166000039
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-group-timing--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-group-timing--c3-fields",
+      "task": "read-group-timing",
+      "arm": "c3-fields",
+      "family": "comprehension",
+      "cohort": "source",
+      "promptSha256": "a3fe2d628fc7a5a7356b4b66b4cbc3f69552865b54afb4e98b8ae77250534bc7",
+      "directory": "attempts/057-claude-low-read-group-timing--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2505,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 185,
+        "output_tokens_details": {
+          "thinking_tokens": 156
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2505,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 185,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2505,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2505
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2507,
+      "generated": 185,
+      "reasoning": 156,
+      "elapsedMs": 2775.521708000044,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2775.521708000044
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-group-timing--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-group-timing--c3-fields",
+      "task": "read-group-timing",
+      "arm": "c3-fields",
+      "family": "comprehension",
+      "cohort": "source",
+      "promptSha256": "a3fe2d628fc7a5a7356b4b66b4cbc3f69552865b54afb4e98b8ae77250534bc7",
+      "directory": "attempts/058-codex-low-read-group-timing--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4066,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 24,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4066,
+      "generated": 24,
+      "reasoning": 0,
+      "elapsedMs": 2244.327500000014,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2244.327500000014
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:delete-one-note--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "delete-one-note--c4-fields",
+      "task": "delete-one-note",
+      "arm": "c4-fields",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "bd5562e6b228db04cf80623c3d1e537383386eec3930abd4458a6b7d84e32dea",
+      "directory": "attempts/059-claude-low-delete-one-note--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1980,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 147,
+        "output_tokens_details": {
+          "thinking_tokens": 48
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1980,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 147,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1980,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1980
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1982,
+      "generated": 147,
+      "reasoning": 48,
+      "elapsedMs": 3083.306209000002,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3083.306209000002
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:delete-one-note--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "delete-one-note--c4-fields",
+      "task": "delete-one-note",
+      "arm": "c4-fields",
+      "family": "count-change",
+      "cohort": "performed",
+      "promptSha256": "bd5562e6b228db04cf80623c3d1e537383386eec3930abd4458a6b7d84e32dea",
+      "directory": "attempts/060-codex-low-delete-one-note--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3770,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 74,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3770,
+      "generated": 74,
+      "reasoning": 0,
+      "elapsedMs": 3459.528290999995,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3459.528290999995
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-inferred-nominal--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-inferred-nominal--c4-fields",
+      "task": "edit-inferred-nominal",
+      "arm": "c4-fields",
+      "family": "individual-edit",
+      "cohort": "source",
+      "promptSha256": "ea3644e9f4f8ca785a04723815c0486ad33f54c3d7d3c6eb8e4d206efc032f6d",
+      "directory": "attempts/061-codex-low-edit-inferred-nominal--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4099,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 201,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4099,
+      "generated": 201,
+      "reasoning": 0,
+      "elapsedMs": 4495.090292000037,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4495.090292000037
+      },
+      "outcome": "fail",
+      "reason": "source-state-mismatch"
+    },
+    {
+      "id": "claude-low:r0:edit-inferred-nominal--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-inferred-nominal--c4-fields",
+      "task": "edit-inferred-nominal",
+      "arm": "c4-fields",
+      "family": "individual-edit",
+      "cohort": "source",
+      "promptSha256": "ea3644e9f4f8ca785a04723815c0486ad33f54c3d7d3c6eb8e4d206efc032f6d",
+      "directory": "attempts/062-claude-low-edit-inferred-nominal--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2580,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1625,
+        "output_tokens_details": {
+          "thinking_tokens": 1318
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2580,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1625,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2580,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2580
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2582,
+      "generated": 1625,
+      "reasoning": 1318,
+      "elapsedMs": 9395.336249999993,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 9395.336249999993
+      },
+      "outcome": "fail",
+      "reason": "source-state-mismatch"
+    },
+    {
+      "id": "codex-low:r0:edit-velocity-guitar--baseline-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--baseline-json",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-json",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1",
+      "directory": "attempts/063-codex-low-edit-velocity-guitar--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4097,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 413,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4097,
+      "generated": 413,
+      "reasoning": 0,
+      "elapsedMs": 6122.61929100001,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 6122.61929100001
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:edit-velocity-guitar--baseline-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-velocity-guitar--baseline-json",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-json",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1",
+      "directory": "attempts/064-claude-low-edit-velocity-guitar--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2415,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 658,
+        "output_tokens_details": {
+          "thinking_tokens": 66
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2415,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 658,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2415,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2415
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2417,
+      "generated": 658,
+      "reasoning": 66,
+      "elapsedMs": 3465.982458000013,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3465.982458000013
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-earliest-bass--pp-barbeat",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--pp-barbeat",
+      "task": "read-earliest-bass",
+      "arm": "pp-barbeat",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "7118dcc99cf10ea75e8c25438a338a337b8f90f580690db215f148d286e9c6fb",
+      "directory": "attempts/065-claude-low-read-earliest-bass--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1962,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 645,
+        "output_tokens_details": {
+          "thinking_tokens": 624
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1962,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 645,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1962,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1962
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1964,
+      "generated": 645,
+      "reasoning": 624,
+      "elapsedMs": 4356.0584589999635,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4356.0584589999635
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-earliest-bass--pp-barbeat",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-earliest-bass--pp-barbeat",
+      "task": "read-earliest-bass",
+      "arm": "pp-barbeat",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "7118dcc99cf10ea75e8c25438a338a337b8f90f580690db215f148d286e9c6fb",
+      "directory": "attempts/066-codex-low-read-earliest-bass--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3788,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 16,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3788,
+      "generated": 16,
+      "reasoning": 0,
+      "elapsedMs": 2371.142125000013,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2371.142125000013
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-count-piano--baseline-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-count-piano--baseline-fields",
+      "task": "read-count-piano",
+      "arm": "baseline-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "ae04d81a594bd01e3dc7a7c3ff6708c9f8e8a80af22df5c484becaa9301ece08",
+      "directory": "attempts/067-codex-low-read-count-piano--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 5908,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 5908,
+      "generated": 14,
+      "reasoning": 0,
+      "elapsedMs": 2638.1080000000075,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2638.1080000000075
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-count-piano--baseline-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-count-piano--baseline-fields",
+      "task": "read-count-piano",
+      "arm": "baseline-fields",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "ae04d81a594bd01e3dc7a7c3ff6708c9f8e8a80af22df5c484becaa9301ece08",
+      "directory": "attempts/068-claude-low-read-count-piano--baseline-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 4698,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 786,
+        "output_tokens_details": {
+          "thinking_tokens": 772
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 4698,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 786,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 4698,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 4698
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 4700,
+      "generated": 786,
+      "reasoning": 772,
+      "elapsedMs": 4610.392333000025,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4610.392333000025
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:edit-onset-drums--pp-barbeat",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--pp-barbeat",
+      "task": "edit-onset-drums",
+      "arm": "pp-barbeat",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1d2c04320622b49cddbcf1daba8bd00b66063307a54e336521cf70285ed87491",
+      "directory": "attempts/069-codex-low-edit-onset-drums--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3852,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 171,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3852,
+      "generated": 171,
+      "reasoning": 0,
+      "elapsedMs": 4433.199291999976,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4433.199291999976
+      },
+      "outcome": "fail",
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    {
+      "id": "claude-low:r0:edit-onset-drums--pp-barbeat",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "edit-onset-drums--pp-barbeat",
+      "task": "edit-onset-drums",
+      "arm": "pp-barbeat",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "promptSha256": "1d2c04320622b49cddbcf1daba8bd00b66063307a54e336521cf70285ed87491",
+      "directory": "attempts/070-claude-low-edit-onset-drums--pp-barbeat",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2029,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 7715,
+        "output_tokens_details": {
+          "thinking_tokens": 7459
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2029,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 7715,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2029,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2029
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2031,
+      "generated": 7715,
+      "reasoning": 7459,
+      "elapsedMs": 31411.67499999999,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 31411.67499999999
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:author-four-notes--c3-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "author-four-notes--c3-fields",
+      "task": "author-four-notes",
+      "arm": "c3-fields",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "f42fbb291371c2d160744c6c3ea4dcc7d7ed11b9baa95a406ec34d676d5ad6f2",
+      "directory": "attempts/071-claude-low-author-four-notes--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1769,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 332,
+        "output_tokens_details": {
+          "thinking_tokens": 224
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1769,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 332,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1769,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1769
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 1771,
+      "generated": 332,
+      "reasoning": 224,
+      "elapsedMs": 3120.097915999999,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3120.097915999999
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:author-four-notes--c3-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "author-four-notes--c3-fields",
+      "task": "author-four-notes",
+      "arm": "c3-fields",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "promptSha256": "f42fbb291371c2d160744c6c3ea4dcc7d7ed11b9baa95a406ec34d676d5ad6f2",
+      "directory": "attempts/072-codex-low-author-four-notes--c3-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 3640,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 82,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 3640,
+      "generated": 82,
+      "reasoning": 0,
+      "elapsedMs": 3266.174874999968,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3266.174874999968
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-group-timing--c4-fields",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-group-timing--c4-fields",
+      "task": "read-group-timing",
+      "arm": "c4-fields",
+      "family": "comprehension",
+      "cohort": "source",
+      "promptSha256": "7bd44e0aff48ab6844cd86b4494be74c541eaaa1672c52105f2aacedb3e07d32",
+      "directory": "attempts/073-claude-low-read-group-timing--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2539,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 156,
+        "output_tokens_details": {
+          "thinking_tokens": 127
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2539,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 156,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2539,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2539
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 2541,
+      "generated": 156,
+      "reasoning": 127,
+      "elapsedMs": 2271.650083000015,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2271.650083000015
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "codex-low:r0:read-group-timing--c4-fields",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-group-timing--c4-fields",
+      "task": "read-group-timing",
+      "arm": "c4-fields",
+      "family": "comprehension",
+      "cohort": "source",
+      "promptSha256": "7bd44e0aff48ab6844cd86b4494be74c541eaaa1672c52105f2aacedb3e07d32",
+      "directory": "attempts/074-codex-low-read-group-timing--c4-fields",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 4078,
+        "cached_input_tokens": 1920,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 23,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 4078,
+      "generated": 23,
+      "reasoning": 0,
+      "elapsedMs": 3160.2661249999655,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 3160.2661249999655
+      },
+      "outcome": "fail",
+      "reason": "answer-mismatch"
+    },
+    {
+      "id": "codex-low:r0:read-count-piano--baseline-json",
+      "configuration": "codex-low",
+      "repetition": 0,
+      "cell": "read-count-piano--baseline-json",
+      "task": "read-count-piano",
+      "arm": "baseline-json",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "c3322a22dc275c71dd6ebb5a57bfa2e8167cc2621d4949b00b1f49f23753d9d0",
+      "directory": "attempts/075-codex-low-read-count-piano--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 6753,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 14,
+        "reasoning_output_tokens": 0
+      },
+      "totalInputTokens": 6753,
+      "generated": 14,
+      "reasoning": 0,
+      "elapsedMs": 2359.5160000000033,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 2359.5160000000033
+      },
+      "outcome": "pass",
+      "reason": null
+    },
+    {
+      "id": "claude-low:r0:read-count-piano--baseline-json",
+      "configuration": "claude-low",
+      "repetition": 0,
+      "cell": "read-count-piano--baseline-json",
+      "task": "read-count-piano",
+      "arm": "baseline-json",
+      "family": "comprehension",
+      "cohort": "performed",
+      "promptSha256": "c3322a22dc275c71dd6ebb5a57bfa2e8167cc2621d4949b00b1f49f23753d9d0",
+      "directory": "attempts/076-claude-low-read-count-piano--baseline-json",
+      "controlPass": true,
+      "controlIssues": [],
+      "usage": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 6256,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 644,
+        "output_tokens_details": {
+          "thinking_tokens": 630
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 6256,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 644,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 6256,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 6256
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "totalInputTokens": 6258,
+      "generated": 644,
+      "reasoning": 630,
+      "elapsedMs": 4798.4045840000035,
+      "retryReport": {
+        "policy": "r01-retries-reported-v1",
+        "admissionGate": false,
+        "capturedRequests": 1,
+        "capturedResponses": 1,
+        "inferenceStarts": 1,
+        "inferenceFailures": 0,
+        "clientRetryEvents": 0,
+        "clientFallbackEvents": 0,
+        "recoveredErrorEvents": 0,
+        "httpAttempts": null,
+        "httpAttemptCoverage": "not-measured-per-submission",
+        "usageCoverage": "client-reported; may omit interrupted or retried generation",
+        "elapsedMs": 4798.4045840000035
+      },
+      "outcome": "pass",
+      "reason": null
+    }
+  ]
+}

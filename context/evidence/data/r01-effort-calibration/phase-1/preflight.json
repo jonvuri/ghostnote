@@ -1,0 +1,62 @@
+{
+  "stage": "development",
+  "binaries": {
+    "codex": {
+      "name": "codex",
+      "path": "/Users/jonvuri/.local/bin/codex",
+      "realPath": "/Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex",
+      "sha256": "8813367285524ac798dd96d1b071aea30d58708c7226fd236cd275cf1cfdee31"
+    },
+    "claude": {
+      "name": "claude",
+      "path": "/Users/jonvuri/.local/bin/claude",
+      "realPath": "/Users/jonvuri/.local/share/claude/versions/2.1.302",
+      "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+    }
+  },
+  "authentication": {
+    "codex": {
+      "method": "chatgpt"
+    },
+    "claude": {
+      "authMethod": "claude.ai",
+      "apiProvider": "firstParty",
+      "subscriptionType": "max"
+    }
+  },
+  "startedAt": "2026-10-26T17:21:39.087Z",
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-effort-calibration.mjs",
+      "sha256": "e517944581513e1cc9265182a45c0b05a16f32f9f83fa5cbf296e5965d1f1d22"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "768afa24462b60fc5a2a881451f99555b7749b0f274f7f9427b3bfda402a8b89"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "73061342ca3dbae0213c17d4e204ac0d6f4ffd97b0cb6f3b71a7a1ae3b7c5b61"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "eb88b40e81d27c9bc7b50e16dd1efc1d74a16c737816eb4460b3394de1caa7f6"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "b69fb2f480c794d4a60832b9be7f4efaf353f7ffb7c5ff1551193489c6bde503"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "1d3077b42203afb100fbb1f979efb1ca111467e1f525e2afa7fd809dd7659e29"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "3ff779f5f1c1069dcb7f33bec43b86d890e2331f85ffdd664ed1d979396e4ba9"
+    }
+  ]
+}

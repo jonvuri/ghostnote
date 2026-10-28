@@ -1,0 +1,5130 @@
+{
+  "schema": "r01-candidate-screen-v1",
+  "node": "v24.11.1",
+  "cpu": "Apple M4 Pro",
+  "ghostnote": "6eba1ee91752f7580e747ac96f2b15c6f36907b9",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "upstream": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "patchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "corpusSha256": "c596d217dc53f57b94413f32d0feb048d7858ec80b524fbec96398773913ac32",
+  "sources": [
+    {
+      "path": "common.mjs",
+      "sha256": "44fabb980ed32b51317defcddf3ebddbb785362e3f4744100b517702ecf011cf"
+    },
+    {
+      "path": "common.test.mjs",
+      "sha256": "6daadfec09b72110f05b0d6b650eedc785eacec3abaafcf63d4ebdf10ad4775a"
+    },
+    {
+      "path": "fixtures.mjs",
+      "sha256": "cccc02a3642dab411b1cd54f6e19affde72c96280293cf6f1140b35f4d174291"
+    },
+    {
+      "path": "claims-control.mjs",
+      "sha256": "25eb063aad6e300bcccc3b58ed7651834f1700e7ce010421833f42044905f3e9"
+    },
+    {
+      "path": "structured.mjs",
+      "sha256": "51a3b5abbb4f42e2b30b10761cf657e202aba8b2126e2d0b76eca2a5c152c4aa"
+    },
+    {
+      "path": "structured.test.mjs",
+      "sha256": "a9580ff45cef6317ae640836c4a50a4849cdce88ee52d98688a6383cba48908a"
+    },
+    {
+      "path": "precision.mjs",
+      "sha256": "28ce7f3a5dc4a25af66365cc91f12008589150d1b353a6c79d0e609546aa8deb"
+    },
+    {
+      "path": "precision.test.mjs",
+      "sha256": "0b28e9328b39044bba4a261bc2db7deb45119db0e2b1fac385c057f9a5895c9a"
+    },
+    {
+      "path": "corpus.mjs",
+      "sha256": "2168757c6a91bfc4505bce52308dc59bb993567398c570fd68f274841ec4657f"
+    },
+    {
+      "path": "corpus.test.mjs",
+      "sha256": "2eac0f38e02da6967c79669ab784d11c313b10d6b6efa2f89a4201f555d6090f"
+    },
+    {
+      "path": "run.mjs",
+      "sha256": "cfa7dac205ca3ef6f2bc7f7de852a42445a726e1872d64a41989596b9d60b0d8"
+    }
+  ],
+  "limits": [
+    "No host or agent trial.",
+    "Surface sizes carry different information and are not a winner ranking.",
+    "Timing: one warm-up and five local samples per stage; not end-to-end latency.",
+    "Heap deltas are sampled heapUsed changes, may include GC; not retained memory or peak allocations.",
+    "PP screen realizes timing before serialization; authored tuplets are checked separately by precision tests.",
+    "PP common-note payloads use a declared default channel; other channels and extra fields refuse.",
+    "Variable source meter/tempo maps remain in corpus context; PP adapter tests fixed meters only.",
+    "Structured codecs carry exact source intent fields; claim-envelope equivalence is not implemented."
+  ],
+  "results": [
+    {
+      "fixture": "synthetic-drums",
+      "family": "humanized drums",
+      "notes": 7,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 556,
+          "tokens": 229,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.3063329999999951,
+                "heapDeltaBytes": 385568
+              },
+              {
+                "ms": 0.33187499999996817,
+                "heapDeltaBytes": 218104
+              },
+              {
+                "ms": 0.33358300000008967,
+                "heapDeltaBytes": 226880
+              },
+              {
+                "ms": 0.3267920000000686,
+                "heapDeltaBytes": 220352
+              },
+              {
+                "ms": 0.2799159999999574,
+                "heapDeltaBytes": 248600
+              }
+            ],
+            "medianMs": 0.3267920000000686
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.48412499999994907,
+                "heapDeltaBytes": 411000
+              },
+              {
+                "ms": 0.4268329999999878,
+                "heapDeltaBytes": 389824
+              },
+              {
+                "ms": 0.4709160000002157,
+                "heapDeltaBytes": 134432
+              },
+              {
+                "ms": 0.4210419999999431,
+                "heapDeltaBytes": 414704
+              },
+              {
+                "ms": 0.4359580000000278,
+                "heapDeltaBytes": 387992
+              }
+            ],
+            "medianMs": 0.4359580000000278
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 865,
+          "tokens": 300,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.2953749999999218,
+                "heapDeltaBytes": 213008
+              },
+              {
+                "ms": 0.30866599999990285,
+                "heapDeltaBytes": 213360
+              },
+              {
+                "ms": 0.2980000000000018,
+                "heapDeltaBytes": 212000
+              },
+              {
+                "ms": 0.2836250000000291,
+                "heapDeltaBytes": 214832
+              },
+              {
+                "ms": 0.2859579999999369,
+                "heapDeltaBytes": 212000
+              }
+            ],
+            "medianMs": 0.2953749999999218
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.408916999999974,
+                "heapDeltaBytes": 310376
+              },
+              {
+                "ms": 0.37274999999999636,
+                "heapDeltaBytes": 298144
+              },
+              {
+                "ms": 0.32199999999988904,
+                "heapDeltaBytes": 298064
+              },
+              {
+                "ms": 0.3573340000000371,
+                "heapDeltaBytes": 298792
+              },
+              {
+                "ms": 0.3610000000001037,
+                "heapDeltaBytes": 298064
+              }
+            ],
+            "medianMs": 0.3610000000001037
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 705,
+          "tokens": 253,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.08995899999990797,
+                "heapDeltaBytes": 40136
+              },
+              {
+                "ms": 0.0830829999999878,
+                "heapDeltaBytes": 29888
+              },
+              {
+                "ms": 0.06254199999989396,
+                "heapDeltaBytes": 29888
+              },
+              {
+                "ms": 0.07324999999991633,
+                "heapDeltaBytes": 30176
+              },
+              {
+                "ms": 0.07083299999999326,
+                "heapDeltaBytes": 34080
+              }
+            ],
+            "medianMs": 0.07324999999991633
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.09766700000000128,
+                "heapDeltaBytes": 29816
+              },
+              {
+                "ms": 0.08420799999998962,
+                "heapDeltaBytes": -163008
+              },
+              {
+                "ms": 0.07124999999996362,
+                "heapDeltaBytes": 29816
+              },
+              {
+                "ms": 0.09379199999989396,
+                "heapDeltaBytes": 30240
+              },
+              {
+                "ms": 0.14108299999998053,
+                "heapDeltaBytes": 29848
+              }
+            ],
+            "medianMs": 0.09379199999989396
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 1025,
+          "tokens": 322,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.06866600000012113,
+                "heapDeltaBytes": 18976
+              },
+              {
+                "ms": 0.05329099999994469,
+                "heapDeltaBytes": 19088
+              },
+              {
+                "ms": 0.06304100000011204,
+                "heapDeltaBytes": 18976
+              },
+              {
+                "ms": 0.055916000000024724,
+                "heapDeltaBytes": 19152
+              },
+              {
+                "ms": 0.060541000000057466,
+                "heapDeltaBytes": 19104
+              }
+            ],
+            "medianMs": 0.060541000000057466
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.06008299999984956,
+                "heapDeltaBytes": 214520
+              },
+              {
+                "ms": 0.06883399999992434,
+                "heapDeltaBytes": 19232
+              },
+              {
+                "ms": 0.05550000000016553,
+                "heapDeltaBytes": 19168
+              },
+              {
+                "ms": 0.07199999999988904,
+                "heapDeltaBytes": 19216
+              },
+              {
+                "ms": 0.06087499999989632,
+                "heapDeltaBytes": 18976
+              }
+            ],
+            "medianMs": 0.06087499999989632
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 160,
+          "tokens": 104,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 166,
+            "tokens": 117,
+            "performedEqual": false,
+            "missing": 2,
+            "extra": 2
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.32491699999991397,
+                "heapDeltaBytes": 129040
+              },
+              {
+                "ms": 0.230542000000014,
+                "heapDeltaBytes": 126072
+              },
+              {
+                "ms": 0.237041999999974,
+                "heapDeltaBytes": 125592
+              },
+              {
+                "ms": 0.2307499999999436,
+                "heapDeltaBytes": 126024
+              },
+              {
+                "ms": 0.2588749999999891,
+                "heapDeltaBytes": 126120
+              }
+            ],
+            "medianMs": 0.237041999999974
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.2475000000001728,
+                "heapDeltaBytes": 125232
+              },
+              {
+                "ms": 0.1714999999999236,
+                "heapDeltaBytes": 87448
+              },
+              {
+                "ms": 0.12983299999996234,
+                "heapDeltaBytes": 82448
+              },
+              {
+                "ms": 0.1242090000000644,
+                "heapDeltaBytes": 82448
+              },
+              {
+                "ms": 0.16666699999996126,
+                "heapDeltaBytes": 82448
+              }
+            ],
+            "medianMs": 0.16666699999996126
+          },
+          "edit": {
+            "bytes": 26,
+            "tokens": 16,
+            "text": "v100 n/32 D1 1|1+n501/2048",
+            "selection": {
+              "id": "push",
+              "base": "1834d3d0aa795eab3336e60ec5a8d72bd3049339cf5baf5efa7d4e39b13a2112"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 48
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 214,
+          "tokens": 124,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 207,
+            "tokens": 128,
+            "performedEqual": false,
+            "missing": 2,
+            "extra": 2
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.16016700000000128,
+                "heapDeltaBytes": 41696
+              },
+              {
+                "ms": 0.17699999999990723,
+                "heapDeltaBytes": -209440
+              },
+              {
+                "ms": 0.10458399999993162,
+                "heapDeltaBytes": -205568
+              },
+              {
+                "ms": 0.12550000000010186,
+                "heapDeltaBytes": 41472
+              },
+              {
+                "ms": 0.1095829999999296,
+                "heapDeltaBytes": 41472
+              }
+            ],
+            "medianMs": 0.12550000000010186
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.0679170000000795,
+                "heapDeltaBytes": 13672
+              },
+              {
+                "ms": 0.07058400000005349,
+                "heapDeltaBytes": 13856
+              },
+              {
+                "ms": 0.05950000000007094,
+                "heapDeltaBytes": 11928
+              },
+              {
+                "ms": 0.05566699999985758,
+                "heapDeltaBytes": 11928
+              },
+              {
+                "ms": 0.07283399999982976,
+                "heapDeltaBytes": 11928
+              }
+            ],
+            "medianMs": 0.0679170000000795
+          },
+          "edit": {
+            "bytes": 32,
+            "tokens": 18,
+            "text": "[{p:38,t:501/512,d:0.125,v:100}]",
+            "selection": {
+              "id": "push",
+              "base": "1834d3d0aa795eab3336e60ec5a8d72bd3049339cf5baf5efa7d4e39b13a2112"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 48
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "push",
+        "request": {
+          "bytes": 129,
+          "tokens": 59
+        },
+        "patch": {
+          "bytes": 200,
+          "tokens": 73
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.9184999999999945,
+              "heapDeltaBytes": 1269400
+            },
+            {
+              "ms": 1.0625829999999041,
+              "heapDeltaBytes": 1297320
+            },
+            {
+              "ms": 0.9749170000000049,
+              "heapDeltaBytes": 1264400
+            },
+            {
+              "ms": 1.1070830000001024,
+              "heapDeltaBytes": 1273744
+            },
+            {
+              "ms": 1.1485419999999067,
+              "heapDeltaBytes": 1287464
+            }
+          ],
+          "medianMs": 1.0625829999999041
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 6,
+        "sharedDomainCorrespondence": 7
+      },
+      "view": {
+        "bytes": 638,
+        "tokens": 222
+      }
+    },
+    {
+      "fixture": "synthetic-bass",
+      "family": "syncopated bass",
+      "notes": 4,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 421,
+          "tokens": 168,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.25741599999992104,
+                "heapDeltaBytes": 157256
+              },
+              {
+                "ms": 0.2567500000000109,
+                "heapDeltaBytes": 157352
+              },
+              {
+                "ms": 0.24712499999986903,
+                "heapDeltaBytes": 157368
+              },
+              {
+                "ms": 0.22712499999988722,
+                "heapDeltaBytes": 157256
+              },
+              {
+                "ms": 0.2853749999999309,
+                "heapDeltaBytes": 157256
+              }
+            ],
+            "medianMs": 0.2567500000000109
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.3734999999999218,
+                "heapDeltaBytes": 279152
+              },
+              {
+                "ms": 0.34591699999987213,
+                "heapDeltaBytes": 275344
+              },
+              {
+                "ms": 0.4369580000000042,
+                "heapDeltaBytes": 275344
+              },
+              {
+                "ms": 0.369083000000046,
+                "heapDeltaBytes": 275344
+              },
+              {
+                "ms": 0.41845899999998437,
+                "heapDeltaBytes": 275344
+              }
+            ],
+            "medianMs": 0.3734999999999218
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 601,
+          "tokens": 210,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.30491600000004837,
+                "heapDeltaBytes": 157568
+              },
+              {
+                "ms": 0.23533399999996618,
+                "heapDeltaBytes": 157568
+              },
+              {
+                "ms": 0.23820800000021336,
+                "heapDeltaBytes": 157568
+              },
+              {
+                "ms": 0.23783400000002075,
+                "heapDeltaBytes": 157568
+              },
+              {
+                "ms": 0.27408300000001873,
+                "heapDeltaBytes": 132776
+              }
+            ],
+            "medianMs": 0.23820800000021336
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.33016700000007404,
+                "heapDeltaBytes": 198688
+              },
+              {
+                "ms": 0.3482500000000073,
+                "heapDeltaBytes": 198688
+              },
+              {
+                "ms": 0.307166000000052,
+                "heapDeltaBytes": 198688
+              },
+              {
+                "ms": 0.3320420000000013,
+                "heapDeltaBytes": 199600
+              },
+              {
+                "ms": 0.31016699999986486,
+                "heapDeltaBytes": 11240
+              }
+            ],
+            "medianMs": 0.33016700000007404
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 586,
+          "tokens": 220,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.0803329999998823,
+                "heapDeltaBytes": 25968
+              },
+              {
+                "ms": 0.07883400000014262,
+                "heapDeltaBytes": 25168
+              },
+              {
+                "ms": 0.07695799999987685,
+                "heapDeltaBytes": 25168
+              },
+              {
+                "ms": 0.05649999999991451,
+                "heapDeltaBytes": 25168
+              },
+              {
+                "ms": 0.06066700000019409,
+                "heapDeltaBytes": 25168
+              }
+            ],
+            "medianMs": 0.07695799999987685
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.10170800000014424,
+                "heapDeltaBytes": 27576
+              },
+              {
+                "ms": 0.10133299999984047,
+                "heapDeltaBytes": 27576
+              },
+              {
+                "ms": 0.08999999999991815,
+                "heapDeltaBytes": 30200
+              },
+              {
+                "ms": 0.0728750000000673,
+                "heapDeltaBytes": 27576
+              },
+              {
+                "ms": 0.09891699999980119,
+                "heapDeltaBytes": 27576
+              }
+            ],
+            "medianMs": 0.09891699999980119
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 788,
+          "tokens": 266,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.05383299999994051,
+                "heapDeltaBytes": 18632
+              },
+              {
+                "ms": 0.04908300000010968,
+                "heapDeltaBytes": 18632
+              },
+              {
+                "ms": 0.05908299999987321,
+                "heapDeltaBytes": 18632
+              },
+              {
+                "ms": 0.05258299999991323,
+                "heapDeltaBytes": 18632
+              },
+              {
+                "ms": 0.06275000000005093,
+                "heapDeltaBytes": 18632
+              }
+            ],
+            "medianMs": 0.05383299999994051
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.07100000000014006,
+                "heapDeltaBytes": 18992
+              },
+              {
+                "ms": 0.060624999999845386,
+                "heapDeltaBytes": 18992
+              },
+              {
+                "ms": 0.06362500000000182,
+                "heapDeltaBytes": 18992
+              },
+              {
+                "ms": 0.0755420000000413,
+                "heapDeltaBytes": 18992
+              },
+              {
+                "ms": 0.08479200000010678,
+                "heapDeltaBytes": 18992
+              }
+            ],
+            "medianMs": 0.07100000000014006
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 110,
+          "tokens": 69,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 108,
+            "tokens": 77,
+            "performedEqual": false,
+            "missing": 2,
+            "extra": 2
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.1940830000000915,
+                "heapDeltaBytes": 87504
+              },
+              {
+                "ms": 0.22595799999999144,
+                "heapDeltaBytes": 87256
+              },
+              {
+                "ms": 0.21579099999985374,
+                "heapDeltaBytes": 85016
+              },
+              {
+                "ms": 0.2001660000000811,
+                "heapDeltaBytes": 93488
+              },
+              {
+                "ms": 0.1828330000000733,
+                "heapDeltaBytes": 85400
+              }
+            ],
+            "medianMs": 0.2001660000000811
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.12545799999998053,
+                "heapDeltaBytes": 659288
+              },
+              {
+                "ms": 0.12329099999988102,
+                "heapDeltaBytes": 59544
+              },
+              {
+                "ms": 0.14750000000003638,
+                "heapDeltaBytes": 60024
+              },
+              {
+                "ms": 0.10816699999986668,
+                "heapDeltaBytes": 60024
+              },
+              {
+                "ms": 0.12295800000015333,
+                "heapDeltaBytes": 60024
+              }
+            ],
+            "medianMs": 0.12329099999988102
+          },
+          "edit": {
+            "bytes": 30,
+            "tokens": 18,
+            "text": "v100 n235/2048 G1 1|2+n41/1024",
+            "selection": {
+              "id": "b3",
+              "base": "a8990dc3ebe8b0dfc5ed17c5a33260b1adc3bcc2727f034d1bd05aa6d4d56a8b"
+            },
+            "guardAndSelection": {
+              "bytes": 85,
+              "tokens": 50
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 120,
+          "tokens": 68,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 120,
+            "tokens": 68,
+            "performedEqual": true,
+            "missing": 0,
+            "extra": 0
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.0732500000001437,
+                "heapDeltaBytes": 25656
+              },
+              {
+                "ms": 0.09274999999979627,
+                "heapDeltaBytes": 25656
+              },
+              {
+                "ms": 0.10258300000009513,
+                "heapDeltaBytes": 25656
+              },
+              {
+                "ms": 0.08329200000002857,
+                "heapDeltaBytes": 25840
+              },
+              {
+                "ms": 0.11479099999996834,
+                "heapDeltaBytes": 25696
+              }
+            ],
+            "medianMs": 0.09274999999979627
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.06770800000003874,
+                "heapDeltaBytes": 9504
+              },
+              {
+                "ms": 0.051542000000154076,
+                "heapDeltaBytes": 9504
+              },
+              {
+                "ms": 0.05666700000006131,
+                "heapDeltaBytes": 9504
+              },
+              {
+                "ms": 0.04362500000002001,
+                "heapDeltaBytes": 9504
+              },
+              {
+                "ms": 0.052667000000155895,
+                "heapDeltaBytes": 9504
+              }
+            ],
+            "medianMs": 0.052667000000155895
+          },
+          "edit": {
+            "bytes": 34,
+            "tokens": 18,
+            "text": "[{p:43,t:169/128,d:235/256,v:100}]",
+            "selection": {
+              "id": "b3",
+              "base": "a8990dc3ebe8b0dfc5ed17c5a33260b1adc3bcc2727f034d1bd05aa6d4d56a8b"
+            },
+            "guardAndSelection": {
+              "bytes": 85,
+              "tokens": 50
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "b3",
+        "request": {
+          "bytes": 127,
+          "tokens": 61
+        },
+        "patch": {
+          "bytes": 198,
+          "tokens": 75
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.8453329999999823,
+              "heapDeltaBytes": 810520
+            },
+            {
+              "ms": 0.7491250000000491,
+              "heapDeltaBytes": 810584
+            },
+            {
+              "ms": 0.7862079999999878,
+              "heapDeltaBytes": 810520
+            },
+            {
+              "ms": 1.0170000000000528,
+              "heapDeltaBytes": 810520
+            },
+            {
+              "ms": 0.8720420000001923,
+              "heapDeltaBytes": 810520
+            }
+          ],
+          "medianMs": 0.8453329999999823
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 3,
+        "sharedDomainCorrespondence": 4
+      },
+      "view": {
+        "bytes": 459,
+        "tokens": 163
+      }
+    },
+    {
+      "fixture": "synthetic-harmony",
+      "family": "dense strummed harmony",
+      "notes": 4,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 408,
+          "tokens": 163,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.18929099999991195,
+                "heapDeltaBytes": 132480
+              },
+              {
+                "ms": 0.28224999999997635,
+                "heapDeltaBytes": 132480
+              },
+              {
+                "ms": 0.24650000000019645,
+                "heapDeltaBytes": 132480
+              },
+              {
+                "ms": 0.2859580000003916,
+                "heapDeltaBytes": 132480
+              },
+              {
+                "ms": 0.24570799999992232,
+                "heapDeltaBytes": 132480
+              }
+            ],
+            "medianMs": 0.24650000000019645
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.3587090000000899,
+                "heapDeltaBytes": 249312
+              },
+              {
+                "ms": 0.3258339999997588,
+                "heapDeltaBytes": 247528
+              },
+              {
+                "ms": 0.3036659999997937,
+                "heapDeltaBytes": 247528
+              },
+              {
+                "ms": 0.3666659999998956,
+                "heapDeltaBytes": 247528
+              },
+              {
+                "ms": 0.3827919999998812,
+                "heapDeltaBytes": 247528
+              }
+            ],
+            "medianMs": 0.3587090000000899
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 588,
+          "tokens": 205,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.21883299999990413,
+                "heapDeltaBytes": 132696
+              },
+              {
+                "ms": 0.24454100000002654,
+                "heapDeltaBytes": 132696
+              },
+              {
+                "ms": 0.2270419999999831,
+                "heapDeltaBytes": 132696
+              },
+              {
+                "ms": 0.21791600000005928,
+                "heapDeltaBytes": 132696
+              },
+              {
+                "ms": 0.1939580000002934,
+                "heapDeltaBytes": 132696
+              }
+            ],
+            "medianMs": 0.21883299999990413
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.2836250000000291,
+                "heapDeltaBytes": 198080
+              },
+              {
+                "ms": 0.2752909999999247,
+                "heapDeltaBytes": 198080
+              },
+              {
+                "ms": 0.2950829999999769,
+                "heapDeltaBytes": 198080
+              },
+              {
+                "ms": 0.27700000000004366,
+                "heapDeltaBytes": 198080
+              },
+              {
+                "ms": 0.25187499999992724,
+                "heapDeltaBytes": 198080
+              }
+            ],
+            "medianMs": 0.27700000000004366
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 758,
+          "tokens": 266,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.0884169999999358,
+                "heapDeltaBytes": 50576
+              },
+              {
+                "ms": 0.09479099999998652,
+                "heapDeltaBytes": 50576
+              },
+              {
+                "ms": 0.1099170000002232,
+                "heapDeltaBytes": 50576
+              },
+              {
+                "ms": 0.08191699999997581,
+                "heapDeltaBytes": 50576
+              },
+              {
+                "ms": 0.0854589999999007,
+                "heapDeltaBytes": 50576
+              }
+            ],
+            "medianMs": 0.0884169999999358
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.09212500000012369,
+                "heapDeltaBytes": 50464
+              },
+              {
+                "ms": 0.1070409999997537,
+                "heapDeltaBytes": 50464
+              },
+              {
+                "ms": 0.10212499999988722,
+                "heapDeltaBytes": 50464
+              },
+              {
+                "ms": 0.0969159999999647,
+                "heapDeltaBytes": 50464
+              },
+              {
+                "ms": 0.10120899999992616,
+                "heapDeltaBytes": 50464
+              }
+            ],
+            "medianMs": 0.10120899999992616
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 906,
+          "tokens": 284,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.07645800000000236,
+                "heapDeltaBytes": 66040
+              },
+              {
+                "ms": 0.12158299999964584,
+                "heapDeltaBytes": 66040
+              },
+              {
+                "ms": 0.08491600000024846,
+                "heapDeltaBytes": 66040
+              },
+              {
+                "ms": 0.08045899999979156,
+                "heapDeltaBytes": 66040
+              },
+              {
+                "ms": 0.06879200000003038,
+                "heapDeltaBytes": 66040
+              }
+            ],
+            "medianMs": 0.08045899999979156
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.10525000000006912,
+                "heapDeltaBytes": 65144
+              },
+              {
+                "ms": 0.10374999999976353,
+                "heapDeltaBytes": 65144
+              },
+              {
+                "ms": 0.09108300000025338,
+                "heapDeltaBytes": 65144
+              },
+              {
+                "ms": 0.08133300000008603,
+                "heapDeltaBytes": 65144
+              },
+              {
+                "ms": 0.09379200000012133,
+                "heapDeltaBytes": 65144
+              }
+            ],
+            "medianMs": 0.09379200000012133
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 91,
+          "tokens": 66,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 95,
+            "tokens": 70,
+            "performedEqual": true,
+            "missing": 0,
+            "extra": 0
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.17949999999973443,
+                "heapDeltaBytes": 301288
+              },
+              {
+                "ms": 0.14183299999967858,
+                "heapDeltaBytes": 79680
+              },
+              {
+                "ms": 0.16400000000021464,
+                "heapDeltaBytes": 79680
+              },
+              {
+                "ms": 0.15558300000020608,
+                "heapDeltaBytes": 79680
+              },
+              {
+                "ms": 0.16066700000010314,
+                "heapDeltaBytes": 79680
+              }
+            ],
+            "medianMs": 0.16066700000010314
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.13958400000001348,
+                "heapDeltaBytes": 60088
+              },
+              {
+                "ms": 0.14049999999997453,
+                "heapDeltaBytes": 57288
+              },
+              {
+                "ms": 0.1288750000003347,
+                "heapDeltaBytes": 57288
+              },
+              {
+                "ms": 0.10891700000001947,
+                "heapDeltaBytes": 57288
+              },
+              {
+                "ms": 0.13520800000014788,
+                "heapDeltaBytes": 57288
+              }
+            ],
+            "medianMs": 0.13520800000014788
+          },
+          "edit": {
+            "bytes": 22,
+            "tokens": 15,
+            "text": "v100 n/4d G3 2|4+n/128",
+            "selection": {
+              "id": "c",
+              "base": "f7c3f397fe52c8dc40a9951df4da291c732a3d994a4afe91d777ca3e29b325bf"
+            },
+            "guardAndSelection": {
+              "bytes": 84,
+              "tokens": 46
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 110,
+          "tokens": 67,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 106,
+            "tokens": 67,
+            "performedEqual": true,
+            "missing": 0,
+            "extra": 0
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.10416699999996126,
+                "heapDeltaBytes": 23504
+              },
+              {
+                "ms": 0.08416699999997945,
+                "heapDeltaBytes": 23504
+              },
+              {
+                "ms": 0.07758300000023155,
+                "heapDeltaBytes": 24200
+              },
+              {
+                "ms": 0.10612500000024738,
+                "heapDeltaBytes": 23504
+              },
+              {
+                "ms": 0.07074999999986176,
+                "heapDeltaBytes": 23504
+              }
+            ],
+            "medianMs": 0.08416699999997945
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.04145800000014788,
+                "heapDeltaBytes": 9248
+              },
+              {
+                "ms": 0.04520900000034089,
+                "heapDeltaBytes": 9248
+              },
+              {
+                "ms": 0.055292000000008557,
+                "heapDeltaBytes": 9248
+              },
+              {
+                "ms": 0.04166699999996126,
+                "heapDeltaBytes": 9248
+              },
+              {
+                "ms": 0.05720900000005713,
+                "heapDeltaBytes": 9248
+              }
+            ],
+            "medianMs": 0.04520900000034089
+          },
+          "edit": {
+            "bytes": 29,
+            "tokens": 18,
+            "text": "[{p:67,t:257/32,d:1.5,v:100}]",
+            "selection": {
+              "id": "c",
+              "base": "f7c3f397fe52c8dc40a9951df4da291c732a3d994a4afe91d777ca3e29b325bf"
+            },
+            "guardAndSelection": {
+              "bytes": 84,
+              "tokens": 46
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "c",
+        "request": {
+          "bytes": 126,
+          "tokens": 57
+        },
+        "patch": {
+          "bytes": 197,
+          "tokens": 71
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.8303750000000036,
+              "heapDeltaBytes": 805136
+            },
+            {
+              "ms": 0.8676250000003165,
+              "heapDeltaBytes": 809272
+            },
+            {
+              "ms": 0.8154589999999189,
+              "heapDeltaBytes": 550712
+            },
+            {
+              "ms": 0.9106249999999818,
+              "heapDeltaBytes": 809272
+            },
+            {
+              "ms": 0.8442500000001019,
+              "heapDeltaBytes": 814456
+            }
+          ],
+          "medianMs": 0.8442500000001019
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 3,
+        "sharedDomainCorrespondence": 4
+      },
+      "view": {
+        "bytes": 460,
+        "tokens": 159
+      }
+    },
+    {
+      "fixture": "synthetic-irregular",
+      "family": "unknown intent and wider state",
+      "notes": 3,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 550,
+          "tokens": 208,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.3138750000002801,
+                "heapDeltaBytes": 179768
+              },
+              {
+                "ms": 0.22958299999982046,
+                "heapDeltaBytes": 178728
+              },
+              {
+                "ms": 0.24050000000033833,
+                "heapDeltaBytes": 178728
+              },
+              {
+                "ms": 0.2446669999999358,
+                "heapDeltaBytes": 178728
+              },
+              {
+                "ms": 0.21487500000012005,
+                "heapDeltaBytes": 178728
+              }
+            ],
+            "medianMs": 0.24050000000033833
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.4497080000001006,
+                "heapDeltaBytes": 296272
+              },
+              {
+                "ms": 0.4309589999998025,
+                "heapDeltaBytes": 296272
+              },
+              {
+                "ms": 0.34679200000027777,
+                "heapDeltaBytes": 296272
+              },
+              {
+                "ms": 0.31637499999987995,
+                "heapDeltaBytes": 296272
+              },
+              {
+                "ms": 0.406666999999743,
+                "heapDeltaBytes": 296272
+              }
+            ],
+            "medianMs": 0.406666999999743
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 704,
+          "tokens": 248,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.2435830000003989,
+                "heapDeltaBytes": 178040
+              },
+              {
+                "ms": 0.2610420000000886,
+                "heapDeltaBytes": 182816
+              },
+              {
+                "ms": 0.22579099999984464,
+                "heapDeltaBytes": 178040
+              },
+              {
+                "ms": 0.25316700000030323,
+                "heapDeltaBytes": 178040
+              },
+              {
+                "ms": 0.22979099999975006,
+                "heapDeltaBytes": 178040
+              }
+            ],
+            "medianMs": 0.2435830000003989
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.35879099999965547,
+                "heapDeltaBytes": 258360
+              },
+              {
+                "ms": 0.32387500000004366,
+                "heapDeltaBytes": 258280
+              },
+              {
+                "ms": 0.2820409999999356,
+                "heapDeltaBytes": 258280
+              },
+              {
+                "ms": 0.32958400000006804,
+                "heapDeltaBytes": 258280
+              },
+              {
+                "ms": 0.2861249999996289,
+                "heapDeltaBytes": 258280
+              }
+            ],
+            "medianMs": 0.32387500000004366
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 490,
+          "tokens": 175,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.059082999999645835,
+                "heapDeltaBytes": 16648
+              },
+              {
+                "ms": 0.05008399999996982,
+                "heapDeltaBytes": 16648
+              },
+              {
+                "ms": 0.0524159999999938,
+                "heapDeltaBytes": 16648
+              },
+              {
+                "ms": 0.041375000000243745,
+                "heapDeltaBytes": 16648
+              },
+              {
+                "ms": 0.038708999999926164,
+                "heapDeltaBytes": 16648
+              }
+            ],
+            "medianMs": 0.05008399999996982
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.07191700000021228,
+                "heapDeltaBytes": 20712
+              },
+              {
+                "ms": 0.07749999999987267,
+                "heapDeltaBytes": 20712
+              },
+              {
+                "ms": 0.06070900000031543,
+                "heapDeltaBytes": 20712
+              },
+              {
+                "ms": 0.06966599999987011,
+                "heapDeltaBytes": 20712
+              },
+              {
+                "ms": 0.08508300000039526,
+                "heapDeltaBytes": 20712
+              }
+            ],
+            "medianMs": 0.07191700000021228
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 642,
+          "tokens": 210,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.07283300000017334,
+                "heapDeltaBytes": 10704
+              },
+              {
+                "ms": 0.042458999999780644,
+                "heapDeltaBytes": 10704
+              },
+              {
+                "ms": 0.05704199999991033,
+                "heapDeltaBytes": 10704
+              },
+              {
+                "ms": 0.04849999999987631,
+                "heapDeltaBytes": 10704
+              },
+              {
+                "ms": 0.04354200000034325,
+                "heapDeltaBytes": 10704
+              }
+            ],
+            "medianMs": 0.04849999999987631
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.050499999999829015,
+                "heapDeltaBytes": 12432
+              },
+              {
+                "ms": 0.07087499999988722,
+                "heapDeltaBytes": 12432
+              },
+              {
+                "ms": 0.0731660000001284,
+                "heapDeltaBytes": 12432
+              },
+              {
+                "ms": 0.06008399999973335,
+                "heapDeltaBytes": 12432
+              },
+              {
+                "ms": 0.06587500000023283,
+                "heapDeltaBytes": 12432
+              }
+            ],
+            "medianMs": 0.06587500000023283
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "status": "unsupported-full-state",
+          "fields": [
+            "mute",
+            "releaseVelocity",
+            "chance",
+            "expression",
+            "nondefault channel"
+          ]
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "status": "unsupported-full-state",
+          "fields": [
+            "mute",
+            "releaseVelocity",
+            "chance",
+            "expression",
+            "nondefault channel"
+          ]
+        }
+      ],
+      "edit": {
+        "target": "u2",
+        "request": {
+          "bytes": 127,
+          "tokens": 57
+        },
+        "patch": {
+          "bytes": 198,
+          "tokens": 71
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.9997079999998277,
+              "heapDeltaBytes": 1024672
+            },
+            {
+              "ms": 0.8640000000000327,
+              "heapDeltaBytes": 1015456
+            },
+            {
+              "ms": 0.865041999999903,
+              "heapDeltaBytes": 1015456
+            },
+            {
+              "ms": 0.7374159999999392,
+              "heapDeltaBytes": 1015456
+            },
+            {
+              "ms": 0.8996660000002521,
+              "heapDeltaBytes": 1015456
+            }
+          ],
+          "medianMs": 0.865041999999903
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 2,
+        "sharedDomainCorrespondence": 3
+      },
+      "view": {
+        "bytes": 410,
+        "tokens": 141
+      }
+    },
+    {
+      "fixture": "engram-drums",
+      "family": "transcribed-drums",
+      "notes": 17,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 1034,
+          "tokens": 472,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.3050419999999576,
+                "heapDeltaBytes": 401328
+              },
+              {
+                "ms": 0.3219170000002123,
+                "heapDeltaBytes": 393880
+              },
+              {
+                "ms": 0.3059170000001359,
+                "heapDeltaBytes": 393960
+              },
+              {
+                "ms": 0.2975419999997939,
+                "heapDeltaBytes": 393960
+              },
+              {
+                "ms": 0.3442920000002232,
+                "heapDeltaBytes": 324544
+              }
+            ],
+            "medianMs": 0.3059170000001359
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.5375000000003638,
+                "heapDeltaBytes": 659240
+              },
+              {
+                "ms": 0.5431659999999283,
+                "heapDeltaBytes": 659240
+              },
+              {
+                "ms": 0.588083000000097,
+                "heapDeltaBytes": 659240
+              },
+              {
+                "ms": 0.7059169999997721,
+                "heapDeltaBytes": 669280
+              },
+              {
+                "ms": 0.5410830000000715,
+                "heapDeltaBytes": 659240
+              }
+            ],
+            "medianMs": 0.5431659999999283
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 1977,
+          "tokens": 699,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.34025000000019645,
+                "heapDeltaBytes": 324960
+              },
+              {
+                "ms": 0.33587500000021464,
+                "heapDeltaBytes": 324960
+              },
+              {
+                "ms": 0.2955000000001746,
+                "heapDeltaBytes": 331552
+              },
+              {
+                "ms": 0.3716250000002219,
+                "heapDeltaBytes": 324960
+              },
+              {
+                "ms": 0.35554199999978664,
+                "heapDeltaBytes": 324960
+              }
+            ],
+            "medianMs": 0.34025000000019645
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.5509579999998095,
+                "heapDeltaBytes": 516688
+              },
+              {
+                "ms": 0.5065829999998641,
+                "heapDeltaBytes": 524672
+              },
+              {
+                "ms": 0.485957999999755,
+                "heapDeltaBytes": 516048
+              },
+              {
+                "ms": 0.5027500000001055,
+                "heapDeltaBytes": 515912
+              },
+              {
+                "ms": 0.46320799999966766,
+                "heapDeltaBytes": 515912
+              }
+            ],
+            "medianMs": 0.5027500000001055
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 1172,
+          "tokens": 525,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.08979199999976117,
+                "heapDeltaBytes": 66976
+              },
+              {
+                "ms": 0.07858299999998053,
+                "heapDeltaBytes": 66976
+              },
+              {
+                "ms": 0.07291699999996126,
+                "heapDeltaBytes": 66976
+              },
+              {
+                "ms": 0.06558300000006057,
+                "heapDeltaBytes": 66976
+              },
+              {
+                "ms": 0.07883300000003146,
+                "heapDeltaBytes": 66976
+              }
+            ],
+            "medianMs": 0.07858299999998053
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.08562499999970896,
+                "heapDeltaBytes": 60024
+              },
+              {
+                "ms": 0.11537499999985812,
+                "heapDeltaBytes": 61272
+              },
+              {
+                "ms": 0.0941250000000764,
+                "heapDeltaBytes": 61272
+              },
+              {
+                "ms": 0.0850839999998243,
+                "heapDeltaBytes": 61272
+              },
+              {
+                "ms": 0.09875000000010914,
+                "heapDeltaBytes": 61272
+              }
+            ],
+            "medianMs": 0.0941250000000764
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 2039,
+          "tokens": 713,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.06279099999983373,
+                "heapDeltaBytes": 35600
+              },
+              {
+                "ms": 0.056999999999789,
+                "heapDeltaBytes": 35600
+              },
+              {
+                "ms": 0.06295899999986432,
+                "heapDeltaBytes": 35600
+              },
+              {
+                "ms": 0.05708300000014788,
+                "heapDeltaBytes": 35600
+              },
+              {
+                "ms": 0.06908299999986411,
+                "heapDeltaBytes": 35600
+              }
+            ],
+            "medianMs": 0.06279099999983373
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.07508399999960602,
+                "heapDeltaBytes": 37312
+              },
+              {
+                "ms": 0.09000000000014552,
+                "heapDeltaBytes": 37312
+              },
+              {
+                "ms": 0.07608299999992596,
+                "heapDeltaBytes": 37312
+              },
+              {
+                "ms": 0.07708300000012969,
+                "heapDeltaBytes": 37312
+              },
+              {
+                "ms": 0.07641699999976481,
+                "heapDeltaBytes": 37312
+              }
+            ],
+            "medianMs": 0.07641699999976481
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "status": "unsupported-full-state",
+          "fields": [
+            "nondefault channel"
+          ]
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "status": "unsupported-full-state",
+          "fields": [
+            "nondefault channel"
+          ]
+        }
+      ],
+      "edit": {
+        "target": "t1n9",
+        "request": {
+          "bytes": 129,
+          "tokens": 57
+        },
+        "patch": {
+          "bytes": 200,
+          "tokens": 71
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 1.4527499999999236,
+              "heapDeltaBytes": 2068840
+            },
+            {
+              "ms": 1.4776659999997719,
+              "heapDeltaBytes": 2068840
+            },
+            {
+              "ms": 1.4200419999997393,
+              "heapDeltaBytes": 2068840
+            },
+            {
+              "ms": 1.51299999999992,
+              "heapDeltaBytes": 2072072
+            },
+            {
+              "ms": 1.3951670000001286,
+              "heapDeltaBytes": 2068768
+            }
+          ],
+          "medianMs": 1.4527499999999236
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 16,
+        "sharedDomainCorrespondence": 17
+      },
+      "view": {
+        "bytes": 1184,
+        "tokens": 448
+      }
+    },
+    {
+      "fixture": "engram-bass",
+      "family": "transcribed-bass",
+      "notes": 7,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 573,
+          "tokens": 245,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.24733299999979863,
+                "heapDeltaBytes": 171496
+              },
+              {
+                "ms": 0.23258399999986068,
+                "heapDeltaBytes": 171496
+              },
+              {
+                "ms": 0.244083000000046,
+                "heapDeltaBytes": 171496
+              },
+              {
+                "ms": 0.228458000000046,
+                "heapDeltaBytes": 171496
+              },
+              {
+                "ms": 0.24241699999993216,
+                "heapDeltaBytes": 171496
+              }
+            ],
+            "medianMs": 0.24241699999993216
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.3635000000003856,
+                "heapDeltaBytes": 341000
+              },
+              {
+                "ms": 0.3837090000001808,
+                "heapDeltaBytes": 341000
+              },
+              {
+                "ms": 0.36870900000030815,
+                "heapDeltaBytes": 341000
+              },
+              {
+                "ms": 0.3775829999999587,
+                "heapDeltaBytes": 341000
+              },
+              {
+                "ms": 0.49287500000036744,
+                "heapDeltaBytes": 341000
+              }
+            ],
+            "medianMs": 0.3775829999999587
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 882,
+          "tokens": 314,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.22450000000026193,
+                "heapDeltaBytes": 171688
+              },
+              {
+                "ms": 0.22191700000030323,
+                "heapDeltaBytes": 171688
+              },
+              {
+                "ms": 0.22049999999990177,
+                "heapDeltaBytes": 171688
+              },
+              {
+                "ms": 0.25225000000000364,
+                "heapDeltaBytes": 171688
+              },
+              {
+                "ms": 0.23420900000019174,
+                "heapDeltaBytes": 171688
+              }
+            ],
+            "medianMs": 0.22450000000026193
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.32787499999994907,
+                "heapDeltaBytes": 261768
+              },
+              {
+                "ms": 0.3655829999997877,
+                "heapDeltaBytes": 261768
+              },
+              {
+                "ms": 0.3393750000000182,
+                "heapDeltaBytes": 261768
+              },
+              {
+                "ms": 0.3369999999999891,
+                "heapDeltaBytes": 261768
+              },
+              {
+                "ms": 0.34108400000013717,
+                "heapDeltaBytes": 261768
+              }
+            ],
+            "medianMs": 0.3393750000000182
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 561,
+          "tokens": 245,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.07158399999980247,
+                "heapDeltaBytes": 30008
+              },
+              {
+                "ms": 0.05654099999992468,
+                "heapDeltaBytes": 29896
+              },
+              {
+                "ms": 0.05525000000034197,
+                "heapDeltaBytes": 29896
+              },
+              {
+                "ms": 0.06812499999978172,
+                "heapDeltaBytes": 29896
+              },
+              {
+                "ms": 0.055499999999938154,
+                "heapDeltaBytes": 29896
+              }
+            ],
+            "medianMs": 0.05654099999992468
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.0785000000000764,
+                "heapDeltaBytes": 28744
+              },
+              {
+                "ms": 0.06624999999985448,
+                "heapDeltaBytes": 28744
+              },
+              {
+                "ms": 0.07662500000014916,
+                "heapDeltaBytes": 28744
+              },
+              {
+                "ms": 0.07795800000030795,
+                "heapDeltaBytes": 28744
+              },
+              {
+                "ms": 0.07662500000014916,
+                "heapDeltaBytes": 28744
+              }
+            ],
+            "medianMs": 0.07662500000014916
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 918,
+          "tokens": 323,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.047207999999955064,
+                "heapDeltaBytes": 17080
+              },
+              {
+                "ms": 0.054165999999895575,
+                "heapDeltaBytes": 17080
+              },
+              {
+                "ms": 0.04679200000009587,
+                "heapDeltaBytes": 17080
+              },
+              {
+                "ms": 0.04741599999988466,
+                "heapDeltaBytes": 17080
+              },
+              {
+                "ms": 0.04970899999989342,
+                "heapDeltaBytes": 17080
+              }
+            ],
+            "medianMs": 0.04741599999988466
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.05525000000034197,
+                "heapDeltaBytes": 17856
+              },
+              {
+                "ms": 0.06733399999984613,
+                "heapDeltaBytes": 17856
+              },
+              {
+                "ms": 0.1044170000000122,
+                "heapDeltaBytes": 17856
+              },
+              {
+                "ms": 0.07379100000025574,
+                "heapDeltaBytes": 19776
+              },
+              {
+                "ms": 0.052375000000211,
+                "heapDeltaBytes": 17856
+              }
+            ],
+            "medianMs": 0.06733399999984613
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 157,
+          "tokens": 102,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 164,
+            "tokens": 125,
+            "performedEqual": false,
+            "missing": 4,
+            "extra": 4
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.20545799999990777,
+                "heapDeltaBytes": 116776
+              },
+              {
+                "ms": 0.22612500000013824,
+                "heapDeltaBytes": 116776
+              },
+              {
+                "ms": 0.2034580000004098,
+                "heapDeltaBytes": 118472
+              },
+              {
+                "ms": 0.22879100000000108,
+                "heapDeltaBytes": 391904
+              },
+              {
+                "ms": 0.18920900000011898,
+                "heapDeltaBytes": 116552
+              }
+            ],
+            "medianMs": 0.20545799999990777
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.13991699999996854,
+                "heapDeltaBytes": 78672
+              },
+              {
+                "ms": 0.13170900000022812,
+                "heapDeltaBytes": 78672
+              },
+              {
+                "ms": 0.14095799999995506,
+                "heapDeltaBytes": 78672
+              },
+              {
+                "ms": 0.15024999999968713,
+                "heapDeltaBytes": 78672
+              },
+              {
+                "ms": 0.1483330000000933,
+                "heapDeltaBytes": 78672
+              }
+            ],
+            "medianMs": 0.14095799999995506
+          },
+          "edit": {
+            "bytes": 31,
+            "tokens": 18,
+            "text": "v100 n131/1024 B0 2|2+n273/2048",
+            "selection": {
+              "id": "t1n4",
+              "base": "6152345445499d01349fec97abc88e90d1de443ead9a23a5ceeb2f94d69ef440"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 44
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 220,
+          "tokens": 122,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 215,
+            "tokens": 123,
+            "performedEqual": false,
+            "missing": 2,
+            "extra": 2
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.12712499999997817,
+                "heapDeltaBytes": 40632
+              },
+              {
+                "ms": 0.10679100000015751,
+                "heapDeltaBytes": 39512
+              },
+              {
+                "ms": 0.11183299999993324,
+                "heapDeltaBytes": 40632
+              },
+              {
+                "ms": 0.1089590000001408,
+                "heapDeltaBytes": 43800
+              },
+              {
+                "ms": 0.10729200000014316,
+                "heapDeltaBytes": 40632
+              }
+            ],
+            "medianMs": 0.1089590000001408
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.0591669999998885,
+                "heapDeltaBytes": 12456
+              },
+              {
+                "ms": 0.04733399999986432,
+                "heapDeltaBytes": 12456
+              },
+              {
+                "ms": 0.06187500000032742,
+                "heapDeltaBytes": 12456
+              },
+              {
+                "ms": 0.05625000000009095,
+                "heapDeltaBytes": 12456
+              },
+              {
+                "ms": 0.06279200000017227,
+                "heapDeltaBytes": 12456
+              }
+            ],
+            "medianMs": 0.0591669999998885
+          },
+          "edit": {
+            "bytes": 35,
+            "tokens": 19,
+            "text": "[{p:35,t:2833/512,d:131/256,v:100}]",
+            "selection": {
+              "id": "t1n4",
+              "base": "6152345445499d01349fec97abc88e90d1de443ead9a23a5ceeb2f94d69ef440"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 44
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "t1n4",
+        "request": {
+          "bytes": 129,
+          "tokens": 55
+        },
+        "patch": {
+          "bytes": 200,
+          "tokens": 69
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.8808749999998327,
+              "heapDeltaBytes": 1063288
+            },
+            {
+              "ms": 0.8813749999999345,
+              "heapDeltaBytes": 1064320
+            },
+            {
+              "ms": 0.9324590000001081,
+              "heapDeltaBytes": 1063288
+            },
+            {
+              "ms": 0.8103750000000218,
+              "heapDeltaBytes": 1063288
+            },
+            {
+              "ms": 1.0054999999997563,
+              "heapDeltaBytes": 1063288
+            }
+          ],
+          "medianMs": 0.8813749999999345
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 6,
+        "sharedDomainCorrespondence": 7
+      },
+      "view": {
+        "bytes": 632,
+        "tokens": 229
+      }
+    },
+    {
+      "fixture": "via-purifico-piano",
+      "family": "transcribed-polyphonic-piano",
+      "notes": 94,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 4624,
+          "tokens": 2217,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.858791999999994,
+                "heapDeltaBytes": 1386104
+              },
+              {
+                "ms": 0.913332999999966,
+                "heapDeltaBytes": 1386104
+              },
+              {
+                "ms": 0.861417000000074,
+                "heapDeltaBytes": 1405024
+              },
+              {
+                "ms": 0.8604159999999865,
+                "heapDeltaBytes": 1386104
+              },
+              {
+                "ms": 0.8378750000001673,
+                "heapDeltaBytes": 1372712
+              }
+            ],
+            "medianMs": 0.8604159999999865
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 1.8682910000002266,
+                "heapDeltaBytes": 2880016
+              },
+              {
+                "ms": 1.578584000000319,
+                "heapDeltaBytes": 2873992
+              },
+              {
+                "ms": 1.750999999999749,
+                "heapDeltaBytes": 2875736
+              },
+              {
+                "ms": 1.8014170000001286,
+                "heapDeltaBytes": 2875736
+              },
+              {
+                "ms": 1.773916999999983,
+                "heapDeltaBytes": 2907512
+              }
+            ],
+            "medianMs": 1.773916999999983
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 8674,
+          "tokens": 3069,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.80987499999992,
+                "heapDeltaBytes": 1377408
+              },
+              {
+                "ms": 0.8237500000000182,
+                "heapDeltaBytes": 1377408
+              },
+              {
+                "ms": 0.7948340000002645,
+                "heapDeltaBytes": 1377408
+              },
+              {
+                "ms": 0.8967920000000049,
+                "heapDeltaBytes": 1391656
+              },
+              {
+                "ms": 0.9011249999998654,
+                "heapDeltaBytes": 1377408
+              }
+            ],
+            "medianMs": 0.8237500000000182
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 1.4949169999999867,
+                "heapDeltaBytes": 1753544
+              },
+              {
+                "ms": 1.3990420000000086,
+                "heapDeltaBytes": 1748120
+              },
+              {
+                "ms": 1.3812090000001263,
+                "heapDeltaBytes": 1745888
+              },
+              {
+                "ms": 1.158792000000176,
+                "heapDeltaBytes": 1751184
+              },
+              {
+                "ms": 1.3137919999999212,
+                "heapDeltaBytes": 1745888
+              }
+            ],
+            "medianMs": 1.3812090000001263
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 5903,
+          "tokens": 2759,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.2176249999997708,
+                "heapDeltaBytes": 347176
+              },
+              {
+                "ms": 0.2104580000000169,
+                "heapDeltaBytes": 347176
+              },
+              {
+                "ms": 0.20954100000017206,
+                "heapDeltaBytes": 347176
+              },
+              {
+                "ms": 0.2235419999997248,
+                "heapDeltaBytes": 347176
+              },
+              {
+                "ms": 0.21387499999991633,
+                "heapDeltaBytes": 347176
+              }
+            ],
+            "medianMs": 0.21387499999991633
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.24274999999988722,
+                "heapDeltaBytes": 305312
+              },
+              {
+                "ms": 0.2124589999998534,
+                "heapDeltaBytes": 305312
+              },
+              {
+                "ms": 0.22241699999995035,
+                "heapDeltaBytes": 305312
+              },
+              {
+                "ms": 0.2519580000002861,
+                "heapDeltaBytes": 305312
+              },
+              {
+                "ms": 0.23133299999972223,
+                "heapDeltaBytes": 305312
+              }
+            ],
+            "medianMs": 0.23133299999972223
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 10697,
+          "tokens": 3794,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.13458300000002055,
+                "heapDeltaBytes": 151096
+              },
+              {
+                "ms": 0.13629100000025574,
+                "heapDeltaBytes": 151096
+              },
+              {
+                "ms": 0.14441699999997581,
+                "heapDeltaBytes": 151096
+              },
+              {
+                "ms": 0.16604199999983393,
+                "heapDeltaBytes": 151096
+              },
+              {
+                "ms": 0.16066700000010314,
+                "heapDeltaBytes": 151096
+              }
+            ],
+            "medianMs": 0.14441699999997581
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.16537500000004002,
+                "heapDeltaBytes": 159248
+              },
+              {
+                "ms": 0.15612499999997453,
+                "heapDeltaBytes": 159248
+              },
+              {
+                "ms": 0.16895800000020245,
+                "heapDeltaBytes": 159248
+              },
+              {
+                "ms": 0.17762500000026193,
+                "heapDeltaBytes": 159248
+              },
+              {
+                "ms": 0.16187500000023647,
+                "heapDeltaBytes": 159248
+              }
+            ],
+            "medianMs": 0.16537500000004002
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 1001,
+          "tokens": 655,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 1037,
+            "tokens": 769,
+            "performedEqual": false,
+            "missing": 40,
+            "extra": 40
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.5941659999998592,
+                "heapDeltaBytes": 1168744
+              },
+              {
+                "ms": 0.570459000000028,
+                "heapDeltaBytes": 680072
+              },
+              {
+                "ms": 0.556416999999783,
+                "heapDeltaBytes": 1373264
+              },
+              {
+                "ms": 0.581583999999566,
+                "heapDeltaBytes": 675320
+              },
+              {
+                "ms": 0.5599999999994907,
+                "heapDeltaBytes": 675320
+              }
+            ],
+            "medianMs": 0.570459000000028
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.34883300000001327,
+                "heapDeltaBytes": 435096
+              },
+              {
+                "ms": 0.3791670000000522,
+                "heapDeltaBytes": 407200
+              },
+              {
+                "ms": 0.3513749999992797,
+                "heapDeltaBytes": 19688
+              },
+              {
+                "ms": 0.37533299999995506,
+                "heapDeltaBytes": 407200
+              },
+              {
+                "ms": 0.44412499999998545,
+                "heapDeltaBytes": 429336
+              }
+            ],
+            "medianMs": 0.37533299999995506
+          },
+          "edit": {
+            "bytes": 30,
+            "tokens": 18,
+            "text": "v100 n85/1024 G3 3|1+n171/2048",
+            "selection": {
+              "id": "t1n48",
+              "base": "25815bc9b980ff60af6e80547a3528cb3d7219e311239d7403d35d7c11333cb3"
+            },
+            "guardAndSelection": {
+              "bytes": 88,
+              "tokens": 47
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 2968,
+          "tokens": 1659,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 2870,
+            "tokens": 1665,
+            "performedEqual": false,
+            "missing": 24,
+            "extra": 24
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.28650000000016007,
+                "heapDeltaBytes": 440368
+              },
+              {
+                "ms": 0.32000000000061846,
+                "heapDeltaBytes": 440368
+              },
+              {
+                "ms": 0.3125419999996666,
+                "heapDeltaBytes": 443104
+              },
+              {
+                "ms": 0.3131659999999101,
+                "heapDeltaBytes": 432832
+              },
+              {
+                "ms": 0.2665420000002996,
+                "heapDeltaBytes": 432832
+              }
+            ],
+            "medianMs": 0.3125419999996666
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.14766599999984464,
+                "heapDeltaBytes": 94448
+              },
+              {
+                "ms": 0.16841699999986304,
+                "heapDeltaBytes": 95264
+              },
+              {
+                "ms": 0.1547499999996944,
+                "heapDeltaBytes": 94448
+              },
+              {
+                "ms": 0.12224999999943975,
+                "heapDeltaBytes": 94432
+              },
+              {
+                "ms": 0.12370800000007875,
+                "heapDeltaBytes": 94432
+              }
+            ],
+            "medianMs": 0.14766599999984464
+          },
+          "edit": {
+            "bytes": 34,
+            "tokens": 19,
+            "text": "[{p:67,t:4267/512,d:85/256,v:100}]",
+            "selection": {
+              "id": "t1n48",
+              "base": "25815bc9b980ff60af6e80547a3528cb3d7219e311239d7403d35d7c11333cb3"
+            },
+            "guardAndSelection": {
+              "bytes": 88,
+              "tokens": 47
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "t1n48",
+        "request": {
+          "bytes": 130,
+          "tokens": 58
+        },
+        "patch": {
+          "bytes": 201,
+          "tokens": 72
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 4.846583000000464,
+              "heapDeltaBytes": 8927592
+            },
+            {
+              "ms": 4.242541999999958,
+              "heapDeltaBytes": 8929888
+            },
+            {
+              "ms": 4.5625410000002375,
+              "heapDeltaBytes": 8916504
+            },
+            {
+              "ms": 4.407917000000452,
+              "heapDeltaBytes": 8921160
+            },
+            {
+              "ms": 4.193916999999601,
+              "heapDeltaBytes": 8606904
+            }
+          ],
+          "medianMs": 4.407917000000452
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 93,
+        "sharedDomainCorrespondence": 94
+      },
+      "view": {
+        "bytes": 5455,
+        "tokens": 2117
+      }
+    },
+    {
+      "fixture": "air-loom-guitar",
+      "family": "transcribed-baked-guitar",
+      "notes": 10,
+      "surfaces": [
+        {
+          "candidate": "baseline-fields",
+          "bytes": 716,
+          "tokens": 313,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.27616699999998673,
+                "heapDeltaBytes": 197736
+              },
+              {
+                "ms": 0.2906249999996362,
+                "heapDeltaBytes": 197736
+              },
+              {
+                "ms": 0.2577499999997599,
+                "heapDeltaBytes": 197736
+              },
+              {
+                "ms": 0.2962499999994179,
+                "heapDeltaBytes": 197736
+              },
+              {
+                "ms": 0.27137500000026193,
+                "heapDeltaBytes": 197736
+              }
+            ],
+            "medianMs": 0.27616699999998673
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.43241699999998673,
+                "heapDeltaBytes": 395600
+              },
+              {
+                "ms": 0.4031670000003942,
+                "heapDeltaBytes": 395600
+              },
+              {
+                "ms": 0.40991699999995035,
+                "heapDeltaBytes": 395600
+              },
+              {
+                "ms": 0.4053750000002765,
+                "heapDeltaBytes": 396392
+              },
+              {
+                "ms": 0.45662499999980355,
+                "heapDeltaBytes": 395600
+              }
+            ],
+            "medianMs": 0.40991699999995035
+          }
+        },
+        {
+          "candidate": "baseline-json",
+          "bytes": 1154,
+          "tokens": 409,
+          "performedEqual": true,
+          "information": "normalized notes plus clip/coverage; source rationals and group context are not included",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.3086249999996653,
+                "heapDeltaBytes": 204856
+              },
+              {
+                "ms": 0.2940410000001066,
+                "heapDeltaBytes": 204856
+              },
+              {
+                "ms": 0.28650000000016007,
+                "heapDeltaBytes": 204856
+              },
+              {
+                "ms": 0.26287500000034925,
+                "heapDeltaBytes": 204856
+              },
+              {
+                "ms": 0.2718750000003638,
+                "heapDeltaBytes": 204856
+              }
+            ],
+            "medianMs": 0.28650000000016007
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.3739159999995536,
+                "heapDeltaBytes": 268496
+              },
+              {
+                "ms": 0.38070799999968585,
+                "heapDeltaBytes": 268496
+              },
+              {
+                "ms": 0.3510000000005675,
+                "heapDeltaBytes": 268496
+              },
+              {
+                "ms": 0.4318330000005517,
+                "heapDeltaBytes": 268496
+              },
+              {
+                "ms": 0.32241699999940465,
+                "heapDeltaBytes": 268496
+              }
+            ],
+            "medianMs": 0.3739159999995536
+          }
+        },
+        {
+          "candidate": "compact",
+          "bytes": 689,
+          "tokens": 305,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.06974999999965803,
+                "heapDeltaBytes": 37616
+              },
+              {
+                "ms": 0.05025000000023283,
+                "heapDeltaBytes": 37616
+              },
+              {
+                "ms": 0.04550000000017462,
+                "heapDeltaBytes": 37616
+              },
+              {
+                "ms": 0.04412499999943975,
+                "heapDeltaBytes": 37616
+              },
+              {
+                "ms": 0.0709580000002461,
+                "heapDeltaBytes": 37616
+              }
+            ],
+            "medianMs": 0.05025000000023283
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.08004199999959383,
+                "heapDeltaBytes": 38512
+              },
+              {
+                "ms": 0.08087499999965075,
+                "heapDeltaBytes": 34648
+              },
+              {
+                "ms": 0.0788750000001528,
+                "heapDeltaBytes": 34648
+              },
+              {
+                "ms": 0.06199999999989814,
+                "heapDeltaBytes": 34648
+              },
+              {
+                "ms": 0.08779099999992468,
+                "heapDeltaBytes": 34648
+              }
+            ],
+            "medianMs": 0.08004199999959383
+          }
+        },
+        {
+          "candidate": "grouped",
+          "bytes": 1199,
+          "tokens": 416,
+          "performedEqual": true,
+          "sourceAndContextEqual": true,
+          "information": "source rational notes plus supplied groups, musical fields, family and meter",
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.03904199999942648,
+                "heapDeltaBytes": 19312
+              },
+              {
+                "ms": 0.04570799999964947,
+                "heapDeltaBytes": 19312
+              },
+              {
+                "ms": 0.04674999999951979,
+                "heapDeltaBytes": 19312
+              },
+              {
+                "ms": 0.03991700000005949,
+                "heapDeltaBytes": 19312
+              },
+              {
+                "ms": 0.057083000000602624,
+                "heapDeltaBytes": 19312
+              }
+            ],
+            "medianMs": 0.04570799999964947
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.05887500000062573,
+                "heapDeltaBytes": 20248
+              },
+              {
+                "ms": 0.06141699999989214,
+                "heapDeltaBytes": 20248
+              },
+              {
+                "ms": 0.05133300000034069,
+                "heapDeltaBytes": 20248
+              },
+              {
+                "ms": 0.06591699999989942,
+                "heapDeltaBytes": 20248
+              },
+              {
+                "ms": 0.06887499999993452,
+                "heapDeltaBytes": 20248
+              }
+            ],
+            "medianMs": 0.06141699999989214
+          }
+        },
+        {
+          "candidate": "adapted-barbeat",
+          "bytes": 229,
+          "tokens": 147,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 235,
+            "tokens": 180,
+            "performedEqual": false,
+            "missing": 3,
+            "extra": 3
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.23570900000049733,
+                "heapDeltaBytes": 147216
+              },
+              {
+                "ms": 0.228291999999783,
+                "heapDeltaBytes": 148944
+              },
+              {
+                "ms": 0.19387499999993452,
+                "heapDeltaBytes": 147216
+              },
+              {
+                "ms": 0.2382079999997586,
+                "heapDeltaBytes": 148920
+              },
+              {
+                "ms": 0.19037499999922147,
+                "heapDeltaBytes": 150400
+              }
+            ],
+            "medianMs": 0.228291999999783
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.13445799999954033,
+                "heapDeltaBytes": 99160
+              },
+              {
+                "ms": 0.17120800000066083,
+                "heapDeltaBytes": 99160
+              },
+              {
+                "ms": 0.17324999999982538,
+                "heapDeltaBytes": 99160
+              },
+              {
+                "ms": 0.17254199999933917,
+                "heapDeltaBytes": 99160
+              },
+              {
+                "ms": 0.1564589999998134,
+                "heapDeltaBytes": 99160
+              }
+            ],
+            "medianMs": 0.17120800000066083
+          },
+          "edit": {
+            "bytes": 29,
+            "tokens": 16,
+            "text": "v100 n123/512 G3 2|1+n115/512",
+            "selection": {
+              "id": "t1n6",
+              "base": "1858a5ae59c43da0932d0c71a0b646e99faa6402245e37fdedd845a511785066"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 45
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        },
+        {
+          "candidate": "adapted-midi-json",
+          "bytes": 320,
+          "tokens": 175,
+          "performedEqual": true,
+          "information": "normalized common note fields only; no public IDs, groups, source timing, meter map or clip state",
+          "upstreamDiagnostic": {
+            "bytes": 309,
+            "tokens": 178,
+            "performedEqual": false,
+            "missing": 1,
+            "extra": 1
+          },
+          "encode": {
+            "samples": [
+              {
+                "ms": 0.09662500000013097,
+                "heapDeltaBytes": 36784
+              },
+              {
+                "ms": 0.09437499999967258,
+                "heapDeltaBytes": 36784
+              },
+              {
+                "ms": 0.10004200000003038,
+                "heapDeltaBytes": 36784
+              },
+              {
+                "ms": 0.09070900000006077,
+                "heapDeltaBytes": 36784
+              },
+              {
+                "ms": 0.07487500000024738,
+                "heapDeltaBytes": 36784
+              }
+            ],
+            "medianMs": 0.09437499999967258
+          },
+          "decode": {
+            "samples": [
+              {
+                "ms": 0.04491599999983009,
+                "heapDeltaBytes": 14040
+              },
+              {
+                "ms": 0.048291999999491964,
+                "heapDeltaBytes": 14040
+              },
+              {
+                "ms": 0.05662500000016735,
+                "heapDeltaBytes": 14040
+              },
+              {
+                "ms": 0.061625000000276486,
+                "heapDeltaBytes": 14040
+              },
+              {
+                "ms": 0.04500000000007276,
+                "heapDeltaBytes": 14040
+              }
+            ],
+            "medianMs": 0.048291999999491964
+          },
+          "edit": {
+            "bytes": 34,
+            "tokens": 18,
+            "text": "[{p:67,t:627/128,d:123/128,v:100}]",
+            "selection": {
+              "id": "t1n6",
+              "base": "1858a5ae59c43da0932d0c71a0b646e99faa6402245e37fdedd845a511785066"
+            },
+            "guardAndSelection": {
+              "bytes": 87,
+              "tokens": 45
+            },
+            "source": "external frozen selection; not native PP identity",
+            "performedEqual": true
+          }
+        }
+      ],
+      "edit": {
+        "target": "t1n6",
+        "request": {
+          "bytes": 129,
+          "tokens": 56
+        },
+        "patch": {
+          "bytes": 200,
+          "tokens": 70
+        },
+        "guardedCommand": {
+          "samples": [
+            {
+              "ms": 0.9350830000003043,
+              "heapDeltaBytes": 1295408
+            },
+            {
+              "ms": 1.217333000000508,
+              "heapDeltaBytes": 1297440
+            },
+            {
+              "ms": 1.08849999999984,
+              "heapDeltaBytes": 1295408
+            },
+            {
+              "ms": 1.0524169999998776,
+              "heapDeltaBytes": 1295408
+            },
+            {
+              "ms": 1.0086249999994834,
+              "heapDeltaBytes": 1295408
+            }
+          ],
+          "medianMs": 1.0524169999998776
+        },
+        "changedNotes": 1,
+        "unchangedNotes": 9,
+        "sharedDomainCorrespondence": 10
+      },
+      "view": {
+        "bytes": 795,
+        "tokens": 294
+      }
+    }
+  ],
+  "claimControls": [
+    {
+      "fixture": "synthetic-drums",
+      "mode": "selective",
+      "claims": 1,
+      "bytes": 1154,
+      "tokens": 415,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 0.8969170000000304,
+            "heapDeltaBytes": 852296
+          },
+          {
+            "ms": 0.9672920000002705,
+            "heapDeltaBytes": 852384
+          },
+          {
+            "ms": 0.7806249999994179,
+            "heapDeltaBytes": 618720
+          },
+          {
+            "ms": 0.7521249999999782,
+            "heapDeltaBytes": 852184
+          },
+          {
+            "ms": 0.7205830000002607,
+            "heapDeltaBytes": 852608
+          }
+        ],
+        "medianMs": 0.7806249999994179
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 0.5979159999997137,
+            "heapDeltaBytes": 529192
+          },
+          {
+            "ms": 0.5768330000000788,
+            "heapDeltaBytes": 529192
+          },
+          {
+            "ms": 0.6336249999994834,
+            "heapDeltaBytes": 529192
+          },
+          {
+            "ms": 0.6638750000001892,
+            "heapDeltaBytes": 529192
+          },
+          {
+            "ms": 0.5996669999994992,
+            "heapDeltaBytes": 529192
+          }
+        ],
+        "medianMs": 0.5996669999994992
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": []
+    },
+    {
+      "fixture": "synthetic-drums",
+      "mode": "timing-rich",
+      "claims": 1,
+      "bytes": 1154,
+      "tokens": 415,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 0.9318339999999807,
+            "heapDeltaBytes": 852264
+          },
+          {
+            "ms": 0.8937499999992724,
+            "heapDeltaBytes": 851248
+          },
+          {
+            "ms": 0.838249999999789,
+            "heapDeltaBytes": 849328
+          },
+          {
+            "ms": 0.7415839999994205,
+            "heapDeltaBytes": 701376
+          },
+          {
+            "ms": 0.8502500000004147,
+            "heapDeltaBytes": 701368
+          }
+        ],
+        "medianMs": 0.8502500000004147
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 0.6722499999996217,
+            "heapDeltaBytes": 465320
+          },
+          {
+            "ms": 0.6290829999998095,
+            "heapDeltaBytes": 486024
+          },
+          {
+            "ms": 0.6355410000005577,
+            "heapDeltaBytes": 465320
+          },
+          {
+            "ms": 0.6829580000003261,
+            "heapDeltaBytes": 465320
+          },
+          {
+            "ms": 0.6822500000007494,
+            "heapDeltaBytes": 465320
+          }
+        ],
+        "medianMs": 0.6722499999996217
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": []
+    },
+    {
+      "fixture": "synthetic-bass",
+      "mode": "selective",
+      "claims": 1,
+      "bytes": 1007,
+      "tokens": 357,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 0.7561670000004597,
+            "heapDeltaBytes": 572328
+          },
+          {
+            "ms": 0.816834000000199,
+            "heapDeltaBytes": 572328
+          },
+          {
+            "ms": 0.8354589999999007,
+            "heapDeltaBytes": 572328
+          },
+          {
+            "ms": 0.7799580000000788,
+            "heapDeltaBytes": 336456
+          },
+          {
+            "ms": 0.7316249999994398,
+            "heapDeltaBytes": 572328
+          }
+        ],
+        "medianMs": 0.7799580000000788
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 0.6586669999996957,
+            "heapDeltaBytes": 377656
+          },
+          {
+            "ms": 0.5630409999994299,
+            "heapDeltaBytes": 141664
+          },
+          {
+            "ms": 0.6111659999996846,
+            "heapDeltaBytes": 377656
+          },
+          {
+            "ms": 0.6398749999998472,
+            "heapDeltaBytes": 379888
+          },
+          {
+            "ms": 0.5692079999998896,
+            "heapDeltaBytes": 377656
+          }
+        ],
+        "medianMs": 0.6111659999996846
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": [
+        "group-triplet"
+      ]
+    },
+    {
+      "fixture": "synthetic-bass",
+      "mode": "timing-rich",
+      "claims": 7,
+      "bytes": 4052,
+      "tokens": 1378,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 2.083958000000166,
+            "heapDeltaBytes": 1985888
+          },
+          {
+            "ms": 2.1111250000003565,
+            "heapDeltaBytes": 1985888
+          },
+          {
+            "ms": 2.075417000000016,
+            "heapDeltaBytes": 1985888
+          },
+          {
+            "ms": 2.1891670000004524,
+            "heapDeltaBytes": 1988848
+          },
+          {
+            "ms": 2.1977499999993597,
+            "heapDeltaBytes": 1988040
+          }
+        ],
+        "medianMs": 2.1111250000003565
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 1.7595830000000205,
+            "heapDeltaBytes": 1134232
+          },
+          {
+            "ms": 1.5629169999992882,
+            "heapDeltaBytes": 1100688
+          },
+          {
+            "ms": 1.6622500000003129,
+            "heapDeltaBytes": 1085976
+          },
+          {
+            "ms": 1.7556249999997817,
+            "heapDeltaBytes": 1085976
+          },
+          {
+            "ms": 1.4884579999998095,
+            "heapDeltaBytes": 1085976
+          }
+        ],
+        "medianMs": 1.6622500000003129
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": [
+        "groove-b1",
+        "group-triplet",
+        "nom-b1"
+      ]
+    },
+    {
+      "fixture": "synthetic-harmony",
+      "mode": "selective",
+      "claims": 2,
+      "bytes": 1528,
+      "tokens": 508,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 0.9769580000001952,
+            "heapDeltaBytes": 779072
+          },
+          {
+            "ms": 1.0005000000001019,
+            "heapDeltaBytes": 779072
+          },
+          {
+            "ms": 0.9418749999995271,
+            "heapDeltaBytes": 756272
+          },
+          {
+            "ms": 1.1067079999993439,
+            "heapDeltaBytes": 756320
+          },
+          {
+            "ms": 0.8917080000001079,
+            "heapDeltaBytes": 756320
+          }
+        ],
+        "medianMs": 0.9769580000001952
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 0.7428750000008222,
+            "heapDeltaBytes": 537616
+          },
+          {
+            "ms": 0.7831669999995938,
+            "heapDeltaBytes": 537592
+          },
+          {
+            "ms": 0.8068750000002183,
+            "heapDeltaBytes": 557472
+          },
+          {
+            "ms": 0.7448750000003201,
+            "heapDeltaBytes": 537592
+          },
+          {
+            "ms": 0.7502500000000509,
+            "heapDeltaBytes": 537592
+          }
+        ],
+        "medianMs": 0.7502500000000509
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": [
+        "group-c7"
+      ]
+    },
+    {
+      "fixture": "synthetic-harmony",
+      "mode": "timing-rich",
+      "claims": 10,
+      "bytes": 5518,
+      "tokens": 1791,
+      "buildAndSeal": {
+        "samples": [
+          {
+            "ms": 3.2035420000001977,
+            "heapDeltaBytes": 2211232
+          },
+          {
+            "ms": 2.872457999999824,
+            "heapDeltaBytes": 2217072
+          },
+          {
+            "ms": 2.896208000000115,
+            "heapDeltaBytes": 2186328
+          },
+          {
+            "ms": 2.703125,
+            "heapDeltaBytes": 2184624
+          },
+          {
+            "ms": 2.893417000000227,
+            "heapDeltaBytes": 2186328
+          }
+        ],
+        "medianMs": 2.893417000000227
+      },
+      "parse": {
+        "samples": [
+          {
+            "ms": 2.2257909999998446,
+            "heapDeltaBytes": 1475240
+          },
+          {
+            "ms": 2.1104999999997744,
+            "heapDeltaBytes": 1464984
+          },
+          {
+            "ms": 2.130833000000166,
+            "heapDeltaBytes": 1464984
+          },
+          {
+            "ms": 2.2039169999998194,
+            "heapDeltaBytes": 1470280
+          },
+          {
+            "ms": 2.2142499999999927,
+            "heapDeltaBytes": 1513648
+          }
+        ],
+        "medianMs": 2.2039169999998194
+      },
+      "velocityRetainsClaims": true,
+      "timingEditStaleClaims": [
+        "groove-a",
+        "group-c7",
+        "nom-a"
+      ]
+    }
+  ],
+  "checks": [
+    "halve strum spread preserves common delay, durations and unrelated state",
+    "negative-pickup: explicit baseline admission refusal",
+    "normalized-collision: explicit baseline admission refusal",
+    "duplicate-multiplicity: explicit baseline admission refusal",
+    "unrelated concurrent edit invalidates whole-document base"
+  ],
+  "examples": [
+    {
+      "fixture": "synthetic-drums",
+      "source": {
+        "id": "synthetic-drums",
+        "family": "humanized drums",
+        "meter": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "notes": [
+          {
+            "id": "kick",
+            "pitch": 36,
+            "at": "3/512",
+            "duration": "1/4",
+            "velocity": 110
+          },
+          {
+            "id": "hat1",
+            "pitch": 42,
+            "at": "3/512",
+            "duration": "1/8",
+            "velocity": 69
+          },
+          {
+            "id": "hat2",
+            "pitch": 42,
+            "at": "171/512",
+            "duration": "1/8",
+            "velocity": 76
+          },
+          {
+            "id": "push",
+            "pitch": 38,
+            "at": "501/512",
+            "duration": "1/8",
+            "velocity": 102
+          },
+          {
+            "id": "flam1",
+            "pitch": 38,
+            "at": "1017/512",
+            "duration": "1/16",
+            "velocity": 48
+          },
+          {
+            "id": "flam2",
+            "pitch": 38,
+            "at": "1027/512",
+            "duration": "1/8",
+            "velocity": 112
+          },
+          {
+            "id": "fill",
+            "pitch": 45,
+            "at": "1543/512",
+            "duration": "59/512",
+            "velocity": 87
+          }
+        ],
+        "groups": [
+          {
+            "id": "backbeat",
+            "members": [
+              "push",
+              "flam1",
+              "flam2"
+            ],
+            "label": "intentional push and flam",
+            "prose": "Keep the push and flam spacing when moving the phrase.",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            }
+          }
+        ]
+      },
+      "baselineFields": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"4\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"4\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT kick clip 3/512 1/4 36 110 1 false\nEVENT hat1 clip 3/512 1/8 42 69 1 false\nEVENT hat2 clip 171/512 1/8 42 76 1 false\nEVENT push clip 501/512 1/8 38 102 1 false\nEVENT flam1 clip 1017/512 1/16 38 48 1 false\nEVENT flam2 clip 1027/512 1/8 38 112 1 false\nEVENT fill clip 1543/512 59/512 45 87 1 false\n",
+      "compact": {
+        "format": "r01-compact",
+        "version": 1,
+        "context": {
+          "id": "synthetic-drums",
+          "family": "humanized drums",
+          "meter": {
+            "numerator": 4,
+            "denominator": 4
+          },
+          "groups": [
+            {
+              "id": "backbeat",
+              "members": [
+                "push",
+                "flam1",
+                "flam2"
+              ],
+              "label": "intentional push and flam",
+              "prose": "Keep the push and flam spacing when moving the phrase.",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ]
+        },
+        "rows": [
+          [
+            "kick",
+            36,
+            "3/512",
+            "1/4",
+            110,
+            {},
+            [],
+            null
+          ],
+          [
+            "hat1",
+            42,
+            "3/512",
+            "1/8",
+            69,
+            {},
+            [],
+            null
+          ],
+          [
+            "hat2",
+            42,
+            "171/512",
+            "1/8",
+            76,
+            {},
+            [],
+            null
+          ],
+          [
+            "push",
+            38,
+            "501/512",
+            "1/8",
+            102,
+            {},
+            [
+              "backbeat"
+            ],
+            null
+          ],
+          [
+            "flam1",
+            38,
+            "1017/512",
+            "1/16",
+            48,
+            {},
+            [
+              "backbeat"
+            ],
+            null
+          ],
+          [
+            "flam2",
+            38,
+            "1027/512",
+            "1/8",
+            112,
+            {},
+            [
+              "backbeat"
+            ],
+            null
+          ],
+          [
+            "fill",
+            45,
+            "1543/512",
+            "59/512",
+            87,
+            {},
+            [],
+            null
+          ]
+        ]
+      },
+      "grouped": {
+        "format": "r01-grouped",
+        "version": 1,
+        "context": {
+          "id": "synthetic-drums",
+          "family": "humanized drums",
+          "meter": {
+            "numerator": 4,
+            "denominator": 4
+          },
+          "groups": [
+            {
+              "id": "backbeat",
+              "members": [
+                "push",
+                "flam1",
+                "flam2"
+              ],
+              "label": "intentional push and flam",
+              "prose": "Keep the push and flam spacing when moving the phrase.",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ]
+        },
+        "rows": [
+          {
+            "note": {
+              "id": "kick",
+              "pitch": 36,
+              "at": "3/512",
+              "duration": "1/4",
+              "velocity": 110
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "hat1",
+              "pitch": 42,
+              "at": "3/512",
+              "duration": "1/8",
+              "velocity": 69
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "hat2",
+              "pitch": 42,
+              "at": "171/512",
+              "duration": "1/8",
+              "velocity": 76
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "push",
+              "pitch": 38,
+              "at": "501/512",
+              "duration": "1/8",
+              "velocity": 102
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "flam1",
+              "pitch": 38,
+              "at": "1017/512",
+              "duration": "1/16",
+              "velocity": 48
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "flam2",
+              "pitch": 38,
+              "at": "1027/512",
+              "duration": "1/8",
+              "velocity": 112
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "fill",
+              "pitch": 45,
+              "at": "1543/512",
+              "duration": "59/512",
+              "velocity": 87
+            },
+            "time": null
+          }
+        ]
+      },
+      "command": {
+        "base": "1834d3d0aa795eab3336e60ec5a8d72bd3049339cf5baf5efa7d4e39b13a2112",
+        "op": "velocity",
+        "select": {
+          "ids": [
+            "push"
+          ]
+        },
+        "value": 100
+      },
+      "expectedAfter": [
+        {
+          "id": "kick",
+          "at": "3/512",
+          "duration": "1/4",
+          "pitch": 36,
+          "velocity": 110
+        },
+        {
+          "id": "hat1",
+          "at": "3/512",
+          "duration": "1/8",
+          "pitch": 42,
+          "velocity": 69
+        },
+        {
+          "id": "hat2",
+          "at": "171/512",
+          "duration": "1/8",
+          "pitch": 42,
+          "velocity": 76
+        },
+        {
+          "id": "push",
+          "at": "501/512",
+          "duration": "1/8",
+          "pitch": 38,
+          "velocity": 100
+        },
+        {
+          "id": "flam1",
+          "at": "1017/512",
+          "duration": "1/16",
+          "pitch": 38,
+          "velocity": 48
+        },
+        {
+          "id": "flam2",
+          "at": "1027/512",
+          "duration": "1/8",
+          "pitch": 38,
+          "velocity": 112
+        },
+        {
+          "id": "fill",
+          "at": "1543/512",
+          "duration": "59/512",
+          "pitch": 45,
+          "velocity": 87
+        }
+      ],
+      "producerPal": {
+        "barbeat": "v110 n/16 C1 v69 n/32 Gb1 1|1+n3/2048\nv76 Gb1 1|1+n171/2048\nv102 D1 1|1+n501/2048\nv48 n/64 D1 1|2+n505/2048\nv112 n/32 D1 1|3+n3/2048\nv87 n59/2048 A1 1|4+n7/2048",
+        "midi-json": "[{p:36,t:3/512,d:0.25,v:110},{p:42,t:3/512,d:0.125,v:69},{p:42,t:171/512,d:0.125,v:76},{p:38,t:501/512,d:0.125,v:102},{p:38,t:1017/512,d:0.0625,v:48},{p:38,t:1027/512,d:0.125,v:112},{p:45,t:1543/512,d:59/512,v:87}]"
+      }
+    },
+    {
+      "fixture": "synthetic-bass",
+      "source": {
+        "id": "synthetic-bass",
+        "family": "syncopated bass",
+        "meter": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "notes": [
+          {
+            "id": "b1",
+            "pitch": 36,
+            "at": "0",
+            "duration": "7/24",
+            "velocity": 94
+          },
+          {
+            "id": "b2",
+            "pitch": 39,
+            "at": "1/3",
+            "duration": "5/24",
+            "velocity": 81
+          },
+          {
+            "id": "b3",
+            "pitch": 43,
+            "at": "1015/1536",
+            "duration": "11/24",
+            "velocity": 101
+          },
+          {
+            "id": "b4",
+            "pitch": 34,
+            "at": "1499/512",
+            "duration": "5/4",
+            "velocity": 88
+          }
+        ],
+        "groups": [
+          {
+            "id": "triplet",
+            "members": [
+              "b1",
+              "b2",
+              "b3"
+            ],
+            "label": "triplet with anticipated third",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            }
+          }
+        ],
+        "musical": {
+          "nominal": {
+            "b1": {
+              "at": "0",
+              "duration": "1/3"
+            },
+            "b2": {
+              "at": "1/3",
+              "duration": "1/3"
+            },
+            "b3": {
+              "at": "2/3",
+              "duration": "1/3"
+            }
+          }
+        }
+      },
+      "baselineFields": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"5\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"5\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT b1 clip 0 149/512 36 94 1 false\nEVENT b2 clip 85/256 107/512 39 81 1 false\nEVENT b3 clip 169/256 235/512 43 101 1 false\nEVENT b4 clip 1499/512 5/4 34 88 1 false\n",
+      "compact": {
+        "format": "r01-compact",
+        "version": 1,
+        "context": {
+          "id": "synthetic-bass",
+          "family": "syncopated bass",
+          "meter": {
+            "numerator": 6,
+            "denominator": 8
+          },
+          "groups": [
+            {
+              "id": "triplet",
+              "members": [
+                "b1",
+                "b2",
+                "b3"
+              ],
+              "label": "triplet with anticipated third",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ],
+          "musical": {
+            "nominal": {}
+          }
+        },
+        "rows": [
+          [
+            "b1",
+            36,
+            "0",
+            "7/24",
+            94,
+            {},
+            [
+              "triplet"
+            ],
+            {
+              "at": "0",
+              "duration": "1/3"
+            }
+          ],
+          [
+            "b2",
+            39,
+            "1/3",
+            "5/24",
+            81,
+            {},
+            [
+              "triplet"
+            ],
+            {
+              "at": "1/3",
+              "duration": "1/3"
+            }
+          ],
+          [
+            "b3",
+            43,
+            "1015/1536",
+            "11/24",
+            101,
+            {},
+            [
+              "triplet"
+            ],
+            {
+              "at": "2/3",
+              "duration": "1/3"
+            }
+          ],
+          [
+            "b4",
+            34,
+            "1499/512",
+            "5/4",
+            88,
+            {},
+            [],
+            null
+          ]
+        ]
+      },
+      "grouped": {
+        "format": "r01-grouped",
+        "version": 1,
+        "context": {
+          "id": "synthetic-bass",
+          "family": "syncopated bass",
+          "meter": {
+            "numerator": 6,
+            "denominator": 8
+          },
+          "groups": [
+            {
+              "id": "triplet",
+              "members": [
+                "b1",
+                "b2",
+                "b3"
+              ],
+              "label": "triplet with anticipated third",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ],
+          "musical": {
+            "nominal": {
+              "b1": {
+                "at": "0",
+                "duration": "1/3"
+              },
+              "b2": {
+                "at": "1/3",
+                "duration": "1/3"
+              },
+              "b3": {
+                "at": "2/3",
+                "duration": "1/3"
+              }
+            }
+          }
+        },
+        "rows": [
+          {
+            "note": {
+              "id": "b1",
+              "pitch": 36,
+              "at": "0",
+              "duration": "7/24",
+              "velocity": 94
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "b2",
+              "pitch": 39,
+              "at": "1/3",
+              "duration": "5/24",
+              "velocity": 81
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "b3",
+              "pitch": 43,
+              "at": "1015/1536",
+              "duration": "11/24",
+              "velocity": 101
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "b4",
+              "pitch": 34,
+              "at": "1499/512",
+              "duration": "5/4",
+              "velocity": 88
+            },
+            "time": null
+          }
+        ]
+      },
+      "command": {
+        "base": "a8990dc3ebe8b0dfc5ed17c5a33260b1adc3bcc2727f034d1bd05aa6d4d56a8b",
+        "op": "velocity",
+        "select": {
+          "ids": [
+            "b3"
+          ]
+        },
+        "value": 100
+      },
+      "expectedAfter": [
+        {
+          "id": "b1",
+          "at": "0",
+          "duration": "149/512",
+          "pitch": 36,
+          "velocity": 94
+        },
+        {
+          "id": "b2",
+          "at": "85/256",
+          "duration": "107/512",
+          "pitch": 39,
+          "velocity": 81
+        },
+        {
+          "id": "b3",
+          "at": "169/256",
+          "duration": "235/512",
+          "pitch": 43,
+          "velocity": 100
+        },
+        {
+          "id": "b4",
+          "at": "1499/512",
+          "duration": "5/4",
+          "pitch": 34,
+          "velocity": 88
+        }
+      ],
+      "producerPal": {
+        "barbeat": "v94 n149/2048 C1 1|1\nv81 n107/2048 Eb1 1|1+n85/1024\nv101 n235/2048 G1 1|2+n41/1024\nv88 n5/16 Bb0 1|6+n219/2048",
+        "midi-json": "[{p:36,t:0,d:149/256,v:94},{p:39,t:85/128,d:107/256,v:81},{p:43,t:169/128,d:235/256,v:101},{p:34,t:1499/256,d:2.5,v:88}]"
+      }
+    },
+    {
+      "fixture": "synthetic-harmony",
+      "source": {
+        "id": "synthetic-harmony",
+        "family": "dense strummed harmony",
+        "meter": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "notes": [
+          {
+            "id": "a",
+            "pitch": 60,
+            "at": "4099/512",
+            "duration": "2",
+            "velocity": 90
+          },
+          {
+            "id": "b",
+            "pitch": 64,
+            "at": "4105/512",
+            "duration": "7/4",
+            "velocity": 84
+          },
+          {
+            "id": "c",
+            "pitch": 67,
+            "at": "257/32",
+            "duration": "3/2",
+            "velocity": 82
+          },
+          {
+            "id": "d",
+            "pitch": 71,
+            "at": "515/64",
+            "duration": "1",
+            "velocity": 78
+          }
+        ],
+        "groups": [
+          {
+            "id": "c7",
+            "members": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "label": "C major seventh",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            },
+            "anchor": "8",
+            "delay": "3/512",
+            "spread": {
+              "a": "0",
+              "b": "6/512",
+              "c": "13/512",
+              "d": "21/512"
+            },
+            "performanceOrder": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "presentationOrder": [
+              "d",
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": "inner",
+            "members": [
+              "b",
+              "c"
+            ],
+            "label": "inner voices",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            }
+          }
+        ]
+      },
+      "baselineFields": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"11\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"11\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT a clip 4099/512 2 60 90 1 false\nEVENT b clip 4105/512 7/4 64 84 1 false\nEVENT c clip 257/32 3/2 67 82 1 false\nEVENT d clip 515/64 1 71 78 1 false\n",
+      "compact": {
+        "format": "r01-compact",
+        "version": 1,
+        "context": {
+          "id": "synthetic-harmony",
+          "family": "dense strummed harmony",
+          "meter": {
+            "numerator": 5,
+            "denominator": 4
+          },
+          "groups": [
+            {
+              "id": "c7",
+              "members": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "label": "C major seventh",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              },
+              "anchor": "8",
+              "delay": "3/512",
+              "spread": {
+                "a": "0",
+                "b": "6/512",
+                "c": "13/512",
+                "d": "21/512"
+              },
+              "performanceOrder": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "presentationOrder": [
+                "d",
+                "c",
+                "b",
+                "a"
+              ]
+            },
+            {
+              "id": "inner",
+              "members": [
+                "b",
+                "c"
+              ],
+              "label": "inner voices",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ]
+        },
+        "rows": [
+          [
+            "a",
+            60,
+            "4099/512",
+            "2",
+            90,
+            {},
+            [
+              "c7"
+            ],
+            null
+          ],
+          [
+            "b",
+            64,
+            "4105/512",
+            "7/4",
+            84,
+            {},
+            [
+              "c7",
+              "inner"
+            ],
+            null
+          ],
+          [
+            "c",
+            67,
+            "257/32",
+            "3/2",
+            82,
+            {},
+            [
+              "c7",
+              "inner"
+            ],
+            null
+          ],
+          [
+            "d",
+            71,
+            "515/64",
+            "1",
+            78,
+            {},
+            [
+              "c7"
+            ],
+            null
+          ]
+        ]
+      },
+      "grouped": {
+        "format": "r01-grouped",
+        "version": 1,
+        "context": {
+          "id": "synthetic-harmony",
+          "family": "dense strummed harmony",
+          "meter": {
+            "numerator": 5,
+            "denominator": 4
+          },
+          "groups": [
+            {
+              "id": "c7",
+              "members": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "label": "C major seventh",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              },
+              "anchor": "8",
+              "delay": "3/512",
+              "spread": {
+                "a": "0",
+                "b": "6/512",
+                "c": "13/512",
+                "d": "21/512"
+              },
+              "performanceOrder": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "presentationOrder": [
+                "d",
+                "c",
+                "b",
+                "a"
+              ]
+            },
+            {
+              "id": "inner",
+              "members": [
+                "b",
+                "c"
+              ],
+              "label": "inner voices",
+              "provenance": {
+                "kind": "declared",
+                "source": "synthetic-author"
+              }
+            }
+          ]
+        },
+        "rows": [
+          {
+            "note": {
+              "id": "a",
+              "pitch": 60,
+              "duration": "2",
+              "velocity": 90
+            },
+            "time": {
+              "group": "c7"
+            }
+          },
+          {
+            "note": {
+              "id": "b",
+              "pitch": 64,
+              "duration": "7/4",
+              "velocity": 84
+            },
+            "time": {
+              "group": "c7"
+            }
+          },
+          {
+            "note": {
+              "id": "c",
+              "pitch": 67,
+              "duration": "3/2",
+              "velocity": 82
+            },
+            "time": {
+              "group": "c7"
+            }
+          },
+          {
+            "note": {
+              "id": "d",
+              "pitch": 71,
+              "duration": "1",
+              "velocity": 78
+            },
+            "time": {
+              "group": "c7"
+            }
+          }
+        ]
+      },
+      "command": {
+        "base": "f7c3f397fe52c8dc40a9951df4da291c732a3d994a4afe91d777ca3e29b325bf",
+        "op": "velocity",
+        "select": {
+          "ids": [
+            "c"
+          ]
+        },
+        "value": 100
+      },
+      "expectedAfter": [
+        {
+          "id": "a",
+          "at": "4099/512",
+          "duration": "2",
+          "pitch": 60,
+          "velocity": 90
+        },
+        {
+          "id": "b",
+          "at": "4105/512",
+          "duration": "7/4",
+          "pitch": 64,
+          "velocity": 84
+        },
+        {
+          "id": "c",
+          "at": "257/32",
+          "duration": "3/2",
+          "pitch": 67,
+          "velocity": 100
+        },
+        {
+          "id": "d",
+          "at": "515/64",
+          "duration": "1",
+          "pitch": 71,
+          "velocity": 78
+        }
+      ],
+      "producerPal": {
+        "barbeat": "v90 n/2 C3 2|4+n3/2048\nv84 n7/16 E3 2|4+n9/2048\nv82 n/4d G3 2|4+n/128\nv78 n/4 B3 2|4+n3/256",
+        "midi-json": "[{p:60,t:4099/512,d:2,v:90},{p:64,t:4105/512,d:1.75,v:84},{p:67,t:257/32,d:1.5,v:82},{p:71,t:515/64,d:1,v:78}]"
+      }
+    },
+    {
+      "fixture": "synthetic-irregular",
+      "source": {
+        "id": "synthetic-irregular",
+        "family": "unknown intent and wider state",
+        "meter": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "notes": [
+          {
+            "id": "u3",
+            "pitch": 61,
+            "at": "887/512",
+            "duration": "149/512",
+            "velocity": 83
+          },
+          {
+            "id": "u1",
+            "pitch": 61,
+            "at": "29/512",
+            "duration": "1007/512",
+            "velocity": 93,
+            "channel": 2,
+            "mute": false,
+            "releaseVelocity": 0.4,
+            "chance": {
+              "enabled": true,
+              "value": 0.7
+            },
+            "expression": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.2,
+              "pressure": 0.4,
+              "timbre": 0.3,
+              "transpose": 0.5
+            }
+          },
+          {
+            "id": "u2",
+            "pitch": 61,
+            "at": "29/512",
+            "duration": "233/512",
+            "velocity": 72,
+            "channel": 3
+          }
+        ]
+      },
+      "baselineFields": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"3\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"3\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT u1 clip 29/512 1007/512 61 93 2 false WITH {\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"gain\":1,\"pan\":-0.2,\"pressure\":0.4,\"timbre\":0.3,\"transpose\":0.5,\"velocitySpread\":0},\"releaseVelocity\":0.4}\nEVENT u2 clip 29/512 233/512 61 72 3 false\nEVENT u3 clip 887/512 149/512 61 83 1 false\n",
+      "compact": {
+        "format": "r01-compact",
+        "version": 1,
+        "context": {
+          "id": "synthetic-irregular",
+          "family": "unknown intent and wider state",
+          "meter": {
+            "numerator": 4,
+            "denominator": 4
+          }
+        },
+        "rows": [
+          [
+            "u3",
+            61,
+            "887/512",
+            "149/512",
+            83,
+            {},
+            [],
+            null
+          ],
+          [
+            "u1",
+            61,
+            "29/512",
+            "1007/512",
+            93,
+            {
+              "channel": 2,
+              "mute": false,
+              "releaseVelocity": 0.4,
+              "chance": {
+                "enabled": true,
+                "value": 0.7
+              },
+              "expression": {
+                "velocitySpread": 0,
+                "gain": 1,
+                "pan": -0.2,
+                "pressure": 0.4,
+                "timbre": 0.3,
+                "transpose": 0.5
+              }
+            },
+            [],
+            null
+          ],
+          [
+            "u2",
+            61,
+            "29/512",
+            "233/512",
+            72,
+            {
+              "channel": 3
+            },
+            [],
+            null
+          ]
+        ]
+      },
+      "grouped": {
+        "format": "r01-grouped",
+        "version": 1,
+        "context": {
+          "id": "synthetic-irregular",
+          "family": "unknown intent and wider state",
+          "meter": {
+            "numerator": 4,
+            "denominator": 4
+          }
+        },
+        "rows": [
+          {
+            "note": {
+              "id": "u3",
+              "pitch": 61,
+              "at": "887/512",
+              "duration": "149/512",
+              "velocity": 83
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "u1",
+              "pitch": 61,
+              "at": "29/512",
+              "duration": "1007/512",
+              "velocity": 93,
+              "channel": 2,
+              "mute": false,
+              "releaseVelocity": 0.4,
+              "chance": {
+                "enabled": true,
+                "value": 0.7
+              },
+              "expression": {
+                "velocitySpread": 0,
+                "gain": 1,
+                "pan": -0.2,
+                "pressure": 0.4,
+                "timbre": 0.3,
+                "transpose": 0.5
+              }
+            },
+            "time": null
+          },
+          {
+            "note": {
+              "id": "u2",
+              "pitch": 61,
+              "at": "29/512",
+              "duration": "233/512",
+              "velocity": 72,
+              "channel": 3
+            },
+            "time": null
+          }
+        ]
+      },
+      "command": {
+        "base": "ffb8a57231c85f75522dee93b5e6ada9883f7b65b35154a469d02898b0359bba",
+        "op": "velocity",
+        "select": {
+          "ids": [
+            "u2"
+          ]
+        },
+        "value": 100
+      },
+      "expectedAfter": [
+        {
+          "id": "u1",
+          "at": "29/512",
+          "duration": "1007/512",
+          "pitch": 61,
+          "velocity": 93,
+          "channel": 2,
+          "chance": {
+            "enabled": true,
+            "value": 0.7
+          },
+          "expression": {
+            "gain": 1,
+            "pan": -0.2,
+            "pressure": 0.4,
+            "timbre": 0.3,
+            "transpose": 0.5,
+            "velocitySpread": 0
+          },
+          "releaseVelocity": 0.4
+        },
+        {
+          "id": "u2",
+          "at": "29/512",
+          "duration": "233/512",
+          "pitch": 61,
+          "velocity": 100,
+          "channel": 3
+        },
+        {
+          "id": "u3",
+          "at": "887/512",
+          "duration": "149/512",
+          "pitch": 61,
+          "velocity": 83
+        }
+      ],
+      "producerPal": {
+        "refusal": [
+          "mute",
+          "releaseVelocity",
+          "chance",
+          "expression",
+          "nondefault channel"
+        ]
+      }
+    },
+    {
+      "fixture": "synthetic-harmony-half-spread",
+      "source": {
+        "id": "synthetic-harmony",
+        "family": "dense strummed harmony",
+        "meter": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "notes": [
+          {
+            "id": "a",
+            "pitch": 60,
+            "at": "4099/512",
+            "duration": "2",
+            "velocity": 90
+          },
+          {
+            "id": "b",
+            "pitch": 64,
+            "at": "4105/512",
+            "duration": "7/4",
+            "velocity": 84
+          },
+          {
+            "id": "c",
+            "pitch": 67,
+            "at": "257/32",
+            "duration": "3/2",
+            "velocity": 82
+          },
+          {
+            "id": "d",
+            "pitch": 71,
+            "at": "515/64",
+            "duration": "1",
+            "velocity": 78
+          }
+        ],
+        "groups": [
+          {
+            "id": "c7",
+            "members": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "label": "C major seventh",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            },
+            "anchor": "8",
+            "delay": "3/512",
+            "spread": {
+              "a": "0",
+              "b": "6/512",
+              "c": "13/512",
+              "d": "21/512"
+            },
+            "performanceOrder": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "presentationOrder": [
+              "d",
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": "inner",
+            "members": [
+              "b",
+              "c"
+            ],
+            "label": "inner voices",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            }
+          }
+        ]
+      },
+      "command": {
+        "group": "c7",
+        "scaleSpread": "1/2"
+      },
+      "exactAfter": {
+        "id": "synthetic-harmony",
+        "family": "dense strummed harmony",
+        "meter": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "notes": [
+          {
+            "id": "a",
+            "pitch": 60,
+            "at": "4099/512",
+            "duration": "2",
+            "velocity": 90
+          },
+          {
+            "id": "b",
+            "pitch": 64,
+            "at": "2051/256",
+            "duration": "7/4",
+            "velocity": 84
+          },
+          {
+            "id": "c",
+            "pitch": 67,
+            "at": "8211/1024",
+            "duration": "3/2",
+            "velocity": 82
+          },
+          {
+            "id": "d",
+            "pitch": 71,
+            "at": "8219/1024",
+            "duration": "1",
+            "velocity": 78
+          }
+        ],
+        "groups": [
+          {
+            "id": "c7",
+            "members": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "label": "C major seventh",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            },
+            "anchor": "8",
+            "delay": "3/512",
+            "spread": {
+              "a": "0",
+              "b": "3/512",
+              "c": "13/1024",
+              "d": "21/1024"
+            },
+            "performanceOrder": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "presentationOrder": [
+              "d",
+              "c",
+              "b",
+              "a"
+            ]
+          },
+          {
+            "id": "inner",
+            "members": [
+              "b",
+              "c"
+            ],
+            "label": "inner voices",
+            "provenance": {
+              "kind": "declared",
+              "source": "synthetic-author"
+            }
+          }
+        ]
+      },
+      "normalizedAfter": [
+        {
+          "at": "4099/512",
+          "duration": "2",
+          "id": "a",
+          "pitch": 60,
+          "velocity": 90
+        },
+        {
+          "at": "2051/256",
+          "duration": "7/4",
+          "id": "b",
+          "pitch": 64,
+          "velocity": 84
+        },
+        {
+          "at": "4105/512",
+          "duration": "3/2",
+          "id": "c",
+          "pitch": 67,
+          "velocity": 82
+        },
+        {
+          "at": "4109/512",
+          "duration": "1",
+          "id": "d",
+          "pitch": 71,
+          "velocity": 78
+        }
+      ],
+      "changes": {
+        "notes": [
+          {
+            "id": "b",
+            "fields": [
+              "at"
+            ]
+          },
+          {
+            "id": "c",
+            "fields": [
+              "at"
+            ]
+          },
+          {
+            "id": "d",
+            "fields": [
+              "at"
+            ]
+          }
+        ],
+        "groups": [
+          {
+            "id": "c7",
+            "fields": [
+              "spread"
+            ]
+          }
+        ],
+        "nominal": []
+      }
+    }
+  ]
+}

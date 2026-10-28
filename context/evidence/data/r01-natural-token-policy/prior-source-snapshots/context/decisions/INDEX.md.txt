@@ -1,0 +1,101 @@
+---
+title: Decision index
+kind: index
+state: active
+updated: 2026-10-26
+---
+
+# Decision index
+
+This is the authoritative index for design decisions. Each decision file opens
+with the original decision heading and preserves its amendments and rationale.
+
+| ID | Decision | Detail |
+|---|---|---|
+| D56 | R01 Codex admits unused tool declarations as fixed, accounted context; any invocation attempt fails admission; context-policy implementation remains pending | [open](d56-r01-codex-reject-tool-use.md) |
+| D55 | R01 Luna model selection accepts a captured pinned request, successful completion and no observed reroute; independent server attestation remains reported but is not required for Codex 0.163.0 | [open](d55-r01-luna-model-selection-evidence.md) |
+| D1 | Modulator topology is authored by template-time `.bwpreset` file surgery **[SETTLED]** | [open](d1-modulator-topology-is-authored-by-template-time-file-surgery-set.md) |
+| D2 | Host capability tiers **[Tier 1 SETTLED; Tier 2 = "Tier 1 + stub relocation", SETTLED by E12]** | [open](d2-host-capability-tiers-tier-1-settled-tier-2-tier-1-stub-relocati.md) |
+| D3 | `bwmod` library and Phase 5 asset policy **[SETTLED, BUILT, AMENDED 2026-08-23]** | [open](d3-library-shape-settled-and-built-2026-07-24.md) |
+| D4 | Process topology and the human surface **[SETTLED 2026-07-24]** | [open](d4-process-topology-and-the-human-surface-settled-2026-07-24.md) |
+| D5 | Checkpoints are branchable takes, not a linear undo stack **[SETTLED 2026-07-24]** | [open](d5-checkpoints-are-branchable-takes-not-a-linear-undo-stack-settled.md) |
+| D6 | Addressing: pinned non-following cursors, identity never index **[SETTLED 2026-07-25]** | [open](d6-addressing-pinned-non-following-cursors-identity-never-index-set.md) |
+| D7 | Pre-allocation scaffold sizes **[SETTLED 2026-07-25, AMENDED 2026-08-23]** | [open](d7-pre-allocation-scaffold-sizes-settled-2026-07-25.md) |
+| D8 | Checkpoint fidelity, measured **[SETTLED 2026-07-25, AMENDED 2026-08-22]** | [open](d8-checkpoint-fidelity-measured-settled-2026-07-25.md) |
+| D9 | Grid and units **[SETTLED 2026-07-25, AMENDED 2026-09-13]** | [open](d9-grid-and-units-settled-2026-07-25.md) |
+| D10 | Batch execution mechanics **[SETTLED 2026-07-25]** | [open](d10-batch-execution-mechanics-settled-2026-07-25.md) |
+| D11 | Toolchain **[SETTLED 2026-07-25]** | [open](d11-toolchain-settled-2026-07-25.md) |
+| D12 | Transport and the contract boundary **[SETTLED 2026-07-25]** | [open](d12-transport-and-the-contract-boundary-settled-2026-07-25.md) |
+| D13 | There is no named-action escape hatch **[SETTLED; group exception retired by E22/D18 revision]** | [open](d13-there-is-no-escape-hatch-settled-2026-07-19-e6.md) |
+| D14 | Bitwig status and change navigation **[REVISED 2026-08-16]** | [open](d14-the-human-control-layer-settled-2026-07-25-e14-rows-a-i.md) |
+| D15 | Verification discipline **[SETTLED 2026-07-25]** | [open](d15-verification-discipline-settled-2026-07-25.md) |
+| D16 | The executor: write-set, stash, revert **[SETTLED 2026-07-26, PHASE-1 session 1]** | [open](d16-the-executor-write-set-stash-revert-settled-2026-07-26-phase-1-s.md) |
+| D17 | Take store retired; project-native scoped takes and stash survive **[REVISED 2026-08-14]** | [open](d17-the-take-store-persistence-branching-partial-revert-settled-2026.md) |
+| D18 | Layer chains are composable structure, not managed device alternates **[REVISED 2026-09-25]** | [open](d18-branching-the-hybrid-model-at-l3-open-settled-2026-08-06-by-the-.md) |
+| D19 | Undo: Bitwig's stack is the human's; agent-edit reversal is ours **[SETTLED 2026-08-06; separated out 2026-08-07; BLANKET REVERSAL OBLIGATION SUPERSEDED BY D54 2026-10-24]** | [open](d19-undo-bitwig-s-stack-is-the-human-s-agent-edit-reversal-is-ours-s.md) |
+| D20 | Destruction: zero initiative, directed execution behind an annotated seam **[SETTLED 2026-08-07]** | [open](d20-destruction-zero-initiative-directed-execution-behind-an-annotat.md) |
+| D21 | One musical patch grammar, with generation and transformation tools **[SETTLED 2026-08-16, AMENDED 2026-08-18]** | [open](d21-musical-patch-and-public-tool-grain.md) |
+| D22 | Non-native plug-in preset loading is out of scope **[SETTLED 2026-09-12]** | [open](d22-non-native-plugin-preset-loading-is-out-of-scope.md) |
+| D23 | Normalized clip acquisition uses one `1/512` view **[SETTLED 2026-09-24]** | [open](d23-normalized-clip-acquisition-uses-one-1-512-view.md) |
+| D24 | Forward compact benchmark candidates **[SUPERSEDED FOR FORWARD SELECTION BY D25]** | [open](d24-forward-compact-benchmarks-retain-fields-and-local-labels.md) |
+| D25 | FIELDS and JSON document format, rational timing, overlays, and publication **[SETTLED 2026-10-01]** | [open](d25-fields-json-document-format-and-publication.md) |
+| D26 | Complete step-data delivery is a named assumption **[SETTLED 2026-10-02]** | [open](d26-step-data-delivery-is-a-named-assumption.md) |
+| D27 | Later-callback ordering is a named assumption **[SETTLED 2026-10-03]** | [open](d27-later-callback-ordering-is-a-named-assumption.md) |
+| D28 | Complete slot-occupancy delivery is a named assumption **[SETTLED 2026-10-03]** | [open](d28-slot-occupancy-delivery-is-a-named-assumption.md) |
+| D29 | A saved anchor project replaces protected New 3 **[SETTLED 2026-10-05]** | [open](d29-saved-anchor-project-replaces-protected-new-3.md) |
+| D30 | Replay batch and start signal are named assumptions **[SETTLED 2026-10-05]** | [open](d30-replay-batch-and-start-signal-are-named-assumptions.md) |
+| D31 | Mutation and reversal use the D23 cell boundary **[SETTLED 2026-10-05]** | [open](d31-mutation-and-reversal-use-the-d23-cell-boundary.md) |
+| D32 | Pull snapshot references use the revision mark **[SETTLED 2026-10-06]** | [open](d32-pull-snapshot-references-use-the-revision-mark.md) |
+| D33 | The product track bank lists all channels **[SETTLED 2026-10-06]** | [open](d33-the-product-track-bank-lists-all-channels.md) |
+| D34 | The reader expands collapsed parent groups **[SETTLED 2026-10-06]** | [open](d34-the-reader-expands-collapsed-parent-groups.md) |
+| D35 | Document gain range and release velocity default **[SETTLED 2026-10-07]** | [open](d35-document-gain-range-and-release-velocity-default.md) |
+| D36 | The live writer replays raw repeat controls **[SETTLED 2026-10-07]** | [open](d36-the-live-writer-replays-raw-repeat-controls.md) |
+| D37 | Note pressure is a blind host limit **[SETTLED 2026-10-07]** | [open](d37-note-pressure-is-a-blind-host-limit.md) |
+| D38 | A shared preflight read is the stash only on the targeted route **[SETTLED 2026-10-07]** | [open](d38-a-shared-preflight-read-is-the-stash-only-on-the-targeted-route.md) |
+| D39 | Long agent-native writes run in the background on their own name **[SETTLED 2026-10-08; AMENDED 8h4g: the route leaves `agent-native-v1`, with the D41 writer width]** | [open](d39-long-agent-native-writes-run-in-the-background-on-their-own-name.md) |
+| D40 | `agent-native-v1` is the default profile, with one result vocabulary **[SETTLED 2026-10-08]** | [open](d40-agent-native-v1-is-the-default-profile.md) |
+| D41 | The writer window is the reader width, and a writer parks after each write **[SETTLED 2026-10-08]** | [open](d41-the-writer-window-is-the-reader-width.md) |
+| D42 | A clip property write owns only its changed fields, and a written colour is verified within one byte **[SETTLED 2026-10-08]** | [open](d42-clip-colour-tolerance-and-metadata-ownership.md) |
+| D43 | Every owned cursor track stays pinned **[SETTLED 2026-10-08]** | [open](d43-owned-cursor-tracks-stay-pinned.md) |
+| D44 | Long writes are optimized first, then bounded on their own input **[SETTLED 2026-10-08]** | [open](d44-long-writes-are-optimized-then-bounded.md) |
+| D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
+| D46 | Modulation writers claim the route, not the sound **[SETTLED 2026-10-09]** | [open](d46-modulation-writers-claim-the-route-not-the-sound.md) |
+| D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
+| D48 | The track mixer writes host raw values **[SETTLED 2026-10-09]** | [open](d48-track-mixer-writes-host-raw-values.md) |
+| D49 | The fidelity of a revert states what the revert restored **[SETTLED 2026-10-11]** | [open](d49-revert-fidelity-states-what-the-revert-restored.md) |
+| D50 | MIDI files are offline conversions: full inline documents, explicit tempo mapping and losses, FIFO pairing, atomic new-file export with no project revert; snapshot export uses observed MIDI field coverage **[SETTLED 2026-10-14, AMENDED 2026-10-15]** | [open](d50-midi-files-are-offline-conversions.md) |
+| D51 | Document files keep large documents out of the conversation: `documentPath` on the document writers, `documentOutputPath` on the document readers, content-detected encoding, `.gndoc` and `.gndoc.json` by convention, no added host call **[SETTLED 2026-10-15]** | [open](d51-document-file-paths.md) |
+| D52 | Grid upgrade admission: offline structural resolution stays required; complete offline bounded admission is replaced by a body-change report, bounded traces of changed bodies, runtime entry guards, and the consent-gated doctor with timing **[SETTLED 2026-10-22]** | [open](d52-grid-upgrade-admission-policy.md) |
+| D53 | Operator consent uses ordinary approval for a stated scope; driver tokens stay internal, and the actual reply is preserved **[SETTLED 2026-10-23]** | [open](d53-ordinary-operator-consent.md) |
+| D54 | Requested edits do not require Ghostnote reversal; simplify recovery machinery when useful, while preserving correct effects and truthful results **[SETTLED 2026-10-24]** | [open](d54-recovery-is-not-a-prerequisite-for-requested-edits.md) |
+
+## Phase 4 closeout audit
+
+E64 requires no new decision or amendment. D8 already owns scalar, enabled-
+state, inserted-device, and existing-device-delete fidelity. D16 owns guarded
+execution and reversal. D20 owns directed device deletion. E63 remains
+historical evidence. D18's 2026-09-25 revision retires its managed
+device-alternate selection policy.
+
+## Phase 5 decision audit
+
+E73 requires two amendments and no new decision. D3 now records the shipped
+template, provenance, generation, capacity, and publication policy. D7 now
+records the five-slot observer bank needed to prove a four-entry result
+complete. D1, D2, D15, and D16 continue to own the authoring model, host tiers,
+live proof, recorded writes, and reversal.
+
+## Phase 8 interface audit
+
+E135 amends D18. Layer chains are ordinary composable device structure. The
+target interface removes the managed device-alternate lifecycle and keeps
+generic layer-chain limbs. Clip blocks remain outside this amendment until 8f.
+
+## Phase 8f3 contract amendments
+
+D21 selects the target document edit grain and keeps overlap shortening on the
+legacy v1 route. D16 permits revocable session clip references and qualifies
+all-channel protection with the proved E128 targeted inverse. D8 separates
+normalized model reads from exact checkpoint protection. D19 states effect
+ownership for reads, ephemeral actions, and computer use. D9 and D15 remain
+unchanged. Cache promotion and stable tool migration still require 8g/8h gates.

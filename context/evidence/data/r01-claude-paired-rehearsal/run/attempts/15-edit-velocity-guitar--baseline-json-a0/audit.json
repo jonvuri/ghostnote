@@ -1,0 +1,202 @@
+{
+  "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"389/256\",\"id\":\"t1n1\",\"pitch\":54,\"velocity\":64},{\"at\":\"389/256\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n2\",\"pitch\":55,\"velocity\":64},{\"at\":\"1167/512\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n3\",\"pitch\":59,\"velocity\":64},{\"at\":\"389/128\",\"clip\":\"clip\",\"duration\":\"461/512\",\"id\":\"t1n4\",\"pitch\":62,\"velocity\":91},{\"at\":\"2017/512\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n5\",\"pitch\":66,\"velocity\":64},{\"at\":\"627/128\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n6\",\"pitch\":67,\"velocity\":64},{\"at\":\"375/64\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n7\",\"pitch\":66,\"velocity\":64},{\"at\":\"3491/512\",\"clip\":\"clip\",\"duration\":\"443/128\",\"id\":\"t1n8\",\"pitch\":66,\"velocity\":64},{\"at\":\"5263/512\",\"clip\":\"clip\",\"duration\":\"983/256\",\"id\":\"t1n9\",\"pitch\":60,\"velocity\":64},{\"at\":\"7229/512\",\"clip\":\"clip\",\"duration\":\"1147/256\",\"id\":\"t1n10\",\"pitch\":59,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-4-5-20251001",
+  "servedModels": [
+    "claude-haiku-4-5-20251001"
+  ],
+  "modelVerified": true,
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "rawFinalUsage": {
+    "input_tokens": 1779,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 913,
+    "output_tokens_details": {
+      "thinking_tokens": 478
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 1779,
+        "output_tokens": 913,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-4-5-20251001"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reasoning": null,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled",
+        "display": "updates"
+      },
+      "effort": null,
+      "maxOutputTokens": 12000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "3fb6fdc7355abfc9d33af3ba5bc6e06a70fcbc17cfdf809b2ac78b736224efa4",
+      "contextBytes": 7328,
+      "localSerializedContextTokens": 1863,
+      "requestSha256": "a24d99b785645112b1892b199f545bcdd4c3f2f327169ccce1fad28b2b48ff58",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 5
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "transportControl": {
+    "faultSuitePass": true,
+    "binaryMatches": true,
+    "retryControlsMatch": true,
+    "oneCapturedRequest": true
+  },
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v1",
+    "policySha256": "d54829afffc2694d49b3f7c4dfb43fcd4d92ca2b4b91b7a00ba92bc326d20639",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "33ac70db397f5a07c5597384b3f34942a3ba2e6ce66df92286cb055535da97e8"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "environment",
+        "role": "client-reminder",
+        "bytes": 782,
+        "sha256": "2b25549e0d0988ccf3be97393847a7eaf1e0d0cbbd60257b3bfc331da3822b53"
+      },
+      {
+        "kind": "model-identity",
+        "role": "client-reminder",
+        "bytes": 176,
+        "sha256": "97c808babde1e22c53c5672ec87de5288a2e600f531a25aa094c0cb9a471a65d"
+      },
+      {
+        "kind": "token-budget",
+        "role": "client-reminder",
+        "bytes": 86,
+        "sha256": "d1b5389a85a66596a261545470fb784c0be377158bbf7e47a9671ee84dfcc533"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 558,
+        "sha256": "892615b6f0708120cce43bea38b7ac4c06da921ffa4d9b927db842a726ecc828"
+      },
+      {
+        "kind": "date",
+        "role": "client-reminder",
+        "bytes": 65,
+        "sha256": "493d714b92fc3638c2d61c980d020b277c72624c47d4df56f66ccb7fdd5e03e1"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 4387,
+        "sha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1"
+      }
+    ],
+    "clientAddedTextBytes": 2092,
+    "taskBytes": 4387,
+    "volatile": {
+      "sessionId": "26150604-2655-4d85-a63a-15ea472acaf4",
+      "versionSuffix": "364",
+      "promptId": "f90fdc5d-56d3-4eff-9303-274ed97827d2",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-25"
+    }
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 1779,
+  "finalOutputTokens": 913,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/b29c9b5a-4403-4522-b376-ac9999b97d8a.request.json",
+      "sha256": "a24d99b785645112b1892b199f545bcdd4c3f2f327169ccce1fad28b2b48ff58"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "7b1a79a37fe5b9b2995c6b1bef0e7ebab07c0168c1947f183a5da7c2c7cd6626"
+    },
+    {
+      "path": "api-bodies/req_011CgQ5N4dmKvjYLLh7J88aM.response.json",
+      "sha256": "711343790e4d07d452a202ac9c966eb457304ee444ebb745fa961c39f0efa23b"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793c-0c33-7c10-ad08-b29d5f0c534a",
+  "turn_id": "01a1793c-0c33-7c10-ad08-b29d5f0c534a",
+  "last_agent_message": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity extra\nNOTE u3 61 887/513 149/512 83 {\"annotation\":{\"origin\":\"unknown\",\"confidence\":null}}\nNOTE u1 61 29/512 1007/512 93 {\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.2,\"pressure\":0.4,\"timbre\":0.3,\"transpose\":0.5}}\nNOTE u2 61 29/512 233/512 72 {\"channel\":3}",
+  "started_at": 1793035340,
+  "completed_at": 1793035345,
+  "duration_ms": 4276,
+  "time_to_first_token_ms": 3137
+}

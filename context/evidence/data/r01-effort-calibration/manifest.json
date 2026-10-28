@@ -1,0 +1,82 @@
+{
+  "schema": "r01-effort-calibration-evidence-v1",
+  "stage": "development",
+  "date": "2026-10-26",
+  "decisionRule": "D57",
+  "reference": "gpt-6-luna low (Codex 0.163.0)",
+  "candidate": "claude-haiku-5-5 (Claude Code 2.1.302)",
+  "configurationsRun": [
+    "codex-low",
+    "claude-low"
+  ],
+  "chosenHaikuEffort": "low",
+  "notRun": {
+    "claude-medium": "low is the lowest supported Haiku effort and already exceeds the reference; higher effort cannot reduce the gap",
+    "claude-high": "same"
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-effort-calibration.mjs",
+      "sha256": "e517944581513e1cc9265182a45c0b05a16f32f9f83fa5cbf296e5965d1f1d22"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-effort-calibration.test.mjs",
+      "sha256": "c03333bcf51de096ced4c5a9f01d2bf8200f1f84565a1a6de381994e39d5d638"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "768afa24462b60fc5a2a881451f99555b7749b0f274f7f9427b3bfda402a8b89"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "932162bf3ab954ac69fdb009d80365207aa00109918e7c3e1f413f28eee1d39f"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "b69fb2f480c794d4a60832b9be7f4efaf353f7ffb7c5ff1551193489c6bde503"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "73061342ca3dbae0213c17d4e204ac0d6f4ffd97b0cb6f3b71a7a1ae3b7c5b61"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "1d3077b42203afb100fbb1f979efb1ca111467e1f525e2afa7fd809dd7659e29"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-draft.mjs",
+      "sha256": "30cbbbeb5c01420d465a7412a2f8e24691e312d5a84664f1a4191d0ee5be5efe"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "phase-1/plan.json",
+      "sha256": "df70ac27c71dce5d4d12b41231659d343384ba87cfe98d43bf0b444f0c009e2c"
+    },
+    {
+      "path": "phase-1/preflight.json",
+      "sha256": "fc294544a76a94c597cc18e404c649ad9d6ffd4f66108b2679345103a151ac82"
+    },
+    {
+      "path": "phase-1/results.json",
+      "sha256": "d8d2b43e83a0f454b2d60647f4cff69f2c240e4fe2b8c5ddc75d69404acb5fa0"
+    },
+    {
+      "path": "phase-1.log",
+      "sha256": "1c1cbaff4dd6eb72784d67a0c22f142b052885b307798f6216cee3f6899e3833"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "8fcfbc0b13a1535ec311be454af610ac8cb4e52cf1053ce28a2d48b704213d4d"
+    },
+    {
+      "path": "../r01-pilot-draft/draft-2-manifest.json",
+      "sha256": "7eb14609b3d8bb502dce9966839791802ac4d0ae0ec42c209b8a904c3f46e115"
+    }
+  ],
+  "note": "Raw captures contain account context; local research evidence, not an anonymized dataset."
+}

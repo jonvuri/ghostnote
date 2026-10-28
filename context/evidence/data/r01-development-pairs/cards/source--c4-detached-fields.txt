@@ -1,0 +1,23 @@
+FORMAT: Detached group FIELDS diagnostic
+
+SCOPE
+Exact source-state cohort; retain performed notes and supplied musical/opaque context.
+
+INPUT AND OUTPUT GRAMMAR
+Start with R01-DETACHED-FIELDS 1. GROUP id [anchor=value] [delay=value] [label=value] [prose=value] [WITH JSON] { contains exactly one ROWS rN reference and then }. A matching top-level ROWS rN { ... } contains that group's FIELDS/NOTE/REF body, with the same meaning as if nested inside the GROUP. The reference may precede the ROWS definition. NOTES blocks remain direct. Each block starts without a FIELDS binding. FIELDS declares columns for subsequent NOTE rows; row width must match. Required columns are id pitch duration velocity. Each note has exactly one of at (direct onset) or spread (derived onset); a binding may include both with - for the absent cell. Derived onset equals the containing group's anchor + delay (default 0) + spread. REF id adds membership without another note definition; forward references are allowed. NOTE/REF body order defines members. One note has at most one timing owner. Containment alone does not derive timing, and recursive GROUP blocks are unsupported. Whitespace separates cells except inside JSON strings or balanced JSON containers. A bare - means absent, not null; quote the literal ID "-". IDs may be bare safe identifiers or JSON strings. Timing uses exact integer/fraction text; pitch and velocity use JSON numbers. Preserve opaque JSON cells. No comments are accepted.
+Optional order cells preserve original note-array positions and must form a complete zero-based permutation when used. spelling preserves the exact rational spelling of a derived onset and must equal its equation. nominal is a JSON shared-map entry; extra retains other note fields, including note-local nominal. CONTEXT retains root properties except notes/groups; mapped nominal entries leave an empty musical.nominal marker. EMPTY_GROUPS preserves an explicitly empty group array. Group WITH retains other properties, including provenance, state and explicit orders; it cannot redefine structural fields.
+
+PRESERVATION
+This is a layout diagnostic, not the primary grouped candidate. Preserve the one-to-one group/body linkage. Shared timing comes from the linked GROUP; ROWS placement does not create another group or reorder source members. Return every definition and reference.
+
+COMPLETE FORMAT EXAMPLE
+R01-DETACHED-FIELDS 1
+CONTEXT {"musical":{"nominal":{},"provenance":{"kind":"inferred","source":"example-grid"}}}
+GROUP exampleGroup anchor=1/8 delay=1/512 label="authored pair" WITH {"provenance":{"kind":"declared"}} {
+  ROWS r0
+}
+ROWS r0 {
+  FIELDS id pitch duration velocity spread nominal
+  NOTE exampleA 62 3/4 73 0 {"at":"1/8"}
+  NOTE exampleB 69 1/2 85 5/4 {"at":"11/8"}
+}

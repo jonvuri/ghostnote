@@ -1,0 +1,18 @@
+Unscored development exercise with synthetic data. Do not use tools. Return only the entire edited R01-GROUPED-FIELDS document, without Markdown or explanation.
+Grammar: GROUP id attributes { ... } contains local FIELDS headers and NOTE rows. A row's values follow its local FIELDS columns. A note with spread has onset = containing group anchor + delay (default 0) + spread. Fractions are exact quarter-note units; do not round. A note with at instead has explicit timing. REF id adds an existing note to another group without redefining it. Containment determines membership; each note has one definition. CONTEXT and group WITH JSON carry metadata to preserve. If order is present, it records original note presentation order; preserve it. A dash marks an absent optional value. Do not invent information or change any field other than the requested edits.
+
+Task: Halve every spread in group c7. Preserve its anchor and shared delay, all durations, velocities, pitches, IDs, group membership, orders, and metadata.
+
+R01-GROUPED-FIELDS 1
+CONTEXT {"id":"synthetic-harmony","family":"dense strummed harmony","meter":{"numerator":5,"denominator":4}}
+GROUP c7 anchor=8 delay=3/512 label="C major seventh" WITH {"provenance":{"kind":"declared","source":"synthetic-author"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]} {
+  FIELDS id pitch duration velocity spread
+  NOTE a 60 2 90 0
+  NOTE b 64 7/4 84 6/512
+  NOTE c 67 3/2 82 13/512
+  NOTE d 71 1 78 21/512
+}
+GROUP inner label="inner voices" WITH {"provenance":{"kind":"declared","source":"synthetic-author"}} {
+  REF b
+  REF c
+}

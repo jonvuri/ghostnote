@@ -1,0 +1,33 @@
+{
+  "response_id": "resp_0c2a7aa9a16910e8016adf8c789de481909a38ef15450bbd8d",
+  "upstream_request_id": null,
+  "token_usage": {
+    "input_tokens": 3939,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 9,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 3948
+  },
+  "output_items": [
+    {
+      "type": "message",
+      "status": "completed",
+      "id": "msg_0c2a7aa9a16910e8016adf8c7964dc8190aa05dc162aa5f87c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "REFUSE missing-timing",
+          "annotations": [],
+          "logprobs": []
+        }
+      ],
+      "phase": "final_answer",
+      "internal_chat_message_metadata_passthrough": {
+        "turn_id": "01a1793c-b080-7c30-9f06-4e6777054668",
+        "create_time": 1793035385.3975158
+      }
+    }
+  ]
+}

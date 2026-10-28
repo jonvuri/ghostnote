@@ -1,0 +1,14 @@
+{
+  "thread_id": "01a17941-2652-7cf1-b102-f2a312e02b98",
+  "agent_path": "/root",
+  "task_name": null,
+  "nickname": null,
+  "agent_role": null,
+  "session_source": "exec",
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-UC3XLd",
+  "rollout_path": null,
+  "model": "gpt-6-luna",
+  "provider_name": "openai",
+  "approval_policy": "never",
+  "sandbox_policy": "ReadOnly { network_access: false }"
+}

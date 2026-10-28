@@ -1,0 +1,1103 @@
+{
+  "schema": "r01-pilot-draft-v1",
+  "status": "UNFROZEN-DRAFT-FOR-REVIEW",
+  "notApproval": "This draft authorizes no reserved-source access, extraction or scored execution.",
+  "cohorts": [
+    {
+      "id": "claude-historical",
+      "proposed": true,
+      "profile": {
+        "provider": "claude",
+        "model": "claude-haiku-4-5-20251001",
+        "thinkingBudget": 1024,
+        "maxOutputTokens": 12000,
+        "version": "2.1.302 (Claude Code)"
+      },
+      "admission": "E361: context policy v1, local fault suite, 15 admitted development submissions"
+    },
+    {
+      "id": "codex-current",
+      "proposed": false,
+      "profile": {
+        "provider": "codex",
+        "model": "gpt-6-luna",
+        "effort": "low",
+        "version": "codex-cli 0.163.0"
+      },
+      "admission": "deferred: advertised nested tools, injected global instructions, no served-model evidence, retries and output cap unverified"
+    },
+    {
+      "id": "claude-current",
+      "proposed": false,
+      "profile": {
+        "provider": "claude",
+        "model": "claude-haiku-5-5",
+        "effort": "low",
+        "maxOutputTokens": 12000,
+        "version": "2.1.302 (Claude Code)"
+      },
+      "admission": "optional later class comparison: needs its own context policy version and one admitted development call"
+    }
+  ],
+  "repeats": 3,
+  "maxRepairs": 2,
+  "timeoutMs": 120000,
+  "seeds": {
+    "workSelection": "r01-pilot-selection-v1",
+    "synthetic": "r01-pilot-synthetic-v1",
+    "order": "r01-pilot-order-v1",
+    "status": "proposed; committed only by the freeze"
+  },
+  "window": {
+    "quarters": 16,
+    "maxNotes": 128,
+    "start": "first note onset of the selected asset",
+    "refusals": [
+      "unpaired or unclosed note events",
+      "zero-duration notes",
+      "more than 128 notes",
+      "fewer than 16 notes",
+      "normalization collision (same pitch and normalized onset)",
+      "invalid or conflicting timing metadata",
+      "content hash mismatch"
+    ],
+    "next": "advance to the first onset at or after the refused window start + 16 quarters, at most 8 windows per asset; then the next asset in seeded order; then the next work in seeded order"
+  },
+  "assets": {
+    "pool": "transcript-muscriptor-large/ assets with General MIDI program below 128 (from the path prefix)",
+    "order": "seeded shuffle of asset IDs within the work, using the planner's SHA-256 rejection-sampling shuffle",
+    "timing": "record mapped or baked timing from registry metadata at extraction; report the two separately"
+  },
+  "context": {
+    "policy": "r01-claude-context-policy-v1",
+    "policySha256": "d54829afffc2694d49b3f7c4dfb43fcd4d92ca2b4b91b7a00ba92bc326d20639",
+    "cliVersion": "2.1.302 (Claude Code)",
+    "binary": "pin SHA-256 at freeze; rerun the local fault suite on any change"
+  },
+  "feedback": "reason code plus native validation message (at most 400 characters); never expected values, differences or golden responses",
+  "heldoutHashes": {
+    "payloads": "materialize-after-freeze",
+    "oracles": "materialize-after-freeze",
+    "prompts": "materialize-after-freeze",
+    "order": "materialize-after-freeze"
+  },
+  "instances": [
+    {
+      "id": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "response": "answer",
+      "operation": "Report {\"total\": count, \"before\": count of notes with onset strictly before quarter 8 of the window}."
+    },
+    {
+      "id": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "groups": true,
+      "response": "answer",
+      "operation": "Report the named member's common delay, residual and derived onset as reduced rational strings."
+    },
+    {
+      "id": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "response": "write",
+      "operation": "From an empty input, write six fully specified notes (pitch, onset, duration, velocity stated in prose)."
+    },
+    {
+      "id": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "groups": true,
+      "response": "write",
+      "operation": "Write a declared four-member group from its stated anchor, delay, residuals, IDs and order."
+    },
+    {
+      "id": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "response": "write",
+      "operation": "Set the velocity of the uniquely described target note to 91 (37 if already 91); preserve all else."
+    },
+    {
+      "id": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "response": "write",
+      "operation": "Transpose the uniquely described target note up two semitones; preserve all else."
+    },
+    {
+      "id": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "groups": true,
+      "response": "write",
+      "operation": "Halve declared residuals (even grid-cell values); retain common delay, durations and protected state."
+    },
+    {
+      "id": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "response": "write",
+      "operation": "Move every note with onset in a stated half-open quarter range later by 1/8 quarter; retain durations."
+    },
+    {
+      "id": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "response": "write",
+      "operation": "Delete the exact pitch/onset match; preserve every other note."
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "response": "refusal",
+      "refusal": "ambiguous-selector",
+      "operation": "Delete \"the pitch-64 note in quarter 2\" where two such notes exist at distinct onsets; require REFUSE ambiguous-selector."
+    },
+    {
+      "id": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "response": "write",
+      "operation": "Rewrite the complete irregular window unchanged."
+    },
+    {
+      "id": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "groups": false,
+      "response": "write",
+      "operation": "Rewrite non-grid timing, wider fields and an opaque annotation unchanged (no groups)."
+    }
+  ],
+  "counts": {
+    "perRepeat": {
+      "scheduledCells": 84,
+      "eligible": 67,
+      "primary": 56,
+      "diagnostic": 11,
+      "exclusions": 17
+    },
+    "families": {
+      "read": {
+        "instances": 2,
+        "primaryPerRepeat": 8
+      },
+      "constrained-authoring": {
+        "instances": 2,
+        "primaryPerRepeat": 8
+      },
+      "individual-edit": {
+        "instances": 2,
+        "primaryPerRepeat": 12
+      },
+      "group-arithmetic": {
+        "instances": 2,
+        "primaryPerRepeat": 8
+      },
+      "count-change": {
+        "instances": 2,
+        "primaryPerRepeat": 12
+      },
+      "preservation": {
+        "instances": 2,
+        "primaryPerRepeat": 8
+      }
+    },
+    "repeats": 3,
+    "initialAttempts": 201,
+    "primaryAttempts": 168,
+    "diagnosticAttempts": 33,
+    "exclusions": 51,
+    "maximumSubmissions": 603,
+    "maximumCorrections": 402
+  },
+  "cells": [
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "source": "reserved:A",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "reserved:B",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "source": "reserved:C",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "eligible": true
+    },
+    {
+      "instance": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "source": "synthetic",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "eligible": false,
+      "reason": "no group block to relocate; not an informative layout control"
+    }
+  ],
+  "reservedWorks": [
+    {
+      "shardId": "07c30fe4-cbe7-4033-8fd0-3f21208abf48",
+      "title": "the gapra whitewood",
+      "midiAssets": 35,
+      "pitchedLargePoolAssets": 5,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "09c0d16a-b768-4583-b0a2-a3d3cd548bda",
+      "title": "our taproot",
+      "midiAssets": 17,
+      "pitchedLargePoolAssets": 3,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "1dddb5c0-4915-4ce9-925e-7b3f9136e772",
+      "title": "namisora",
+      "midiAssets": 4,
+      "pitchedLargePoolAssets": 1,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "1ea535b3-4f82-4ebe-8271-d6130d6646d5",
+      "title": "losing you",
+      "midiAssets": 12,
+      "pitchedLargePoolAssets": 8,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "28c10409-a3da-4377-a401-5d1c8c8621a9",
+      "title": "feeding time",
+      "midiAssets": 41,
+      "pitchedLargePoolAssets": 5,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "2d978142-c594-4b25-b6c3-dd051dd38f77",
+      "title": "re:turning",
+      "midiAssets": 3,
+      "pitchedLargePoolAssets": 1,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "2f736044-3a8e-4081-bbc1-4994669e576a",
+      "title": "steady hands",
+      "midiAssets": 14,
+      "pitchedLargePoolAssets": 1,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "5b04de06-ce9c-4ee6-b1aa-8584afcb5b39",
+      "title": "open spaces",
+      "midiAssets": 8,
+      "pitchedLargePoolAssets": 5,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "6b745d7c-9b4c-4eee-a860-1be441a61fee",
+      "title": "katadoru sunaba",
+      "midiAssets": 54,
+      "pitchedLargePoolAssets": 5,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "7605d72b-05bf-4da2-a1ee-65d320a40e55",
+      "title": "psychomania splices",
+      "midiAssets": 0,
+      "pitchedLargePoolAssets": 0,
+      "eligible": false,
+      "reason": "no MIDI asset in the proposed pool"
+    },
+    {
+      "shardId": "798731fe-68c3-4236-b1e5-43711e25d057",
+      "title": "good lies",
+      "midiAssets": 20,
+      "pitchedLargePoolAssets": 3,
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "shardId": "eb573442-cfe0-4f95-985a-67bff2d74e35",
+      "title": "trailing",
+      "midiAssets": 26,
+      "pitchedLargePoolAssets": 7,
+      "eligible": true,
+      "reason": null
+    }
+  ],
+  "developmentRehearsal": "context/evidence/data/r01-claude-paired-rehearsal/run/results.json"
+}

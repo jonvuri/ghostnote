@@ -1,0 +1,30 @@
+{
+  "type": "session_configured",
+  "session_id": "01a1785e-ae6b-7513-a094-bdb8e037eb4b",
+  "thread_id": "01a1785e-ae6b-7513-a094-bdb8e037eb4b",
+  "thread_source": "user",
+  "model": "gpt-6-luna",
+  "model_provider_id": "r01-local",
+  "approval_policy": "never",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-local-QjKaYQ",
+  "reasoning_effort": "low"
+}

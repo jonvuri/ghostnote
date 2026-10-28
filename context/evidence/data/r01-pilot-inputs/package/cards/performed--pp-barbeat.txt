@@ -1,0 +1,14 @@
+FORMAT: Producer Pal bar|beat
+
+SCOPE
+Performed core-note cohort; fixed 4/4, channel 1, clip length 64 quarter notes.
+
+INPUT AND OUTPUT GRAMMAR
+Return native notation text, not JSON. v sets integer velocity; n sets duration as a whole-note fraction: n/4 is one quarter note, n3/8 is one and a half quarters. A duration can also use a bar count, such as 1bar or 1bar+n/4. Pitch names use C3 for MIDI 60, with #/b accidentals and octave numbers. One-based bar|beat positions use fixed 4/4: 1|1 is onset zero and 2|1 is onset four quarters. Positions accept decimal beats or whole-note offsets such as +n1/2048. Multiple pitches before one position sound together. Within a comma-separated beat list, bare beats inherit the preceding bar until another bar|beat appears. A position suffix xN emits N total repetitions; @nF supplies whole-note spacing, otherwise spacing is the active duration. Velocity and duration persist across whitespace/newlines until changed: parse and return the whole scope. Include explicit initial velocity and duration. p controls probability; omitted probability is 1 and velocity deviation is 0.
+
+PRESERVATION
+This surface has no persistent note IDs, channels, groups or intent metadata. Channel 1 and clip scope come from the task contract. Preserve the performed multiset, including repeats; do not infer identity from textual order. Native arithmetic is numeric; do not round irregular values to a convenient musical fraction. A complete rewrite must preserve every unaffected encoded note.
+
+COMPLETE FORMAT EXAMPLE
+v73 n/8d D3 1|1+n65/2048
+v85 n/8 A3 1|2+n193/2048

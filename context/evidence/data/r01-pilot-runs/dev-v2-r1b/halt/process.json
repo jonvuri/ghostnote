@@ -1,0 +1,7 @@
+{
+  "exitCode": null,
+  "signal": "SIGKILL",
+  "error": "spawnSync /Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex ETIMEDOUT",
+  "elapsedMs": 120018.78812499996,
+  "controlAuditRequired": true
+}

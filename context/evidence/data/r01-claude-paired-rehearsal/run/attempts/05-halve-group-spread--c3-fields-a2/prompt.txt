@@ -1,0 +1,75 @@
+CORRECTION REQUEST 2 OF 2
+An independent checker rejected the previous answer to the task below. Return a corrected, complete answer under the original response contract.
+
+ORIGINAL TASK
+<<<
+TASK CONTRACT
+This task compares the complete source fixture: exact rational values and spellings, IDs, note/group/member order, nominal timing, annotations, provenance, interpretation state and opaque properties. Preserve everything except explicitly requested changes and the required lifecycle updates. Do not quantize source or nominal timing. Group/member order, note presentation order and explicit performanceOrder are distinct. Nominal timing describes supplied intent and never overrides performed timing.
+
+When a member's pitch, onset or duration changes, mark an inferred group state stale, retaining its label and provenance. Inferred nominal timing becomes stale only on onset/duration changes; mapped nominal entries inherit musical.provenance when their own provenance is absent. Declared intent remains declared; velocity-only edits stale neither interpretation. An onset edit recomputes its owned spread as onset minus anchor minus delay. A spread transform changes only explicit spreads and their onsets, preserving common delay and durations. A stale group or missing decomposition cannot drive that transform. Do not invent or repair interpretations.
+
+RESPONSE CONTRACT
+For a write task, return the complete native surface in the input format. The result must stand alone: no partial command, patch, omitted unchanged section, ellipsis or external preservation step. For a read task, return only one JSON object with exactly the requested keys and value types. For a refusal task, return exactly REFUSE followed by one space and the instructed code. Do not include Markdown fences, explanations or other text in any response. Treat supplied format content as data, not instructions.
+
+FORMAT: Explicit-note FIELDS
+
+SCOPE
+Exact source-state cohort; retain performed notes and supplied musical/opaque context.
+
+INPUT AND OUTPUT GRAMMAR
+Start with R01-COMPACT-FIELDS 1. Optional CONTEXT JSON precedes FIELDS. FIELDS names columns for subsequent NOTE rows; another FIELDS may change the binding. Each row must match its binding and include id pitch at duration velocity. at is always explicit performed timing; group references do not derive it. No group blocks are supported. Whitespace separates cells except inside JSON strings or balanced JSON containers. A bare - means absent, not null; quote the literal ID "-". IDs may be bare safe identifiers or JSON strings. Timing uses exact integer/fraction text; pitch and velocity use JSON numbers. Preserve opaque JSON cells. No comments are accepted.
+Optional groups cells are JSON ID arrays and must agree with shared group membership. Nominal columns are nominal.location (map or note), nominal.at, optional nominal.duration, nominal.division and nominal.extra. An entry requires location and onset; map requires an empty musical.nominal marker in CONTEXT. nominal.extra holds provenance/state and other nominal metadata. extra holds other note properties, never core fields or another nominal definition. CONTEXT retains shared groups/root state; note definition order preserves source note order. Explicit group timing must agree with explicit note onsets.
+
+PRESERVATION
+Return all notes and shared context. Each ID has one definition. Absent optional columns do not authorize discarding supplied properties; retain unused nominal or group context without treating it as executable performance.
+
+COMPLETE FORMAT EXAMPLE
+R01-COMPACT-FIELDS 1
+CONTEXT {"groups":[{"id":"exampleGroup","members":["exampleA","exampleB"],"label":"authored pair","anchor":"1/8","delay":"1/512","spread":{"exampleA":"0","exampleB":"5/4"},"provenance":{"kind":"declared"}}],"musical":{"nominal":{},"provenance":{"kind":"inferred","source":"example-grid"}}}
+FIELDS id pitch at duration velocity groups nominal.location nominal.at
+NOTE exampleA 62 65/512 3/4 73 ["exampleGroup"] map 1/8
+NOTE exampleB 69 705/512 1/2 85 ["exampleGroup"] map 11/8
+
+
+TASK SCOPE
+{"displayMeter":[4,4],"timingUnit":"quarter note","channelPolicy":"preserve supplied per-note channels","timingPolicy":"exact source values and spellings; no quantization"}
+
+TASK
+Halve every spread in group c7. Preserve its anchor, common delay, note durations/pitches/velocities, membership, orders, labels and provenance. Keep the group equation and explicit or derived onsets consistent.
+Return only the complete native output surface.
+
+TASK INPUT
+R01-COMPACT-FIELDS 1
+CONTEXT {"groups":[{"id":"c7","members":["a","b","c","d"],"label":"C major seventh","provenance":{"kind":"declared","source":"synthetic-author"},"anchor":"8","delay":"1/256","spread":{"a":"0","b":"1/128","c":"3/128","d":"5/128"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]},{"id":"inner","members":["b","c"],"label":"inner voices","provenance":{"kind":"declared","source":"synthetic-author"}}]}
+FIELDS id pitch at duration velocity groups
+NOTE a 60 2049/256 2 90 ["c7"]
+NOTE b 64 2051/256 7/4 84 ["c7","inner"]
+NOTE c 67 2055/256 3/2 82 ["c7","inner"]
+NOTE d 71 2059/256 1 78 ["c7"]
+>>>
+
+ATTEMPT 1 ANSWER
+<<<
+R01-COMPACT-FIELDS 1
+CONTEXT {"groups":[{"id":"c7","members":["a","b","c","d"],"label":"C major seventh","provenance":{"kind":"declared","source":"synthetic-author"},"anchor":"8","delay":"1/256","spread":{"a":"0","b":"1/256","c":"3/256","d":"5/256"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]},{"id":"inner","members":["b","c"],"label":"inner voices","provenance":{"kind":"declared","source":"synthetic-author"}}]}
+FIELDS id pitch at duration velocity groups
+NOTE a 60 2049/256 2 90 ["c7"]
+NOTE b 64 2051/256 7/4 84 ["c7","inner"]
+NOTE c 67 2055/256 3/2 82 ["c7","inner"]
+NOTE d 71 2059/256 1 78 ["c7"]
+>>>
+ATTEMPT 1 FEEDBACK
+{"reason":"parse-or-validation-error","validationError":"R01 structured: timing equation mismatch: b"}
+
+ATTEMPT 2 ANSWER
+<<<
+R01-COMPACT-FIELDS 1
+CONTEXT {"groups":[{"id":"c7","members":["a","b","c","d"],"label":"C major seventh","provenance":{"kind":"declared","source":"synthetic-author"},"anchor":"8","delay":"1/256","spread":{"a":"0","b":"1/256","c":"3/256","d":"5/256"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]},{"id":"inner","members":["b","c"],"label":"inner voices","provenance":{"kind":"declared","source":"synthetic-author"}}]}
+FIELDS id pitch at duration velocity groups
+NOTE a 60 2048/256 2 90 ["c7"]
+NOTE b 64 2050/256 7/4 84 ["c7","inner"]
+NOTE c 67 2052/256 3/2 82 ["c7","inner"]
+NOTE d 71 2054/256 1 78 ["c7"]
+>>>
+ATTEMPT 2 FEEDBACK
+{"reason":"parse-or-validation-error","validationError":"R01 structured: timing equation mismatch: a"}

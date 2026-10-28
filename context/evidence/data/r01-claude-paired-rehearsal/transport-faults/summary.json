@@ -1,0 +1,184 @@
+{
+  "schema": "r01-claude-transport-faults-v1",
+  "profile": {
+    "provider": "claude",
+    "model": "claude-haiku-4-5-20251001",
+    "thinkingBudget": 1024,
+    "maxOutputTokens": 12000,
+    "version": "2.1.302 (Claude Code)"
+  },
+  "binary": {
+    "name": "claude",
+    "path": "/Users/jonvuri/.local/bin/claude",
+    "realPath": "/Users/jonvuri/.local/share/claude/versions/2.1.302",
+    "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+  },
+  "startedAt": "2026-10-26T02:38:42.273Z",
+  "source": {
+    "path": "brain/benchmarks/r01-candidates/claude-transport-faults.mjs",
+    "sha256": "08796eca2d75fa8992d6a96edf9b1a51d95356c429b7be7bf5d14ddacced73e3"
+  },
+  "evaluation": {
+    "pass": true,
+    "results": [
+      {
+        "id": "success",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "OK"
+      },
+      {
+        "id": "http-500",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58504)."
+      },
+      {
+        "id": "http-529-overloaded",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58511)."
+      },
+      {
+        "id": "http-429-rate-limit",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "API Error: Request rejected (429) · local fault"
+      },
+      {
+        "id": "reset-before-events",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again."
+      },
+      {
+        "id": "reset-mid-stream",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 1,
+        "capturedRequestFiles": 1,
+        "apiRetryEvents": 0,
+        "resultError": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again."
+      },
+      {
+        "id": "positive-control-http-500-one-retry",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 2,
+        "capturedRequestFiles": 2,
+        "apiRetryEvents": 1,
+        "resultError": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58539)."
+      },
+      {
+        "id": "positive-control-http-529-one-retry",
+        "pass": true,
+        "checks": {
+          "httpRequests": true,
+          "otherHttpRequests": true,
+          "capturedRequestFilesMatchHttp": true,
+          "retryEventsMatch": true,
+          "noFallbackEvents": true,
+          "streamingOnly": true,
+          "requestedModelOnly": true,
+          "dummyKeyOnly": true,
+          "outcome": true
+        },
+        "httpRequests": 2,
+        "capturedRequestFiles": 2,
+        "apiRetryEvents": 1,
+        "resultError": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58547)."
+      }
+    ]
+  },
+  "trialRetryControls": {
+    "CLAUDE_CODE_MAX_RETRIES": "0",
+    "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+    "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+    "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+  }
+}

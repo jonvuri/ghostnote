@@ -1,0 +1,23 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "error": null,
+  "elapsedMs": 3742.788916,
+  "answerMatches": true,
+  "malformedLineCount": 0,
+  "toolEventCount": 1,
+  "advertisedTools": null,
+  "requestedModel": "gpt-6-luna",
+  "reportedModels": [],
+  "usage": {
+    "input_tokens": 8724,
+    "cached_input_tokens": 6912,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 55,
+    "reasoning_output_tokens": 0
+  },
+  "modelUsage": null,
+  "estimatedUsd": null,
+  "completionType": "turn.completed",
+  "errors": []
+}

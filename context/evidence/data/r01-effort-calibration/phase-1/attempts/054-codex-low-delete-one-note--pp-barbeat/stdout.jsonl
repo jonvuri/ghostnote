@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a1793f-9a8d-7120-acf6-2349074b0089"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-qFKkLt/codex-home/config.toml."}}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"v90 n/16d C3 1|1\nv83 n7/32 C3 1|1.625\nv72 n/16 E3 1|2\nv101 n/32 C3 1|2.625"}}
+{"type":"turn.completed","usage":{"input_tokens":3726,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":57,"reasoning_output_tokens":0}}

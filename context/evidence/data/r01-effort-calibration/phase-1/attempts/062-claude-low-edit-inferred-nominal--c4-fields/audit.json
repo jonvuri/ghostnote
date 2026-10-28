@@ -1,0 +1,265 @@
+{
+  "answer": "R01-GROUPED-FIELDS 1\nCONTEXT {\"musical\":{\"nominal\":{},\"provenance\":{\"kind\":\"inferred\",\"source\":\"development-grid-fit\"}}}\nGROUP triplet label=\"triplet with anticipated third\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}} {\n  FIELDS id pitch at duration velocity nominal\n  NOTE b1 36 0 7/24 94 {\"at\":\"0\",\"duration\":\"1/3\"}\n  NOTE b2 39 1027/3072 5/24 81 {\"at\":\"1/3\",\"duration\":\"1/3\",\"stale\":true}\n  NOTE b3 43 1015/1536 11/24 101 {\"at\":\"2/3\",\"duration\":\"1/3\"}\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE b4 34 1499/512 5/4 88\n}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-5-5",
+  "servedModels": [
+    "claude-haiku-5-5"
+  ],
+  "modelVerified": true,
+  "modelSelectionPolicy": "served-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "served-model",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2580,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 1625,
+    "output_tokens_details": {
+      "thinking_tokens": 1318
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2580,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1625,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 2580,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2580
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-5-5"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-5-5",
+      "reasoning": null,
+      "thinking": {
+        "type": "adaptive",
+        "display": "updates"
+      },
+      "effort": "low",
+      "maxOutputTokens": 128000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "c6cf9b34b90d447bddf181a1672c3614027c0ec97c25b7981c2bfcf0ff6240e2",
+      "contextBytes": 7727,
+      "localSerializedContextTokens": null,
+      "requestSha256": "a84ff2cb82f5d1685323c9f1d24767c5c56dfa0964aed703f97f65deecd47ead",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 1
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "no-tools-advertised-or-used",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": {
+    "faultSuitePass": false,
+    "binaryMatches": false,
+    "retryControlsMatch": false,
+    "oneCapturedRequest": true
+  },
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 9395.336249999993
+  },
+  "codexContext": null,
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v2",
+    "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "4a7d7330beea80292ca3e4440ce75faff44d68e4c851f5b5511b1b9866cbe863"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 559,
+        "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 5200,
+        "sha256": "ea3644e9f4f8ca785a04723815c0486ad33f54c3d7d3c6eb8e4d206efc032f6d"
+      },
+      {
+        "kind": "system-turn",
+        "role": "client-system-turn",
+        "bytes": 953,
+        "sha256": "32e48d2caadda5969cbcab6fa3545818a17bd5ff8fdbf4bcdf5a737bf7578b73"
+      }
+    ],
+    "clientAddedTextBytes": 1937,
+    "taskBytes": 5200,
+    "maxTokens": 128000,
+    "volatile": {
+      "sessionId": "fc242124-5a4a-470e-a8c6-166f3b7e121e",
+      "versionSuffix": "364",
+      "promptId": "a1efb2ad-630e-4f96-94bf-51b8bf299aed",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-26"
+    },
+    "requests": [
+      {
+        "schema": "r01-claude-context-audit-v1",
+        "policy": "r01-claude-context-policy-v2",
+        "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "billing-metadata",
+            "role": "client-system",
+            "bytes": 192,
+            "sha256": "4a7d7330beea80292ca3e4440ce75faff44d68e4c851f5b5511b1b9866cbe863"
+          },
+          {
+            "kind": "sdk-identity",
+            "role": "client-system",
+            "bytes": 62,
+            "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+          },
+          {
+            "kind": "supplied-instruction",
+            "role": "client-system",
+            "bytes": 171,
+            "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+          },
+          {
+            "kind": "account",
+            "role": "client-reminder",
+            "bytes": 559,
+            "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+          },
+          {
+            "kind": "task",
+            "role": "task",
+            "bytes": 5200,
+            "sha256": "ea3644e9f4f8ca785a04723815c0486ad33f54c3d7d3c6eb8e4d206efc032f6d"
+          },
+          {
+            "kind": "system-turn",
+            "role": "client-system-turn",
+            "bytes": 953,
+            "sha256": "32e48d2caadda5969cbcab6fa3545818a17bd5ff8fdbf4bcdf5a737bf7578b73"
+          }
+        ],
+        "clientAddedTextBytes": 1937,
+        "taskBytes": 5200,
+        "maxTokens": 128000,
+        "volatile": {
+          "sessionId": "fc242124-5a4a-470e-a8c6-166f3b7e121e",
+          "versionSuffix": "364",
+          "promptId": "a1efb2ad-630e-4f96-94bf-51b8bf299aed",
+          "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+          "date": "2026-10-26"
+        }
+      }
+    ]
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 2582,
+  "finalOutputTokens": 1625,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/0358cd41-bceb-4927-88b4-8a9f2ac75e34.request.json",
+      "sha256": "a84ff2cb82f5d1685323c9f1d24767c5c56dfa0964aed703f97f65deecd47ead"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "5194ba6f767796ceaca6a778cca7d6a78c0ad2ee2cf5ae5d543ce216d662416d"
+    },
+    {
+      "path": "api-bodies/req_011CgREvTNBccSCJ3GLamaSW.response.json",
+      "sha256": "36732081ec5dfad764a877f5ddb04492e85884fa38a99fd2120c1129a6b27d06"
+    }
+  ]
+}

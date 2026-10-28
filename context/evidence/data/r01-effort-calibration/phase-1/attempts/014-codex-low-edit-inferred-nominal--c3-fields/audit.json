@@ -1,0 +1,225 @@
+{
+  "answer": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"triplet\",\"members\":[\"b1\",\"b2\",\"b3\"],\"label\":\"triplet with anticipated third\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}],\"musical\":{\"nominal\":{},\"provenance\":{\"kind\":\"inferred\",\"source\":\"development-grid-fit\",\"state\":\"stale\"}}}\nFIELDS id pitch at duration velocity groups nominal.location nominal.at nominal.duration\nNOTE b1 36 0 7/24 94 [\"triplet\"] map 0 1/3\nNOTE b2 39 1025/3072 5/24 81 [\"triplet\"] map 1/3 1/3\nNOTE b3 43 1015/1536 11/24 101 [\"triplet\"] map 2/3 1/3\nNOTE b4 34 1499/512 5/4 88 - - - -",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 4037,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 211,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "7271aea2ec13a0ff3f6ba8485d72bc996b84734f5d32299eba31ffbb70a014cd",
+      "contextBytes": 19960,
+      "localSerializedContextTokens": null,
+      "requestSha256": "8a8361571ea6a75b057fc5fd8204a430a01748d45542ad62dba52f29a99e2554",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 4079.841916000005
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "cb1ffb41cb504467a37add577adfd33f61e24f2cdcaf6cbc65869130e7b308d8"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "7143ca27037fddf5b71127d8db15d85bb2eacff5e22313bb4a729133092631e6"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "cae5013fdec4626ff436d38564757ede586d2700933b486632f5bae9296abdcb"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "432234b06d042b862c74e772f9950c8757502486865db279939b06285dbbf1bd"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "6d4d061ad0d7c42cc12fe61603a928ada976fb9b2abc12a4c0b2ff4963d5540b"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 5298,
+        "sha256": "ae0e915f90ef739d0c9b0858ba1432f464c87d77597147ffee5e2387f2c59da3"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 4846,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "cb1ffb41cb504467a37add577adfd33f61e24f2cdcaf6cbc65869130e7b308d8"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "7143ca27037fddf5b71127d8db15d85bb2eacff5e22313bb4a729133092631e6"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "cae5013fdec4626ff436d38564757ede586d2700933b486632f5bae9296abdcb"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "432234b06d042b862c74e772f9950c8757502486865db279939b06285dbbf1bd"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "6d4d061ad0d7c42cc12fe61603a928ada976fb9b2abc12a4c0b2ff4963d5540b"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 5298,
+            "sha256": "ae0e915f90ef739d0c9b0858ba1432f464c87d77597147ffee5e2387f2c59da3"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 4846
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-s8SBzR/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 4037,
+  "finalOutputTokens": 211,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/manifest.json",
+      "sha256": "892f50df5cf547c2ad7bcb7a5d4e5349c459f9d08158144a25cc6f049862e26d"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/trace.jsonl",
+      "sha256": "c55b4fb54b6af42221ff7f6c33685b86c72ec378f94832b08a70cdc3479f4cd1"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/1.json",
+      "sha256": "3f7cff897cae96b71b04d5886e0d7e322bc05247bc9e12e30e9a4975658bac35"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/2.json",
+      "sha256": "5e062a1e673530732749c0be9145210da0dc844361c391832b25986eb6870521"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/3.json",
+      "sha256": "b627d11de51265cb064d956d2b09f506fe03e763f43d05fe8147783c3530468c"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/4.json",
+      "sha256": "5a128699124afcf98d4def23f9c4cc4b0965d2970c05c4e3e2b54c10dce8b4f6"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/5.json",
+      "sha256": "43b82e47f5b4b7c81fe8903a1fc35149cbe7b7fec0fcec4e28ce26e1a57853c4"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/6.json",
+      "sha256": "6586ae2b7d797ea222be08cd6a15e672b7a9d36501ce31e0a4fb42e71e1dae78"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/7.json",
+      "sha256": "36782db4a277a6cee439de925610695d06eadf7809cc071122c4553c55900f70"
+    },
+    {
+      "path": "codex-traces/trace-1be30bc1-c9ee-4495-828b-0e241faa33b6-01a1793c-4a10-7140-a6b6-8926cb072aeb/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

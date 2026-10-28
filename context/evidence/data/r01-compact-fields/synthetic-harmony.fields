@@ -1,0 +1,7 @@
+R01-COMPACT-FIELDS 1
+CONTEXT {"id":"synthetic-harmony","family":"dense strummed harmony","meter":{"numerator":5,"denominator":4},"groups":[{"id":"c7","members":["a","b","c","d"],"label":"C major seventh","provenance":{"kind":"declared","source":"synthetic-author"},"anchor":"8","delay":"3/512","spread":{"a":"0","b":"6/512","c":"13/512","d":"21/512"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]},{"id":"inner","members":["b","c"],"label":"inner voices","provenance":{"kind":"declared","source":"synthetic-author"}}]}
+FIELDS id pitch at duration velocity groups
+NOTE a 60 4099/512 2 90 ["c7"]
+NOTE b 64 4105/512 7/4 84 ["c7","inner"]
+NOTE c 67 257/32 3/2 82 ["c7","inner"]
+NOTE d 71 515/64 1 78 ["c7"]

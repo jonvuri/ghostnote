@@ -1,0 +1,265 @@
+{
+  "answer": "v64 n389/1024 Gb2 1|1\nn389/2048 G2 1|2+n133/1024\nB2 1|3+n143/2048\nv91 n461/2048 D3 1|4+n5/512\nv64 n123/512 Gb3 1|4+n481/2048\nG3 2|1+n115/512\nGb3 2|2+n55/256\nn443/512 Gb3 2|3+n419/2048\nn983/1024 C3 3|3+n143/2048\nn1147/1024 B2 4|3+n61/2048",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-5-5",
+  "servedModels": [
+    "claude-haiku-5-5"
+  ],
+  "modelVerified": true,
+  "modelSelectionPolicy": "served-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "served-model",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 1990,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 1854,
+    "output_tokens_details": {
+      "thinking_tokens": 1674
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1990,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1854,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 1990,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1990
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-5-5"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-5-5",
+      "reasoning": null,
+      "thinking": {
+        "type": "adaptive",
+        "display": "updates"
+      },
+      "effort": "low",
+      "maxOutputTokens": 128000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "a704a41fbc3fb2a4e13388448e908574a7d0dceb4521c3bfd58f49d8b68ed2f2",
+      "contextBytes": 5928,
+      "localSerializedContextTokens": 1512,
+      "requestSha256": "cc12c793c60a832ec34b72fbffca7f4e7772107e0d553424b93f7bf5fc319d42",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 1
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "no-tools-advertised-or-used",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": {
+    "faultSuitePass": false,
+    "binaryMatches": false,
+    "retryControlsMatch": false,
+    "oneCapturedRequest": true
+  },
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 9106.487291999998
+  },
+  "codexContext": null,
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v2",
+    "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "b8ea7e024c88c9f8ccbaa656a088af3c988b1455d20e984f4629e6365231c318"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 559,
+        "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 3495,
+        "sha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2"
+      },
+      {
+        "kind": "system-turn",
+        "role": "client-system-turn",
+        "bytes": 953,
+        "sha256": "b8edf835e2c3baf1b704c683cdaa81acda75be29b116eac69f11f1f93614237d"
+      }
+    ],
+    "clientAddedTextBytes": 1937,
+    "taskBytes": 3495,
+    "maxTokens": 128000,
+    "volatile": {
+      "sessionId": "b0d7691a-46f8-4be4-8fa3-31c059e70c00",
+      "versionSuffix": "364",
+      "promptId": "1ba17999-b12c-45b9-af63-ecc5a6b269a1",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-26"
+    },
+    "requests": [
+      {
+        "schema": "r01-claude-context-audit-v1",
+        "policy": "r01-claude-context-policy-v2",
+        "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "billing-metadata",
+            "role": "client-system",
+            "bytes": 192,
+            "sha256": "b8ea7e024c88c9f8ccbaa656a088af3c988b1455d20e984f4629e6365231c318"
+          },
+          {
+            "kind": "sdk-identity",
+            "role": "client-system",
+            "bytes": 62,
+            "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+          },
+          {
+            "kind": "supplied-instruction",
+            "role": "client-system",
+            "bytes": 171,
+            "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+          },
+          {
+            "kind": "account",
+            "role": "client-reminder",
+            "bytes": 559,
+            "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+          },
+          {
+            "kind": "task",
+            "role": "task",
+            "bytes": 3495,
+            "sha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2"
+          },
+          {
+            "kind": "system-turn",
+            "role": "client-system-turn",
+            "bytes": 953,
+            "sha256": "b8edf835e2c3baf1b704c683cdaa81acda75be29b116eac69f11f1f93614237d"
+          }
+        ],
+        "clientAddedTextBytes": 1937,
+        "taskBytes": 3495,
+        "maxTokens": 128000,
+        "volatile": {
+          "sessionId": "b0d7691a-46f8-4be4-8fa3-31c059e70c00",
+          "versionSuffix": "364",
+          "promptId": "1ba17999-b12c-45b9-af63-ecc5a6b269a1",
+          "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+          "date": "2026-10-26"
+        }
+      }
+    ]
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 1992,
+  "finalOutputTokens": 1854,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/5ded9755-e7c2-41ed-bc61-31c4191b788f.request.json",
+      "sha256": "cc12c793c60a832ec34b72fbffca7f4e7772107e0d553424b93f7bf5fc319d42"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "7765ff2c6294df612b2d0f3be77fa616aa7d1d3f1f8e83bb4c7037960688a3f5"
+    },
+    {
+      "path": "api-bodies/req_011CgR3PFrjjuSJbff7Wjp1P.response.json",
+      "sha256": "ec7e46916c7cb07398dd8fda465497013cde0990d461db6527b2dca4278850d0"
+    }
+  ]
+}

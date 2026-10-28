@@ -1,0 +1,14 @@
+FORMAT: Compact JSON diagnostic
+
+SCOPE
+Exact source-state cohort; retain performed notes and supplied musical/opaque context.
+
+INPUT AND OUTPUT GRAMMAR
+Use standard JSON: {format:"r01-compact",version:1,context:...,rows:[...]}, with quoted JSON keys in actual input/output. Every row has exactly eight slots: [id,pitch,at,duration,velocity,optionalFields,groupIds,nominal]. at and duration are exact rational strings. optionalFields is an object with all other note properties; it cannot redefine core fields. groupIds is an array agreeing with authoritative context.groups membership. nominal is the shared-map entry or null. Note-local nominal stays in optionalFields. Rows preserve original note order.
+context retains all fixture properties except notes. Shared musical.nominal entries move to rows, leaving an empty map in context; preserve that marker. Shared group timing must agree with explicit note onsets. Unknown note, nominal, group and root properties remain data.
+
+PRESERVATION
+Return the entire JSON object. This reference encoding retains the same C3 state, including the redundant membership lists; neither list may silently override a disagreement. Nominal values never replace explicit performed at/duration.
+
+COMPLETE FORMAT EXAMPLE
+{"format":"r01-compact","version":1,"context":{"groups":[{"id":"exampleGroup","members":["exampleA","exampleB"],"label":"authored pair","anchor":"1/8","delay":"1/512","spread":{"exampleA":"0","exampleB":"5/4"},"provenance":{"kind":"declared"}}],"musical":{"nominal":{},"provenance":{"kind":"inferred","source":"example-grid"}}},"rows":[["exampleA",62,"65/512","3/4",73,{},["exampleGroup"],{"at":"1/8"}],["exampleB",69,"705/512","1/2",85,{},["exampleGroup"],{"at":"11/8"}]]}

@@ -1,0 +1,33 @@
+{
+  "response_id": "resp_0f1fca0566d44a5a016adf8d18f1ec8194ad24566b82028ae1",
+  "upstream_request_id": null,
+  "token_usage": {
+    "input_tokens": 4056,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 361,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 4417
+  },
+  "output_items": [
+    {
+      "type": "message",
+      "status": "completed",
+      "id": "msg_0f1fca0566d44a5a016adf8d19da088194a3abaf40aef9e08c",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 39 5/512 7/256 64\n  NOTE t1n2 39 777/256 7/256 64\n  NOTE t1n3 49 777/256 7/256 64\n  NOTE t1n4 49 2209/512 7/256 64\n  NOTE t1n5 51 2209/512 7/256 64\n  NOTE t1n6 49 2551/512 7/256 64\n  NOTE t1n7 51 2551/512 7/256 64\n  NOTE t1n8 51 1525/256 7/256 64\n  NOTE t1n9 51 423/64 7/256 64\n  NOTE t1n10 39 221/32 7/256 64\n  NOTE t1n11 39 1043/128 13/512 64\n  NOTE t1n12 39 2399/256 7/256 64\n  NOTE t1n13 38 2701/256 7/256 64\n  NOTE t1n14 38 759/64 7/256 64\n  NOTE t1n15 38 3363/256 7/256 64\n  NOTE t1n16 38 7359/512 13/512 64\n  NOTE t1n17 38 1995/128 13/512 64\n}",
+          "annotations": [],
+          "logprobs": []
+        }
+      ],
+      "phase": "final_answer",
+      "internal_chat_message_metadata_passthrough": {
+        "turn_id": "01a1793f-235b-7691-8688-451c3616e1bc",
+        "create_time": 1793035545.8569953
+      }
+    }
+  ]
+}

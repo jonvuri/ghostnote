@@ -1,0 +1,126 @@
+{
+  "probeAnswerMatches": true,
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "rawFinalUsage": {
+    "input_tokens": 5263,
+    "cached_input_tokens": 3456,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 55,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async",
+        "collaboration.followup_task",
+        "collaboration.interrupt_agent",
+        "collaboration.list_agents",
+        "collaboration.send_message",
+        "collaboration.spawn_agent",
+        "collaboration.wait_agent"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "host_skills.instructions",
+        "permissions.instructions",
+        "collaboration_mode.instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "agents_md.instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "31913dd868789be4f1e2e3d1b3c670c9ddea0a70a1df8b49f99453efe6cbeb80",
+      "contextBytes": 27023,
+      "localSerializedContextTokens": 6549,
+      "requestSha256": "9e3a02f00a4971b3ed099fda8cc72a97ee766b0c624f4c7378c8d36372625e84",
+      "userProjectInstructionsPresent": true,
+      "skillsPresent": true
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/jonvuri/.codex/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 5263,
+  "finalOutputTokens": 55,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": false,
+  "issues": [
+    "served-model-unverified-or-mismatched",
+    "advertised-tools-present",
+    "unexpected-client-instructions",
+    "transport-retry-control-unverified"
+  ],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/manifest.json",
+      "sha256": "adc9a8e76eefb005ac45de295ce755ab34a3c158821a856ec699db6debb0fd6b"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/trace.jsonl",
+      "sha256": "d37c05c642685bde35ecb6442e8416c8195db823c1652718a698db52ea722148"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/1.json",
+      "sha256": "cfd3f5df06c0c572d8f2a2a44da3aac225ea47237a9b4e45a9cdf20bac721cdf"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/2.json",
+      "sha256": "faee0236c065774065e7b39a3e244e8a2824cda8343fbee41e402341a4fdf9a3"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/3.json",
+      "sha256": "3c6ccf096d3f5f0e39d2fff9c1a9d0fe6e8d161cc6c44af913d524e668fa503a"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/4.json",
+      "sha256": "11edb941cd8542c2c110e3145c4fc44ea6711da54d1a1f897aedad44df592cf5"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/5.json",
+      "sha256": "64923275d1e73b10ec40b66875f0afae4f6afb31ae5e9d9cc8fd0bb1349e08a7"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/6.json",
+      "sha256": "857f31a0aa717a85f196e991ebb9089a0b54db4f4e4bced8fcde7a2471b1d9be"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/7.json",
+      "sha256": "008d2c4e7637dfcb797bce8428ef8ecd50c2a59a5e03e17a15a55e5dcb669687"
+    },
+    {
+      "path": "codex-traces/trace-5d62fdd3-b419-4b0a-8a81-64a875a0e489-01a175e4-e8b3-7eb1-940a-7970786b3736/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

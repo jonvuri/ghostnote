@@ -1,0 +1,3122 @@
+{
+  "tasks": [
+    {
+      "version": 1,
+      "id": "p01-read-count-window",
+      "family": "read",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 78,
+            "at": "0",
+            "duration": "77/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 78,
+            "at": "153/512",
+            "duration": "123/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 85,
+            "at": "645/512",
+            "duration": "133/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 73,
+            "at": "911/512",
+            "duration": "51/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 83,
+            "at": "481/256",
+            "duration": "9/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 70,
+            "at": "517/256",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 71,
+            "at": "307/128",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 66,
+            "at": "165/64",
+            "duration": "901/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 83,
+            "at": "3123/512",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 75,
+            "at": "3123/512",
+            "duration": "55/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 78,
+            "at": "3317/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 90,
+            "at": "215/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 59,
+            "at": "3563/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 66,
+            "at": "3563/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 71,
+            "at": "3563/512",
+            "duration": "645/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 75,
+            "at": "3563/512",
+            "duration": "261/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 78,
+            "at": "4085/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 71,
+            "at": "263/32",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 83,
+            "at": "4331/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 83,
+            "at": "2227/256",
+            "duration": "143/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 64,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 71,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 78,
+            "at": "4597/512",
+            "duration": "247/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 82,
+            "at": "3287/256",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n25",
+            "pitch": 83,
+            "at": "6799/512",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n26",
+            "pitch": 82,
+            "at": "439/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n27",
+            "pitch": 82,
+            "at": "7147/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n28",
+            "pitch": 83,
+            "at": "7249/512",
+            "duration": "41/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n29",
+            "pitch": 83,
+            "at": "7331/512",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n30",
+            "pitch": 83,
+            "at": "29/2",
+            "duration": "113/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n31",
+            "pitch": 66,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n32",
+            "pitch": 71,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n33",
+            "pitch": 78,
+            "at": "471/32",
+            "duration": "123/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n34",
+            "pitch": 83,
+            "at": "3891/256",
+            "duration": "61/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n35",
+            "pitch": 85,
+            "at": "7843/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n36",
+            "pitch": 85,
+            "at": "3973/256",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n37",
+            "pitch": 73,
+            "at": "8069/512",
+            "duration": "1055/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n38",
+            "pitch": 90,
+            "at": "8069/512",
+            "duration": "123/512",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Return JSON with exactly total (the number of notes, including multiplicity) and before (the number of notes whose onset is strictly less than 8).",
+      "response": "answer",
+      "answer": {
+        "total": 38,
+        "before": 17
+      },
+      "source": "reserved:A:re:turning"
+    },
+    {
+      "version": 1,
+      "id": "p02-read-group-timing",
+      "family": "read",
+      "cohort": "source",
+      "input": {
+        "notes": [
+          {
+            "id": "ra",
+            "pitch": 50,
+            "at": "449/64",
+            "duration": "945/512",
+            "velocity": 79
+          },
+          {
+            "id": "rb",
+            "pitch": 54,
+            "at": "1797/256",
+            "duration": "405/512",
+            "velocity": 100
+          },
+          {
+            "id": "rc",
+            "pitch": 57,
+            "at": "225/32",
+            "duration": "475/512",
+            "velocity": 86
+          },
+          {
+            "id": "rd",
+            "pitch": 61,
+            "at": "451/64",
+            "duration": "447/512",
+            "velocity": 68
+          }
+        ],
+        "groups": [
+          {
+            "id": "rGroup",
+            "members": [
+              "ra",
+              "rb",
+              "rc",
+              "rd"
+            ],
+            "label": "strummed seventh chord",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            },
+            "anchor": "7",
+            "delay": "1/64",
+            "spread": {
+              "ra": "0",
+              "rb": "1/256",
+              "rc": "1/64",
+              "rd": "1/32"
+            },
+            "performanceOrder": [
+              "ra",
+              "rb",
+              "rc",
+              "rd"
+            ]
+          }
+        ]
+      },
+      "request": "For group rGroup and its member rd, return JSON with exactly delay (the group common delay), spread (the member residual) and at (the member performed onset). Use reduced rational strings.",
+      "response": "answer",
+      "answer": {
+        "delay": "1/64",
+        "spread": "1/32",
+        "at": "451/64"
+      },
+      "source": "synthetic",
+      "diagnostics": true
+    },
+    {
+      "version": 1,
+      "id": "p03-author-constrained",
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "input": {
+        "notes": []
+      },
+      "request": "Create exactly six notes, as (pitch, onset, duration, velocity): (59,865/512,815/512,54), (51,65/128,361/256,107), (47,2535/512,59/64,97), (58,251/32,191/512,87), (70,427/64,371/256,62), (58,391/64,883/512,108). No other notes. Use valid unique IDs if the format stores them.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "new1",
+            "pitch": 59,
+            "at": "865/512",
+            "duration": "815/512",
+            "velocity": 54
+          },
+          {
+            "id": "new2",
+            "pitch": 51,
+            "at": "65/128",
+            "duration": "361/256",
+            "velocity": 107
+          },
+          {
+            "id": "new3",
+            "pitch": 47,
+            "at": "2535/512",
+            "duration": "59/64",
+            "velocity": 97
+          },
+          {
+            "id": "new4",
+            "pitch": 58,
+            "at": "251/32",
+            "duration": "191/512",
+            "velocity": 87
+          },
+          {
+            "id": "new5",
+            "pitch": 70,
+            "at": "427/64",
+            "duration": "371/256",
+            "velocity": 62
+          },
+          {
+            "id": "new6",
+            "pitch": 58,
+            "at": "391/64",
+            "duration": "883/512",
+            "velocity": 108
+          }
+        ]
+      },
+      "source": "synthetic"
+    },
+    {
+      "version": 1,
+      "id": "p04-author-known-spread",
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "input": {
+        "notes": []
+      },
+      "request": "Create exactly four notes, in this note-array order: wa (pitch 63, duration 395/256, velocity 95, spread 0); wb (pitch 67, duration 453/512, velocity 102, spread 3/256); wc (pitch 70, duration 473/512, velocity 84, spread 1/64); wd (pitch 74, duration 485/512, velocity 62, spread 1/32). Each onset is anchor + delay + spread, written as a reduced rational. Create one group with id wGroup, members wa, wb, wc, wd in that order, label \"strummed seventh chord\", provenance {\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}, anchor 2, delay 5/512, the stated spreads, and performanceOrder wa, wb, wc, wd. No other notes, groups or properties.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "wa",
+            "pitch": 63,
+            "at": "1029/512",
+            "duration": "395/256",
+            "velocity": 95
+          },
+          {
+            "id": "wb",
+            "pitch": 67,
+            "at": "1035/512",
+            "duration": "453/512",
+            "velocity": 102
+          },
+          {
+            "id": "wc",
+            "pitch": 70,
+            "at": "1037/512",
+            "duration": "473/512",
+            "velocity": 84
+          },
+          {
+            "id": "wd",
+            "pitch": 74,
+            "at": "1045/512",
+            "duration": "485/512",
+            "velocity": 62
+          }
+        ],
+        "groups": [
+          {
+            "id": "wGroup",
+            "members": [
+              "wa",
+              "wb",
+              "wc",
+              "wd"
+            ],
+            "label": "strummed seventh chord",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            },
+            "anchor": "2",
+            "delay": "5/512",
+            "spread": {
+              "wa": "0",
+              "wb": "3/256",
+              "wc": "1/64",
+              "wd": "1/32"
+            },
+            "performanceOrder": [
+              "wa",
+              "wb",
+              "wc",
+              "wd"
+            ]
+          }
+        ]
+      },
+      "source": "synthetic",
+      "diagnostics": true
+    },
+    {
+      "version": 1,
+      "id": "p05-edit-velocity-large",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 35,
+            "at": "0",
+            "duration": "129/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 35,
+            "at": "515/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 27,
+            "at": "777/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 27,
+            "at": "1031/512",
+            "duration": "385/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 27,
+            "at": "1801/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 27,
+            "at": "2063/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 27,
+            "at": "2571/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 27,
+            "at": "2825/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 27,
+            "at": "3087/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "3595/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 27,
+            "at": "3857/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 28,
+            "at": "2055/256",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 35,
+            "at": "4499/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 35,
+            "at": "2313/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 27,
+            "at": "305/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 27,
+            "at": "2571/256",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "5269/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 39,
+            "at": "1349/128",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 39,
+            "at": "2825/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 27,
+            "at": "369/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 27,
+            "at": "3083/256",
+            "duration": "381/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 27,
+            "at": "433/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 27,
+            "at": "3595/256",
+            "duration": "125/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 32,
+            "at": "497/32",
+            "duration": "127/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Change only the velocity of the note at 4499/512 with pitch 35 to 91. Preserve all other performed state.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 35,
+            "at": "0",
+            "duration": "129/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 35,
+            "at": "515/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 27,
+            "at": "777/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 27,
+            "at": "1031/512",
+            "duration": "385/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 27,
+            "at": "1801/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 27,
+            "at": "2063/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 27,
+            "at": "2571/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 27,
+            "at": "2825/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 27,
+            "at": "3087/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "3595/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 27,
+            "at": "3857/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 28,
+            "at": "2055/256",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 35,
+            "at": "4499/512",
+            "duration": "127/512",
+            "velocity": 91
+          },
+          {
+            "id": "t1n14",
+            "pitch": 35,
+            "at": "2313/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 27,
+            "at": "305/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 27,
+            "at": "2571/256",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "5269/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 39,
+            "at": "1349/128",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 39,
+            "at": "2825/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 27,
+            "at": "369/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 27,
+            "at": "3083/256",
+            "duration": "381/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 27,
+            "at": "433/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 27,
+            "at": "3595/256",
+            "duration": "125/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 32,
+            "at": "497/32",
+            "duration": "127/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "source": "reserved:B:our taproot"
+    },
+    {
+      "version": 1,
+      "id": "p06-edit-transpose",
+      "family": "individual-edit",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 36,
+            "at": "0",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 36,
+            "at": "129/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 36,
+            "at": "387/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 34,
+            "at": "387/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 34,
+            "at": "1021/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 34,
+            "at": "575/256",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 34,
+            "at": "1537/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 34,
+            "at": "1795/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 32,
+            "at": "2053/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "1091/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 32,
+            "at": "305/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 29,
+            "at": "11/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 29,
+            "at": "1537/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 29,
+            "at": "1919/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 36,
+            "at": "8",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 36,
+            "at": "4483/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "2435/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 34,
+            "at": "5117/512",
+            "duration": "387/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 34,
+            "at": "5891/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 32,
+            "at": "6149/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 32,
+            "at": "817/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 29,
+            "at": "27/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 29,
+            "at": "3585/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 29,
+            "at": "3967/256",
+            "duration": "129/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Transpose only the note at 1537/256 with pitch 29 up two semitones. Preserve its duration (not its end time), onset and velocity, and every other note.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 36,
+            "at": "0",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 36,
+            "at": "129/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 36,
+            "at": "387/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 34,
+            "at": "387/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 34,
+            "at": "1021/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 34,
+            "at": "575/256",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 34,
+            "at": "1537/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 34,
+            "at": "1795/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 32,
+            "at": "2053/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "1091/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 32,
+            "at": "305/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 29,
+            "at": "11/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 31,
+            "at": "1537/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 29,
+            "at": "1919/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 36,
+            "at": "8",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 36,
+            "at": "4483/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "2435/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 34,
+            "at": "5117/512",
+            "duration": "387/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 34,
+            "at": "5891/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 32,
+            "at": "6149/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 32,
+            "at": "817/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 29,
+            "at": "27/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 29,
+            "at": "3585/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 29,
+            "at": "3967/256",
+            "duration": "129/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "source": "reserved:C:good lies"
+    },
+    {
+      "version": 1,
+      "id": "p07-halve-group-spread",
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "input": {
+        "notes": [
+          {
+            "id": "ha",
+            "pitch": 55,
+            "at": "1031/512",
+            "duration": "939/512",
+            "velocity": 106
+          },
+          {
+            "id": "hb",
+            "pitch": 59,
+            "at": "1033/512",
+            "duration": "509/256",
+            "velocity": 73
+          },
+          {
+            "id": "hc",
+            "pitch": 62,
+            "at": "1041/512",
+            "duration": "677/512",
+            "velocity": 100
+          },
+          {
+            "id": "hd",
+            "pitch": 66,
+            "at": "1047/512",
+            "duration": "19/32",
+            "velocity": 87
+          },
+          {
+            "id": "hLoose",
+            "pitch": 45,
+            "at": "73/128",
+            "duration": "1",
+            "velocity": 77
+          }
+        ],
+        "groups": [
+          {
+            "id": "hGroup",
+            "members": [
+              "ha",
+              "hb",
+              "hc",
+              "hd"
+            ],
+            "label": "strummed seventh chord",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            },
+            "anchor": "2",
+            "delay": "7/512",
+            "spread": {
+              "ha": "0",
+              "hb": "1/256",
+              "hc": "5/256",
+              "hd": "1/32"
+            },
+            "performanceOrder": [
+              "ha",
+              "hb",
+              "hc",
+              "hd"
+            ]
+          },
+          {
+            "id": "hInner",
+            "members": [
+              "hb",
+              "hc"
+            ],
+            "label": "inner voices",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            }
+          }
+        ]
+      },
+      "request": "Halve every spread in group hGroup. Preserve its anchor, common delay, note durations/pitches/velocities, membership, orders, labels and provenance, and every other note and group. Keep the group equation and explicit or derived onsets consistent.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "ha",
+            "pitch": 55,
+            "at": "1031/512",
+            "duration": "939/512",
+            "velocity": 106
+          },
+          {
+            "id": "hb",
+            "pitch": 59,
+            "at": "129/64",
+            "duration": "509/256",
+            "velocity": 73
+          },
+          {
+            "id": "hc",
+            "pitch": 62,
+            "at": "259/128",
+            "duration": "677/512",
+            "velocity": 100
+          },
+          {
+            "id": "hd",
+            "pitch": 66,
+            "at": "1039/512",
+            "duration": "19/32",
+            "velocity": 87
+          },
+          {
+            "id": "hLoose",
+            "pitch": 45,
+            "at": "73/128",
+            "duration": "1",
+            "velocity": 77
+          }
+        ],
+        "groups": [
+          {
+            "id": "hGroup",
+            "members": [
+              "ha",
+              "hb",
+              "hc",
+              "hd"
+            ],
+            "label": "strummed seventh chord",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            },
+            "anchor": "2",
+            "delay": "7/512",
+            "spread": {
+              "ha": "0",
+              "hb": "1/512",
+              "hc": "5/512",
+              "hd": "1/64"
+            },
+            "performanceOrder": [
+              "ha",
+              "hb",
+              "hc",
+              "hd"
+            ]
+          },
+          {
+            "id": "hInner",
+            "members": [
+              "hb",
+              "hc"
+            ],
+            "label": "inner voices",
+            "provenance": {
+              "kind": "declared",
+              "source": "pilot-synthetic-author"
+            }
+          }
+        ]
+      },
+      "source": "synthetic",
+      "diagnostics": true
+    },
+    {
+      "version": 1,
+      "id": "p08-shift-onset-range",
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 78,
+            "at": "0",
+            "duration": "77/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 78,
+            "at": "153/512",
+            "duration": "123/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 85,
+            "at": "645/512",
+            "duration": "133/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 73,
+            "at": "911/512",
+            "duration": "51/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 83,
+            "at": "481/256",
+            "duration": "9/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 70,
+            "at": "517/256",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 71,
+            "at": "307/128",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 66,
+            "at": "165/64",
+            "duration": "901/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 83,
+            "at": "3123/512",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 75,
+            "at": "3123/512",
+            "duration": "55/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 78,
+            "at": "3317/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 90,
+            "at": "215/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 59,
+            "at": "3563/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 66,
+            "at": "3563/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 71,
+            "at": "3563/512",
+            "duration": "645/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 75,
+            "at": "3563/512",
+            "duration": "261/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 78,
+            "at": "4085/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 71,
+            "at": "263/32",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 83,
+            "at": "4331/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 83,
+            "at": "2227/256",
+            "duration": "143/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 64,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 71,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 78,
+            "at": "4597/512",
+            "duration": "247/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 82,
+            "at": "3287/256",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n25",
+            "pitch": 83,
+            "at": "6799/512",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n26",
+            "pitch": 82,
+            "at": "439/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n27",
+            "pitch": 82,
+            "at": "7147/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n28",
+            "pitch": 83,
+            "at": "7249/512",
+            "duration": "41/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n29",
+            "pitch": 83,
+            "at": "7331/512",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n30",
+            "pitch": 83,
+            "at": "29/2",
+            "duration": "113/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n31",
+            "pitch": 66,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n32",
+            "pitch": 71,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n33",
+            "pitch": 78,
+            "at": "471/32",
+            "duration": "123/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n34",
+            "pitch": 83,
+            "at": "3891/256",
+            "duration": "61/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n35",
+            "pitch": 85,
+            "at": "7843/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n36",
+            "pitch": 85,
+            "at": "3973/256",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n37",
+            "pitch": 73,
+            "at": "8069/512",
+            "duration": "1055/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n38",
+            "pitch": 90,
+            "at": "8069/512",
+            "duration": "123/512",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Move every note whose onset is at least 6 and less than 8 later by 1/8. Preserve their durations (not end times), pitches and velocities, and every other note.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 78,
+            "at": "0",
+            "duration": "77/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 78,
+            "at": "153/512",
+            "duration": "123/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 85,
+            "at": "645/512",
+            "duration": "133/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 73,
+            "at": "911/512",
+            "duration": "51/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 83,
+            "at": "481/256",
+            "duration": "9/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 70,
+            "at": "517/256",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 71,
+            "at": "307/128",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 66,
+            "at": "165/64",
+            "duration": "901/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 83,
+            "at": "3187/512",
+            "duration": "195/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 75,
+            "at": "3187/512",
+            "duration": "55/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 78,
+            "at": "3381/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 90,
+            "at": "219/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 59,
+            "at": "3627/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 66,
+            "at": "3627/512",
+            "duration": "517/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 71,
+            "at": "3627/512",
+            "duration": "645/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 75,
+            "at": "3627/512",
+            "duration": "261/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 78,
+            "at": "4149/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 71,
+            "at": "263/32",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 83,
+            "at": "4331/512",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 83,
+            "at": "2227/256",
+            "duration": "143/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 64,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 71,
+            "at": "4597/512",
+            "duration": "2939/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 78,
+            "at": "4597/512",
+            "duration": "247/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 82,
+            "at": "3287/256",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n25",
+            "pitch": 83,
+            "at": "6799/512",
+            "duration": "225/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n26",
+            "pitch": 82,
+            "at": "439/32",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n27",
+            "pitch": 82,
+            "at": "7147/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n28",
+            "pitch": 83,
+            "at": "7249/512",
+            "duration": "41/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n29",
+            "pitch": 83,
+            "at": "7331/512",
+            "duration": "23/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n30",
+            "pitch": 83,
+            "at": "29/2",
+            "duration": "113/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n31",
+            "pitch": 66,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n32",
+            "pitch": 71,
+            "at": "471/32",
+            "duration": "407/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n33",
+            "pitch": 78,
+            "at": "471/32",
+            "duration": "123/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n34",
+            "pitch": 83,
+            "at": "3891/256",
+            "duration": "61/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n35",
+            "pitch": 85,
+            "at": "7843/512",
+            "duration": "51/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n36",
+            "pitch": 85,
+            "at": "3973/256",
+            "duration": "123/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n37",
+            "pitch": 73,
+            "at": "8069/512",
+            "duration": "1055/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n38",
+            "pitch": 90,
+            "at": "8069/512",
+            "duration": "123/512",
+            "velocity": 64
+          }
+        ]
+      },
+      "source": "reserved:A:re:turning"
+    },
+    {
+      "version": 1,
+      "id": "p09-delete-one-note",
+      "family": "count-change",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 35,
+            "at": "0",
+            "duration": "129/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 35,
+            "at": "515/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 27,
+            "at": "777/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 27,
+            "at": "1031/512",
+            "duration": "385/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 27,
+            "at": "1801/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 27,
+            "at": "2063/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 27,
+            "at": "2571/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 27,
+            "at": "2825/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 27,
+            "at": "3087/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "3595/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 27,
+            "at": "3857/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 28,
+            "at": "2055/256",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 35,
+            "at": "4499/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 35,
+            "at": "2313/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 27,
+            "at": "305/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 27,
+            "at": "2571/256",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "5269/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 39,
+            "at": "1349/128",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 39,
+            "at": "2825/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 27,
+            "at": "369/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 27,
+            "at": "3083/256",
+            "duration": "381/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 27,
+            "at": "433/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 27,
+            "at": "3595/256",
+            "duration": "125/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 32,
+            "at": "497/32",
+            "duration": "127/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Delete only the note at 4499/512 with pitch 35. Preserve every field of every other note.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 35,
+            "at": "0",
+            "duration": "129/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 35,
+            "at": "515/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 27,
+            "at": "777/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 27,
+            "at": "1031/512",
+            "duration": "385/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 27,
+            "at": "1801/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 27,
+            "at": "2063/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 27,
+            "at": "2571/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 27,
+            "at": "2825/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 27,
+            "at": "3087/512",
+            "duration": "127/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "3595/512",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 27,
+            "at": "3857/512",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 28,
+            "at": "2055/256",
+            "duration": "389/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 35,
+            "at": "2313/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 27,
+            "at": "305/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 27,
+            "at": "2571/256",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "5269/512",
+            "duration": "127/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 39,
+            "at": "1349/128",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 39,
+            "at": "2825/256",
+            "duration": "127/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 27,
+            "at": "369/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 27,
+            "at": "3083/256",
+            "duration": "381/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 27,
+            "at": "433/32",
+            "duration": "131/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 27,
+            "at": "3595/256",
+            "duration": "125/128",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 32,
+            "at": "497/32",
+            "duration": "127/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "source": "reserved:B:our taproot"
+    },
+    {
+      "version": 1,
+      "id": "p10-refuse-ambiguous-pitch",
+      "family": "count-change",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "amb1",
+            "pitch": 60,
+            "at": "0",
+            "duration": "219/512",
+            "velocity": 99
+          },
+          {
+            "id": "amb2",
+            "pitch": 67,
+            "at": "1",
+            "duration": "103/512",
+            "velocity": 84
+          },
+          {
+            "id": "amb3",
+            "pitch": 64,
+            "at": "1063/512",
+            "duration": "399/512",
+            "velocity": 60
+          },
+          {
+            "id": "amb4",
+            "pitch": 72,
+            "at": "3",
+            "duration": "5/32",
+            "velocity": 78
+          },
+          {
+            "id": "amb5",
+            "pitch": 64,
+            "at": "755/256",
+            "duration": "375/512",
+            "velocity": 60
+          },
+          {
+            "id": "amb6",
+            "pitch": 55,
+            "at": "4",
+            "duration": "51/64",
+            "velocity": 53
+          }
+        ]
+      },
+      "request": "Delete the note with pitch 64 whose onset is at least 2 and less than 3. Select only by that pitch and onset range; do not choose by ID, duration, velocity or order. If the selector matches more than one note, return REFUSE ambiguous-selector.",
+      "response": "refusal",
+      "refusal": "ambiguous-selector",
+      "source": "synthetic"
+    },
+    {
+      "version": 1,
+      "id": "p11-preserve-window",
+      "family": "preservation",
+      "cohort": "performed",
+      "input": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 36,
+            "at": "0",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 36,
+            "at": "129/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 36,
+            "at": "387/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 34,
+            "at": "387/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 34,
+            "at": "1021/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 34,
+            "at": "575/256",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 34,
+            "at": "1537/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 34,
+            "at": "1795/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 32,
+            "at": "2053/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "1091/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 32,
+            "at": "305/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 29,
+            "at": "11/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 29,
+            "at": "1537/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 29,
+            "at": "1919/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 36,
+            "at": "8",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 36,
+            "at": "4483/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "2435/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 34,
+            "at": "5117/512",
+            "duration": "387/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 34,
+            "at": "5891/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 32,
+            "at": "6149/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 32,
+            "at": "817/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 29,
+            "at": "27/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 29,
+            "at": "3585/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 29,
+            "at": "3967/256",
+            "duration": "129/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "request": "Return the complete note state unchanged, preserving multiplicity, pitch, onset, duration and velocity.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "t1n1",
+            "pitch": 36,
+            "at": "0",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n2",
+            "pitch": 36,
+            "at": "129/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n3",
+            "pitch": 36,
+            "at": "387/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n4",
+            "pitch": 34,
+            "at": "387/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n5",
+            "pitch": 34,
+            "at": "1021/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n6",
+            "pitch": 34,
+            "at": "575/256",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n7",
+            "pitch": 34,
+            "at": "1537/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n8",
+            "pitch": 34,
+            "at": "1795/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n9",
+            "pitch": 32,
+            "at": "2053/512",
+            "duration": "129/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n10",
+            "pitch": 32,
+            "at": "1091/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n11",
+            "pitch": 32,
+            "at": "305/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n12",
+            "pitch": 29,
+            "at": "11/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n13",
+            "pitch": 29,
+            "at": "1537/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n14",
+            "pitch": 29,
+            "at": "1919/256",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n15",
+            "pitch": 36,
+            "at": "8",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n16",
+            "pitch": 36,
+            "at": "4483/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n17",
+            "pitch": 34,
+            "at": "2435/256",
+            "duration": "247/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n18",
+            "pitch": 34,
+            "at": "5117/512",
+            "duration": "387/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n19",
+            "pitch": 34,
+            "at": "5891/512",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n20",
+            "pitch": 32,
+            "at": "6149/512",
+            "duration": "387/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n21",
+            "pitch": 32,
+            "at": "817/64",
+            "duration": "47/64",
+            "velocity": 64
+          },
+          {
+            "id": "t1n22",
+            "pitch": 29,
+            "at": "27/2",
+            "duration": "129/256",
+            "velocity": 64
+          },
+          {
+            "id": "t1n23",
+            "pitch": 29,
+            "at": "3585/256",
+            "duration": "763/512",
+            "velocity": 64
+          },
+          {
+            "id": "t1n24",
+            "pitch": 29,
+            "at": "3967/256",
+            "duration": "129/256",
+            "velocity": 64
+          }
+        ]
+      },
+      "source": "reserved:C:good lies"
+    },
+    {
+      "version": 1,
+      "id": "p12-preserve-exact-wider",
+      "family": "preservation",
+      "cohort": "source",
+      "input": {
+        "notes": [
+          {
+            "id": "x1",
+            "pitch": 54,
+            "at": "167/27",
+            "duration": "3/16",
+            "velocity": 110,
+            "channel": 2,
+            "mute": false,
+            "releaseVelocity": 0.4,
+            "chance": {
+              "enabled": true,
+              "value": 0.7
+            },
+            "expression": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.25,
+              "pressure": 0.5,
+              "timbre": 0.3,
+              "transpose": 0.5
+            }
+          },
+          {
+            "id": "x2",
+            "pitch": 54,
+            "at": "301/256",
+            "duration": "109/320",
+            "velocity": 42,
+            "channel": 3,
+            "annotation": {
+              "origin": "unknown",
+              "confidence": null,
+              "tags": [
+                "kept"
+              ]
+            }
+          },
+          {
+            "id": "x3",
+            "pitch": 77,
+            "at": "3841/960",
+            "duration": "811/513",
+            "velocity": 69
+          }
+        ]
+      },
+      "request": "Return the entire fixture unchanged, including exact rational spellings, original note order, all channels/expression/conditional state, and opaque annotations. Do not invent musical intent.",
+      "response": "surface",
+      "expected": {
+        "notes": [
+          {
+            "id": "x1",
+            "pitch": 54,
+            "at": "167/27",
+            "duration": "3/16",
+            "velocity": 110,
+            "channel": 2,
+            "mute": false,
+            "releaseVelocity": 0.4,
+            "chance": {
+              "enabled": true,
+              "value": 0.7
+            },
+            "expression": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.25,
+              "pressure": 0.5,
+              "timbre": 0.3,
+              "transpose": 0.5
+            }
+          },
+          {
+            "id": "x2",
+            "pitch": 54,
+            "at": "301/256",
+            "duration": "109/320",
+            "velocity": 42,
+            "channel": 3,
+            "annotation": {
+              "origin": "unknown",
+              "confidence": null,
+              "tags": [
+                "kept"
+              ]
+            }
+          },
+          {
+            "id": "x3",
+            "pitch": 77,
+            "at": "3841/960",
+            "duration": "811/513",
+            "velocity": 69
+          }
+        ]
+      },
+      "source": "synthetic",
+      "diagnostics": true
+    }
+  ],
+  "responses": [
+    {
+      "id": "p01-read-count-window--baseline-fields",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p01-read-count-window--baseline-json",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p01-read-count-window--c3-fields",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p01-read-count-window--c4-fields",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p01-read-count-window--pp-barbeat",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p01-read-count-window--pp-midi-json",
+      "response": "{\"total\":38,\"before\":17}",
+      "sha256": "828d120dd64bba35b71c510fcb15227345b21815be7926fe6d825cfc0adc3b95"
+    },
+    {
+      "id": "p02-read-group-timing--c3-fields",
+      "response": "{\"delay\":\"1/64\",\"spread\":\"1/32\",\"at\":\"451/64\"}",
+      "sha256": "86ffacef12b513d83887056c0c2ef95804e0151fd8f854c905180305c18b2f7e"
+    },
+    {
+      "id": "p02-read-group-timing--c4-fields",
+      "response": "{\"delay\":\"1/64\",\"spread\":\"1/32\",\"at\":\"451/64\"}",
+      "sha256": "86ffacef12b513d83887056c0c2ef95804e0151fd8f854c905180305c18b2f7e"
+    },
+    {
+      "id": "p02-read-group-timing--c3-json",
+      "response": "{\"delay\":\"1/64\",\"spread\":\"1/32\",\"at\":\"451/64\"}",
+      "sha256": "86ffacef12b513d83887056c0c2ef95804e0151fd8f854c905180305c18b2f7e"
+    },
+    {
+      "id": "p02-read-group-timing--c4-json",
+      "response": "{\"delay\":\"1/64\",\"spread\":\"1/32\",\"at\":\"451/64\"}",
+      "sha256": "86ffacef12b513d83887056c0c2ef95804e0151fd8f854c905180305c18b2f7e"
+    },
+    {
+      "id": "p02-read-group-timing--c4-detached-fields",
+      "response": "{\"delay\":\"1/64\",\"spread\":\"1/32\",\"at\":\"451/64\"}",
+      "sha256": "86ffacef12b513d83887056c0c2ef95804e0151fd8f854c905180305c18b2f7e"
+    },
+    {
+      "id": "p03-author-constrained--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT new2 clip 65/128 361/256 51 107 1 false\nEVENT new1 clip 865/512 815/512 59 54 1 false\nEVENT new3 clip 2535/512 59/64 47 97 1 false\nEVENT new6 clip 391/64 883/512 58 108 1 false\nEVENT new5 clip 427/64 371/256 70 62 1 false\nEVENT new4 clip 251/32 191/512 58 87 1 false\n",
+      "sha256": "62edd7a0dedaf62f262127de494dda824dee7206b7888b9fe65bfdb92b66d04f"
+    },
+    {
+      "id": "p03-author-constrained--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"65/128\",\"clip\":\"clip\",\"duration\":\"361/256\",\"id\":\"new2\",\"pitch\":51,\"velocity\":107},{\"at\":\"865/512\",\"clip\":\"clip\",\"duration\":\"815/512\",\"id\":\"new1\",\"pitch\":59,\"velocity\":54},{\"at\":\"2535/512\",\"clip\":\"clip\",\"duration\":\"59/64\",\"id\":\"new3\",\"pitch\":47,\"velocity\":97},{\"at\":\"391/64\",\"clip\":\"clip\",\"duration\":\"883/512\",\"id\":\"new6\",\"pitch\":58,\"velocity\":108},{\"at\":\"427/64\",\"clip\":\"clip\",\"duration\":\"371/256\",\"id\":\"new5\",\"pitch\":70,\"velocity\":62},{\"at\":\"251/32\",\"clip\":\"clip\",\"duration\":\"191/512\",\"id\":\"new4\",\"pitch\":58,\"velocity\":87}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "d3a58ae8a933f3bdc4b7a069478422f10b965b17e3309e9a683d9434a7cd9124"
+    },
+    {
+      "id": "p03-author-constrained--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE new1 59 865/512 815/512 54\nNOTE new2 51 65/128 361/256 107\nNOTE new3 47 2535/512 59/64 97\nNOTE new4 58 251/32 191/512 87\nNOTE new5 70 427/64 371/256 62\nNOTE new6 58 391/64 883/512 108\n",
+      "sha256": "5822cdb4b38d15dbea2cdc048bddb9f0dd62e169c2590e1fb79eb7a9cd010656"
+    },
+    {
+      "id": "p03-author-constrained--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE new1 59 865/512 815/512 54\n  NOTE new2 51 65/128 361/256 107\n  NOTE new3 47 2535/512 59/64 97\n  NOTE new4 58 251/32 191/512 87\n  NOTE new5 70 427/64 371/256 62\n  NOTE new6 58 391/64 883/512 108\n}\n",
+      "sha256": "aa3daf3ab658c38d1d1fa8c92eeb2cfac43147c454a69892ef81d3dd65aa3529"
+    },
+    {
+      "id": "p03-author-constrained--pp-barbeat",
+      "response": "v107 n361/1024 Eb2 1|1+n65/512\nv54 n815/2048 B2 1|2+n353/2048\nv97 n59/256 B1 2|1+n487/2048\nv108 n883/2048 Bb2 2|3+n7/256\nv62 n371/1024 Bb3 2|3+n43/256\nv87 n191/2048 Bb2 2|4+n27/128",
+      "sha256": "0e3abea40b61070f2b462a1a01777b5c3029dbedeeb6ee2da83ba4f001c1d437"
+    },
+    {
+      "id": "p03-author-constrained--pp-midi-json",
+      "response": "[{p:59,t:865/512,d:815/512,v:54},{p:51,t:65/128,d:361/256,v:107},{p:47,t:2535/512,d:59/64,v:97},{p:58,t:251/32,d:191/512,v:87},{p:70,t:427/64,d:371/256,v:62},{p:58,t:391/64,d:883/512,v:108}]",
+      "sha256": "6650b4af740af6ad1c401632765c53ddb03f76a9ea797e943dfaf8732e3680d7"
+    },
+    {
+      "id": "p04-author-known-spread--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"wGroup\",\"members\":[\"wa\",\"wb\",\"wc\",\"wd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"5/512\",\"spread\":{\"wa\":\"0\",\"wb\":\"3/256\",\"wc\":\"1/64\",\"wd\":\"1/32\"},\"performanceOrder\":[\"wa\",\"wb\",\"wc\",\"wd\"]}]}\nFIELDS id pitch at duration velocity groups\nNOTE wa 63 1029/512 395/256 95 [\"wGroup\"]\nNOTE wb 67 1035/512 453/512 102 [\"wGroup\"]\nNOTE wc 70 1037/512 473/512 84 [\"wGroup\"]\nNOTE wd 74 1045/512 485/512 62 [\"wGroup\"]\n",
+      "sha256": "c6507caf4f2b36dc98854b0e1b4e2283f981ed57db8f7b94db74addfe3155fe0"
+    },
+    {
+      "id": "p04-author-known-spread--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nGROUP wGroup anchor=2 delay=5/512 label=\"strummed seventh chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"wa\",\"wb\",\"wc\",\"wd\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE wa 63 395/256 95 0\n  NOTE wb 67 453/512 102 3/256\n  NOTE wc 70 473/512 84 1/64\n  NOTE wd 74 485/512 62 1/32\n}\n",
+      "sha256": "64a7915cd146552d27b1ff4fe451bc389ae658f9f353718c51c07c09f63ddecf"
+    },
+    {
+      "id": "p04-author-known-spread--c3-json",
+      "response": "{\"format\":\"r01-compact\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"wGroup\",\"members\":[\"wa\",\"wb\",\"wc\",\"wd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"5/512\",\"spread\":{\"wa\":\"0\",\"wb\":\"3/256\",\"wc\":\"1/64\",\"wd\":\"1/32\"},\"performanceOrder\":[\"wa\",\"wb\",\"wc\",\"wd\"]}]},\"rows\":[[\"wa\",63,\"1029/512\",\"395/256\",95,{},[\"wGroup\"],null],[\"wb\",67,\"1035/512\",\"453/512\",102,{},[\"wGroup\"],null],[\"wc\",70,\"1037/512\",\"473/512\",84,{},[\"wGroup\"],null],[\"wd\",74,\"1045/512\",\"485/512\",62,{},[\"wGroup\"],null]]}",
+      "sha256": "7d407a8a98d712ee37e6b5b55af10ebbc5e0706a607dccbc278a2494361b2483"
+    },
+    {
+      "id": "p04-author-known-spread--c4-json",
+      "response": "{\"format\":\"r01-grouped\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"wGroup\",\"members\":[\"wa\",\"wb\",\"wc\",\"wd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"5/512\",\"spread\":{\"wa\":\"0\",\"wb\":\"3/256\",\"wc\":\"1/64\",\"wd\":\"1/32\"},\"performanceOrder\":[\"wa\",\"wb\",\"wc\",\"wd\"]}]},\"rows\":[{\"note\":{\"id\":\"wa\",\"pitch\":63,\"duration\":\"395/256\",\"velocity\":95},\"time\":{\"group\":\"wGroup\"}},{\"note\":{\"id\":\"wb\",\"pitch\":67,\"duration\":\"453/512\",\"velocity\":102},\"time\":{\"group\":\"wGroup\"}},{\"note\":{\"id\":\"wc\",\"pitch\":70,\"duration\":\"473/512\",\"velocity\":84},\"time\":{\"group\":\"wGroup\"}},{\"note\":{\"id\":\"wd\",\"pitch\":74,\"duration\":\"485/512\",\"velocity\":62},\"time\":{\"group\":\"wGroup\"}}]}",
+      "sha256": "d0d6211eb32ed6d2bd18c252c51c3b53cbaeb96a43352f9c77333cb311a859ad"
+    },
+    {
+      "id": "p04-author-known-spread--c4-detached-fields",
+      "response": "R01-DETACHED-FIELDS 1\nGROUP wGroup anchor=2 delay=5/512 label=\"strummed seventh chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"wa\",\"wb\",\"wc\",\"wd\"]} {\n  ROWS r0\n}\nROWS r0 {\n  FIELDS id pitch duration velocity spread\n  NOTE wa 63 395/256 95 0\n  NOTE wb 67 453/512 102 3/256\n  NOTE wc 70 473/512 84 1/64\n  NOTE wd 74 485/512 62 1/32\n}\n",
+      "sha256": "1e5dd683ffce147ea806d631d52021673c720169feb118ad615aaf47ee62a192"
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 129/128 35 64 1 false\nEVENT t1n2 clip 515/512 131/256 35 64 1 false\nEVENT t1n3 clip 777/512 127/256 27 64 1 false\nEVENT t1n4 clip 1031/512 385/256 27 64 1 false\nEVENT t1n5 clip 1801/512 131/256 27 64 1 false\nEVENT t1n6 clip 2063/512 127/128 27 64 1 false\nEVENT t1n7 clip 2571/512 127/256 27 64 1 false\nEVENT t1n8 clip 2825/512 131/256 27 64 1 false\nEVENT t1n9 clip 3087/512 127/128 27 64 1 false\nEVENT t1n10 clip 3595/512 131/256 32 64 1 false\nEVENT t1n11 clip 3857/512 127/256 27 64 1 false\nEVENT t1n12 clip 2055/256 389/512 28 64 1 false\nEVENT t1n13 clip 4499/512 127/512 35 91 1 false\nEVENT t1n14 clip 2313/256 127/256 35 64 1 false\nEVENT t1n15 clip 305/32 131/256 27 64 1 false\nEVENT t1n16 clip 2571/256 127/512 27 64 1 false\nEVENT t1n17 clip 5269/512 127/512 34 64 1 false\nEVENT t1n18 clip 1349/128 127/256 39 64 1 false\nEVENT t1n19 clip 2825/256 127/256 39 64 1 false\nEVENT t1n20 clip 369/32 131/256 27 64 1 false\nEVENT t1n21 clip 3083/256 381/256 27 64 1 false\nEVENT t1n22 clip 433/32 131/256 27 64 1 false\nEVENT t1n23 clip 3595/256 125/128 27 64 1 false\nEVENT t1n24 clip 497/32 127/256 32 64 1 false\n",
+      "sha256": "d226909c4fbe70f770b8dc7e557f02216e20471fe69ca82d7c9837ce762dec79"
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"129/128\",\"id\":\"t1n1\",\"pitch\":35,\"velocity\":64},{\"at\":\"515/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n2\",\"pitch\":35,\"velocity\":64},{\"at\":\"777/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n3\",\"pitch\":27,\"velocity\":64},{\"at\":\"1031/512\",\"clip\":\"clip\",\"duration\":\"385/256\",\"id\":\"t1n4\",\"pitch\":27,\"velocity\":64},{\"at\":\"1801/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n5\",\"pitch\":27,\"velocity\":64},{\"at\":\"2063/512\",\"clip\":\"clip\",\"duration\":\"127/128\",\"id\":\"t1n6\",\"pitch\":27,\"velocity\":64},{\"at\":\"2571/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n7\",\"pitch\":27,\"velocity\":64},{\"at\":\"2825/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n8\",\"pitch\":27,\"velocity\":64},{\"at\":\"3087/512\",\"clip\":\"clip\",\"duration\":\"127/128\",\"id\":\"t1n9\",\"pitch\":27,\"velocity\":64},{\"at\":\"3595/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n10\",\"pitch\":32,\"velocity\":64},{\"at\":\"3857/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n11\",\"pitch\":27,\"velocity\":64},{\"at\":\"2055/256\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n12\",\"pitch\":28,\"velocity\":64},{\"at\":\"4499/512\",\"clip\":\"clip\",\"duration\":\"127/512\",\"id\":\"t1n13\",\"pitch\":35,\"velocity\":91},{\"at\":\"2313/256\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n14\",\"pitch\":35,\"velocity\":64},{\"at\":\"305/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n15\",\"pitch\":27,\"velocity\":64},{\"at\":\"2571/256\",\"clip\":\"clip\",\"duration\":\"127/512\",\"id\":\"t1n16\",\"pitch\":27,\"velocity\":64},{\"at\":\"5269/512\",\"clip\":\"clip\",\"duration\":\"127/512\",\"id\":\"t1n17\",\"pitch\":34,\"velocity\":64},{\"at\":\"1349/128\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n18\",\"pitch\":39,\"velocity\":64},{\"at\":\"2825/256\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n19\",\"pitch\":39,\"velocity\":64},{\"at\":\"369/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n20\",\"pitch\":27,\"velocity\":64},{\"at\":\"3083/256\",\"clip\":\"clip\",\"duration\":\"381/256\",\"id\":\"t1n21\",\"pitch\":27,\"velocity\":64},{\"at\":\"433/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n22\",\"pitch\":27,\"velocity\":64},{\"at\":\"3595/256\",\"clip\":\"clip\",\"duration\":\"125/128\",\"id\":\"t1n23\",\"pitch\":27,\"velocity\":64},{\"at\":\"497/32\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n24\",\"pitch\":32,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "1f04d39f2b22c05cf3bf81b29f546207f3ed0b0e19eb40a63a87e4d4ddda88f3"
+    },
+    {
+      "id": "p05-edit-velocity-large--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 35 0 129/128 64\nNOTE t1n2 35 515/512 131/256 64\nNOTE t1n3 27 777/512 127/256 64\nNOTE t1n4 27 1031/512 385/256 64\nNOTE t1n5 27 1801/512 131/256 64\nNOTE t1n6 27 2063/512 127/128 64\nNOTE t1n7 27 2571/512 127/256 64\nNOTE t1n8 27 2825/512 131/256 64\nNOTE t1n9 27 3087/512 127/128 64\nNOTE t1n10 32 3595/512 131/256 64\nNOTE t1n11 27 3857/512 127/256 64\nNOTE t1n12 28 2055/256 389/512 64\nNOTE t1n13 35 4499/512 127/512 91\nNOTE t1n14 35 2313/256 127/256 64\nNOTE t1n15 27 305/32 131/256 64\nNOTE t1n16 27 2571/256 127/512 64\nNOTE t1n17 34 5269/512 127/512 64\nNOTE t1n18 39 1349/128 127/256 64\nNOTE t1n19 39 2825/256 127/256 64\nNOTE t1n20 27 369/32 131/256 64\nNOTE t1n21 27 3083/256 381/256 64\nNOTE t1n22 27 433/32 131/256 64\nNOTE t1n23 27 3595/256 125/128 64\nNOTE t1n24 32 497/32 127/256 64\n",
+      "sha256": "05e47112974f109d26a94f7b96b94de8fa39b51abb0020b1171428c9c2b01c8a"
+    },
+    {
+      "id": "p05-edit-velocity-large--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 35 0 129/128 64\n  NOTE t1n2 35 515/512 131/256 64\n  NOTE t1n3 27 777/512 127/256 64\n  NOTE t1n4 27 1031/512 385/256 64\n  NOTE t1n5 27 1801/512 131/256 64\n  NOTE t1n6 27 2063/512 127/128 64\n  NOTE t1n7 27 2571/512 127/256 64\n  NOTE t1n8 27 2825/512 131/256 64\n  NOTE t1n9 27 3087/512 127/128 64\n  NOTE t1n10 32 3595/512 131/256 64\n  NOTE t1n11 27 3857/512 127/256 64\n  NOTE t1n12 28 2055/256 389/512 64\n  NOTE t1n13 35 4499/512 127/512 91\n  NOTE t1n14 35 2313/256 127/256 64\n  NOTE t1n15 27 305/32 131/256 64\n  NOTE t1n16 27 2571/256 127/512 64\n  NOTE t1n17 34 5269/512 127/512 64\n  NOTE t1n18 39 1349/128 127/256 64\n  NOTE t1n19 39 2825/256 127/256 64\n  NOTE t1n20 27 369/32 131/256 64\n  NOTE t1n21 27 3083/256 381/256 64\n  NOTE t1n22 27 433/32 131/256 64\n  NOTE t1n23 27 3595/256 125/128 64\n  NOTE t1n24 32 497/32 127/256 64\n}\n",
+      "sha256": "c364327b1260078fd54b6e1e394e63b1affca97378819571480939ed31396bb8"
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-barbeat",
+      "response": "v64 n129/512 B0 1|1\nn131/1024 B0 1|2+n3/2048\nn127/1024 Eb0 1|2+n265/2048\nn385/1024 Eb0 1|3+n7/2048\nn131/1024 Eb0 1|4+n265/2048\nn127/512 Eb0 2|1+n15/2048,3+n15/2048\nn127/1024 Eb0 2|2+n11/2048,4+n273/2048\nn131/1024 Eb0 2|2+n265/2048\nAb0 2|4+n11/2048\nn389/2048 E0 3|1+n7/1024\nv91 n127/2048 B0 3|1+n403/2048\nv64 n127/1024 B0 3|2+n9/1024\nn131/1024 Eb0 3|2+n17/128,4+n17/128\nn127/2048 Eb0 3|3+n11/1024\nBb0 3|3+n149/2048\nn127/1024 Eb1 3|3+n69/512,4+n9/1024\nn381/1024 Eb0 4|1+n11/1024\nn131/1024 Eb0 4|2+n17/128\nn125/512 Eb0 4|3+n11/1024\nn127/1024 Ab0 4|4+n17/128",
+      "sha256": "2b9ec6dc1fcc5589d489261c3ea03f872b3597f8fd4a434392801f6f514f8491"
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-midi-json",
+      "response": "[{p:35,t:0,d:129/128,v:64},{p:35,t:515/512,d:131/256,v:64},{p:27,t:777/512,d:127/256,v:64},{p:27,t:1031/512,d:385/256,v:64},{p:27,t:1801/512,d:131/256,v:64},{p:27,t:2063/512,d:127/128,v:64},{p:27,t:2571/512,d:127/256,v:64},{p:27,t:2825/512,d:131/256,v:64},{p:27,t:3087/512,d:127/128,v:64},{p:32,t:3595/512,d:131/256,v:64},{p:27,t:3857/512,d:127/256,v:64},{p:28,t:2055/256,d:389/512,v:64},{p:35,t:4499/512,d:127/512,v:91},{p:35,t:2313/256,d:127/256,v:64},{p:27,t:305/32,d:131/256,v:64},{p:27,t:2571/256,d:127/512,v:64},{p:34,t:5269/512,d:127/512,v:64},{p:39,t:1349/128,d:127/256,v:64},{p:39,t:2825/256,d:127/256,v:64},{p:27,t:369/32,d:131/256,v:64},{p:27,t:3083/256,d:381/256,v:64},{p:27,t:433/32,d:131/256,v:64},{p:27,t:3595/256,d:125/128,v:64},{p:32,t:497/32,d:127/256,v:64}]",
+      "sha256": "23a6ea758b15419dcb03bc2d2140188b516c4f2e64572a00f1a4ea5abba95278"
+    },
+    {
+      "id": "p06-edit-transpose--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 129/512 36 64 1 false\nEVENT t1n2 clip 129/512 129/256 36 64 1 false\nEVENT t1n3 clip 387/512 387/512 36 64 1 false\nEVENT t1n4 clip 387/256 247/512 34 64 1 false\nEVENT t1n5 clip 1021/512 129/512 34 64 1 false\nEVENT t1n6 clip 575/256 387/512 34 64 1 false\nEVENT t1n7 clip 1537/512 129/256 34 64 1 false\nEVENT t1n8 clip 1795/512 129/256 34 64 1 false\nEVENT t1n9 clip 2053/512 129/512 32 64 1 false\nEVENT t1n10 clip 1091/256 129/256 32 64 1 false\nEVENT t1n11 clip 305/64 47/64 32 64 1 false\nEVENT t1n12 clip 11/2 129/256 29 64 1 false\nEVENT t1n13 clip 1537/256 763/512 31 64 1 false\nEVENT t1n14 clip 1919/256 129/256 29 64 1 false\nEVENT t1n15 clip 8 387/512 36 64 1 false\nEVENT t1n16 clip 4483/512 387/512 36 64 1 false\nEVENT t1n17 clip 2435/256 247/512 34 64 1 false\nEVENT t1n18 clip 5117/512 387/256 34 64 1 false\nEVENT t1n19 clip 5891/512 129/256 34 64 1 false\nEVENT t1n20 clip 6149/512 387/512 32 64 1 false\nEVENT t1n21 clip 817/64 47/64 32 64 1 false\nEVENT t1n22 clip 27/2 129/256 29 64 1 false\nEVENT t1n23 clip 3585/256 763/512 29 64 1 false\nEVENT t1n24 clip 3967/256 129/256 29 64 1 false\n",
+      "sha256": "89bc433bb9d5ae7b8a44247af53d4c93026bcfd00d7c3b83e0b9e055bc3d9137"
+    },
+    {
+      "id": "p06-edit-transpose--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n1\",\"pitch\":36,\"velocity\":64},{\"at\":\"129/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n2\",\"pitch\":36,\"velocity\":64},{\"at\":\"387/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n3\",\"pitch\":36,\"velocity\":64},{\"at\":\"387/256\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n4\",\"pitch\":34,\"velocity\":64},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n5\",\"pitch\":34,\"velocity\":64},{\"at\":\"575/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n6\",\"pitch\":34,\"velocity\":64},{\"at\":\"1537/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n7\",\"pitch\":34,\"velocity\":64},{\"at\":\"1795/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n8\",\"pitch\":34,\"velocity\":64},{\"at\":\"2053/512\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n9\",\"pitch\":32,\"velocity\":64},{\"at\":\"1091/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n10\",\"pitch\":32,\"velocity\":64},{\"at\":\"305/64\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n11\",\"pitch\":32,\"velocity\":64},{\"at\":\"11/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n12\",\"pitch\":29,\"velocity\":64},{\"at\":\"1537/256\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n13\",\"pitch\":31,\"velocity\":64},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n14\",\"pitch\":29,\"velocity\":64},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n15\",\"pitch\":36,\"velocity\":64},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n16\",\"pitch\":36,\"velocity\":64},{\"at\":\"2435/256\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n17\",\"pitch\":34,\"velocity\":64},{\"at\":\"5117/512\",\"clip\":\"clip\",\"duration\":\"387/256\",\"id\":\"t1n18\",\"pitch\":34,\"velocity\":64},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n19\",\"pitch\":34,\"velocity\":64},{\"at\":\"6149/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n20\",\"pitch\":32,\"velocity\":64},{\"at\":\"817/64\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n21\",\"pitch\":32,\"velocity\":64},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n22\",\"pitch\":29,\"velocity\":64},{\"at\":\"3585/256\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n23\",\"pitch\":29,\"velocity\":64},{\"at\":\"3967/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n24\",\"pitch\":29,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "c2c214dd872e43e7d933a14cb3079c55c08e2e45f8fd6756d2432bcf4b54bf6f"
+    },
+    {
+      "id": "p06-edit-transpose--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 36 0 129/512 64\nNOTE t1n2 36 129/512 129/256 64\nNOTE t1n3 36 387/512 387/512 64\nNOTE t1n4 34 387/256 247/512 64\nNOTE t1n5 34 1021/512 129/512 64\nNOTE t1n6 34 575/256 387/512 64\nNOTE t1n7 34 1537/512 129/256 64\nNOTE t1n8 34 1795/512 129/256 64\nNOTE t1n9 32 2053/512 129/512 64\nNOTE t1n10 32 1091/256 129/256 64\nNOTE t1n11 32 305/64 47/64 64\nNOTE t1n12 29 11/2 129/256 64\nNOTE t1n13 31 1537/256 763/512 64\nNOTE t1n14 29 1919/256 129/256 64\nNOTE t1n15 36 8 387/512 64\nNOTE t1n16 36 4483/512 387/512 64\nNOTE t1n17 34 2435/256 247/512 64\nNOTE t1n18 34 5117/512 387/256 64\nNOTE t1n19 34 5891/512 129/256 64\nNOTE t1n20 32 6149/512 387/512 64\nNOTE t1n21 32 817/64 47/64 64\nNOTE t1n22 29 27/2 129/256 64\nNOTE t1n23 29 3585/256 763/512 64\nNOTE t1n24 29 3967/256 129/256 64\n",
+      "sha256": "890be0e71dffbede437dd2a816f397a3e78ca67421881d1c536967cfcba306d6"
+    },
+    {
+      "id": "p06-edit-transpose--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 36 0 129/512 64\n  NOTE t1n2 36 129/512 129/256 64\n  NOTE t1n3 36 387/512 387/512 64\n  NOTE t1n4 34 387/256 247/512 64\n  NOTE t1n5 34 1021/512 129/512 64\n  NOTE t1n6 34 575/256 387/512 64\n  NOTE t1n7 34 1537/512 129/256 64\n  NOTE t1n8 34 1795/512 129/256 64\n  NOTE t1n9 32 2053/512 129/512 64\n  NOTE t1n10 32 1091/256 129/256 64\n  NOTE t1n11 32 305/64 47/64 64\n  NOTE t1n12 29 11/2 129/256 64\n  NOTE t1n13 31 1537/256 763/512 64\n  NOTE t1n14 29 1919/256 129/256 64\n  NOTE t1n15 36 8 387/512 64\n  NOTE t1n16 36 4483/512 387/512 64\n  NOTE t1n17 34 2435/256 247/512 64\n  NOTE t1n18 34 5117/512 387/256 64\n  NOTE t1n19 34 5891/512 129/256 64\n  NOTE t1n20 32 6149/512 387/512 64\n  NOTE t1n21 32 817/64 47/64 64\n  NOTE t1n22 29 27/2 129/256 64\n  NOTE t1n23 29 3585/256 763/512 64\n  NOTE t1n24 29 3967/256 129/256 64\n}\n",
+      "sha256": "9368a67ea938ca073474b8bf2974f18e1386976373018cad2f4ab5c5baabc159"
+    },
+    {
+      "id": "p06-edit-transpose--pp-barbeat",
+      "response": "v64 n129/2048 C1 1|1\nn129/1024 C1 1|1+n129/2048\nn387/2048 C1 1|1+n387/2048\nn247/2048 Bb0 1|2+n131/1024\nn129/2048 Bb0 1|2+n509/2048\nn387/2048 Bb0 1|3+n63/1024\nn129/1024 Bb0 1|4+n/2048,4+n259/2048\nn129/2048 Ab0 2|1+n5/2048\nn129/1024 Ab0 2|1+n67/1024\nn47/256 Ab0 2|1+n49/256\nn129/1024 F0 2|2.5,4+n127/1024\nn763/2048 G0 2|3+n/1024\nn387/2048 C1 3|1,1+n387/2048\nn247/2048 Bb0 3|2+n131/1024\nn387/1024 Bb0 3|2+n509/2048\nn129/1024 Bb0 3|4+n259/2048\nn387/2048 Ab0 4|1+n5/2048\nn47/256 Ab0 4|1+n49/256\nn129/1024 F0 4|2.5,4+n127/1024\nn763/2048 F0 4|3+n/1024",
+      "sha256": "fbc140a270fe130f2f44c9509b6d0c7edbcf0a5ffe5ae5ad5890e8fdd7992644"
+    },
+    {
+      "id": "p06-edit-transpose--pp-midi-json",
+      "response": "[{p:36,t:0,d:129/512,v:64},{p:36,t:129/512,d:129/256,v:64},{p:36,t:387/512,d:387/512,v:64},{p:34,t:387/256,d:247/512,v:64},{p:34,t:1021/512,d:129/512,v:64},{p:34,t:575/256,d:387/512,v:64},{p:34,t:1537/512,d:129/256,v:64},{p:34,t:1795/512,d:129/256,v:64},{p:32,t:2053/512,d:129/512,v:64},{p:32,t:1091/256,d:129/256,v:64},{p:32,t:305/64,d:47/64,v:64},{p:29,t:5.5,d:129/256,v:64},{p:31,t:1537/256,d:763/512,v:64},{p:29,t:1919/256,d:129/256,v:64},{p:36,t:8,d:387/512,v:64},{p:36,t:4483/512,d:387/512,v:64},{p:34,t:2435/256,d:247/512,v:64},{p:34,t:5117/512,d:387/256,v:64},{p:34,t:5891/512,d:129/256,v:64},{p:32,t:6149/512,d:387/512,v:64},{p:32,t:817/64,d:47/64,v:64},{p:29,t:13.5,d:129/256,v:64},{p:29,t:3585/256,d:763/512,v:64},{p:29,t:3967/256,d:129/256,v:64}]",
+      "sha256": "2f43bd7487dc7b0b3a4279ca50ed08b4dff962c3057c0c8b07a7b0b21eeea9c0"
+    },
+    {
+      "id": "p07-halve-group-spread--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"hGroup\",\"members\":[\"ha\",\"hb\",\"hc\",\"hd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"7/512\",\"spread\":{\"ha\":\"0\",\"hb\":\"1/512\",\"hc\":\"5/512\",\"hd\":\"1/64\"},\"performanceOrder\":[\"ha\",\"hb\",\"hc\",\"hd\"]},{\"id\":\"hInner\",\"members\":[\"hb\",\"hc\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]}\nFIELDS id pitch at duration velocity groups\nNOTE ha 55 1031/512 939/512 106 [\"hGroup\"]\nNOTE hb 59 129/64 509/256 73 [\"hGroup\",\"hInner\"]\nNOTE hc 62 259/128 677/512 100 [\"hGroup\",\"hInner\"]\nNOTE hd 66 1039/512 19/32 87 [\"hGroup\"]\nNOTE hLoose 45 73/128 1 77 -\n",
+      "sha256": "cc35b03a86a07f61043057a510a17a059068d20b301e042d854d23dd2e742fda"
+    },
+    {
+      "id": "p07-halve-group-spread--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nGROUP hGroup anchor=2 delay=7/512 label=\"strummed seventh chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ha\",\"hb\",\"hc\",\"hd\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE ha 55 939/512 106 0\n  NOTE hb 59 509/256 73 1/512\n  NOTE hc 62 677/512 100 5/512\n  NOTE hd 66 19/32 87 1/64\n}\nGROUP hInner label=\"inner voices\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}} {\n  REF hb\n  REF hc\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE hLoose 45 73/128 1 77\n}\n",
+      "sha256": "daf23651b7d142fd643741291410c92f0b1a567b8004332e7915876bcf20a266"
+    },
+    {
+      "id": "p07-halve-group-spread--c3-json",
+      "response": "{\"format\":\"r01-compact\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"hGroup\",\"members\":[\"ha\",\"hb\",\"hc\",\"hd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"7/512\",\"spread\":{\"ha\":\"0\",\"hb\":\"1/512\",\"hc\":\"5/512\",\"hd\":\"1/64\"},\"performanceOrder\":[\"ha\",\"hb\",\"hc\",\"hd\"]},{\"id\":\"hInner\",\"members\":[\"hb\",\"hc\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]},\"rows\":[[\"ha\",55,\"1031/512\",\"939/512\",106,{},[\"hGroup\"],null],[\"hb\",59,\"129/64\",\"509/256\",73,{},[\"hGroup\",\"hInner\"],null],[\"hc\",62,\"259/128\",\"677/512\",100,{},[\"hGroup\",\"hInner\"],null],[\"hd\",66,\"1039/512\",\"19/32\",87,{},[\"hGroup\"],null],[\"hLoose\",45,\"73/128\",\"1\",77,{},[],null]]}",
+      "sha256": "16f749a7146bee1dcbd5d5493f7194549dfe2a02b27f06577eddedd7357facb5"
+    },
+    {
+      "id": "p07-halve-group-spread--c4-json",
+      "response": "{\"format\":\"r01-grouped\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"hGroup\",\"members\":[\"ha\",\"hb\",\"hc\",\"hd\"],\"label\":\"strummed seventh chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"7/512\",\"spread\":{\"ha\":\"0\",\"hb\":\"1/512\",\"hc\":\"5/512\",\"hd\":\"1/64\"},\"performanceOrder\":[\"ha\",\"hb\",\"hc\",\"hd\"]},{\"id\":\"hInner\",\"members\":[\"hb\",\"hc\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]},\"rows\":[{\"note\":{\"id\":\"ha\",\"pitch\":55,\"duration\":\"939/512\",\"velocity\":106},\"time\":{\"group\":\"hGroup\"}},{\"note\":{\"id\":\"hb\",\"pitch\":59,\"duration\":\"509/256\",\"velocity\":73},\"time\":{\"group\":\"hGroup\"}},{\"note\":{\"id\":\"hc\",\"pitch\":62,\"duration\":\"677/512\",\"velocity\":100},\"time\":{\"group\":\"hGroup\"}},{\"note\":{\"id\":\"hd\",\"pitch\":66,\"duration\":\"19/32\",\"velocity\":87},\"time\":{\"group\":\"hGroup\"}},{\"note\":{\"id\":\"hLoose\",\"pitch\":45,\"at\":\"73/128\",\"duration\":\"1\",\"velocity\":77},\"time\":null}]}",
+      "sha256": "dc8890f88303215730db96bfa16cd7b483e6dd7fb053c9273e5a6582ffda95d2"
+    },
+    {
+      "id": "p07-halve-group-spread--c4-detached-fields",
+      "response": "R01-DETACHED-FIELDS 1\nGROUP hGroup anchor=2 delay=7/512 label=\"strummed seventh chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ha\",\"hb\",\"hc\",\"hd\"]} {\n  ROWS r0\n}\nGROUP hInner label=\"inner voices\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}} {\n  ROWS r1\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE hLoose 45 73/128 1 77\n}\nROWS r0 {\n  FIELDS id pitch duration velocity spread\n  NOTE ha 55 939/512 106 0\n  NOTE hb 59 509/256 73 1/512\n  NOTE hc 62 677/512 100 5/512\n  NOTE hd 66 19/32 87 1/64\n}\nROWS r1 {\n  REF hb\n  REF hc\n}\n",
+      "sha256": "c0c3a44ef723a1bb376e074d4f424f3c45333f85cda75d12614edfe24f2cafea"
+    },
+    {
+      "id": "p08-shift-onset-range--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 77/256 78 64 1 false\nEVENT t1n2 clip 153/512 123/128 78 64 1 false\nEVENT t1n3 clip 645/512 133/256 85 64 1 false\nEVENT t1n4 clip 911/512 51/512 73 64 1 false\nEVENT t1n5 clip 481/256 9/64 83 64 1 false\nEVENT t1n6 clip 517/256 195/512 70 64 1 false\nEVENT t1n7 clip 307/128 23/128 71 64 1 false\nEVENT t1n8 clip 165/64 901/256 66 64 1 false\nEVENT t1n9 clip 3187/512 55/64 75 64 1 false\nEVENT t1n10 clip 3187/512 195/512 83 64 1 false\nEVENT t1n11 clip 3381/512 123/512 78 64 1 false\nEVENT t1n12 clip 219/32 123/512 90 64 1 false\nEVENT t1n13 clip 3627/512 517/256 59 64 1 false\nEVENT t1n14 clip 3627/512 517/256 66 64 1 false\nEVENT t1n15 clip 3627/512 645/512 71 64 1 false\nEVENT t1n16 clip 3627/512 261/256 75 64 1 false\nEVENT t1n17 clip 4149/512 123/512 78 64 1 false\nEVENT t1n18 clip 263/32 389/512 71 64 1 false\nEVENT t1n19 clip 4331/512 123/512 83 64 1 false\nEVENT t1n20 clip 2227/256 143/512 83 64 1 false\nEVENT t1n21 clip 4597/512 2939/512 64 64 1 false\nEVENT t1n22 clip 4597/512 2939/512 71 64 1 false\nEVENT t1n23 clip 4597/512 247/64 78 64 1 false\nEVENT t1n24 clip 3287/256 225/512 82 64 1 false\nEVENT t1n25 clip 6799/512 225/512 83 64 1 false\nEVENT t1n26 clip 439/32 123/512 82 64 1 false\nEVENT t1n27 clip 7147/512 51/256 82 64 1 false\nEVENT t1n28 clip 7249/512 41/256 83 64 1 false\nEVENT t1n29 clip 7331/512 23/128 83 64 1 false\nEVENT t1n30 clip 29/2 113/512 83 64 1 false\nEVENT t1n31 clip 471/32 407/128 66 64 1 false\nEVENT t1n32 clip 471/32 407/128 71 64 1 false\nEVENT t1n33 clip 471/32 123/256 78 64 1 false\nEVENT t1n34 clip 3891/256 61/512 83 64 1 false\nEVENT t1n35 clip 7843/512 51/256 85 64 1 false\nEVENT t1n36 clip 3973/256 123/512 85 64 1 false\nEVENT t1n37 clip 8069/512 1055/512 73 64 1 false\nEVENT t1n38 clip 8069/512 123/512 90 64 1 false\n",
+      "sha256": "bcc46910e89391d580f01e9b6c4e069147383400d17995541a4dd5d646026b8c"
+    },
+    {
+      "id": "p08-shift-onset-range--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"77/256\",\"id\":\"t1n1\",\"pitch\":78,\"velocity\":64},{\"at\":\"153/512\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n2\",\"pitch\":78,\"velocity\":64},{\"at\":\"645/512\",\"clip\":\"clip\",\"duration\":\"133/256\",\"id\":\"t1n3\",\"pitch\":85,\"velocity\":64},{\"at\":\"911/512\",\"clip\":\"clip\",\"duration\":\"51/512\",\"id\":\"t1n4\",\"pitch\":73,\"velocity\":64},{\"at\":\"481/256\",\"clip\":\"clip\",\"duration\":\"9/64\",\"id\":\"t1n5\",\"pitch\":83,\"velocity\":64},{\"at\":\"517/256\",\"clip\":\"clip\",\"duration\":\"195/512\",\"id\":\"t1n6\",\"pitch\":70,\"velocity\":64},{\"at\":\"307/128\",\"clip\":\"clip\",\"duration\":\"23/128\",\"id\":\"t1n7\",\"pitch\":71,\"velocity\":64},{\"at\":\"165/64\",\"clip\":\"clip\",\"duration\":\"901/256\",\"id\":\"t1n8\",\"pitch\":66,\"velocity\":64},{\"at\":\"3187/512\",\"clip\":\"clip\",\"duration\":\"55/64\",\"id\":\"t1n9\",\"pitch\":75,\"velocity\":64},{\"at\":\"3187/512\",\"clip\":\"clip\",\"duration\":\"195/512\",\"id\":\"t1n10\",\"pitch\":83,\"velocity\":64},{\"at\":\"3381/512\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n11\",\"pitch\":78,\"velocity\":64},{\"at\":\"219/32\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n12\",\"pitch\":90,\"velocity\":64},{\"at\":\"3627/512\",\"clip\":\"clip\",\"duration\":\"517/256\",\"id\":\"t1n13\",\"pitch\":59,\"velocity\":64},{\"at\":\"3627/512\",\"clip\":\"clip\",\"duration\":\"517/256\",\"id\":\"t1n14\",\"pitch\":66,\"velocity\":64},{\"at\":\"3627/512\",\"clip\":\"clip\",\"duration\":\"645/512\",\"id\":\"t1n15\",\"pitch\":71,\"velocity\":64},{\"at\":\"3627/512\",\"clip\":\"clip\",\"duration\":\"261/256\",\"id\":\"t1n16\",\"pitch\":75,\"velocity\":64},{\"at\":\"4149/512\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n17\",\"pitch\":78,\"velocity\":64},{\"at\":\"263/32\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n18\",\"pitch\":71,\"velocity\":64},{\"at\":\"4331/512\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n19\",\"pitch\":83,\"velocity\":64},{\"at\":\"2227/256\",\"clip\":\"clip\",\"duration\":\"143/512\",\"id\":\"t1n20\",\"pitch\":83,\"velocity\":64},{\"at\":\"4597/512\",\"clip\":\"clip\",\"duration\":\"2939/512\",\"id\":\"t1n21\",\"pitch\":64,\"velocity\":64},{\"at\":\"4597/512\",\"clip\":\"clip\",\"duration\":\"2939/512\",\"id\":\"t1n22\",\"pitch\":71,\"velocity\":64},{\"at\":\"4597/512\",\"clip\":\"clip\",\"duration\":\"247/64\",\"id\":\"t1n23\",\"pitch\":78,\"velocity\":64},{\"at\":\"3287/256\",\"clip\":\"clip\",\"duration\":\"225/512\",\"id\":\"t1n24\",\"pitch\":82,\"velocity\":64},{\"at\":\"6799/512\",\"clip\":\"clip\",\"duration\":\"225/512\",\"id\":\"t1n25\",\"pitch\":83,\"velocity\":64},{\"at\":\"439/32\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n26\",\"pitch\":82,\"velocity\":64},{\"at\":\"7147/512\",\"clip\":\"clip\",\"duration\":\"51/256\",\"id\":\"t1n27\",\"pitch\":82,\"velocity\":64},{\"at\":\"7249/512\",\"clip\":\"clip\",\"duration\":\"41/256\",\"id\":\"t1n28\",\"pitch\":83,\"velocity\":64},{\"at\":\"7331/512\",\"clip\":\"clip\",\"duration\":\"23/128\",\"id\":\"t1n29\",\"pitch\":83,\"velocity\":64},{\"at\":\"29/2\",\"clip\":\"clip\",\"duration\":\"113/512\",\"id\":\"t1n30\",\"pitch\":83,\"velocity\":64},{\"at\":\"471/32\",\"clip\":\"clip\",\"duration\":\"407/128\",\"id\":\"t1n31\",\"pitch\":66,\"velocity\":64},{\"at\":\"471/32\",\"clip\":\"clip\",\"duration\":\"407/128\",\"id\":\"t1n32\",\"pitch\":71,\"velocity\":64},{\"at\":\"471/32\",\"clip\":\"clip\",\"duration\":\"123/256\",\"id\":\"t1n33\",\"pitch\":78,\"velocity\":64},{\"at\":\"3891/256\",\"clip\":\"clip\",\"duration\":\"61/512\",\"id\":\"t1n34\",\"pitch\":83,\"velocity\":64},{\"at\":\"7843/512\",\"clip\":\"clip\",\"duration\":\"51/256\",\"id\":\"t1n35\",\"pitch\":85,\"velocity\":64},{\"at\":\"3973/256\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n36\",\"pitch\":85,\"velocity\":64},{\"at\":\"8069/512\",\"clip\":\"clip\",\"duration\":\"1055/512\",\"id\":\"t1n37\",\"pitch\":73,\"velocity\":64},{\"at\":\"8069/512\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n38\",\"pitch\":90,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "b22ded89f20cdd43fb5bd2e76fc468d5f3d55dba8bf9d0a2ea1308088914c8cd"
+    },
+    {
+      "id": "p08-shift-onset-range--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 78 0 77/256 64\nNOTE t1n2 78 153/512 123/128 64\nNOTE t1n3 85 645/512 133/256 64\nNOTE t1n4 73 911/512 51/512 64\nNOTE t1n5 83 481/256 9/64 64\nNOTE t1n6 70 517/256 195/512 64\nNOTE t1n7 71 307/128 23/128 64\nNOTE t1n8 66 165/64 901/256 64\nNOTE t1n10 83 3187/512 195/512 64\nNOTE t1n9 75 3187/512 55/64 64\nNOTE t1n11 78 3381/512 123/512 64\nNOTE t1n12 90 219/32 123/512 64\nNOTE t1n13 59 3627/512 517/256 64\nNOTE t1n14 66 3627/512 517/256 64\nNOTE t1n15 71 3627/512 645/512 64\nNOTE t1n16 75 3627/512 261/256 64\nNOTE t1n17 78 4149/512 123/512 64\nNOTE t1n18 71 263/32 389/512 64\nNOTE t1n19 83 4331/512 123/512 64\nNOTE t1n20 83 2227/256 143/512 64\nNOTE t1n21 64 4597/512 2939/512 64\nNOTE t1n22 71 4597/512 2939/512 64\nNOTE t1n23 78 4597/512 247/64 64\nNOTE t1n24 82 3287/256 225/512 64\nNOTE t1n25 83 6799/512 225/512 64\nNOTE t1n26 82 439/32 123/512 64\nNOTE t1n27 82 7147/512 51/256 64\nNOTE t1n28 83 7249/512 41/256 64\nNOTE t1n29 83 7331/512 23/128 64\nNOTE t1n30 83 29/2 113/512 64\nNOTE t1n31 66 471/32 407/128 64\nNOTE t1n32 71 471/32 407/128 64\nNOTE t1n33 78 471/32 123/256 64\nNOTE t1n34 83 3891/256 61/512 64\nNOTE t1n35 85 7843/512 51/256 64\nNOTE t1n36 85 3973/256 123/512 64\nNOTE t1n37 73 8069/512 1055/512 64\nNOTE t1n38 90 8069/512 123/512 64\n",
+      "sha256": "643806683797d25be12ebb94fd50eb082a06d32aa1ed6dc13b0c05aed96def55"
+    },
+    {
+      "id": "p08-shift-onset-range--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 78 0 77/256 64\n  NOTE t1n2 78 153/512 123/128 64\n  NOTE t1n3 85 645/512 133/256 64\n  NOTE t1n4 73 911/512 51/512 64\n  NOTE t1n5 83 481/256 9/64 64\n  NOTE t1n6 70 517/256 195/512 64\n  NOTE t1n7 71 307/128 23/128 64\n  NOTE t1n8 66 165/64 901/256 64\n  NOTE t1n10 83 3187/512 195/512 64\n  NOTE t1n9 75 3187/512 55/64 64\n  NOTE t1n11 78 3381/512 123/512 64\n  NOTE t1n12 90 219/32 123/512 64\n  NOTE t1n13 59 3627/512 517/256 64\n  NOTE t1n14 66 3627/512 517/256 64\n  NOTE t1n15 71 3627/512 645/512 64\n  NOTE t1n16 75 3627/512 261/256 64\n  NOTE t1n17 78 4149/512 123/512 64\n  NOTE t1n18 71 263/32 389/512 64\n  NOTE t1n19 83 4331/512 123/512 64\n  NOTE t1n20 83 2227/256 143/512 64\n  NOTE t1n21 64 4597/512 2939/512 64\n  NOTE t1n22 71 4597/512 2939/512 64\n  NOTE t1n23 78 4597/512 247/64 64\n  NOTE t1n24 82 3287/256 225/512 64\n  NOTE t1n25 83 6799/512 225/512 64\n  NOTE t1n26 82 439/32 123/512 64\n  NOTE t1n27 82 7147/512 51/256 64\n  NOTE t1n28 83 7249/512 41/256 64\n  NOTE t1n29 83 7331/512 23/128 64\n  NOTE t1n30 83 29/2 113/512 64\n  NOTE t1n31 66 471/32 407/128 64\n  NOTE t1n32 71 471/32 407/128 64\n  NOTE t1n33 78 471/32 123/256 64\n  NOTE t1n34 83 3891/256 61/512 64\n  NOTE t1n35 85 7843/512 51/256 64\n  NOTE t1n36 85 3973/256 123/512 64\n  NOTE t1n37 73 8069/512 1055/512 64\n  NOTE t1n38 90 8069/512 123/512 64\n}\n",
+      "sha256": "96113c9704b9ed74e87693cca341e26e51692115bde8c957f9af84b286f00804"
+    },
+    {
+      "id": "p08-shift-onset-range--pp-barbeat",
+      "response": "v64 n77/1024 Gb4 1|1\nn123/512 Gb4 1|1+n153/2048\nn133/1024 Db5 1|2+n133/2048\nn51/2048 Db4 1|2+n399/2048\nn9/256 B4 1|2+n225/1024\nn195/2048 Bb3 1|3+n5/1024\nn23/512 B3 1|3+n51/512\nn901/1024 Gb3 1|3+n37/256\nn55/256 Eb4 n195/2048 B4 2|3+n115/2048\nn123/2048 Gb4 2|3+n309/2048\nGb5 2|3+n27/128\nn517/1024 B2 Gb3 n645/2048 B3 n261/1024 Eb4 2|4+n43/2048\nn123/2048 Gb4 3|1+n53/2048\nn389/2048 B3 3|1+n7/128\nn123/2048 B4 3|1+n235/2048\nn143/2048 B4 3|1+n179/1024\nn2939/2048 E3 B3 n247/256 Gb4 3|1+n501/2048\nn225/2048 Bb4 4|1+n215/1024\nB4 4|2+n143/2048\nn123/2048 Bb4 4|2+n23/128\nn51/1024 Bb4 4|2+n491/2048\nn41/1024 B4 4|3+n81/2048\nn23/512 B4 4|3+n163/2048\nn113/2048 B4 4|3.5\nn407/512 Gb3 B3 n123/1024 Gb4 4|3+n23/128\nn61/2048 B4 4|4+n51/1024\nn51/1024 Db5 4|4+n163/2048\nn123/2048 Db5 4|4+n133/1024\nn1055/2048 Db4 n123/2048 Gb5 4|4+n389/2048",
+      "sha256": "eff6c6c43f62704dcb11ce792cea67806beb8262b7f6b4e286f338286cbdbcd3"
+    },
+    {
+      "id": "p08-shift-onset-range--pp-midi-json",
+      "response": "[{p:78,t:0,d:77/256,v:64},{p:78,t:153/512,d:123/128,v:64},{p:85,t:645/512,d:133/256,v:64},{p:73,t:911/512,d:51/512,v:64},{p:83,t:481/256,d:9/64,v:64},{p:70,t:517/256,d:195/512,v:64},{p:71,t:307/128,d:23/128,v:64},{p:66,t:165/64,d:901/256,v:64},{p:83,t:3187/512,d:195/512,v:64},{p:75,t:3187/512,d:55/64,v:64},{p:78,t:3381/512,d:123/512,v:64},{p:90,t:219/32,d:123/512,v:64},{p:59,t:3627/512,d:517/256,v:64},{p:66,t:3627/512,d:517/256,v:64},{p:71,t:3627/512,d:645/512,v:64},{p:75,t:3627/512,d:261/256,v:64},{p:78,t:4149/512,d:123/512,v:64},{p:71,t:263/32,d:389/512,v:64},{p:83,t:4331/512,d:123/512,v:64},{p:83,t:2227/256,d:143/512,v:64},{p:64,t:4597/512,d:2939/512,v:64},{p:71,t:4597/512,d:2939/512,v:64},{p:78,t:4597/512,d:247/64,v:64},{p:82,t:3287/256,d:225/512,v:64},{p:83,t:6799/512,d:225/512,v:64},{p:82,t:439/32,d:123/512,v:64},{p:82,t:7147/512,d:51/256,v:64},{p:83,t:7249/512,d:41/256,v:64},{p:83,t:7331/512,d:23/128,v:64},{p:83,t:14.5,d:113/512,v:64},{p:66,t:471/32,d:407/128,v:64},{p:71,t:471/32,d:407/128,v:64},{p:78,t:471/32,d:123/256,v:64},{p:83,t:3891/256,d:61/512,v:64},{p:85,t:7843/512,d:51/256,v:64},{p:85,t:3973/256,d:123/512,v:64},{p:73,t:8069/512,d:1055/512,v:64},{p:90,t:8069/512,d:123/512,v:64}]",
+      "sha256": "c1c48c960d32a7cc5f03023e17749b642eab8a0dfed4f0ffbe589ca601aba2c3"
+    },
+    {
+      "id": "p09-delete-one-note--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 129/128 35 64 1 false\nEVENT t1n2 clip 515/512 131/256 35 64 1 false\nEVENT t1n3 clip 777/512 127/256 27 64 1 false\nEVENT t1n4 clip 1031/512 385/256 27 64 1 false\nEVENT t1n5 clip 1801/512 131/256 27 64 1 false\nEVENT t1n6 clip 2063/512 127/128 27 64 1 false\nEVENT t1n7 clip 2571/512 127/256 27 64 1 false\nEVENT t1n8 clip 2825/512 131/256 27 64 1 false\nEVENT t1n9 clip 3087/512 127/128 27 64 1 false\nEVENT t1n10 clip 3595/512 131/256 32 64 1 false\nEVENT t1n11 clip 3857/512 127/256 27 64 1 false\nEVENT t1n12 clip 2055/256 389/512 28 64 1 false\nEVENT t1n14 clip 2313/256 127/256 35 64 1 false\nEVENT t1n15 clip 305/32 131/256 27 64 1 false\nEVENT t1n16 clip 2571/256 127/512 27 64 1 false\nEVENT t1n17 clip 5269/512 127/512 34 64 1 false\nEVENT t1n18 clip 1349/128 127/256 39 64 1 false\nEVENT t1n19 clip 2825/256 127/256 39 64 1 false\nEVENT t1n20 clip 369/32 131/256 27 64 1 false\nEVENT t1n21 clip 3083/256 381/256 27 64 1 false\nEVENT t1n22 clip 433/32 131/256 27 64 1 false\nEVENT t1n23 clip 3595/256 125/128 27 64 1 false\nEVENT t1n24 clip 497/32 127/256 32 64 1 false\n",
+      "sha256": "f5fb5e9a5c7220869dd891680ed57070b49359eba6ba7b46e90ca65e571d7345"
+    },
+    {
+      "id": "p09-delete-one-note--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"129/128\",\"id\":\"t1n1\",\"pitch\":35,\"velocity\":64},{\"at\":\"515/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n2\",\"pitch\":35,\"velocity\":64},{\"at\":\"777/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n3\",\"pitch\":27,\"velocity\":64},{\"at\":\"1031/512\",\"clip\":\"clip\",\"duration\":\"385/256\",\"id\":\"t1n4\",\"pitch\":27,\"velocity\":64},{\"at\":\"1801/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n5\",\"pitch\":27,\"velocity\":64},{\"at\":\"2063/512\",\"clip\":\"clip\",\"duration\":\"127/128\",\"id\":\"t1n6\",\"pitch\":27,\"velocity\":64},{\"at\":\"2571/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n7\",\"pitch\":27,\"velocity\":64},{\"at\":\"2825/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n8\",\"pitch\":27,\"velocity\":64},{\"at\":\"3087/512\",\"clip\":\"clip\",\"duration\":\"127/128\",\"id\":\"t1n9\",\"pitch\":27,\"velocity\":64},{\"at\":\"3595/512\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n10\",\"pitch\":32,\"velocity\":64},{\"at\":\"3857/512\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n11\",\"pitch\":27,\"velocity\":64},{\"at\":\"2055/256\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n12\",\"pitch\":28,\"velocity\":64},{\"at\":\"2313/256\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n14\",\"pitch\":35,\"velocity\":64},{\"at\":\"305/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n15\",\"pitch\":27,\"velocity\":64},{\"at\":\"2571/256\",\"clip\":\"clip\",\"duration\":\"127/512\",\"id\":\"t1n16\",\"pitch\":27,\"velocity\":64},{\"at\":\"5269/512\",\"clip\":\"clip\",\"duration\":\"127/512\",\"id\":\"t1n17\",\"pitch\":34,\"velocity\":64},{\"at\":\"1349/128\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n18\",\"pitch\":39,\"velocity\":64},{\"at\":\"2825/256\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n19\",\"pitch\":39,\"velocity\":64},{\"at\":\"369/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n20\",\"pitch\":27,\"velocity\":64},{\"at\":\"3083/256\",\"clip\":\"clip\",\"duration\":\"381/256\",\"id\":\"t1n21\",\"pitch\":27,\"velocity\":64},{\"at\":\"433/32\",\"clip\":\"clip\",\"duration\":\"131/256\",\"id\":\"t1n22\",\"pitch\":27,\"velocity\":64},{\"at\":\"3595/256\",\"clip\":\"clip\",\"duration\":\"125/128\",\"id\":\"t1n23\",\"pitch\":27,\"velocity\":64},{\"at\":\"497/32\",\"clip\":\"clip\",\"duration\":\"127/256\",\"id\":\"t1n24\",\"pitch\":32,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "cc2ee71d9aaf5e771fdfc35f085535178de8d27c0a3c44dcade7a992661cc588"
+    },
+    {
+      "id": "p09-delete-one-note--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 35 0 129/128 64\nNOTE t1n2 35 515/512 131/256 64\nNOTE t1n3 27 777/512 127/256 64\nNOTE t1n4 27 1031/512 385/256 64\nNOTE t1n5 27 1801/512 131/256 64\nNOTE t1n6 27 2063/512 127/128 64\nNOTE t1n7 27 2571/512 127/256 64\nNOTE t1n8 27 2825/512 131/256 64\nNOTE t1n9 27 3087/512 127/128 64\nNOTE t1n10 32 3595/512 131/256 64\nNOTE t1n11 27 3857/512 127/256 64\nNOTE t1n12 28 2055/256 389/512 64\nNOTE t1n14 35 2313/256 127/256 64\nNOTE t1n15 27 305/32 131/256 64\nNOTE t1n16 27 2571/256 127/512 64\nNOTE t1n17 34 5269/512 127/512 64\nNOTE t1n18 39 1349/128 127/256 64\nNOTE t1n19 39 2825/256 127/256 64\nNOTE t1n20 27 369/32 131/256 64\nNOTE t1n21 27 3083/256 381/256 64\nNOTE t1n22 27 433/32 131/256 64\nNOTE t1n23 27 3595/256 125/128 64\nNOTE t1n24 32 497/32 127/256 64\n",
+      "sha256": "bacb748e88602fc21b4565c6656a2a6b80d2abfe3ebeca21457a9b52ad386676"
+    },
+    {
+      "id": "p09-delete-one-note--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 35 0 129/128 64\n  NOTE t1n2 35 515/512 131/256 64\n  NOTE t1n3 27 777/512 127/256 64\n  NOTE t1n4 27 1031/512 385/256 64\n  NOTE t1n5 27 1801/512 131/256 64\n  NOTE t1n6 27 2063/512 127/128 64\n  NOTE t1n7 27 2571/512 127/256 64\n  NOTE t1n8 27 2825/512 131/256 64\n  NOTE t1n9 27 3087/512 127/128 64\n  NOTE t1n10 32 3595/512 131/256 64\n  NOTE t1n11 27 3857/512 127/256 64\n  NOTE t1n12 28 2055/256 389/512 64\n  NOTE t1n14 35 2313/256 127/256 64\n  NOTE t1n15 27 305/32 131/256 64\n  NOTE t1n16 27 2571/256 127/512 64\n  NOTE t1n17 34 5269/512 127/512 64\n  NOTE t1n18 39 1349/128 127/256 64\n  NOTE t1n19 39 2825/256 127/256 64\n  NOTE t1n20 27 369/32 131/256 64\n  NOTE t1n21 27 3083/256 381/256 64\n  NOTE t1n22 27 433/32 131/256 64\n  NOTE t1n23 27 3595/256 125/128 64\n  NOTE t1n24 32 497/32 127/256 64\n}\n",
+      "sha256": "d9a9bf15f1f0a9c7f24b38d4a480ae4c05216a1b898353bba4a682dd3b97b37f"
+    },
+    {
+      "id": "p09-delete-one-note--pp-barbeat",
+      "response": "v64 n129/512 B0 1|1\nn131/1024 B0 1|2+n3/2048\nn127/1024 Eb0 1|2+n265/2048\nn385/1024 Eb0 1|3+n7/2048\nn131/1024 Eb0 1|4+n265/2048\nn127/512 Eb0 2|1+n15/2048,3+n15/2048\nn127/1024 Eb0 2|2+n11/2048,4+n273/2048\nn131/1024 Eb0 2|2+n265/2048\nAb0 2|4+n11/2048\nn389/2048 E0 3|1+n7/1024\nn127/1024 B0 3|2+n9/1024\nn131/1024 Eb0 3|2+n17/128,4+n17/128\nn127/2048 Eb0 3|3+n11/1024\nBb0 3|3+n149/2048\nn127/1024 Eb1 3|3+n69/512,4+n9/1024\nn381/1024 Eb0 4|1+n11/1024\nn131/1024 Eb0 4|2+n17/128\nn125/512 Eb0 4|3+n11/1024\nn127/1024 Ab0 4|4+n17/128",
+      "sha256": "2774303143670f4e046d17f4251da703d746dfbcb2bcb5d58e8efd8be9d24d9b"
+    },
+    {
+      "id": "p09-delete-one-note--pp-midi-json",
+      "response": "[{p:35,t:0,d:129/128,v:64},{p:35,t:515/512,d:131/256,v:64},{p:27,t:777/512,d:127/256,v:64},{p:27,t:1031/512,d:385/256,v:64},{p:27,t:1801/512,d:131/256,v:64},{p:27,t:2063/512,d:127/128,v:64},{p:27,t:2571/512,d:127/256,v:64},{p:27,t:2825/512,d:131/256,v:64},{p:27,t:3087/512,d:127/128,v:64},{p:32,t:3595/512,d:131/256,v:64},{p:27,t:3857/512,d:127/256,v:64},{p:28,t:2055/256,d:389/512,v:64},{p:35,t:2313/256,d:127/256,v:64},{p:27,t:305/32,d:131/256,v:64},{p:27,t:2571/256,d:127/512,v:64},{p:34,t:5269/512,d:127/512,v:64},{p:39,t:1349/128,d:127/256,v:64},{p:39,t:2825/256,d:127/256,v:64},{p:27,t:369/32,d:131/256,v:64},{p:27,t:3083/256,d:381/256,v:64},{p:27,t:433/32,d:131/256,v:64},{p:27,t:3595/256,d:125/128,v:64},{p:32,t:497/32,d:127/256,v:64}]",
+      "sha256": "918bd27fe8bee3a8f445b7c85bae3b6bdc8b5cf0cdab580e2f0016523a05bbf5"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-fields",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-json",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c3-fields",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c4-fields",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-barbeat",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-midi-json",
+      "response": "REFUSE ambiguous-selector",
+      "sha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a"
+    },
+    {
+      "id": "p11-preserve-window--baseline-fields",
+      "response": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 129/512 36 64 1 false\nEVENT t1n2 clip 129/512 129/256 36 64 1 false\nEVENT t1n3 clip 387/512 387/512 36 64 1 false\nEVENT t1n4 clip 387/256 247/512 34 64 1 false\nEVENT t1n5 clip 1021/512 129/512 34 64 1 false\nEVENT t1n6 clip 575/256 387/512 34 64 1 false\nEVENT t1n7 clip 1537/512 129/256 34 64 1 false\nEVENT t1n8 clip 1795/512 129/256 34 64 1 false\nEVENT t1n9 clip 2053/512 129/512 32 64 1 false\nEVENT t1n10 clip 1091/256 129/256 32 64 1 false\nEVENT t1n11 clip 305/64 47/64 32 64 1 false\nEVENT t1n12 clip 11/2 129/256 29 64 1 false\nEVENT t1n13 clip 1537/256 763/512 29 64 1 false\nEVENT t1n14 clip 1919/256 129/256 29 64 1 false\nEVENT t1n15 clip 8 387/512 36 64 1 false\nEVENT t1n16 clip 4483/512 387/512 36 64 1 false\nEVENT t1n17 clip 2435/256 247/512 34 64 1 false\nEVENT t1n18 clip 5117/512 387/256 34 64 1 false\nEVENT t1n19 clip 5891/512 129/256 34 64 1 false\nEVENT t1n20 clip 6149/512 387/512 32 64 1 false\nEVENT t1n21 clip 817/64 47/64 32 64 1 false\nEVENT t1n22 clip 27/2 129/256 29 64 1 false\nEVENT t1n23 clip 3585/256 763/512 29 64 1 false\nEVENT t1n24 clip 3967/256 129/256 29 64 1 false\n",
+      "sha256": "426ad8d12974bc39c8fd14aba4f8c9c4462ccda5f2c831d8a83480bcd2cf56cd"
+    },
+    {
+      "id": "p11-preserve-window--baseline-json",
+      "response": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n1\",\"pitch\":36,\"velocity\":64},{\"at\":\"129/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n2\",\"pitch\":36,\"velocity\":64},{\"at\":\"387/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n3\",\"pitch\":36,\"velocity\":64},{\"at\":\"387/256\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n4\",\"pitch\":34,\"velocity\":64},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n5\",\"pitch\":34,\"velocity\":64},{\"at\":\"575/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n6\",\"pitch\":34,\"velocity\":64},{\"at\":\"1537/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n7\",\"pitch\":34,\"velocity\":64},{\"at\":\"1795/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n8\",\"pitch\":34,\"velocity\":64},{\"at\":\"2053/512\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n9\",\"pitch\":32,\"velocity\":64},{\"at\":\"1091/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n10\",\"pitch\":32,\"velocity\":64},{\"at\":\"305/64\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n11\",\"pitch\":32,\"velocity\":64},{\"at\":\"11/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n12\",\"pitch\":29,\"velocity\":64},{\"at\":\"1537/256\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n13\",\"pitch\":29,\"velocity\":64},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n14\",\"pitch\":29,\"velocity\":64},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n15\",\"pitch\":36,\"velocity\":64},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n16\",\"pitch\":36,\"velocity\":64},{\"at\":\"2435/256\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n17\",\"pitch\":34,\"velocity\":64},{\"at\":\"5117/512\",\"clip\":\"clip\",\"duration\":\"387/256\",\"id\":\"t1n18\",\"pitch\":34,\"velocity\":64},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n19\",\"pitch\":34,\"velocity\":64},{\"at\":\"6149/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n20\",\"pitch\":32,\"velocity\":64},{\"at\":\"817/64\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n21\",\"pitch\":32,\"velocity\":64},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n22\",\"pitch\":29,\"velocity\":64},{\"at\":\"3585/256\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n23\",\"pitch\":29,\"velocity\":64},{\"at\":\"3967/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n24\",\"pitch\":29,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+      "sha256": "0e1e11a563c455a2c8e43d3d549d025ebcdbf6e012a971991ac69f762c36a51f"
+    },
+    {
+      "id": "p11-preserve-window--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 36 0 129/512 64\nNOTE t1n2 36 129/512 129/256 64\nNOTE t1n3 36 387/512 387/512 64\nNOTE t1n4 34 387/256 247/512 64\nNOTE t1n5 34 1021/512 129/512 64\nNOTE t1n6 34 575/256 387/512 64\nNOTE t1n7 34 1537/512 129/256 64\nNOTE t1n8 34 1795/512 129/256 64\nNOTE t1n9 32 2053/512 129/512 64\nNOTE t1n10 32 1091/256 129/256 64\nNOTE t1n11 32 305/64 47/64 64\nNOTE t1n12 29 11/2 129/256 64\nNOTE t1n13 29 1537/256 763/512 64\nNOTE t1n14 29 1919/256 129/256 64\nNOTE t1n15 36 8 387/512 64\nNOTE t1n16 36 4483/512 387/512 64\nNOTE t1n17 34 2435/256 247/512 64\nNOTE t1n18 34 5117/512 387/256 64\nNOTE t1n19 34 5891/512 129/256 64\nNOTE t1n20 32 6149/512 387/512 64\nNOTE t1n21 32 817/64 47/64 64\nNOTE t1n22 29 27/2 129/256 64\nNOTE t1n23 29 3585/256 763/512 64\nNOTE t1n24 29 3967/256 129/256 64\n",
+      "sha256": "4858acc67e22f598ff74b47e7e8de47ff8213f7b5e22de5ecc632f4d76b06b2a"
+    },
+    {
+      "id": "p11-preserve-window--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 36 0 129/512 64\n  NOTE t1n2 36 129/512 129/256 64\n  NOTE t1n3 36 387/512 387/512 64\n  NOTE t1n4 34 387/256 247/512 64\n  NOTE t1n5 34 1021/512 129/512 64\n  NOTE t1n6 34 575/256 387/512 64\n  NOTE t1n7 34 1537/512 129/256 64\n  NOTE t1n8 34 1795/512 129/256 64\n  NOTE t1n9 32 2053/512 129/512 64\n  NOTE t1n10 32 1091/256 129/256 64\n  NOTE t1n11 32 305/64 47/64 64\n  NOTE t1n12 29 11/2 129/256 64\n  NOTE t1n13 29 1537/256 763/512 64\n  NOTE t1n14 29 1919/256 129/256 64\n  NOTE t1n15 36 8 387/512 64\n  NOTE t1n16 36 4483/512 387/512 64\n  NOTE t1n17 34 2435/256 247/512 64\n  NOTE t1n18 34 5117/512 387/256 64\n  NOTE t1n19 34 5891/512 129/256 64\n  NOTE t1n20 32 6149/512 387/512 64\n  NOTE t1n21 32 817/64 47/64 64\n  NOTE t1n22 29 27/2 129/256 64\n  NOTE t1n23 29 3585/256 763/512 64\n  NOTE t1n24 29 3967/256 129/256 64\n}\n",
+      "sha256": "3244d03b0f548f479ce6d3521dc004439eff8c5e7437e035e57871d33bbf3a77"
+    },
+    {
+      "id": "p11-preserve-window--pp-barbeat",
+      "response": "v64 n129/2048 C1 1|1\nn129/1024 C1 1|1+n129/2048\nn387/2048 C1 1|1+n387/2048\nn247/2048 Bb0 1|2+n131/1024\nn129/2048 Bb0 1|2+n509/2048\nn387/2048 Bb0 1|3+n63/1024\nn129/1024 Bb0 1|4+n/2048,4+n259/2048\nn129/2048 Ab0 2|1+n5/2048\nn129/1024 Ab0 2|1+n67/1024\nn47/256 Ab0 2|1+n49/256\nn129/1024 F0 2|2.5,4+n127/1024\nn763/2048 F0 2|3+n/1024\nn387/2048 C1 3|1,1+n387/2048\nn247/2048 Bb0 3|2+n131/1024\nn387/1024 Bb0 3|2+n509/2048\nn129/1024 Bb0 3|4+n259/2048\nn387/2048 Ab0 4|1+n5/2048\nn47/256 Ab0 4|1+n49/256\nn129/1024 F0 4|2.5,4+n127/1024\nn763/2048 F0 4|3+n/1024",
+      "sha256": "7e2c3ac20268efc719796b46cdcd442e569ca2a71b3396c8e7b31db520c4f592"
+    },
+    {
+      "id": "p11-preserve-window--pp-midi-json",
+      "response": "[{p:36,t:0,d:129/512,v:64},{p:36,t:129/512,d:129/256,v:64},{p:36,t:387/512,d:387/512,v:64},{p:34,t:387/256,d:247/512,v:64},{p:34,t:1021/512,d:129/512,v:64},{p:34,t:575/256,d:387/512,v:64},{p:34,t:1537/512,d:129/256,v:64},{p:34,t:1795/512,d:129/256,v:64},{p:32,t:2053/512,d:129/512,v:64},{p:32,t:1091/256,d:129/256,v:64},{p:32,t:305/64,d:47/64,v:64},{p:29,t:5.5,d:129/256,v:64},{p:29,t:1537/256,d:763/512,v:64},{p:29,t:1919/256,d:129/256,v:64},{p:36,t:8,d:387/512,v:64},{p:36,t:4483/512,d:387/512,v:64},{p:34,t:2435/256,d:247/512,v:64},{p:34,t:5117/512,d:387/256,v:64},{p:34,t:5891/512,d:129/256,v:64},{p:32,t:6149/512,d:387/512,v:64},{p:32,t:817/64,d:47/64,v:64},{p:29,t:13.5,d:129/256,v:64},{p:29,t:3585/256,d:763/512,v:64},{p:29,t:3967/256,d:129/256,v:64}]",
+      "sha256": "54281ff6d744ee7e9fed971fdea26785d388dc23373de16610208769c0870e2f"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-fields",
+      "response": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity extra\nNOTE x1 54 167/27 3/16 110 {\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.25,\"pressure\":0.5,\"timbre\":0.3,\"transpose\":0.5}}\nNOTE x2 54 301/256 109/320 42 {\"channel\":3,\"annotation\":{\"origin\":\"unknown\",\"confidence\":null,\"tags\":[\"kept\"]}}\nNOTE x3 77 3841/960 811/513 69 -\n",
+      "sha256": "91efe049abda2c03fdf0cc0a62226a9e46743516500007902853d0e8b0d36c23"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-fields",
+      "response": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity extra\n  NOTE x1 54 167/27 3/16 110 {\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.25,\"pressure\":0.5,\"timbre\":0.3,\"transpose\":0.5}}\n  NOTE x2 54 301/256 109/320 42 {\"channel\":3,\"annotation\":{\"origin\":\"unknown\",\"confidence\":null,\"tags\":[\"kept\"]}}\n  NOTE x3 77 3841/960 811/513 69 -\n}\n",
+      "sha256": "8fce2f6616a0ae56507fdb9a46daacdda4365285b011c59b1f55e8d050bc8019"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-json",
+      "response": "{\"format\":\"r01-compact\",\"version\":1,\"context\":{},\"rows\":[[\"x1\",54,\"167/27\",\"3/16\",110,{\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.25,\"pressure\":0.5,\"timbre\":0.3,\"transpose\":0.5}},[],null],[\"x2\",54,\"301/256\",\"109/320\",42,{\"channel\":3,\"annotation\":{\"origin\":\"unknown\",\"confidence\":null,\"tags\":[\"kept\"]}},[],null],[\"x3\",77,\"3841/960\",\"811/513\",69,{},[],null]]}",
+      "sha256": "fcf9103cdef2c9456c9fcec5478a7dc28f2012b0c7b61ab0c40636d95980645b"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-json",
+      "response": "{\"format\":\"r01-grouped\",\"version\":1,\"context\":{},\"rows\":[{\"note\":{\"id\":\"x1\",\"pitch\":54,\"at\":\"167/27\",\"duration\":\"3/16\",\"velocity\":110,\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.25,\"pressure\":0.5,\"timbre\":0.3,\"transpose\":0.5}},\"time\":null},{\"note\":{\"id\":\"x2\",\"pitch\":54,\"at\":\"301/256\",\"duration\":\"109/320\",\"velocity\":42,\"channel\":3,\"annotation\":{\"origin\":\"unknown\",\"confidence\":null,\"tags\":[\"kept\"]}},\"time\":null},{\"note\":{\"id\":\"x3\",\"pitch\":77,\"at\":\"3841/960\",\"duration\":\"811/513\",\"velocity\":69},\"time\":null}]}",
+      "sha256": "68bf79fe3ddab1285cd5c08124aafcdedb83f97f91bbfe69a28bbdfad79d19b7"
+    }
+  ]
+}

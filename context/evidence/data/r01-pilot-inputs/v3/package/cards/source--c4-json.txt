@@ -1,0 +1,14 @@
+FORMAT: Grouped JSON diagnostic
+
+SCOPE
+Exact source-state cohort; retain performed notes and supplied musical/opaque context.
+
+INPUT AND OUTPUT GRAMMAR
+Use standard JSON: {format:"r01-grouped",version:1,context:...,rows:[...]}, with quoted JSON keys in actual input/output. Each row has note and time. A direct note retains at and has time:null. A derived note omits at and has time:{group:"ID"}; context.groups supplies that group's anchor, optional delay (default 0), and spread map. Derived onset is anchor + delay + spread[note.id]. Groups have ordered members referencing unique note definitions. Each derived note has exactly one timing owner; overlapping groups may reference it without owning timing. All times are exact rational strings.
+Optional time.spelling preserves the source onset spelling and must equal the timing equation. context retains all original root properties except notes, including shared musical.nominal entries in their original map. Rows preserve source note order; group and member arrays preserve their own order. Other note and group properties remain beside their owning object.
+
+PRESERVATION
+Return the entire JSON object and preserve opaque state. This diagnostic separates group and note collections: comparison with group-local FIELDS changes both encoding and layout, not punctuation alone. Labels/prose cannot supply missing timing, and direct notes remain explicit.
+
+COMPLETE FORMAT EXAMPLE
+{"format":"r01-grouped","version":1,"context":{"groups":[{"id":"exampleGroup","members":["exampleA","exampleB"],"label":"authored pair","anchor":"1/8","delay":"1/512","spread":{"exampleA":"0","exampleB":"5/4"},"provenance":{"kind":"declared"}}],"musical":{"nominal":{"exampleA":{"at":"1/8"},"exampleB":{"at":"11/8"}},"provenance":{"kind":"inferred","source":"example-grid"}}},"rows":[{"note":{"id":"exampleA","pitch":62,"duration":"3/4","velocity":73},"time":{"group":"exampleGroup"}},{"note":{"id":"exampleB","pitch":69,"duration":"1/2","velocity":85},"time":{"group":"exampleGroup"}}]}

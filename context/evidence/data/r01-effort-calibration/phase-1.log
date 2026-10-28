@@ -1,0 +1,114 @@
+1/76 codex-low refuse-ambiguous-selector--c3-fields: gen 8 (reasoning 0) 2517 ms pass
+2/76 claude-low refuse-ambiguous-selector--c3-fields: gen 58 (reasoning 43) 1623 ms pass
+3/76 codex-low edit-velocity-guitar--c3-fields: gen 204 (reasoning 0) 8058 ms pass
+4/76 claude-low edit-velocity-guitar--c3-fields: gen 340 (reasoning 92) 4095 ms pass
+5/76 claude-low refuse-ambiguous-selector--pp-midi-json: gen 60 (reasoning 45) 1977 ms pass
+6/76 codex-low refuse-ambiguous-selector--pp-midi-json: gen 8 (reasoning 0) 3294 ms pass
+7/76 codex-low halve-group-spread--c4-fields: gen 176 (reasoning 0) 4245 ms pass
+8/76 claude-low halve-group-spread--c4-fields: gen 953 (reasoning 692) 5226 ms pass
+9/76 claude-low refuse-missing-timing--c4-fields: gen 106 (reasoning 94) 2090 ms pass
+10/76 codex-low refuse-missing-timing--c4-fields: gen 9 (reasoning 0) 6019 ms pass
+11/76 codex-low preserve-exact-wider--c3-fields: gen 150 (reasoning 0) 5076 ms pass
+12/76 claude-low preserve-exact-wider--c3-fields: gen 404 (reasoning 174) 3340 ms pass
+13/76 claude-low edit-inferred-nominal--c3-fields: gen 1518 (reasoning 1196) 7795 ms pass
+14/76 codex-low edit-inferred-nominal--c3-fields: gen 211 (reasoning 0) 4080 ms fail
+15/76 codex-low refuse-ambiguous-selector--c4-fields: gen 8 (reasoning 0) 2290 ms pass
+16/76 claude-low refuse-ambiguous-selector--c4-fields: gen 15 (reasoning 0) 1472 ms pass
+17/76 codex-low refuse-stale-snapshot--pp-midi-json: gen 9 (reasoning 0) 3636 ms pass
+18/76 claude-low refuse-stale-snapshot--pp-midi-json: gen 58 (reasoning 44) 2518 ms pass
+19/76 codex-low author-four-notes--baseline-json: gen 245 (reasoning 0) 3922 ms pass
+20/76 claude-low author-four-notes--baseline-json: gen 599 (reasoning 243) 4589 ms pass
+21/76 claude-low refuse-missing-timing--c3-fields: gen 12 (reasoning 0) 2288 ms pass
+22/76 codex-low refuse-missing-timing--c3-fields: gen 9 (reasoning 0) 3032 ms pass
+23/76 claude-low read-count-piano--c3-fields: gen 1021 (reasoning 1007) 5821 ms pass
+24/76 codex-low read-count-piano--c3-fields: gen 14 (reasoning 0) 3013 ms pass
+25/76 codex-low edit-velocity-guitar--baseline-fields: gen 316 (reasoning 0) 4118 ms pass
+26/76 claude-low edit-velocity-guitar--baseline-fields: gen 520 (reasoning 100) 2905 ms pass
+27/76 claude-low read-earliest-bass--pp-midi-json: gen 152 (reasoning 131) 2567 ms pass
+28/76 codex-low read-earliest-bass--pp-midi-json: gen 16 (reasoning 0) 2383 ms pass
+29/76 codex-low halve-group-spread--c3-fields: gen 233 (reasoning 0) 4791 ms fail
+30/76 claude-low halve-group-spread--c3-fields: gen 1510 (reasoning 1164) 7463 ms fail
+31/76 claude-low refuse-ambiguous-selector--pp-barbeat: gen 359 (reasoning 344) 4044 ms pass
+32/76 codex-low refuse-ambiguous-selector--pp-barbeat: gen 8 (reasoning 0) 2476 ms pass
+33/76 claude-low edit-onset-drums--pp-midi-json: gen 525 (reasoning 153) 4225 ms pass
+34/76 codex-low edit-onset-drums--pp-midi-json: gen 305 (reasoning 0) 5546 ms pass
+35/76 claude-low preserve-piano--baseline-fields: gen 2973 (reasoning 145) 9629 ms pass
+36/76 codex-low preserve-piano--baseline-fields: gen 2220 (reasoning 0) 17081 ms pass
+37/76 codex-low delete-one-note--pp-midi-json: gen 52 (reasoning 0) 2561 ms pass
+38/76 claude-low delete-one-note--pp-midi-json: gen 292 (reasoning 229) 3079 ms pass
+39/76 claude-low preserve-piano--c3-fields: gen 2191 (reasoning 123) 7167 ms pass
+40/76 codex-low preserve-piano--c3-fields: gen 1772 (reasoning 0) 14625 ms pass
+41/76 codex-low preserve-piano--baseline-json: gen 3073 (reasoning 0) 30386 ms pass
+42/76 claude-low preserve-piano--baseline-json: gen 4528 (reasoning 100) 13702 ms pass
+43/76 codex-low read-earliest-bass--c4-fields: gen 16 (reasoning 0) 4420 ms pass
+44/76 claude-low read-earliest-bass--c4-fields: gen 99 (reasoning 78) 2069 ms pass
+45/76 codex-low edit-onset-drums--c4-fields: gen 361 (reasoning 0) 5744 ms pass
+46/76 claude-low edit-onset-drums--c4-fields: gen 585 (reasoning 157) 3582 ms pass
+47/76 codex-low refuse-stale-snapshot--c4-fields: gen 9 (reasoning 0) 2847 ms pass
+48/76 claude-low refuse-stale-snapshot--c4-fields: gen 128 (reasoning 114) 2157 ms pass
+49/76 claude-low refuse-stale-snapshot--pp-barbeat: gen 87 (reasoning 73) 2335 ms pass
+50/76 codex-low refuse-stale-snapshot--pp-barbeat: gen 9 (reasoning 0) 2331 ms pass
+51/76 claude-low author-four-notes--baseline-fields: gen 399 (reasoning 161) 2610 ms pass
+52/76 codex-low author-four-notes--baseline-fields: gen 170 (reasoning 0) 4705 ms pass
+53/76 claude-low delete-one-note--pp-barbeat: gen 619 (reasoning 574) 3810 ms pass
+54/76 codex-low delete-one-note--pp-barbeat: gen 57 (reasoning 0) 2660 ms fail
+55/76 claude-low preserve-exact-wider--c4-fields: gen 376 (reasoning 134) 3174 ms pass
+56/76 codex-low preserve-exact-wider--c4-fields: gen 159 (reasoning 0) 5158 ms pass
+57/76 claude-low read-group-timing--c3-fields: gen 185 (reasoning 156) 2776 ms pass
+58/76 codex-low read-group-timing--c3-fields: gen 24 (reasoning 0) 2244 ms pass
+59/76 claude-low delete-one-note--c4-fields: gen 147 (reasoning 48) 3083 ms pass
+60/76 codex-low delete-one-note--c4-fields: gen 74 (reasoning 0) 3460 ms pass
+61/76 codex-low edit-inferred-nominal--c4-fields: gen 201 (reasoning 0) 4495 ms fail
+62/76 claude-low edit-inferred-nominal--c4-fields: gen 1625 (reasoning 1318) 9395 ms fail
+63/76 codex-low edit-velocity-guitar--baseline-json: gen 413 (reasoning 0) 6123 ms pass
+64/76 claude-low edit-velocity-guitar--baseline-json: gen 658 (reasoning 66) 3466 ms pass
+65/76 claude-low read-earliest-bass--pp-barbeat: gen 645 (reasoning 624) 4356 ms pass
+66/76 codex-low read-earliest-bass--pp-barbeat: gen 16 (reasoning 0) 2371 ms pass
+67/76 codex-low read-count-piano--baseline-fields: gen 14 (reasoning 0) 2638 ms pass
+68/76 claude-low read-count-piano--baseline-fields: gen 786 (reasoning 772) 4610 ms pass
+69/76 codex-low edit-onset-drums--pp-barbeat: gen 171 (reasoning 0) 4433 ms fail
+70/76 claude-low edit-onset-drums--pp-barbeat: gen 7715 (reasoning 7459) 31412 ms pass
+71/76 claude-low author-four-notes--c3-fields: gen 332 (reasoning 224) 3120 ms pass
+72/76 codex-low author-four-notes--c3-fields: gen 82 (reasoning 0) 3266 ms pass
+73/76 claude-low read-group-timing--c4-fields: gen 156 (reasoning 127) 2272 ms pass
+74/76 codex-low read-group-timing--c4-fields: gen 23 (reasoning 0) 3160 ms fail
+75/76 codex-low read-count-piano--baseline-json: gen 14 (reasoning 0) 2360 ms pass
+76/76 claude-low read-count-piano--baseline-json: gen 644 (reasoning 630) 4798 ms pass
+{
+  "status": "complete",
+  "summary": {
+    "claude-low": {
+      "admitted": 38,
+      "generated": {
+        "n": 38,
+        "min": 12,
+        "p25": 148.25,
+        "median": 401.5,
+        "p75": 754,
+        "max": 7715,
+        "mean": 878.421052631579
+      },
+      "reasoning": 149,
+      "ratio": 6.129770992366412,
+      "paired": 6.315972222222222,
+      "passes": 36
+    },
+    "codex-low": {
+      "admitted": 38,
+      "generated": {
+        "n": 38,
+        "min": 8,
+        "p25": 14,
+        "median": 65.5,
+        "p75": 209.25,
+        "max": 3073,
+        "mean": 285.7631578947368
+      },
+      "reasoning": 0,
+      "ratio": 1,
+      "paired": 1,
+      "passes": 32
+    }
+  }
+}
+

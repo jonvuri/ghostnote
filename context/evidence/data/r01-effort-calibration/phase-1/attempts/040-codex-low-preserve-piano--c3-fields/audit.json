@@ -1,0 +1,225 @@
+{
+  "answer": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 42 0 85/256 64\nNOTE t1n2 68 0 85/256 64\nNOTE t1n3 49 85/256 85/256 64\nNOTE t1n4 57 85/256 85/256 64\nNOTE t1n5 54 85/128 85/256 64\nNOTE t1n6 61 85/128 85/256 64\nNOTE t1n7 49 255/256 85/256 64\nNOTE t1n8 68 255/256 85/256 64\nNOTE t1n10 59 85/64 177/512 64\nNOTE t1n9 56 85/64 177/512 64\nNOTE t1n11 49 857/512 85/256 64\nNOTE t1n12 61 857/512 85/256 64\nNOTE t1n13 42 257/128 85/256 64\nNOTE t1n14 68 257/128 85/256 64\nNOTE t1n15 49 599/256 85/256 64\nNOTE t1n16 57 599/256 85/256 64\nNOTE t1n17 54 171/64 85/256 64\nNOTE t1n18 65 171/64 85/256 64\nNOTE t1n19 49 769/256 177/512 64\nNOTE t1n20 57 769/256 177/512 64\nNOTE t1n21 53 1715/512 85/256 64\nNOTE t1n22 66 1715/512 85/256 64\nNOTE t1n23 49 1885/512 85/256 64\nNOTE t1n24 57 1885/512 85/256 64\nNOTE t1n25 47 2055/512 85/256 64\nNOTE t1n26 73 2055/512 85/256 64\nNOTE t1n27 54 1113/256 85/256 64\nNOTE t1n28 62 1113/256 85/256 64\nNOTE t1n29 59 599/128 85/64 64\nNOTE t1n30 66 599/128 85/256 64\nNOTE t1n31 73 1283/256 85/256 64\nNOTE t1n32 61 171/32 85/256 64\nNOTE t1n33 64 171/32 85/256 64\nNOTE t1n34 66 1453/256 85/256 64\nNOTE t1n35 47 769/128 85/256 64\nNOTE t1n36 73 769/128 85/256 64\nNOTE t1n37 54 1623/256 85/256 64\nNOTE t1n38 62 1623/256 85/256 64\nNOTE t1n39 59 427/64 85/128 64\nNOTE t1n40 70 427/64 85/256 64\nNOTE t1n41 62 1793/256 85/256 64\nNOTE t1n42 59 939/128 85/256 64\nNOTE t1n43 71 939/128 85/256 64\nNOTE t1n44 62 1963/256 85/256 64\nNOTE t1n45 43 4097/512 85/256 64\nNOTE t1n46 78 4097/512 85/256 64\nNOTE t1n47 50 4267/512 85/256 64\nNOTE t1n48 67 4267/512 85/256 64\nNOTE t1n49 55 4437/512 85/256 64\nNOTE t1n50 71 4437/512 85/256 64\nNOTE t1n51 50 4607/512 85/256 64\nNOTE t1n52 78 4607/512 85/256 64\nNOTE t1n53 57 4777/512 177/512 64\nNOTE t1n54 69 4777/512 177/512 64\nNOTE t1n55 50 2477/256 85/256 64\nNOTE t1n56 71 2477/256 85/256 64\nNOTE t1n57 43 5125/512 85/256 64\nNOTE t1n58 78 5125/512 85/256 64\nNOTE t1n59 50 5295/512 85/256 64\nNOTE t1n60 67 5295/512 85/256 64\nNOTE t1n61 57 5465/512 85/256 64\nNOTE t1n62 76 5465/512 85/256 64\nNOTE t1n63 50 5635/512 85/256 64\nNOTE t1n64 67 5635/512 85/256 64\nNOTE t1n65 55 5805/512 85/256 64\nNOTE t1n66 74 5805/512 85/256 64\nNOTE t1n67 50 5975/512 85/256 64\nNOTE t1n68 67 5975/512 85/256 64\nNOTE t1n69 42 6145/512 85/256 64\nNOTE t1n70 76 6145/512 85/256 64\nNOTE t1n71 49 6315/512 177/512 64\nNOTE t1n72 64 6315/512 177/512 64\nNOTE t1n73 54 6493/512 85/256 64\nNOTE t1n74 69 6493/512 85/256 64\nNOTE t1n75 49 6663/512 85/256 64\nNOTE t1n76 76 6663/512 85/256 64\nNOTE t1n77 56 6833/512 85/256 64\nNOTE t1n78 64 6833/512 85/256 64\nNOTE t1n79 49 7003/512 85/256 64\nNOTE t1n80 68 7003/512 85/256 64\nNOTE t1n81 42 7173/512 177/512 64\nNOTE t1n82 76 7173/512 177/512 64\nNOTE t1n83 49 7351/512 141/512 64\nNOTE t1n84 64 7351/512 141/512 64\nNOTE t1n85 54 7491/512 85/256 64\nNOTE t1n86 74 7491/512 85/256 64\nNOTE t1n87 49 7661/512 177/512 64\nNOTE t1n88 64 7661/512 177/512 64\nNOTE t1n89 54 7839/512 85/256 64\nNOTE t1n90 73 7839/512 85/256 64\nNOTE t1n91 49 8009/512 177/512 64\nNOTE t1n92 64 8009/512 177/512 64\nNOTE t1n93 40 4093/256 85/256 64\nNOTE t1n94 73 4093/256 85/256 64",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 5334,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 1772,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "96f3988a9989784809842f728c53bfec8d3e9ea9ef919dd80f566b5d710b0e53",
+      "contextBytes": 21060,
+      "localSerializedContextTokens": null,
+      "requestSha256": "b5360d5576c49cea5f50d7f493d4245680acb5364d38c0b2886656cbe6dc2dbf",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 14625.415332999983
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "9147a8547e6ff9a65e8f1611e525639ec3d4f5cc8cc1ef780647423596d2b721"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "b047d684f4b5a19dd3ea569dcae4a6ac05f9de02d29bf1880592da69abaab014"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "7e1a3543e7d9072cad8f9404e77ea45d4bbe9b8668dbaa4ac6b541731b0feb6c"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "421744595de8519822c4f7daa321c1cbee220091900bee7ddb5c3380aff1e035"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "bb32c26a48cbc54418dd408cdf3384640054db29f25b47ecb1670ec409c6ddc6"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 6398,
+        "sha256": "19031c943a96aa15f5027e3d319ba090c9015e71d404936be5d049c9a44d95fb"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 5969,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "9147a8547e6ff9a65e8f1611e525639ec3d4f5cc8cc1ef780647423596d2b721"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "b047d684f4b5a19dd3ea569dcae4a6ac05f9de02d29bf1880592da69abaab014"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "7e1a3543e7d9072cad8f9404e77ea45d4bbe9b8668dbaa4ac6b541731b0feb6c"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "421744595de8519822c4f7daa321c1cbee220091900bee7ddb5c3380aff1e035"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "bb32c26a48cbc54418dd408cdf3384640054db29f25b47ecb1670ec409c6ddc6"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 6398,
+            "sha256": "19031c943a96aa15f5027e3d319ba090c9015e71d404936be5d049c9a44d95fb"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 5969
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-2mEesr/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 5334,
+  "finalOutputTokens": 1772,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/manifest.json",
+      "sha256": "4182e662cb93688b3c113c5b1871253882a306b270f928a842044024221b50ee"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/trace.jsonl",
+      "sha256": "b9a26c187de7576e99236a8dc178bfc4196eff008da322e54e82329a43721df4"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/1.json",
+      "sha256": "47323b7582347eaaba9536d9019524546ec2537304fca8cecacd36b1dff5ae19"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/2.json",
+      "sha256": "0693b00571f1f0d28d2d15caad1442b4a560cb68dd48a751620a579ae66b3a22"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/3.json",
+      "sha256": "4bb0f88f42a18186e838bcf77d15588f16e5e028bc16b66ee8e2c7937d8d4891"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/4.json",
+      "sha256": "83b830c9954d8146cc2eac7ce62e2c0d021465f3b7736b8b6fbab3a8a0a01dda"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/5.json",
+      "sha256": "00fe90b7d7cf7741ec515817bb2e5596786626c25c32af7a20c98e5bb6d87369"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/6.json",
+      "sha256": "9f0bde8102f80e3ab716aedd85080171f959c11cf0297327b7570cb6fd7db222"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/7.json",
+      "sha256": "fb678b7a4655023a85dcebd3560f1c0a8696003191c0b97db02c9cc19949fecb"
+    },
+    {
+      "path": "codex-traces/trace-5c5e7955-0254-4ebd-9792-b2b23ab13dca-01a1793e-1f10-76f3-887b-dfa106add712/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

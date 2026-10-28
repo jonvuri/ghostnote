@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a17941-3ea5-7f30-835b-62d1d3a2dcf0",
+  "turn_id": "01a17941-3ea5-7f30-835b-62d1d3a2dcf0",
+  "last_agent_message": "{\"delay\":\"1/256\",\"spread\":\"1/128\",\"at\":\"65/8\"}",
+  "started_at": 1793035681,
+  "completed_at": 1793035684,
+  "duration_ms": 2646,
+  "time_to_first_token_ms": 2442
+}

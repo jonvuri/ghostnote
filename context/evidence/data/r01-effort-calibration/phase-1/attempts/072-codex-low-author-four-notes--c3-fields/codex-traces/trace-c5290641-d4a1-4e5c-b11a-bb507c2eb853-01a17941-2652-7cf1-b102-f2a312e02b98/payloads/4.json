@@ -1,0 +1,15 @@
+{
+  "type": "task_started",
+  "turn_attribution": {
+    "turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+    "turn_trigger": "exec",
+    "parent_turn_id": null,
+    "initiating_agent_path": null,
+    "root_turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6"
+  },
+  "turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+  "root_turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+  "started_at": 1793035675,
+  "model_context_window": 258400,
+  "collaboration_mode_kind": "default"
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "js-tiktoken": "^1.0.21",
+    "peggy": "^5.0.6"
+  }
+}

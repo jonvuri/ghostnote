@@ -1,0 +1,1233 @@
+{
+  "schema": "r01-claude-paired-rehearsal-evidence-v1",
+  "status": "claude-development-admission-and-rehearsal; pilot draft unfrozen",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "claudeBinarySha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37",
+  "cliVersion": "2.1.302 (Claude Code)",
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "c41dc334756cf36df48da2a2f8290594ce41e5a637e92fdb18e40ef03e826955",
+      "bytes": 9739
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-transport-faults.mjs",
+      "sha256": "08796eca2d75fa8992d6a96edf9b1a51d95356c429b7be7bf5d14ddacced73e3",
+      "bytes": 9516
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "8e65ece6487acad6dccb0c71035ddfc683c05a3039bdbf31944b8e4b2e10d28c",
+      "bytes": 3439
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "319bcf4980bfb8f49bbd563cca40df5377a44f7ec261027e5916e3ceffc3eb3f",
+      "bytes": 12116
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "2124794c465e2933391244c7a08bec05f81a827eb77d90500f33aeb35b4defcc",
+      "bytes": 13712
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "2e16a0bf1777c0a893b111edc907a0e2733723d1254fc88c8c211931a0cb7789",
+      "bytes": 4377
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "16271800f52e734f18deead63616fdb109c0bfd3e8acf24329dd8e17ae7bf15c",
+      "bytes": 11009
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "3ff779f5f1c1069dcb7f33bec43b86d890e2331f85ffdd664ed1d979396e4ba9",
+      "bytes": 6249
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-draft.mjs",
+      "sha256": "9f0aef0502c0c9fbbf2d74fc207efea35f8de443b1ae33b53db2d68c2bd51a85",
+      "bytes": 9405
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-controls.test.mjs",
+      "sha256": "61fa651969f92e69907fbf0aef8ababd3f890664d9a2dee24a000983da5df8e5",
+      "bytes": 8926
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.test.mjs",
+      "sha256": "d2d36a7d7f0a7e944b2aa7ca6392740decfe61fb3f3fc1ebc90615c81c2a336a",
+      "bytes": 6579
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-draft.test.mjs",
+      "sha256": "97560100dccc8b66f8be5c3e936a4185b618b22f5d869fd9735ad2cb8fd17bdd",
+      "bytes": 2556
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "ec6a6b8ff1381d28bd0aa82118b498db7f8f94f08c631afb5801e241ab43fcc2",
+      "bytes": 11271
+    },
+    {
+      "path": "spec/r01-research/CLI-CONTROLS.md",
+      "sha256": "10764f3396d925966a19d3c4751814d303073971f2210f022c2ce34b7c767fc8",
+      "bytes": 14178
+    },
+    {
+      "path": "spec/r01-research/PILOT-DRAFT.md",
+      "sha256": "d03563071483838ed0dc1c6e9a3dd3b24056ed81ac2e313a7c86edffcae1e5c9",
+      "bytes": 12946
+    }
+  ],
+  "e360SourceSnapshots": [
+    {
+      "originalPath": "spec/r01-research/CLI-CONTROLS.md",
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/e360-source-snapshots/CLI-CONTROLS.md",
+      "sha256": "fd901907b74785b6c991455c35f6ed5f625a57984b484f803142cdcad8b45579"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/e360-source-snapshots/cli-control-audit.mjs",
+      "sha256": "bdf2decb1bfab93c65eebdbeca5ad8da4dcea8b1ac68874227dafe1daeba2360"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/e360-source-snapshots/cli-control-audit.test.mjs",
+      "sha256": "54f9fd4992fada0a9f1157f237a10de91835cce25a4c61550d8851a3dc09afe3"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/e360-source-snapshots/cli-control-probe.mjs",
+      "sha256": "f3ed682e7c701b39ffeb958cfb13b3686b10dac554d2b4691328f739472f2446"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/e360-source-snapshots/cli-controls.mjs",
+      "sha256": "2e16a0bf1777c0a893b111edc907a0e2733723d1254fc88c8c211931a0cb7789"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/suite.json",
+      "sha256": "c999dd55511e50ecf54310b374480ff2630a9fe97b085d00d97315ac5467610a",
+      "bytes": 61694
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/summary.json",
+      "sha256": "c05d6c46afa6833fc024c254f1a9ee3f0c420924f194ba42f1ffe308b1ff681f",
+      "bytes": 6216
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/manifest.json",
+      "sha256": "66fba311bd1fc4bcce4f5b6c110a0ca6ecf9fb69d0112920901baaf91e5e65e7",
+      "bytes": 2684
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/process.json",
+      "sha256": "858624da23516760d72e94e93381746b827ab62f3004b32ec44abe537877797f",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/server.jsonl",
+      "sha256": "a98bb429f80a2bbe0e6643daf760fda046712de3eb96b489545261156e058ad8",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/stdout.jsonl",
+      "sha256": "42c72fbc597c8ffe3903f67cae2b5b71ea232128e24f9a46102a9dfa56621d02",
+      "bytes": 3802
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-429-rate-limit/api-bodies/5ecb04c0-64a3-47e1-896a-30a5b160ae37.request.json",
+      "sha256": "927b75c2b4b765f06ae7e7d78122de15f92ddb3352ad16ccf76d406739d63814",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/manifest.json",
+      "sha256": "29b3b3eae73cc0dd36e947f6fe30a3f695b4c8112ba928c03e7b5589cead2905",
+      "bytes": 2673
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/process.json",
+      "sha256": "371f179c35aa109147195a3a9bfcd8b420a09020b23df003bd9fc56fe5da7274",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/server.jsonl",
+      "sha256": "b671f05497929779b74988141ca6399ec58ce56feeabc6d591caff77ee2d72a7",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/stdout.jsonl",
+      "sha256": "0d76a29e9a94d1f91377d66716670b5153245ea256d2df3858c765fed6b75c3e",
+      "bytes": 4038
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-500/api-bodies/b93a342c-4764-47ad-a211-c123ab0112cb.request.json",
+      "sha256": "db4d6b75bd76bfcd752d9deb7ff7b5d610ee0f5172cf9b43a68c66dab8ad0002",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/manifest.json",
+      "sha256": "e438219af4a8e3646b25d8d30a3b13ea882c27ac99600790e928be0855515dcf",
+      "bytes": 2684
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/process.json",
+      "sha256": "8dcb179c03032d2badf4673c0e6df2cad015d10d2ad8630e957b7ae84ca5fbcf",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/server.jsonl",
+      "sha256": "8b444274b7a2df908bc2e2b98d67c08d03cd6447f7a07e43c474cef17858969a",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/stdout.jsonl",
+      "sha256": "1dd565a1c341b6d918e77484104e1c075c3269a0f54a2a9be9761b23260c7947",
+      "bytes": 4038
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/http-529-overloaded/api-bodies/42b4a1fd-0838-45e9-a3d5-fc287306dbfa.request.json",
+      "sha256": "ce757f12f4b68584dfa72036d255741a827269493d2dbd7878dc3c78ade3a7c2",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/manifest.json",
+      "sha256": "2f6b31e6a745fc9b9929b99edf6182f6930127d07eae58f92b095e0e4c3abb2b",
+      "bytes": 2718
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/process.json",
+      "sha256": "2705220644a4136354d77cf71f9597fc7da9177c788358eb342a86e68bedade5",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/server.jsonl",
+      "sha256": "ffa22825fa97478eb068adec43a551e4d59be61d5ef5d0723ed9b6aa89aa0795",
+      "bytes": 448
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/stdout.jsonl",
+      "sha256": "6f46886c6f3a0a428fbb9fcb49a66c34ec94a93bf378e1359f0483df0084b6d7",
+      "bytes": 4268
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/api-bodies/972e8a52-0fa4-4e20-b8b1-02c801d5f7b9.request.json",
+      "sha256": "a1c5ba5776ece418f1ed05c65fa61ba421a12925e1a0bdbdf88ef60085ffc98b",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-500-one-retry/api-bodies/e49d23ce-3198-480f-a904-08328be3e0dc.request.json",
+      "sha256": "a1c5ba5776ece418f1ed05c65fa61ba421a12925e1a0bdbdf88ef60085ffc98b",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/manifest.json",
+      "sha256": "5b96ae3397dfc3a7bc51d8562cb486f378706998999ee3090add6e7040965c2a",
+      "bytes": 2718
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/process.json",
+      "sha256": "cf16fbcf05b83ca548a0eab706a9d52443d4759cc0fa63f3e66da4e600c57e4f",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/server.jsonl",
+      "sha256": "9379d98a2094664eeecd6542c79de60a4470dfe4a108fa7527c070b7a265e834",
+      "bytes": 448
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/stdout.jsonl",
+      "sha256": "ddf725d4a263cdf9c59cda21e2d19998e1ba620a83276b3daa186cbc56280415",
+      "bytes": 4266
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/api-bodies/33e07e4f-a64a-4877-9b71-8fb076236541.request.json",
+      "sha256": "6d8571dea868488bf19e9512edf86d995c198e21a09f22ec5a474831ed29f785",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/positive-control-http-529-one-retry/api-bodies/6675096d-425b-4eda-8558-f66832527373.request.json",
+      "sha256": "6d8571dea868488bf19e9512edf86d995c198e21a09f22ec5a474831ed29f785",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/manifest.json",
+      "sha256": "6375bed8c2c2894177df5be7818e2ecd16214afc67f69f2d050b28bb849e7226",
+      "bytes": 2686
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/process.json",
+      "sha256": "3bccb0fed3d6715a4e4740e698f73b6ecc88a70b0670a6f64c8efd8963e96e9c",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/server.jsonl",
+      "sha256": "b81111344ce7d708c753d46d071292a6a930d4e8b6bd740f9a8e62aa1e43f075",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/stdout.jsonl",
+      "sha256": "979f70c051e53b3e381c01a8c52decefc0858a37f9d769b5f898d8e210f83ac3",
+      "bytes": 3878
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-before-events/api-bodies/e9420f95-ecab-4e59-86e1-1d375ecf86ab.request.json",
+      "sha256": "55948d2540f91e3bc20bd0548b5860fe737432f19ec26f86da18ccccc4d33a5f",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/manifest.json",
+      "sha256": "32b8b065e14a1adfbb5ac7847757758bbe3c5887c8ad1f10cc470dd473a85583",
+      "bytes": 2687
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/process.json",
+      "sha256": "2051c975845ff53b1df4bfb4c8fd3f0d77cd2b14df59bab315a5465fc3bbeaa4",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/server.jsonl",
+      "sha256": "f756251ae1e1e9622ed422c13200ceedd57c0d02a718fdf07ebf070b71f3baee",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/stdout.jsonl",
+      "sha256": "c7ac1ba655d101a6567597ee1e49a613f5fc3f646b2ad4afee6dba897538c2f5",
+      "bytes": 4188
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/reset-mid-stream/api-bodies/c4d49614-ea33-41c7-88bc-6704808061f8.request.json",
+      "sha256": "f615ebf70adcd3a9123429f3fb813a0c1b261d8f60475f36a4af535dcdb91916",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/manifest.json",
+      "sha256": "3e75b75b0d756ab1d7b15711d3b207a0037e5f10385f98c10ff883162adc822d",
+      "bytes": 2671
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/process.json",
+      "sha256": "53b886ca723996e3ed276a201f64eedaf530bf08b6407eb579020c0c1f6608a1",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/prompt.txt",
+      "sha256": "a10faa6f585810c4badd91f68c8e76ae12cf83c4cc30b5b0b4983af3ff05801f",
+      "bytes": 38
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/server.jsonl",
+      "sha256": "be5c45c95cd45b89655dabc8e138835bc592055b366033cbd013538f10a405c5",
+      "bytes": 224
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/stdout.jsonl",
+      "sha256": "f16ea21e99a42686aca355e7bcabc7560a0b1f12509fd8a51f8be9061c5923c8",
+      "bytes": 3717
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/api-bodies/102bcb56-051a-44fe-b77b-b034044800cc.request.json",
+      "sha256": "3783e47d5e80b44049a78ad9415beb9d993c20b3fe458e3450ff0de80ef4cecd",
+      "bytes": 2494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/api-bodies/index.jsonl",
+      "sha256": "9293a2bc408770f2d236155175fdbee8aa1a8252f184b5db4b2f4464700a7253",
+      "bytes": 369
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/transport-faults/success/api-bodies/req_local_1.response.json",
+      "sha256": "c5bc03880fa1e4a0fa22b421727fe03e48031eb8bd08bc91c1e7d577d2c02ad6",
+      "bytes": 599
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/plan.json",
+      "sha256": "589c076a0586d024411e50f18381a774b9c48e6da73d31ea0f65c6af30337b71",
+      "bytes": 15668
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/preflight.json",
+      "sha256": "fb1f87a96868488599b4838dfd87ea4f41d9d9925cdf48e03087cfad4d53b8d3",
+      "bytes": 2374
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/results.json",
+      "sha256": "30308885c9a26f7d503ecf390d9daa728041beed587baf1654694772546cb5f3",
+      "bytes": 35558
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/audit.json",
+      "sha256": "587b258a594cd45064a0c9a1e7d76f4675b323718a8ecc36e917afff9b62fdb6",
+      "bytes": 6352
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/manifest.json",
+      "sha256": "cc8aeb0c0aaf2244280c3cab26836377fd0f1cbbb4e5941ef47cb882e9fa6e8c",
+      "bytes": 2583
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/process.json",
+      "sha256": "d0826639c29d92524556d24fc0fd775ff6aac0f4070aeff2871400e732c538dd",
+      "bytes": 115
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/prompt.txt",
+      "sha256": "d86e523844a8f4dfa0d7dac5576b460b217f61a8619b05bc4bc1a05f864fa0e5",
+      "bytes": 5464
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/stdout.jsonl",
+      "sha256": "98f4142f132ae958ba10f54687309321a6cb2a823d3eadc3f7869967fc6d283e",
+      "bytes": 8582
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/api-bodies/547367e4-92d9-4157-b8c6-d1d6ccd66898.request.json",
+      "sha256": "516b4e3e433d1bc2094ed446fb3589e6a93bee2eef919822c40ac93f858e90c3",
+      "bytes": 9063
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/api-bodies/index.jsonl",
+      "sha256": "30d2c1f8d098be35f9707d53768e32dea671fccc3bb1938169efee7b1ed5dbb8",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/01-halve-group-spread--c4-detached-fields-a0/api-bodies/req_011CgQ5EM2XEUsknrjzAJVw8.response.json",
+      "sha256": "43ba8ae62465bc39dfb7e9b524a813b2f24361e0f0c69f7c52b7a7c85a699267",
+      "bytes": 3065
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/audit.json",
+      "sha256": "05eccc79d42e6ee8b3bae12136d7b62c3c6df4fc2aa00c1c02b08ae239373771",
+      "bytes": 6767
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/manifest.json",
+      "sha256": "6a36542da6e5c9bb1a5e61a5048fb6be295641f69efeae24e048679fba96dcab",
+      "bytes": 2561
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/process.json",
+      "sha256": "e17fdb589bc029e7a99056c6bc35311ba0b35a85ef85ed0219423a6d5b11b4e0",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/prompt.txt",
+      "sha256": "f31b1c3e071dffcfd22a23525b2fc3a06cb4c4c70fd202fa459e65de9ae67562",
+      "bytes": 4996
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/stdout.jsonl",
+      "sha256": "5c3d9ccc13ea67752ee58d0a6c4570023e8e475d5f50b47d9cf98593e65c91eb",
+      "bytes": 11642
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/api-bodies/8f71fb1b-e2f4-4618-bb16-fed41b609d54.request.json",
+      "sha256": "2df653cd1254977002f0bdee3f4541f9c1f8a3d45640d81b4c9555e8a90d9114",
+      "bytes": 8803
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/api-bodies/index.jsonl",
+      "sha256": "ce358e632ddb005534b2815cad0c80da1099dbacea22f7c9a80e91f8a7af0669",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/02-halve-group-spread--c4-json-a0/api-bodies/req_011CgQ5EgCwKThBVXVE2BZT7.response.json",
+      "sha256": "c0c200382ee75824366b98cef7a8d88e4896421ad00b094b4f5c2b01aba650c4",
+      "bytes": 5319
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/audit.json",
+      "sha256": "b99b38ddb7da8d7081d05e9788f2aab5e89037b12faf8e935673d62a48ecad55",
+      "bytes": 6524
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/manifest.json",
+      "sha256": "844e1e68811de945bcc432be23fbc1d2a0078c04f28346d8dfc6961f8c4e9645",
+      "bytes": 2565
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/process.json",
+      "sha256": "674992d5701a12bb6309f169c3ab877be0ecf075dbbb2193d37936a16a8cde24",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/prompt.txt",
+      "sha256": "cc2b36dbf323f6be84f613e4c2ae6a233cf7ba7941b9fac09d1992048de46612",
+      "bytes": 4985
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/stdout.jsonl",
+      "sha256": "c41bb35d6244b24e6d324db194116355a36193a21a453da67a3aa10bc480f8bb",
+      "bytes": 11208
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/api-bodies/7253f6aa-17da-4465-9927-054b57909ae8.request.json",
+      "sha256": "67fc09dcca55b0d88027743062de4e63c4bb3ee94fabf1c970580bb571f79c5d",
+      "bytes": 8664
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/api-bodies/index.jsonl",
+      "sha256": "db1237ed4b7762d8e1f4390ebd55a91f130f21eb493c81a13db15bf628a7033f",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/03-halve-group-spread--c3-fields-a0/api-bodies/req_011CgQ5FFadkY3pVWtvp5pQ8.response.json",
+      "sha256": "8a5a91ab1a75d3c0fca56bd442753cdf763052826a4132a335b7f12769160d05",
+      "bytes": 5128
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/audit.json",
+      "sha256": "8f5950457768c663f128693e1df93044e28dfd9a13dec08fb6523e3d39f7cd4b",
+      "bytes": 6521
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/manifest.json",
+      "sha256": "1b57d9fb84b91a77af3109d8f81d704eeae09c119d7bba8c58e0bf9520fe8a50",
+      "bytes": 2565
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/process.json",
+      "sha256": "dcc3dc86a991f72ad0c2d66d5f89c6b0125e7e6e5701243a7b75e291cc24323b",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/prompt.txt",
+      "sha256": "96d924769b391d22de6730d741497b79cb1fa7d9073228b9c59bf2eef5a267de",
+      "bytes": 5962
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/stdout.jsonl",
+      "sha256": "a2c9373c1b31aa0e29055b8b4c95c02d5970afc475ddd6122f93a1a1d1f7e467",
+      "bytes": 9461
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/api-bodies/d69bc8d9-e551-43ca-9aeb-5a83402a1088.request.json",
+      "sha256": "399b9beb0b6b3e0cdc6fca2729a84bd9c2fd6af597bd92a27cebe5c5ff36fad6",
+      "bytes": 9780
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/api-bodies/index.jsonl",
+      "sha256": "2a5052e264244f16563b7757bbedab96c2ac064ee0b3bc7911ec721d1a9278b2",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/04-halve-group-spread--c3-fields-a1/api-bodies/req_011CgQ5FqT6AbsKqP4ZTd8s3.response.json",
+      "sha256": "d06ef03c45574b7b28f8c5d03bf8a25f7cd6c175ca8aebf75efc2158063a7029",
+      "bytes": 3774
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/audit.json",
+      "sha256": "ffe8a317a6ff0d1851e5f49f9dfe383f235df5db9af6f554fcf469ed78cd634b",
+      "bytes": 6525
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/manifest.json",
+      "sha256": "b4ac8531f8429846ae418d657aa25a2f84c37eb8cc5ea27578dac7fec2bff57d",
+      "bytes": 2565
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/process.json",
+      "sha256": "bdd243a4bbb8aceca1a2b55692bd1ff4ad4693bd4046c96f86d34bcdb7f48537",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/prompt.txt",
+      "sha256": "9fd1f9627653d9280622a219eaae8a5cb43698adb168580dcf5e5ec1427fc1be",
+      "bytes": 6745
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/stdout.jsonl",
+      "sha256": "47b65dbdbea63b6ae66cef8315e1924266fbf508b7f0ca06ffebdbc6da99aec0",
+      "bytes": 13054
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/api-bodies/1e93dc5a-c2eb-406f-a3ad-b7435cbd4746.request.json",
+      "sha256": "a2eb5b4c04bbc1d3f079ef91a769c0134fb3ad2d00e23e107b892e43a3aee93b",
+      "bytes": 10696
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/api-bodies/index.jsonl",
+      "sha256": "270671c8bc5106a60841e8f0c9fd62b5a576df476c51324521caa213dc55a3d8",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/05-halve-group-spread--c3-fields-a2/api-bodies/req_011CgQ5GHeBzqRneVs2b6Xif.response.json",
+      "sha256": "9c46d2cb430a462ae5f88d292380ef7762aaabeb8202748dd63ec10fb9512892",
+      "bytes": 6553
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/audit.json",
+      "sha256": "aeb663d4576a5f7abe6698850df37b253796977370df9acaa1b8c86425a0a441",
+      "bytes": 6301
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/manifest.json",
+      "sha256": "f8b09ffbcfc3cc35853282a4c1074ae26bc6001a52990e6770e80ddf0b494d4d",
+      "bytes": 2565
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/process.json",
+      "sha256": "b3c4fac44ee25fcc8d8ea49e74cf06c9334f7072603b192168c324de8eb1807f",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/prompt.txt",
+      "sha256": "997fc47765177ab974549db35ce032adbe1ea3df13261f3fbea7d33b0536ab75",
+      "bytes": 5189
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/stdout.jsonl",
+      "sha256": "0defbcec1732bbbfb8d03894a30cdd12496b4330c00ff54bb95d49b2c51ec4d5",
+      "bytes": 9181
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/api-bodies/85fb33a1-dbb5-48a5-b250-1e7b87fc05ee.request.json",
+      "sha256": "196a62fe4e32fa8f2f802b3d2c2088ff1dd3eee18719d2b9a59781be772477ac",
+      "bytes": 8779
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/api-bodies/index.jsonl",
+      "sha256": "eff68ab228edaf8269771589cfdf5c8d5ecebb6d1f52134e5e18588a5c155722",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/06-halve-group-spread--c4-fields-a0/api-bodies/req_011CgQ5H6U11BwqRpPvrKM5T.response.json",
+      "sha256": "e7b0628bd0fa7d807027c7f3b20b62c5835eca7870f48ef7b7e5346f0e54d6fb",
+      "bytes": 3714
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/audit.json",
+      "sha256": "124c4e0b0de96e885d18092ffddd33c021205dabbd769b18bfce666a12ba9e2b",
+      "bytes": 6579
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/manifest.json",
+      "sha256": "45c1b3f057b20b091c89b5ad18d3445722d7601e5ec5c56cf9dd6ff03b1f5130",
+      "bytes": 2561
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/process.json",
+      "sha256": "ec3307afa3112850a0ff255ec3701699ba34ecba6ee3b9ce1b6927f334df3d94",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/prompt.txt",
+      "sha256": "d0b516f1701cbed3000cd2fd3c1bc0ca2410e9147b301bfd8fb4e46ebfb6a23a",
+      "bytes": 4558
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/stdout.jsonl",
+      "sha256": "70f2d45b7d71c0258c7763db1f33b0ce6646b160ad62a6538af0d58078914c32",
+      "bytes": 11602
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/api-bodies/b8fb2557-2e9a-44f5-9d2a-bdcc909e7745.request.json",
+      "sha256": "32bb74650bf1b4ee29a778f96616fe8dcb2b280f08889e4f7803d4a69917ccd7",
+      "bytes": 8291
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/api-bodies/index.jsonl",
+      "sha256": "9cce30eab6e9158417ba96cf9118d5a183323ac1803a2dadc34567c1a4d9bea6",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/07-halve-group-spread--c3-json-a0/api-bodies/req_011CgQ5HXXPSHCnTJhFT2JuT.response.json",
+      "sha256": "952e19768d6ce140323b559e7a9cd750ba9839e3cb03de50062d74e5f8067f50",
+      "bytes": 5443
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/audit.json",
+      "sha256": "491d3da2e8d7eb985209682a17ef599e9fac6e6a2a59d43499fd38e61bd35ace",
+      "bytes": 6579
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/manifest.json",
+      "sha256": "60746d911151d0554a66296bcf6f70b936cf3c7cc18db5d50deb7fc47edfd63e",
+      "bytes": 2561
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/process.json",
+      "sha256": "96b7bb479c58698c111b1f079b53d48074e7538f7797486f242275e5d6af3ccf",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/prompt.txt",
+      "sha256": "927f6f1e154e5f9246e3917973d3281fb71c83aa7a617cd94a78ec264968ec97",
+      "bytes": 5494
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/stdout.jsonl",
+      "sha256": "d4b806bdecaed4b02ec5c05b8e0feeed0ce777980fa32053e4582f2e1f9d1dc0",
+      "bytes": 11934
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/api-bodies/ce830305-042a-4429-b501-8dbbabe3bd31.request.json",
+      "sha256": "706caa8081f7b3f4578672b2dd186634f618e834e9e1ee128226bfa0919f8a78",
+      "bytes": 9390
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/api-bodies/index.jsonl",
+      "sha256": "b037ceb2ae71581a1efacbed576ad95d8f30842667f48026cee0fdc2c0c7150f",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/08-halve-group-spread--c3-json-a1/api-bodies/req_011CgQ5J8iDFFkcUymXNWHkH.response.json",
+      "sha256": "840157f8ab4b524362a9b8f258aa8036bcbccc028fccf5d8cf5996839acd1452",
+      "bytes": 5603
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/audit.json",
+      "sha256": "2e31e7a0a96fd3061a0d15ece0a1d2842bbd06033ad35b7a21c33f460e724263",
+      "bytes": 6580
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/manifest.json",
+      "sha256": "a0b11a96404c27ff00f2552c67e377b86385115f46e3cbd60cb679099432d0db",
+      "bytes": 2561
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/process.json",
+      "sha256": "07816e1d4982210f8b420d1c2f1f177f480aad1a8d9533002d89451ec817d6e3",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/prompt.txt",
+      "sha256": "e463fb7b9d30ef9323eb20370fbbba17e016263871c1aedf07169ae10a890031",
+      "bytes": 6304
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/stdout.jsonl",
+      "sha256": "ad1c96bb24a09649ec936d9b1fb21962dc4cb470db58ed5bee2829ce75b4636b",
+      "bytes": 13257
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/api-bodies/d36c8079-2820-45e2-9a09-071a0b1cf192.request.json",
+      "sha256": "4f05458006995d8c488efb9f7eef5b0c413cc7ef865dfb3dac5692dca462b5bb",
+      "bytes": 10361
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/api-bodies/index.jsonl",
+      "sha256": "cea82b31201ceabbef9b3ec7cc8fd62396758a55b2a670ac6433c584bdacd7f0",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/09-halve-group-spread--c3-json-a2/api-bodies/req_011CgQ5JmpeTzXGnoC5qYyko.response.json",
+      "sha256": "e910685af2e4cd04248f3824c6af3e46be857f9689b66929f03b233b46f18071",
+      "bytes": 6504
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/audit.json",
+      "sha256": "a505e686087d2f4fe9ce3742f9c0a99abdf3fc1671ad92315348fbe096aa5280",
+      "bytes": 6089
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/manifest.json",
+      "sha256": "171a09710549d8333f6791184c26e1a0def5b75d307c1a5f0b42be5f01490200",
+      "bytes": 2575
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/process.json",
+      "sha256": "dddf51664ff7521b987bf31e3faf22ba4527ebcb5433b24217777b2ad3757ba2",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/prompt.txt",
+      "sha256": "856b1e21788844de1c9dd4453f5b7be77a374228274d9ffc3176f2c169d3f35e",
+      "bytes": 3248
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/stdout.jsonl",
+      "sha256": "a6aa460cc78d8b6e6eaa802a2370449265b14b49c947b7f2a96d3ab69fc0047d",
+      "bytes": 8404
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/api-bodies/478bf307-c668-41d3-8549-eed6789fbd5b.request.json",
+      "sha256": "fd41e0ace74aa84f916961abcb3438ca19a7713ad25fb869cef4a22b386aca25",
+      "bytes": 6740
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/api-bodies/index.jsonl",
+      "sha256": "60f21a3866ae44ffc01391e099cc453bfbbee674bad5cefa16cd7860224223ec",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/10-edit-velocity-guitar--pp-midi-json-a0/api-bodies/req_011CgQ5KbZn9XUiPhos5Tr7m.response.json",
+      "sha256": "378655dc71a247a16c3189db58f9a33d8d706d3d934e18fe1d2edb5909efc6b3",
+      "bytes": 3150
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/audit.json",
+      "sha256": "efc9d6d3df034a742345ada4665aec414eab2db781eb129f08f70ac3c497fca3",
+      "bytes": 6019
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/manifest.json",
+      "sha256": "4a9c49572446897cc565ded0893213350fdb296b279c381d7eda470ad8558a63",
+      "bytes": 2571
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/process.json",
+      "sha256": "6d5fbfe6c1af615e4867f84bbb54d0ab82531f2482a29d9de7635fe3d412084b",
+      "bytes": 122
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/prompt.txt",
+      "sha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2",
+      "bytes": 3495
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/stdout.jsonl",
+      "sha256": "87093d8025772edaff648fc5637957c6988f187a098275080e395cbe0bebf872",
+      "bytes": 13173
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/api-bodies/c4a9bcb0-682e-431a-85f2-03120c909245.request.json",
+      "sha256": "49f28cfb8eacaca1990fd6173a5de1309a8bb3b3a6b67239d85825764a920b70",
+      "bytes": 6997
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/api-bodies/index.jsonl",
+      "sha256": "91e3d2dcd52b1cfb2927dd74f83922ee438715017158faa08adf7986c758d199",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/11-edit-velocity-guitar--pp-barbeat-a0/api-bodies/req_011CgQ5Kz5rdTf3bnmRgYrQN.response.json",
+      "sha256": "acdf0e55c28848de4f0c5ce01962d24d3141e1bb1dfee1b827d4aed5b66f56f0",
+      "bytes": 6807
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/audit.json",
+      "sha256": "32d85b1358ab7eb894b54587237d4e0c9b031dd9a86446603a412c7259625f36",
+      "bytes": 6191
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/manifest.json",
+      "sha256": "9fefdfcfb34a2e0dd65bb7b332f226f109dac215d729ecf9e0bbec83967533f0",
+      "bytes": 2569
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/process.json",
+      "sha256": "b7bbd36f783ac0223a5f93d65be13f5f5927ecdc6ef11cbee9d7fe26269c988a",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/prompt.txt",
+      "sha256": "ee413ffffcfa7ee1d05642ca1ffdcf02da987fe6d19ec7c725e7f9f500ad50f7",
+      "bytes": 3789
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/stdout.jsonl",
+      "sha256": "43fbf460b838e26940225846ef457bf92d3e1c7677b33c871956c20a5d55d4b6",
+      "bytes": 8448
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/api-bodies/94cb5bfa-4627-457f-88ae-04125a7535e6.request.json",
+      "sha256": "fbda7358fa6fa95566c0df5c238db7140dbb229d2ac9224fb794002bd385260a",
+      "bytes": 7301
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/api-bodies/index.jsonl",
+      "sha256": "af6c516f5ad39b7f4460c3b173a0da71183684b01d34329c05209fcdb91f57f4",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/12-edit-velocity-guitar--c4-fields-a0/api-bodies/req_011CgQ5LybcfJp1ySbziiyXT.response.json",
+      "sha256": "5c8700cc3bd9823b325651e8cb3ed687d224b4978f404abacbd507a65643ebf2",
+      "bytes": 3092
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/audit.json",
+      "sha256": "2b2f3a2246dfb41fec462bd9473e23386b8c3c788c1ea68c678a793dbf1b7612",
+      "bytes": 6157
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/manifest.json",
+      "sha256": "46aa5e6ca13d258f8cbbcce96f0145cce2be50b4c1450df4b40e0082066fb0a2",
+      "bytes": 2569
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/process.json",
+      "sha256": "41563996b4b9447d763cdc60ced990842372b76eb99eb892268db568a4161ec3",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/prompt.txt",
+      "sha256": "1777e9df93bb3dec97ae8d9e5a1ee7c15c179e439b3c52bf9967511964c7d55a",
+      "bytes": 3238
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/stdout.jsonl",
+      "sha256": "25ab22aa05e806d5b2923e2908fce98cfca10a60d81771f22b37b904f4e6239c",
+      "bytes": 8627
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/api-bodies/553c8c77-fc69-4d61-ab24-cceba1d8a14f.request.json",
+      "sha256": "fbb5f26bc7d6d15fc4afc98fcbfd5e748b2c4735cf6a0bf89c38dc3c209a2add",
+      "bytes": 6746
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/api-bodies/index.jsonl",
+      "sha256": "e8e6f4427ff6aa393f97f0cd8062e598fd547b362c61665db0cd98636cf7ec4a",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/13-edit-velocity-guitar--c3-fields-a0/api-bodies/req_011CgQ5MKrXZm7hNXUHcReoX.response.json",
+      "sha256": "f0113f565ff297553a642bc69c58a4293740d5f70defdbc0cbb8d8d9742873a2",
+      "bytes": 3278
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/audit.json",
+      "sha256": "54f4cd3ae11ebed24b7bdeb326ef5aea19f07c03abf3fb995f25d769c9a7d4b5",
+      "bytes": 6527
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/manifest.json",
+      "sha256": "6490a115c1b0fd8858d2da9a3b5f3970696fc80bf0cd2efb007410e7d934c68c",
+      "bytes": 2581
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/process.json",
+      "sha256": "1f4e9f24c3c2bdbec0ac24bc4cdd2269484b10a6cea1d2e58faad41a1cb80a53",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/prompt.txt",
+      "sha256": "682676fdd8dbe3ba5143112c37bc8ce1805002e8ceae3c351d45f8e16d1b29a1",
+      "bytes": 4038
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/stdout.jsonl",
+      "sha256": "14bb31a05e4a30696de9eb904ac85b032b566d312aee361ea0010fa3aff45791",
+      "bytes": 9192
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/api-bodies/ea34aa3f-e7a8-474e-b824-0379b84943aa.request.json",
+      "sha256": "adbeac6a4827ffc3642cba7feb1333d85086172e92c71aced5e4309298aadab9",
+      "bytes": 7608
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/api-bodies/index.jsonl",
+      "sha256": "e5c1e8e44e3173a60b96914af168b9493a17520db71d5aefaa0c8b397d9dcb45",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/14-edit-velocity-guitar--baseline-fields-a0/api-bodies/req_011CgQ5MfNXmf4b6dnuN6za4.response.json",
+      "sha256": "dfc30e55743d01728bd90f93cecc4dabc62c3e909ee5d7d113f2a8e71703381f",
+      "bytes": 3476
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/audit.json",
+      "sha256": "0f8d9fca56e406dd50b7dd467d9f62b7e372d949a21b91da72342861e3d3012e",
+      "bytes": 7173
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/manifest.json",
+      "sha256": "d27daafc098bcba8b77a09d0fe4f3e403c5e04fdc748003f9ea53a16ccc0cacc",
+      "bytes": 2577
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/process.json",
+      "sha256": "e857021610397137382087906c5fabd54bacfc71f5fc25e1570e38127b678342",
+      "bytes": 121
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/prompt.txt",
+      "sha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1",
+      "bytes": 4387
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/stdout.jsonl",
+      "sha256": "c13b6986dce2dd776ff6fe12e3f57b5dab4ba7758981a99782cbd40adc8f8ccf",
+      "bytes": 10897
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/system.txt",
+      "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc",
+      "bytes": 171
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/api-bodies/b29c9b5a-4403-4522-b376-ac9999b97d8a.request.json",
+      "sha256": "a24d99b785645112b1892b199f545bcdd4c3f2f327169ccce1fad28b2b48ff58",
+      "bytes": 8225
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/api-bodies/index.jsonl",
+      "sha256": "7b1a79a37fe5b9b2995c6b1bef0e7ebab07c0168c1947f183a5da7c2c7cd6626",
+      "bytes": 420
+    },
+    {
+      "path": "context/evidence/data/r01-claude-paired-rehearsal/run/attempts/15-edit-velocity-guitar--baseline-json-a0/api-bodies/req_011CgQ5N4dmKvjYLLh7J88aM.response.json",
+      "sha256": "711343790e4d07d452a202ac9c966eb457304ee444ebb745fa961c39f0efa23b",
+      "bytes": 4558
+    },
+    {
+      "path": "context/evidence/data/r01-pilot-draft/draft-manifest.json",
+      "sha256": "a73aad4982407bccd3a2ace3a6002628bcae501e738d948298b40ba2f3f0d878",
+      "bytes": 31139
+    }
+  ]
+}

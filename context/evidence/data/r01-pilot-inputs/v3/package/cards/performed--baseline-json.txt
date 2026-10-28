@@ -1,0 +1,13 @@
+FORMAT: Ghostnote Document JSON
+
+SCOPE
+Performed core-note cohort; fixed 4/4, channel 1, clip length 64 quarter notes.
+
+INPUT AND OUTPUT GRAMMAR
+The surface is standard JSON with format:"ghostnote-document", version:"1.0" and kind:"desired". clips is an array of clip objects; events is an array of note objects; coverage and overlays retain their supplied arrays. Event fields are id, clip, at, duration, pitch, velocity, channel and mute. at and duration are rational strings in quarter notes; pitch/velocity/channel are integers and mute is boolean. Other supplied event properties remain on their event. Clip references use clip IDs. Preserve any supplied meta, base or extensions objects. The complete document is both the input and output grammar; do not return a patch object or an events-only array.
+
+PRESERVATION
+Preserve clip, coverage and other document state. Event IDs remain unique and reference an existing clip. The native document parser rejects negative realized onsets and duplicate same-channel, same-pitch onset addresses; it does not silently discard a conflicting event.
+
+COMPLETE FORMAT EXAMPLE
+{"clips":[{"id":"clip","length":"64"}],"coverage":[{"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"clip","fields":"all","from":"0","status":"complete","to":"64"}],"events":[{"at":"65/512","clip":"clip","duration":"3/4","id":"exampleA","pitch":62,"velocity":73},{"at":"705/512","clip":"clip","duration":"1/2","id":"exampleB","pitch":69,"velocity":85}],"format":"ghostnote-document","kind":"desired","overlays":[],"version":"1.0"}

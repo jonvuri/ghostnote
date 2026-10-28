@@ -1,0 +1,4233 @@
+{
+  "schema": "r01-pilot-execution-rehearsal-v2",
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "stage": "development",
+  "package": "pilot-development-v4",
+  "packageManifestSha256": "a8b4dbc1f1a965fe70fb64365acedca96f1e7619640ade4465b117bcc51a64ed",
+  "counts": {
+    "eligibleCells": 67,
+    "goldenPasses": 67,
+    "taskSpecificVariants": 75,
+    "wrongAnswersScored": 418,
+    "wrongAnswersRejected": 418,
+    "gratuitousRefusalsScored": 61,
+    "gratuitousRefusalsRejected": 61,
+    "notDistinguishing": 0,
+    "unencodable": 2,
+    "equivalentSpellingsScored": 61,
+    "equivalentSpellingsAccepted": 61,
+    "equivalentSpellingsDelivered": 31
+  },
+  "variants": {
+    "p01-read-sounding-at": [
+      "total-off-by-one",
+      "excludes-note-starting-at-t",
+      "includes-note-ending-at-t",
+      "counts-onsets-before-t",
+      "counts-onsets-at-t-only",
+      "counts-as-strings",
+      "missing-sounding"
+    ],
+    "p02-read-group-timing": [
+      "delay-and-spread-swapped",
+      "onset-omits-common-delay",
+      "onset-omits-spread",
+      "another-members-spread",
+      "decimal-instead-of-rational"
+    ],
+    "p03-author-constrained": [
+      "one-note-missing",
+      "extra-seventh-note",
+      "two-onsets-swapped",
+      "pitch-off-by-octave",
+      "velocities-default-100"
+    ],
+    "p04-author-known-spread": [
+      "onset-omits-common-delay",
+      "spreads-doubled",
+      "group-omitted",
+      "performance-order-reversed",
+      "provenance-inferred",
+      "label-omitted"
+    ],
+    "p05-edit-velocity-large": [
+      "untouched-target",
+      "wrong-note-edited",
+      "whole-onset-edited",
+      "whole-pitch-edited",
+      "target-deleted",
+      "other-velocities-reset-64"
+    ],
+    "p06-transpose-every-pitch": [
+      "untouched",
+      "first-match-only",
+      "last-match-missed",
+      "transposed-down",
+      "transposed-one-semitone",
+      "nearest-other-pitch-transposed",
+      "copies-added-originals-kept"
+    ],
+    "p07-halve-spread-move-anchor": [
+      "untouched",
+      "spreads-halved-anchor-kept",
+      "anchor-moved-spreads-kept",
+      "halves-floored-to-grid",
+      "common-delay-halved-too",
+      "protected-group-dropped",
+      "loose-note-moved"
+    ],
+    "p08-shift-transpose-range": [
+      "untouched",
+      "shifted-not-transposed",
+      "transposed-not-shifted",
+      "exclusive-lower-bound",
+      "inclusive-upper-bound",
+      "shifted-earlier",
+      "transposed-down",
+      "every-note-edited"
+    ],
+    "p09-delete-near-miss": [
+      "refused-as-ambiguous",
+      "untouched",
+      "boundary-note-deleted-instead",
+      "both-near-notes-deleted",
+      "whole-pitch-deleted",
+      "wrong-note-deleted"
+    ],
+    "p10-refuse-ambiguous-pitch": [
+      "wrong-refusal-code",
+      "unsupported-refusal-code",
+      "refusal-with-explanation",
+      "lowercase-refusal",
+      "first-match-deleted",
+      "both-matches-deleted",
+      "untouched-input"
+    ],
+    "p11-preserve-window": [
+      "one-note-dropped",
+      "velocities-reset-64",
+      "onsets-quantized-sixteenth",
+      "duplicate-added",
+      "durations-halved"
+    ],
+    "p12-preserve-exact-wider": [
+      "annotation-dropped",
+      "note-order-swapped",
+      "onset-rounded-to-1-512",
+      "pan-zeroed",
+      "chance-dropped",
+      "channel-defaulted"
+    ]
+  },
+  "notDistinguishing": [],
+  "unencodable": [
+    {
+      "cell": "p11-preserve-window--baseline-fields",
+      "variant": "duplicate-added",
+      "error": "R04 $.events[115]: duplicate normalized event address"
+    },
+    {
+      "cell": "p11-preserve-window--baseline-json",
+      "variant": "duplicate-added",
+      "error": "R04 $.events[115]: duplicate normalized event address"
+    }
+  ],
+  "cells": [
+    {
+      "id": "p01-read-sounding-at--baseline-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p01-read-sounding-at--baseline-json",
+      "task": "p01-read-sounding-at",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p01-read-sounding-at--c3-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p01-read-sounding-at--c4-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p01-read-sounding-at--pp-barbeat",
+      "task": "p01-read-sounding-at",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p01-read-sounding-at--pp-midi-json",
+      "task": "p01-read-sounding-at",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "total-off-by-one",
+          "kind": "text",
+          "responseSha256": "7bb4e427030bf51eab9c82a9cf91c16c51634d3612723d78b0047f98dc9edac2",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "excludes-note-starting-at-t",
+          "kind": "text",
+          "responseSha256": "3da24183aefb012e91fba1aab1d4a5979a8378078ee3448789e8ab5dd34d8e8d",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "includes-note-ending-at-t",
+          "kind": "text",
+          "responseSha256": "7dad2b48108896ca3b01132018175251d0b9a15ee0abc094ef07fec5295c8cbb",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-before-t",
+          "kind": "text",
+          "responseSha256": "b1ba50d34a2a94bb98c07a4282c84244eccc867febf54816c2f7b36d3c7faa9c",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-onsets-at-t-only",
+          "kind": "text",
+          "responseSha256": "2882587c865ed7e5a2260ecc74c2d2db02310e066108ea5dc2f9fd4ec288ab9f",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "counts-as-strings",
+          "kind": "text",
+          "responseSha256": "5d022715d2e0b0dfd27169550e536c01e2aab6b6c23eab2520d3ce27b8073da7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "missing-sounding",
+          "kind": "text",
+          "responseSha256": "d006cb663843e3a492a813975747706ec76225e8b18843603b193c5959623da5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p02-read-group-timing--c3-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "delay-and-spread-swapped",
+          "kind": "text",
+          "responseSha256": "d910b92409249b95fde07786af8c8b6ca4f178a2ce6e7355e5ccd91be72af6e5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "text",
+          "responseSha256": "049c430c48b2b78b2e76cf1d183ebb221be8ba60c7c645bf2d8eabfbba252844",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-spread",
+          "kind": "text",
+          "responseSha256": "3d01988e7c1f38851076c07143aaedd2cee238cf8ccf92f269063a816d2d6032",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "another-members-spread",
+          "kind": "text",
+          "responseSha256": "e66b13178bf404d17ef849d820b58fa2a36528d857098fdd326393386a502e33",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "decimal-instead-of-rational",
+          "kind": "text",
+          "responseSha256": "705b5288879e237474b7e098dd55aef4062503db8d514ce7f33f222a87e1c4d7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p02-read-group-timing--c4-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "delay-and-spread-swapped",
+          "kind": "text",
+          "responseSha256": "d910b92409249b95fde07786af8c8b6ca4f178a2ce6e7355e5ccd91be72af6e5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "text",
+          "responseSha256": "049c430c48b2b78b2e76cf1d183ebb221be8ba60c7c645bf2d8eabfbba252844",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-spread",
+          "kind": "text",
+          "responseSha256": "3d01988e7c1f38851076c07143aaedd2cee238cf8ccf92f269063a816d2d6032",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "another-members-spread",
+          "kind": "text",
+          "responseSha256": "e66b13178bf404d17ef849d820b58fa2a36528d857098fdd326393386a502e33",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "decimal-instead-of-rational",
+          "kind": "text",
+          "responseSha256": "705b5288879e237474b7e098dd55aef4062503db8d514ce7f33f222a87e1c4d7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p02-read-group-timing--c3-json",
+      "task": "p02-read-group-timing",
+      "arm": "c3-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "delay-and-spread-swapped",
+          "kind": "text",
+          "responseSha256": "d910b92409249b95fde07786af8c8b6ca4f178a2ce6e7355e5ccd91be72af6e5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "text",
+          "responseSha256": "049c430c48b2b78b2e76cf1d183ebb221be8ba60c7c645bf2d8eabfbba252844",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-spread",
+          "kind": "text",
+          "responseSha256": "3d01988e7c1f38851076c07143aaedd2cee238cf8ccf92f269063a816d2d6032",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "another-members-spread",
+          "kind": "text",
+          "responseSha256": "e66b13178bf404d17ef849d820b58fa2a36528d857098fdd326393386a502e33",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "decimal-instead-of-rational",
+          "kind": "text",
+          "responseSha256": "705b5288879e237474b7e098dd55aef4062503db8d514ce7f33f222a87e1c4d7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p02-read-group-timing--c4-json",
+      "task": "p02-read-group-timing",
+      "arm": "c4-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "delay-and-spread-swapped",
+          "kind": "text",
+          "responseSha256": "d910b92409249b95fde07786af8c8b6ca4f178a2ce6e7355e5ccd91be72af6e5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "text",
+          "responseSha256": "049c430c48b2b78b2e76cf1d183ebb221be8ba60c7c645bf2d8eabfbba252844",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-spread",
+          "kind": "text",
+          "responseSha256": "3d01988e7c1f38851076c07143aaedd2cee238cf8ccf92f269063a816d2d6032",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "another-members-spread",
+          "kind": "text",
+          "responseSha256": "e66b13178bf404d17ef849d820b58fa2a36528d857098fdd326393386a502e33",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "decimal-instead-of-rational",
+          "kind": "text",
+          "responseSha256": "705b5288879e237474b7e098dd55aef4062503db8d514ce7f33f222a87e1c4d7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p02-read-group-timing--c4-detached-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c4-detached-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "delay-and-spread-swapped",
+          "kind": "text",
+          "responseSha256": "d910b92409249b95fde07786af8c8b6ca4f178a2ce6e7355e5ccd91be72af6e5",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "text",
+          "responseSha256": "049c430c48b2b78b2e76cf1d183ebb221be8ba60c7c645bf2d8eabfbba252844",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "onset-omits-spread",
+          "kind": "text",
+          "responseSha256": "3d01988e7c1f38851076c07143aaedd2cee238cf8ccf92f269063a816d2d6032",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "another-members-spread",
+          "kind": "text",
+          "responseSha256": "e66b13178bf404d17ef849d820b58fa2a36528d857098fdd326393386a502e33",
+          "pass": false,
+          "reason": "answer-mismatch"
+        },
+        {
+          "variant": "decimal-instead-of-rational",
+          "kind": "text",
+          "responseSha256": "705b5288879e237474b7e098dd55aef4062503db8d514ce7f33f222a87e1c4d7",
+          "pass": false,
+          "reason": "answer-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--baseline-fields",
+      "task": "p03-author-constrained",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "a13832425535f8a1306d776af854cb39abcd72e22a157bc89c17b9a5e63143b0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "918f213c4c4a1c1f10229ed03c80ec6e66d545b002a76fff043f1db12e3c0f57",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "aa010d5788419360f70a41e8265fc760260ef69644c0275a562853b45b429e6c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "a16e75c37f8d34bf3a722914fd4acc8157f8450258ace961fa4686e941517ad9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "846ddc0a6543bd47d4480608f267d2bde1f84a6a68ef5f8ae1893a1521138328",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--baseline-json",
+      "task": "p03-author-constrained",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "e76e0528f8141e70c59fd9ae2a2cfea53d7be922d4a1ccb2cd8297be102942cf",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "1da4b7ff7d8e934398fd4b91bf687e810b23b161cc0f42fc196fc2035c4cb07b",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "83b5ec115401fb59af4dfaa7541d6bc3cc5664d5688dfd3fc7bb085a2d8a9336",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "dca3eabd899918b1b212dcda34b6ac19a980bc4d54f92249209beaaf92b91fd5",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "288daef19411d41cf7ac2050577e5cc0f67027b1001685134627897a8c429bda",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--c3-fields",
+      "task": "p03-author-constrained",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "f6016ba023b527b783ff86b8f21554a1b004bb65df70893d7bc160cab979fc20",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "68dd5e4f9e8e1dcb0917ef975622429add54e968a86f1bb75acc272157004383",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "5884320bef7ac299f84d2786a8ef83191934e76feaad96dee0b0bf7b947c3bf3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "04e6958b61d620c09fbb76b66a248679e6facac33b4616e631350b079c8f3c32",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "5f3a984a8e17740eec5123a32ea6e11c6c1d10c1cb1ac5dde9a1c34244d4d0a2",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--c4-fields",
+      "task": "p03-author-constrained",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "38b7b27184b00e9595ea2075177601e9636bb31bf276410f7d8d4ff64f001c21",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "099c65971c0e25473ef298197f0b643f4b406476931375991d45302bac6b8eb1",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "da1c7848d0516dc855d14a073c07c483490d710442aeedb26b200dbc0135befe",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "9fc0239d769f328615facdf7b75f38705461e1785303e8d535eabbdcdec88f73",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "7db88938d5e6924e661b342ff92c2575f9d23aadf32f4806f395227a5f9a38f8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--pp-barbeat",
+      "task": "p03-author-constrained",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "7831d8038fd3217bc339dcda540cfe9c11c297c2d429cfb283a2d9e82d48d0f6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "9fbea90d478381e1e0d5ca60252bb9d37607b27c71f9e5f0fe340a002cb62c81",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "d1fa12d5fa5893766d6286a58ac1d5aba65ed8c967bc6e5ae06a1164e448237c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "844c641465f74a7c7eb20996382ebdd2e7b60ad863dcfb5316688151afd0110c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "6f797911624b265cc20ee9f2df7019fc2c91b7f21129e407f5086211bbfc40f7",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p03-author-constrained--pp-midi-json",
+      "task": "p03-author-constrained",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-missing",
+          "kind": "surface",
+          "responseSha256": "c4009560e63d74aa5b4eb8c5ebf0c4711f543fb4953f08a699bfc3c2f00bdc74",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "extra-seventh-note",
+          "kind": "surface",
+          "responseSha256": "cd40d56d1cf745530176ec260b8dd9eb54cf964381d36c30ed6416a442dbb419",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "two-onsets-swapped",
+          "kind": "surface",
+          "responseSha256": "29e0b566d512dd9209b117ded64a2c62667e855e348add8738676cd3b25bc557",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "pitch-off-by-octave",
+          "kind": "surface",
+          "responseSha256": "bc53e2dcf60c9c851e92523674b8f6be3005bf8055aa2354907ce975f605c4e4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-default-100",
+          "kind": "surface",
+          "responseSha256": "95f856eb2e0ce33546dccd6b2435da2cf373cec56cc65f8efa0bad001f400688",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p04-author-known-spread--c3-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "surface",
+          "responseSha256": "8f69a29530e00ef2d224c90cc622c0f38a29969526194728f49a4f1b0958bdb2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-doubled",
+          "kind": "surface",
+          "responseSha256": "89d00ec981791233985809355c6e73af6ab56f362210263294af3a6daf793a97",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "group-omitted",
+          "kind": "surface",
+          "responseSha256": "47ba851e3e7e01b5c0aaee74e27e2bead0f351836e19f6da4823daf6ed86a58b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "performance-order-reversed",
+          "kind": "surface",
+          "responseSha256": "eb1b646e1dec5fd2a8f3f0e85609208141fd9c9998cc351582ca430ad45608b2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "provenance-inferred",
+          "kind": "surface",
+          "responseSha256": "a1a985d5871b96d4c7fbf3ba2834dbe977144bf8481ec1f097c319cbbac9721b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "label-omitted",
+          "kind": "surface",
+          "responseSha256": "7633fb09b32794897676b2f5dc7ff81b951436201db05830b08a27845e643afd",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p04-author-known-spread--c4-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "surface",
+          "responseSha256": "fac868dbbca2d1696650fd69327af7b6980236ba9d56c60163aa9da56e458c76",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-doubled",
+          "kind": "surface",
+          "responseSha256": "bf4245d98f7bb851e961d34ad901933a861023c2867f0a40bd7ef4e4a3678872",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "group-omitted",
+          "kind": "surface",
+          "responseSha256": "459b27cd573f96f5f471193193f254234d615d80f057328c5b7c861ce1a94e3f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "performance-order-reversed",
+          "kind": "surface",
+          "responseSha256": "82f2e9865bbf7389796f2716c691327114c57f4d8496f08494e8958418d73e2a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "provenance-inferred",
+          "kind": "surface",
+          "responseSha256": "87dea77dbec363ccf7cc902fd4d808b90fdf3317307237cce923ea86debdb814",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "label-omitted",
+          "kind": "surface",
+          "responseSha256": "cf1bca5b6e6350abbf0067dc0efcd6bc4416308526427c5e4bdb1134ad010d2e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p04-author-known-spread--c3-json",
+      "task": "p04-author-known-spread",
+      "arm": "c3-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "surface",
+          "responseSha256": "fdd31b828a48cdcf90be15528c30104e3b12fe7e0dc946e5ac14e7ee1a7462fb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-doubled",
+          "kind": "surface",
+          "responseSha256": "9155133169975545a6d377ce2536a17b757edd9bc6329eddc35ff470c7b097a7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "group-omitted",
+          "kind": "surface",
+          "responseSha256": "0cc974407e5e8da9e0fe83520fec9b4643c587543181b2f2ba30d5ee485579bb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "performance-order-reversed",
+          "kind": "surface",
+          "responseSha256": "a2311a066b4a486812e8179203bafe5101dc0fd38718db49a587e4c900f64617",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "provenance-inferred",
+          "kind": "surface",
+          "responseSha256": "fa565d31c0b1bc58a3f9a8f21845c7b80609cefc30b3af9722bf3e01d15622c4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "label-omitted",
+          "kind": "surface",
+          "responseSha256": "7f03c3545ac11304ae4c904efe96395c767116d0365accbfe13b9b51545a7be7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p04-author-known-spread--c4-json",
+      "task": "p04-author-known-spread",
+      "arm": "c4-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "surface",
+          "responseSha256": "0f74a6479cad0be35f6ef46716d1a6f292c92320aa8c8afdf653ec2ab3289240",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-doubled",
+          "kind": "surface",
+          "responseSha256": "310478d47ce5053bcd95339f3e3ebc2c9787cc3842d344e05d96440d856b2088",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "group-omitted",
+          "kind": "surface",
+          "responseSha256": "0e500f96543ddf575882efc32ca0d85e72a27f0103e09d4e15917c3318637d76",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "performance-order-reversed",
+          "kind": "surface",
+          "responseSha256": "e40f30bb3ed32d419223a0f77bc5c38221636124b7e8c7821bfcb334a83da3fa",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "provenance-inferred",
+          "kind": "surface",
+          "responseSha256": "dcba5124f33abc82826569dcaae04a311501c8a3c62e91dfe21f7775340abee3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "label-omitted",
+          "kind": "surface",
+          "responseSha256": "b0def9b9273a0e531c140f4a03a3b985ea88e4cf763b66b9fa16365a94221f32",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p04-author-known-spread--c4-detached-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c4-detached-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "onset-omits-common-delay",
+          "kind": "surface",
+          "responseSha256": "c3a4be98cfc47051bf20de72bf4b8168945bccc6a705ad742dc9675034c6b309",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-doubled",
+          "kind": "surface",
+          "responseSha256": "5341024cdedf19b254037fceeb449b27c0389e4efbdaf67e204bdc740e5d8551",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "group-omitted",
+          "kind": "surface",
+          "responseSha256": "211aabb52aa41099b100cf4c5128b3de83f5f1410bdcdc2ac5cecaf16c96d807",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "performance-order-reversed",
+          "kind": "surface",
+          "responseSha256": "373964797e8f56c04d98bf601fc3070ff81fa8f44f803346b2765415a8613604",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "provenance-inferred",
+          "kind": "surface",
+          "responseSha256": "d8227208b6654b95fb770129cfd781aa9d4d89f26ffda02641926b7a2a072303",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "label-omitted",
+          "kind": "surface",
+          "responseSha256": "4a481069b0443dd414c959cb839231e318734c3892c818788b1cfb06858b5024",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "0f38d808a9f8ad75d712ab266047dabfe0980de495ad1eba0ce5cfe652d855d9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "0ad6afac24be2024147df597c754dcd819bac68b05d530926454b09dbbad9a9a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "40717fc9d5fe82eb60c9e352084ea222051eff09bea6c8775a4ff4d35b10eec8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "5f09378cfd1c453f1d999ffa97c265b9f1b80032a7f54e120422444248d80a03",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "84d4564e9a25fe8d891bd50dad865722b5c5909b2d706d37c2108c77733a42c1",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "738eb2ec1aab21c257030b77c4c97b2baaf9d110f38e22144f6a88602ec4033d",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-json",
+      "task": "p05-edit-velocity-large",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "e65da0cac7d418d05fc8986a5378e1ce5438cac27d9165dc811ae96bc84fb46c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "9b28820516f91b801fcc3794b2c25468bd9f8b2d8fbbb73981a38def86aeb834",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "6d0ddbccaaffb8a592d37785ec53134ba3255653baecf4ae81e425ce92e2eac7",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "c879047d5ff178efd5969ea8467b4f21420fbeabdfb0e63ed23de6a2383fb231",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "b70720890ad16b7b05a66775eb0ea507ddd39cf944332bdc0a57cc813ba8bd5b",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "b3af18a05109e7aad692553ce37722171276e6c39bad09d162a3dd4b74fe04bd",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--c3-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "511d0e0f49679c400ee697d273cb3934f08b87121498d1ae0519a7d95f7a7188",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "d323c11f6984d2582eea28879190ecfbadedbb952b940c6d5a2e15a6898b6ec6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "7e8b28226d0a7417240f3753c9badd9c7eb11232b959e19e04806ea1d53c5390",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "1a12ae7cdd8b98608ae847f3c2f994c171bd66d8d928f865c45696382e8e0186",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "3c3ea28674a7458b83c5d0e235f41f30c8861e4715faf88421cbe107d66d76d2",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "9f9832c576ccd88220fc767453687b3725a909f1ad6e0e408480289c25a7c7b9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--c4-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "7e9de173993408bf923b355ccfa86cee707b521c4eecdaa7b032acc25c473e31",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "3ac443af1fdc92b3f22e7e8d225829074c576e003a804237c520b3fc8dadd862",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "6e35da6b51c9436abe689e4b799ead4e1882119d8ebaf4a506dbd2e567004d46",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "aaef26068dd2e978d8f108e8c207a3649bb729e3e817317d1de74e72f1197256",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "f4c8fd8c71854c10a7fc1f3a1080acf5e7e7c27a26febe936369bfcdec20dc67",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "ef9a7e673868cae2ec07e075f8c3be060c545d14d08f73851323eed7611f46b0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-barbeat",
+      "task": "p05-edit-velocity-large",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "103622b437c264b3945e8a6201e340b302d1ed0b39d9bac3d28be66d69a8b091",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "4b10a1b9246ac3a2470dc7d002cf62a9dc23db00d0a98e102e876d8c5198293a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "cebf78057f542edd1cafa57a02100a4d4bd5b1131156de8959736d91aa642b54",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "5c55bc16480be5391186315d5bf7e50a80a0ea13a117524acd8816a6df8b6828",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "72971f7e9a71363003cb903ed2003d38fc586c71de343267c9fcf442c5f853dd",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "74c3f574f73c8b4c79a87b50d90b175f93663a3274975af9fc7e633ffe65317a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-midi-json",
+      "task": "p05-edit-velocity-large",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched-target",
+          "kind": "surface",
+          "responseSha256": "815e0964a59199e266eaa5618160ef2a69e32d8e44b741360e627c02e20f507f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-edited",
+          "kind": "surface",
+          "responseSha256": "c3546bae285644342c43b461e4f918f4d9bec9bea14a04ddeffb8abe5524c8ab",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-onset-edited",
+          "kind": "surface",
+          "responseSha256": "da72cb0ac8b67b6206d73dce95d78b6a0988bf43a9ffca4c5c4b5e6595d67c86",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-edited",
+          "kind": "surface",
+          "responseSha256": "4c7c897851a1938066461c609ece4bdad2bf6ffbaef255acafa666081672e56c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "target-deleted",
+          "kind": "surface",
+          "responseSha256": "59b3bdb9b4a8e160e43e3ce2c79784db6ae3b524a6540efe1d5b432295e5fe92",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "other-velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "65d845436d1ea90eb015a6eda2e62ea23f2d922bb9a7dbe904e0ca569662eb96",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--baseline-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "35b300f30afaae489f522035c058a120ae2a5c5f5558e27093ec0443cc503b2c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "911bd4a47127ec48748f7e74361ca03225fb517b393ab04d832c2bc4bce4ae25",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "e95b5aa41b301e799fedd6a84c03fc65523a4b7150ab634cd0f9c05ea4dd7dea",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "e61c5d01c04fcbd46b9d3514a1d143c8c393d6d8d0680c1c41b6cf05813825a4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "968851833d19bd6098c9e58ebfbeb4adb13b0f2acffa8867aed1b12c15594c13",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "03ac76c612e98e73942296379db5ef2518ded9d38244d9c75eabb706aa52aad1",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "57f9c342dba3cb90f83026d9b5af14b394ce658f7bf84e46f4d6d7414d8de915",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--baseline-json",
+      "task": "p06-transpose-every-pitch",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "23bde35320176998fcfdb2eaa77516e81d4da13dc154876f2f0656e85694ec4f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "68f9ab272ca53a2f42f165b772b783db846f0025408b712ca0363ddd2897f3f0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "1748f502a7f922f9b981b86974641aa9172a2ddcd235a7995b479a29b98504be",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "11ee045c7b32b5c481960168fa6e6e2c5c27bbf56bc3d3ba1c0d17438356b552",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "fc3a99f9b3a360436e6e985cd0b0066d191045fbf56bddcf0538ea28f53912f8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "3dc6529d5eb9ca81bf19e7d3c9b9fe4ca8849e23f0070e292dd26dbcb305ebcb",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "1467869d632a0dcc24c6e959cfa0252ae7a38542cca2cfa35ebd55be4a6626d4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--c3-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "d1edcd0df1c353b4d17706a04b28f05c0d15501199e4c6a0f26f6691e95eff60",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "cc47f2e77b8b026b3dacd27a7b3f58fa8473abba6658a4c43683e3e424684624",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "04a582c5a0d43a329b8f4d9ac7693a468e8f625d9c8ed9c5d960d7a7e9604a36",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "740aca4c07869b8b575728ee54ca7ce271b9d318f6fa71fb5caf9a9ede4b0b57",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "ac7d082f5b9f0a8894e5e85b6e2837663abcb430d92628678fed5804e5a0c12f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "c71d6a6dcc534b19a67a3e6b6ec92c3472058c0c6a45673b48e00f6439c1c97c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "a537d3d6404ff3987cc273fd1b475525731b3fcf0d4ca22d2df137ea08f12ef0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--c4-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "cfe9433a3596d37fbf3a4e1bd629ef8169a108c7a4460f8767f6ceed6bae14a9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "8f59fa61a89750d8ba4a8a7a929fde601e6a1f394152e847e9681c486ba7e64d",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "249ed805caa2192c281e76e6b401fda69d3f3cff4eac88f0781ee5ea1f8cd74c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "289ebeb0de748611ac59126c3cd6bca91c01d6d49149ed6bdd5c24cf1c4c20dc",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "5862088ca25cd40a6948dbcebb9c2fbbcbf1677e9262477fa603ad35197a65b5",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "bd4d6853f3ae639f7719c735f358cad297c0a290a7e1b840376c4f6e3cedb577",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "7bed78f5ebf07ff627497e81aa528b55eef0e2a327d60bc87b5c04083a1471bf",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--pp-barbeat",
+      "task": "p06-transpose-every-pitch",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "eaac1e9979ecb5f7fb876373355fc47b7ab0f00acae7be36e82bf9cc576b6e17",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "29f9c7405f736038d733579f4b5810f4d44c1b9920d5f2caa85245cb4e098fd8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "bd01652eca58db15ce9023ef9c62beda6cbce63e1c9e89233050f4430bf9d781",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "ae584bd3f3fcc2d98f268c106a807a2c1609f1626889459b1e895342301f6599",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "4b089a6119dfba33bc0bf619a6a81ba61958fe0077b20cda721e7f9b9687a44a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "1a364471cdb6472e68aba083b13ee02de05bec8892217327ffb5e0ba4ca9a657",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "ebafbca90e4ceef0e8cf2e7f0f0be48807b307d16ab1d8b9d7f8db1e83959c35",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p06-transpose-every-pitch--pp-midi-json",
+      "task": "p06-transpose-every-pitch",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "709d33a23c028948eebad732a277ae4b0dec95d1e52069251b4923b61c206eb9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "first-match-only",
+          "kind": "surface",
+          "responseSha256": "ca40d7aeb8c974a37d31735dd567bf8ea2a5df7d81de016b6b8dc31dd193c73c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "last-match-missed",
+          "kind": "surface",
+          "responseSha256": "e3c45dbe25bcc4234bb6d8b5e5272689861907672a368e113a2009bc7cd01c18",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "735e3c80a34fb8a4fd77704044451808f033eb30c98427d5415ebbd987b05a35",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-one-semitone",
+          "kind": "surface",
+          "responseSha256": "d1eb5e1fcbcb78463f915b0f353825caa36df5b508132e6ee098103993ef6d97",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "nearest-other-pitch-transposed",
+          "kind": "surface",
+          "responseSha256": "98f41174c217cb84c42b30e387f5510d47bc70dce4a0443c0fefcc927c9d7bd7",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "copies-added-originals-kept",
+          "kind": "surface",
+          "responseSha256": "98aafe7002678196c8026c22581b67231c4357e7979ed4c2bf615ac3da56664d",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c3-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "de4620ba13dc2b21232907c5d25ab38f1d6ed6a120e05b9a87f1dc7f50f3db2d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-halved-anchor-kept",
+          "kind": "surface",
+          "responseSha256": "804e751cc08548191c0a525aa4e585bdd19169f6f48f76d35b7f364bf285e0d9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-moved-spreads-kept",
+          "kind": "surface",
+          "responseSha256": "d92c4e2f567ce2b4237ed1b6c2135b6b0bcbf517680511696e9fda11baefc1a2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "halves-floored-to-grid",
+          "kind": "surface",
+          "responseSha256": "aee4793e10487b56d4ebf0682aa1fdec4679b0dc3d444f4e11856fe4aed0639f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "common-delay-halved-too",
+          "kind": "surface",
+          "responseSha256": "91d4eeb2aeeae7231d99a7fac1464ff8553a947ab2fb5c8e5644b93c4215940e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "protected-group-dropped",
+          "kind": "surface",
+          "responseSha256": "6b5a0f8dd542a7c6511894bc09b4b45bd3df47cbf80f7a0609622a22a77dbb23",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "loose-note-moved",
+          "kind": "surface",
+          "responseSha256": "4573052bb8fe1259ff53acf3b406f20fa2e008078af6157d976cf3ed74912a92",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "3f7e2e9e101d9bdce04eef270afb2c4a18903899a5490019d15414fc9d6d38c4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-halved-anchor-kept",
+          "kind": "surface",
+          "responseSha256": "10368eedce426f6041ba6373fc00732bda7ba1ad0169d4dabc03e846bf0f4937",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-moved-spreads-kept",
+          "kind": "surface",
+          "responseSha256": "a7f591cd4d9083c6d4f5bea27747de342ad7f965d9e67cd01aecd04c589e0bd8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "halves-floored-to-grid",
+          "kind": "surface",
+          "responseSha256": "af238f8f213f7cb91593c13d7eff2942d312d99677f057f6b3fa332638cc97b2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "common-delay-halved-too",
+          "kind": "surface",
+          "responseSha256": "4005dda2e69a0c27d63ef5165fa4e02b34b6f25107c3256211dd504abb4880d6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "protected-group-dropped",
+          "kind": "surface",
+          "responseSha256": "3c6d4317e2c21cbd61db3246d34f49fc335480d8ce70109d124e62d7f6b20280",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "loose-note-moved",
+          "kind": "surface",
+          "responseSha256": "92dc6df7ee8168d534595151f7f9a2fec6befbc1f284d3b5d3d85feb11bf35d0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c3-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c3-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "4934b5450451e7d816cdb3bf05bf49eb7873c43257009e83659cbb9de3780e4e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-halved-anchor-kept",
+          "kind": "surface",
+          "responseSha256": "56b36df823f2be28f1cbd91a742562002eb11d189ec133e04e8844bbcf007a81",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-moved-spreads-kept",
+          "kind": "surface",
+          "responseSha256": "bde16eccf41c6f39bbdc8905eae5133635048fca90ac392d6874bc08970954ff",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "halves-floored-to-grid",
+          "kind": "surface",
+          "responseSha256": "c2884b21b3764ace727e528c34aa7a27467118a6b4b9fe79764f1da2adaec540",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "common-delay-halved-too",
+          "kind": "surface",
+          "responseSha256": "3211115fe9e5709f1ae8a4a3a5cbe6e98c258850db32d6b4c5e0e76239c42233",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "protected-group-dropped",
+          "kind": "surface",
+          "responseSha256": "5e97f403c37d1271bec2e8b68e5f289488df983b92fe14bce5b373f96ce88fe4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "loose-note-moved",
+          "kind": "surface",
+          "responseSha256": "bc9a828a87921455a9ca3c56bc474ca8a3bf26ca4c87616d273a34fc76d6c9a8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "37f1efd227d3bd67f5e26ddfad88fa63a3465ecb4aab00e341712d1426d6b6b3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-halved-anchor-kept",
+          "kind": "surface",
+          "responseSha256": "370a885727fb692919fa177052ded292195b3dd54849ac667ef969e87f159a93",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-moved-spreads-kept",
+          "kind": "surface",
+          "responseSha256": "6b3c4b9cd1969bc531c68131629283bf0fd573fac458d5f321557db5f763f911",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "halves-floored-to-grid",
+          "kind": "surface",
+          "responseSha256": "89f438f840345955bbcb7b8a4f27612608f43bda753c300eef1ab0d2e592124a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "common-delay-halved-too",
+          "kind": "surface",
+          "responseSha256": "986d3bafe43bcfca72e899a45a53cd00a94b170eebd5868ce9675d515c92e3c3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "protected-group-dropped",
+          "kind": "surface",
+          "responseSha256": "7fa01be1744dd26cab22d7f03cdad1a01923c5d420ad7a6b6fa3c1c8d2bcec87",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "loose-note-moved",
+          "kind": "surface",
+          "responseSha256": "f721c48056bf3f60ff9c427f437fc409f537cdf4297f0b1883f1ff250b0eb349",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-detached-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-detached-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "cd52dd3aa972aa228d11ae74d129dab3ecf1b630a7f41ee64c9ba15f2211c76a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spreads-halved-anchor-kept",
+          "kind": "surface",
+          "responseSha256": "b888123a9634de6dd7d897b1ec3cbda53200d559a53af75ce935abf2c3026541",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-moved-spreads-kept",
+          "kind": "surface",
+          "responseSha256": "2fad83d682d5be5361a6248929f07bf938f1ecaf59500eda9722a9209cafb277",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "halves-floored-to-grid",
+          "kind": "surface",
+          "responseSha256": "cc3cbe29b521e6a1edead2ddfbfdb1bd67dfdd71b5ca7df6ffd5fd6338196220",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "common-delay-halved-too",
+          "kind": "surface",
+          "responseSha256": "6937a0f8cc2aeacc696ffe2ed9fc8ce7269e731104fca3386fd495629d956ed5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "protected-group-dropped",
+          "kind": "surface",
+          "responseSha256": "d2e388dc226fd1b0a74791b0d763dc1a32778d5d43a99b9bae5277bc273a3516",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "loose-note-moved",
+          "kind": "surface",
+          "responseSha256": "7332f4b0807a2c4182813f8b742b4bce1eb49b4956a268fd91026316bbeaee59",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--baseline-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "99f4c6da0c0d7d6a247d50a7feb4b33982ebc5b6ad2fc680c867d3935e484eba",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "bd45ba95b2d69fe76f4dc66fc725f7018d8829b6866f952b5b9d88ad79ba447d",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "89c37ce5c69788811fea1a135d94d31d1017c722a16ecb21916379a1d439c423",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "ad094608a1ac399b7fb1201b3d2971de1c2dce48abfdbb9dbf20ae7c86915ca6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "ecf35d0468976b722698ead679db428879bc4c0eac9728b187d0b8c217aac0c3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "0e87856a6ee2edb12b1b4c73060247f4a5a92ecb979afc0437bb280577930ecf",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "13d14d9d7e3eae725d625edca019548402cf53aa5e6ba4bc3dc562e329ab6367",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "083c50a664a45a2327e98aebb59a4dc43328982ff500853e768b1e148ba4d681",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--baseline-json",
+      "task": "p08-shift-transpose-range",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "d7452716d9935bcfd9a385bd02959e1f9de49a08c1142c09d7e4df9a7cd1e104",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "c930d2814834c5d385f0066870a38ac1997f4e8450d8488cba9891084f0bb98e",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "122fce7d1bb1c03756001f8ca0f3eea577fe456f390a42af4cd08f11ecb5c7c6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "259660817f365e2dc6ac77ee6101aca8ccd08dfe22abc91e85156a5579782cec",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "1fb6428dd38990aef9b2b3a2404141fb75a181eec359402ec9a97bb142511e75",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "f3c16e05ba074d205c47adc6ebd9b7f66467bd049df34eba45fd272e661ad27c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "f8a13529787c149e0c67ef4178f7dff7bd1f925407d77c5056e20281e73bd84c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "445443110a62df950feb07151de31bd7adf75746e85719acf061980dcb3cfbdc",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--c3-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "1cae7fdd4d8f65e3cc1260402c7549057d55909da058fe189571f8eab942bf92",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "9427c3472877c795f330b19b898bb43cc4069aaaceceee9fc5a6ae8348325977",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "834b48fc7da6e73d4dd95922c3c679ec8d29a02284b63b83eb97a0b36b7f27e9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "df60582bec1dc3e692c0c40983b708bf0b012e468ada2aa210456f0d0e38943d",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "4ba8edfb2320d6ea54ad5e1e83b96b8b2adfed61f82ed6e62b90594bce5177dd",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "f21be5ab708b6f1cd8a687085bf4ae2bf86ac0281cea51af71db8320286d31d7",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "8acef494f0a98a9ace87ab06662785547b1917f36e57cd59a3412c9d1617543f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "a6f5ec62a9a7c97158d4a6ef4dfd5884a87b83ad7a1e27e79398ba10130ff40c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--c4-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e85c8c3a2537182467b20042dfcd72a3796b2eed3415e598a8425c9180d791b4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "e1ccea6607c9193499aec53b2996c281072afc51c57b10cacc919cdea85a7adb",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "164dbafbe15c4895a066f7f49218bb67d088d0742188d5c80ec13a88a0b2fff3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "ef0b12ce2f63dd78734d497990d8971dc3106b8daf8d211c91ea26786889d62b",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "487fbef1ae0456d33cf3e9900a36a79d809a4849e958b7ac5cb907d1c9eeb018",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "f094419516c0195663611e4ca67054c282d1e1c1cde69fd904ddb282910da27c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "340388070582ddba31bd8f6bef5e2eace0fca412315d79f44a932f1240662bd8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "75361e074547dc2ed4b9cbf1c39a0a152b5665a41d859b8755544a37c1bccf0f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--pp-barbeat",
+      "task": "p08-shift-transpose-range",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "9f86030687a7da55ef910899d723e4785884523710fb5bb594109c52bbcd6f8e",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "359e84e6db3bb11fb2a2bd0d64c3c3a9524c2106baeafcfde0a0f88a001bc367",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "6ac4d3a3656e3d30f0983cf93a602893346cff144e95b6a450af689fe14430e0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "0e8962de43936e3311c2b83a4d85ae97cf4384e9825b7d3796514ea64744af63",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "07fd8e068ae1b87aa778e61940da93de14d757eb39845bc23423e0aa1675a5b5",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "0d669dab90a0abff8dea3b243665ae03c13b7302c48f0387cfb5c411ec737928",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "b7d655075b548de5ffb522dfb395c637bfcca826be3346e9b20a20de03182f8c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "861d6d9c9a0f20dfe07dd13a11c02b80f3812bc9778a944122ba34f0e9e29d51",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--pp-midi-json",
+      "task": "p08-shift-transpose-range",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "381eed14de5c9392af6735a1144128d52c82ef561a4fb644d5e86712ebaa4938",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-not-transposed",
+          "kind": "surface",
+          "responseSha256": "6e0d20dc98b6012267764a520eb9c6b0de28393c68cf4063f2548ee06d5e1fb4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-not-shifted",
+          "kind": "surface",
+          "responseSha256": "b31848ebfd9e3672d89755351f8f91fbd3ea42828803ce2eb2f576eb9c34f30b",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "exclusive-lower-bound",
+          "kind": "surface",
+          "responseSha256": "141bce7274ae8239225760045d6a7afe22eb13f15ceae9b1504c28fa67556165",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "inclusive-upper-bound",
+          "kind": "surface",
+          "responseSha256": "1e28fa85c92a2733feadfbbe7cb1917389437fd3f8b2c60eaa1f422735ca76ad",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "shifted-earlier",
+          "kind": "surface",
+          "responseSha256": "386babc049672b68d91a52ec9dce10b53a0c7101c57cbe0288dda96cc2badd41",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "transposed-down",
+          "kind": "surface",
+          "responseSha256": "a0f872ac132f5738967363cddef24b0fb0624ad57259fd407cfc8cb62aa54307",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "every-note-edited",
+          "kind": "surface",
+          "responseSha256": "ab689dc4e42bea2503b349990615dbf55cc3d4af29e9ecec755e920cebc66298",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--baseline-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "0f38d808a9f8ad75d712ab266047dabfe0980de495ad1eba0ce5cfe652d855d9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "4d66b10412152b96e9e8362083182b9b7b8a0d8756e2eb3e4774ff4de9d8f8bd",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "a1f6d7e3bbe316bf748d665b6f963078698ae0a39d93874a9ebab1157e4629d2",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "622904d79b44582d5942b5092ffde10a2493102de234912a2cf16f2a829289db",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "ec5066cfbd8136c9d366c0fd29b725d3bf1648719774150359de52ac9e75cc42",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--baseline-json",
+      "task": "p09-delete-near-miss",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e65da0cac7d418d05fc8986a5378e1ce5438cac27d9165dc811ae96bc84fb46c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "2d545dd1a59b267ee8a66371f1a9cff6947c92eed0aec4d39b74f32587630c2c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "086c735c40884ba4cdfd4447be194d8535b3cf2fccdaf86e948510b349a6bde5",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "1d1ba69d2d598873a5f17724d8394f7c8dd8bd104a84154d8a68b960b90334e3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "90d7f0fee2d053ac04a97cd6e92056d2fa973021d414376d8763ae0da1014cce",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--c3-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "511d0e0f49679c400ee697d273cb3934f08b87121498d1ae0519a7d95f7a7188",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "209beb92c1af807f2bc004bad29d421b0230f8c8fdebc86fbac8b49dcdb7d24a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "0ba406ad3ab2061b99031d2bc27c4c223722ca26bc4802fb603fe0442408c695",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "aa81744fd7eb081bf1f766414c79a3decadac1d34bed15f27808716ab1c366c4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "c8b7446ed712a4ec67ea80418f74e6c91574da8821b1be09cfb9be7c5cde68e6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--c4-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "7e9de173993408bf923b355ccfa86cee707b521c4eecdaa7b032acc25c473e31",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "c8a415fe5df8482f1c78d1abb69e72fc90af348a21327f27d1280222569f73d4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "ba0e806cf347a0d5008c77265309ba5406c61525c26cd9158e6f86e59dc861eb",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "d9b15be75ea91246562673bccf12026c66382ee1b471ea00ef0ba064afce12c6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "fdd184717a57428bd0beb6833015e5eb11472ee07bac6a6efcb7e0ecc6318038",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--pp-barbeat",
+      "task": "p09-delete-near-miss",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "103622b437c264b3945e8a6201e340b302d1ed0b39d9bac3d28be66d69a8b091",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "7ef0e10fac38ab893ee4130f81dade17fa4d125c0a79f48cae129e5f288f19bc",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "02411f47781c829e085093fd0dc377391d53cf2e7225fb9d3fa7f0f55565ac04",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "1b2e85f33ebbde16aa026ae46dd2b183d69168265d1d6893452f547784eddefc",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "b5e269ede3da51bb2bf835109b503082f9e68d69d44a165de7c6b360acada4b8",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p09-delete-near-miss--pp-midi-json",
+      "task": "p09-delete-near-miss",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "refused-as-ambiguous",
+          "kind": "text",
+          "responseSha256": "b97e8ebc398d5d45a70ef005352e1308a832dcf93ee6391e52ceefbb3dd6b49a",
+          "pass": false,
+          "reason": "gratuitous-refusal"
+        },
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "815e0964a59199e266eaa5618160ef2a69e32d8e44b741360e627c02e20f507f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "boundary-note-deleted-instead",
+          "kind": "surface",
+          "responseSha256": "2f6b6f2a9424e7481e3049382f484c3b9fd925b859ac0db8468e91c7db3c28ac",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "both-near-notes-deleted",
+          "kind": "surface",
+          "responseSha256": "86a4534bbe8a9fea954c7416dad8e13474416d0bb9512b693951719e0edb63d6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "whole-pitch-deleted",
+          "kind": "surface",
+          "responseSha256": "ab9a4144804a314df6973d04b41f09c1590b143ec3b3b8fd26dd7cc37bfdb05c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "wrong-note-deleted",
+          "kind": "surface",
+          "responseSha256": "d9d99706566b537ab8f104688707193af66931532b1bcd994951d0c88890c790",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "512629c038584f81c842f87012b3e48ee7c0d422539ba39e44de69fa722d69a5",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "1917c433096af2f412d617f3d29e3966c473bb98b446a5f98f2b961d174327d1",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "b9501c2ab1301ee523dd775229f9454fe7da04b5f79dd38e19d2d0ecc60e67f8",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-json",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "28f763677b0a3c92cf93531d4ad2be0c6cb0c53edbda4d4452ba78250776bfd9",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "4611444484a23e62f00925d211dc1a887dc4dbeb34a8c9545e5da6147d38a413",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "844eebd977afd37f731b2cf9f5d198a5b8233eebb0f932325b66f90d9f77a745",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c3-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "42284793eb16e99b21578fefafffac4d00d063014a243c2cdca938b992cbb35f",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "da17f8ae7c17bb713729800c8fc701e64eac18f3e270d39c480df12c2ab4d61e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "96b172e82f8948d7496111ebbe51ec9e41b6f48d5aee52c806ee989628a58afa",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c4-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "75602d7e261a1b2ac2262f1519095780d9ca38af0666a1f583ffcd9d2a3f7875",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "61f3d236da88b3947f83ec65fa7e2a970f239fc635b9d7614888b977eb342974",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "13b36c5bce1c75c44aa442a8fb884835d0a0506033a302fe2cf687334b3296ed",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-barbeat",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "041d91c9905804eb84ecc7cdbc68fbd0e6a7c365f15079ab465806cd3bfb11af",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "2188094ad8ad86408f51eb37a52f01b144e56f0093a2e6221746f6ddd0f91635",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "04dea566fe8c5c76809bc8446e65565a41334039726d26b9d4dbe8923a36cdf1",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-midi-json",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": null,
+      "wrongAnswers": [
+        {
+          "variant": "wrong-refusal-code",
+          "kind": "text",
+          "responseSha256": "aec906121f6246ef29a02930befc0d071d6a94de111f94c4aba03ec6539c1016",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "unsupported-refusal-code",
+          "kind": "text",
+          "responseSha256": "c0c8217c95a92556a6a22a8be27c5304296f22930d940ec893dd1741b2c77b40",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "refusal-with-explanation",
+          "kind": "text",
+          "responseSha256": "0ba3d601fd86b1cdb1706adef8ee099778eeb5b24c6781ce73f79544433b884e",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "lowercase-refusal",
+          "kind": "text",
+          "responseSha256": "a1fec30bcdf1150186e2dc661b47ef39fda2fe54a7995d930ac17c0e45150303",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "first-match-deleted",
+          "kind": "surface",
+          "responseSha256": "a7510516c64cc8167f31cded80b949d482220b8b4718b7e9cfb36e9ddffed6bb",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "both-matches-deleted",
+          "kind": "surface",
+          "responseSha256": "6d51a3b2cdc53b65ba5403119e36a1e659866913f1bcff8ccb781a1ab6173447",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        },
+        {
+          "variant": "untouched-input",
+          "kind": "surface",
+          "responseSha256": "18d5350804f3d412fbf4ca04dc8dcf7ad69e25f2251a58ac5113bd12660fdd34",
+          "pass": false,
+          "reason": "required-refusal-mismatch"
+        }
+      ],
+      "gratuitousRefusal": null
+    },
+    {
+      "id": "p11-preserve-window--baseline-fields",
+      "task": "p11-preserve-window",
+      "arm": "baseline-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "6fa391976917505807f09edb2cf1e91dd4d8a0f15c4dd100aefe9baa2aafff11",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "aede9e3232bf85f0e126e95dd04740390a5babe8a460a261f456c64d163cfa8a",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "e93eae8d2615e0c0486c5fed7bd18496a23798c9e0f11516d190e8f0c179b53f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "130be9edb9e566cbe85792284f096011bc8c148e91cf20c9eff4a7a4c8e2360b",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p11-preserve-window--baseline-json",
+      "task": "p11-preserve-window",
+      "arm": "baseline-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "3b296129fd786ca6bb81048dbdd61db1f8a367a338e359bb2ff2d1ee41bdbf83",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "8da89a290640f47094b42e1af72da6ddc4aa740e48918cc0211dda637e887c72",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "02868c6ac601d7eda9ea09928f0ce50a1be053c9c80080ec4fd0806aa9e73bf3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "a719263312175cb31ef5401cf77caa86219638f38273a8b27c6b5890f56d04f4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p11-preserve-window--c3-fields",
+      "task": "p11-preserve-window",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "2529fcb16093fa41311f6dc5457506a50f41cf933a01aa97b8c246d56e015387",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "833b50411a6f35a6c4cda17d2bc660a442185c3d0db6356c8805f0e25a8ee9b9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "2da7aba93a97e47dafd75b359b629e193430e6ad109e328a02ffa74e18f35ba3",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "duplicate-added",
+          "kind": "surface",
+          "responseSha256": "4d0bbc177a81608bd3128cfdc337cb9e79e9494a4152f3e7b0f87c4478e97ba4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "1109beb323734f40abc0b8331932b37ca6678f46b89a8b15842228cfcc5ec608",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p11-preserve-window--c4-fields",
+      "task": "p11-preserve-window",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "937e6bcf7e2ce999a76c9ac610d316ebe01e37c38e2effcf65d1af1619e9abd6",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "f2601aaff0a7c2905e5d6ca2cece8d15ca4de45a7f4e65e602be982c28466ac9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "407fe26976de4049e7127fe3a2c240c84e53c3b7cf768a39843a09a2015300b4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "duplicate-added",
+          "kind": "surface",
+          "responseSha256": "d2a0e1c770b9fe0704d45853513c4c026fbe3ffe088e632ca29fa7d11642b9e9",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "6f8d7fe20d792d812e84aaa58850fe69ad6b96a0add8b5ddf320a0944c1a9583",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p11-preserve-window--pp-barbeat",
+      "task": "p11-preserve-window",
+      "arm": "pp-barbeat",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "8a99bd62573cb9636a2b03f3507608e5ef014ad72f5f517ec320e47073ebd431",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "f36b605d1913ad355292c479e67a23dc0468659cb29b7b6be23df1f71458bd85",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "55a27e206789b655d887d3ebefd5303cffaaba950a8cce9f776d63f662d69ab5",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "duplicate-added",
+          "kind": "surface",
+          "responseSha256": "d96d71c7a3c37ef543e5f69040a3355528693b01341e51e10060bea0e883c693",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "bea22fbaf08f58ad769468b100842d2df42ebacf39117f8a7ccd390891ca346f",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p11-preserve-window--pp-midi-json",
+      "task": "p11-preserve-window",
+      "arm": "pp-midi-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": false
+      },
+      "wrongAnswers": [
+        {
+          "variant": "one-note-dropped",
+          "kind": "surface",
+          "responseSha256": "cbc102dded11b23d789da03a15996c16ddec0b30c5d73f3554ec04e642d0be7c",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "velocities-reset-64",
+          "kind": "surface",
+          "responseSha256": "1d41784561bce60a8f6b830cc312514cf4841b3f47386d9897224a2d61fc8ea0",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "onsets-quantized-sixteenth",
+          "kind": "surface",
+          "responseSha256": "68148d43753dc115939f4d812c36911146236b91d00ed50bd782ad175f6cd776",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "duplicate-added",
+          "kind": "surface",
+          "responseSha256": "e4e2c1b9641fa2c564c8f0c031e12380bbeaba4bc31e07893b232838ac5c7d2e",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        },
+        {
+          "variant": "durations-halved",
+          "kind": "surface",
+          "responseSha256": "b9822d22c35afcbe58113ae72da8833002db722918f66c6e977f71403da590e4",
+          "pass": false,
+          "reason": "performed-state-or-envelope-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "2a416c6dc1969a5e0b668b86b91f62fdac78ea6524ff546e186eae690ccd9f53",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "note-order-swapped",
+          "kind": "surface",
+          "responseSha256": "5461f80fa229afe5b73feee3e8b9fe4798530b0f40b1346e12941c5a74fd9e87",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onset-rounded-to-1-512",
+          "kind": "surface",
+          "responseSha256": "4c8f1c499e3d6e0129c4a543450b2f2e3836b7ca1ed550fa847ab987980abf10",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "8148b176f7f223860ef021298a37e8be53ce5ee37d3b0148b526b07f1970801e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "de504516d3e341b1184eb52cb9e6e6e520b570033a1db15be6abbdef55d2b99a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "channel-defaulted",
+          "kind": "surface",
+          "responseSha256": "0b6fdedcda365478065cb39f6afae1ad3008041dd618c50817707341b5e79c80",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "09f0746cf3b53660b79327a9981b529b8ce14ea7bde5c1da2aac0db28f816eb8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "note-order-swapped",
+          "kind": "surface",
+          "responseSha256": "630994e2c1f79eb08041a05f4f7afcf667eb30af3be328e629d9b5890af61839",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onset-rounded-to-1-512",
+          "kind": "surface",
+          "responseSha256": "b0e611c5d3394a1e58c60116e201eb44dd1d2f64f21c6eda49d29e1c1cc1215f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "00140c5e30eb52cc64a21e205947d47451aee0950bbdf348614ce62ac53e12b7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "38d6eb8e897dbb872a76950ed71f3d23fda925b671a6ff31142f81d8a6e1e0db",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "channel-defaulted",
+          "kind": "surface",
+          "responseSha256": "41a2dab7de82e36a9583a2c0be51d540574f89363c8a8cf2ca0b67f914af0db0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c3-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "e9013486523168e4cbd4d184d3ea4142e4cd4ee11b9c75c10126a67c8acf5f43",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "note-order-swapped",
+          "kind": "surface",
+          "responseSha256": "799413461db0cded435a7759373893dabf28a3e648672965012337041e634181",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onset-rounded-to-1-512",
+          "kind": "surface",
+          "responseSha256": "a778193c928355f688f89b83ca4678e459bd3422e25493d8113326602e4d5172",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "38fe094b03305e584531097998a9531e5c58d8050fc311c263a2c84e97ee1c11",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "8edf76e57fef8331ff77d9a61633272b3ccbc9e775f87260783876d40da634ee",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "channel-defaulted",
+          "kind": "surface",
+          "responseSha256": "9bac2e78a05f8c02fe1521bbc473b0cff491d36a6fca0775aca1c2fefd89b284",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c4-json",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "e3a4541d43ae691155c2a2d6c972e80910993370051576354ec18c9b99757740",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "note-order-swapped",
+          "kind": "surface",
+          "responseSha256": "7ecbc94913daa9bcea95ef6dc2a18432015e87b7a39c2f40aab6feba68840f31",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onset-rounded-to-1-512",
+          "kind": "surface",
+          "responseSha256": "7206a25fb78598932d70675f509b9eb6f16917d4eb0a5216e87040b0d1e086a8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "898678cec5b6f2955408fa21eb4b3df6a10b51e02fa08bf6e2cfc4c159561204",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "049e03c97b94bd122af32c688a59d4c7d9b385d81bacdd374dfc0fdc23f5a9eb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "channel-defaulted",
+          "kind": "surface",
+          "responseSha256": "fc3d29613511e8274c86eb015116f011071c996e480dc73fde567dd425965f7e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    }
+  ]
+}

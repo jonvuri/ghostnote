@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793b-7e77-76f2-8fa3-95db699deaf9",
+  "turn_id": "01a1793b-7e77-76f2-8fa3-95db699deaf9",
+  "last_agent_message": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 54 0 389/256 64\nNOTE t1n2 55 389/256 389/512 64\nNOTE t1n3 59 1167/512 389/512 64\nNOTE t1n4 62 389/128 461/512 91\nNOTE t1n5 66 2017/512 123/128 64\nNOTE t1n6 67 627/128 123/128 64\nNOTE t1n7 66 375/64 123/128 64\nNOTE t1n8 66 3491/512 443/128 64\nNOTE t1n9 60 5263/512 983/256 64\nNOTE t1n10 59 7229/512 1147/256 64",
+  "started_at": 1793035304,
+  "completed_at": 1793035312,
+  "duration_ms": 7615,
+  "time_to_first_token_ms": 5722
+}

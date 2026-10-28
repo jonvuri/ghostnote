@@ -1,0 +1,553 @@
+{
+  "schema": "r01-paired-rehearsal-results-v1",
+  "selectionId": "haiku55-admission",
+  "stage": "development",
+  "status": "complete",
+  "evidence": "development-only; not scored pilot evidence",
+  "counts": {
+    "plannedRuns": 6,
+    "submittedRuns": 6,
+    "submissions": 6,
+    "firstAttemptPasses": 6,
+    "withinBudgetPasses": 6,
+    "repairsUsed": 0,
+    "totalInputTokens": 12659,
+    "finalOutputTokens": 4166
+  },
+  "runs": [
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--c4-fields",
+      "cell": "edit-velocity-guitar--c4-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c4-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/01-edit-velocity-guitar--c4-fields-a0",
+          "promptSha256": "ee413ffffcfa7ee1d05642ca1ffdcf02da987fe6d19ec7c725e7f9f500ad50f7",
+          "promptBytes": 3789,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 2136,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 375,
+            "output_tokens_details": {
+              "thinking_tokens": 108
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 2136,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 375,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 2136,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 2136
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2138,
+          "finalOutputTokens": 375,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 2976.227375
+          },
+          "localSerializedContextTokens": 1597,
+          "elapsedMs": 2976.227375,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "90eff2020e9bbfa05b2a072bb12bf32b39256684da151435f630c869c05b16ef"
+        }
+      ]
+    },
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--c3-fields",
+      "cell": "edit-velocity-guitar--c3-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c3-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/02-edit-velocity-guitar--c3-fields-a0",
+          "promptSha256": "1777e9df93bb3dec97ae8d9e5a1ee7c15c179e439b3c52bf9967511964c7d55a",
+          "promptBytes": 3238,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1925,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 362,
+            "output_tokens_details": {
+              "thinking_tokens": 114
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 1925,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 362,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 1925,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1925
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1927,
+          "finalOutputTokens": 362,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 3886.5988340000004
+          },
+          "localSerializedContextTokens": 1460,
+          "elapsedMs": 3886.5988340000004,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "44c2b2958584f88c413e9cdd233c282a216a9a7055f4ed4c6a94ec05d3c0bef8"
+        }
+      ]
+    },
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--pp-barbeat",
+      "cell": "edit-velocity-guitar--pp-barbeat",
+      "task": "edit-velocity-guitar",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/03-edit-velocity-guitar--pp-barbeat-a0",
+          "promptSha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2",
+          "promptBytes": 3495,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1990,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1854,
+            "output_tokens_details": {
+              "thinking_tokens": 1674
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 1990,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 1854,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 1990,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1990
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1992,
+          "finalOutputTokens": 1854,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 9106.487291999998
+          },
+          "localSerializedContextTokens": 1512,
+          "elapsedMs": 9106.487291999998,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "837e763b884dab391ab762414265c94a8d70ef98573d2cb6117819903da51a68"
+        }
+      ]
+    },
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--pp-midi-json",
+      "cell": "edit-velocity-guitar--pp-midi-json",
+      "task": "edit-velocity-guitar",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/04-edit-velocity-guitar--pp-midi-json-a0",
+          "promptSha256": "856b1e21788844de1c9dd4453f5b7be77a374228274d9ffc3176f2c169d3f35e",
+          "promptBytes": 3248,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 1897,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 352,
+            "output_tokens_details": {
+              "thinking_tokens": 134
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 1897,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 352,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 1897,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 1897
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1899,
+          "finalOutputTokens": 352,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 2528.9389169999995
+          },
+          "localSerializedContextTokens": 1456,
+          "elapsedMs": 2528.9389169999995,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "a696ba84e90ffbbbfc66a73cf07b460ba45db286441d46fb61d47b57fde99d06"
+        }
+      ]
+    },
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--baseline-fields",
+      "cell": "edit-velocity-guitar--baseline-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/05-edit-velocity-guitar--baseline-fields-a0",
+          "promptSha256": "682676fdd8dbe3ba5143112c37bc8ce1805002e8ceae3c351d45f8e16d1b29a1",
+          "promptBytes": 4038,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 2285,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 506,
+            "output_tokens_details": {
+              "thinking_tokens": 86
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 2285,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 506,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 2285,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 2285
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2287,
+          "finalOutputTokens": 506,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 3213.0698330000014
+          },
+          "localSerializedContextTokens": 1706,
+          "elapsedMs": 3213.0698330000014,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "bfc6cfb9617a4ae63698999480e2f64f5d1c52cf0413d80cef92e4174221358d"
+        }
+      ]
+    },
+    {
+      "id": "159e28092bee037bfd9384d304c600cd09584b5e8ec9ecfa463d3d8208a8223a:r0:edit-velocity-guitar--baseline-json",
+      "cell": "edit-velocity-guitar--baseline-json",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-json",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/06-edit-velocity-guitar--baseline-json-a0",
+          "promptSha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1",
+          "promptBytes": 4387,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 2414,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 717,
+            "output_tokens_details": {
+              "thinking_tokens": 125
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 2414,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [
+              {
+                "input_tokens": 2,
+                "output_tokens": 717,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 2414,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 2414
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2416,
+          "finalOutputTokens": 717,
+          "contextClientBytes": 1937,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 5707.745959
+          },
+          "localSerializedContextTokens": 1805,
+          "elapsedMs": 5707.745959,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "cdf885f65af8e0352edcb153d6b1d804b6dca7e6f52193b5a9ab0d4874355959"
+        }
+      ]
+    }
+  ]
+}

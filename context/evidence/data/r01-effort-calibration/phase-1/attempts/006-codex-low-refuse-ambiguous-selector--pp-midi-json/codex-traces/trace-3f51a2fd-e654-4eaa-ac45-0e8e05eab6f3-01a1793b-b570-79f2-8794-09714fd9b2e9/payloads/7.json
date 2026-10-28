@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793b-b813-7170-b3ea-ec10d737d52e",
+  "turn_id": "01a1793b-b813-7170-b3ea-ec10d737d52e",
+  "last_agent_message": "REFUSE ambiguous-selection",
+  "started_at": 1793035319,
+  "completed_at": 1793035321,
+  "duration_ms": 2560,
+  "time_to_first_token_ms": 2539
+}

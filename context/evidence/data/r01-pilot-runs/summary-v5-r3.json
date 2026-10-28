@@ -1,0 +1,1174 @@
+{
+ "claude": {
+  "runs": 261,
+  "finished": 259,
+  "submissions": 275,
+  "first": 252,
+  "within": 259,
+  "perRepeat": [
+   83,
+   85,
+   84
+  ],
+  "byTask": {
+   "p03-author-constrained": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 11,
+    "w": 12,
+    "n": 12
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p06-transpose-every-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 16,
+    "w": 17,
+    "n": 18
+   },
+   "p15-move-member-between-groups": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p16-retime-two-groups": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p14-group-existing-notes": {
+    "f": 14,
+    "w": 14,
+    "n": 15
+   },
+   "p05-edit-velocity-large": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p13-read-derived-window": {
+    "f": 11,
+    "w": 15,
+    "n": 15
+   },
+   "p02-read-group-timing": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p08-shift-transpose-range": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p01-read-sounding-at": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   }
+  },
+  "byArm": {
+   "pp-barbeat": {
+    "f": 21,
+    "w": 23,
+    "n": 24
+   },
+   "baseline-fields": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "pp-midi-json": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "c3-fields": {
+    "f": 47,
+    "w": 48,
+    "n": 48
+   },
+   "c4-fields": {
+    "f": 48,
+    "w": 48,
+    "n": 48
+   },
+   "c4-json": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   },
+   "c3-json": {
+    "f": 21,
+    "w": 24,
+    "n": 24
+   },
+   "c4-detached-fields": {
+    "f": 20,
+    "w": 20,
+    "n": 21
+   }
+  },
+  "byTaskArm": {
+   "p03-author-constrained|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|pp-barbeat": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p09-delete-near-miss|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-detached-fields": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p05-edit-velocity-large|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-json": {
+    "f": 1,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-fields": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|pp-barbeat": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p08-shift-transpose-range|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|pp-barbeat": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   }
+  },
+  "inputTokens": 906711,
+  "outputTokens": 662517,
+  "stalls": 0,
+  "outcomes": {
+   "pass": 259,
+   "fail": 16
+  },
+  "medianInitialOutput": 1692
+ },
+ "codex": {
+  "runs": 261,
+  "finished": 143,
+  "submissions": 527,
+  "first": 119,
+  "within": 143,
+  "perRepeat": [
+   43,
+   38,
+   38
+  ],
+  "byTask": {
+   "p11-preserve-window": {
+    "f": 16,
+    "w": 17,
+    "n": 18
+   },
+   "p03-author-constrained": {
+    "f": 15,
+    "w": 15,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 6,
+    "w": 10,
+    "n": 15
+   },
+   "p13-read-derived-window": {
+    "f": 0,
+    "w": 0,
+    "n": 15
+   },
+   "p08-shift-transpose-range": {
+    "f": 0,
+    "w": 1,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 9,
+    "w": 17,
+    "n": 18
+   },
+   "p01-read-sounding-at": {
+    "f": 0,
+    "w": 3,
+    "n": 18
+   },
+   "p16-retime-two-groups": {
+    "f": 9,
+    "w": 9,
+    "n": 15
+   },
+   "p06-transpose-every-pitch": {
+    "f": 15,
+    "w": 15,
+    "n": 18
+   },
+   "p05-edit-velocity-large": {
+    "f": 13,
+    "w": 15,
+    "n": 18
+   },
+   "p15-move-member-between-groups": {
+    "f": 7,
+    "w": 7,
+    "n": 15
+   },
+   "p02-read-group-timing": {
+    "f": 6,
+    "w": 6,
+    "n": 15
+   },
+   "p09-delete-near-miss": {
+    "f": 5,
+    "w": 10,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 12,
+    "w": 12,
+    "n": 12
+   },
+   "p14-group-existing-notes": {
+    "f": 0,
+    "w": 0,
+    "n": 15
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 6,
+    "w": 6,
+    "n": 15
+   }
+  },
+  "byArm": {
+   "c3-fields": {
+    "f": 21,
+    "w": 27,
+    "n": 48
+   },
+   "pp-barbeat": {
+    "f": 2,
+    "w": 4,
+    "n": 24
+   },
+   "c4-fields": {
+    "f": 29,
+    "w": 33,
+    "n": 48
+   },
+   "baseline-fields": {
+    "f": 15,
+    "w": 17,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 14,
+    "w": 16,
+    "n": 24
+   },
+   "pp-midi-json": {
+    "f": 13,
+    "w": 19,
+    "n": 24
+   },
+   "c4-json": {
+    "f": 11,
+    "w": 13,
+    "n": 24
+   },
+   "c3-json": {
+    "f": 6,
+    "w": 6,
+    "n": 24
+   },
+   "c4-detached-fields": {
+    "f": 8,
+    "w": 8,
+    "n": 21
+   }
+  },
+  "byTaskArm": {
+   "p11-preserve-window|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|pp-barbeat": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p11-preserve-window|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p11-preserve-window|pp-midi-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p03-author-constrained|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p03-author-constrained|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-json": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-fields": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|baseline-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|baseline-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p08-shift-transpose-range|pp-midi-json": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|c3-fields": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|baseline-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|pp-barbeat": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|c4-fields": {
+    "f": 1,
+    "w": 3,
+    "n": 3
+   },
+   "p10-refuse-ambiguous-pitch|pp-midi-json": {
+    "f": 1,
+    "w": 3,
+    "n": 3
+   },
+   "p01-read-sounding-at|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p01-read-sounding-at|c4-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p01-read-sounding-at|pp-midi-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p01-read-sounding-at|baseline-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p01-read-sounding-at|c3-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p01-read-sounding-at|baseline-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p06-transpose-every-pitch|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p05-edit-velocity-large|baseline-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|pp-midi-json": {
+    "f": 1,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|baseline-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p05-edit-velocity-large|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-json": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-detached-fields": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p09-delete-near-miss|c3-fields": {
+    "f": 1,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|baseline-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p09-delete-near-miss|pp-midi-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p09-delete-near-miss|pp-barbeat": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p09-delete-near-miss|c4-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p09-delete-near-miss|baseline-json": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   }
+  },
+  "inputTokens": 2758187,
+  "outputTokens": 362060,
+  "stalls": 0,
+  "outcomes": {
+   "pass": 143,
+   "fail": 384
+  },
+  "medianInitialOutput": 337
+ }
+}

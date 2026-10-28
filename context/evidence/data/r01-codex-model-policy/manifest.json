@@ -1,0 +1,235 @@
+{
+  "schema": "r01-codex-model-policy-amendment-v1",
+  "policy": "r01-codex-luna-request-model-v1",
+  "decision": "context/decisions/d55-r01-luna-model-selection-evidence.md",
+  "stage": "development",
+  "newExternalCalls": 0,
+  "testsPassed": 60,
+  "historicalSnapshots": [
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "73061342ca3dbae0213c17d4e204ac0d6f4ffd97b0cb6f3b71a7a1ae3b7c5b61"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "01fc259bcd4d6a4b326689748ba3f90fe1670975800f73eb85597fe7739c6c90"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "1b0a73c42682c9c5d547af5fe22761504f12201acf6a550189fc48b4e2658fb9"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "sha256": "6f61899af9ff849914a079bffd740bca5a76ce74757abab8db8b4c063e4912f8"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "7cf9e94fb522d0dfb66bb3145ad290fdc979f5794f7ab184c17f3db61c43ab18"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-controls.test.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-controls.test.mjs",
+      "sha256": "d02a8216338dc4f7cb12226ccc1e15f355b28de0152621cbe752877836ae6048"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/codex-isolation.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.mjs",
+      "sha256": "b12d112dfd8e393286ba23611c43c8f68ab3098e705f4d1871b5cb28dce1a589"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "snapshotPath": "e362-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "faa1d7cae609b0a16e960b4a11b5e91b362599c28756ff2278cb90b8f569a55b"
+    },
+    {
+      "originalPath": "context/BACKLOG.md",
+      "snapshotPath": "e362-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "030eedbbb1056e73fc4c6f3b394ce450bc9c482eb8131bfdd8f88970f7ec71ee"
+    },
+    {
+      "originalPath": "context/NOW.md",
+      "snapshotPath": "e362-source-snapshots/context/NOW.md.txt",
+      "sha256": "66c8c1ac9da7458a0fdb181df7516107de694b7458fd2501f562de89d12b126a"
+    },
+    {
+      "originalPath": "context/evidence/INDEX.md",
+      "snapshotPath": "e362-source-snapshots/context/evidence/INDEX.md.txt",
+      "sha256": "01efce83faa0caf3252620e43576fd86303ae5053606262960e4b274133d9a47"
+    },
+    {
+      "originalPath": "context/evidence/experiments/e362-r01-codex-isolation-and-remaining-gates.md",
+      "snapshotPath": "e362-source-snapshots/context/evidence/experiments/e362-r01-codex-isolation-and-remaining-gates.md.txt",
+      "sha256": "0b80e2e0bc59bf6886f415805d52fc2d130b6916427de95a816a20c09f69136d"
+    },
+    {
+      "originalPath": "context/work/r01-codex-admission.md",
+      "snapshotPath": "e362-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "b824bbd5cb20c048ec25a44d4f8549c63c62abb80940f20ed40db4ae35443d75"
+    },
+    {
+      "originalPath": "context/work/r01-format-comparison.md",
+      "snapshotPath": "e362-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "497acc2badffe666f8c279b3edd4b70179e591e273df414afc88f6f2fb5ba197"
+    },
+    {
+      "originalPath": "spec/r01-research/CLI-CONTROLS.md",
+      "snapshotPath": "e362-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "ec5a832127f5ace06d05f425ecd910f9404e55149ae4b86860f8b77cbc092b3a"
+    },
+    {
+      "originalPath": "spec/r01-research/PILOT-DRAFT.md",
+      "snapshotPath": "e362-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "01eae29b9152a23e6108ab2a74e2d70aa31bf7923d8abf6271c88bca8465b520"
+    },
+    {
+      "originalPath": "spec/r01-research/README.md",
+      "snapshotPath": "e362-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "e2ec5207abbf61e5d2a58f12a6e92b3f585159e075214762677d4b7c37ba185c"
+    }
+  ],
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "46388ebe1472ec34df40cbdf27e6b376c0b0b546d12c1986c7aead879bc4806c"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "3810d9d4d944e4eb18589d9610727e7fab721c9d8e6c9dbc69772db952c854c9"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "d213e267f28b68b5790e36a5257b6ab44a078a25f2394673f2d832b13f6ec2ca"
+    },
+    {
+      "path": "context/BACKLOG.md",
+      "sha256": "9641de431cd3b785bec25af92d6873067d6999af88a1f2750b3dfc3916fbae35"
+    },
+    {
+      "path": "context/NOW.md",
+      "sha256": "54ca3d482377cf2ad81c69578cc126e5d50012d766cf4f24e3bfff315ffa4689"
+    },
+    {
+      "path": "context/decisions/INDEX.md",
+      "sha256": "2bc03af3f783e879c2e3383a6d968294aa0408f83b77273aa04f554a07f76561"
+    },
+    {
+      "path": "context/decisions/d55-r01-luna-model-selection-evidence.md",
+      "sha256": "99072ab8a6c34f9d254584c6f3e30ee3b3bb0017591ac907d1b2a7e3514092d7"
+    },
+    {
+      "path": "context/work/r01-codex-admission.md",
+      "sha256": "611a1f69883ac0ba6651fd0a9d9682909abefd844ba5f443d2c1fe42270104ac"
+    },
+    {
+      "path": "context/work/r01-format-comparison.md",
+      "sha256": "7461afba601d4ea31fac12051614814e208a6d83c601b7db97429f6d01b806e5"
+    },
+    {
+      "path": "spec/r01-research/CLI-CONTROLS.md",
+      "sha256": "bd3b2b468e580d67da5452035d2f849144f03d44a1fbbd5ac2b658f86d7d43e7"
+    },
+    {
+      "path": "spec/r01-research/DEVELOPMENT-PAIRS.md",
+      "sha256": "82da179af820cd5b5a476028fd7ea517fe8fb5ae16b56cf2eeda278bf69c17b7"
+    },
+    {
+      "path": "spec/r01-research/PILOT-DRAFT.md",
+      "sha256": "8b812c1a7d8fb6ef587f5efb11ab4ad20fe5e7eb1d9099c45a26b01d858a11c4"
+    },
+    {
+      "path": "spec/r01-research/README.md",
+      "sha256": "c4d59c4b9708379e1fb592b604fdf74db89ba19b87a15196695a16e55813c35f"
+    },
+    {
+      "path": "spec/r01-research/TRIAL-PROTOCOL.md",
+      "sha256": "aca1508f92144934452e832a865ed23dfcd751a9534ef574a653af32a7210386"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "73061342ca3dbae0213c17d4e204ac0d6f4ffd97b0cb6f3b71a7a1ae3b7c5b61"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "01fc259bcd4d6a4b326689748ba3f90fe1670975800f73eb85597fe7739c6c90"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "1b0a73c42682c9c5d547af5fe22761504f12201acf6a550189fc48b4e2658fb9"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "sha256": "6f61899af9ff849914a079bffd740bca5a76ce74757abab8db8b4c063e4912f8"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "7cf9e94fb522d0dfb66bb3145ad290fdc979f5794f7ab184c17f3db61c43ab18"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/cli-controls.test.mjs",
+      "sha256": "d02a8216338dc4f7cb12226ccc1e15f355b28de0152621cbe752877836ae6048"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.mjs",
+      "sha256": "b12d112dfd8e393286ba23611c43c8f68ab3098e705f4d1871b5cb28dce1a589"
+    },
+    {
+      "path": "e362-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "faa1d7cae609b0a16e960b4a11b5e91b362599c28756ff2278cb90b8f569a55b"
+    },
+    {
+      "path": "e362-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "030eedbbb1056e73fc4c6f3b394ce450bc9c482eb8131bfdd8f88970f7ec71ee"
+    },
+    {
+      "path": "e362-source-snapshots/context/NOW.md.txt",
+      "sha256": "66c8c1ac9da7458a0fdb181df7516107de694b7458fd2501f562de89d12b126a"
+    },
+    {
+      "path": "e362-source-snapshots/context/evidence/INDEX.md.txt",
+      "sha256": "01efce83faa0caf3252620e43576fd86303ae5053606262960e4b274133d9a47"
+    },
+    {
+      "path": "e362-source-snapshots/context/evidence/experiments/e362-r01-codex-isolation-and-remaining-gates.md.txt",
+      "sha256": "0b80e2e0bc59bf6886f415805d52fc2d130b6916427de95a816a20c09f69136d"
+    },
+    {
+      "path": "e362-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "b824bbd5cb20c048ec25a44d4f8549c63c62abb80940f20ed40db4ae35443d75"
+    },
+    {
+      "path": "e362-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "497acc2badffe666f8c279b3edd4b70179e591e273df414afc88f6f2fb5ba197"
+    },
+    {
+      "path": "e362-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "ec5a832127f5ace06d05f425ecd910f9404e55149ae4b86860f8b77cbc092b3a"
+    },
+    {
+      "path": "e362-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "01eae29b9152a23e6108ab2a74e2d70aa31bf7923d8abf6271c88bca8465b520"
+    },
+    {
+      "path": "e362-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "e2ec5207abbf61e5d2a58f12a6e92b3f585159e075214762677d4b7c37ba185c"
+    },
+    {
+      "path": "exclude-tools.audit.json",
+      "sha256": "9b8b2fd550b642463c76930b23952366c9d8c8f617c7cf63ef2a41c55e47ef5f"
+    },
+    {
+      "path": "isolated-home.audit.json",
+      "sha256": "33c36e577bc32a7f49dcd2721d74559f50148c3b5db23ddcaacfcf275f376569"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "37efa9a6da6817d329a26763860ccdfc6f050a0b64e1e28f60ce81ddb6ade6e1"
+    }
+  ]
+}

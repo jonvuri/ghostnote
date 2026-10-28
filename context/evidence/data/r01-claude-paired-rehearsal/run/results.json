@@ -1,0 +1,1030 @@
+{
+  "schema": "r01-paired-rehearsal-results-v1",
+  "status": "complete",
+  "evidence": "development-only; not scored pilot evidence",
+  "counts": {
+    "plannedRuns": 11,
+    "submittedRuns": 11,
+    "submissions": 15,
+    "firstAttemptPasses": 9,
+    "withinBudgetPasses": 9,
+    "repairsUsed": 4,
+    "totalInputTokens": 27334,
+    "finalOutputTokens": 15311
+  },
+  "runs": [
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:halve-group-spread--c4-detached-fields",
+      "cell": "halve-group-spread--c4-detached-fields",
+      "task": "halve-group-spread",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/01-halve-group-spread--c4-detached-fields-a0",
+          "promptSha256": "d86e523844a8f4dfa0d7dac5576b460b217f61a8619b05bc4bc1a05f864fa0e5",
+          "promptBytes": 5464,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1895,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 494,
+            "output_tokens_details": {
+              "thinking_tokens": 273
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1895,
+                "output_tokens": 494,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1895,
+          "finalOutputTokens": 494,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1940,
+          "elapsedMs": 4518.065042,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "exactSourceAndContext": true,
+            "reason": null
+          },
+          "answerSha256": "ef2919210ea2e0e46fd9f4132b6eadd54e1436a12b2bb7dbcd20f806d6d3c67c"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:halve-group-spread--c4-json",
+      "cell": "halve-group-spread--c4-json",
+      "task": "halve-group-spread",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/02-halve-group-spread--c4-json-a0",
+          "promptSha256": "f31b1c3e071dffcfd22a23525b2fc3a06cb4c4c70fd202fa459e65de9ae67562",
+          "promptBytes": 4996,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1795,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1034,
+            "output_tokens_details": {
+              "thinking_tokens": 744
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1795,
+                "output_tokens": 1034,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1795,
+          "finalOutputTokens": 1034,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1871,
+          "elapsedMs": 7703.410500000001,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "exactSourceAndContext": true,
+            "reason": null
+          },
+          "answerSha256": "23027ccee796f71f1e4b7f096622f841a9be8d87966e8b14340dde90672a575b"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:halve-group-spread--c3-fields",
+      "cell": "halve-group-spread--c3-fields",
+      "task": "halve-group-spread",
+      "arm": "c3-fields",
+      "role": "primary",
+      "status": "exhausted",
+      "firstAttemptPass": false,
+      "withinBudgetPass": false,
+      "repairsUsed": 2,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/03-halve-group-spread--c3-fields-a0",
+          "promptSha256": "cc2b36dbf323f6be84f613e4c2ae6a233cf7ba7941b9fac09d1992048de46612",
+          "promptBytes": 4985,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1775,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1160,
+            "output_tokens_details": {
+              "thinking_tokens": 908
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1775,
+                "output_tokens": 1160,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1775,
+          "finalOutputTokens": 1160,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1863,
+          "elapsedMs": 7773.163125000001,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "reason": "parse-or-validation-error",
+            "error": "R01 structured: timing equation mismatch: b"
+          },
+          "answerSha256": "031e6f0eab7929a1ef9e41380fadee7c5fb86ea8eb10f4e70f41e4923ff4730f"
+        },
+        {
+          "attemptIndex": 1,
+          "directory": "attempts/04-halve-group-spread--c3-fields-a1",
+          "promptSha256": "96d924769b391d22de6730d741497b79cb1fa7d9073228b9c59bf2eef5a267de",
+          "promptBytes": 5962,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2116,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 801,
+            "output_tokens_details": {
+              "thinking_tokens": 548
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 2116,
+                "output_tokens": 801,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2116,
+          "finalOutputTokens": 801,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 2219,
+          "elapsedMs": 6046.130000000001,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "reason": "parse-or-validation-error",
+            "error": "R01 structured: timing equation mismatch: a"
+          },
+          "answerSha256": "8d002e373bdc13b9d9e44c86c52ba703cbd1c981348b790a81e55d9ddeeafe48"
+        },
+        {
+          "attemptIndex": 2,
+          "directory": "attempts/05-halve-group-spread--c3-fields-a2",
+          "promptSha256": "9fd1f9627653d9280622a219eaae8a5cb43698adb168580dcf5e5ec1427fc1be",
+          "promptBytes": 6745,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2414,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1545,
+            "output_tokens_details": {
+              "thinking_tokens": 1292
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 2414,
+                "output_tokens": 1545,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2414,
+          "finalOutputTokens": 1545,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 2524,
+          "elapsedMs": 10792.112875000003,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "exactSourceAndContext": false,
+            "reason": "source-state-mismatch"
+          },
+          "answerSha256": "f19562add30f0189f98fb8abb2c5314f52615166be60a7fad95f0d2d0fb270ef"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:halve-group-spread--c4-fields",
+      "cell": "halve-group-spread--c4-fields",
+      "task": "halve-group-spread",
+      "arm": "c4-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/06-halve-group-spread--c4-fields-a0",
+          "promptSha256": "997fc47765177ab974549db35ce032adbe1ea3df13261f3fbea7d33b0536ab75",
+          "promptBytes": 5189,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1792,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 811,
+            "output_tokens_details": {
+              "thinking_tokens": 621
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1792,
+                "output_tokens": 811,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1792,
+          "finalOutputTokens": 811,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1857,
+          "elapsedMs": 5736.8738749999975,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "exactSourceAndContext": true,
+            "reason": null
+          },
+          "answerSha256": "5fb683d0824ff6e937529bf0ad542e93b2ea4b7ee2b0da625ab6b9487adb1b1d"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:halve-group-spread--c3-json",
+      "cell": "halve-group-spread--c3-json",
+      "task": "halve-group-spread",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "status": "exhausted",
+      "firstAttemptPass": false,
+      "withinBudgetPass": false,
+      "repairsUsed": 2,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/07-halve-group-spread--c3-json-a0",
+          "promptSha256": "d0b516f1701cbed3000cd2fd3c1bc0ca2410e9147b301bfd8fb4e46ebfb6a23a",
+          "promptBytes": 4558,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1711,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1232,
+            "output_tokens_details": {
+              "thinking_tokens": 971
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1711,
+                "output_tokens": 1232,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1711,
+          "finalOutputTokens": 1232,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1803,
+          "elapsedMs": 8111.710291999996,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "exactSourceAndContext": false,
+            "reason": "source-state-mismatch"
+          },
+          "answerSha256": "f8e1983e604bbcdaeeb158ca6c0f486df4cece8addd451d3af20e69ebf25e4b6"
+        },
+        {
+          "attemptIndex": 1,
+          "directory": "attempts/08-halve-group-spread--c3-json-a1",
+          "promptSha256": "927f6f1e154e5f9246e3917973d3281fb71c83aa7a617cd94a78ec264968ec97",
+          "promptBytes": 5494,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2045,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1220,
+            "output_tokens_details": {
+              "thinking_tokens": 958
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 2045,
+                "output_tokens": 1220,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2045,
+          "finalOutputTokens": 1220,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 2149,
+          "elapsedMs": 8531.132834000004,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "reason": "parse-or-validation-error",
+            "error": "R01 structured: timing equation mismatch: b"
+          },
+          "answerSha256": "75d08bf878afd44abe4a22500793df684d1deb51cb35141a2c4f0d7372f6a222"
+        },
+        {
+          "attemptIndex": 2,
+          "directory": "attempts/09-halve-group-spread--c3-json-a2",
+          "promptSha256": "e463fb7b9d30ef9323eb20370fbbba17e016263871c1aedf07169ae10a890031",
+          "promptBytes": 6304,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 2351,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1608,
+            "output_tokens_details": {
+              "thinking_tokens": 1346
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 2351,
+                "output_tokens": 1608,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 2351,
+          "finalOutputTokens": 1608,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 2464,
+          "elapsedMs": 11045.378917000002,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "exactSourceAndContext": false,
+            "reason": "source-state-mismatch"
+          },
+          "answerSha256": "f8e1983e604bbcdaeeb158ca6c0f486df4cece8addd451d3af20e69ebf25e4b6"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--pp-midi-json",
+      "cell": "edit-velocity-guitar--pp-midi-json",
+      "task": "edit-velocity-guitar",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/10-edit-velocity-guitar--pp-midi-json-a0",
+          "promptSha256": "856b1e21788844de1c9dd4453f5b7be77a374228274d9ffc3176f2c169d3f35e",
+          "promptBytes": 3248,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1457,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 774,
+            "output_tokens_details": {
+              "thinking_tokens": 562
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1457,
+                "output_tokens": 774,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1457,
+          "finalOutputTokens": 774,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1511,
+          "elapsedMs": 5124.910916000008,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "a696ba84e90ffbbbfc66a73cf07b460ba45db286441d46fb61d47b57fde99d06"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--pp-barbeat",
+      "cell": "edit-velocity-guitar--pp-barbeat",
+      "task": "edit-velocity-guitar",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/11-edit-velocity-guitar--pp-barbeat-a0",
+          "promptSha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2",
+          "promptBytes": 3495,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1519,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 1704,
+            "output_tokens_details": {
+              "thinking_tokens": 1524
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1519,
+                "output_tokens": 1704,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1519,
+          "finalOutputTokens": 1704,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1562,
+          "elapsedMs": 13369.859125000003,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "837e763b884dab391ab762414265c94a8d70ef98573d2cb6117819903da51a68"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--c4-fields",
+      "cell": "edit-velocity-guitar--c4-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c4-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/12-edit-velocity-guitar--c4-fields-a0",
+          "promptSha256": "ee413ffffcfa7ee1d05642ca1ffdcf02da987fe6d19ec7c725e7f9f500ad50f7",
+          "promptBytes": 3789,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1567,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 630,
+            "output_tokens_details": {
+              "thinking_tokens": 405
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1567,
+                "output_tokens": 630,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1567,
+          "finalOutputTokens": 630,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1652,
+          "elapsedMs": 4599.090750000003,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "90eff2020e9bbfa05b2a072bb12bf32b39256684da151435f630c869c05b16ef"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--c3-fields",
+      "cell": "edit-velocity-guitar--c3-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "c3-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/13-edit-velocity-guitar--c3-fields-a0",
+          "promptSha256": "1777e9df93bb3dec97ae8d9e5a1ee7c15c179e439b3c52bf9967511964c7d55a",
+          "promptBytes": 3238,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1418,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 628,
+            "output_tokens_details": {
+              "thinking_tokens": 420
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1418,
+                "output_tokens": 628,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1418,
+          "finalOutputTokens": 628,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1513,
+          "elapsedMs": 4419.177500000005,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "44c2b2958584f88c413e9cdd233c282a216a9a7055f4ed4c6a94ec05d3c0bef8"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--baseline-fields",
+      "cell": "edit-velocity-guitar--baseline-fields",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/14-edit-velocity-guitar--baseline-fields-a0",
+          "promptSha256": "682676fdd8dbe3ba5143112c37bc8ce1805002e8ceae3c351d45f8e16d1b29a1",
+          "promptBytes": 4038,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1700,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 757,
+            "output_tokens_details": {
+              "thinking_tokens": 410
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1700,
+                "output_tokens": 757,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1700,
+          "finalOutputTokens": 757,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1758,
+          "elapsedMs": 5227.688957999999,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "bfc6cfb9617a4ae63698999480e2f64f5d1c52cf0413d80cef92e4174221358d"
+        }
+      ]
+    },
+    {
+      "id": "8b45045312f8ba01c3973299341b58907222aab5ccd7453b36d7fe19b8ba4900:r0:edit-velocity-guitar--baseline-json",
+      "cell": "edit-velocity-guitar--baseline-json",
+      "task": "edit-velocity-guitar",
+      "arm": "baseline-json",
+      "role": "primary",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/15-edit-velocity-guitar--baseline-json-a0",
+          "promptSha256": "114952165726b583d0fc094e67bfaf323ed09d64c4af8207d97689c356a358f1",
+          "promptBytes": 4387,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 1779,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 913,
+            "output_tokens_details": {
+              "thinking_tokens": 478
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "not_available",
+            "iterations": [
+              {
+                "input_tokens": 1779,
+                "output_tokens": 913,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
+                "cache_creation": {
+                  "ephemeral_5m_input_tokens": 0,
+                  "ephemeral_1h_input_tokens": 0
+                },
+                "type": "message"
+              }
+            ],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "totalInputTokens": 1779,
+          "finalOutputTokens": 913,
+          "contextClientBytes": 2092,
+          "localSerializedContextTokens": 1863,
+          "elapsedMs": 5666.631875000006,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "cdf885f65af8e0352edcb153d6b1d804b6dca7e6f52193b5a9ab0d4874355959"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "session_configured",
+  "session_id": "01a1793c-5a74-7192-8e2f-4b869a1aa8c8",
+  "thread_id": "01a1793c-5a74-7192-8e2f-4b869a1aa8c8",
+  "thread_source": "user",
+  "model": "gpt-6-luna",
+  "model_provider_id": "openai",
+  "approval_policy": "never",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-BcUJDL",
+  "reasoning_effort": "low"
+}

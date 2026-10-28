@@ -1,0 +1,5 @@
+{
+  "type": "error",
+  "message": "We’re currently experiencing high demand, which may cause temporary errors.",
+  "codex_error_info": "internal_server_error"
+}

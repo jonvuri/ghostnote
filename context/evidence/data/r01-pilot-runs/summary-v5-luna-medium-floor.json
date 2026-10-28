@@ -1,0 +1,113 @@
+{
+ "codex": {
+  "runs": 30,
+  "finished": 13,
+  "submissions": 69,
+  "first": 9,
+  "within": 13,
+  "perRepeat": [
+   4,
+   3,
+   2
+  ],
+  "byTask": {
+   "p13-read-derived-window": {
+    "f": 1,
+    "w": 3,
+    "n": 15
+   },
+   "p14-group-existing-notes": {
+    "f": 8,
+    "w": 10,
+    "n": 15
+   }
+  },
+  "byArm": {
+   "c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 6
+   },
+   "c4-json": {
+    "f": 3,
+    "w": 4,
+    "n": 6
+   },
+   "c4-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 6
+   },
+   "c4-detached-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 6
+   },
+   "c3-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 6
+   }
+  },
+  "byTaskArm": {
+   "p13-read-derived-window|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-json": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-detached-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   }
+  },
+  "inputTokens": 319087,
+  "outputTokens": 18742,
+  "stalls": 0,
+  "outcomes": {
+   "fail": 56,
+   "pass": 13
+  },
+  "medianInitialOutput": 424
+ }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793f-7eae-7570-8709-4a5a2c157027",
+  "turn_id": "01a1793f-7eae-7570-8709-4a5a2c157027",
+  "last_agent_message": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT note1 clip 0 1/4 60 96 1 false\nEVENT note2 clip 3/8 1/8 63 77 1 false\nEVENT note3 clip 5/8 3/8 67 88 1 false\nEVENT note4 clip 11/8 5/8 58 103 1 false",
+  "started_at": 1793035566,
+  "completed_at": 1793035569,
+  "duration_ms": 3026,
+  "time_to_first_token_ms": 1751
+}
