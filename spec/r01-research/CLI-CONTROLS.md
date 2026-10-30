@@ -203,6 +203,12 @@ absence, and a present value must still equal the template (v1 required it).
 Every request must match; altered tools, injected instructions, different task
 bytes or environment permissions fail. The normal runner now includes E362's
 stronger namespace exclusions. Any tool invocation still fails independently.
+Version 3 (E376) compares `reasoning.effort` with the profile. Version 4
+([R01-D13](decisions/r01-d13-round-2-admission-and-offline-design.md), E380)
+selects the template by model. Luna's template is unchanged, `gpt-6.1-terra`
+shares it, and `gpt-5.6-terra` has its own captured template: three function
+declarations and a model-specific multi-agent hint. Both Terra models use
+D55's request-model selection basis.
 
 The **token-use policy** now follows
 [D57](decisions/d57-r01-natural-token-use.md): no required hard
@@ -288,6 +294,9 @@ repair state and resumes as a new `resumed-after-quota` submission.
 4. Under the [trial stages](PILOT-DRAFT.md#trial-stages),
    development runs need cohort admission but no freeze. Freeze settings,
    tasks, attempt count and stop rules before the rigorous stage.
+5. Done in E380 for round 2: `gpt-5.6-terra` and `gpt-6.1-terra` at `low`
+   (policy v4), and Haiku 4.5 with a 1,024-token thinking budget and no output
+   cap (`claude-historical-uncapped`, policy v1), are admitted for development.
 
 The historical OpenAI snapshot cannot be used through the tested subscription
 route. The operator chose current Haiku 5.5 and Luna as the pilot cohorts

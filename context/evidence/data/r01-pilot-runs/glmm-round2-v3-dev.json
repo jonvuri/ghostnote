@@ -1,0 +1,612 @@
+{
+ "schema": "r01-round2-glmm-v1",
+ "source": "analysis-round2-v3-dev.json",
+ "package": [
+  "round2-development-v3-haiku",
+  "round2-development-v3-luna"
+ ],
+ "model": {
+  "formula": "pass ~ cell(family, level) + format [+ format:read] + (1 | instance) + (1 | instance:format)",
+  "readFamilies": [
+   "derived-read"
+  ],
+  "sourceFamilies": [
+   "derived-read",
+   "group-retime",
+   "regroup",
+   "member-move",
+   "preserve-exact"
+  ],
+  "performedFamilies": [
+   "range-edit",
+   "preserve-performed",
+   "selective-delete"
+  ],
+  "performedReference": "baseline-json",
+  "priors": {
+   "format": "N(0, 2.5^2)",
+   "cell": "N(0, 5.0^2)",
+   "randomSD": "Gamma(2, 0) mode penalty"
+  },
+  "quadratureNodes": 30,
+  "intervals": "95% profile of the penalized objective; Wald beside"
+ },
+ "cohorts": {
+  "claude-current": {
+   "source": {
+    "rows": 240,
+    "clusters": 120,
+    "clusterFormatCells": 240,
+    "penalizedObjective": 125.47458100145256,
+    "logLik": -123.73461754457469,
+    "instanceSD": 0.2992347697576678,
+    "instanceFormatSD": null,
+    "instanceFormatTerm": "pinned (one run per instance and format)",
+    "fixed": {
+     "cell:derived-read@8": 0.5704525381010584,
+     "cell:derived-read@16": 0.5704537139425252,
+     "cell:derived-read@32": -0.45726423918615555,
+     "cell:derived-read@48": -0.21897186936417648,
+     "cell:group-retime@16": 0.3747373711231415,
+     "cell:group-retime@32": 1.2072089248529454,
+     "cell:group-retime@48": 1.4806831763962098,
+     "cell:regroup@12": 2.2478230954260248,
+     "cell:regroup@16": 0.19724281021543447,
+     "cell:regroup@24": 0.37473702221628424,
+     "fmt:c4-fields": 0.29339597558163577,
+     "fmt:c4-fields:read": 2.024684440578164
+    },
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 0.29339597558163577,
+      "oddsRatio": 1.3409736781476214,
+      "wald95": [
+       0.6318176505259498,
+       2.846090804819808
+      ],
+      "waldP": 0.4447820543199028,
+      "profile95": [
+       0.633420775035496,
+       2.872147143587107
+      ],
+      "profileP": 0.4437259025471334
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": 2.3180804161597997,
+      "oddsRatio": 10.156159981795225,
+      "wald95": [
+       3.2359614872953646,
+       31.875405804668624
+      ],
+      "waldP": 7.115525419076896e-05,
+      "profile95": [
+       3.493814756562606,
+       35.63540599119114
+      ],
+      "profileP": 6.052966874087018e-06
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": 2.024684440578164,
+      "oddsRatio": 7.573720608613752,
+      "wald95": [
+       1.9723196943853567,
+       29.083136988710347
+      ],
+      "waldP": 0.003183607712284875,
+      "profile95": [
+       2.072219331188243,
+       31.376659616395713
+      ],
+      "profileP": 0.001872455297825466
+     }
+    ]
+   },
+   "sourcePooled": {
+    "rows": 240,
+    "clusters": 120,
+    "clusterFormatCells": 240,
+    "penalizedObjective": 130.30985450009427,
+    "logLik": -128.79676440253328,
+    "instanceSD": 0.2803612164131551,
+    "instanceFormatSD": null,
+    "instanceFormatTerm": "pinned (one run per instance and format)",
+    "fixed": {
+     "cell:derived-read@8": 0.9130061031767338,
+     "cell:derived-read@16": 0.9130051386342025,
+     "cell:derived-read@32": 0.04370751278850069,
+     "cell:derived-read@48": 0.23812285197346844,
+     "cell:group-retime@16": 0.043806889561590866,
+     "cell:group-retime@32": 0.9130052862752168,
+     "cell:group-retime@48": 1.1956464342543536,
+     "cell:regroup@12": 1.982233819004188,
+     "cell:regroup@16": -0.14286647475826217,
+     "cell:regroup@24": 0.043806449709289055,
+     "fmt:c4-fields": 1.015906275320482
+    },
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, all source families",
+      "logOdds": 1.015906275320482,
+      "oddsRatio": 2.761865273846775,
+      "wald95": [
+       1.4988464884123258,
+       5.089180146100674
+      ],
+      "waldP": 0.0011229580358498303,
+      "profile95": [
+       1.5150554705413282,
+       5.165723122548053
+      ],
+      "profileP": 0.0008228119428644355
+     }
+    ]
+   },
+   "performed": null,
+   "sensitivity": {
+    "sourceFormatPriorSD10": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 0.2537385830017842,
+      "oddsRatio": 1.2888348368909672,
+      "wald95": [
+       0.5976719346502762,
+       2.7792759547187784
+      ],
+      "waldP": 0.5175146570643341
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": 2.429469002196681,
+      "oddsRatio": 11.35285213965304,
+      "wald95": [
+       3.4079787731940656,
+       37.81926481426626
+      ],
+      "waldP": 7.586927804403842e-05
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": 2.1757304191948967,
+      "oddsRatio": 8.808616755766252,
+      "wald95": [
+       2.11793301437792,
+       36.63559169398764
+      ],
+      "waldP": 0.0027717884973164075
+     }
+    ],
+    "source50Nodes": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 0.29339541290589266,
+      "oddsRatio": 1.3409729236144727,
+      "wald95": [
+       0.6318171777286602,
+       2.8460897317347142
+      ],
+      "waldP": 0.44478303985749235
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": 2.3180799310265234,
+      "oddsRatio": 10.156155054705254,
+      "wald95": [
+       3.2359597666716975,
+       31.875391825809388
+      ],
+      "waldP": 7.115555094650006e-05
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": 2.0246845181206305,
+      "oddsRatio": 7.573721195898752,
+      "wald95": [
+       1.972319466882179,
+       29.083144853750326
+      ],
+      "waldP": 0.003183610904839762
+     }
+    ],
+    "sourceNoInstanceFormatTerm": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 0.29339597558163577,
+      "oddsRatio": 1.3409736781476214,
+      "wald95": [
+       0.6318176505259498,
+       2.846090804819808
+      ],
+      "waldP": 0.4447820543199028
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": 2.3180804161597997,
+      "oddsRatio": 10.156159981795225,
+      "wald95": [
+       3.2359614872953646,
+       31.875405804668624
+      ],
+      "waldP": 7.115525419076896e-05
+     }
+    ],
+    "statsmodelsVB": {
+     "method": "statsmodels BinomialBayesMixedGLM.fit_vb (posterior means)",
+     "c4Writes": 0.5356007343400724,
+     "c4Reads": 3.0633442230917156,
+     "readInteraction": 2.5277434887516432,
+     "instanceSD": 0.30778805741057524,
+     "instanceFormatSD": 1.2878317814908196
+    }
+   }
+  },
+  "codex-current-high": {
+   "source": {
+    "rows": 264,
+    "clusters": 132,
+    "clusterFormatCells": 264,
+    "penalizedObjective": 149.8056908932332,
+    "logLik": -148.31694027382815,
+    "instanceSD": 0.7775588156080002,
+    "instanceFormatSD": null,
+    "instanceFormatTerm": "pinned (one run per instance and format)",
+    "fixed": {
+     "cell:derived-read@8": 0.7249489349149932,
+     "cell:derived-read@16": -0.04460539924921648,
+     "cell:derived-read@32": 0.7249493150818579,
+     "cell:derived-read@48": -0.04460553413990381,
+     "cell:group-retime@16": -1.0421051586478995,
+     "cell:group-retime@32": -1.4974321356483788,
+     "cell:group-retime@48": -2.496851423840475,
+     "cell:regroup@16": 1.4281555348253527,
+     "cell:regroup@24": -0.1024087503585846,
+     "cell:member-move@16": 0.41149079733384236,
+     "cell:member-move@24": -0.11242596246383972,
+     "fmt:c4-fields": 2.107572400282385,
+     "fmt:c4-fields:read": -2.7946632502788904
+    },
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 2.107572400282385,
+      "oddsRatio": 8.228242141192402,
+      "wald95": [
+       3.456605868051113,
+       19.58683498164257
+      ],
+      "waldP": 1.90777023512112e-06,
+      "profile95": [
+       3.646052725198847,
+       21.061084517348604
+      ],
+      "profileP": 4.625376457091782e-08
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": -0.6870908499965056,
+      "oddsRatio": 0.5030373536065053,
+      "wald95": [
+       0.2121943295928401,
+       1.1925228143889786
+      ],
+      "waldP": 0.11871458793198486,
+      "profile95": [
+       0.20698087586038155,
+       1.1779563128197035
+      ],
+      "profileP": 0.11412534703447838
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": -2.7946632502788904,
+      "oddsRatio": 0.06113545821508933,
+      "wald95": [
+       0.017728805058166083,
+       0.21081760665236599
+      ],
+      "waldP": 9.650485035761491e-06,
+      "profile95": [
+       0.016464118005424612,
+       0.20011946903595018
+      ],
+      "profileP": 1.604172179362259e-06
+     }
+    ]
+   },
+   "sourcePooled": {
+    "rows": 264,
+    "clusters": 132,
+    "clusterFormatCells": 264,
+    "penalizedObjective": 161.3151370589359,
+    "logLik": -160.4390490894683,
+    "instanceSD": 0.519573610558399,
+    "instanceFormatSD": null,
+    "instanceFormatTerm": "pinned (one run per instance and format)",
+    "fixed": {
+     "cell:derived-read@8": -0.05180630836581355,
+     "cell:derived-read@16": -0.7878896246293629,
+     "cell:derived-read@32": -0.05180608215219272,
+     "cell:derived-read@48": -0.7878891810437998,
+     "cell:group-retime@16": -0.41992696907201993,
+     "cell:group-retime@32": -0.7872854469344547,
+     "cell:group-retime@48": -1.6110858978259737,
+     "cell:regroup@16": 1.6550633999478224,
+     "cell:regroup@24": 0.3386246443179862,
+     "cell:member-move@16": 0.7710154705738834,
+     "cell:member-move@24": 0.3347838302247628,
+     "fmt:c4-fields": 0.8467512522965869
+    },
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, all source families",
+      "logOdds": 0.8467512522965869,
+      "oddsRatio": 2.3320582629688635,
+      "wald95": [
+       1.3475170216468946,
+       4.035938436780997
+      ],
+      "waldP": 0.0024794833362054014,
+      "profile95": [
+       1.361143189475901,
+       4.10249793027913
+      ],
+      "profileP": 0.0019102715738146011
+     }
+    ]
+   },
+   "performed": {
+    "rows": 72,
+    "clusters": 4,
+    "clusterFormatCells": 24,
+    "penalizedObjective": 22.37902563779719,
+    "logLik": -21.322191777259427,
+    "instanceSD": 1.1697272349355718,
+    "instanceFormatSD": 0.981153868872442,
+    "instanceFormatTerm": "estimated",
+    "fixed": {
+     "cell:range-edit@128": 2.885609548514804,
+     "fmt:baseline-fields": 1.62124184177896,
+     "fmt:pp-midi-json": 0.15281245257171164,
+     "fmt:pp-barbeat": -2.632650900870899,
+     "fmt:c3-fields": 1.6212420801283822,
+     "fmt:c4-fields": -0.7996823222164586
+    },
+    "contrasts": [
+     {
+      "contrast": "baseline-json vs pp-barbeat",
+      "logOdds": 2.632650900870899,
+      "oddsRatio": 13.910596681350679,
+      "wald95": [
+       1.417595931242789,
+       136.5020142669013
+      ],
+      "waldP": 0.023852254943214746,
+      "profile95": [
+       1.4322537093245473,
+       178.6927839132513
+      ],
+      "profileP": 0.025650948478343143
+     },
+     {
+      "contrast": "baseline-fields vs pp-barbeat",
+      "logOdds": 4.253892742649859,
+      "oddsRatio": 70.3788465344891,
+      "wald95": [
+       1.769017937625652,
+       2799.961455548186
+      ],
+      "waldP": 0.023603220822083326,
+      "profile95": [
+       2.717623707320012,
+       5571.636699428567
+      ],
+      "profileP": 0.012164475998410088
+     },
+     {
+      "contrast": "pp-midi-json vs pp-barbeat",
+      "logOdds": 2.7854633534426108,
+      "oddsRatio": 16.20732585743554,
+      "wald95": [
+       0.9501035888619319,
+       276.47239156705325
+      ],
+      "waldP": 0.054275174588378716,
+      "profile95": [
+       1.034167969373566,
+       500.028926599471
+      ],
+      "profileP": 0.04761060731428805
+     },
+     {
+      "contrast": "c3-fields vs pp-barbeat",
+      "logOdds": 4.253892980999281,
+      "oddsRatio": 70.37886330924849,
+      "wald95": [
+       1.7690222681642849,
+       2799.9559360221083
+      ],
+      "waldP": 0.023603129409877965,
+      "profile95": [
+       2.7176237110696477,
+       5571.63670062618
+      ],
+      "profileP": 0.012164475977963633
+     },
+     {
+      "contrast": "c4-fields vs pp-barbeat",
+      "logOdds": 1.8329685786544405,
+      "oddsRatio": 6.252419936529845,
+      "wald95": [
+       0.5393165394679141,
+       72.48573370526425
+      ],
+      "waldP": 0.14261483068228564,
+      "profile95": [
+       0.451937782912617,
+       111.23444167408964
+      ],
+      "profileP": 0.1501621697717133
+     },
+     {
+      "contrast": "c4-fields vs c3-fields",
+      "logOdds": -2.420924402344841,
+      "oddsRatio": 0.08883945608863243,
+      "wald95": [
+       0.00209250046942538,
+       3.7717788232044636
+      ],
+      "waldP": 0.20556586833985024,
+      "profile95": [
+       0.0011135323526100106,
+       2.8045187626513233
+      ],
+      "profileP": 0.17071978821637274
+     },
+     {
+      "contrast": "c4-fields vs baseline-json",
+      "logOdds": -0.7996823222164586,
+      "oddsRatio": 0.4494717286219784,
+      "wald95": [
+       0.0415889844181948,
+       4.8576525168055165
+      ],
+      "waldP": 0.5102193590024093,
+      "profile95": [
+       0.036001638530495664,
+       5.455712297757278
+      ],
+      "profileP": 0.5113083758452381
+     },
+     {
+      "contrast": "c4-fields vs baseline-fields",
+      "logOdds": -2.4209241639954184,
+      "oddsRatio": 0.08883947726346801,
+      "wald95": [
+       0.0020924967820854425,
+       3.7717872677349606
+      ],
+      "waldP": 0.20556615488026408,
+      "profile95": [
+       0.0011135323528537217,
+       2.804518763044524
+      ],
+      "profileP": 0.17071978821751282
+     },
+     {
+      "contrast": "c4-fields vs pp-midi-json",
+      "logOdds": -0.9524947747881702,
+      "oddsRatio": 0.38577739421839186,
+      "wald95": [
+       0.02064067056307513,
+       7.210240453920606
+      ],
+      "waldP": 0.5237343573735704,
+      "profile95": [
+       0.012989790557694107,
+       7.60094666372754
+      ],
+      "profileP": 0.5163776575756439
+     }
+    ]
+   },
+   "sensitivity": {
+    "sourceFormatPriorSD10": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 2.27379750199701,
+      "oddsRatio": 9.71622823984819,
+      "wald95": [
+       3.800402578131926,
+       24.840813379099416
+      ],
+      "waldP": 2.0571883212472386e-06
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": -0.7821783587464517,
+      "oddsRatio": 0.4574085253965906,
+      "wald95": [
+       0.18768068460857582,
+       1.114779390014668
+      ],
+      "waldP": 0.08526248797142566
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": -3.0559758607434615,
+      "oddsRatio": 0.04707675798728842,
+      "wald95": [
+       0.012329040392424521,
+       0.17975617501873567
+      ],
+      "waldP": 7.80263927580016e-06
+     }
+    ],
+    "source50Nodes": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 2.107571510573754,
+      "oddsRatio": 8.22823482045761,
+      "wald95": [
+       3.4566006506362728,
+       19.58682969296106
+      ],
+      "waldP": 1.907821439717239e-06
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": -0.6870909339592615,
+      "oddsRatio": 0.5030373113701045,
+      "wald95": [
+       0.21219431028406233,
+       1.1925227226484663
+      ],
+      "waldP": 0.11871454589387742
+     },
+     {
+      "contrast": "read x C4 interaction (reads / writes)",
+      "logOdds": -2.7946624445330155,
+      "oddsRatio": 0.061135507474752444,
+      "wald95": [
+       0.01772880999746138,
+       0.21081788764901305
+      ],
+      "waldP": 9.650626296986431e-06
+     }
+    ],
+    "sourceNoInstanceFormatTerm": [
+     {
+      "contrast": "C4 vs C3 FIELDS, writes",
+      "logOdds": 2.107572400282385,
+      "oddsRatio": 8.228242141192402,
+      "wald95": [
+       3.456605868051113,
+       19.58683498164257
+      ],
+      "waldP": 1.90777023512112e-06
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, reads",
+      "logOdds": -0.6870908499965056,
+      "oddsRatio": 0.5030373536065053,
+      "wald95": [
+       0.2121943295928401,
+       1.1925228143889786
+      ],
+      "waldP": 0.11871458793198486
+     }
+    ],
+    "statsmodelsVB": {
+     "method": "statsmodels BinomialBayesMixedGLM.fit_vb (posterior means)",
+     "c4Writes": 2.1579783769647336,
+     "c4Reads": -0.7090006381187086,
+     "readInteraction": -2.866979015083442,
+     "instanceSD": 0.6584268627355302,
+     "instanceFormatSD": 0.4959086306272969
+    }
+   }
+  }
+ }
+}

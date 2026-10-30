@@ -106,8 +106,16 @@ const TERMINAL = new Set(['complete', 'exhausted']);
  * outcomes are retained but consume no correction (pilot draft 2).
  */
 export function resumeState(prior, maxRepairs) {
-  assert.equal(prior.status, 'paused-quota', `${prior.id}: only a quota pause can resume`);
-  assert.equal(prior.submissions.at(-1)?.outcome, 'quota', `${prior.id}: paused run must end with its quota submission`);
+  // R01-D16: a control halt whose submission passed a re-audit under a later
+  // policy continues from that scored submission instead of resubmitting it.
+  // R01-D17: a halt after two no-answer stalls caused by host sleep resumes by
+  // resubmitting the stalled attempt with identical bytes.
+  const reaudited = prior.status === 'reaudited-after-control-halt', afterStalls = prior.status === 'paused-after-stall-halt';
+  assert(prior.status === 'paused-quota' || reaudited || afterStalls, `${prior.id}: only a quota pause can resume`);
+  if (reaudited) assert(prior.submissions.at(-1)?.reaudit && ['pass', 'fail'].includes(prior.submissions.at(-1).outcome),
+    `${prior.id}: a re-audited run must end with its re-audited scored submission`);
+  else if (afterStalls) assert.equal(prior.submissions.at(-1)?.outcome, 'stall', `${prior.id}: stall-halted run must end with its stall`);
+  else assert.equal(prior.submissions.at(-1)?.outcome, 'quota', `${prior.id}: paused run must end with its quota submission`);
   let state = createRepairState({ maxRepairs });
   const history = [];
   for (const s of prior.submissions.filter(s => s.outcome !== 'quota' && s.outcome !== 'stall')) {
@@ -115,7 +123,7 @@ export function resumeState(prior, maxRepairs) {
     state = recordAttempt(state, { kind: 'task', pass: s.score.pass, reason: s.score.reason ?? null });
     if (state.status === 'awaiting-correction') history.push({ answer: s.answer, feedback: feedback(s.score) });
   }
-  assert(state.nextAction !== 'none', `${prior.id}: paused run has no remaining submission`);
+  if (!reaudited) assert(state.nextAction !== 'none', `${prior.id}: paused run has no remaining submission`);
   return { state, history };
 }
 
@@ -148,16 +156,17 @@ export function runSequence({ plan, pairs, tasks, codec, execute, audit, prior =
     const pair = pairById.get(run.cell), task = taskById.get(run.task);
     assert(pair && task, `missing pair or task for ${run.cell}`);
     assert.equal(sha(pair.prompt), run.promptSha256, `${run.cell}: delivered prompt differs from plan`);
-    const resuming = earlier?.status === 'paused-quota';
+    const resuming = ['paused-quota', 'reaudited-after-control-halt', 'paused-after-stall-halt'].includes(earlier?.status);
     if (earlier && !resuming) assert.equal(earlier.status, 'not-submitted', `${run.id}: ${earlier.status} cannot resume`);
     let { state, history } = resuming ? resumeState(earlier, run.maxRepairs)
       : { state: createRepairState({ maxRepairs: run.maxRepairs }), history: [] };
     const submissions = resuming ? [...earlier.submissions] : [];
-    let resumeNext = resuming, paused = false, stalls = 0;
+    let resumeNext = earlier?.status === 'paused-quota' || earlier?.status === 'paused-after-stall-halt', paused = false, stalls = 0;
+    const resumeRole = earlier?.status === 'paused-after-stall-halt' ? 'resubmitted-after-stall-halt' : 'resumed-after-quota';
     while (state.nextAction !== 'none') {
       const prompt = history.length ? correctionPrompt(pair.prompt, history, run.maxRepairs) : pair.prompt;
       const attemptIndex = state.attempts.length;
-      const role = resumeNext ? 'resumed-after-quota' : stalls ? 'resubmitted-after-stall'
+      const role = resumeNext ? resumeRole : stalls ? 'resubmitted-after-stall'
         : attemptIndex ? 'correction' : 'initial';
       const { directory } = execute(run, attemptIndex, prompt, role);
       const audited = audit(directory);
@@ -219,7 +228,7 @@ export function summarizeRuns(plan, status, runs) {
     quotaPauses: all.filter(s => s.outcome === 'quota').length,
     resumedSubmissions: all.filter(s => s.role === 'resumed-after-quota').length,
     stalls: all.filter(s => s.outcome === 'stall').length,
-    stallResubmissions: all.filter(s => s.role === 'resubmitted-after-stall').length,
+    stallResubmissions: all.filter(s => s.role === 'resubmitted-after-stall' || s.role === 'resubmitted-after-stall-halt').length,
     firstAttemptPasses: finished.filter(r => r.firstAttemptPass).length,
     withinBudgetPasses: finished.filter(r => r.withinBudgetPass).length,
     repairsUsed: scored.reduce((n, r) => n + r.repairsUsed, 0),

@@ -7,6 +7,8 @@ import { auditTranscript } from './cli-smoke-audit.mjs';
 import { auditCodexContext } from './codex-context-policy.mjs';
 import { auditClaudeContext } from './claude-context-policy.mjs';
 import { RETRY_CONTROL_NAMES } from './claude-transport-faults.mjs';
+export const CODEX_REQUEST_MODEL_POLICIES = Object.freeze({ 'gpt-6-luna': 'r01-codex-luna-request-model-v2',
+  'gpt-6.1-terra': 'r01-codex-terra-request-model-v1', 'gpt-5.6-terra': 'r01-codex-terra-request-model-v1' });
 const sha = text => createHash('sha256').update(text).digest('hex');
 const jsonl = text => text.split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line));
 const toolNames = (tools, prefix = '') => tools.flatMap(tool => {
@@ -62,9 +64,11 @@ export function auditControl({ provider, profile, events, processResult, request
         .filter(c => c.type === 'text' && c.text.startsWith('<system-reminder>')).length };
   });
   const oneRequest = requests.length === 1 && inferenceStarts === 1 && inferenceFailures === 0;
-  const requestModelPolicy = provider === 'codex' && profile.model === 'gpt-6-luna'
+  // Codex responses never name the served model. D55 accepts request-model
+  // selection for Luna; R01-D13 applies the same basis to the Terra probes.
+  const requestModelPolicy = provider === 'codex' && Object.hasOwn(CODEX_REQUEST_MODEL_POLICIES, profile.model)
     && profile.version === 'codex-cli 0.163.0';
-  const modelSelectionPolicy = requestModelPolicy ? 'r01-codex-luna-request-model-v2' : 'served-model-v1';
+  const modelSelectionPolicy = requestModelPolicy ? CODEX_REQUEST_MODEL_POLICIES[profile.model] : 'served-model-v1';
   const terminal = events.findLast(e => ['turn.completed', 'result', 'turn.failed', 'error'].includes(e.type));
   const completedSuccessfully = Boolean(complete && terminal === complete && !complete.is_error)
     && processResult.exitCode === 0 && !processResult.signal && !processResult.error;

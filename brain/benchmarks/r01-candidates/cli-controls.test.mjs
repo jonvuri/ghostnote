@@ -56,3 +56,15 @@ test('Codex uses subscription auth and fresh restricted context without rejected
   assert.equal(env.CODEX_ROLLOUT_TRACE_ROOT, '/scratch/codex-traces');
   assert(!args.some(arg => arg.includes('model_providers.openai.')));
 });
+
+test('round 2 profiles: uncapped Haiku 4.5 keeps the fixed budget; Terra profiles select their models at low', () => {
+  const { env, args } = invocation(PROFILES['claude-historical-uncapped'], '/scratch', {});
+  assert.equal(env.MAX_THINKING_TOKENS, '1024');
+  assert.equal(env.CLAUDE_CODE_MAX_OUTPUT_TOKENS, undefined);
+  assert(!args.includes('--effort'));
+  for (const [id, model] of [['codex-terra', 'gpt-5.6-terra'], ['codex-terra-6-1', 'gpt-6.1-terra']]) {
+    const spec = invocation(PROFILES[id], '/scratch', {});
+    assert.equal(spec.args[spec.args.indexOf('--model') + 1], model);
+    assert(spec.args.includes('model_reasoning_effort="low"'));
+  }
+});

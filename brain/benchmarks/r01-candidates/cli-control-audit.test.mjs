@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { mkdtempSync, cpSync, rmSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { auditControl, auditProbe, loadClaudeCapture } from './cli-control-audit.mjs';
+import { auditControl, auditProbe, loadClaudeCapture, CODEX_REQUEST_MODEL_POLICIES } from './cli-control-audit.mjs';
 import { PROFILES, DEVELOPMENT_PROFILES } from './cli-controls.mjs';
 
 const base = () => ({ provider: 'codex', profile: { ...DEVELOPMENT_PROFILES['codex-current'] },
@@ -301,4 +301,17 @@ test('retained retries audit every request and use the final self-corrected answ
   request.input.at(-1).content[0].text += ' Hidden feedback.';
   writeFileSync(join(bundle, retryPath), JSON.stringify(request));
   assert(auditProbe(directory).issues.includes('codex-client-context-policy-violation'));
+});
+
+test('R01-D13: retained round-2 admission probes pass every gate on their own selection basis', () => {
+  const root = fileURLToPath(new URL('../../../context/evidence/data/r01-round2-admission/', import.meta.url));
+  const expected = { 'probe-codex-terra': ['r01-codex-terra-request-model-v1', 'captured-request-success-no-reroute'],
+    'probe-codex-terra-6-1': ['r01-codex-terra-request-model-v1', 'captured-request-success-no-reroute'],
+    'probe-claude-historical-uncapped': ['served-model-v1', 'served-model'] };
+  for (const [name, [policy, basis]] of Object.entries(expected)) {
+    const audit = auditProbe(root + name);
+    assert.deepEqual([audit.controlPass, audit.probeAnswerMatches, audit.modelSelectionPolicy, audit.modelEvidenceBasis],
+      [true, true, policy, basis], `${name}: ${audit.issues}`);
+  }
+  assert.equal(CODEX_REQUEST_MODEL_POLICIES['gpt-6-sol'], undefined);
 });

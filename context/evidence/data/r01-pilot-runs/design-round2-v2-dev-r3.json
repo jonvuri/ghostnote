@@ -1,0 +1,3510 @@
+{
+ "schema": "r01-round2-design-v1",
+ "source": "analysis-round2-v2-dev-r3.json",
+ "glmm": "glmm-round2-v2-dev-r3.json",
+ "discordance": [
+  {
+   "cohort": "claude-current",
+   "family": "derived-read",
+   "level": 4,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "derived-read",
+   "level": 8,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 1,
+      "both": 7,
+      "neither": 0
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 1,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 0.6666666666666666
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "derived-read",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 2,
+      "both": 5,
+      "neither": 0
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.5833333333333334
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "derived-read",
+   "level": 32,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 0,
+      "both": 5,
+      "neither": 2
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.4166666666666667
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "group-retime",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 1,
+      "both": 8,
+      "neither": 0
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "group-retime",
+   "level": 32,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 3,
+      "both": 7,
+      "neither": 1
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 2,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "c3-fields": 0.8333333333333334
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "member-move",
+   "level": 12,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "member-move",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "preserve-exact",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "preserve-performed",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 1.0
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 0.9166666666666666
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "baseline-fields": 1.0,
+      "pp-barbeat": 0.9166666666666666
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "pp-midi-json": 1.0,
+      "pp-barbeat": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c3-fields": 1.0,
+      "pp-barbeat": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-barbeat": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-fields": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-midi-json": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "range-edit",
+   "level": 128,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 0.9166666666666666
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 1
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 0.9166666666666666,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 1,
+      "both": 5,
+      "neither": 1
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 1,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 0.8333333333333334,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 2
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "pp-midi-json": 0.8333333333333334,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 1,
+      "both": 5,
+      "neither": 0
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c3-fields": 0.9166666666666666,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 1
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 1,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-json": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 10,
+      "neither": 1
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-fields": 0.8333333333333334
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 0,
+      "both": 10,
+      "neither": 1
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-midi-json": 0.8333333333333334
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "range-edit",
+   "level": 256,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 0,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.8333333333333334
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 1,
+      "both": 7,
+      "neither": 1
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "baseline-json": 0.8333333333333334,
+      "pp-barbeat": 0.6666666666666666
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 8,
+      "neither": 0
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "baseline-fields": 1.0,
+      "pp-barbeat": 0.6666666666666666
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 1,
+      "both": 7,
+      "neither": 1
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "pp-midi-json": 0.8333333333333334,
+      "pp-barbeat": 0.6666666666666666
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 0,
+      "both": 8,
+      "neither": 2
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c3-fields": 0.8333333333333334,
+      "pp-barbeat": 0.6666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 8,
+      "neither": 0
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-barbeat": 0.6666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 0,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-json": 0.8333333333333334
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-fields": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 0,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-midi-json": 0.8333333333333334
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "range-edit",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 9,
+      "neither": 1
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.8333333333333334
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 0
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 2,
+      "both": 4,
+      "neither": 1
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "baseline-fields": 0.75,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 3
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "pp-midi-json": 0.75,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 6,
+      "neither": 2
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c3-fields": 0.8333333333333334,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 1,
+      "both": 5,
+      "neither": 1
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "pp-barbeat": 0.5
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 2,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 2,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 1,
+      "both": 8,
+      "neither": 1
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "baseline-fields": 0.75
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 1,
+      "both": 8,
+      "neither": 1
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "pp-midi-json": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "regroup",
+   "level": 12,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 2,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 1,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.5
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "regroup",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 7,
+      "bOnly": 0,
+      "both": 5,
+      "neither": 0
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.4166666666666667
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "claude-current",
+   "family": "selective-delete",
+   "level": 24,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 1.0
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 0.3333333333333333
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 1.0,
+      "pp-barbeat": 0.3333333333333333
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "pp-midi-json": 1.0,
+      "pp-barbeat": 0.3333333333333333
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c3-fields": 1.0,
+      "pp-barbeat": 0.3333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-barbeat": 0.3333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-fields": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-midi-json": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "derived-read",
+   "level": 4,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 8,
+      "neither": 2
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.75,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "derived-read",
+   "level": 8,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 3,
+      "both": 4,
+      "neither": 2
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 2,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.5833333333333334,
+      "c3-fields": 0.5833333333333334
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "derived-read",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 4,
+      "both": 5,
+      "neither": 2
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 2,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.5,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "derived-read",
+   "level": 32,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 5,
+      "both": 4,
+      "neither": 2
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 3,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.4166666666666667,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "group-retime",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 7,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 1
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 0.3333333333333333
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "group-retime",
+   "level": 32,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 5
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.5833333333333334,
+      "c3-fields": 0.16666666666666666
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "member-move",
+   "level": 12,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 0,
+      "both": 9,
+      "neither": 0
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "member-move",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 8,
+      "neither": 0
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.6666666666666666
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "preserve-exact",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 0,
+      "both": 9,
+      "neither": 0
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "preserve-performed",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 0.9166666666666666
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 1.0
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "baseline-fields": 1.0,
+      "pp-barbeat": 1.0
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 0,
+      "both": 12,
+      "neither": 0
+     },
+     "pairDiscordance": 0.0,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "pp-midi-json": 1.0,
+      "pp-barbeat": 1.0
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c3-fields": 0.9166666666666666,
+      "pp-barbeat": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-barbeat": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-fields": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-midi-json": 1.0
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "range-edit",
+   "level": 128,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 2,
+      "both": 7,
+      "neither": 2
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "c3-fields": 0.75
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 10,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 0
+     },
+     "pairDiscordance": 0.8333333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 1
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 0.9166666666666666,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 2,
+      "both": 0,
+      "neither": 5
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 1,
+      "tied": 1
+     },
+     "passRate": {
+      "pp-midi-json": 0.4166666666666667,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 7,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 3
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c3-fields": 0.75,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 4
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 4,
+      "both": 8,
+      "neither": 0
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 4,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 4,
+      "both": 7,
+      "neither": 0
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 3,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "baseline-fields": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 2,
+      "both": 3,
+      "neither": 2
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 1,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.6666666666666666,
+      "pp-midi-json": 0.4166666666666667
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "range-edit",
+   "level": 256,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 9,
+      "neither": 1
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.8333333333333334
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 5
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 0.5833333333333334,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 3
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 0.75,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 7
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "pp-midi-json": 0.4166666666666667,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 2
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c3-fields": 0.8333333333333334,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 2
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 0,
+      "both": 7,
+      "neither": 2
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "baseline-json": 0.5833333333333334
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 1,
+      "both": 8,
+      "neither": 1
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 0,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "baseline-fields": 0.75
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 1,
+      "both": 4,
+      "neither": 1
+     },
+     "pairDiscordance": 0.5833333333333334,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "pp-midi-json": 0.4166666666666667
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "range-edit",
+   "level": 512,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 5,
+      "bOnly": 0,
+      "both": 7,
+      "neither": 0
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "c3-fields": 0.5833333333333334
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 1,
+      "both": 0,
+      "neither": 8
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "baseline-json": 0.25,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 3
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 0.75,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 4,
+      "bOnly": 1,
+      "both": 0,
+      "neither": 7
+     },
+     "pairDiscordance": 0.4166666666666667,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 1,
+      "tied": 0
+     },
+     "passRate": {
+      "pp-midi-json": 0.3333333333333333,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 6,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 5
+     },
+     "pairDiscordance": 0.5,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c3-fields": 0.5833333333333334,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 11,
+      "bOnly": 0,
+      "both": 1,
+      "neither": 0
+     },
+     "pairDiscordance": 0.9166666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-barbeat": 0.08333333333333333
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 3,
+      "neither": 0
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-json": 0.25
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 3,
+      "bOnly": 0,
+      "both": 9,
+      "neither": 0
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 2,
+      "bBetter": 0,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "baseline-fields": 0.75
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 4,
+      "neither": 0
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 1.0,
+      "pp-midi-json": 0.3333333333333333
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "regroup",
+   "level": 12,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 10,
+      "neither": 1
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.8333333333333334,
+      "c3-fields": 0.9166666666666666
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "regroup",
+   "level": 16,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 2,
+      "both": 7,
+      "neither": 1
+     },
+     "pairDiscordance": 0.3333333333333333,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 1,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.75,
+      "c3-fields": 0.75
+     }
+    }
+   ]
+  },
+  {
+   "cohort": "codex-current-high",
+   "family": "selective-delete",
+   "level": 24,
+   "comparisons": [
+    {
+     "a": "c4-fields",
+     "b": "c3-fields",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "c3-fields": 1.0
+     }
+    },
+    {
+     "a": "baseline-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 10,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 0
+     },
+     "pairDiscordance": 0.8333333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-json": 1.0,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "baseline-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 1
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "baseline-fields": 0.9166666666666666,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "pp-midi-json",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 8,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 2
+     },
+     "pairDiscordance": 0.6666666666666666,
+     "clusters": {
+      "aBetter": 3,
+      "bBetter": 0,
+      "tied": 1
+     },
+     "passRate": {
+      "pp-midi-json": 0.8333333333333334,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c3-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 10,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 0
+     },
+     "pairDiscordance": 0.8333333333333334,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c3-fields": 1.0,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-barbeat",
+     "pairs": {
+      "aOnly": 9,
+      "bOnly": 0,
+      "both": 2,
+      "neither": 1
+     },
+     "pairDiscordance": 0.75,
+     "clusters": {
+      "aBetter": 4,
+      "bBetter": 0,
+      "tied": 0
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-barbeat": 0.16666666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-json",
+     "pairs": {
+      "aOnly": 0,
+      "bOnly": 1,
+      "both": 11,
+      "neither": 0
+     },
+     "pairDiscordance": 0.08333333333333333,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 1,
+      "tied": 3
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-json": 1.0
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "baseline-fields",
+     "pairs": {
+      "aOnly": 1,
+      "bOnly": 1,
+      "both": 10,
+      "neither": 0
+     },
+     "pairDiscordance": 0.16666666666666666,
+     "clusters": {
+      "aBetter": 0,
+      "bBetter": 0,
+      "tied": 4
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "baseline-fields": 0.9166666666666666
+     }
+    },
+    {
+     "a": "c4-fields",
+     "b": "pp-midi-json",
+     "pairs": {
+      "aOnly": 2,
+      "bOnly": 1,
+      "both": 9,
+      "neither": 0
+     },
+     "pairDiscordance": 0.25,
+     "clusters": {
+      "aBetter": 1,
+      "bBetter": 1,
+      "tied": 2
+     },
+     "passRate": {
+      "c4-fields": 0.9166666666666666,
+      "pp-midi-json": 0.8333333333333334
+     }
+    }
+   ]
+  }
+ ],
+ "repeats": {
+  "agreement": [
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-fields",
+    "family": "range-edit",
+    "unanimousInstances": 9,
+    "instances": 12,
+    "share": 0.75
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-json",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-json",
+    "family": "range-edit",
+    "unanimousInstances": 9,
+    "instances": 12,
+    "share": 0.75
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "baseline-json",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "derived-read",
+    "unanimousInstances": 7,
+    "instances": 16,
+    "share": 0.4375
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "group-retime",
+    "unanimousInstances": 3,
+    "instances": 8,
+    "share": 0.375
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "member-move",
+    "unanimousInstances": 8,
+    "instances": 8,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "preserve-exact",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "range-edit",
+    "unanimousInstances": 8,
+    "instances": 12,
+    "share": 0.6666666666666666
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "regroup",
+    "unanimousInstances": 2,
+    "instances": 8,
+    "share": 0.25
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c3-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "derived-read",
+    "unanimousInstances": 11,
+    "instances": 16,
+    "share": 0.6875
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "group-retime",
+    "unanimousInstances": 4,
+    "instances": 8,
+    "share": 0.5
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "member-move",
+    "unanimousInstances": 7,
+    "instances": 8,
+    "share": 0.875
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "preserve-exact",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "range-edit",
+    "unanimousInstances": 9,
+    "instances": 12,
+    "share": 0.75
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "regroup",
+    "unanimousInstances": 7,
+    "instances": 8,
+    "share": 0.875
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "c4-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-barbeat",
+    "family": "preserve-performed",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-barbeat",
+    "family": "range-edit",
+    "unanimousInstances": 1,
+    "instances": 12,
+    "share": 0.08333333333333333
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-barbeat",
+    "family": "selective-delete",
+    "unanimousInstances": 0,
+    "instances": 4,
+    "share": 0.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-midi-json",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-midi-json",
+    "family": "range-edit",
+    "unanimousInstances": 6,
+    "instances": 12,
+    "share": 0.5
+   },
+   {
+    "cohort": "claude-current",
+    "arm": "pp-midi-json",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-fields",
+    "family": "range-edit",
+    "unanimousInstances": 7,
+    "instances": 12,
+    "share": 0.5833333333333334
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-json",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-json",
+    "family": "range-edit",
+    "unanimousInstances": 6,
+    "instances": 12,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "baseline-json",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "derived-read",
+    "unanimousInstances": 9,
+    "instances": 16,
+    "share": 0.5625
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "group-retime",
+    "unanimousInstances": 3,
+    "instances": 8,
+    "share": 0.375
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "member-move",
+    "unanimousInstances": 2,
+    "instances": 8,
+    "share": 0.25
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "preserve-exact",
+    "unanimousInstances": 2,
+    "instances": 4,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "range-edit",
+    "unanimousInstances": 3,
+    "instances": 12,
+    "share": 0.25
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "regroup",
+    "unanimousInstances": 4,
+    "instances": 8,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c3-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "derived-read",
+    "unanimousInstances": 6,
+    "instances": 16,
+    "share": 0.375
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "group-retime",
+    "unanimousInstances": 5,
+    "instances": 8,
+    "share": 0.625
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "member-move",
+    "unanimousInstances": 8,
+    "instances": 8,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "preserve-exact",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "preserve-performed",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "range-edit",
+    "unanimousInstances": 6,
+    "instances": 12,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "regroup",
+    "unanimousInstances": 4,
+    "instances": 8,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "c4-fields",
+    "family": "selective-delete",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-barbeat",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-barbeat",
+    "family": "range-edit",
+    "unanimousInstances": 8,
+    "instances": 12,
+    "share": 0.6666666666666666
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-barbeat",
+    "family": "selective-delete",
+    "unanimousInstances": 2,
+    "instances": 4,
+    "share": 0.5
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-midi-json",
+    "family": "preserve-performed",
+    "unanimousInstances": 4,
+    "instances": 4,
+    "share": 1.0
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-midi-json",
+    "family": "range-edit",
+    "unanimousInstances": 7,
+    "instances": 12,
+    "share": 0.5833333333333334
+   },
+   {
+    "cohort": "codex-current-high",
+    "arm": "pp-midi-json",
+    "family": "selective-delete",
+    "unanimousInstances": 3,
+    "instances": 4,
+    "share": 0.75
+   }
+  ],
+  "singleRepeatVerdicts": [
+   {
+    "cohort": "claude-current",
+    "family": "derived-read",
+    "singleRepeats": 48,
+    "same": 30,
+    "tiedFromDecided": 15,
+    "decidedFromTie": 2,
+    "reversed": 1
+   },
+   {
+    "cohort": "claude-current",
+    "family": "group-retime",
+    "singleRepeats": 24,
+    "same": 12,
+    "tiedFromDecided": 8,
+    "decidedFromTie": 4,
+    "reversed": 0
+   },
+   {
+    "cohort": "claude-current",
+    "family": "member-move",
+    "singleRepeats": 24,
+    "same": 22,
+    "tiedFromDecided": 2,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "claude-current",
+    "family": "preserve-exact",
+    "singleRepeats": 12,
+    "same": 12,
+    "tiedFromDecided": 0,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "claude-current",
+    "family": "preserve-performed",
+    "singleRepeats": 12,
+    "same": 12,
+    "tiedFromDecided": 0,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "claude-current",
+    "family": "range-edit",
+    "singleRepeats": 36,
+    "same": 31,
+    "tiedFromDecided": 1,
+    "decidedFromTie": 4,
+    "reversed": 0
+   },
+   {
+    "cohort": "claude-current",
+    "family": "regroup",
+    "singleRepeats": 24,
+    "same": 17,
+    "tiedFromDecided": 6,
+    "decidedFromTie": 0,
+    "reversed": 1
+   },
+   {
+    "cohort": "claude-current",
+    "family": "selective-delete",
+    "singleRepeats": 12,
+    "same": 12,
+    "tiedFromDecided": 0,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "derived-read",
+    "singleRepeats": 48,
+    "same": 31,
+    "tiedFromDecided": 12,
+    "decidedFromTie": 4,
+    "reversed": 1
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "group-retime",
+    "singleRepeats": 24,
+    "same": 15,
+    "tiedFromDecided": 9,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "member-move",
+    "singleRepeats": 24,
+    "same": 13,
+    "tiedFromDecided": 11,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "preserve-exact",
+    "singleRepeats": 12,
+    "same": 9,
+    "tiedFromDecided": 3,
+    "decidedFromTie": 0,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "preserve-performed",
+    "singleRepeats": 12,
+    "same": 10,
+    "tiedFromDecided": 0,
+    "decidedFromTie": 2,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "range-edit",
+    "singleRepeats": 36,
+    "same": 23,
+    "tiedFromDecided": 9,
+    "decidedFromTie": 4,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "regroup",
+    "singleRepeats": 24,
+    "same": 16,
+    "tiedFromDecided": 6,
+    "decidedFromTie": 2,
+    "reversed": 0
+   },
+   {
+    "cohort": "codex-current-high",
+    "family": "selective-delete",
+    "singleRepeats": 12,
+    "same": 10,
+    "tiedFromDecided": 2,
+    "decidedFromTie": 0,
+    "reversed": 0
+   }
+  ]
+ },
+ "power": {
+  "sims": 2000,
+  "seed": 20261030,
+  "tests": {
+   "signTest": "cluster sign test, two-sided exact binomial, alpha 0.05",
+   "signFlip": "exact sign-flip test of summed cluster differences, two-sided, alpha 0.05"
+  },
+  "designs": {
+   "4 instances x 3 repeats": [
+    3,
+    3,
+    3,
+    3
+   ],
+   "12 instances x 1 repeat": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "9 instances x 1 + 3 repeated (x2)": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2
+   ]
+  },
+  "cohorts": {
+   "claude-current": {
+    "fittedEffects": {
+     "c4WritesLogOdds": 1.1653712963199938,
+     "c4ReadsLogOdds": 1.7376666343449667
+    },
+    "cells": "E385 source cells (fitted intercepts)",
+    "power": {
+     "4 instances x 3 repeats": {
+      "signTest": {
+       "pooled": 0.858,
+       "reads": 0.572,
+       "writes": 0.4
+      },
+      "signFlip": {
+       "pooled": 0.917,
+       "reads": 0.64,
+       "writes": 0.471
+      }
+     },
+     "12 instances x 1 repeat": {
+      "signTest": {
+       "pooled": 0.941,
+       "reads": 0.763,
+       "writes": 0.5545
+      },
+      "signFlip": {
+       "pooled": 0.941,
+       "reads": 0.763,
+       "writes": 0.5545
+      }
+     },
+     "9 instances x 1 + 3 repeated (x2)": {
+      "signTest": {
+       "pooled": 0.922,
+       "reads": 0.711,
+       "writes": 0.5345
+      },
+      "signFlip": {
+       "pooled": 0.9355,
+       "reads": 0.738,
+       "writes": 0.544
+      }
+     }
+    }
+   },
+   "codex-current-high": {
+    "fittedEffects": {
+     "c4WritesLogOdds": 1.786262735341392,
+     "c4ReadsLogOdds": -0.6470002859606847
+    },
+    "cells": "E385 source cells (fitted intercepts)",
+    "power": {
+     "4 instances x 3 repeats": {
+      "signTest": {
+       "pooled": 0.2895,
+       "reads": 0.1205,
+       "writes": 0.902
+      },
+      "signFlip": {
+       "pooled": 0.323,
+       "reads": 0.151,
+       "writes": 0.9425
+      }
+     },
+     "12 instances x 1 repeat": {
+      "signTest": {
+       "pooled": 0.459,
+       "reads": 0.179,
+       "writes": 0.9725
+      },
+      "signFlip": {
+       "pooled": 0.459,
+       "reads": 0.179,
+       "writes": 0.9725
+      }
+     },
+     "9 instances x 1 + 3 repeated (x2)": {
+      "signTest": {
+       "pooled": 0.3965,
+       "reads": 0.1775,
+       "writes": 0.954
+      },
+      "signFlip": {
+       "pooled": 0.413,
+       "reads": 0.183,
+       "writes": 0.965
+      }
+     }
+    }
+   }
+  }
+ },
+ "nextPass": {
+  "rule": {
+   "settled": "performed contrasts with profile p < 0.001 in every cohort",
+   "settledPairs": [
+    [
+     "baseline-fields",
+     "pp-barbeat"
+    ],
+    [
+     "baseline-json",
+     "pp-barbeat"
+    ],
+    [
+     "c3-fields",
+     "pp-barbeat"
+    ],
+    [
+     "c4-fields",
+     "pp-barbeat"
+    ],
+    [
+     "pp-barbeat",
+     "pp-midi-json"
+    ]
+   ],
+   "retain": "a cohort x family x level with at least 4 of 12 discordant pairs in some open planned comparison",
+   "add": "one level 1.5x above a retained family's top level where an arm still passes more than half there",
+   "material": "performed levels need fresh low-overlap windows (only 128-note range-edit has them)"
+  },
+  "cohorts": {
+   "claude-current": {
+    "retained": [
+     {
+      "family": "derived-read",
+      "level": 8,
+      "maxOpenDiscordant": 5,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "derived-read",
+      "level": 16,
+      "maxOpenDiscordant": 7,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "derived-read",
+      "level": 32,
+      "maxOpenDiscordant": 5,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "group-retime",
+      "level": 16,
+      "maxOpenDiscordant": 4,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "group-retime",
+      "level": 32,
+      "maxOpenDiscordant": 4,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "regroup",
+      "level": 12,
+      "maxOpenDiscordant": 8,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "regroup",
+      "level": 16,
+      "maxOpenDiscordant": 7,
+      "comparison": "c4-fields vs c3-fields"
+     }
+    ],
+    "dropped": [
+     {
+      "family": "derived-read",
+      "level": 4,
+      "maxOpenDiscordant": 0,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "member-move",
+      "level": 12,
+      "maxOpenDiscordant": 0,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "member-move",
+      "level": 16,
+      "maxOpenDiscordant": 1,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "preserve-exact",
+      "level": 512,
+      "maxOpenDiscordant": 0,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "preserve-performed",
+      "level": 512,
+      "maxOpenDiscordant": 0,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "range-edit",
+      "level": 128,
+      "maxOpenDiscordant": 2,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "range-edit",
+      "level": 256,
+      "maxOpenDiscordant": 2,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "range-edit",
+      "level": 512,
+      "maxOpenDiscordant": 3,
+      "comparison": "c4-fields vs baseline-fields"
+     },
+     {
+      "family": "selective-delete",
+      "level": 24,
+      "maxOpenDiscordant": 0,
+      "comparison": "c4-fields vs c3-fields"
+     }
+    ],
+    "added": [
+     {
+      "family": "derived-read",
+      "level": 48,
+      "reason": "an arm passes 0.83 at 32"
+     },
+     {
+      "family": "group-retime",
+      "level": 48,
+      "reason": "an arm passes 0.83 at 32"
+     },
+     {
+      "family": "regroup",
+      "level": 24,
+      "reason": "an arm passes 1.00 at 16"
+     }
+    ],
+    "materialLimited": []
+   },
+   "codex-current-high": {
+    "retained": [
+     {
+      "family": "derived-read",
+      "level": 8,
+      "maxOpenDiscordant": 6,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "derived-read",
+      "level": 16,
+      "maxOpenDiscordant": 5,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "derived-read",
+      "level": 32,
+      "maxOpenDiscordant": 6,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "group-retime",
+      "level": 16,
+      "maxOpenDiscordant": 7,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "group-retime",
+      "level": 32,
+      "maxOpenDiscordant": 5,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "member-move",
+      "level": 16,
+      "maxOpenDiscordant": 4,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "range-edit",
+      "level": 128,
+      "maxOpenDiscordant": 7,
+      "comparison": "c4-fields vs pp-midi-json"
+     },
+     {
+      "family": "regroup",
+      "level": 16,
+      "maxOpenDiscordant": 4,
+      "comparison": "c4-fields vs c3-fields"
+     }
+    ],
+    "dropped": [
+     {
+      "family": "derived-read",
+      "level": 4,
+      "maxOpenDiscordant": 2,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "member-move",
+      "level": 12,
+      "maxOpenDiscordant": 3,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "preserve-exact",
+      "level": 512,
+      "maxOpenDiscordant": 3,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "preserve-performed",
+      "level": 512,
+      "maxOpenDiscordant": 2,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "regroup",
+      "level": 12,
+      "maxOpenDiscordant": 1,
+      "comparison": "c4-fields vs c3-fields"
+     },
+     {
+      "family": "selective-delete",
+      "level": 24,
+      "maxOpenDiscordant": 3,
+      "comparison": "c4-fields vs pp-midi-json"
+     }
+    ],
+    "added": [
+     {
+      "family": "derived-read",
+      "level": 48,
+      "reason": "an arm passes 0.75 at 32"
+     },
+     {
+      "family": "group-retime",
+      "level": 48,
+      "reason": "an arm passes 0.58 at 32"
+     },
+     {
+      "family": "regroup",
+      "level": 24,
+      "reason": "an arm passes 0.75 at 16"
+     },
+     {
+      "family": "member-move",
+      "level": 24,
+      "reason": "an arm passes 1.00 at 16"
+     }
+    ],
+    "materialLimited": [
+     {
+      "family": "range-edit",
+      "level": 256,
+      "maxOpenDiscordant": 7,
+      "comparison": "c4-fields vs pp-midi-json"
+     },
+     {
+      "family": "range-edit",
+      "level": 512,
+      "maxOpenDiscordant": 9,
+      "comparison": "c4-fields vs baseline-json"
+     }
+    ]
+   }
+  },
+  "projectedPower": {
+   "claude-current": {
+    "retained cells, 12 x 1": {
+     "signTest": {
+      "pooled": 0.9385,
+      "reads": 0.7575,
+      "writes": 0.536
+     },
+     "signFlip": {
+      "pooled": 0.9385,
+      "reads": 0.7575,
+      "writes": 0.536
+     }
+    }
+   },
+   "codex-current-high": {
+    "retained cells, 12 x 1": {
+     "signTest": {
+      "pooled": 0.2425,
+      "reads": 0.1525,
+      "writes": 0.8685
+     },
+     "signFlip": {
+      "pooled": 0.2425,
+      "reads": 0.1525,
+      "writes": 0.8685
+     }
+    }
+   }
+  }
+ }
+}

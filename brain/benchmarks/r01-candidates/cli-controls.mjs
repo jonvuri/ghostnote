@@ -18,6 +18,14 @@ export const PROFILES = {
   // Low is Haiku 5.5's lowest effort and the calibrated cohort setting (E365);
   // it still generates more than Luna low, which reported no reasoning.
   'claude-current': { provider: 'claude', model: 'claude-haiku-5-5', effort: 'low', version: '2.1.302 (Claude Code)' },
+  // Round 2 development cohorts (R01-D9, R01-D10). Haiku 4.5 keeps E360's
+  // fixed thinking budget without the output cap (D57). The refreshed catalog
+  // (2026-10-28) lists two Terra models; both have an admission probe.
+  'claude-historical-uncapped': { provider: 'claude', model: 'claude-haiku-4-5-20251001', thinkingBudget: 1024, version: '2.1.302 (Claude Code)' },
+  'codex-terra': { provider: 'codex', model: 'gpt-5.6-terra', effort: 'low', version: 'codex-cli 0.163.0' },
+  'codex-terra-6-1': { provider: 'codex', model: 'gpt-6.1-terra', effort: 'low', version: 'codex-cli 0.163.0' },
+  // Round-2 development effort probe (E383): Luna at high on floor tasks; subsets only.
+  'codex-current-high': { provider: 'codex', model: 'gpt-6-luna', effort: 'high', version: 'codex-cli 0.163.0' },
 };
 // Development-stage cohorts keep Luna at low, as in E369-E375 and the v2-v5
 // execution manifests (D64); only the rigorous stage uses medium.

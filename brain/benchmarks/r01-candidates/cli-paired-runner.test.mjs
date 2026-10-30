@@ -194,3 +194,56 @@ test('checkpoints report every run after it finishes, with pending runs not subm
     assert.equal(s.stage, 'development');
   });
 });
+
+test('R01-D16: a control halt re-audited under a later policy continues without resubmitting', async () => {
+  const { reauditControlHalt } = await import('./cli-pilot-runner.mjs');
+  const { scoreResponse } = await import('./development-surfaces.mjs');
+  const target = groupPlan.runs[1].id, control = { controlPass: false, issues: ['codex-client-context-policy-violation'] };
+  for (const [reaudited, expected] of [['GOLD', [['initial', 'pass']]], ['not a surface', [['initial', 'fail'], ['correction', 'pass']]]]) {
+    const first = harness(run => run.id === target ? control : 'GOLD');
+    const halted = runSequence({ plan: groupPlan, pairs, tasks, codec, ...first });
+    assert.equal(halted.status, 'halted-control');
+    const answerFor = run => reaudited === 'GOLD' ? goldenResponse(task(run.task), run.arm, codec) : reaudited;
+    const prior = reauditControlHalt({ status: halted.status, runs: halted.runs }, {
+      audit: () => ({ ...pass(answerFor(groupPlan.runs[1])), codexContext: { policy: 'r01-codex-context-policy-v5' } }),
+      score: (run, answer) => scoreResponse(task(run.task), run.arm, answer, codec) });
+    assert.equal(prior[1].status, 'reaudited-after-control-halt');
+    assert.deepEqual(prior[1].submissions.at(-1).reaudit.originalIssues, control.issues);
+    const second = harness(() => 'GOLD');
+    const resumed = runSequence({ plan: groupPlan, pairs, tasks, codec, ...second, prior });
+    assert.equal(resumed.status, 'complete');
+    const run = resumed.runs[1];
+    assert.deepEqual(run.submissions.map(s => [s.role, s.outcome]), expected);
+    // The halted submission is never resubmitted; only its correction (if any) and later runs are.
+    assert.deepEqual(second.submitted.map(s => s.run.id), [...(expected.length > 1 ? [target] : []), ...groupPlan.runs.slice(2).map(r => r.id)]);
+    assert.equal(run.firstAttemptPass, reaudited === 'GOLD');
+    assert.deepEqual(resumed.runs[0], halted.runs[0], 'finished runs carry forward unchanged');
+  }
+  // A re-audit that still fails refuses to continue.
+  const h = harness(run => run.id === target ? control : 'GOLD');
+  const halted = runSequence({ plan: groupPlan, pairs, tasks, codec, ...h });
+  assert.throws(() => reauditControlHalt({ status: halted.status, runs: halted.runs }, { audit: () => control, score: () => ({}) }), /still fails/);
+});
+
+test('R01-D17: a halt after two sleep stalls resubmits the same attempt and keeps finished runs', async () => {
+  const { prepareStallHaltResume } = await import('./cli-pilot-runner.mjs');
+  const target = groupPlan.runs[1].id;
+  const stall = { controlPass: false, issues: ['transport-or-client-failure'], timedOut: true, answer: null };
+  const first = harness(run => run.id === target ? stall : 'GOLD');
+  const halted = runSequence({ plan: { ...groupPlan, selection: { stallResubmissions: 1 } }, pairs, tasks, codec, ...first });
+  assert.equal(halted.status, 'halted-transport');
+  assert.deepEqual(halted.runs[1].submissions.map(s => s.outcome), ['stall', 'stall']);
+  assert.throws(() => prepareStallHaltResume({ status: halted.status, runs: halted.runs }, { timedOut: () => false }), /two no-answer timeouts/);
+  const prior = prepareStallHaltResume({ status: halted.status, runs: halted.runs }, { timedOut: () => true });
+  assert.equal(prior[1].status, 'paused-after-stall-halt');
+  assert(prior[1].submissions.every(s => s.elapsedExcluded === 'host sleep'));
+  const second = harness(() => 'GOLD');
+  const resumed = runSequence({ plan: { ...groupPlan, selection: { stallResubmissions: 1 } }, pairs, tasks, codec, ...second, prior });
+  assert.equal(resumed.status, 'complete');
+  const run = resumed.runs[1];
+  assert.deepEqual(run.submissions.map(s => [s.role, s.outcome]), [['initial', 'stall'], ['resubmitted-after-stall', 'stall'], ['resubmitted-after-stall-halt', 'pass']]);
+  assert.equal(second.submitted[0].prompt, pairs.find(p => p.id === run.cell).prompt, 'identical bytes');
+  assert.deepEqual([run.firstAttemptPass, run.repairsUsed], [true, 0]);
+  assert.deepEqual(resumed.runs[0], halted.runs[0]);
+  assert.equal(resumed.counts.stallResubmissions, 2);
+});

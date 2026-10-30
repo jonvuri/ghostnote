@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { add, canonical, cmp, equivalence, mul, numeric, rational, spell } from './common.mjs';
 import { SCORING_VERSION, goldenResponse, scoreResponse, surfaces } from './development-surfaces.mjs';
 import { FEEDBACK_VERSION } from './cli-paired-runner.mjs';
-import { orderOf, pilotPlan, pilotSelection, planSha256, resolvePackage } from './cli-pilot-runner.mjs';
+import { orderOf, pilotPlan, pilotSelection, planSha256, resolvePackage, round2Selection } from './cli-pilot-runner.mjs';
 import { sha } from './cli-attempt.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
@@ -380,9 +380,121 @@ function unreduce(value, key = null) {
   return value;
 }
 
+// Round 2 (R01-D13): each ladder family reuses its round-1 task's variants,
+// which read their bounds from the request and their targets from the fixtures,
+// and adds level-aware variants that miss one of several requested operations.
+const LADDER_WRONG = {
+  'derived-read'(task) {
+    const base = WRONG['p13-read-derived-window'](task), { notes, groups } = task.input;
+    const [, from, to] = task.request.match(/at least (\S+) and less than (\S+),/);
+    const timed = groups.filter(g => g.spread), last = timed.at(-1);
+    const onset = x => last.members.includes(x.id) ? add(last.anchor, last.spread[x.id]) : x.at;
+    const ids = notes.map(x => ({ ...x, at: onset(x) })).filter(x => cmp(x.at, from) >= 0 && cmp(x.at, to) < 0).sort(byOnsetThenId).map(x => x.id);
+    const firstOnly = notes.filter(x => cmp(x.at, from) >= 0 && cmp(x.at, to) < 0 && !timed.slice(1).some(g => g.members.includes(x.id)))
+      .sort(byOnsetThenId).map(x => x.id);
+    return [...base, answer('last-group-omits-delay', { ids }),
+      ...timed.length > 1 ? [answer('later-groups-skipped', { ids: firstOnly })] : []];
+  },
+  'group-retime'(task) {
+    const ops = task.ladder.ops, input = task.input, pad = input.groups.find(g => !g.spread);
+    const apply = (list, edit = (g, op) => { if (op.op === 'move-anchor') g.anchor = add(g.anchor, op.by);
+      else g.spread = Object.fromEntries(g.members.map(x => [x, mul(g.spread[x], '2')])); }) => {
+      let f = clone(input);
+      for (const op of list) edit(f.groups.find(x => x.id === op.group), op);
+      for (const op of list) f = regroup(f, op.group, {});
+      return f;
+    };
+    const by = ops[0].by, loose = input.notes.find(x => !input.groups.some(g => g.members.includes(x.id)));
+    const untimed = pad.members.find(id => !input.groups.some(g => Object.hasOwn(g.spread ?? {}, id)));
+    const shift = (f, id) => mapNotes(f, x => x.id === id ? { ...x, at: add(x.at, by) } : x);
+    const swapped = ops.map(o => o.op === 'move-anchor' ? { op: 'double-spreads', group: o.group } : { op: 'move-anchor', group: o.group, by });
+    return [
+      surface('untouched', clone(input)),
+      surface('last-change-missing', apply(ops.slice(0, -1))),
+      surface('anchors-moved-earlier', apply(ops, (g, op) => { if (op.op === 'move-anchor') g.anchor = subtract(g.anchor, op.by);
+        else g.spread = Object.fromEntries(g.members.map(x => [x, mul(g.spread[x], '2')])); })),
+      surface('delay-moved-instead-of-anchor', apply(ops, (g, op) => { if (op.op === 'move-anchor') g.delay = add(g.delay, op.by);
+        else g.spread = Object.fromEntries(g.members.map(x => [x, mul(g.spread[x], '2')])); })),
+      ...ops.length >= 2 ? [surface('operations-swapped-between-groups', apply(swapped)),
+        surface('spreads-halved-instead', apply(ops, (g, op) => { if (op.op === 'move-anchor') g.anchor = add(g.anchor, op.by);
+          else g.spread = Object.fromEntries(g.members.map(x => [x, mul(g.spread[x], '1/2')])); }))] : [],
+      surface('loose-note-moved', shift(task.expected, loose.id)),
+      surface('untimed-member-moved', shift(task.expected, untimed)),
+      surface('timing-free-group-dropped', { ...clone(task.expected), groups: clone(task.expected.groups.filter(g => g.id !== pad.id)) }),
+    ];
+  },
+  regroup(task) {
+    const expected = task.expected, created = expected.groups.slice(1), base = WRONG['p14-group-existing-notes'](task);
+    const variants = [...base, surface('last-group-not-created', { notes: clone(expected.notes), groups: clone(expected.groups.slice(0, -1)) })];
+    if (created.length > 1) {
+      const first = clone(expected), g = first.groups[1];
+      g.spread = Object.fromEntries(g.members.map(id => [id, add(g.spread[id], g.delay)]));
+      variants.push(surface('first-group-spreads-measured-from-anchor', regroup(first, g.id, {})));
+    }
+    return variants;
+  },
+  'member-move'(task) {
+    const moves = task.ladder.moves, input = task.input;
+    const apply = (list, { onset = (to, m) => add(add(to.anchor, to.delay), m.spread), front = false, leavePad = false } = {}) => {
+      const f = clone(input), group = id => f.groups.find(g => g.id === id), pad = f.groups.find(g => !g.spread);
+      for (const m of list) {
+        const to = group(m.to), from = group(m.from), note = f.notes.find(x => x.id === m.note);
+        to.members[front ? 'unshift' : 'push'](m.note); to.performanceOrder[front ? 'unshift' : 'push'](m.note);
+        note.at = onset(to, m, note); to.spread[m.note] = subtract(subtract(note.at, to.anchor), to.delay);
+        from.members = from.members.filter(x => x !== m.note); from.performanceOrder = from.performanceOrder.filter(x => x !== m.note);
+        delete from.spread[m.note];
+        if (leavePad) pad.members = pad.members.filter(x => x !== m.note);
+      }
+      return f;
+    };
+    const variants = [
+      surface('untouched', clone(input)),
+      surface('last-move-missing', apply(moves.slice(0, -1))),
+      surface('onsets-kept-spreads-derived', apply(moves, { onset: (to, m, note) => note.at })),
+      surface('onsets-omit-target-delay', apply(moves, { onset: (to, m) => add(to.anchor, m.spread) })),
+      surface('onsets-from-source-equation', apply(moves, { onset: (to, m) => { const from = input.groups.find(g => g.id === m.from);
+        return add(add(from.anchor, from.delay), m.spread); } })),
+      surface('inserted-at-front-of-target', apply(moves, { front: true })),
+    ];
+    if (input.groups.find(g => !g.spread).members.some(id => moves.some(m => m.note === id)))
+      variants.push(surface('removed-from-timing-free-group', apply(moves, { leavePad: true })));
+    return variants;
+  },
+  'range-edit'(task) {
+    const base = WRONG['p08-shift-transpose-range'](task);
+    const moved = new Set(changed(task.input, task.expected, 'at').map(n => n.id));
+    const last = sortedNotes(task.input.notes.filter(n => moved.has(n.id))).at(-1);
+    return [...base, surface('last-range-note-missed', mapNotes(task.expected, n => n.id === last.id ? clone(byId(task.input.notes).get(n.id)) : n))];
+  },
+  'selective-delete'(task) {
+    const base = WRONG['p09-delete-near-miss'](task), { nearMissIds, target } = task.ladder;
+    const misses = task.input.notes.filter(n => nearMissIds.includes(n.id));
+    const before = misses.filter(n => cmp(n.at, task.ladder.from) < 0);
+    return [...base, surface('every-same-pitch-near-note-deleted', { notes: task.input.notes.filter(n => n.id !== target && !nearMissIds.includes(n.id)) }),
+      ...before.length ? [surface('near-miss-before-range-deleted', { notes: task.input.notes.filter(n => n.id !== before.at(-1).id) })] : []];
+  },
+  'preserve-performed': task => WRONG['p11-preserve-window'](task),
+  'preserve-exact'(task) {
+    const notes = task.expected.notes;
+    const offGrid = notes.findIndex(n => n.at !== quantize(n.at, 512n)), annotated = notes.findIndex(n => n.annotation), chance = notes.findIndex(n => n.chance);
+    const expressive = notes.findIndex(n => n.expression), without = (i, key) => { const f = clone(task.expected); delete f.notes[i][key]; return f; };
+    return [
+      surface('one-note-dropped', { notes: clone(notes.slice(0, -1)) }),
+      surface('annotation-dropped', without(annotated, 'annotation')),
+      surface('first-two-notes-swapped', { notes: [notes[1], notes[0], ...notes.slice(2)].map(n => clone(n)) }),
+      ...offGrid >= 0 ? [surface('one-onset-rounded-to-1-512', { notes: notes.map((n, i) => i === offGrid ? { ...clone(n), at: quantize(n.at, 512n) } : clone(n)) })] : [],
+      surface('every-onset-rounded-to-1-512', mapNotes(task.expected, n => ({ ...n, at: quantize(n.at, 512n), duration: quantize(n.duration, 512n) }))),
+      surface('chance-dropped', without(chance, 'chance')),
+      surface('pan-zeroed', mapNotes(task.expected, n => n.expression ? { ...n, expression: { ...n.expression, pan: 0 } } : n)),
+      surface('channel-defaulted', mapNotes(task.expected, n => n.id === notes[expressive].id ? { ...n, channel: 1 } : n)),
+      surface('velocities-reset-64', mapNotes(task.expected, n => ({ ...n, velocity: 64 }))),
+    ];
+  },
+};
+
 /** The task's named wrong answers; refuses a task without a declared set. */
 export function wrongAnswers(task) {
-  const make = WRONG[task.id];
+  const make = WRONG[task.id] ?? LADDER_WRONG[task.ladder?.family];
   assert(make, `${task.id}: no task-specific wrong answers declared`);
   const variants = make(task);
   assert.equal(new Set(variants.map(v => v.name)).size, variants.length, `${task.id}: duplicate variant name`);
@@ -463,6 +575,14 @@ export function rehearseExecution(pkg, codec) {
 
 export const EXECUTION_SOURCES = ['pilot-execution.mjs', 'cli-pilot-runner.mjs', 'cli-paired-runner.mjs', 'cli-trial-plan.mjs',
   'cli-controls.mjs', 'development-surfaces.mjs', 'pilot-tasks.mjs', 'pilot-package.mjs'];
+const ROUND2_SOURCES = ['round2-tasks.mjs', 'round2-inputs.mjs', 'round2-package.mjs', 'cli-control-audit.mjs', 'codex-context-policy.mjs',
+  'codex-context-template.json', 'codex-context-template-gpt-5.6-terra.json', 'claude-context-policy.mjs'];
+// Round 2 context policies and admissions (E364, E380, R01-D13); development stage, no freeze.
+export const ROUND2_CONTROLS = Object.freeze({ decisions: ['D64', 'R01-D8', 'R01-D9', 'R01-D10', 'R01-D11', 'R01-D12', 'R01-D13'],
+  contextPolicies: { 'claude-current': 'r01-claude-context-policy-v2', 'claude-historical-uncapped': 'r01-claude-context-policy-v1',
+    'codex-current-medium': 'r01-codex-context-policy-v4', 'codex-terra': 'r01-codex-context-policy-v4', 'codex-terra-6-1': 'r01-codex-context-policy-v4' },
+  retries: 'r01-retries-reported-v1',
+  stopRules: 'A control failure halts; a stall gets one identical resubmission and a second consecutive stall halts; a quota pause resumes with a labeled resubmission.' });
 
 // Rigorous-stage freeze (R01-D1-D7); recorded in a rigorous manifest.
 export const RIGOROUS_FREEZE = Object.freeze({ decisions: ['D64', 'R01-D1', 'R01-D2', 'R01-D3', 'R01-D4', 'R01-D5', 'R01-D6', 'R01-D7'],
@@ -470,9 +590,9 @@ export const RIGOROUS_FREEZE = Object.freeze({ decisions: ['D64', 'R01-D1', 'R01
   stopRules: 'A control failure halts; a stall gets one identical resubmission and a second consecutive stall halts; a quota pause resumes with a labeled resubmission. A halted full pass may restart its unfinished cohorts once, in the pinned order (R01-D6).' });
 
 export function buildExecutionManifest(pkg, rehearsal, { selection = null, readWindows = path => readFileSync(join(root, path)) } = {}) {
-  const m = pkg.manifest, stage = m.stage ?? 'development';
+  const m = pkg.manifest, stage = m.stage ?? 'development', round = m.round ?? 1;
   assert(['development', 'rigorous'].includes(stage), `unknown package stage ${stage}`);
-  selection ??= pilotSelection({ stage });
+  selection ??= round === 2 ? round2Selection({ version: m.selectionVersion ?? 1, packageCohort: m.cohort ?? null }) : pilotSelection({ stage });
   assert.equal(selection.stage, stage, 'selection stage differs from the package');
   assert.equal(selection.subset, false, 'pin the full pilot pass, not a subset');
   const plan = pilotPlan(m, selection);
@@ -485,6 +605,8 @@ export function buildExecutionManifest(pkg, rehearsal, { selection = null, readW
     evidence: stage === 'development' ? 'development stage: supports design iteration only, not candidate comparison'
       : 'rigorous stage: frozen versions on fresh inputs',
     ...(stage === 'rigorous' ? { freeze: RIGOROUS_FREEZE } : {}),
+    ...(round === 2 ? { round, controls: ROUND2_CONTROLS_BY_VERSION[m.selectionVersion ?? 1], timeouts: { ...m.timeouts, byTask: undefined },
+      ...(m.repeats ? { repeats: { ...m.repeats, byTask: undefined } } : {}) } : {}),
     package: { name: pkg.name, directory: relative(root, pkg.directory), manifestSha256: pkg.manifestSha256,
       schema: m.schema, inputVersion: m.inputVersion, windows: m.windows,
       windowsSha256: sha(readWindows(m.windows)), taskRules: m.taskRules.schema,
@@ -497,7 +619,8 @@ export function buildExecutionManifest(pkg, rehearsal, { selection = null, readW
     plan: { schema: plan.schema, seed: plan.seed, configurationSha256: plan.configurationSha256,
       developmentManifestSha256: plan.developmentManifestSha256, planSha256: planSha256(plan, pkg), counts: plan.counts },
     tasks: pkg.tasks.map(t => ({ id: t.id, version: t.version, family: t.family, cohort: t.cohort, response: t.response,
-      source: t.source, oracleSha256: sha(canonical(t)) })),
+      source: t.source, oracleSha256: sha(canonical(t)),
+      ...(t.ladder ? { ladder: { family: t.ladder.family, level: t.ladder.level, instance: t.ladder.instance }, timeoutMs: m.timeouts.byTask[t.id] } : {}) })),
     cells: m.cells.map(c => c.eligible
       ? { id: c.id, task: c.task, arm: c.arm, role: c.role, eligible: true, payloadSha256: c.input.sha256,
         promptSha256: c.prompt.sha256, promptTokens: c.prompt.tokens, cardSha256: m.cards[`${c.cohort}--${c.arm}`].sha256,
@@ -505,10 +628,21 @@ export function buildExecutionManifest(pkg, rehearsal, { selection = null, readW
       : { id: c.id, task: c.task, arm: c.arm, role: c.role, eligible: false, reason: c.reason }),
     order: Object.fromEntries(plan.cohorts.map(c => [c.id, orderOf(plan, c)])),
     rehearsal: { path: 'rehearsal.json', sha256: sha(rehearsalBytes), counts: rehearsal.counts },
-    sources: [...EXECUTION_SOURCES, ...(stage === 'rigorous' ? ['pilot-inputs.mjs'] : [])].map(p => ({ path: `brain/benchmarks/r01-candidates/${p}`,
+    sources: [...EXECUTION_SOURCES, ...(stage === 'rigorous' ? ['pilot-inputs.mjs'] : []), ...(round === 2 ? ROUND2_SOURCES : [])].map(p => ({ path: `brain/benchmarks/r01-candidates/${p}`,
       sha256: sha(readFileSync(new URL(p, import.meta.url))) })),
   };
 }
+
+// Package v2 (R01-D14): Haiku 5.5 low and Luna high.
+export const ROUND2_V2_CONTROLS = Object.freeze({ ...ROUND2_CONTROLS, decisions: ['D64', 'R01-D8', 'R01-D11', 'R01-D12', 'R01-D13', 'R01-D14'],
+  contextPolicies: { 'claude-current': 'r01-claude-context-policy-v2', 'codex-current-high': 'r01-codex-context-policy-v4' } });
+// Package v3 (R01-D18): the same cohorts, Codex policy v5 (R01-D16), and the
+// development continuations of R01-D16 and R01-D17.
+export const ROUND2_V3_CONTROLS = Object.freeze({ ...ROUND2_CONTROLS,
+  decisions: ['D64', 'R01-D8', 'R01-D11', 'R01-D12', 'R01-D13', 'R01-D14', 'R01-D16', 'R01-D17', 'R01-D18'],
+  contextPolicies: { 'claude-current': 'r01-claude-context-policy-v2', 'codex-current-high': 'r01-codex-context-policy-v5' },
+  stopRules: `${ROUND2_CONTROLS.stopRules} A development control halt may continue after re-audit (R01-D16); a two-stall halt caused by host sleep may continue (R01-D17).` });
+const ROUND2_CONTROLS_BY_VERSION = { 1: ROUND2_CONTROLS, 2: ROUND2_V2_CONTROLS, 3: ROUND2_V3_CONTROLS };
 
 function readOracles(pkg) {
   return JSON.parse(readFileSync(join(pkg.directory, 'private-oracles.json'), 'utf8')).responses;

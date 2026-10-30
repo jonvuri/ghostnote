@@ -56,12 +56,16 @@ export const STAGES = ['development', 'rigorous'];
 export function buildTrialPlan(developmentManifest, options) {
   if (!record(developmentManifest) || !Object.hasOwn(PACKAGE_SCHEMAS, developmentManifest.schema)
       || developmentManifest.status !== PACKAGE_SCHEMAS[developmentManifest.schema]) fail('requires an offline development or pilot manifest');
-  if (!record(options) || Object.keys(options).some(k => !['models', 'seed', 'repeats', 'maxRepairs', 'timeoutMs', 'stage'].includes(k))) fail('invalid options');
-  const { models, seed, repeats = 1, maxRepairs = 2, timeoutMs = 120000, stage = 'development' } = options;
+  if (!record(options) || Object.keys(options).some(k => !['models', 'seed', 'repeats', 'repeatsByTask', 'maxRepairs', 'timeoutMs', 'timeouts', 'stage'].includes(k))) fail('invalid options');
+  // `timeouts` (round 2, R01-D12) maps task IDs to per-submission limits; absent, every run uses timeoutMs.
+  // `repeatsByTask` (round 2 v3, R01-D18) maps task IDs to repetition counts; absent, every task uses `repeats`.
+  const { models, seed, repeats = 1, repeatsByTask = null, maxRepairs = 2, timeoutMs = 120000, timeouts = null, stage = 'development' } = options;
   if (!STAGES.includes(stage)) fail('stage must be development or rigorous');
   if ((developmentManifest.stage ?? 'development') !== stage) fail('plan stage differs from the package stage');
   if (!(typeof seed === 'string' && seed.length || Number.isSafeInteger(seed))) fail('seed must be nonempty text or a safe integer');
   integer(repeats, 'repeats', 1); integer(maxRepairs, 'maxRepairs', 0, 2); integer(timeoutMs, 'timeoutMs', 1);
+  if (timeouts !== null && (!record(timeouts) || Object.values(timeouts).some(v => !Number.isSafeInteger(v) || v < 1))) fail('invalid timeouts');
+  if (repeatsByTask !== null && (!record(repeatsByTask) || Object.values(repeatsByTask).some(v => !Number.isSafeInteger(v) || v < 1))) fail('invalid repeatsByTask');
   if (!Array.isArray(models) || !models.length) fail('models must be nonempty');
   const configurations = models.map(model => {
     if (!record(model) || Object.keys(model).some(k => !['provider', 'model', 'effort', 'thinkingBudget', 'maxOutputTokens'].includes(k))) fail('invalid model configuration');
@@ -75,7 +79,7 @@ export function buildTrialPlan(developmentManifest, options) {
       integer(model.maxOutputTokens, 'maxOutputTokens', 1);
       if (Object.hasOwn(model, 'thinkingBudget') && model.maxOutputTokens <= model.thinkingBudget) fail('maxOutputTokens must exceed thinkingBudget');
     }
-    const config = { ...model, maxRepairs, timeoutMs, wrapperFallback: false, wrapperAutomaticRetry: false };
+    const config = { ...model, maxRepairs, timeoutMs, ...(timeouts ? { timeouts } : {}), wrapperFallback: false, wrapperAutomaticRetry: false };
     return { ...config, configSha256: hash(config) };
   });
   if (new Set(configurations.map(c => c.configSha256)).size !== configurations.length) fail('duplicate model configuration');
@@ -83,6 +87,9 @@ export function buildTrialPlan(developmentManifest, options) {
   if (!Array.isArray(tasks) || !tasks.length || !Array.isArray(cells) || !cells.length) fail('tasks and cells must be nonempty');
   const taskIds = tasks.map(t => { if (!record(t)) fail('invalid task'); text(t.id, 'task ID'); return t.id; });
   if (new Set(taskIds).size !== taskIds.length) fail('duplicate task ID');
+  if (timeouts && taskIds.some(id => !Object.hasOwn(timeouts, id))) fail('a task has no timeout');
+  if (repeatsByTask && taskIds.some(id => !Object.hasOwn(repeatsByTask, id))) fail('a task has no repeat count');
+  const repeatsOf = task => repeatsByTask ? repeatsByTask[task] : repeats;
   const cellIds = new Set(), taskArms = new Set();
   for (const cell of cells) {
     if (!record(cell)) fail('invalid cell');
@@ -106,15 +113,15 @@ export function buildTrialPlan(developmentManifest, options) {
         || new Set(paired.map(c => c.sourceFactsSha256)).size > 1) fail('paired request/input facts disagree');
   }
   // Bound the in-memory schedule rather than accepting accidental billion-run plans.
-  integer(cells.length * configurations.length * repeats, 'expanded scheduled cell count', 1, 1000000);
+  integer(cells.length * configurations.length * (repeatsByTask ? Math.max(...Object.values(repeatsByTask)) : repeats), 'expanded scheduled cell count', 1, 1000000);
   const developmentManifestSha256 = hash(developmentManifest);
-  const configuration = { seed, repeats, maxRepairs, timeoutMs, models: configurations };
+  const configuration = { seed, repeats, maxRepairs, timeoutMs, ...(timeouts ? { timeouts } : {}), ...(repeatsByTask ? { repeatsByTask } : {}), models: configurations };
   const blocks = [], runs = [], exclusions = [];
   for (const config of configurations) {
     const domain = [seed, config.configSha256];
     const taskBlocks = [];
-    for (let repetition = 0; repetition < repeats; repetition++) {
-      for (const task of taskIds) taskBlocks.push({ task, repetition });
+    for (let repetition = 0; repetition < (repeatsByTask ? Math.max(...taskIds.map(repeatsOf)) : repeats); repetition++) {
+      for (const task of taskIds) if (repetition < repeatsOf(task)) taskBlocks.push({ task, repetition });
     }
     for (const { task, repetition } of shuffled(taskBlocks, [domain, 'task-blocks'])) {
       const blockId = `${config.configSha256}:r${repetition}:${task}`;
@@ -126,7 +133,7 @@ export function buildTrialPlan(developmentManifest, options) {
           provider: config.provider, model: config.model,
           ...Object.fromEntries(['effort', 'thinkingBudget', 'maxOutputTokens']
             .filter(k => Object.hasOwn(config, k)).map(k => [k, config[k]])),
-          configSha256: config.configSha256, maxRepairs, timeoutMs,
+          configSha256: config.configSha256, maxRepairs, timeoutMs: timeouts ? timeouts[task] : timeoutMs,
           promptSha256: cell.prompt.sha256, requestSha256: cell.request.sha256,
           sourceFactsSha256: cell.sourceFactsSha256,
         }));

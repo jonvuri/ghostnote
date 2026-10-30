@@ -1,0 +1,84 @@
+{
+  "schema": "r01-pilot-session-v1",
+  "stage": "development",
+  "session": 1,
+  "command": "start",
+  "afterInterruption": false,
+  "startedAt": "2026-10-29T13:02:10.756Z",
+  "node": "v24.11.1",
+  "package": {
+    "name": "round2-development-v2",
+    "manifestSha256": "442af106772960760279d6be8287110731426300191549138d900a00a17ad0b0"
+  },
+  "binaries": {
+    "codex": {
+      "name": "codex",
+      "path": "/Users/jonvuri/.local/bin/codex",
+      "realPath": "/Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex",
+      "sha256": "8813367285524ac798dd96d1b071aea30d58708c7226fd236cd275cf1cfdee31"
+    }
+  },
+  "authentication": {
+    "codex": {
+      "method": "chatgpt"
+    }
+  },
+  "transportArgument": null,
+  "transportEvidenceSha256": {},
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "feedback": "r01-feedback-v2-locating",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "unscoredInterruptedAttempts": [],
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-pilot-runner.mjs",
+      "sha256": "20c54dd24616e00702e651f3f260962ffa182ad5214b44ed6859cebb2e3b43cb"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "aad1584f51b69d9e5f7f5bef0f218f8040116952274ca050d90b1fda594ac6b1"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "27e1c7881f707a0f27677a168461a9abc6bd8f261a5878f0d347f4db344ee5de"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "44cb12efef41c9b0b91345863a44bbb80c59b337e76163f7579099805f94207a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "ec8a7f17cf203ab0c49b4449ef326063614eeb1959fbf38e792de1f6654a1a8e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "e2899dd734cc98ada20b672419d48c7dfcbc9a422422642ccfb770f59ef9c4ff"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-isolation.mjs",
+      "sha256": "b12d112dfd8e393286ba23611c43c8f68ab3098e705f4d1871b5cb28dce1a589"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "482d703c4a5dbd1442b1d35cd1e868ae8c7dc014393b3dd38edf32ec47489194"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "73c58a6fd91c69f5a3cfbd2f05c1e95e061dd276a746c56668d329ac725b3d35"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-tasks.mjs",
+      "sha256": "c02bc18713102121ccd48ef73c5827c0ab4e45abc361178cf9b1122b588d55c5"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-tasks.mjs",
+      "sha256": "91fd4f6bfd9f64bbd6f4452f971f9083de5c553a140526c0241f488ee0143e78"
+    }
+  ]
+}

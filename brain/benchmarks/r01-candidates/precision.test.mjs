@@ -2,7 +2,7 @@
 // From brain: node --import tsx benchmarks/r01-candidates/precision.test.mjs <upstream>
 import assert from 'node:assert/strict';
 import { createAdapter, unsupportedFields } from './precision.mjs';
-const adapter = await createAdapter(process.argv[2] ?? '/tmp/ghostnote-r01-producer-pal');
+const adapter = await createAdapter(process.env.R01_UPSTREAM ?? '/tmp/ghostnote-r01-producer-pal');
 const note = (start_time, duration = 171 / 512, extra = {}) => ({ pitch: 60, start_time, duration, velocity: 100, probability: 1, velocity_deviation: 0, ...extra });
 const normalized = notes => notes.map(n => ({ pitch: n.pitch, at: Math.floor(n.start_time * 512), duration: Math.max(1, Math.round(n.duration * 512)), velocity: n.velocity, probability: n.probability ?? 1, deviation: n.velocity_deviation ?? 0 })).sort((a, b) => a.at - b.at || a.pitch - b.pitch || a.duration - b.duration || a.velocity - b.velocity || a.probability - b.probability);
 const rows = [], controls = [], witnesses = [], precisionScreens = [];

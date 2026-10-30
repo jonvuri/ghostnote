@@ -1,0 +1,231 @@
+{
+  "probeAnswerMatches": true,
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6.1-terra",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-terra-request-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 3021,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 55,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6.1-terra",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "2542384638d02f58b702f0c149ef724b343d8f97d89cc780fe94a8813cf581fe",
+      "contextBytes": 15207,
+      "localSerializedContextTokens": 3853,
+      "requestSha256": "fff208e06d3c652a739590710e8553e8c9928b2679364d0920443264f73a56b4",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 3843.036167
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v4",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "templateModel": "gpt-6.1-terra",
+    "pass": true,
+    "issues": [],
+    "absentOptionalFields": [],
+    "reasoningEffort": "low",
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "b2e46f733b1f5acf8bb646fb3e92a0271b6060465f6356842aa73e359296d747"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "456c5d0144299869af767de8afc12a4b201d845612cc35c4b41ef02546531253"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "56a1a863c422ec5fc1e763ea07f951aa2d42f285f479f3140099f1cf3d15a6fc"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "db9c080f0a09cabe98959dc04d7f193d2b3a97fb5d6a4584343732d077129252"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "4e4f3801236af0d3f5588c475b89b27794a8317169450941770de545babc95d8"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 545,
+        "sha256": "b1592c25b73dac4217bd497fb56d95e1fd1ee44cdfb8db054b47a5a4135bb814"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 222,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v4",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "templateModel": "gpt-6.1-terra",
+        "pass": true,
+        "issues": [],
+        "absentOptionalFields": [],
+        "reasoningEffort": "low",
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "b2e46f733b1f5acf8bb646fb3e92a0271b6060465f6356842aa73e359296d747"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "456c5d0144299869af767de8afc12a4b201d845612cc35c4b41ef02546531253"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "56a1a863c422ec5fc1e763ea07f951aa2d42f285f479f3140099f1cf3d15a6fc"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "db9c080f0a09cabe98959dc04d7f193d2b3a97fb5d6a4584343732d077129252"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "4e4f3801236af0d3f5588c475b89b27794a8317169450941770de545babc95d8"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 545,
+            "sha256": "b1592c25b73dac4217bd497fb56d95e1fd1ee44cdfb8db054b47a5a4135bb814"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 222
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-control-ummbuI/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 3021,
+  "finalOutputTokens": 55,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/manifest.json",
+      "sha256": "842f8a40cb86035d28d7481b1c6265b105e717b9649eabc2dea303527f3b0af1"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/trace.jsonl",
+      "sha256": "a07da8144ee073827038e1197ae798b160752f0c85389e8b8fd5d0e1f1ff81f4"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/1.json",
+      "sha256": "47d07f9a908fb4ff6bd1d259f67afd4e7b4b632105e30328410a15c373c0e111"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/2.json",
+      "sha256": "a1bd25fc275281fd0fe6a6f013276c1c73f61926ad94087e2218c39901efd3c2"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/3.json",
+      "sha256": "2807ba0d71a5243fa6db9e357ee4f13e9921dcc0b188abc081f03b5609a41c17"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/4.json",
+      "sha256": "575c7f1b1540ebbafbf29398fa0090494a678a6ea52a3687b05af05f4d6bea5b"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/5.json",
+      "sha256": "c5da297a911f2497f350fde64735355336d5174139f25e63941d040e8b99167c"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/6.json",
+      "sha256": "1157bdeb3176e4d62169100dfafd1417d50134f7058452b828162e44793adc98"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/7.json",
+      "sha256": "694fe477b169ea959794509b05534a7b10c8cbe259580b17f3ce63707ef4c85c"
+    },
+    {
+      "path": "codex-traces/trace-ac871335-6ae9-473b-95ed-26807668456e-01a18299-5475-7313-98c3-26e0c9672874/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

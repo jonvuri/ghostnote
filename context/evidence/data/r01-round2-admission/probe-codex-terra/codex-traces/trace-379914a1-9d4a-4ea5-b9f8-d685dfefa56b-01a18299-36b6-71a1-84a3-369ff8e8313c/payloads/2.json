@@ -1,0 +1,30 @@
+{
+  "type": "session_configured",
+  "session_id": "01a18299-36b6-71a1-84a3-369ff8e8313c",
+  "thread_id": "01a18299-36b6-71a1-84a3-369ff8e8313c",
+  "thread_source": "user",
+  "model": "gpt-5.6-terra",
+  "model_provider_id": "openai",
+  "approval_policy": "never",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-control-QwNABy",
+  "reasoning_effort": "low"
+}

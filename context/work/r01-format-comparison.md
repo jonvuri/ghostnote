@@ -51,6 +51,13 @@ and manifests. They keep their IDs because retained, hashed artifacts cite them
 | [R01-D10](../../spec/r01-research/decisions/r01-d10-round-2-haiku45-cohort.md) | Haiku 4.5 is a round-2 development cohort (thinking 1,024, no output cap) |
 | [R01-D11](../../spec/r01-research/decisions/r01-d11-round-2-ladders-and-repeats.md) | Round-2 ladders as proposed; calibration one repeat, full runs three |
 | [R01-D12](../../spec/r01-research/decisions/r01-d12-round-2-output-scaled-timeout.md) | Round-2 timeout scales with expected output |
+| [R01-D13](../../spec/r01-research/decisions/r01-d13-round-2-admission-and-offline-design.md) | Round-2 implementation details: Codex context policy v4 and Terra admission, window rule, ladders, timeout formula and measures |
+| [R01-D14](../../spec/r01-research/decisions/r01-d14-round-2-two-cohorts-harder-ladder.md) | Round 2 continues with Haiku 5.5 `low` and Luna `high` on a harder shared ladder (package v2) |
+| [R01-D15](../../spec/r01-research/decisions/r01-d15-round-2-trimmed-development-pass.md) | Trimmed round-2 development pass |
+| [R01-D16](../../spec/r01-research/decisions/r01-d16-round-2-codex-websocket-framing-and-reaudited-continuation.md) | Codex context policy v5; continuing a re-audited control halt |
+| [R01-D17](../../spec/r01-research/decisions/r01-d17-round-2-continuation-after-sleep-stall-halt.md) | Continuing after a sleep-caused stall halt; operator manages power |
+| [R01-D18](../../spec/r01-research/decisions/r01-d18-round-2-discordant-levels-fresh-instances.md) | Analysis model, per-cohort discordant levels and fresh instances over repeats (package v3; accepted, run as E387) |
+| [R01-D19](../../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md) | Round 2's step 6 becomes format-dependent task families on the current cohorts; tool loop and stronger cohorts deferred |
 
 Record further R01 protocol decisions, including the freeze-review answers,
 in that directory and this table; do not add them to the project decision
@@ -261,8 +268,13 @@ one derived onset (Luna C3 8 versus C4 15 of 24). bar|beat is the hardest
 performed arm. Haiku's ceiling and Luna's floor limit what E379 says about
 capable agents, so the operator approved a second development round with
 difficulty-scaled tasks: the operator answered the
-[round 2 brief](r01-round-2-difficulty-scaling.md)'s decisions (R01-D8–R01-D12);
-**next is its step 2** (catalog refresh and probes). R01's outcome (format adoption, claims and naming)
+[round 2 brief](r01-round-2-difficulty-scaling.md)'s decisions (R01-D8–R01-D12).
+Steps 2 and 3 are complete:
+[E380](../evidence/experiments/e380-r01-round2-catalog-and-admission-probes.md)
+admits both Terra models and uncapped Haiku 4.5, and
+[E381](../evidence/experiments/e381-r01-round2-offline-implementation.md)
+builds package `round2-development-v1` and its rehearsal (R01-D13). **Next is
+the calibration pass, after the operator's go-ahead.** R01's outcome (format adoption, claims and naming)
 waits for round 2. Works 7–11 remain unopened. The steps as run, from `brain/`:
 
 1. Refresh the inventory and run `node --import tsx

@@ -1,0 +1,2166 @@
+{
+  "schema": "r01-pilot-results-v1",
+  "stage": "development",
+  "status": "complete",
+  "evidence": "development stage: supports design iteration only, not candidate comparison",
+  "selection": {
+    "schema": "r01-round2-selection-v1",
+    "round": 2,
+    "stage": "development",
+    "seed": "r01-round2-order-v1",
+    "cohorts": [
+      "codex-current-high"
+    ],
+    "optionalCohorts": [
+      "codex-terra-6-1"
+    ],
+    "tasks": [
+      "r2-read-L1-i1",
+      "r2-read-L2-i1",
+      "r2-regroup-L1-i1",
+      "r2-regroup-L2-i1",
+      "r2-range-L64-i1",
+      "r2-delete-L1-i1"
+    ],
+    "instances": null,
+    "repeats": 1,
+    "maxRepairs": 2,
+    "timeoutMs": 120000,
+    "timeoutRule": "r01-round2-timeout-v1",
+    "stallResubmissions": 1,
+    "pass": "probe",
+    "subset": true
+  },
+  "sessions": 1,
+  "counts": {
+    "plannedRuns": 26,
+    "submittedRuns": 26,
+    "finishedRuns": 26,
+    "submissions": 28,
+    "quotaPauses": 0,
+    "resumedSubmissions": 0,
+    "stalls": 0,
+    "stallResubmissions": 0,
+    "firstAttemptPasses": 24,
+    "withinBudgetPasses": 26,
+    "repairsUsed": 2,
+    "totalInputTokens": 140093,
+    "finalOutputTokens": 42782
+  },
+  "countsByCohort": {
+    "codex-current-high": {
+      "plannedRuns": 26,
+      "submittedRuns": 26,
+      "finishedRuns": 26,
+      "submissions": 28,
+      "quotaPauses": 0,
+      "resumedSubmissions": 0,
+      "stalls": 0,
+      "stallResubmissions": 0,
+      "firstAttemptPasses": 24,
+      "withinBudgetPasses": 26,
+      "repairsUsed": 2,
+      "totalInputTokens": 140093,
+      "finalOutputTokens": 42782
+    }
+  },
+  "runs": [
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--baseline-json",
+      "cell": "r2-range-L64-i1--baseline-json",
+      "task": "r2-range-L64-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/001-codex-current-high-r0-r2-range-L64-i1--baseline-json-a0",
+          "promptSha256": "585084b4062dfb66a4fa9beaa74fd44c98f4803ef9d1dbf2b38b3380b2aa2506",
+          "promptBytes": 9243,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5822,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2440,
+            "reasoning_output_tokens": 300
+          },
+          "totalInputTokens": 5822,
+          "finalOutputTokens": 2440,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 16984.521625
+          },
+          "localSerializedContextTokens": 6749,
+          "elapsedMs": 16984.521625,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "3aaf675e797b9b0a1d57b398541494aa21358eb66fbad82695cf2f9edca3a7fc",
+          "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"256\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"256\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"481/512\",\"id\":\"t1n2\",\"pitch\":57,\"velocity\":97},{\"at\":\"481/512\",\"clip\":\"clip\",\"duration\":\"59/128\",\"id\":\"t1n3\",\"pitch\":57,\"velocity\":91},{\"at\":\"179/128\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n4\",\"pitch\":59,\"velocity\":79},{\"at\":\"151/64\",\"clip\":\"clip\",\"duration\":\"59/128\",\"id\":\"t1n5\",\"pitch\":60,\"velocity\":77},{\"at\":\"1443/512\",\"clip\":\"clip\",\"duration\":\"123/256\",\"id\":\"t1n6\",\"pitch\":60,\"velocity\":75},{\"at\":\"1689/512\",\"clip\":\"clip\",\"duration\":\"727/512\",\"id\":\"t1n7\",\"pitch\":59,\"velocity\":67},{\"at\":\"3379/512\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"t1n8\",\"pitch\":65,\"velocity\":84},{\"at\":\"3891/512\",\"clip\":\"clip\",\"duration\":\"133/256\",\"id\":\"t1n9\",\"pitch\":64,\"velocity\":93},{\"at\":\"4157/512\",\"clip\":\"clip\",\"duration\":\"7/2\",\"id\":\"t1n10\",\"pitch\":64,\"velocity\":85},{\"at\":\"5949/512\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n11\",\"pitch\":64,\"velocity\":70},{\"at\":\"3471/256\",\"clip\":\"clip\",\"duration\":\"389/512\",\"id\":\"t1n12\",\"pitch\":57,\"velocity\":79},{\"at\":\"7331/512\",\"clip\":\"clip\",\"duration\":\"379/512\",\"id\":\"t1n13\",\"pitch\":59,\"velocity\":80},{\"at\":\"3855/256\",\"clip\":\"clip\",\"duration\":\"123/512\",\"id\":\"t1n14\",\"pitch\":59,\"velocity\":92},{\"at\":\"7833/512\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n15\",\"pitch\":59,\"velocity\":80},{\"at\":\"4413/256\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n16\",\"pitch\":59,\"velocity\":85},{\"at\":\"9103/512\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n17\",\"pitch\":57,\"velocity\":77},{\"at\":\"9379/512\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n18\",\"pitch\":57,\"velocity\":76},{\"at\":\"2483/128\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n19\",\"pitch\":57,\"velocity\":70},{\"at\":\"10485/512\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n20\",\"pitch\":57,\"velocity\":67},{\"at\":\"5519/256\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n21\",\"pitch\":57,\"velocity\":79},{\"at\":\"11591/512\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n22\",\"pitch\":57,\"velocity\":86},{\"at\":\"763/32\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n23\",\"pitch\":59,\"velocity\":84},{\"at\":\"12761/512\",\"clip\":\"clip\",\"duration\":\"553/512\",\"id\":\"t1n24\",\"pitch\":59,\"velocity\":82},{\"at\":\"6657/256\",\"clip\":\"clip\",\"duration\":\"169/128\",\"id\":\"t1n25\",\"pitch\":59,\"velocity\":74},{\"at\":\"6995/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n26\",\"pitch\":59,\"velocity\":67},{\"at\":\"7091/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n27\",\"pitch\":57,\"velocity\":68},{\"at\":\"7219/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n28\",\"pitch\":57,\"velocity\":70},{\"at\":\"7347/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n29\",\"pitch\":57,\"velocity\":67},{\"at\":\"7475/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n30\",\"pitch\":57,\"velocity\":72},{\"at\":\"7603/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n31\",\"pitch\":57,\"velocity\":71},{\"at\":\"7731/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n32\",\"pitch\":57,\"velocity\":78},{\"at\":\"7859/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n33\",\"pitch\":57,\"velocity\":84},{\"at\":\"7987/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n34\",\"pitch\":57,\"velocity\":82},{\"at\":\"8115/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n35\",\"pitch\":57,\"velocity\":88},{\"at\":\"8243/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n36\",\"pitch\":57,\"velocity\":90},{\"at\":\"8371/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n37\",\"pitch\":57,\"velocity\":82},{\"at\":\"8499/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n38\",\"pitch\":57,\"velocity\":81},{\"at\":\"8627/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n39\",\"pitch\":57,\"velocity\":75},{\"at\":\"8755/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n40\",\"pitch\":57,\"velocity\":82},{\"at\":\"8883/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n41\",\"pitch\":57,\"velocity\":72},{\"at\":\"9011/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n42\",\"pitch\":57,\"velocity\":71},{\"at\":\"9139/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n43\",\"pitch\":57,\"velocity\":66},{\"at\":\"9267/256\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n44\",\"pitch\":57,\"velocity\":71},{\"at\":\"9395/256\",\"clip\":\"clip\",\"duration\":\"225/512\",\"id\":\"t1n45\",\"pitch\":57,\"velocity\":73},{\"at\":\"19015/512\",\"clip\":\"clip\",\"duration\":\"215/128\",\"id\":\"t1n46\",\"pitch\":53,\"velocity\":76},{\"at\":\"10639/256\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n47\",\"pitch\":60,\"velocity\":88},{\"at\":\"21565/512\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n48\",\"pitch\":57,\"velocity\":79},{\"at\":\"21841/512\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n49\",\"pitch\":55,\"velocity\":76},{\"at\":\"11059/256\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n50\",\"pitch\":55,\"velocity\":67},{\"at\":\"2903/64\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n51\",\"pitch\":57,\"velocity\":70},{\"at\":\"5875/128\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n52\",\"pitch\":57,\"velocity\":82},{\"at\":\"23777/512\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n53\",\"pitch\":62,\"velocity\":80},{\"at\":\"47\",\"clip\":\"clip\",\"duration\":\"215/256\",\"id\":\"t1n54\",\"pitch\":62,\"velocity\":94},{\"at\":\"12247/256\",\"clip\":\"clip\",\"duration\":\"2273/512\",\"id\":\"t1n55\",\"pitch\":62,\"velocity\":85},{\"at\":\"26767/512\",\"clip\":\"clip\",\"duration\":\"1367/256\",\"id\":\"t1n56\",\"pitch\":62,\"velocity\":69},{\"at\":\"119459/512\",\"clip\":\"clip\",\"duration\":\"133/128\",\"id\":\"t1n57\",\"pitch\":57,\"velocity\":81},{\"at\":\"14999/64\",\"clip\":\"clip\",\"duration\":\"133/256\",\"id\":\"t1n58\",\"pitch\":59,\"velocity\":73},{\"at\":\"60129/256\",\"clip\":\"clip\",\"duration\":\"133/256\",\"id\":\"t1n59\",\"pitch\":57,\"velocity\":72},{\"at\":\"30131/128\",\"clip\":\"clip\",\"duration\":\"261/256\",\"id\":\"t1n60\",\"pitch\":57,\"velocity\":73},{\"at\":\"121047/512\",\"clip\":\"clip\",\"duration\":\"2893/256\",\"id\":\"t1n61\",\"pitch\":60,\"velocity\":70},{\"at\":\"7927/32\",\"clip\":\"clip\",\"duration\":\"297/512\",\"id\":\"t1n62\",\"pitch\":62,\"velocity\":88},{\"at\":\"127129/512\",\"clip\":\"clip\",\"duration\":\"297/512\",\"id\":\"t1n63\",\"pitch\":60,\"velocity\":87},{\"at\":\"63713/256\",\"clip\":\"clip\",\"duration\":\"297/256\",\"id\":\"t1n64\",\"pitch\":60,\"velocity\":85},{\"at\":\"63713/256\",\"clip\":\"clip\",\"duration\":\"297/256\",\"id\":\"t1n65\",\"pitch\":64,\"velocity\":85}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--pp-midi-json",
+      "cell": "r2-range-L64-i1--pp-midi-json",
+      "task": "r2-range-L64-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/002-codex-current-high-r0-r2-range-L64-i1--pp-midi-json-a0",
+          "promptSha256": "70fac135b751eb3be6ea6c41986d45df5a984d6a466368be6a690d9251f87eea",
+          "promptBytes": 4969,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4738,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1392,
+            "reasoning_output_tokens": 242
+          },
+          "totalInputTokens": 4738,
+          "finalOutputTokens": 1392,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 12726.723167
+          },
+          "localSerializedContextTokens": 5587,
+          "elapsedMs": 12726.723167,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "b6d05ce7fcbfc4c85683354c476401db115c3ef55a336bf5e0fae78d83adbcc3",
+          "answer": "[{p:57,t:0,d:481/512,v:97},{p:57,t:481/512,d:59/128,v:91},{p:59,t:179/128,d:123/128,v:79},{p:60,t:151/64,d:59/128,v:77},{p:60,t:1443/512,d:123/256,v:75},{p:59,t:1689/512,d:727/512,v:67},{p:65,t:3379/512,d:1,v:84},{p:64,t:3891/512,d:133/256,v:93},{p:64,t:4157/512,d:3.5,v:85},{p:64,t:5949/512,d:993/512,v:70},{p:57,t:3471/256,d:389/512,v:79},{p:59,t:7331/512,d:379/512,v:80},{p:59,t:3855/256,d:123/512,v:92},{p:59,t:7833/512,d:993/512,v:80},{p:59,t:4413/256,d:69/128,v:85},{p:57,t:9103/512,d:69/128,v:77},{p:57,t:9379/512,d:553/512,v:76},{p:57,t:2483/128,d:553/512,v:70},{p:57,t:10485/512,d:553/512,v:67},{p:57,t:5519/256,d:553/512,v:79},{p:57,t:11591/512,d:553/512,v:86},{p:59,t:763/32,d:553/512,v:84},{p:59,t:12761/512,d:553/512,v:82},{p:59,t:6657/256,d:169/128,v:74},{p:59,t:6995/256,d:0.5,v:67},{p:57,t:7091/256,d:0.5,v:68},{p:57,t:7219/256,d:0.5,v:70},{p:57,t:7347/256,d:0.5,v:67},{p:57,t:7475/256,d:0.5,v:72},{p:57,t:7603/256,d:0.5,v:71},{p:57,t:7731/256,d:0.5,v:78},{p:57,t:7859/256,d:0.5,v:84},{p:57,t:7987/256,d:0.5,v:82},{p:57,t:8115/256,d:0.5,v:88},{p:57,t:8243/256,d:0.5,v:90},{p:57,t:8371/256,d:0.5,v:82},{p:57,t:8499/256,d:0.5,v:81},{p:57,t:8627/256,d:0.5,v:75},{p:57,t:8755/256,d:0.5,v:82},{p:57,t:8883/256,d:0.5,v:72},{p:57,t:9011/256,d:0.5,v:71},{p:57,t:9139/256,d:0.5,v:66},{p:57,t:9267/256,d:0.5,v:71},{p:57,t:9395/256,d:225/512,v:73},{p:53,t:19015/512,d:215/128,v:76},{p:60,t:10639/256,d:287/512,v:88},{p:57,t:21565/512,d:69/128,v:79},{p:55,t:21841/512,d:69/128,v:76},{p:55,t:11059/256,d:69/128,v:67},{p:57,t:2903/64,d:69/128,v:70},{p:57,t:5875/128,d:69/128,v:82},{p:62,t:23777/512,d:287/512,v:80},{p:62,t:47,d:215/256,v:94},{p:62,t:12247/256,d:2273/512,v:85},{p:62,t:26767/512,d:1367/256,v:69},{p:57,t:119459/512,d:133/128,v:81},{p:59,t:14999/64,d:133/256,v:73},{p:57,t:60129/256,d:133/256,v:72},{p:57,t:30131/128,d:261/256,v:73},{p:60,t:121047/512,d:2893/256,v:70},{p:62,t:7927/32,d:297/512,v:88},{p:60,t:127129/512,d:297/512,v:87},{p:60,t:63713/256,d:297/256,v:85},{p:64,t:63713/256,d:297/256,v:85}]"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--pp-barbeat",
+      "cell": "r2-range-L64-i1--pp-barbeat",
+      "task": "r2-range-L64-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": false,
+      "withinBudgetPass": true,
+      "repairsUsed": 1,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/003-codex-current-high-r0-r2-range-L64-i1--pp-barbeat-a0",
+          "promptSha256": "b7e1928b757c59048f0e8e0f24fb05c53e8b7363cdb7535578aab038c095cd23",
+          "promptBytes": 5053,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4754,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2090,
+            "reasoning_output_tokens": 1077
+          },
+          "totalInputTokens": 4754,
+          "finalOutputTokens": 2090,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 22216.026665999998
+          },
+          "localSerializedContextTokens": 5591,
+          "elapsedMs": 22216.026665999998,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "performedState": false,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "763/32",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "553/512",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 59,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 84
+                },
+                "count": 1
+              },
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "12761/512",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "553/512",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 59,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 82
+                },
+                "count": 1
+              },
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "6995/256",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "1/2",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 59,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 67
+                },
+                "count": 1
+              }
+            ],
+            "extra": [
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "763/32",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "553/512",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 57,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 84
+                },
+                "count": 1
+              },
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "12761/512",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "553/512",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 57,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 82
+                },
+                "count": 1
+              },
+              {
+                "note": {
+                  "articulation": "normal",
+                  "at": "6963/256",
+                  "chance": {
+                    "enabled": false,
+                    "value": 1
+                  },
+                  "channel": 1,
+                  "duration": "1/2",
+                  "expression": {
+                    "gain": 1,
+                    "pan": 0,
+                    "pressure": 0,
+                    "timbre": 0.5,
+                    "transpose": 0,
+                    "velocitySpread": 0
+                  },
+                  "mute": false,
+                  "occurrence": {
+                    "condition": "always",
+                    "enabled": false
+                  },
+                  "pitch": 57,
+                  "recurrence": {
+                    "enabled": false,
+                    "length": 1,
+                    "mask": 1
+                  },
+                  "releaseVelocity": 0.7874015748031497,
+                  "repeat": {
+                    "count": 1,
+                    "curve": 0,
+                    "enabled": false,
+                    "velocityCurve": 0,
+                    "velocityEnd": 1
+                  },
+                  "velocity": 67
+                },
+                "count": 1
+              }
+            ],
+            "reason": "performed-state-or-envelope-mismatch"
+          },
+          "answerSha256": "ee17e769096b274d0d126ed575807de82053117f71f9a9ccb31f35ad01985051",
+          "answer": "v97 n481/2048 A2 1|1\nv91 n59/512 A2 1|1+n481/2048\nv79 n123/512 B2 1|2+n51/512\nv77 n59/512 C3 1|3+n23/256\nv75 n123/1024 C3 1|3+n419/2048\nv67 n727/2048 B2 1|4+n153/2048\nv84 n/4 F3 2|3+n307/2048\nv93 n133/1024 E3 2|4+n307/2048\nv85 n7/8 E3 3|1+n61/2048\nv70 n993/2048 E3 3|4+n317/2048\nv79 n389/2048 A2 4|2+n143/1024\nv80 n379/2048 B2 4|3+n163/2048\nv92 n123/2048 B2 4|4+n15/1024\nv80 n993/2048 B2 4|4+n153/2048\nv85 n69/512 B2 5|2+n61/1024\nv77 A2 5|2+n399/2048\nv76 n553/2048 A2 5|3+n163/2048\nv70 A2 5|4+n51/512\nv67 A2 6|1+n245/2048\nv79 A2 6|2+n143/1024\nv86 A2 6|3+n327/2048\nv84 A2 6|4+n27/128\nv82 A2 7|1+n473/2048\nv74 n169/512 B2 7|2+n257/1024\nv67 n/8 A2 7|4+n51/1024\nv68 A2 7|4+n179/1024\nv70 A2 8|1+n51/1024\nv67 A2 8|1+n179/1024\nv72 A2 8|2+n51/1024\nv71 A2 8|2+n179/1024\nv78 A2 8|3+n51/1024\nv84 A2 8|3+n179/1024\nv82 A2 8|4+n51/1024\nv88 A2 8|4+n179/1024\nv90 A2 9|1+n51/1024\nv82 A2 9|1+n179/1024,3+n51/1024\nv81 A2 9|2+n51/1024\nv75 A2 9|2+n179/1024\nv72 A2 9|3+n179/1024\nv71 A2 9|4+n51/1024\nv66 A2 9|4+n179/1024\nv71 A2 10|1+n51/1024\nv73 n225/2048 A2 10|1+n179/1024\nv76 n215/512 F2 10|2+n71/2048\nv88 n287/2048 C3 11|2+n143/1024\nv79 n69/512 A2 11|3+n61/2048\nv76 G2 11|3+n337/2048\nv67 G2 11|4+n51/1024\nv70 A2 12|2+n23/256\nv82 A2 12|2+n115/512\nv80 n287/2048 D3 12|3+n225/2048\nv94 n215/1024 D3 12|4\nv85 n2273/2048 D3 12|4+n215/1024\nv69 n1367/1024 D3 14|1+n143/2048\nv81 n133/512 A2 59|2+n163/2048\nv73 n133/1024 B2 59|3+n23/256\nv72 A2 59|3+n225/1024\nv73 n261/1024 A2 59|4+n51/512\nv70 n2893/1024 C3 60|1+n215/2048\nv88 n297/2048 D3 62|4+n23/128\nv87 C3 63|1+n153/2048\nv85 n297/1024 C3 E3 63|1+n225/1024"
+        },
+        {
+          "attemptIndex": 1,
+          "directory": "attempts/004-codex-current-high-r0-r2-range-L64-i1--pp-barbeat-a1",
+          "promptSha256": "6a0dfd08bcf25acc61849d2c49dc635ed76d5e1487ff091ed9b0742e519b9cf5",
+          "promptBytes": 7183,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5917,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1801,
+            "reasoning_output_tokens": 788
+          },
+          "totalInputTokens": 5917,
+          "finalOutputTokens": 1801,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 17912.124375
+          },
+          "localSerializedContextTokens": 6767,
+          "elapsedMs": 17912.124375,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "e2d50420df2dba9ab9b656e7ea4360999938eef0ad1ebb56e60dc53022f897b5",
+          "answer": "v97 n481/2048 A2 1|1\nv91 n59/512 A2 1|1+n481/2048\nv79 n123/512 B2 1|2+n51/512\nv77 n59/512 C3 1|3+n23/256\nv75 n123/1024 C3 1|3+n419/2048\nv67 n727/2048 B2 1|4+n153/2048\nv84 n/4 F3 2|3+n307/2048\nv93 n133/1024 E3 2|4+n307/2048\nv85 n7/8 E3 3|1+n61/2048\nv70 n993/2048 E3 3|4+n317/2048\nv79 n389/2048 A2 4|2+n143/1024\nv80 n379/2048 B2 4|3+n163/2048\nv92 n123/2048 B2 4|4+n15/1024\nv80 n993/2048 B2 4|4+n153/2048\nv85 n69/512 B2 5|2+n61/1024\nv77 A2 5|2+n399/2048\nv76 n553/2048 A2 5|3+n163/2048\nv70 A2 5|4+n51/512\nv67 A2 6|1+n245/2048\nv79 A2 6|2+n143/1024\nv86 A2 6|3+n327/2048\nv84 B2 6|4+n27/128\nv82 B2 7|1+n473/2048\nv74 n169/512 B2 7|2+n257/1024\nv67 n/8 B2 7|4+n83/1024\nv68 A2 7|4+n179/1024\nv70 A2 8|1+n51/1024\nv67 A2 8|1+n179/1024\nv72 A2 8|2+n51/1024\nv71 A2 8|2+n179/1024\nv78 A2 8|3+n51/1024\nv84 A2 8|3+n179/1024\nv82 A2 8|4+n51/1024\nv88 A2 8|4+n179/1024\nv90 A2 9|1+n51/1024\nv82 A2 9|1+n179/1024,3+n51/1024\nv81 A2 9|2+n51/1024\nv75 A2 9|2+n179/1024\nv72 A2 9|3+n179/1024\nv71 A2 9|4+n51/1024\nv66 A2 9|4+n179/1024\nv71 A2 10|1+n51/1024\nv73 n225/2048 A2 10|1+n179/1024\nv76 n215/512 F2 10|2+n71/2048\nv88 n287/2048 C3 11|2+n143/1024\nv79 n69/512 A2 11|3+n61/2048\nv76 G2 11|3+n337/2048\nv67 G2 11|4+n51/1024\nv70 A2 12|2+n23/256\nv82 A2 12|2+n115/512\nv80 n287/2048 D3 12|3+n225/2048\nv94 n215/1024 D3 12|4\nv85 n2273/2048 D3 12|4+n215/1024\nv69 n1367/1024 D3 14|1+n143/2048\nv81 n133/512 A2 59|2+n163/2048\nv73 n133/1024 B2 59|3+n23/256\nv72 A2 59|3+n225/1024\nv73 n261/1024 A2 59|4+n51/512\nv70 n2893/1024 C3 60|1+n215/2048\nv88 n297/2048 D3 62|4+n23/128\nv87 C3 63|1+n153/2048\nv85 n297/1024 C3 E3 63|1+n225/1024"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--baseline-fields",
+      "cell": "r2-range-L64-i1--baseline-fields",
+      "task": "r2-range-L64-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/005-codex-current-high-r0-r2-range-L64-i1--baseline-fields-a0",
+          "promptSha256": "920865bfd9572a926e466c52ab5c1e8da3732ba44348806c59a07a76a9f1aabc",
+          "promptBytes": 6572,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5243,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1781,
+            "reasoning_output_tokens": 224
+          },
+          "totalInputTokens": 5243,
+          "finalOutputTokens": 1781,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 13678.413874999998
+          },
+          "localSerializedContextTokens": 6105,
+          "elapsedMs": 13678.413874999998,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "11f23552ea05907e6bbe877de9614f3c1e0690826566561ee931d8ffea0f5bcb",
+          "answer": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"256\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"256\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n2 clip 0 481/512 57 97 1 false\nEVENT t1n3 clip 481/512 59/128 57 91 1 false\nEVENT t1n4 clip 179/128 123/128 59 79 1 false\nEVENT t1n5 clip 151/64 59/128 60 77 1 false\nEVENT t1n6 clip 1443/512 123/256 60 75 1 false\nEVENT t1n7 clip 1689/512 727/512 59 67 1 false\nEVENT t1n8 clip 3379/512 1 65 84 1 false\nEVENT t1n9 clip 3891/512 133/256 64 93 1 false\nEVENT t1n10 clip 4157/512 7/2 64 85 1 false\nEVENT t1n11 clip 5949/512 993/512 64 70 1 false\nEVENT t1n12 clip 3471/256 389/512 57 79 1 false\nEVENT t1n13 clip 7331/512 379/512 59 80 1 false\nEVENT t1n14 clip 3855/256 123/512 59 92 1 false\nEVENT t1n15 clip 7833/512 993/512 59 80 1 false\nEVENT t1n16 clip 4413/256 69/128 59 85 1 false\nEVENT t1n17 clip 9103/512 69/128 57 77 1 false\nEVENT t1n18 clip 9379/512 553/512 57 76 1 false\nEVENT t1n19 clip 2483/128 553/512 57 70 1 false\nEVENT t1n20 clip 10485/512 553/512 57 67 1 false\nEVENT t1n21 clip 5519/256 553/512 57 79 1 false\nEVENT t1n22 clip 11591/512 553/512 57 86 1 false\nEVENT t1n23 clip 763/32 553/512 59 84 1 false\nEVENT t1n24 clip 12761/512 553/512 59 82 1 false\nEVENT t1n25 clip 6657/256 169/128 59 74 1 false\nEVENT t1n26 clip 6995/256 1/2 59 67 1 false\nEVENT t1n27 clip 7091/256 1/2 57 68 1 false\nEVENT t1n28 clip 7219/256 1/2 57 70 1 false\nEVENT t1n29 clip 7347/256 1/2 57 67 1 false\nEVENT t1n30 clip 7475/256 1/2 57 72 1 false\nEVENT t1n31 clip 7603/256 1/2 57 71 1 false\nEVENT t1n32 clip 7731/256 1/2 57 78 1 false\nEVENT t1n33 clip 7859/256 1/2 57 84 1 false\nEVENT t1n34 clip 7987/256 1/2 57 82 1 false\nEVENT t1n35 clip 8115/256 1/2 57 88 1 false\nEVENT t1n36 clip 8243/256 1/2 57 90 1 false\nEVENT t1n37 clip 8371/256 1/2 57 82 1 false\nEVENT t1n38 clip 8499/256 1/2 57 81 1 false\nEVENT t1n39 clip 8627/256 1/2 57 75 1 false\nEVENT t1n40 clip 8755/256 1/2 57 82 1 false\nEVENT t1n41 clip 8883/256 1/2 57 72 1 false\nEVENT t1n42 clip 9011/256 1/2 57 71 1 false\nEVENT t1n43 clip 9139/256 1/2 57 66 1 false\nEVENT t1n44 clip 9267/256 1/2 57 71 1 false\nEVENT t1n45 clip 9395/256 225/512 57 73 1 false\nEVENT t1n46 clip 19015/512 215/128 53 76 1 false\nEVENT t1n47 clip 10639/256 287/512 60 88 1 false\nEVENT t1n48 clip 21565/512 69/128 57 79 1 false\nEVENT t1n49 clip 21841/512 69/128 55 76 1 false\nEVENT t1n50 clip 11059/256 69/128 55 67 1 false\nEVENT t1n51 clip 2903/64 69/128 57 70 1 false\nEVENT t1n52 clip 5875/128 69/128 57 82 1 false\nEVENT t1n53 clip 23777/512 287/512 62 80 1 false\nEVENT t1n54 clip 47 215/256 62 94 1 false\nEVENT t1n55 clip 12247/256 2273/512 62 85 1 false\nEVENT t1n56 clip 26767/512 1367/256 62 69 1 false\nEVENT t1n57 clip 119459/512 133/128 57 81 1 false\nEVENT t1n58 clip 14999/64 133/256 59 73 1 false\nEVENT t1n59 clip 60129/256 133/256 57 72 1 false\nEVENT t1n60 clip 30131/128 261/256 57 73 1 false\nEVENT t1n61 clip 121047/512 2893/256 60 70 1 false\nEVENT t1n62 clip 7927/32 297/512 62 88 1 false\nEVENT t1n63 clip 127129/512 297/512 60 87 1 false\nEVENT t1n64 clip 63713/256 297/256 60 85 1 false\nEVENT t1n65 clip 63713/256 297/256 64 85 1 false"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--c3-fields",
+      "cell": "r2-range-L64-i1--c3-fields",
+      "task": "r2-range-L64-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/006-codex-current-high-r0-r2-range-L64-i1--c3-fields-a0",
+          "promptSha256": "a8b57c2c1c2277623cc919ec156fc8b274c7dd991b9f4e18d5b6d54cad155277",
+          "promptBytes": 5014,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4796,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1504,
+            "reasoning_output_tokens": 275
+          },
+          "totalInputTokens": 4796,
+          "finalOutputTokens": 1504,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 12280.215375
+          },
+          "localSerializedContextTokens": 5643,
+          "elapsedMs": 12280.215375,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "6f49565099cedecceb28e7311d3dfe5f8f9b8ebe425989470232c09969646972",
+          "answer": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n2 57 0 481/512 97\nNOTE t1n3 57 481/512 59/128 91\nNOTE t1n4 59 179/128 123/128 79\nNOTE t1n5 60 151/64 59/128 77\nNOTE t1n6 60 1443/512 123/256 75\nNOTE t1n7 59 1689/512 727/512 67\nNOTE t1n8 65 3379/512 1 84\nNOTE t1n9 64 3891/512 133/256 93\nNOTE t1n10 64 4157/512 7/2 85\nNOTE t1n11 64 5949/512 993/512 70\nNOTE t1n12 57 3471/256 389/512 79\nNOTE t1n13 59 7331/512 379/512 80\nNOTE t1n14 59 3855/256 123/512 92\nNOTE t1n15 59 7833/512 993/512 80\nNOTE t1n16 59 4413/256 69/128 85\nNOTE t1n17 57 9103/512 69/128 77\nNOTE t1n18 57 9379/512 553/512 76\nNOTE t1n19 57 2483/128 553/512 70\nNOTE t1n20 57 10485/512 553/512 67\nNOTE t1n21 57 5519/256 553/512 79\nNOTE t1n22 57 11591/512 553/512 86\nNOTE t1n23 59 763/32 553/512 84\nNOTE t1n24 59 12761/512 553/512 82\nNOTE t1n25 59 6657/256 169/128 74\nNOTE t1n26 59 6995/256 1/2 67\nNOTE t1n27 57 7091/256 1/2 68\nNOTE t1n28 57 7219/256 1/2 70\nNOTE t1n29 57 7347/256 1/2 67\nNOTE t1n30 57 7475/256 1/2 72\nNOTE t1n31 57 7603/256 1/2 71\nNOTE t1n32 57 7731/256 1/2 78\nNOTE t1n33 57 7859/256 1/2 84\nNOTE t1n34 57 7987/256 1/2 82\nNOTE t1n35 57 8115/256 1/2 88\nNOTE t1n36 57 8243/256 1/2 90\nNOTE t1n37 57 8371/256 1/2 82\nNOTE t1n38 57 8499/256 1/2 81\nNOTE t1n39 57 8627/256 1/2 75\nNOTE t1n40 57 8755/256 1/2 82\nNOTE t1n41 57 8883/256 1/2 72\nNOTE t1n42 57 9011/256 1/2 71\nNOTE t1n43 57 9139/256 1/2 66\nNOTE t1n44 57 9267/256 1/2 71\nNOTE t1n45 57 9395/256 225/512 73\nNOTE t1n46 53 19015/512 215/128 76\nNOTE t1n47 60 10639/256 287/512 88\nNOTE t1n48 57 21565/512 69/128 79\nNOTE t1n49 55 21841/512 69/128 76\nNOTE t1n50 55 11059/256 69/128 67\nNOTE t1n51 57 2903/64 69/128 70\nNOTE t1n52 57 5875/128 69/128 82\nNOTE t1n53 62 23777/512 287/512 80\nNOTE t1n54 62 47 215/256 94\nNOTE t1n55 62 12247/256 2273/512 85\nNOTE t1n56 62 26767/512 1367/256 69\nNOTE t1n57 57 119459/512 133/128 81\nNOTE t1n58 59 14999/64 133/256 73\nNOTE t1n59 57 60129/256 133/256 72\nNOTE t1n60 57 30131/128 261/256 73\nNOTE t1n61 60 121047/512 2893/256 70\nNOTE t1n62 62 7927/32 297/512 88\nNOTE t1n63 60 127129/512 297/512 87\nNOTE t1n64 60 63713/256 297/256 85\nNOTE t1n65 64 63713/256 297/256 85"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-range-L64-i1--c4-fields",
+      "cell": "r2-range-L64-i1--c4-fields",
+      "task": "r2-range-L64-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/007-codex-current-high-r0-r2-range-L64-i1--c4-fields-a0",
+          "promptSha256": "af34102a0fd1094a4521afda4418746e7351421413526418349fc5b3a8e8d304",
+          "promptBytes": 5673,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4985,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1533,
+            "reasoning_output_tokens": 233
+          },
+          "totalInputTokens": 4985,
+          "finalOutputTokens": 1533,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 9527.042625000002
+          },
+          "localSerializedContextTokens": 5820,
+          "elapsedMs": 9527.042625000002,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "7750ba88405347adbe6125b23366307028d4b6c58dd38d060cc61dab48fb37c2",
+          "answer": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n2 57 0 481/512 97\n  NOTE t1n3 57 481/512 59/128 91\n  NOTE t1n4 59 179/128 123/128 79\n  NOTE t1n5 60 151/64 59/128 77\n  NOTE t1n6 60 1443/512 123/256 75\n  NOTE t1n7 59 1689/512 727/512 67\n  NOTE t1n8 65 3379/512 1 84\n  NOTE t1n9 64 3891/512 133/256 93\n  NOTE t1n10 64 4157/512 7/2 85\n  NOTE t1n11 64 5949/512 993/512 70\n  NOTE t1n12 57 3471/256 389/512 79\n  NOTE t1n13 59 7331/512 379/512 80\n  NOTE t1n14 59 3855/256 123/512 92\n  NOTE t1n15 59 7833/512 993/512 80\n  NOTE t1n16 59 4413/256 69/128 85\n  NOTE t1n17 57 9103/512 69/128 77\n  NOTE t1n18 57 9379/512 553/512 76\n  NOTE t1n19 57 2483/128 553/512 70\n  NOTE t1n20 57 10485/512 553/512 67\n  NOTE t1n21 57 5519/256 553/512 79\n  NOTE t1n22 57 11591/512 553/512 86\n  NOTE t1n23 59 763/32 553/512 84\n  NOTE t1n24 59 12761/512 553/512 82\n  NOTE t1n25 59 6657/256 169/128 74\n  NOTE t1n26 59 6995/256 1/2 67\n  NOTE t1n27 57 7091/256 1/2 68\n  NOTE t1n28 57 7219/256 1/2 70\n  NOTE t1n29 57 7347/256 1/2 67\n  NOTE t1n30 57 7475/256 1/2 72\n  NOTE t1n31 57 7603/256 1/2 71\n  NOTE t1n32 57 7731/256 1/2 78\n  NOTE t1n33 57 7859/256 1/2 84\n  NOTE t1n34 57 7987/256 1/2 82\n  NOTE t1n35 57 8115/256 1/2 88\n  NOTE t1n36 57 8243/256 1/2 90\n  NOTE t1n37 57 8371/256 1/2 82\n  NOTE t1n38 57 8499/256 1/2 81\n  NOTE t1n39 57 8627/256 1/2 75\n  NOTE t1n40 57 8755/256 1/2 82\n  NOTE t1n41 57 8883/256 1/2 72\n  NOTE t1n42 57 9011/256 1/2 71\n  NOTE t1n43 57 9139/256 1/2 66\n  NOTE t1n44 57 9267/256 1/2 71\n  NOTE t1n45 57 9395/256 225/512 73\n  NOTE t1n46 53 19015/512 215/128 76\n  NOTE t1n47 60 10639/256 287/512 88\n  NOTE t1n48 57 21565/512 69/128 79\n  NOTE t1n49 55 21841/512 69/128 76\n  NOTE t1n50 55 11059/256 69/128 67\n  NOTE t1n51 57 2903/64 69/128 70\n  NOTE t1n52 57 5875/128 69/128 82\n  NOTE t1n53 62 23777/512 287/512 80\n  NOTE t1n54 62 47 215/256 94\n  NOTE t1n55 62 12247/256 2273/512 85\n  NOTE t1n56 62 26767/512 1367/256 69\n  NOTE t1n57 57 119459/512 133/128 81\n  NOTE t1n58 59 14999/64 133/256 73\n  NOTE t1n59 57 60129/256 133/256 72\n  NOTE t1n60 57 30131/128 261/256 73\n  NOTE t1n61 60 121047/512 2893/256 70\n  NOTE t1n62 62 7927/32 297/512 88\n  NOTE t1n63 60 127129/512 297/512 87\n  NOTE t1n64 60 63713/256 297/256 85\n  NOTE t1n65 64 63713/256 297/256 85\n}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--baseline-json",
+      "cell": "r2-delete-L1-i1--baseline-json",
+      "task": "r2-delete-L1-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/008-codex-current-high-r0-r2-delete-L1-i1--baseline-json-a0",
+          "promptSha256": "44e9ca1f1726ef5341529dc8e4958aa87bed4a76567acdbf21942ad4e808d91a",
+          "promptBytes": 15325,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 7948,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4370,
+            "reasoning_output_tokens": 147
+          },
+          "totalInputTokens": 7948,
+          "finalOutputTokens": 4370,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 29708.912249999994
+          },
+          "localSerializedContextTokens": 8917,
+          "elapsedMs": 29708.912249999994,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "3ed5590543da98dec92612d533076a56d2708912e6e0e864aad164dad50b7246",
+          "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"192\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"192\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"179/256\",\"id\":\"t1n1\",\"pitch\":84,\"velocity\":98},{\"at\":\"179/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n2\",\"pitch\":69,\"velocity\":84},{\"at\":\"179/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n3\",\"pitch\":72,\"velocity\":82},{\"at\":\"179/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n4\",\"pitch\":74,\"velocity\":84},{\"at\":\"179/256\",\"clip\":\"clip\",\"duration\":\"41/128\",\"id\":\"t1n5\",\"pitch\":79,\"velocity\":86},{\"at\":\"261/256\",\"clip\":\"clip\",\"duration\":\"1935/512\",\"id\":\"t1n6\",\"pitch\":79,\"velocity\":85},{\"at\":\"261/256\",\"clip\":\"clip\",\"duration\":\"1935/512\",\"id\":\"t1n7\",\"pitch\":81,\"velocity\":91},{\"at\":\"2457/512\",\"clip\":\"clip\",\"duration\":\"891/128\",\"id\":\"t1n8\",\"pitch\":74,\"velocity\":75},{\"at\":\"2457/512\",\"clip\":\"clip\",\"duration\":\"891/128\",\"id\":\"t1n9\",\"pitch\":86,\"velocity\":68},{\"at\":\"6021/512\",\"clip\":\"clip\",\"duration\":\"481/512\",\"id\":\"t1n10\",\"pitch\":69,\"velocity\":66},{\"at\":\"6021/512\",\"clip\":\"clip\",\"duration\":\"481/512\",\"id\":\"t1n11\",\"pitch\":81,\"velocity\":69},{\"at\":\"3251/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n12\",\"pitch\":69,\"velocity\":69},{\"at\":\"3251/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n13\",\"pitch\":74,\"velocity\":72},{\"at\":\"3251/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n14\",\"pitch\":77,\"velocity\":66},{\"at\":\"3251/256\",\"clip\":\"clip\",\"duration\":\"2099/512\",\"id\":\"t1n15\",\"pitch\":81,\"velocity\":74},{\"at\":\"8601/512\",\"clip\":\"clip\",\"duration\":\"2043/256\",\"id\":\"t1n16\",\"pitch\":48,\"velocity\":79},{\"at\":\"9871/512\",\"clip\":\"clip\",\"duration\":\"2335/512\",\"id\":\"t1n17\",\"pitch\":84,\"velocity\":72},{\"at\":\"6103/256\",\"clip\":\"clip\",\"duration\":\"481/512\",\"id\":\"t1n18\",\"pitch\":84,\"velocity\":89},{\"at\":\"12687/512\",\"clip\":\"clip\",\"duration\":\"133/512\",\"id\":\"t1n19\",\"pitch\":74,\"velocity\":79},{\"at\":\"12687/512\",\"clip\":\"clip\",\"duration\":\"1531/128\",\"id\":\"t1n20\",\"pitch\":84,\"velocity\":87},{\"at\":\"3205/128\",\"clip\":\"clip\",\"duration\":\"2995/256\",\"id\":\"t1n21\",\"pitch\":72,\"velocity\":92},{\"at\":\"9405/256\",\"clip\":\"clip\",\"duration\":\"11\",\"id\":\"t1n22\",\"pitch\":69,\"velocity\":66},{\"at\":\"9405/256\",\"clip\":\"clip\",\"duration\":\"11\",\"id\":\"t1n23\",\"pitch\":81,\"velocity\":68},{\"at\":\"12221/256\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n24\",\"pitch\":69,\"velocity\":81},{\"at\":\"12221/256\",\"clip\":\"clip\",\"duration\":\"123/128\",\"id\":\"t1n25\",\"pitch\":81,\"velocity\":84},{\"at\":\"12467/256\",\"clip\":\"clip\",\"duration\":\"11807/512\",\"id\":\"t1n26\",\"pitch\":67,\"velocity\":82},{\"at\":\"12467/256\",\"clip\":\"clip\",\"duration\":\"11807/512\",\"id\":\"t1n27\",\"pitch\":79,\"velocity\":87},{\"at\":\"36741/512\",\"clip\":\"clip\",\"duration\":\"143/512\",\"id\":\"t1n28\",\"pitch\":84,\"velocity\":85},{\"at\":\"9221/128\",\"clip\":\"clip\",\"duration\":\"379/512\",\"id\":\"t1n29\",\"pitch\":81,\"velocity\":97},{\"at\":\"37263/512\",\"clip\":\"clip\",\"duration\":\"5663/512\",\"id\":\"t1n30\",\"pitch\":72,\"velocity\":79},{\"at\":\"21463/256\",\"clip\":\"clip\",\"duration\":\"471/512\",\"id\":\"t1n31\",\"pitch\":65,\"velocity\":65},{\"at\":\"43397/512\",\"clip\":\"clip\",\"duration\":\"1925/512\",\"id\":\"t1n32\",\"pitch\":38,\"velocity\":69},{\"at\":\"43397/512\",\"clip\":\"clip\",\"duration\":\"1925/512\",\"id\":\"t1n33\",\"pitch\":50,\"velocity\":64},{\"at\":\"43397/512\",\"clip\":\"clip\",\"duration\":\"1925/512\",\"id\":\"t1n34\",\"pitch\":53,\"velocity\":68},{\"at\":\"22661/256\",\"clip\":\"clip\",\"duration\":\"1935/512\",\"id\":\"t1n35\",\"pitch\":38,\"velocity\":86},{\"at\":\"22661/256\",\"clip\":\"clip\",\"duration\":\"1935/512\",\"id\":\"t1n36\",\"pitch\":50,\"velocity\":81},{\"at\":\"22661/256\",\"clip\":\"clip\",\"duration\":\"1935/512\",\"id\":\"t1n37\",\"pitch\":53,\"velocity\":83},{\"at\":\"47257/512\",\"clip\":\"clip\",\"duration\":\"389/256\",\"id\":\"t1n38\",\"pitch\":38,\"velocity\":60},{\"at\":\"47257/512\",\"clip\":\"clip\",\"duration\":\"389/256\",\"id\":\"t1n39\",\"pitch\":50,\"velocity\":70},{\"at\":\"47257/512\",\"clip\":\"clip\",\"duration\":\"389/256\",\"id\":\"t1n40\",\"pitch\":53,\"velocity\":63},{\"at\":\"48035/512\",\"clip\":\"clip\",\"duration\":\"7/2\",\"id\":\"t1n41\",\"pitch\":38,\"velocity\":73},{\"at\":\"48035/512\",\"clip\":\"clip\",\"duration\":\"7/2\",\"id\":\"t1n42\",\"pitch\":50,\"velocity\":70},{\"at\":\"48035/512\",\"clip\":\"clip\",\"duration\":\"7/2\",\"id\":\"t1n43\",\"pitch\":53,\"velocity\":76},{\"at\":\"49049/512\",\"clip\":\"clip\",\"duration\":\"261/256\",\"id\":\"t1n44\",\"pitch\":84,\"velocity\":91},{\"at\":\"49571/512\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n45\",\"pitch\":79,\"velocity\":88},{\"at\":\"49571/512\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n46\",\"pitch\":84,\"velocity\":90},{\"at\":\"49827/512\",\"clip\":\"clip\",\"duration\":\"471/128\",\"id\":\"t1n47\",\"pitch\":41,\"velocity\":80},{\"at\":\"49827/512\",\"clip\":\"clip\",\"duration\":\"471/128\",\"id\":\"t1n48\",\"pitch\":53,\"velocity\":80},{\"at\":\"49827/512\",\"clip\":\"clip\",\"duration\":\"471/128\",\"id\":\"t1n49\",\"pitch\":79,\"velocity\":78},{\"at\":\"49827/512\",\"clip\":\"clip\",\"duration\":\"471/128\",\"id\":\"t1n50\",\"pitch\":84,\"velocity\":79},{\"at\":\"101\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n51\",\"pitch\":41,\"velocity\":80},{\"at\":\"101\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n52\",\"pitch\":53,\"velocity\":72},{\"at\":\"101\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n53\",\"pitch\":79,\"velocity\":82},{\"at\":\"101\",\"clip\":\"clip\",\"duration\":\"993/512\",\"id\":\"t1n54\",\"pitch\":84,\"velocity\":76},{\"at\":\"52705/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n55\",\"pitch\":41,\"velocity\":84},{\"at\":\"52705/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n56\",\"pitch\":53,\"velocity\":84},{\"at\":\"52705/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n57\",\"pitch\":79,\"velocity\":86},{\"at\":\"52705/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n58\",\"pitch\":84,\"velocity\":89},{\"at\":\"54917/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n59\",\"pitch\":41,\"velocity\":70},{\"at\":\"54917/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n60\",\"pitch\":53,\"velocity\":67},{\"at\":\"54917/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n61\",\"pitch\":79,\"velocity\":71},{\"at\":\"54917/512\",\"clip\":\"clip\",\"duration\":\"553/128\",\"id\":\"t1n62\",\"pitch\":84,\"velocity\":71},{\"at\":\"223/2\",\"clip\":\"clip\",\"duration\":\"15/32\",\"id\":\"t1n64\",\"pitch\":78,\"velocity\":86},{\"at\":\"7141/64\",\"clip\":\"clip\",\"duration\":\"297/128\",\"id\":\"t1n65\",\"pitch\":41,\"velocity\":83},{\"at\":\"7141/64\",\"clip\":\"clip\",\"duration\":\"297/128\",\"id\":\"t1n66\",\"pitch\":53,\"velocity\":83},{\"at\":\"7141/64\",\"clip\":\"clip\",\"duration\":\"169/128\",\"id\":\"t1n67\",\"pitch\":79,\"velocity\":83},{\"at\":\"7141/64\",\"clip\":\"clip\",\"duration\":\"169/128\",\"id\":\"t1n68\",\"pitch\":84,\"velocity\":92},{\"at\":\"14451/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n69\",\"pitch\":79,\"velocity\":87},{\"at\":\"14451/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n70\",\"pitch\":84,\"velocity\":90},{\"at\":\"14515/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n71\",\"pitch\":79,\"velocity\":78},{\"at\":\"14515/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n72\",\"pitch\":84,\"velocity\":83},{\"at\":\"14579/128\",\"clip\":\"clip\",\"duration\":\"4\",\"id\":\"t1n73\",\"pitch\":41,\"velocity\":71},{\"at\":\"14579/128\",\"clip\":\"clip\",\"duration\":\"4\",\"id\":\"t1n74\",\"pitch\":53,\"velocity\":76},{\"at\":\"14579/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n75\",\"pitch\":79,\"velocity\":81},{\"at\":\"14579/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n76\",\"pitch\":84,\"velocity\":82},{\"at\":\"14643/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n77\",\"pitch\":79,\"velocity\":71},{\"at\":\"14643/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n78\",\"pitch\":84,\"velocity\":72},{\"at\":\"14707/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n79\",\"pitch\":79,\"velocity\":76},{\"at\":\"14707/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n80\",\"pitch\":84,\"velocity\":76},{\"at\":\"14771/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n81\",\"pitch\":79,\"velocity\":69},{\"at\":\"14771/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n82\",\"pitch\":84,\"velocity\":68},{\"at\":\"14835/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n83\",\"pitch\":79,\"velocity\":73},{\"at\":\"14835/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n84\",\"pitch\":84,\"velocity\":71},{\"at\":\"14899/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n85\",\"pitch\":79,\"velocity\":65},{\"at\":\"14899/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n86\",\"pitch\":84,\"velocity\":66},{\"at\":\"14963/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n87\",\"pitch\":79,\"velocity\":67},{\"at\":\"14963/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n88\",\"pitch\":84,\"velocity\":77},{\"at\":\"15027/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n89\",\"pitch\":79,\"velocity\":80},{\"at\":\"15027/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n90\",\"pitch\":84,\"velocity\":78},{\"at\":\"15091/128\",\"clip\":\"clip\",\"duration\":\"4\",\"id\":\"t1n91\",\"pitch\":41,\"velocity\":73},{\"at\":\"15091/128\",\"clip\":\"clip\",\"duration\":\"4\",\"id\":\"t1n92\",\"pitch\":53,\"velocity\":70},{\"at\":\"15091/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n93\",\"pitch\":79,\"velocity\":76},{\"at\":\"15091/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n94\",\"pitch\":84,\"velocity\":83},{\"at\":\"15155/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n95\",\"pitch\":79,\"velocity\":84},{\"at\":\"15155/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n96\",\"pitch\":84,\"velocity\":78},{\"at\":\"15219/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n97\",\"pitch\":79,\"velocity\":85},{\"at\":\"15219/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n98\",\"pitch\":84,\"velocity\":80},{\"at\":\"15283/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n99\",\"pitch\":79,\"velocity\":83},{\"at\":\"15283/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n100\",\"pitch\":84,\"velocity\":87},{\"at\":\"15347/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n101\",\"pitch\":79,\"velocity\":86},{\"at\":\"15347/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n102\",\"pitch\":84,\"velocity\":88},{\"at\":\"15411/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n103\",\"pitch\":79,\"velocity\":92},{\"at\":\"15411/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n104\",\"pitch\":84,\"velocity\":87},{\"at\":\"15475/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n105\",\"pitch\":79,\"velocity\":80},{\"at\":\"15475/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n106\",\"pitch\":84,\"velocity\":90},{\"at\":\"15539/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n107\",\"pitch\":79,\"velocity\":80},{\"at\":\"15539/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n108\",\"pitch\":84,\"velocity\":87},{\"at\":\"15603/128\",\"clip\":\"clip\",\"duration\":\"1915/512\",\"id\":\"t1n109\",\"pitch\":41,\"velocity\":76},{\"at\":\"15603/128\",\"clip\":\"clip\",\"duration\":\"1915/512\",\"id\":\"t1n110\",\"pitch\":53,\"velocity\":70},{\"at\":\"15603/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n111\",\"pitch\":79,\"velocity\":74},{\"at\":\"15603/128\",\"clip\":\"clip\",\"duration\":\"1/2\",\"id\":\"t1n112\",\"pitch\":84,\"velocity\":82},{\"at\":\"15667/128\",\"clip\":\"clip\",\"duration\":\"225/512\",\"id\":\"t1n113\",\"pitch\":79,\"velocity\":81},{\"at\":\"15667/128\",\"clip\":\"clip\",\"duration\":\"225/512\",\"id\":\"t1n114\",\"pitch\":84,\"velocity\":72},{\"at\":\"31447/256\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n115\",\"pitch\":72,\"velocity\":77},{\"at\":\"15795/128\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n116\",\"pitch\":74,\"velocity\":73},{\"at\":\"63467/512\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n117\",\"pitch\":76,\"velocity\":81},{\"at\":\"31877/256\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n118\",\"pitch\":77,\"velocity\":68},{\"at\":\"8005/64\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n119\",\"pitch\":79,\"velocity\":68},{\"at\":\"64327/512\",\"clip\":\"clip\",\"duration\":\"1669/512\",\"id\":\"t1n120\",\"pitch\":41,\"velocity\":69},{\"at\":\"64327/512\",\"clip\":\"clip\",\"duration\":\"1669/512\",\"id\":\"t1n121\",\"pitch\":53,\"velocity\":70},{\"at\":\"64327/512\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n122\",\"pitch\":72,\"velocity\":78},{\"at\":\"16151/128\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n123\",\"pitch\":76,\"velocity\":74},{\"at\":\"4055/32\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n124\",\"pitch\":77,\"velocity\":82},{\"at\":\"65157/512\",\"clip\":\"clip\",\"duration\":\"287/512\",\"id\":\"t1n125\",\"pitch\":79,\"velocity\":85},{\"at\":\"65443/512\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n126\",\"pitch\":81,\"velocity\":85},{\"at\":\"8215/64\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n127\",\"pitch\":79,\"velocity\":86},{\"at\":\"16499/128\",\"clip\":\"clip\",\"duration\":\"1659/512\",\"id\":\"t1n128\",\"pitch\":41,\"velocity\":79},{\"at\":\"16499/128\",\"clip\":\"clip\",\"duration\":\"1659/512\",\"id\":\"t1n129\",\"pitch\":53,\"velocity\":81},{\"at\":\"16499/128\",\"clip\":\"clip\",\"duration\":\"69/128\",\"id\":\"t1n130\",\"pitch\":72,\"velocity\":80}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--pp-barbeat",
+      "cell": "r2-delete-L1-i1--pp-barbeat",
+      "task": "r2-delete-L1-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/009-codex-current-high-r0-r2-delete-L1-i1--pp-barbeat-a0",
+          "promptSha256": "18f9bbf34486e46493a76232c90fad2c4b07aa349f43216f9102af723fe860c0",
+          "promptBytes": 5716,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5073,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1744,
+            "reasoning_output_tokens": 442
+          },
+          "totalInputTokens": 5073,
+          "finalOutputTokens": 1744,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 17043.507332999987
+          },
+          "localSerializedContextTokens": 5911,
+          "elapsedMs": 17043.507332999987,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "9851c330fd5cdf3b0cd49d4f81a05de086f7c80d240eda7eabb59af895d2e295",
+          "answer": "v98 n179/1024 C5 1|1\nv84 n2099/2048 A3 v82 C4 v84 D4 v86 n41/512 G4 1|1+n179/1024\nv85 n1935/2048 G4 v91 A4 1|2+n5/1024\nv75 n891/512 D4 v68 D5 2|1+n409/2048\nv66 n481/2048 A3 v69 A4 3|4+n389/2048\nn2099/2048 A3 v72 D4 v66 F4 v74 A4 4|1+n179/1024\nv79 n2043/1024 C2 5|1+n409/2048\nv72 n2335/2048 C5 5|4+n143/2048\nv89 n481/2048 C5 6|4+n215/1024\nv79 n133/2048 D4 v87 n1531/512 C5 7|1+n399/2048\nv92 n2995/1024 C4 7|2+n5/512\nv66 n11/4 A3 v68 A4 10|1+n189/1024\nv81 n123/512 A3 v84 A4 12|4+n189/1024\nv82 n11807/2048 G3 v87 G4 13|1+n179/1024\nv85 n143/2048 C5 18|4+n389/2048\nv97 n379/2048 A4 19|1+n5/512\nv79 n5663/2048 C4 19|1+n399/2048\nv65 n471/2048 F3 21|4+n215/1024\nv69 n1925/2048 D1 v64 D2 v68 F2 22|1+n389/2048\nv86 n1935/2048 D1 v81 D2 v83 F2 23|1+n133/1024\nv60 n389/1024 D1 v70 D2 v63 F2 24|1+n153/2048\nv73 n7/8 D1 v70 D2 v76 F2 24|2+n419/2048\nv91 n261/1024 C5 24|4+n409/2048\nv88 n/8 G4 v90 C5 25|1+n419/2048\nv80 n471/512 F1 F2 v78 G4 v79 C5 25|2+n163/2048\nv80 n993/2048 F1 v72 F2 v82 G4 v76 C5 26|2\nv84 n553/512 F1 F2 v86 G4 v89 C5 26|3+n481/2048\nv70 F1 v67 F2 v71 G4 C5 27|4+n133/2048\nv86 n15/128 Gb4 28|4.5\nv83 n297/512 F1 F2 n169/512 G4 v92 C5 28|4+n37/256\nv87 n/8 G4 v90 C5 29|1+n115/512\nv78 G4 v83 C5 29|2+n51/512\nv71 n/1 F1 v76 F2 v81 n/8 G4 v82 C5 29|2+n115/512\nv71 G4 v72 C5 29|3+n51/512\nv76 G4 C5 29|3+n115/512\nv69 G4 v68 C5 29|4+n51/512\nv73 G4 v71 C5 29|4+n115/512\nv65 G4 v66 C5 30|1+n51/512\nv67 G4 v77 C5 30|1+n115/512\nv80 G4 v78 C5 30|2+n51/512\nv73 n/1 F1 v70 F2 v76 n/8 G4 v83 C5 30|2+n115/512\nv84 G4 v78 C5 30|3+n51/512\nv85 G4 v80 C5 30|3+n115/512\nv83 G4 v87 C5 30|4+n51/512\nv86 G4 v88 C5 30|4+n115/512\nv92 G4 v87 C5 31|1+n51/512\nv80 G4 v90 C5 31|1+n115/512\nv80 G4 v87 C5 31|2+n51/512\nv76 n1915/2048 F1 v70 F2 v74 n/8 G4 v82 C5 31|2+n115/512\nv81 n225/2048 G4 v72 C5 31|3+n51/512\nv77 n287/2048 C4 31|3+n215/1024\nv73 D4 31|4+n51/512\nv81 E4 31|4+n491/2048\nv68 F4 32|1+n133/1024\nG4 32|2+n5/256\nv69 n1669/2048 F1 v70 F2 v78 n69/512 C4 32|2+n327/2048\nv74 E4 32|3+n23/512\nv82 F4 32|3+n23/128\nv85 n287/2048 G4 32|4+n133/2048\nn69/512 A4 32|4+n419/2048\nv86 G4 33|1+n23/256\nv79 n1659/2048 F1 v81 F2 v80 n69/512 C4 33|1+n115/512"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--pp-midi-json",
+      "cell": "r2-delete-L1-i1--pp-midi-json",
+      "task": "r2-delete-L1-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/010-codex-current-high-r0-r2-delete-L1-i1--pp-midi-json-a0",
+          "promptSha256": "0a55bff79e7b746007a8ea84b6b97c9d17a21a7b5422cdb482eee3d9af579360",
+          "promptBytes": 7193,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5942,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2396,
+            "reasoning_output_tokens": 73
+          },
+          "totalInputTokens": 5942,
+          "finalOutputTokens": 2396,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 17408.718208999984
+          },
+          "localSerializedContextTokens": 6791,
+          "elapsedMs": 17408.718208999984,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": null,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "776e7f3494c9371bcc0dd4b483e65724e3614ba9a3c7970a5fe60a7f90e504d1",
+          "answer": "[{p:84,t:0,d:179/256,v:98},{p:69,t:179/256,d:2099/512,v:84},{p:72,t:179/256,d:2099/512,v:82},{p:74,t:179/256,d:2099/512,v:84},{p:79,t:179/256,d:41/128,v:86},{p:79,t:261/256,d:1935/512,v:85},{p:81,t:261/256,d:1935/512,v:91},{p:74,t:2457/512,d:891/128,v:75},{p:86,t:2457/512,d:891/128,v:68},{p:69,t:6021/512,d:481/512,v:66},{p:81,t:6021/512,d:481/512,v:69},{p:69,t:3251/256,d:2099/512,v:69},{p:74,t:3251/256,d:2099/512,v:72},{p:77,t:3251/256,d:2099/512,v:66},{p:81,t:3251/256,d:2099/512,v:74},{p:48,t:8601/512,d:2043/256,v:79},{p:84,t:9871/512,d:2335/512,v:72},{p:84,t:6103/256,d:481/512,v:89},{p:74,t:12687/512,d:133/512,v:79},{p:84,t:12687/512,d:1531/128,v:87},{p:72,t:3205/128,d:2995/256,v:92},{p:69,t:9405/256,d:11,v:66},{p:81,t:9405/256,d:11,v:68},{p:69,t:12221/256,d:123/128,v:81},{p:81,t:12221/256,d:123/128,v:84},{p:67,t:12467/256,d:11807/512,v:82},{p:79,t:12467/256,d:11807/512,v:87},{p:84,t:36741/512,d:143/512,v:85},{p:81,t:9221/128,d:379/512,v:97},{p:72,t:37263/512,d:5663/512,v:79},{p:65,t:21463/256,d:471/512,v:65},{p:38,t:43397/512,d:1925/512,v:69},{p:50,t:43397/512,d:1925/512,v:64},{p:53,t:43397/512,d:1925/512,v:68},{p:38,t:22661/256,d:1935/512,v:86},{p:50,t:22661/256,d:1935/512,v:81},{p:53,t:22661/256,d:1935/512,v:83},{p:38,t:47257/512,d:389/256,v:60},{p:50,t:47257/512,d:389/256,v:70},{p:53,t:47257/512,d:389/256,v:63},{p:38,t:48035/512,d:3.5,v:73},{p:50,t:48035/512,d:3.5,v:70},{p:53,t:48035/512,d:3.5,v:76},{p:84,t:49049/512,d:261/256,v:91},{p:79,t:49571/512,d:0.5,v:88},{p:84,t:49571/512,d:0.5,v:90},{p:41,t:49827/512,d:471/128,v:80},{p:53,t:49827/512,d:471/128,v:80},{p:79,t:49827/512,d:471/128,v:78},{p:84,t:49827/512,d:471/128,v:79},{p:41,t:101,d:993/512,v:80},{p:53,t:101,d:993/512,v:72},{p:79,t:101,d:993/512,v:82},{p:84,t:101,d:993/512,v:76},{p:41,t:52705/512,d:553/128,v:84},{p:53,t:52705/512,d:553/128,v:84},{p:79,t:52705/512,d:553/128,v:86},{p:84,t:52705/512,d:553/128,v:89},{p:41,t:54917/512,d:553/128,v:70},{p:53,t:54917/512,d:553/128,v:67},{p:79,t:54917/512,d:553/128,v:71},{p:84,t:54917/512,d:553/128,v:71},{p:78,t:111.5,d:15/32,v:86},{p:41,t:7141/64,d:297/128,v:83},{p:53,t:7141/64,d:297/128,v:83},{p:79,t:7141/64,d:169/128,v:83},{p:84,t:7141/64,d:169/128,v:92},{p:79,t:14451/128,d:0.5,v:87},{p:84,t:14451/128,d:0.5,v:90},{p:79,t:14515/128,d:0.5,v:78},{p:84,t:14515/128,d:0.5,v:83},{p:41,t:14579/128,d:4,v:71},{p:53,t:14579/128,d:4,v:76},{p:79,t:14579/128,d:0.5,v:81},{p:84,t:14579/128,d:0.5,v:82},{p:79,t:14643/128,d:0.5,v:71},{p:84,t:14643/128,d:0.5,v:72},{p:79,t:14707/128,d:0.5,v:76},{p:84,t:14707/128,d:0.5,v:76},{p:79,t:14771/128,d:0.5,v:69},{p:84,t:14771/128,d:0.5,v:68},{p:79,t:14835/128,d:0.5,v:73},{p:84,t:14835/128,d:0.5,v:71},{p:79,t:14899/128,d:0.5,v:65},{p:84,t:14899/128,d:0.5,v:66},{p:79,t:14963/128,d:0.5,v:67},{p:84,t:14963/128,d:0.5,v:77},{p:79,t:15027/128,d:0.5,v:80},{p:84,t:15027/128,d:0.5,v:78},{p:41,t:15091/128,d:4,v:73},{p:53,t:15091/128,d:4,v:70},{p:79,t:15091/128,d:0.5,v:76},{p:84,t:15091/128,d:0.5,v:83},{p:79,t:15155/128,d:0.5,v:84},{p:84,t:15155/128,d:0.5,v:78},{p:79,t:15219/128,d:0.5,v:85},{p:84,t:15219/128,d:0.5,v:80},{p:79,t:15283/128,d:0.5,v:83},{p:84,t:15283/128,d:0.5,v:87},{p:79,t:15347/128,d:0.5,v:86},{p:84,t:15347/128,d:0.5,v:88},{p:79,t:15411/128,d:0.5,v:92},{p:84,t:15411/128,d:0.5,v:87},{p:79,t:15475/128,d:0.5,v:80},{p:84,t:15475/128,d:0.5,v:90},{p:79,t:15539/128,d:0.5,v:80},{p:84,t:15539/128,d:0.5,v:87},{p:41,t:15603/128,d:1915/512,v:76},{p:53,t:15603/128,d:1915/512,v:70},{p:79,t:15603/128,d:0.5,v:74},{p:84,t:15603/128,d:0.5,v:82},{p:79,t:15667/128,d:225/512,v:81},{p:84,t:15667/128,d:225/512,v:72},{p:72,t:31447/256,d:287/512,v:77},{p:74,t:15795/128,d:287/512,v:73},{p:76,t:63467/512,d:287/512,v:81},{p:77,t:31877/256,d:287/512,v:68},{p:79,t:8005/64,d:287/512,v:68},{p:41,t:64327/512,d:1669/512,v:69},{p:53,t:64327/512,d:1669/512,v:70},{p:72,t:64327/512,d:69/128,v:78},{p:76,t:16151/128,d:69/128,v:74},{p:77,t:4055/32,d:69/128,v:82},{p:79,t:65157/512,d:287/512,v:85},{p:81,t:65443/512,d:69/128,v:85},{p:79,t:8215/64,d:69/128,v:86},{p:41,t:16499/128,d:1659/512,v:79},{p:53,t:16499/128,d:1659/512,v:81},{p:72,t:16499/128,d:69/128,v:80}]"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--baseline-fields",
+      "cell": "r2-delete-L1-i1--baseline-fields",
+      "task": "r2-delete-L1-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/011-codex-current-high-r0-r2-delete-L1-i1--baseline-fields-a0",
+          "promptSha256": "60cfaed462897be5da16182de6c916d6ca4c79714c5cea854a041ac064e0e70b",
+          "promptBytes": 9816,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 6777,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3151,
+            "reasoning_output_tokens": 96
+          },
+          "totalInputTokens": 6777,
+          "finalOutputTokens": 3151,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 21439.63966700001
+          },
+          "localSerializedContextTokens": 7610,
+          "elapsedMs": 21439.63966700001,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "70173dd62ebc6642c18bdda98a8978c75a7d85a79523568f250294b767f82719",
+          "answer": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"192\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"192\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 179/256 84 98 1 false\nEVENT t1n2 clip 179/256 2099/512 69 84 1 false\nEVENT t1n3 clip 179/256 2099/512 72 82 1 false\nEVENT t1n4 clip 179/256 2099/512 74 84 1 false\nEVENT t1n5 clip 179/256 41/128 79 86 1 false\nEVENT t1n6 clip 261/256 1935/512 79 85 1 false\nEVENT t1n7 clip 261/256 1935/512 81 91 1 false\nEVENT t1n8 clip 2457/512 891/128 74 75 1 false\nEVENT t1n9 clip 2457/512 891/128 86 68 1 false\nEVENT t1n10 clip 6021/512 481/512 69 66 1 false\nEVENT t1n11 clip 6021/512 481/512 81 69 1 false\nEVENT t1n12 clip 3251/256 2099/512 69 69 1 false\nEVENT t1n13 clip 3251/256 2099/512 74 72 1 false\nEVENT t1n14 clip 3251/256 2099/512 77 66 1 false\nEVENT t1n15 clip 3251/256 2099/512 81 74 1 false\nEVENT t1n16 clip 8601/512 2043/256 48 79 1 false\nEVENT t1n17 clip 9871/512 2335/512 84 72 1 false\nEVENT t1n18 clip 6103/256 481/512 84 89 1 false\nEVENT t1n19 clip 12687/512 133/512 74 79 1 false\nEVENT t1n20 clip 12687/512 1531/128 84 87 1 false\nEVENT t1n21 clip 3205/128 2995/256 72 92 1 false\nEVENT t1n22 clip 9405/256 11 69 66 1 false\nEVENT t1n23 clip 9405/256 11 81 68 1 false\nEVENT t1n24 clip 12221/256 123/128 69 81 1 false\nEVENT t1n25 clip 12221/256 123/128 81 84 1 false\nEVENT t1n26 clip 12467/256 11807/512 67 82 1 false\nEVENT t1n27 clip 12467/256 11807/512 79 87 1 false\nEVENT t1n28 clip 36741/512 143/512 84 85 1 false\nEVENT t1n29 clip 9221/128 379/512 81 97 1 false\nEVENT t1n30 clip 37263/512 5663/512 72 79 1 false\nEVENT t1n31 clip 21463/256 471/512 65 65 1 false\nEVENT t1n32 clip 43397/512 1925/512 38 69 1 false\nEVENT t1n33 clip 43397/512 1925/512 50 64 1 false\nEVENT t1n34 clip 43397/512 1925/512 53 68 1 false\nEVENT t1n35 clip 22661/256 1935/512 38 86 1 false\nEVENT t1n36 clip 22661/256 1935/512 50 81 1 false\nEVENT t1n37 clip 22661/256 1935/512 53 83 1 false\nEVENT t1n38 clip 47257/512 389/256 38 60 1 false\nEVENT t1n39 clip 47257/512 389/256 50 70 1 false\nEVENT t1n40 clip 47257/512 389/256 53 63 1 false\nEVENT t1n41 clip 48035/512 7/2 38 73 1 false\nEVENT t1n42 clip 48035/512 7/2 50 70 1 false\nEVENT t1n43 clip 48035/512 7/2 53 76 1 false\nEVENT t1n44 clip 49049/512 261/256 84 91 1 false\nEVENT t1n45 clip 49571/512 1/2 79 88 1 false\nEVENT t1n46 clip 49571/512 1/2 84 90 1 false\nEVENT t1n47 clip 49827/512 471/128 41 80 1 false\nEVENT t1n48 clip 49827/512 471/128 53 80 1 false\nEVENT t1n49 clip 49827/512 471/128 79 78 1 false\nEVENT t1n50 clip 49827/512 471/128 84 79 1 false\nEVENT t1n51 clip 101 993/512 41 80 1 false\nEVENT t1n52 clip 101 993/512 53 72 1 false\nEVENT t1n53 clip 101 993/512 79 82 1 false\nEVENT t1n54 clip 101 993/512 84 76 1 false\nEVENT t1n55 clip 52705/512 553/128 41 84 1 false\nEVENT t1n56 clip 52705/512 553/128 53 84 1 false\nEVENT t1n57 clip 52705/512 553/128 79 86 1 false\nEVENT t1n58 clip 52705/512 553/128 84 89 1 false\nEVENT t1n59 clip 54917/512 553/128 41 70 1 false\nEVENT t1n60 clip 54917/512 553/128 53 67 1 false\nEVENT t1n61 clip 54917/512 553/128 79 71 1 false\nEVENT t1n62 clip 54917/512 553/128 84 71 1 false\nEVENT t1n64 clip 223/2 15/32 78 86 1 false\nEVENT t1n65 clip 7141/64 297/128 41 83 1 false\nEVENT t1n66 clip 7141/64 297/128 53 83 1 false\nEVENT t1n67 clip 7141/64 169/128 79 83 1 false\nEVENT t1n68 clip 7141/64 169/128 84 92 1 false\nEVENT t1n69 clip 14451/128 1/2 79 87 1 false\nEVENT t1n70 clip 14451/128 1/2 84 90 1 false\nEVENT t1n71 clip 14515/128 1/2 79 78 1 false\nEVENT t1n72 clip 14515/128 1/2 84 83 1 false\nEVENT t1n73 clip 14579/128 4 41 71 1 false\nEVENT t1n74 clip 14579/128 4 53 76 1 false\nEVENT t1n75 clip 14579/128 1/2 79 81 1 false\nEVENT t1n76 clip 14579/128 1/2 84 82 1 false\nEVENT t1n77 clip 14643/128 1/2 79 71 1 false\nEVENT t1n78 clip 14643/128 1/2 84 72 1 false\nEVENT t1n79 clip 14707/128 1/2 79 76 1 false\nEVENT t1n80 clip 14707/128 1/2 84 76 1 false\nEVENT t1n81 clip 14771/128 1/2 79 69 1 false\nEVENT t1n82 clip 14771/128 1/2 84 68 1 false\nEVENT t1n83 clip 14835/128 1/2 79 73 1 false\nEVENT t1n84 clip 14835/128 1/2 84 71 1 false\nEVENT t1n85 clip 14899/128 1/2 79 65 1 false\nEVENT t1n86 clip 14899/128 1/2 84 66 1 false\nEVENT t1n87 clip 14963/128 1/2 79 67 1 false\nEVENT t1n88 clip 14963/128 1/2 84 77 1 false\nEVENT t1n89 clip 15027/128 1/2 79 80 1 false\nEVENT t1n90 clip 15027/128 1/2 84 78 1 false\nEVENT t1n91 clip 15091/128 4 41 73 1 false\nEVENT t1n92 clip 15091/128 4 53 70 1 false\nEVENT t1n93 clip 15091/128 1/2 79 76 1 false\nEVENT t1n94 clip 15091/128 1/2 84 83 1 false\nEVENT t1n95 clip 15155/128 1/2 79 84 1 false\nEVENT t1n96 clip 15155/128 1/2 84 78 1 false\nEVENT t1n97 clip 15219/128 1/2 79 85 1 false\nEVENT t1n98 clip 15219/128 1/2 84 80 1 false\nEVENT t1n99 clip 15283/128 1/2 79 83 1 false\nEVENT t1n100 clip 15283/128 1/2 84 87 1 false\nEVENT t1n101 clip 15347/128 1/2 79 86 1 false\nEVENT t1n102 clip 15347/128 1/2 84 88 1 false\nEVENT t1n103 clip 15411/128 1/2 79 92 1 false\nEVENT t1n104 clip 15411/128 1/2 84 87 1 false\nEVENT t1n105 clip 15475/128 1/2 79 80 1 false\nEVENT t1n106 clip 15475/128 1/2 84 90 1 false\nEVENT t1n107 clip 15539/128 1/2 79 80 1 false\nEVENT t1n108 clip 15539/128 1/2 84 87 1 false\nEVENT t1n109 clip 15603/128 1915/512 41 76 1 false\nEVENT t1n110 clip 15603/128 1915/512 53 70 1 false\nEVENT t1n111 clip 15603/128 1/2 79 74 1 false\nEVENT t1n112 clip 15603/128 1/2 84 82 1 false\nEVENT t1n113 clip 15667/128 225/512 79 81 1 false\nEVENT t1n114 clip 15667/128 225/512 84 72 1 false\nEVENT t1n115 clip 31447/256 287/512 72 77 1 false\nEVENT t1n116 clip 15795/128 287/512 74 73 1 false\nEVENT t1n117 clip 63467/512 287/512 76 81 1 false\nEVENT t1n118 clip 31877/256 287/512 77 68 1 false\nEVENT t1n119 clip 8005/64 287/512 79 68 1 false\nEVENT t1n120 clip 64327/512 1669/512 41 69 1 false\nEVENT t1n121 clip 64327/512 1669/512 53 70 1 false\nEVENT t1n122 clip 64327/512 69/128 72 78 1 false\nEVENT t1n123 clip 16151/128 69/128 76 74 1 false\nEVENT t1n124 clip 4055/32 69/128 77 82 1 false\nEVENT t1n125 clip 65157/512 287/512 79 85 1 false\nEVENT t1n126 clip 65443/512 69/128 81 85 1 false\nEVENT t1n127 clip 8215/64 69/128 79 86 1 false\nEVENT t1n128 clip 16499/128 1659/512 41 79 1 false\nEVENT t1n129 clip 16499/128 1659/512 53 81 1 false\nEVENT t1n130 clip 16499/128 69/128 72 80 1 false"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--c4-fields",
+      "cell": "r2-delete-L1-i1--c4-fields",
+      "task": "r2-delete-L1-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/012-codex-current-high-r0-r2-delete-L1-i1--c4-fields-a0",
+          "promptSha256": "a6e3db9f96f58d59a58378761e77b9fca2600f465b674d8a024c15b1fdc852c8",
+          "promptBytes": 8125,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 6319,
+            "cached_input_tokens": 1920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2705,
+            "reasoning_output_tokens": 102
+          },
+          "totalInputTokens": 6319,
+          "finalOutputTokens": 2705,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 21430.143833999988
+          },
+          "localSerializedContextTokens": 7145,
+          "elapsedMs": 21430.143833999988,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "92382c19ee8bd207625d11e0fd569303d86e509054b04c744e55ed2f404cbda0",
+          "answer": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE t1n1 84 0 179/256 98\n  NOTE t1n2 69 179/256 2099/512 84\n  NOTE t1n3 72 179/256 2099/512 82\n  NOTE t1n4 74 179/256 2099/512 84\n  NOTE t1n5 79 179/256 41/128 86\n  NOTE t1n6 79 261/256 1935/512 85\n  NOTE t1n7 81 261/256 1935/512 91\n  NOTE t1n8 74 2457/512 891/128 75\n  NOTE t1n9 86 2457/512 891/128 68\n  NOTE t1n10 69 6021/512 481/512 66\n  NOTE t1n11 81 6021/512 481/512 69\n  NOTE t1n12 69 3251/256 2099/512 69\n  NOTE t1n13 74 3251/256 2099/512 72\n  NOTE t1n14 77 3251/256 2099/512 66\n  NOTE t1n15 81 3251/256 2099/512 74\n  NOTE t1n16 48 8601/512 2043/256 79\n  NOTE t1n17 84 9871/512 2335/512 72\n  NOTE t1n18 84 6103/256 481/512 89\n  NOTE t1n19 74 12687/512 133/512 79\n  NOTE t1n20 84 12687/512 1531/128 87\n  NOTE t1n21 72 3205/128 2995/256 92\n  NOTE t1n22 69 9405/256 11 66\n  NOTE t1n23 81 9405/256 11 68\n  NOTE t1n24 69 12221/256 123/128 81\n  NOTE t1n25 81 12221/256 123/128 84\n  NOTE t1n26 67 12467/256 11807/512 82\n  NOTE t1n27 79 12467/256 11807/512 87\n  NOTE t1n28 84 36741/512 143/512 85\n  NOTE t1n29 81 9221/128 379/512 97\n  NOTE t1n30 72 37263/512 5663/512 79\n  NOTE t1n31 65 21463/256 471/512 65\n  NOTE t1n32 38 43397/512 1925/512 69\n  NOTE t1n33 50 43397/512 1925/512 64\n  NOTE t1n34 53 43397/512 1925/512 68\n  NOTE t1n35 38 22661/256 1935/512 86\n  NOTE t1n36 50 22661/256 1935/512 81\n  NOTE t1n37 53 22661/256 1935/512 83\n  NOTE t1n38 38 47257/512 389/256 60\n  NOTE t1n39 50 47257/512 389/256 70\n  NOTE t1n40 53 47257/512 389/256 63\n  NOTE t1n41 38 48035/512 7/2 73\n  NOTE t1n42 50 48035/512 7/2 70\n  NOTE t1n43 53 48035/512 7/2 76\n  NOTE t1n44 84 49049/512 261/256 91\n  NOTE t1n45 79 49571/512 1/2 88\n  NOTE t1n46 84 49571/512 1/2 90\n  NOTE t1n47 41 49827/512 471/128 80\n  NOTE t1n48 53 49827/512 471/128 80\n  NOTE t1n49 79 49827/512 471/128 78\n  NOTE t1n50 84 49827/512 471/128 79\n  NOTE t1n51 41 101 993/512 80\n  NOTE t1n52 53 101 993/512 72\n  NOTE t1n53 79 101 993/512 82\n  NOTE t1n54 84 101 993/512 76\n  NOTE t1n55 41 52705/512 553/128 84\n  NOTE t1n56 53 52705/512 553/128 84\n  NOTE t1n57 79 52705/512 553/128 86\n  NOTE t1n58 84 52705/512 553/128 89\n  NOTE t1n59 41 54917/512 553/128 70\n  NOTE t1n60 53 54917/512 553/128 67\n  NOTE t1n61 79 54917/512 553/128 71\n  NOTE t1n62 84 54917/512 553/128 71\n  NOTE t1n64 78 223/2 15/32 86\n  NOTE t1n65 41 7141/64 297/128 83\n  NOTE t1n66 53 7141/64 297/128 83\n  NOTE t1n67 79 7141/64 169/128 83\n  NOTE t1n68 84 7141/64 169/128 92\n  NOTE t1n69 79 14451/128 1/2 87\n  NOTE t1n70 84 14451/128 1/2 90\n  NOTE t1n71 79 14515/128 1/2 78\n  NOTE t1n72 84 14515/128 1/2 83\n  NOTE t1n73 41 14579/128 4 71\n  NOTE t1n74 53 14579/128 4 76\n  NOTE t1n75 79 14579/128 1/2 81\n  NOTE t1n76 84 14579/128 1/2 82\n  NOTE t1n77 79 14643/128 1/2 71\n  NOTE t1n78 84 14643/128 1/2 72\n  NOTE t1n79 79 14707/128 1/2 76\n  NOTE t1n80 84 14707/128 1/2 76\n  NOTE t1n81 79 14771/128 1/2 69\n  NOTE t1n82 84 14771/128 1/2 68\n  NOTE t1n83 79 14835/128 1/2 73\n  NOTE t1n84 84 14835/128 1/2 71\n  NOTE t1n85 79 14899/128 1/2 65\n  NOTE t1n86 84 14899/128 1/2 66\n  NOTE t1n87 79 14963/128 1/2 67\n  NOTE t1n88 84 14963/128 1/2 77\n  NOTE t1n89 79 15027/128 1/2 80\n  NOTE t1n90 84 15027/128 1/2 78\n  NOTE t1n91 41 15091/128 4 73\n  NOTE t1n92 53 15091/128 4 70\n  NOTE t1n93 79 15091/128 1/2 76\n  NOTE t1n94 84 15091/128 1/2 83\n  NOTE t1n95 79 15155/128 1/2 84\n  NOTE t1n96 84 15155/128 1/2 78\n  NOTE t1n97 79 15219/128 1/2 85\n  NOTE t1n98 84 15219/128 1/2 80\n  NOTE t1n99 79 15283/128 1/2 83\n  NOTE t1n100 84 15283/128 1/2 87\n  NOTE t1n101 79 15347/128 1/2 86\n  NOTE t1n102 84 15347/128 1/2 88\n  NOTE t1n103 79 15411/128 1/2 92\n  NOTE t1n104 84 15411/128 1/2 87\n  NOTE t1n105 79 15475/128 1/2 80\n  NOTE t1n106 84 15475/128 1/2 90\n  NOTE t1n107 79 15539/128 1/2 80\n  NOTE t1n108 84 15539/128 1/2 87\n  NOTE t1n109 41 15603/128 1915/512 76\n  NOTE t1n110 53 15603/128 1915/512 70\n  NOTE t1n111 79 15603/128 1/2 74\n  NOTE t1n112 84 15603/128 1/2 82\n  NOTE t1n113 79 15667/128 225/512 81\n  NOTE t1n114 84 15667/128 225/512 72\n  NOTE t1n115 72 31447/256 287/512 77\n  NOTE t1n116 74 15795/128 287/512 73\n  NOTE t1n117 76 63467/512 287/512 81\n  NOTE t1n118 77 31877/256 287/512 68\n  NOTE t1n119 79 8005/64 287/512 68\n  NOTE t1n120 41 64327/512 1669/512 69\n  NOTE t1n121 53 64327/512 1669/512 70\n  NOTE t1n122 72 64327/512 69/128 78\n  NOTE t1n123 76 16151/128 69/128 74\n  NOTE t1n124 77 4055/32 69/128 82\n  NOTE t1n125 79 65157/512 287/512 85\n  NOTE t1n126 81 65443/512 69/128 85\n  NOTE t1n127 79 8215/64 69/128 86\n  NOTE t1n128 41 16499/128 1659/512 79\n  NOTE t1n129 53 16499/128 1659/512 81\n  NOTE t1n130 72 16499/128 69/128 80\n}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-delete-L1-i1--c3-fields",
+      "cell": "r2-delete-L1-i1--c3-fields",
+      "task": "r2-delete-L1-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/013-codex-current-high-r0-r2-delete-L1-i1--c3-fields-a0",
+          "promptSha256": "1f931d4869cf184242b869051e93be1924810039b3f9a0cfc8e5545473619b9f",
+          "promptBytes": 7334,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 6062,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 2529,
+            "reasoning_output_tokens": 62
+          },
+          "totalInputTokens": 6062,
+          "finalOutputTokens": 2529,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 16036.264082999987
+          },
+          "localSerializedContextTokens": 6888,
+          "elapsedMs": 16036.264082999987,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "performedState": true,
+            "rootPreserved": true,
+            "envelopePreserved": true,
+            "nativeIdentityDiagnostic": true,
+            "missing": [],
+            "extra": [],
+            "reason": null
+          },
+          "answerSha256": "3ff76b61a99d443f66b17f2d2eaaefbc7ade2e3c09af7e14112725fc5a364974",
+          "answer": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE t1n1 84 0 179/256 98\nNOTE t1n2 69 179/256 2099/512 84\nNOTE t1n3 72 179/256 2099/512 82\nNOTE t1n4 74 179/256 2099/512 84\nNOTE t1n5 79 179/256 41/128 86\nNOTE t1n6 79 261/256 1935/512 85\nNOTE t1n7 81 261/256 1935/512 91\nNOTE t1n8 74 2457/512 891/128 75\nNOTE t1n9 86 2457/512 891/128 68\nNOTE t1n10 69 6021/512 481/512 66\nNOTE t1n11 81 6021/512 481/512 69\nNOTE t1n12 69 3251/256 2099/512 69\nNOTE t1n13 74 3251/256 2099/512 72\nNOTE t1n14 77 3251/256 2099/512 66\nNOTE t1n15 81 3251/256 2099/512 74\nNOTE t1n16 48 8601/512 2043/256 79\nNOTE t1n17 84 9871/512 2335/512 72\nNOTE t1n18 84 6103/256 481/512 89\nNOTE t1n19 74 12687/512 133/512 79\nNOTE t1n20 84 12687/512 1531/128 87\nNOTE t1n21 72 3205/128 2995/256 92\nNOTE t1n22 69 9405/256 11 66\nNOTE t1n23 81 9405/256 11 68\nNOTE t1n24 69 12221/256 123/128 81\nNOTE t1n25 81 12221/256 123/128 84\nNOTE t1n26 67 12467/256 11807/512 82\nNOTE t1n27 79 12467/256 11807/512 87\nNOTE t1n28 84 36741/512 143/512 85\nNOTE t1n29 81 9221/128 379/512 97\nNOTE t1n30 72 37263/512 5663/512 79\nNOTE t1n31 65 21463/256 471/512 65\nNOTE t1n32 38 43397/512 1925/512 69\nNOTE t1n33 50 43397/512 1925/512 64\nNOTE t1n34 53 43397/512 1925/512 68\nNOTE t1n35 38 22661/256 1935/512 86\nNOTE t1n36 50 22661/256 1935/512 81\nNOTE t1n37 53 22661/256 1935/512 83\nNOTE t1n38 38 47257/512 389/256 60\nNOTE t1n39 50 47257/512 389/256 70\nNOTE t1n40 53 47257/512 389/256 63\nNOTE t1n41 38 48035/512 7/2 73\nNOTE t1n42 50 48035/512 7/2 70\nNOTE t1n43 53 48035/512 7/2 76\nNOTE t1n44 84 49049/512 261/256 91\nNOTE t1n45 79 49571/512 1/2 88\nNOTE t1n46 84 49571/512 1/2 90\nNOTE t1n47 41 49827/512 471/128 80\nNOTE t1n48 53 49827/512 471/128 80\nNOTE t1n49 79 49827/512 471/128 78\nNOTE t1n50 84 49827/512 471/128 79\nNOTE t1n51 41 101 993/512 80\nNOTE t1n52 53 101 993/512 72\nNOTE t1n53 79 101 993/512 82\nNOTE t1n54 84 101 993/512 76\nNOTE t1n55 41 52705/512 553/128 84\nNOTE t1n56 53 52705/512 553/128 84\nNOTE t1n57 79 52705/512 553/128 86\nNOTE t1n58 84 52705/512 553/128 89\nNOTE t1n59 41 54917/512 553/128 70\nNOTE t1n60 53 54917/512 553/128 67\nNOTE t1n61 79 54917/512 553/128 71\nNOTE t1n62 84 54917/512 553/128 71\nNOTE t1n64 78 223/2 15/32 86\nNOTE t1n65 41 7141/64 297/128 83\nNOTE t1n66 53 7141/64 297/128 83\nNOTE t1n67 79 7141/64 169/128 83\nNOTE t1n68 84 7141/64 169/128 92\nNOTE t1n69 79 14451/128 1/2 87\nNOTE t1n70 84 14451/128 1/2 90\nNOTE t1n71 79 14515/128 1/2 78\nNOTE t1n72 84 14515/128 1/2 83\nNOTE t1n73 41 14579/128 4 71\nNOTE t1n74 53 14579/128 4 76\nNOTE t1n75 79 14579/128 1/2 81\nNOTE t1n76 84 14579/128 1/2 82\nNOTE t1n77 79 14643/128 1/2 71\nNOTE t1n78 84 14643/128 1/2 72\nNOTE t1n79 79 14707/128 1/2 76\nNOTE t1n80 84 14707/128 1/2 76\nNOTE t1n81 79 14771/128 1/2 69\nNOTE t1n82 84 14771/128 1/2 68\nNOTE t1n83 79 14835/128 1/2 73\nNOTE t1n84 84 14835/128 1/2 71\nNOTE t1n85 79 14899/128 1/2 65\nNOTE t1n86 84 14899/128 1/2 66\nNOTE t1n87 79 14963/128 1/2 67\nNOTE t1n88 84 14963/128 1/2 77\nNOTE t1n89 79 15027/128 1/2 80\nNOTE t1n90 84 15027/128 1/2 78\nNOTE t1n91 41 15091/128 4 73\nNOTE t1n92 53 15091/128 4 70\nNOTE t1n93 79 15091/128 1/2 76\nNOTE t1n94 84 15091/128 1/2 83\nNOTE t1n95 79 15155/128 1/2 84\nNOTE t1n96 84 15155/128 1/2 78\nNOTE t1n97 79 15219/128 1/2 85\nNOTE t1n98 84 15219/128 1/2 80\nNOTE t1n99 79 15283/128 1/2 83\nNOTE t1n100 84 15283/128 1/2 87\nNOTE t1n101 79 15347/128 1/2 86\nNOTE t1n102 84 15347/128 1/2 88\nNOTE t1n103 79 15411/128 1/2 92\nNOTE t1n104 84 15411/128 1/2 87\nNOTE t1n105 79 15475/128 1/2 80\nNOTE t1n106 84 15475/128 1/2 90\nNOTE t1n107 79 15539/128 1/2 80\nNOTE t1n108 84 15539/128 1/2 87\nNOTE t1n109 41 15603/128 1915/512 76\nNOTE t1n110 53 15603/128 1915/512 70\nNOTE t1n111 79 15603/128 1/2 74\nNOTE t1n112 84 15603/128 1/2 82\nNOTE t1n113 79 15667/128 225/512 81\nNOTE t1n114 84 15667/128 225/512 72\nNOTE t1n115 72 31447/256 287/512 77\nNOTE t1n116 74 15795/128 287/512 73\nNOTE t1n117 76 63467/512 287/512 81\nNOTE t1n118 77 31877/256 287/512 68\nNOTE t1n119 79 8005/64 287/512 68\nNOTE t1n120 41 64327/512 1669/512 69\nNOTE t1n121 53 64327/512 1669/512 70\nNOTE t1n122 72 64327/512 69/128 78\nNOTE t1n123 76 16151/128 69/128 74\nNOTE t1n124 77 4055/32 69/128 82\nNOTE t1n125 79 65157/512 287/512 85\nNOTE t1n126 81 65443/512 69/128 85\nNOTE t1n127 79 8215/64 69/128 86\nNOTE t1n128 41 16499/128 1659/512 79\nNOTE t1n129 53 16499/128 1659/512 81\nNOTE t1n130 72 16499/128 69/128 80"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L2-i1--c4-fields",
+      "cell": "r2-regroup-L2-i1--c4-fields",
+      "task": "r2-regroup-L2-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/014-codex-current-high-r0-r2-regroup-L2-i1--c4-fields-a0",
+          "promptSha256": "03673a07260d8640f7b9588357bf8c0197e854db56267ff58661f6fcb695f0d1",
+          "promptBytes": 5845,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4374,
+            "cached_input_tokens": 1920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 769,
+            "reasoning_output_tokens": 302
+          },
+          "totalInputTokens": 4374,
+          "finalOutputTokens": 769,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 8433.478040999995
+          },
+          "localSerializedContextTokens": 5242,
+          "elapsedMs": 8433.478040999995,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "b17bbfcdf693a46cc47d6fb734cdd5d211ae92fd788eb01d419b2300ef5198d4",
+          "answer": "R01-GROUPED-FIELDS 1\nGROUP eChord anchor=2 delay=1/128 label=\"opening chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE ea 53 377/512 88 0\n  NOTE eb 57 321/256 60 3/256\n  NOTE ec 60 343/512 109 1/32\n  NOTE ed 65 241/256 59 7/128\n}\nGROUP nStrum anchor=6 delay=9/128 label=\"upstroke strum 1\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE na 47 255/128 84 0\n  NOTE nb 54 449/512 68 1/128\n  NOTE nc 59 301/256 103 3/128\n  NOTE nd 63 3/8 57 5/128\n  NOTE ne 66 369/256 53 7/128\n}\nGROUP pStrum anchor=9 delay=5/128 label=\"upstroke strum 2\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE pa 52 231/256 85 0\n  NOTE pb 59 93/256 71 5/512\n  NOTE pc 64 47/64 62 15/512\n  NOTE pd 68 395/256 68 21/512\n  NOTE pe 71 43/128 55 7/128\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE la 31 3133/256 1 61\n  NOTE lb 79 6893/512 1/2 70\n}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L2-i1--c4-json",
+      "cell": "r2-regroup-L2-i1--c4-json",
+      "task": "r2-regroup-L2-i1",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/015-codex-current-high-r0-r2-regroup-L2-i1--c4-json-a0",
+          "promptSha256": "60649f1a6492a574477f863d54a0d5abb43c7fe646f1d92cd8cc186df9abc5ed",
+          "promptBytes": 6373,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4524,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1002,
+            "reasoning_output_tokens": 227
+          },
+          "totalInputTokens": 4524,
+          "finalOutputTokens": 1002,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 9381.833207999996
+          },
+          "localSerializedContextTokens": 5428,
+          "elapsedMs": 9381.833207999996,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "b6f6bd15272ff4db0643cc6b813fee051901f287452e05b028b613a188485abc",
+          "answer": "{\"format\":\"r01-grouped\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"eChord\",\"members\":[\"ea\",\"eb\",\"ec\",\"ed\"],\"label\":\"opening chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"1/128\",\"spread\":{\"ea\":\"0\",\"eb\":\"3/256\",\"ec\":\"1/32\",\"ed\":\"7/128\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]},{\"id\":\"nStrum\",\"members\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"label\":\"upstroke strum 1\",\"anchor\":\"6\",\"delay\":\"9/128\",\"spread\":{\"na\":\"0\",\"nb\":\"1/128\",\"nc\":\"3/128\",\"nd\":\"5/128\",\"ne\":\"7/128\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}},{\"id\":\"pStrum\",\"members\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"],\"label\":\"upstroke strum 2\",\"anchor\":\"9\",\"delay\":\"5/128\",\"spread\":{\"pa\":\"0\",\"pb\":\"5/512\",\"pc\":\"15/512\",\"pd\":\"21/512\",\"pe\":\"7/128\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"],\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]},\"rows\":[{\"note\":{\"id\":\"ea\",\"pitch\":53,\"duration\":\"377/512\",\"velocity\":88},\"time\":{\"group\":\"eChord\"}},{\"note\":{\"id\":\"eb\",\"pitch\":57,\"duration\":\"321/256\",\"velocity\":60},\"time\":{\"group\":\"eChord\"}},{\"note\":{\"id\":\"ec\",\"pitch\":60,\"duration\":\"343/512\",\"velocity\":109},\"time\":{\"group\":\"eChord\"}},{\"note\":{\"id\":\"ed\",\"pitch\":65,\"duration\":\"241/256\",\"velocity\":59},\"time\":{\"group\":\"eChord\"}},{\"note\":{\"id\":\"na\",\"pitch\":47,\"duration\":\"255/128\",\"velocity\":84},\"time\":{\"group\":\"nStrum\"}},{\"note\":{\"id\":\"nb\",\"pitch\":54,\"duration\":\"449/512\",\"velocity\":68},\"time\":{\"group\":\"nStrum\"}},{\"note\":{\"id\":\"nc\",\"pitch\":59,\"duration\":\"301/256\",\"velocity\":103},\"time\":{\"group\":\"nStrum\"}},{\"note\":{\"id\":\"nd\",\"pitch\":63,\"duration\":\"3/8\",\"velocity\":57},\"time\":{\"group\":\"nStrum\"}},{\"note\":{\"id\":\"ne\",\"pitch\":66,\"duration\":\"369/256\",\"velocity\":53},\"time\":{\"group\":\"nStrum\"}},{\"note\":{\"id\":\"pa\",\"pitch\":52,\"duration\":\"231/256\",\"velocity\":85},\"time\":{\"group\":\"pStrum\"}},{\"note\":{\"id\":\"pb\",\"pitch\":59,\"duration\":\"93/256\",\"velocity\":71},\"time\":{\"group\":\"pStrum\"}},{\"note\":{\"id\":\"pc\",\"pitch\":64,\"duration\":\"47/64\",\"velocity\":62},\"time\":{\"group\":\"pStrum\"}},{\"note\":{\"id\":\"pd\",\"pitch\":68,\"duration\":\"395/256\",\"velocity\":68},\"time\":{\"group\":\"pStrum\"}},{\"note\":{\"id\":\"pe\",\"pitch\":71,\"duration\":\"43/128\",\"velocity\":55},\"time\":{\"group\":\"pStrum\"}},{\"note\":{\"id\":\"la\",\"pitch\":31,\"at\":\"3133/256\",\"duration\":\"1\",\"velocity\":61},\"time\":null},{\"note\":{\"id\":\"lb\",\"pitch\":79,\"at\":\"6893/512\",\"duration\":\"1/2\",\"velocity\":70},\"time\":null}]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L2-i1--c3-fields",
+      "cell": "r2-regroup-L2-i1--c3-fields",
+      "task": "r2-regroup-L2-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/016-codex-current-high-r0-r2-regroup-L2-i1--c3-fields-a0",
+          "promptSha256": "5265d5974a5d75fe09fd21593b3b47a22e3b4652d74f00378c1a8199c1b97472",
+          "promptBytes": 5596,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4330,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 878,
+            "reasoning_output_tokens": 266
+          },
+          "totalInputTokens": 4330,
+          "finalOutputTokens": 878,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 8090.476750000002
+          },
+          "localSerializedContextTokens": 5231,
+          "elapsedMs": 8090.476750000002,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "c9e1f422b502d6ebda0dccf4c5e29fc656b4e5a47ece4e6b6434f637147ac08f",
+          "answer": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"eChord\",\"members\":[\"ea\",\"eb\",\"ec\",\"ed\"],\"label\":\"opening chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"1/128\",\"spread\":{\"ea\":\"0\",\"eb\":\"3/256\",\"ec\":\"1/32\",\"ed\":\"7/128\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]},{\"id\":\"nStrum\",\"members\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"label\":\"upstroke strum 1\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"6\",\"delay\":\"9/128\",\"spread\":{\"na\":\"0\",\"nb\":\"1/128\",\"nc\":\"3/128\",\"nd\":\"5/128\",\"ne\":\"7/128\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"]},{\"id\":\"pStrum\",\"members\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"],\"label\":\"upstroke strum 2\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"9\",\"delay\":\"5/128\",\"spread\":{\"pa\":\"0\",\"pb\":\"5/512\",\"pc\":\"15/512\",\"pd\":\"21/512\",\"pe\":\"7/128\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"]}]}\nFIELDS id pitch at duration velocity groups\nNOTE ea 53 257/128 377/512 88 [\"eChord\"]\nNOTE eb 57 517/256 321/256 60 [\"eChord\"]\nNOTE ec 60 261/128 343/512 109 [\"eChord\"]\nNOTE ed 65 33/16 241/256 59 [\"eChord\"]\nNOTE na 47 777/128 255/128 84 [\"nStrum\"]\nNOTE nb 54 389/64 449/512 68 [\"nStrum\"]\nNOTE nc 59 195/32 301/256 103 [\"nStrum\"]\nNOTE nd 63 391/64 3/8 57 [\"nStrum\"]\nNOTE ne 66 49/8 369/256 53 [\"nStrum\"]\nNOTE pa 52 1157/128 231/256 85 [\"pStrum\"]\nNOTE pb 59 4633/512 93/256 71 [\"pStrum\"]\nNOTE pc 64 4643/512 47/64 62 [\"pStrum\"]\nNOTE pd 68 4649/512 395/256 68 [\"pStrum\"]\nNOTE pe 71 291/32 43/128 55 [\"pStrum\"]\nNOTE la 31 3133/256 1 61 -\nNOTE lb 79 6893/512 1/2 70 -"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L2-i1--c3-json",
+      "cell": "r2-regroup-L2-i1--c3-json",
+      "task": "r2-regroup-L2-i1",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/017-codex-current-high-r0-r2-regroup-L2-i1--c3-json-a0",
+          "promptSha256": "246e217fd83775f1736214c2333fa23726c35d4e020a53bc73f0efee43e332ff",
+          "promptBytes": 5313,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4320,
+            "cached_input_tokens": 1920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 886,
+            "reasoning_output_tokens": 214
+          },
+          "totalInputTokens": 4320,
+          "finalOutputTokens": 886,
+          "contextClientBytes": 14633,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 9293.801000000007
+          },
+          "localSerializedContextTokens": 5191,
+          "elapsedMs": 9293.801000000007,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "9055931ad2cd707fa423c9c1db950344119597c1a323def6ada14e92873be1e9",
+          "answer": "{\"format\":\"r01-compact\",\"version\":1,\"context\":{\"groups\":[{\"id\":\"eChord\",\"members\":[\"ea\",\"eb\",\"ec\",\"ed\"],\"label\":\"opening chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"1/128\",\"spread\":{\"ea\":\"0\",\"eb\":\"3/256\",\"ec\":\"1/32\",\"ed\":\"7/128\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]},{\"id\":\"nStrum\",\"members\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"label\":\"upstroke strum 1\",\"anchor\":\"6\",\"delay\":\"9/128\",\"spread\":{\"na\":\"0\",\"nb\":\"1/128\",\"nc\":\"3/128\",\"nd\":\"5/128\",\"ne\":\"7/128\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}},{\"id\":\"pStrum\",\"members\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"],\"label\":\"upstroke strum 2\",\"anchor\":\"9\",\"delay\":\"5/128\",\"spread\":{\"pa\":\"0\",\"pb\":\"5/512\",\"pc\":\"15/512\",\"pd\":\"21/512\",\"pe\":\"7/128\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"],\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]},\"rows\":[[\"ea\",53,\"257/128\",\"377/512\",88,{},[\"eChord\"],null],[\"eb\",57,\"517/256\",\"321/256\",60,{},[\"eChord\"],null],[\"ec\",60,\"261/128\",\"343/512\",109,{},[\"eChord\"],null],[\"ed\",65,\"33/16\",\"241/256\",59,{},[\"eChord\"],null],[\"na\",47,\"777/128\",\"255/128\",84,{},[\"nStrum\"],null],[\"nb\",54,\"389/64\",\"449/512\",68,{},[\"nStrum\"],null],[\"nc\",59,\"195/32\",\"301/256\",103,{},[\"nStrum\"],null],[\"nd\",63,\"391/64\",\"3/8\",57,{},[\"nStrum\"],null],[\"ne\",66,\"49/8\",\"369/256\",53,{},[\"nStrum\"],null],[\"pa\",52,\"1157/128\",\"231/256\",85,{},[\"pStrum\"],null],[\"pb\",59,\"4633/512\",\"93/256\",71,{},[\"pStrum\"],null],[\"pc\",64,\"4643/512\",\"47/64\",62,{},[\"pStrum\"],null],[\"pd\",68,\"4649/512\",\"395/256\",68,{},[\"pStrum\"],null],[\"pe\",71,\"291/32\",\"43/128\",55,{},[\"pStrum\"],null],[\"la\",31,\"3133/256\",\"1\",61,{},[],null],[\"lb\",79,\"6893/512\",\"1/2\",70,{},[],null]]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L2-i1--c4-detached-fields",
+      "cell": "r2-regroup-L2-i1--c4-detached-fields",
+      "task": "r2-regroup-L2-i1",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": false,
+      "withinBudgetPass": true,
+      "repairsUsed": 1,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/018-codex-current-high-r0-r2-regroup-L2-i1--c4-detached-fields-a0",
+          "promptSha256": "5d08366891a36fda67437867a243db0827c2683a2bbe8d93abdb55f3c7c4e009",
+          "promptBytes": 6098,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4438,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1493,
+            "reasoning_output_tokens": 957
+          },
+          "totalInputTokens": 4438,
+          "finalOutputTokens": 1493,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 14144.774417000008
+          },
+          "localSerializedContextTokens": 5300,
+          "elapsedMs": 14144.774417000008,
+          "outcome": "fail",
+          "score": {
+            "status": "scored",
+            "pass": false,
+            "sourceAndContextEquivalent": false,
+            "exactSpelling": false,
+            "reason": "source-state-mismatch",
+            "differences": [
+              "$.notes[0].at: differs",
+              "$.notes[0].duration: differs",
+              "$.notes[0].id: differs",
+              "$.notes[0].pitch: differs",
+              "$.notes[0].velocity: differs",
+              "$.notes[1].at: differs",
+              "$.notes[1].duration: differs",
+              "$.notes[1].id: differs",
+              "$.notes[1].pitch: differs",
+              "$.notes[1].velocity: differs",
+              "$.notes[2].at: differs",
+              "$.notes[2].duration: differs",
+              "$.notes[2].id: differs",
+              "$.notes[2].pitch: differs",
+              "$.notes[2].velocity: differs",
+              "$.notes[3].at: differs",
+              "$.notes[3].duration: differs",
+              "$.notes[3].id: differs",
+              "$.notes[3].pitch: differs",
+              "$.notes[3].velocity: differs",
+              "$.notes[4].at: differs",
+              "$.notes[4].duration: differs",
+              "$.notes[4].id: differs",
+              "$.notes[4].pitch: differs",
+              "$.notes[4].velocity: differs",
+              "$.notes[5].at: differs",
+              "$.notes[5].duration: differs",
+              "$.notes[5].id: differs",
+              "$.notes[5].pitch: differs",
+              "$.notes[5].velocity: differs",
+              "$.notes[6].at: differs",
+              "$.notes[6].duration: differs",
+              "$.notes[6].id: differs",
+              "$.notes[6].velocity: differs",
+              "$.notes[7].at: differs",
+              "$.notes[7].duration: differs",
+              "$.notes[7].id: differs",
+              "$.notes[7].pitch: differs",
+              "$.notes[7].velocity: differs",
+              "$.notes[8].at: differs",
+              "$.notes[8].duration: differs",
+              "$.notes[8].id: differs",
+              "$.notes[8].pitch: differs",
+              "$.notes[8].velocity: differs",
+              "$.notes[9].at: differs",
+              "$.notes[9].duration: differs",
+              "$.notes[9].id: differs",
+              "$.notes[9].pitch: differs",
+              "$.notes[9].velocity: differs",
+              "$.notes[10].at: differs",
+              "$.notes[10].duration: differs",
+              "$.notes[10].id: differs",
+              "$.notes[10].pitch: differs",
+              "$.notes[10].velocity: differs",
+              "$.notes[11].at: differs",
+              "$.notes[11].duration: differs",
+              "$.notes[11].id: differs",
+              "$.notes[11].pitch: differs",
+              "$.notes[11].velocity: differs",
+              "$.notes[12].at: differs",
+              "$.notes[12].duration: differs",
+              "$.notes[12].id: differs",
+              "$.notes[12].pitch: differs",
+              "$.notes[12].velocity: differs",
+              "$.notes[13].at: differs",
+              "$.notes[13].duration: differs",
+              "$.notes[13].id: differs",
+              "$.notes[13].pitch: differs",
+              "$.notes[13].velocity: differs",
+              "$.notes[14].at: differs",
+              "$.notes[14].duration: differs",
+              "$.notes[14].id: differs",
+              "$.notes[14].pitch: differs",
+              "$.notes[14].velocity: differs",
+              "$.notes[15].at: differs",
+              "$.notes[15].duration: differs",
+              "$.notes[15].id: differs",
+              "$.notes[15].pitch: differs",
+              "$.notes[15].velocity: differs"
+            ]
+          },
+          "answerSha256": "1685ab59e2452e31c2673813543ab59062f5167e69f4eae908ffa2d7f3473a51",
+          "answer": "R01-DETACHED-FIELDS 1\nGROUP eChord anchor=2 delay=1/128 label=\"opening chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]} {\n  ROWS r0\n}\nGROUP nStrum anchor=6 delay=9/128 label=\"upstroke strum 1\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"]} {\n  ROWS r1\n}\nGROUP pStrum anchor=9 delay=5/128 label=\"upstroke strum 2\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"]} {\n  ROWS r2\n}\nNOTES {\n  FIELDS id pitch at duration velocity order\n  NOTE la 31 3133/256 1 61 10\n  NOTE lb 79 6893/512 1/2 70 11\n}\nROWS r0 {\n  FIELDS id pitch duration velocity spread order\n  NOTE ea 53 377/512 88 0 12\n  NOTE eb 57 321/256 60 3/256 13\n  NOTE ec 60 343/512 109 1/32 14\n  NOTE ed 65 241/256 59 7/128 15\n}\nROWS r1 {\n  FIELDS id pitch duration velocity spread order\n  NOTE na 47 255/128 84 0 0\n  NOTE nb 54 449/512 68 1/128 1\n  NOTE nc 59 301/256 103 3/128 2\n  NOTE nd 63 3/8 57 5/128 3\n  NOTE ne 66 369/256 53 7/128 4\n}\nROWS r2 {\n  FIELDS id pitch duration velocity spread order\n  NOTE pa 52 231/256 85 0 5\n  NOTE pb 59 93/256 71 5/512 6\n  NOTE pc 64 47/64 62 15/512 7\n  NOTE pd 68 395/256 68 21/512 8\n  NOTE pe 71 43/128 55 7/128 9\n}"
+        },
+        {
+          "attemptIndex": 1,
+          "directory": "attempts/019-codex-current-high-r0-r2-regroup-L2-i1--c4-detached-fields-a1",
+          "promptSha256": "b5c28196ee165b8ce4ac8b7ca853acc1e7d4d4ce163e8c27b1489586a4fc6f76",
+          "promptBytes": 7964,
+          "role": "correction",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 5128,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3556,
+            "reasoning_output_tokens": 3056
+          },
+          "totalInputTokens": 5128,
+          "finalOutputTokens": 3556,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 36121.57966700004
+          },
+          "localSerializedContextTokens": 6037,
+          "elapsedMs": 36121.57966700004,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "38f4ab74f577924f3eca9ad12b37c85f1892b897f561d20e58a5195f02689a41",
+          "answer": "R01-DETACHED-FIELDS 1\nGROUP eChord anchor=2 delay=1/128 label=\"opening chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]} {\n  ROWS r0\n}\nGROUP nStrum anchor=6 delay=9/128 label=\"upstroke strum 1\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"]} {\n  ROWS r1\n}\nGROUP pStrum anchor=9 delay=5/128 label=\"upstroke strum 2\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"pa\",\"pb\",\"pc\",\"pd\",\"pe\"]} {\n  ROWS r2\n}\nROWS r1 {\n  FIELDS id pitch duration velocity spread\n  NOTE na 47 255/128 84 0\n  NOTE nb 54 449/512 68 1/128\n  NOTE nc 59 301/256 103 3/128\n  NOTE nd 63 3/8 57 5/128\n  NOTE ne 66 369/256 53 7/128\n}\nROWS r2 {\n  FIELDS id pitch duration velocity spread\n  NOTE pa 52 231/256 85 0\n  NOTE pb 59 93/256 71 5/512\n  NOTE pc 64 47/64 62 15/512\n  NOTE pd 68 395/256 68 21/512\n  NOTE pe 71 43/128 55 7/128\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE la 31 3133/256 1 61\n  NOTE lb 79 6893/512 1/2 70\n}\nROWS r0 {\n  FIELDS id pitch duration velocity spread\n  NOTE ea 53 377/512 88 0\n  NOTE eb 57 321/256 60 3/256\n  NOTE ec 60 343/512 109 1/32\n  NOTE ed 65 241/256 59 7/128\n}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L1-i1--c4-fields",
+      "cell": "r2-regroup-L1-i1--c4-fields",
+      "task": "r2-regroup-L1-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/020-codex-current-high-r0-r2-regroup-L1-i1--c4-fields-a0",
+          "promptSha256": "102bd9d17801cafe5ed00a0f50f80e4152af2966adf7ccb6ba0daff94dff9648",
+          "promptBytes": 5555,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4240,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1022,
+            "reasoning_output_tokens": 698
+          },
+          "totalInputTokens": 4240,
+          "finalOutputTokens": 1022,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 10432.356124999991
+          },
+          "localSerializedContextTokens": 5116,
+          "elapsedMs": 10432.356124999991,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "3e25636da982032aebfb282734956374ffe894a7907eca616b9226bc65fc412c",
+          "answer": "R01-GROUPED-FIELDS 1\nGROUP eChord anchor=2 delay=7/256 label=\"opening chord\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE ea 53 265/512 115 0\n  NOTE eb 57 103/256 64 9/512\n  NOTE ec 60 295/256 101 5/128\n  NOTE ed 65 163/128 96 31/512\n}\nGROUP nStrum anchor=5 delay=1/128 label=\"upstroke strum 1\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE na 50 583/512 58 0\n  NOTE nb 57 69/64 70 7/512\n  NOTE nc 62 867/512 58 9/256\n  NOTE nd 66 647/512 52 27/512\n  NOTE ne 69 339/512 76 35/512\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE la 31 4241/512 1 62\n  NOTE lb 77 4815/512 1/2 98\n}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-regroup-L1-i1--c3-fields",
+      "cell": "r2-regroup-L1-i1--c3-fields",
+      "task": "r2-regroup-L1-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/021-codex-current-high-r0-r2-regroup-L1-i1--c3-fields-a0",
+          "promptSha256": "c0899e56ab30e7ff14cb1f69c4aa0b6598153c81578461e3af82e6f158905d5e",
+          "promptBytes": 5310,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4201,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 581,
+            "reasoning_output_tokens": 163
+          },
+          "totalInputTokens": 4201,
+          "finalOutputTokens": 581,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 5939.700040999975
+          },
+          "localSerializedContextTokens": 5095,
+          "elapsedMs": 5939.700040999975,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "sourceAndContextEquivalent": true,
+            "exactSpelling": true,
+            "reason": null
+          },
+          "answerSha256": "9cf0d5dfda15094859692388a13ddbd34fa7955d2508f2b4ebce36e385b573bc",
+          "answer": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"eChord\",\"members\":[\"ea\",\"eb\",\"ec\",\"ed\"],\"label\":\"opening chord\",\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"},\"anchor\":\"2\",\"delay\":\"7/256\",\"spread\":{\"ea\":\"0\",\"eb\":\"9/512\",\"ec\":\"5/128\",\"ed\":\"31/512\"},\"performanceOrder\":[\"ea\",\"eb\",\"ec\",\"ed\"]},{\"id\":\"nStrum\",\"members\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"label\":\"upstroke strum 1\",\"anchor\":\"5\",\"delay\":\"1/128\",\"spread\":{\"na\":\"0\",\"nb\":\"7/512\",\"nc\":\"9/256\",\"nd\":\"27/512\",\"ne\":\"35/512\"},\"performanceOrder\":[\"na\",\"nb\",\"nc\",\"nd\",\"ne\"],\"provenance\":{\"kind\":\"declared\",\"source\":\"pilot-synthetic-author\"}}]}\nFIELDS id pitch at duration velocity groups\nNOTE ea 53 519/256 265/512 115 [\"eChord\"]\nNOTE eb 57 1047/512 103/256 64 [\"eChord\"]\nNOTE ec 60 529/256 295/256 101 [\"eChord\"]\nNOTE ed 65 1069/512 163/128 96 [\"eChord\"]\nNOTE na 50 641/128 583/512 58 [\"nStrum\"]\nNOTE nb 57 2571/512 69/64 70 [\"nStrum\"]\nNOTE nc 62 1291/256 867/512 58 [\"nStrum\"]\nNOTE nd 66 2591/512 647/512 52 [\"nStrum\"]\nNOTE ne 69 2599/512 339/512 76 [\"nStrum\"]\nNOTE la 31 4241/512 1 62 -\nNOTE lb 77 4815/512 1/2 98 -"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L1-i1--c3-fields",
+      "cell": "r2-read-L1-i1--c3-fields",
+      "task": "r2-read-L1-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/022-codex-current-high-r0-r2-read-L1-i1--c3-fields-a0",
+          "promptSha256": "91ee2ed2b49653d80b5df05a29a1c129db8ea3aa8c3008afb8b0fdc893bffdc1",
+          "promptBytes": 5069,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4153,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 236,
+            "reasoning_output_tokens": 218
+          },
+          "totalInputTokens": 4153,
+          "finalOutputTokens": 236,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 3296.534500000009
+          },
+          "localSerializedContextTokens": 5057,
+          "elapsedMs": 3296.534500000009,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "d494bd78fe258ef477b067a5257f356e2eca481d7f0019c7d0f2dab777f7df57",
+          "answer": "{\"ids\":[\"kb\",\"bt\",\"kc\",\"fa\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L1-i1--c4-fields",
+      "cell": "r2-read-L1-i1--c4-fields",
+      "task": "r2-read-L1-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/023-codex-current-high-r0-r2-read-L1-i1--c4-fields-a0",
+          "promptSha256": "cf743a5043d13299e827c275bab9523a8739d4dafe64a1d73fc93091f7830691",
+          "promptBytes": 5295,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4171,
+            "cached_input_tokens": 1920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 333,
+            "reasoning_output_tokens": 315
+          },
+          "totalInputTokens": 4171,
+          "finalOutputTokens": 333,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 5643.334916999971
+          },
+          "localSerializedContextTokens": 5051,
+          "elapsedMs": 5643.334916999971,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "d494bd78fe258ef477b067a5257f356e2eca481d7f0019c7d0f2dab777f7df57",
+          "answer": "{\"ids\":[\"kb\",\"bt\",\"kc\",\"fa\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L2-i1--c4-fields",
+      "cell": "r2-read-L2-i1--c4-fields",
+      "task": "r2-read-L2-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/024-codex-current-high-r0-r2-read-L2-i1--c4-fields-a0",
+          "promptSha256": "67c2da81f21e89e63e048c0cb0fa3833e0bf799a6aa9a509ae06e40ece488002",
+          "promptBytes": 5644,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4310,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 527,
+            "reasoning_output_tokens": 497
+          },
+          "totalInputTokens": 4310,
+          "finalOutputTokens": 527,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 6311.9224580000155
+          },
+          "localSerializedContextTokens": 5178,
+          "elapsedMs": 6311.9224580000155,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "f31ef2d5f74d6ab2fc5ff28899a9cf62b8a3b5f3a14c371dac6b81ab5bfe0a1a",
+          "answer": "{\"ids\":[\"kb\",\"kc\",\"fa\",\"kd\",\"ke\",\"ld\",\"ma\",\"mb\",\"bt\",\"mc\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L2-i1--c3-json",
+      "cell": "r2-read-L2-i1--c3-json",
+      "task": "r2-read-L2-i1",
+      "arm": "c3-json",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/025-codex-current-high-r0-r2-read-L2-i1--c3-json-a0",
+          "promptSha256": "846162950d8ae8ba6d5b0ff00bcaeb91d06eff51dd70e6d77283d01c6fe3c95a",
+          "promptBytes": 5215,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4317,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 358,
+            "reasoning_output_tokens": 328
+          },
+          "totalInputTokens": 4317,
+          "finalOutputTokens": 358,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 5289.072249999968
+          },
+          "localSerializedContextTokens": 5219,
+          "elapsedMs": 5289.072249999968,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "f31ef2d5f74d6ab2fc5ff28899a9cf62b8a3b5f3a14c371dac6b81ab5bfe0a1a",
+          "answer": "{\"ids\":[\"kb\",\"kc\",\"fa\",\"kd\",\"ke\",\"ld\",\"ma\",\"mb\",\"bt\",\"mc\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L2-i1--c4-json",
+      "cell": "r2-read-L2-i1--c4-json",
+      "task": "r2-read-L2-i1",
+      "arm": "c4-json",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/026-codex-current-high-r0-r2-read-L2-i1--c4-json-a0",
+          "promptSha256": "bab8bb0222105afc07b6559d28e65aadc3d416d2d3f1f69bbea7a34282d855a7",
+          "promptBytes": 6160,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4476,
+            "cached_input_tokens": 1920,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 607,
+            "reasoning_output_tokens": 577
+          },
+          "totalInputTokens": 4476,
+          "finalOutputTokens": 607,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 6211.825249999994
+          },
+          "localSerializedContextTokens": 5401,
+          "elapsedMs": 6211.825249999994,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "f31ef2d5f74d6ab2fc5ff28899a9cf62b8a3b5f3a14c371dac6b81ab5bfe0a1a",
+          "answer": "{\"ids\":[\"kb\",\"kc\",\"fa\",\"kd\",\"ke\",\"ld\",\"ma\",\"mb\",\"bt\",\"mc\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L2-i1--c3-fields",
+      "cell": "r2-read-L2-i1--c3-fields",
+      "task": "r2-read-L2-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/027-codex-current-high-r0-r2-read-L2-i1--c3-fields-a0",
+          "promptSha256": "dce6eaf86fe8dfcc1f757e34c02cd099a64b918addfe9e92c4379a275acf9d4b",
+          "promptBytes": 5517,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4333,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 438,
+            "reasoning_output_tokens": 408
+          },
+          "totalInputTokens": 4333,
+          "finalOutputTokens": 438,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 6506.990125000011
+          },
+          "localSerializedContextTokens": 5257,
+          "elapsedMs": 6506.990125000011,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "f31ef2d5f74d6ab2fc5ff28899a9cf62b8a3b5f3a14c371dac6b81ab5bfe0a1a",
+          "answer": "{\"ids\":[\"kb\",\"kc\",\"fa\",\"kd\",\"ke\",\"ld\",\"ma\",\"mb\",\"bt\",\"mc\"]}"
+        }
+      ]
+    },
+    {
+      "id": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1:r0:r2-read-L2-i1--c4-detached-fields",
+      "cell": "r2-read-L2-i1--c4-detached-fields",
+      "task": "r2-read-L2-i1",
+      "arm": "c4-detached-fields",
+      "role": "diagnostic",
+      "repetition": 0,
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "configSha256": "045e05edbc647b749e4b1783dcd5f13368d523f93e66b12c0e0ce7167f1bb3a1",
+      "status": "complete",
+      "firstAttemptPass": true,
+      "withinBudgetPass": true,
+      "repairsUsed": 0,
+      "submissions": [
+        {
+          "attemptIndex": 0,
+          "directory": "attempts/028-codex-current-high-r0-r2-read-L2-i1--c4-detached-fields-a0",
+          "promptSha256": "e411519630ceb26487b0477504281059e61221606fd5813e04e4639167d1b2a0",
+          "promptBytes": 5941,
+          "role": "initial",
+          "controlPass": true,
+          "controlIssues": [],
+          "usage": {
+            "input_tokens": 4402,
+            "cached_input_tokens": 0,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 660,
+            "reasoning_output_tokens": 630
+          },
+          "totalInputTokens": 4402,
+          "finalOutputTokens": 660,
+          "contextClientBytes": 14634,
+          "retryReport": {
+            "policy": "r01-retries-reported-v1",
+            "admissionGate": false,
+            "capturedRequests": 1,
+            "capturedResponses": 1,
+            "inferenceStarts": 1,
+            "inferenceFailures": 0,
+            "clientRetryEvents": 0,
+            "clientFallbackEvents": 0,
+            "recoveredErrorEvents": 0,
+            "httpAttempts": null,
+            "httpAttemptCoverage": "not-measured-per-submission",
+            "usageCoverage": "client-reported; may omit interrupted or retried generation",
+            "elapsedMs": 7114.700624999998
+          },
+          "localSerializedContextTokens": 5280,
+          "elapsedMs": 7114.700624999998,
+          "outcome": "pass",
+          "score": {
+            "status": "scored",
+            "pass": true,
+            "reason": null
+          },
+          "answerSha256": "f31ef2d5f74d6ab2fc5ff28899a9cf62b8a3b5f3a14c371dac6b81ab5bfe0a1a",
+          "answer": "{\"ids\":[\"kb\",\"kc\",\"fa\",\"kd\",\"ke\",\"ld\",\"ma\",\"mb\",\"bt\",\"mc\"]}"
+        }
+      ]
+    }
+  ]
+}

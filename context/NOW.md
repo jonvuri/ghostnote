@@ -1,7 +1,7 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-28
+updated: 2026-10-30
 ---
 
 ## Now
@@ -196,8 +196,92 @@ The operator answered the
 [round 2 brief](work/r01-round-2-difficulty-scaling.md)'s decisions
 (R01-D9–R01-D12): Terra (`gpt-5.6-terra`, `low`) and Haiku 4.5 join
 development, calibration uses one repeat and full runs three, and the timeout
-scales with output. **Next: round 2 step 2** (catalog refresh and probes),
-then offline implementation.
+scales with output.
+[E380](evidence/experiments/e380-r01-round2-catalog-and-admission-probes.md)
+refreshes the Codex catalog. It now also lists `gpt-6.1-terra`. Both Terra
+models pass admission probes at `low` under Codex context policy v4, which
+selects the fixed-context template by model. Haiku 4.5, with a 1,024-token
+thinking budget and no output cap, passes under policy v1.
+[E381](evidence/experiments/e381-r01-round2-offline-implementation.md)
+builds the ladders offline. It selects N-note windows of works 4–6 (64–512
+notes; only one piano part supplies 512) and generates 116 tasks across 8
+families. Package `round2-development-v1` has 448 eligible cells, and its
+rehearsal accepts every golden and rejects all 3,546 wrong answers. Each
+family level has a pinned output-scaled timeout (130–1,120 s); the round-2
+measures and a pinned execution manifest are ready. 259 focused tests pass.
+[R01-D13](../spec/r01-research/decisions/r01-d13-round-2-admission-and-offline-design.md)
+records the details; the operator accepted them and chose `gpt-5.6-terra`
+as the only Terra for now.
+[E382](evidence/experiments/e382-r01-round2-calibration-pass.md) is the
+calibration pass: 448/448 runs in 639 submissions over about five hours, with
+no halt, stall or quota pause. First-attempt passes were Haiku 5.5 104/112,
+Terra 96/112, Haiku 4.5 85/112 and Luna 49/112. Haiku 5.5 and Terra stay at
+or near the ceiling, Haiku 4.5 spans pass to fail on four families, and Luna
+is at its floor at level 1 on three. Preservation is at the ceiling for
+everyone, but output size there varies 2.6× by format. bar|beat is the
+hardest range-edit arm. **Next: the operator decides** the proposed
+per-cohort levels and the Terra rule reading (add Terra beside Luna); then
+package v2 and the development pass.
+[E383](evidence/experiments/e383-r01-round2-luna-high-effort-floor-probe.md),
+an operator-requested probe, reran six of Luna's floor tasks at `high`. It
+passed 24/26 on the first attempt (`medium` 5/26) and 26/26 within budget.
+Luna's `medium` floor is mostly a no-reasoning mode: 84 of its 112 calibration
+first attempts reported zero reasoning.
+The operator then chose Haiku 5.5 `low` and Luna `high` on one harder ladder
+([R01-D14](../spec/r01-research/decisions/r01-d14-round-2-two-cohorts-harder-ladder.md),
+package `round2-development-v2`, clean rehearsal).
+[E384](evidence/experiments/e384-r01-round2-v2-calibration.md) is its
+calibration: 180/180 runs, no halt, about $1 at API rates. First-attempt
+passes were Haiku 79/90 and Luna 68/90. Range-edit breaks for both (512 for
+Haiku, 256 for Luna), and Luna's derived reads break in C4 FIELDS from 8
+groups while C3 holds to 16. Regroup, member-move, retime and delete barely
+bend at four times v1's sizes. The operator chose a trimmed pass
+([R01-D15](../spec/r01-research/decisions/r01-d15-round-2-trimmed-development-pass.md)).
+[E385](evidence/experiments/e385-r01-round2-v2-development-pass.md) is that
+development pass: four instances and three repeats, with Haiku 5.5 `low` and
+Luna `high` run in parallel. It cost about $9 at API rates.
+- **Results:** Haiku passed 581/684 first-attempt and Luna 491/684.
+- **C3 vs C4:** every significant C3/C4 difference favours C4 FIELDS: Haiku
+  on derived reads (43 vs 32/48) and regrouping (22 vs 11/24), and Luna on
+  retiming (18 vs 6/24; cluster-aware p = 0.016, since repeats are correlated) and member moves (24 vs 17/24).
+- **Other formats:** bar|beat is the weakest performed arm. Luna's
+  baseline-JSON range edits break near 330 notes. C3 FIELDS catches 68% of
+  Luna's failures at the validator.
+- **Agentic criteria:** both of the brief's criteria hold.
+- **Incidents:** a websocket-framing control halt (policy v5,
+  [R01-D16](../spec/r01-research/decisions/r01-d16-round-2-codex-websocket-framing-and-reaudited-continuation.md))
+  and sleep stalls
+  ([R01-D17](../spec/r01-research/decisions/r01-d17-round-2-continuation-after-sleep-stall-halt.md))
+  were continued without losing finished runs.
+
+[E386](evidence/experiments/e386-r01-round2-mixed-model-discordance-and-package-v3.md)
+does the three statistics steps offline.
+- **Model:** a mixed-effects model with clustered repeats gives C4 over C3
+  FIELDS for Haiku (writes OR 3.2, reads 5.7) and for Luna on writes (6.0).
+  Luna's reads lean C3 (n.s.), and its read/write interaction is significant.
+- **Settled:** bar|beat is worse than every other arm.
+- **Next pass:** at equal cost, 12 instances × 1 repeat beats 4 × 3.
+  Per-cohort packages `round2-development-v3-haiku` and `-luna` (240 and 336
+  runs, fresh instances, clean rehearsal) are pinned.
+
+The operator accepted
+[R01-D18](../spec/r01-research/decisions/r01-d18-round-2-discordant-levels-fresh-instances.md),
+and [E387](evidence/experiments/e387-r01-round2-v3-development-pass.md) ran it
+on fresh instances: 576 runs, no halt.
+- **Haiku:** C4 is confirmed for reads (OR 10.2) and regrouping, but its
+  retiming leans C3, so Haiku's general write advantage is not confirmed.
+- **Luna:** C4 is confirmed for edits (OR 8.2), and its reads lean C3.
+- **Model:** with one repeat, the model pins its instance × format term.
+- **Tooling:** pinned tooling now lives in `.tmp/r01-tooling/` after a
+  `/tmp` cleanup deleted the old copies.
+
+**Next: new format-dependent task families on the same two cohorts**
+([R01-D19](../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md),
+[handoff](work/r01-round-2-difficulty-scaling.md#next-steps-handoff-2026-10-30-after-e387-format-dependent-families)).
+The families are query-selected edits, overlapping memberships, edits within
+large state and, optionally, interpretation maintenance. The tool loop and
+stronger cohorts are deferred: Haiku is under-challenged (57 both-pass
+against 3 both-fail pairs), and corrections already act as a short loop.
 R01's outcome (adoption, claims, naming) waits for round 2.
 Works A–C are development material (E366); only development runs have occurred. E353 remains the
 initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,

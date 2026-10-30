@@ -1,35 +1,58 @@
-// Fixed model-visible context for isolated Codex 0.163.0 / Luna (E363).
+// Fixed model-visible context for isolated Codex 0.163.0 (E363, E380).
 // Version 2 (D62) accepts a request without the top-level `access_programs`
 // field. That field selects the account's cyber access tier and is not
 // model-visible text. When present it must still equal the template value.
 // Version 3 (E376) compares `reasoning.effort` with the profile's declared
 // effort instead of the template's `low`, so a development effort probe is
-// audited against its own setting. Every other field is compared as before.
+// audited against its own setting. Version 4 (R01-D13) selects the template
+// by model: Luna's template is unchanged; gpt-6.1-terra receives the same
+// context, and gpt-5.6-terra has its own captured template (one fewer tool and
+// a model-specific multi-agent hint). Version 5 (R01-D16, E385) accepts the
+// top-level `type: "response.create"` envelope that the client adds when it
+// retries over its websocket transport; any other value fails, and every
+// model-visible field is compared as before.
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 const sha = value => createHash('sha256').update(value).digest('hex');
-const templateText = readFileSync(new URL('./codex-context-template.json', import.meta.url), 'utf8');
-const template = JSON.parse(templateText);
-export const CODEX_CONTEXT_POLICY = Object.freeze({ schema: 'r01-codex-context-policy-v3',
-  cliVersion: 'codex-cli 0.163.0', model: 'gpt-6-luna', templateSha256: sha(templateText),
+const load = name => { const text = readFileSync(new URL(name, import.meta.url), 'utf8'); return { text, json: JSON.parse(text) }; };
+const luna = load('./codex-context-template.json'), terra56 = load('./codex-context-template-gpt-5.6-terra.json');
+const TEMPLATES = Object.freeze({
+  'gpt-6-luna': { template: luna.json, sha256: sha(luna.text) },
+  'gpt-6.1-terra': { template: { ...luna.json, model: 'gpt-6.1-terra' }, sha256: sha(luna.text), derivedFrom: 'gpt-6-luna' },
+  'gpt-5.6-terra': { template: terra56.json, sha256: sha(terra56.text) },
+});
+export const CODEX_CONTEXT_POLICY = Object.freeze({ schema: 'r01-codex-context-policy-v5',
+  cliVersion: 'codex-cli 0.163.0', model: 'gpt-6-luna', models: Object.keys(TEMPLATES),
+  templateSha256: TEMPLATES['gpt-6-luna'].sha256,
+  templates: Object.fromEntries(Object.entries(TEMPLATES).map(([m, t]) => [m, { sha256: t.sha256, ...(t.derivedFrom ? { derivedFrom: t.derivedFrom, modelReplaced: true } : {}) }])),
   volatileFields: ['message IDs', 'turn IDs and creation times', 'scratch cwd and root', 'current date',
     'prompt cache key', 'client transport metadata'],
   // Fields that may be absent; a present value must equal the template's.
   optionalFields: ['access_programs'],
   // The requested reasoning effort must equal the profile's; it then compares as the template's.
   profileFields: ['reasoning.effort'],
+  // Transport framing that may be present only with exactly this value (v5).
+  transportFraming: { type: 'response.create' },
 });
 const UUID = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/;
 
 export function auditCodexContext(request, { prompt, scratch, profile }) {
   const issues = [], normalized = structuredClone(request);
-  if (profile?.version !== CODEX_CONTEXT_POLICY.cliVersion || profile?.model !== CODEX_CONTEXT_POLICY.model)
+  const selected = Object.hasOwn(TEMPLATES, profile?.model) ? TEMPLATES[profile.model] : null;
+  if (profile?.version !== CODEX_CONTEXT_POLICY.cliVersion || !selected)
     issues.push('codex-context-policy-profile-mismatch');
+  const template = (selected ?? TEMPLATES['gpt-6-luna']).template;
   // These fields carry transport attribution, not model-visible instructions.
   if (!UUID.test(normalized.prompt_cache_key ?? '') || !normalized.client_metadata
       || typeof normalized.client_metadata !== 'object') issues.push('unexpected-codex-transport-metadata');
   delete normalized.prompt_cache_key; delete normalized.client_metadata;
+  // v5: websocket request framing is transport, not model-visible context.
+  const transportFraming = Object.hasOwn(normalized, 'type');
+  if (transportFraming) {
+    if (normalized.type !== CODEX_CONTEXT_POLICY.transportFraming.type) issues.push('unexpected-codex-transport-framing');
+    delete normalized.type;
+  }
   // D57 observes provider limits without making them context/admission gates.
   delete normalized.max_output_tokens;
   // D62: an absent optional field is reported, not failed; a present one is compared.
@@ -65,8 +88,8 @@ export function auditCodexContext(request, { prompt, scratch, profile }) {
       sha256: sha(JSON.stringify(request.input[i])) });
   }
   if (!isDeepStrictEqual(normalized, template)) issues.push('unexpected-codex-context');
-  return { policy: CODEX_CONTEXT_POLICY.schema, policySha256: CODEX_CONTEXT_POLICY.templateSha256,
-    pass: issues.length === 0, issues: [...new Set(issues)], absentOptionalFields,
+  return { policy: CODEX_CONTEXT_POLICY.schema, policySha256: (selected ?? TEMPLATES['gpt-6-luna']).sha256, templateModel: selected ? profile.model : null,
+    pass: issues.length === 0, issues: [...new Set(issues)], absentOptionalFields, transportFraming,
     reasoningEffort: request.reasoning?.effort ?? null, blocks,
     clientAddedContextBytes: blocks.filter(b => b.kind !== 'user.text').reduce((n, b) => n + b.bytes, 0),
     taskBytes: Buffer.byteLength(prompt ?? '') };

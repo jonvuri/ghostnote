@@ -27,7 +27,7 @@ export const SELECTION = Object.freeze({
 export const SELECTION_V2 = Object.freeze({ ...SELECTION, schema: 'r01-pilot-selection-rules-v2',
   rule: 'densest admissible window: for every pool asset of the work and every distinct note onset as a start, count onsets in the 16-quarter half-open window; admit 16-128 notes without a normalization collision; take the largest count, then the earlier asset in seeded order, then the earlier start' });
 
-const resolutionOf = asset => asset.transcription?.resolution ?? asset.provenance?.exporter?.report?.resolution ?? null;
+export const resolutionOf = asset => asset.transcription?.resolution ?? asset.provenance?.exporter?.report?.resolution ?? null;
 
 /** Identity, lineage and timing metadata for MIDI assets; no tempo maps or analysis payloads. */
 export function reducedInventory(assets) {
@@ -88,7 +88,7 @@ export function lineageReview(assets, retained) {
       && groups.every(g => g.split !== 'unreviewed') };
 }
 
-const poolAsset = a => a.kind === 'midi' && a.path.split('/')[2] === SELECTION.pool
+export const poolAsset = a => a.kind === 'midi' && a.path.split('/')[2] === SELECTION.pool
   && Number(a.path.split('/').at(-1).slice(0, 3)) < 128 && a.midi?.isDrum !== true;
 
 /** Every eligible reserved work in seeded order, each with its seeded asset order. Metadata only. */
@@ -143,7 +143,7 @@ export function assetWindows(decoded, attempts, base) {
   return null;
 }
 
-const decodeMetadata = asset => ({ assetId: asset.assetId, contentHash: asset.contentHash, midi: {
+export const decodeMetadata = asset => ({ assetId: asset.assetId, contentHash: asset.contentHash, midi: {
   ticksPerQuarter: asset.midi.ticksPerQuarter, noteCount: asset.midi.noteCount, endTick: asset.midi.endTick,
   tempoMap: asset.midi.tempoMap, meterMap: asset.midi.meterMap ?? [], tempoIsImplicit: asset.midi.tempoIsImplicit ?? false } });
 

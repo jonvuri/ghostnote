@@ -57,7 +57,7 @@ test('multiple self-correcting assistant messages score the final message withou
 });
 
 test('D62: an absent access_programs field is reported and admitted; a changed value still fails', () => {
-  assert.equal(CODEX_CONTEXT_POLICY.schema, 'r01-codex-context-policy-v3');
+  assert.equal(CODEX_CONTEXT_POLICY.schema, 'r01-codex-context-policy-v5');
   const present = auditCodexContext(request(), options);
   assert.deepEqual([present.pass, present.absentOptionalFields], [true, []]);
   const absent = request(); delete absent.access_programs;
@@ -83,4 +83,66 @@ test('policy v3: reasoning effort must equal the profile effort; nothing else is
   assert.equal(auditCodexContext(request(), probe).pass, false, 'a low request fails a medium profile');
   const changed = request(); changed.reasoning.effort = 'medium'; changed.reasoning.context = 'last_turn';
   assert.equal(auditCodexContext(changed, probe).pass, false, 'other reasoning fields still compare');
+});
+
+// Policy v4 (R01-D13): templates are selected by model. Terra probes are retained in E380.
+const round2 = name => {
+  const d = fileURLToPath(new URL(`../../../context/evidence/data/r01-round2-admission/${name}/`, import.meta.url));
+  const m = JSON.parse(readFileSync(d + 'manifest.json'));
+  return { request: () => loadCodexCapture(d).requests[0],
+    options: { prompt: readFileSync(d + 'prompt.txt', 'utf8'), scratch: m.scratch, profile: m.profile } };
+};
+
+test('policy v4: each Terra probe passes its own template; Luna is unchanged', () => {
+  assert.deepEqual(CODEX_CONTEXT_POLICY.models, ['gpt-6-luna', 'gpt-6.1-terra', 'gpt-5.6-terra']);
+  assert.equal(auditCodexContext(request(), options).policySha256, CODEX_CONTEXT_POLICY.templateSha256);
+  for (const name of ['probe-codex-terra', 'probe-codex-terra-6-1']) {
+    const { request: r, options: o } = round2(name);
+    const result = auditCodexContext(r(), o);
+    assert.deepEqual([result.pass, result.templateModel], [true, o.profile.model], name);
+  }
+});
+
+test('policy v4: a request is never admitted on another model\'s template', () => {
+  const t56 = round2('probe-codex-terra'), t61 = round2('probe-codex-terra-6-1');
+  // Model swapped in the profile only: the request's model and context differ.
+  assert.equal(auditCodexContext(t56.request(), { ...t56.options, profile: t61.options.profile }).pass, false);
+  // Luna's request relabeled as gpt-5.6-terra still fails: its tools and hint differ.
+  const relabeled = request(); relabeled.model = 'gpt-5.6-terra';
+  assert.equal(auditCodexContext(relabeled, { ...options, profile: t56.options.profile }).pass, false);
+  // gpt-6.1-terra shares Luna's context, so only the model field separates them.
+  const lunaAs61 = request(); lunaAs61.model = 'gpt-6.1-terra';
+  assert.equal(auditCodexContext(lunaAs61, { ...options, profile: t61.options.profile }).pass, true);
+  assert.equal(auditCodexContext(request(), { ...options, profile: t61.options.profile }).pass, false);
+  // An unlisted model fails the profile gate.
+  const other = { ...options, profile: { ...options.profile, model: 'gpt-6-sol' } };
+  assert(auditCodexContext(request(), other).issues.includes('codex-context-policy-profile-mismatch'));
+  // The 5.6 hint is fixed text: appending to it still fails.
+  const changed = t56.request(); changed.input[2].content[0].text += ' Spawn agents.';
+  assert.equal(auditCodexContext(changed, t56.options).pass, false);
+});
+
+// Policy v5 (R01-D16): the halted E385 submission's client retry over websocket.
+const halted = (() => {
+  const d = fileURLToPath(new URL('../../../context/evidence/data/r01-codex-policy-v5/halted-attempt/', import.meta.url));
+  const m = JSON.parse(readFileSync(d + 'manifest.json'));
+  return { requests: () => loadCodexCapture(d).requests,
+    options: { prompt: readFileSync(d + 'prompt.txt', 'utf8'), scratch: m.scratch, profile: m.profile } };
+})();
+
+test('policy v5: websocket response.create framing on a client retry is transport, not context', () => {
+  const [first, retry] = halted.requests();
+  assert.equal(Object.hasOwn(first, 'type'), false);
+  assert.equal(retry.type, 'response.create');
+  const results = [first, retry].map(r => auditCodexContext(r, halted.options));
+  assert.deepEqual(results.map(r => [r.pass, r.transportFraming]), [[true, false], [true, true]]);
+  // Any other framing value fails; model-visible changes still fail.
+  for (const value of ['response.cancel', '', null]) {
+    const r = structuredClone(retry); r.type = value;
+    assert(auditCodexContext(r, halted.options).issues.includes('unexpected-codex-transport-framing'), String(value));
+  }
+  const changed = structuredClone(retry); changed.input.at(-1).content[0].text += ' extra';
+  assert.equal(auditCodexContext(changed, halted.options).pass, false);
+  const tools = structuredClone(retry); tools.input[0].tools[0].tools.push({ name: 'extra', type: 'function' });
+  assert.equal(auditCodexContext(tools, halted.options).pass, false);
 });

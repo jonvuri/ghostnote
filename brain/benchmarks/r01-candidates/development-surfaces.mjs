@@ -16,11 +16,16 @@ const structured = {
   'c4-json': [f => JSON.stringify(encodeGrouped(f)), decodeGrouped],
   'c4-detached-fields': [encodeDetachedFields, decodeDetachedFields],
 };
+// Coverage is task scope, not a bounding box that changes after an edit. The
+// clip is 64 quarters, or the next multiple of 64 for a longer round-2 window.
+export const clipLength = fixture => {
+  const end = fixture.notes.reduce((a, n) => Math.max(a, numeric(n.at) + numeric(n.duration)), 0);
+  return String(64 * Math.max(1, Math.ceil(end / 64)));
+};
 const baselineDoc = fixture => {
-  const doc = document(fixture);
-  // Coverage is task scope, not a bounding box that changes after an edit.
-  return gn.validate({ ...doc, clips: doc.clips.map(c => ({ ...c, length: '64' })),
-    coverage: doc.coverage.map(c => ({ ...c, to: '64' })) });
+  const doc = document(fixture), length = clipLength(fixture);
+  return gn.validate({ ...doc, clips: doc.clips.map(c => ({ ...c, length })),
+    coverage: doc.coverage.map(c => ({ ...c, to: length })) });
 };
 const withoutEvents = doc => Object.fromEntries(Object.entries(doc).filter(([k]) => k !== 'events'));
 
