@@ -1,0 +1,1498 @@
+{
+  "schema": "r01-pilot-execution-manifest-v1",
+  "stage": "development",
+  "status": "pinned-not-submitted",
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "feedback": "r01-feedback-v2-locating",
+  "evidence": "development stage: supports design iteration only, not candidate comparison",
+  "round": 2,
+  "controls": {
+    "decisions": [
+      "D64",
+      "R01-D8",
+      "R01-D11",
+      "R01-D12",
+      "R01-D13",
+      "R01-D14",
+      "R01-D16",
+      "R01-D17",
+      "R01-D18",
+      "R01-D19",
+      "R01-D20"
+    ],
+    "contextPolicies": {
+      "claude-current": "r01-claude-context-policy-v2",
+      "codex-current-high": "r01-codex-context-policy-v5"
+    },
+    "retries": "r01-retries-reported-v1",
+    "stopRules": "A control failure halts; a stall gets one identical resubmission and a second consecutive stall halts; a quota pause resumes with a labeled resubmission. A development control halt may continue after re-audit (R01-D16); a two-stall halt caused by host sleep may continue (R01-D17)."
+  },
+  "timeouts": {
+    "schema": "r01-round2-timeout-v1",
+    "baseMs": 120000,
+    "perTokenMs": 60,
+    "roundToMs": 10000,
+    "expectedOutput": "the largest golden response, in local o200k_base tokens, over every eligible arm and instance of the family level",
+    "formula": "timeoutMs = ceil((baseMs + perTokenMs x expected output tokens) / roundToMs) x roundToMs",
+    "rationale": "At least the round-1 limit; 60 ms per token allows about 17 answer tokens per second beyond two minutes for reasoning and latency. Elapsed time is reported as a measure.",
+    "byLevel": {
+      "query-edit": {
+        "4": {
+          "expectedOutputTokens": 969,
+          "timeoutMs": 180000
+        },
+        "8": {
+          "expectedOutputTokens": 1793,
+          "timeoutMs": 230000
+        },
+        "16": {
+          "expectedOutputTokens": 3436,
+          "timeoutMs": 330000
+        },
+        "32": {
+          "expectedOutputTokens": 6707,
+          "timeoutMs": 530000
+        }
+      },
+      "overlap-edit": {
+        "2": {
+          "expectedOutputTokens": 1297,
+          "timeoutMs": 200000
+        },
+        "4": {
+          "expectedOutputTokens": 1592,
+          "timeoutMs": 220000
+        },
+        "6": {
+          "expectedOutputTokens": 1908,
+          "timeoutMs": 240000
+        },
+        "8": {
+          "expectedOutputTokens": 2219,
+          "timeoutMs": 260000
+        }
+      },
+      "large-edit": {
+        "64": {
+          "expectedOutputTokens": 3713,
+          "timeoutMs": 350000
+        },
+        "128": {
+          "expectedOutputTokens": 7234,
+          "timeoutMs": 560000
+        },
+        "256": {
+          "expectedOutputTokens": 14143,
+          "timeoutMs": 970000
+        },
+        "384": {
+          "expectedOutputTokens": 20645,
+          "timeoutMs": 1360000
+        }
+      },
+      "interp-maintain": {
+        "2": {
+          "expectedOutputTokens": 1094,
+          "timeoutMs": 190000
+        },
+        "4": {
+          "expectedOutputTokens": 1758,
+          "timeoutMs": 230000
+        },
+        "8": {
+          "expectedOutputTokens": 2870,
+          "timeoutMs": 300000
+        },
+        "12": {
+          "expectedOutputTokens": 4085,
+          "timeoutMs": 370000
+        }
+      }
+    }
+  },
+  "repeats": {
+    "schema": "r01-round2-repeats-v1",
+    "rule": "Each family ladder sets its repeats; the planner schedules that many repetitions of each of its tasks."
+  },
+  "package": {
+    "name": "round2-development-v4-haiku",
+    "directory": "context/evidence/data/r01-round2/v4/haiku/package",
+    "manifestSha256": "1b1f33b55ed370ee721c0756470382aed19529c00de46a66910f2b91c8fc7ca9",
+    "schema": "r01-pilot-package-v1",
+    "inputVersion": "round2-4-synthetic",
+    "windows": null,
+    "windowsSha256": null,
+    "taskRules": "r01-round2-task-rules-v4",
+    "syntheticSeed": "r01-round2-families-v1",
+    "velocitySeed": null,
+    "counts": {
+      "tasks": 16,
+      "cards": 2,
+      "scheduledCells": 96,
+      "primaryCells": 96,
+      "diagnosticCells": 0,
+      "eligibleCells": 32,
+      "exclusions": 64,
+      "goldenPasses": 32,
+      "wrongResultsRejected": 32,
+      "gratuitousRefusalsRejected": 32
+    }
+  },
+  "tooling": {
+    "node": "v24.11.1",
+    "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+    "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+    "tokenizer": "js-tiktoken@1.0.21/o200k_base"
+  },
+  "hashEncoding": {
+    "artifacts": "SHA-256 of the exact UTF-8 bytes",
+    "tasks": "SHA-256 of canonical sorted-key JSON",
+    "plan": "SHA-256 of canonical sorted-key JSON of plan.json as the runner writes it"
+  },
+  "selection": {
+    "schema": "r01-round2-selection-v4",
+    "round": 2,
+    "stage": "development",
+    "seed": "r01-round2-order-v4",
+    "cohorts": [
+      "claude-current"
+    ],
+    "optionalCohorts": [],
+    "tasks": null,
+    "instances": null,
+    "repeats": 1,
+    "maxRepairs": 2,
+    "timeoutMs": 120000,
+    "timeoutRule": "r01-round2-timeout-v1",
+    "stallResubmissions": 1,
+    "repeatRule": "r01-round2-repeats-v1",
+    "fullPass": "calibration",
+    "packageCohort": "claude-current",
+    "pass": "calibration",
+    "subset": false
+  },
+  "cohorts": [
+    {
+      "id": "claude-current",
+      "configSha256": "11f3af1bfa4fa2e8812b0cf4b0e46cd73701fbfbfc3e5efa2f6d6f0cc0d03698",
+      "profile": {
+        "provider": "claude",
+        "model": "claude-haiku-5-5",
+        "effort": "low",
+        "version": "2.1.302 (Claude Code)"
+      }
+    }
+  ],
+  "plan": {
+    "schema": "r01-cli-development-trial-plan-v1",
+    "seed": "r01-round2-order-v4",
+    "configurationSha256": "c6775f0c2af4bd8b6e99e673ffd6f9495f2417d94272c6114880988d0be92d99",
+    "developmentManifestSha256": "7ecfe17e6f26f3c69bb9064288898c144d8f624f9f7e7f54b276d992225b4ef0",
+    "planSha256": "db5e9e0ed97b53841a74ff11857a894d337864309f618232961db04a4f096d13",
+    "counts": {
+      "configurations": 1,
+      "blocks": 16,
+      "initialAttempts": 32,
+      "primaryAttempts": 32,
+      "diagnosticAttempts": 0,
+      "exclusions": 64,
+      "maximumTaskAttempts": 96
+    }
+  },
+  "tasks": [
+    {
+      "id": "r2-query-L4-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "d3e2280564f577af3c073cff68fc31f49c994a6dc1d010a599cfbfcf5719c8be",
+      "ladder": {
+        "family": "query-edit",
+        "level": 4,
+        "instance": 1
+      },
+      "timeoutMs": 180000
+    },
+    {
+      "id": "r2-query-L8-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "feb974c8aa1b2b41ef9a6b4c87c88bec6c15a5b74bd1008bf5d6b2ba1d833c5b",
+      "ladder": {
+        "family": "query-edit",
+        "level": 8,
+        "instance": 1
+      },
+      "timeoutMs": 230000
+    },
+    {
+      "id": "r2-query-L16-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "bbe22edcdbf420de3bd1cd7e3dffa2f08b8c6812803d387069e46064de24e1c1",
+      "ladder": {
+        "family": "query-edit",
+        "level": 16,
+        "instance": 1
+      },
+      "timeoutMs": 330000
+    },
+    {
+      "id": "r2-query-L32-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "597e39d6be55fef4df2067b5c881d0fa6e46124c44a1870422e5946f6bed7624",
+      "ladder": {
+        "family": "query-edit",
+        "level": 32,
+        "instance": 1
+      },
+      "timeoutMs": 530000
+    },
+    {
+      "id": "r2-overlap-L2-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "d52d5f2161b80c4a116688a6ab24ddfc670bd7fa48850c19b834a97b965facae",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 2,
+        "instance": 1
+      },
+      "timeoutMs": 200000
+    },
+    {
+      "id": "r2-overlap-L4-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "4573db26fdb9a7654a4109d7ff051d538aa3cf29df4320921e7b7c5a00a75083",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 4,
+        "instance": 1
+      },
+      "timeoutMs": 220000
+    },
+    {
+      "id": "r2-overlap-L6-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "9f1a248e4e86983682d47e8a2584f7046e584300c25a7cbc1efe224838ef7c59",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 6,
+        "instance": 1
+      },
+      "timeoutMs": 240000
+    },
+    {
+      "id": "r2-overlap-L8-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "b6ba0ff869428497b02dde7a171e45104f7dd41c2cf1d2656940a8c5ad517c29",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 8,
+        "instance": 1
+      },
+      "timeoutMs": 260000
+    },
+    {
+      "id": "r2-large-L64-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "f0bcafda1f3af724ec464b91fab7d08b96853a13c2d228387bf50c7a168b5cbc",
+      "ladder": {
+        "family": "large-edit",
+        "level": 64,
+        "instance": 1
+      },
+      "timeoutMs": 350000
+    },
+    {
+      "id": "r2-large-L128-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "d0a74a60d6332ec086604b456520b3700d910a2a641ffb45341ada7e6cad9e98",
+      "ladder": {
+        "family": "large-edit",
+        "level": 128,
+        "instance": 1
+      },
+      "timeoutMs": 560000
+    },
+    {
+      "id": "r2-large-L256-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "0e92daf6d037a093512ab3506a26ba86673bb5b469c86d927f27045bad1d4138",
+      "ladder": {
+        "family": "large-edit",
+        "level": 256,
+        "instance": 1
+      },
+      "timeoutMs": 970000
+    },
+    {
+      "id": "r2-large-L384-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "20d533596304d883ea6cf738af096d87ce75da6c394b329f3f6354b4c026fb28",
+      "ladder": {
+        "family": "large-edit",
+        "level": 384,
+        "instance": 1
+      },
+      "timeoutMs": 1360000
+    },
+    {
+      "id": "r2-interp-L2-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "5a0ba520d9e03c4835e80572db7ad84cf034db9095c75e22ef38f9e2645eb84a",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 2,
+        "instance": 1
+      },
+      "timeoutMs": 190000
+    },
+    {
+      "id": "r2-interp-L4-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "51027166fdd23e8a2d1896509d83f0bd6c1a123d3bd59febbe1d8bef45f9ccbf",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 4,
+        "instance": 1
+      },
+      "timeoutMs": 230000
+    },
+    {
+      "id": "r2-interp-L8-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "b9ad1b39e92499b0129706013e876b95225bf25a0a2f4f23c8e16e8753ece440",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 8,
+        "instance": 1
+      },
+      "timeoutMs": 300000
+    },
+    {
+      "id": "r2-interp-L12-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "79250c5c1d45772236e45533d2156bad6f34055051164119ccfef64b76d4d515",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 12,
+        "instance": 1
+      },
+      "timeoutMs": 370000
+    }
+  ],
+  "cells": [
+    {
+      "id": "r2-query-L4-i1--baseline-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--baseline-json",
+      "task": "r2-query-L4-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--c3-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "83b8af43ab32a2626b674915453a4f54b481fb0d90d551f819c6f7952646624c",
+      "promptSha256": "94d7f7f875b2b63cd0a513329e68217c5bfdb3a3e7313a8dda4a74c024484f3c",
+      "promptTokens": 1936,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "d6d4cf4c911834e6947ab862aebd25036c7184fa10c310511faac601ef6107ad",
+      "pairInputSha256": "83b8af43ab32a2626b674915453a4f54b481fb0d90d551f819c6f7952646624c"
+    },
+    {
+      "id": "r2-query-L4-i1--c4-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "573157be791b74ad06fed2d717fcadd5cea4c9896ed9e61954b85e922b6ac861",
+      "promptSha256": "34ca210088b6cc7459517a69eacc22bc6c5889339607e44948c44aa3895540f2",
+      "promptTokens": 1777,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "2283f8d9d7d196c5cb359d660c7ac40523c9c1543f0b489ab1d961548ec6e162",
+      "pairInputSha256": "573157be791b74ad06fed2d717fcadd5cea4c9896ed9e61954b85e922b6ac861"
+    },
+    {
+      "id": "r2-query-L4-i1--pp-barbeat",
+      "task": "r2-query-L4-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--pp-midi-json",
+      "task": "r2-query-L4-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--baseline-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--baseline-json",
+      "task": "r2-query-L8-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--c3-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "4577356a98162d08c3e2c5227d0e2377fbd832f15e5ea55581513a1bfc2406a0",
+      "promptSha256": "0784d700ee1c0edce490fc339ffae716d432526f15d305cadde9482044545a7d",
+      "promptTokens": 2754,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "ebd2cb7b4a0efdb2dc5df6ec35087e6aa3120c2fe35b911de301449a478ee9b1",
+      "pairInputSha256": "4577356a98162d08c3e2c5227d0e2377fbd832f15e5ea55581513a1bfc2406a0"
+    },
+    {
+      "id": "r2-query-L8-i1--c4-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "4d8b878692a418fd3a809bae00436cfe9fbc2a38f6e02e055ff9edeb1ef7092c",
+      "promptSha256": "483f890bc6a64b91bbf19554b2821a78fc8f7ed10c40ba712f13dce6d2f492ac",
+      "promptTokens": 2351,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "6132d5180a8fdc79b19f279c88ba1c61ddd17c442095c18d8273b18cfc2117cf",
+      "pairInputSha256": "4d8b878692a418fd3a809bae00436cfe9fbc2a38f6e02e055ff9edeb1ef7092c"
+    },
+    {
+      "id": "r2-query-L8-i1--pp-barbeat",
+      "task": "r2-query-L8-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--pp-midi-json",
+      "task": "r2-query-L8-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--baseline-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--baseline-json",
+      "task": "r2-query-L16-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--c3-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "2821916a5a5e9d05d9fa15e556782f1a9149f6c80dbffafabb4433b46ac6f81e",
+      "promptSha256": "d73480520c6b12f4c7e87e9929de6468d6fce75d99ccbe7eae433e53df109d7b",
+      "promptTokens": 4388,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "0cc10103b222eac03c28362e90e309b582ce504daf27959dff980fc0b36176d1",
+      "pairInputSha256": "2821916a5a5e9d05d9fa15e556782f1a9149f6c80dbffafabb4433b46ac6f81e"
+    },
+    {
+      "id": "r2-query-L16-i1--c4-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "e18fd644757262b7cac2b653c0d4c5d50bf585e1d176a0ba773840fbf4164ad3",
+      "promptSha256": "4b961d8a3ebced1d48991ea33a437215a7861ddf013d30d3c9d474fa9bd4f78d",
+      "promptTokens": 3500,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "b32ebf1e98edc11ad6129901c824c9f49e57267a1ecff51a8aa22368ad192340",
+      "pairInputSha256": "e18fd644757262b7cac2b653c0d4c5d50bf585e1d176a0ba773840fbf4164ad3"
+    },
+    {
+      "id": "r2-query-L16-i1--pp-barbeat",
+      "task": "r2-query-L16-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--pp-midi-json",
+      "task": "r2-query-L16-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--baseline-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--baseline-json",
+      "task": "r2-query-L32-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--c3-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "35ee02d35090237860fd26648f1bd6a0807c29fc56e69ed17a2da90f5ddc681e",
+      "promptSha256": "b905057cddcde7bf6513e457a880186ef5b5bf140eeb965c5aeabe45aeed4bbd",
+      "promptTokens": 7643,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "559d983b07dc6d28edd369901db71f976be8c5cf0900f2438e2bb0910a92a4c3",
+      "pairInputSha256": "35ee02d35090237860fd26648f1bd6a0807c29fc56e69ed17a2da90f5ddc681e"
+    },
+    {
+      "id": "r2-query-L32-i1--c4-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "477c394a9d9a429f07828bf409289a021eff4fd8eea4caaa495050911fc07f4e",
+      "promptSha256": "095135a10ded0e75fb31f29cbc16fbccae7ab3a998d00c16e653321283a0c69b",
+      "promptTokens": 5794,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "95419f8d50d5aa0ab62673c219f84af28bb9f17c0bf2039bffec3920c0e8133a",
+      "pairInputSha256": "477c394a9d9a429f07828bf409289a021eff4fd8eea4caaa495050911fc07f4e"
+    },
+    {
+      "id": "r2-query-L32-i1--pp-barbeat",
+      "task": "r2-query-L32-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--pp-midi-json",
+      "task": "r2-query-L32-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--baseline-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--baseline-json",
+      "task": "r2-overlap-L2-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--c3-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "4d8b4252ca2728e58847be53dd10c4b24493e0fd12ee7796a4a10bf9e443a6ba",
+      "promptSha256": "def9f997e2fd766dda8be1e3fe3ddffcad312688eada23fe7db1e3268a06de2b",
+      "promptTokens": 2255,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "e242c33c4731a3354c7cc954d60d10f2b975d87481209c55ec22f05cb7ad9f96",
+      "pairInputSha256": "4d8b4252ca2728e58847be53dd10c4b24493e0fd12ee7796a4a10bf9e443a6ba"
+    },
+    {
+      "id": "r2-overlap-L2-i1--c4-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "8a327958314f8a307a3bbdb2072a9c54b3511e3a1eda64b5403c6fcdf1edd4f0",
+      "promptSha256": "e1a899483d6a9a57be13c443e4434e603ada0068f4d9e81a8006e79248762cc9",
+      "promptTokens": 1977,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "af2186ceaadaa5716b075a2202e748e84fba254c6eb09a5ed945e8d9b51b1b91",
+      "pairInputSha256": "8a327958314f8a307a3bbdb2072a9c54b3511e3a1eda64b5403c6fcdf1edd4f0"
+    },
+    {
+      "id": "r2-overlap-L2-i1--pp-barbeat",
+      "task": "r2-overlap-L2-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--pp-midi-json",
+      "task": "r2-overlap-L2-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--baseline-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--baseline-json",
+      "task": "r2-overlap-L4-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--c3-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "664a75f4df5e8dbd98a33cca2e780ec6a15a5c03c16ade1eeebfe83603996f6d",
+      "promptSha256": "80080179aa3664ee0e3019104a6a149e91ff2d23eed90160d9c95bf3bb9abaa2",
+      "promptTokens": 2551,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "4da379ebed57ebfcc1400822fba91fc1e7711ad3758eefb2604fd1a5dfe943bb",
+      "pairInputSha256": "664a75f4df5e8dbd98a33cca2e780ec6a15a5c03c16ade1eeebfe83603996f6d"
+    },
+    {
+      "id": "r2-overlap-L4-i1--c4-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "0abeedde2333501dc2e5c532081fdd229474e9dccef340e87e10d12741fc03c0",
+      "promptSha256": "8f3856f4ab854aff11d8bba5e499f12db1f0246cd68ca1249abfceebe4200c5a",
+      "promptTokens": 2224,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "13c196f0ecae4bcbdc3b41b1b4f2ca3c4ea8c00ec4add849a5026f48df1e7574",
+      "pairInputSha256": "0abeedde2333501dc2e5c532081fdd229474e9dccef340e87e10d12741fc03c0"
+    },
+    {
+      "id": "r2-overlap-L4-i1--pp-barbeat",
+      "task": "r2-overlap-L4-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--pp-midi-json",
+      "task": "r2-overlap-L4-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--baseline-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--baseline-json",
+      "task": "r2-overlap-L6-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--c3-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "9f1807d8034722f370ba71907c6270a3e79016c2352b436e7da6eafc5fd7c90d",
+      "promptSha256": "2ed6c8e5140f2e4b05bdc7c73e4f38b258c66a84ff45d27b4555be17d57bf28a",
+      "promptTokens": 2867,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "815cbbcaadad217eb763abe033b6988ba024bdb60686ea1054c13647ac507a4e",
+      "pairInputSha256": "9f1807d8034722f370ba71907c6270a3e79016c2352b436e7da6eafc5fd7c90d"
+    },
+    {
+      "id": "r2-overlap-L6-i1--c4-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "df0f2bece5e9bc2edd4debdf7b6bf8904ac0dba7a9b26a86a0a69ea9c77aaae5",
+      "promptSha256": "4da937c10a075e259e12f012cbb210319fa446a59cf8c5e2356ac0e86efc010b",
+      "promptTokens": 2493,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "6bfe507b1e4043bf8ec7ffea2921a27700dc5af80364fb72e83bd79a20d8404c",
+      "pairInputSha256": "df0f2bece5e9bc2edd4debdf7b6bf8904ac0dba7a9b26a86a0a69ea9c77aaae5"
+    },
+    {
+      "id": "r2-overlap-L6-i1--pp-barbeat",
+      "task": "r2-overlap-L6-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--pp-midi-json",
+      "task": "r2-overlap-L6-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--baseline-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--baseline-json",
+      "task": "r2-overlap-L8-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--c3-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "e27259b62c1f3ae9223a1cbf3e5963f78a2758dba00150e3c9e049cbb75f4398",
+      "promptSha256": "301011426801e80390cb2598774d3aa2e4bcb35304f6ab4bbfd9fbb0f338ef2a",
+      "promptTokens": 3177,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "e79d8ef1c7f9bcdecb32a93380a25fd703af0f4376451f64e09af0aa7db37d44",
+      "pairInputSha256": "e27259b62c1f3ae9223a1cbf3e5963f78a2758dba00150e3c9e049cbb75f4398"
+    },
+    {
+      "id": "r2-overlap-L8-i1--c4-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "e252ec965e82f91aa557c0ea1fc09034e9f298c2c0b1afce745582c5b3189876",
+      "promptSha256": "f50dfd8c6abf75def7c44339c99c3093a2ac49de737390baccb3e69a68c0bc4d",
+      "promptTokens": 2751,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "13c23b4474593bf2df21a49811efd53ebba1f08eee362ca3b60a64176ef5c256",
+      "pairInputSha256": "e252ec965e82f91aa557c0ea1fc09034e9f298c2c0b1afce745582c5b3189876"
+    },
+    {
+      "id": "r2-overlap-L8-i1--pp-barbeat",
+      "task": "r2-overlap-L8-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--pp-midi-json",
+      "task": "r2-overlap-L8-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--baseline-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--baseline-json",
+      "task": "r2-large-L64-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--c3-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "d5a49553fe798620a4ea90352072055f71f5ffc451cdc047de3fc8f4b57cb9bd",
+      "promptSha256": "142c132be4e119e6e2386af3107c11fb8463f3fe2cf865242049ccf164ac6e85",
+      "promptTokens": 4647,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "bf5553aa4346bec85ce94418b7d0c54405fadec5db4342a6812200414e4debb7",
+      "pairInputSha256": "d5a49553fe798620a4ea90352072055f71f5ffc451cdc047de3fc8f4b57cb9bd"
+    },
+    {
+      "id": "r2-large-L64-i1--c4-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "912d71f1201092ba55ae64518c57454fc40be81df882ed0928d8fa498d8c3982",
+      "promptSha256": "a8240931b517d96cde161a95a14985a9ea589e905194aea69d2b5efc0c186a4a",
+      "promptTokens": 3602,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "506d5c573b094c35ed6033109c387bc0518336e934b9a88a6bb3e08fb14fe3d3",
+      "pairInputSha256": "912d71f1201092ba55ae64518c57454fc40be81df882ed0928d8fa498d8c3982"
+    },
+    {
+      "id": "r2-large-L64-i1--pp-barbeat",
+      "task": "r2-large-L64-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--pp-midi-json",
+      "task": "r2-large-L64-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--baseline-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--baseline-json",
+      "task": "r2-large-L128-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--c3-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "318cd8fcff36d68a960a923ca321e540586c66dbebdee2029ba488406c3a5b26",
+      "promptSha256": "3142a1e2a38395029588d69a6476f732b4f9701e3456a1d1198d591a477af876",
+      "promptTokens": 8168,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "5e6e8253d17aac3422cf443906dd21613b6bd22a7dd10fffd715a15c808b73d4",
+      "pairInputSha256": "318cd8fcff36d68a960a923ca321e540586c66dbebdee2029ba488406c3a5b26"
+    },
+    {
+      "id": "r2-large-L128-i1--c4-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "9d7ee92be427e65a36bcd6499936dd1dab5031ddcd713ff6c36cef1cf2ffe17d",
+      "promptSha256": "1eb7e9463fa3f703991625e848196c833866f7f25c4041dad92d60c817aa2550",
+      "promptTokens": 6083,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "9eb12c6b19a1d9d17e19b29d4889e1580d9f5bdd3990562bba2d036cdd4642e7",
+      "pairInputSha256": "9d7ee92be427e65a36bcd6499936dd1dab5031ddcd713ff6c36cef1cf2ffe17d"
+    },
+    {
+      "id": "r2-large-L128-i1--pp-barbeat",
+      "task": "r2-large-L128-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--pp-midi-json",
+      "task": "r2-large-L128-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--baseline-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--baseline-json",
+      "task": "r2-large-L256-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--c3-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "e6e79556b70cfb7a830c0a0cc75671f7e9fb32d39d89aad8a6caab8a9951f3e5",
+      "promptSha256": "c54422ad232595308905be0ac0979cdba619db7b01373b3f44ca5b70e2f06c67",
+      "promptTokens": 15077,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "f7d0b5f5f6649b28d0a671292b3566d846fa6500f2c9ecdad1645fa9394cd49d",
+      "pairInputSha256": "e6e79556b70cfb7a830c0a0cc75671f7e9fb32d39d89aad8a6caab8a9951f3e5"
+    },
+    {
+      "id": "r2-large-L256-i1--c4-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "d244d758d7dec02f7fad414a2c38f0d5d26fd3b353077d4522e2d0a0b4f1edfa",
+      "promptSha256": "68d13bfb8f3cca775642b8b619e539f6d2e471fac056c2d709308823c19450c4",
+      "promptTokens": 11072,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "1ac938cf62781a207c8037eee8849e77bb6b9d0e08679112e70acd3db9f33cf8",
+      "pairInputSha256": "d244d758d7dec02f7fad414a2c38f0d5d26fd3b353077d4522e2d0a0b4f1edfa"
+    },
+    {
+      "id": "r2-large-L256-i1--pp-barbeat",
+      "task": "r2-large-L256-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--pp-midi-json",
+      "task": "r2-large-L256-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--baseline-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--baseline-json",
+      "task": "r2-large-L384-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--c3-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "6e164ee8129bb1873d86d7614456ca6f62587510e1eafae0ff6fe3ee11b7edee",
+      "promptSha256": "10b8dcf8daa2091fd087e080fcab35669a6971131162489cd9b88d0e01dcc6b3",
+      "promptTokens": 21579,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "5c7521541717b896888cab3bc54b98af82300f8fa278f6a3f9ec4da4f079d86d",
+      "pairInputSha256": "6e164ee8129bb1873d86d7614456ca6f62587510e1eafae0ff6fe3ee11b7edee"
+    },
+    {
+      "id": "r2-large-L384-i1--c4-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "7c2d7a5b1c3ba504c1245feb7c01c4f7b6a1a30f9e5a610349a34fffd0360481",
+      "promptSha256": "28454375c67f4885e595e7bb5b817227d367f3da934c04bb1c596652b35bd243",
+      "promptTokens": 15667,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "8c1b9b152f84b6ba3cbe40dd4a95779d842d99465fd6d023eb634ad279f769e4",
+      "pairInputSha256": "7c2d7a5b1c3ba504c1245feb7c01c4f7b6a1a30f9e5a610349a34fffd0360481"
+    },
+    {
+      "id": "r2-large-L384-i1--pp-barbeat",
+      "task": "r2-large-L384-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--pp-midi-json",
+      "task": "r2-large-L384-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--baseline-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--baseline-json",
+      "task": "r2-interp-L2-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--c3-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "cdbea130217ff2d4f2f2633affa82e15a31aac52524884ede79fc5bdd15540c7",
+      "promptSha256": "afc8b7c1e7e262b476401dc9d1766246046bb94f6db3ec358dcc2ae82cbcda1f",
+      "promptTokens": 2009,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "9e870111f648629025ba6f39eb256c348cc41a920e8c9dfcfdf587b6d90b394a",
+      "pairInputSha256": "cdbea130217ff2d4f2f2633affa82e15a31aac52524884ede79fc5bdd15540c7"
+    },
+    {
+      "id": "r2-interp-L2-i1--c4-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "31907fc278d66e5e07112f97312a8c739658f837c3e239e38edfb92a24a97eba",
+      "promptSha256": "5dbe399be4d772461bebbada9bff76fe89fa69b93b90b1c6dc54d3f233d9166e",
+      "promptTokens": 1942,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "5c89aa1563e8b8a4a3b8c96444a50ede732673b8c887f7d31c78c78ae8b910ba",
+      "pairInputSha256": "31907fc278d66e5e07112f97312a8c739658f837c3e239e38edfb92a24a97eba"
+    },
+    {
+      "id": "r2-interp-L2-i1--pp-barbeat",
+      "task": "r2-interp-L2-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--pp-midi-json",
+      "task": "r2-interp-L2-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--baseline-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--baseline-json",
+      "task": "r2-interp-L4-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--c3-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "2bc82b5fec071e5062683512ffb72a3bae86bac0ec4af418a210bbd65790a3e3",
+      "promptSha256": "9a0db37286471f65cab7c3324a7584fe8849b025acabfd07cd068e170ff8d0b8",
+      "promptTokens": 2705,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "e605e3378921b1bdd161b2d6bf1463eb64fdac59635d8f386c13588b2afdbfd5",
+      "pairInputSha256": "2bc82b5fec071e5062683512ffb72a3bae86bac0ec4af418a210bbd65790a3e3"
+    },
+    {
+      "id": "r2-interp-L4-i1--c4-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "eef38271c41f1db12383daee2ff93894058bdf6a76ec9089a5829932043ebc31",
+      "promptSha256": "d8e05d9b7f05464ddf6b335306c27073657e3617c0f609b1e52dfeb983f62288",
+      "promptTokens": 2552,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "d2cfc1e06d4dd674ce41b29321eb825667c7f0d843548a8eca8fdb4c3d8dbc2a",
+      "pairInputSha256": "eef38271c41f1db12383daee2ff93894058bdf6a76ec9089a5829932043ebc31"
+    },
+    {
+      "id": "r2-interp-L4-i1--pp-barbeat",
+      "task": "r2-interp-L4-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--pp-midi-json",
+      "task": "r2-interp-L4-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--baseline-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--baseline-json",
+      "task": "r2-interp-L8-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--c3-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "5d39892e36855e5186aa4fdfb4edc9e45e636d17c21bea0372c3a845fa01e803",
+      "promptSha256": "b0a1dbcfc62d439bea8fc3d2fa2bd31dcbeaa5044741aa4bffbdca7341bf8be6",
+      "promptTokens": 3876,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "5fefc32473cce55f2ba98040e91399b34a4f27576dfcef772a01aad8bfa340bb",
+      "pairInputSha256": "5d39892e36855e5186aa4fdfb4edc9e45e636d17c21bea0372c3a845fa01e803"
+    },
+    {
+      "id": "r2-interp-L8-i1--c4-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "fd2bfc7c12fbddee194bc1e4e5afa79f7ced4b654b7e8acccd3b877fe9a10947",
+      "promptSha256": "3c46a992adb668c9966d0dd77a673c786cff7b22cbf35e45b2c1c11afb5c8e76",
+      "promptTokens": 3513,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "37290715373a5619dae53b7387efd046edeb3be03f5b5688101f149b9d081ad4",
+      "pairInputSha256": "fd2bfc7c12fbddee194bc1e4e5afa79f7ced4b654b7e8acccd3b877fe9a10947"
+    },
+    {
+      "id": "r2-interp-L8-i1--pp-barbeat",
+      "task": "r2-interp-L8-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--pp-midi-json",
+      "task": "r2-interp-L8-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--baseline-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--baseline-json",
+      "task": "r2-interp-L12-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--c3-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "47e69312b5ede814b9fcfb421deaa7336b9adc7e88cc56e4039cf83dec998c36",
+      "promptSha256": "dee058c214da3f564db01447b44a57312970a6c2a1cbc6ab43abf245b8cc6197",
+      "promptTokens": 5142,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "9f2572671ac87c67ed3b8bd987dd4152515442d348c4c1dffb7dd8937f9c7b01",
+      "pairInputSha256": "47e69312b5ede814b9fcfb421deaa7336b9adc7e88cc56e4039cf83dec998c36"
+    },
+    {
+      "id": "r2-interp-L12-i1--c4-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "002040d290837a632ddf93ac14a1e7761b55a2f1a228a40d64b03244f3b9eff0",
+      "promptSha256": "465adf2e09c9fa515db8e6edccd28d132ba0278f43b8d872c23e6b032781c4ed",
+      "promptTokens": 4618,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "c74f7afd665592a3e78aaefc7f736b2e6eb14cdeddcec0dabe00a7bf00cc5155",
+      "pairInputSha256": "002040d290837a632ddf93ac14a1e7761b55a2f1a228a40d64b03244f3b9eff0"
+    },
+    {
+      "id": "r2-interp-L12-i1--pp-barbeat",
+      "task": "r2-interp-L12-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--pp-midi-json",
+      "task": "r2-interp-L12-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    }
+  ],
+  "order": {
+    "claude-current": [
+      "r0:r2-large-L128-i1--c3-fields",
+      "r0:r2-large-L128-i1--c4-fields",
+      "r0:r2-query-L4-i1--c4-fields",
+      "r0:r2-query-L4-i1--c3-fields",
+      "r0:r2-overlap-L6-i1--c4-fields",
+      "r0:r2-overlap-L6-i1--c3-fields",
+      "r0:r2-overlap-L2-i1--c4-fields",
+      "r0:r2-overlap-L2-i1--c3-fields",
+      "r0:r2-overlap-L8-i1--c3-fields",
+      "r0:r2-overlap-L8-i1--c4-fields",
+      "r0:r2-query-L8-i1--c4-fields",
+      "r0:r2-query-L8-i1--c3-fields",
+      "r0:r2-interp-L8-i1--c4-fields",
+      "r0:r2-interp-L8-i1--c3-fields",
+      "r0:r2-interp-L12-i1--c3-fields",
+      "r0:r2-interp-L12-i1--c4-fields",
+      "r0:r2-large-L256-i1--c4-fields",
+      "r0:r2-large-L256-i1--c3-fields",
+      "r0:r2-query-L16-i1--c3-fields",
+      "r0:r2-query-L16-i1--c4-fields",
+      "r0:r2-overlap-L4-i1--c4-fields",
+      "r0:r2-overlap-L4-i1--c3-fields",
+      "r0:r2-interp-L4-i1--c3-fields",
+      "r0:r2-interp-L4-i1--c4-fields",
+      "r0:r2-interp-L2-i1--c4-fields",
+      "r0:r2-interp-L2-i1--c3-fields",
+      "r0:r2-large-L64-i1--c4-fields",
+      "r0:r2-large-L64-i1--c3-fields",
+      "r0:r2-query-L32-i1--c4-fields",
+      "r0:r2-query-L32-i1--c3-fields",
+      "r0:r2-large-L384-i1--c3-fields",
+      "r0:r2-large-L384-i1--c4-fields"
+    ]
+  },
+  "rehearsal": {
+    "path": "rehearsal.json",
+    "sha256": "5e6ec5b2f784e9e286c31d82c985de708542cec0cb5ff927af71bc2165a530a3",
+    "counts": {
+      "eligibleCells": 32,
+      "goldenPasses": 32,
+      "taskSpecificVariants": 158,
+      "wrongAnswersScored": 316,
+      "wrongAnswersRejected": 316,
+      "gratuitousRefusalsScored": 32,
+      "gratuitousRefusalsRejected": 32,
+      "notDistinguishing": 0,
+      "unencodable": 0,
+      "equivalentSpellingsScored": 32,
+      "equivalentSpellingsAccepted": 32,
+      "equivalentSpellingsDelivered": 32
+    }
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-execution.mjs",
+      "sha256": "f1959e5d6b201d415573e851bc5aa213cc2f3ef9208b21cd0b9dfcec4b184e38"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-pilot-runner.mjs",
+      "sha256": "8ebc0c0d3a6c2a996feceec36840ce1ea4de69b634e4f5aa091b38deb7d14d80"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "96927cfc44ddc9329e1087e051054c60cc45d8267c98751baadfcd3f1b717a8e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "25f0640a7b07d9298fd8d5a31d49cacd23a995e23eb14d5b1f44e540b4904517"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "44cb12efef41c9b0b91345863a44bbb80c59b337e76163f7579099805f94207a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "73c58a6fd91c69f5a3cfbd2f05c1e95e061dd276a746c56668d329ac725b3d35"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-tasks.mjs",
+      "sha256": "c02bc18713102121ccd48ef73c5827c0ab4e45abc361178cf9b1122b588d55c5"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-package.mjs",
+      "sha256": "0fe43fa950de601685b5c1c4cad1253cb9a511ffda675d02f09a493f10e09421"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-tasks.mjs",
+      "sha256": "9115a557b468f105dfa1cc681543c3f00640a38c4eb85af798e5ad734323e043"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-families.mjs",
+      "sha256": "3163f1a08695ba627b48a4393884f4d72632494284e12fd7a70a867e9393fa15"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-inputs.mjs",
+      "sha256": "7fcbfcb2724799e8df800507fe7fa7c960a2d78df4b9da4dc65fa65a48aeb184"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-package.mjs",
+      "sha256": "dfaab7f9df6e3132b7a8e93cf0fa7a2919af13aa1c19761ade0792cd9db559ed"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "ec8a7f17cf203ab0c49b4449ef326063614eeb1959fbf38e792de1f6654a1a8e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "4dd35d43acb1fdb0cecebf9b8aa4de2485f927fbd68f96af8d078550fccab530"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-template.json",
+      "sha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-template-gpt-5.6-terra.json",
+      "sha256": "d8ff601c18d1a310fba6481b6509875242074a65adb76d64c4bc87ecfe3ade82"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    }
+  ]
+}

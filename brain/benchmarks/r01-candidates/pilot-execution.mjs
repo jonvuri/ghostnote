@@ -12,6 +12,7 @@ import { SCORING_VERSION, goldenResponse, scoreResponse, surfaces } from './deve
 import { FEEDBACK_VERSION } from './cli-paired-runner.mjs';
 import { orderOf, pilotPlan, pilotSelection, planSha256, resolvePackage, round2Selection } from './cli-pilot-runner.mjs';
 import { sha } from './cli-attempt.mjs';
+import { FAMILY_WRONG } from './round2-families.mjs';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const json = value => JSON.stringify(value, null, 2) + '\n';
@@ -494,7 +495,7 @@ const LADDER_WRONG = {
 
 /** The task's named wrong answers; refuses a task without a declared set. */
 export function wrongAnswers(task) {
-  const make = WRONG[task.id] ?? LADDER_WRONG[task.ladder?.family];
+  const make = WRONG[task.id] ?? LADDER_WRONG[task.ladder?.family] ?? FAMILY_WRONG[task.ladder?.family];
   assert(make, `${task.id}: no task-specific wrong answers declared`);
   const variants = make(task);
   assert.equal(new Set(variants.map(v => v.name)).size, variants.length, `${task.id}: duplicate variant name`);
@@ -575,7 +576,7 @@ export function rehearseExecution(pkg, codec) {
 
 export const EXECUTION_SOURCES = ['pilot-execution.mjs', 'cli-pilot-runner.mjs', 'cli-paired-runner.mjs', 'cli-trial-plan.mjs',
   'cli-controls.mjs', 'development-surfaces.mjs', 'pilot-tasks.mjs', 'pilot-package.mjs'];
-const ROUND2_SOURCES = ['round2-tasks.mjs', 'round2-inputs.mjs', 'round2-package.mjs', 'cli-control-audit.mjs', 'codex-context-policy.mjs',
+const ROUND2_SOURCES = ['round2-tasks.mjs', 'round2-families.mjs', 'round2-inputs.mjs', 'round2-package.mjs', 'cli-control-audit.mjs', 'codex-context-policy.mjs',
   'codex-context-template.json', 'codex-context-template-gpt-5.6-terra.json', 'claude-context-policy.mjs'];
 // Round 2 context policies and admissions (E364, E380, R01-D13); development stage, no freeze.
 export const ROUND2_CONTROLS = Object.freeze({ decisions: ['D64', 'R01-D8', 'R01-D9', 'R01-D10', 'R01-D11', 'R01-D12', 'R01-D13'],
@@ -609,7 +610,7 @@ export function buildExecutionManifest(pkg, rehearsal, { selection = null, readW
       ...(m.repeats ? { repeats: { ...m.repeats, byTask: undefined } } : {}) } : {}),
     package: { name: pkg.name, directory: relative(root, pkg.directory), manifestSha256: pkg.manifestSha256,
       schema: m.schema, inputVersion: m.inputVersion, windows: m.windows,
-      windowsSha256: sha(readWindows(m.windows)), taskRules: m.taskRules.schema,
+      windowsSha256: m.windows === null ? null : sha(readWindows(m.windows)), taskRules: m.taskRules.schema,
       syntheticSeed: m.syntheticSeed, velocitySeed: m.velocitySeed, counts: m.counts },
     tooling: { node: m.node, upstreamPin: m.upstreamPin, precisionPatchSha256: m.precisionPatchSha256, tokenizer: m.tokenizer },
     hashEncoding: { artifacts: 'SHA-256 of the exact UTF-8 bytes', tasks: 'SHA-256 of canonical sorted-key JSON',
@@ -642,7 +643,11 @@ export const ROUND2_V3_CONTROLS = Object.freeze({ ...ROUND2_CONTROLS,
   decisions: ['D64', 'R01-D8', 'R01-D11', 'R01-D12', 'R01-D13', 'R01-D14', 'R01-D16', 'R01-D17', 'R01-D18'],
   contextPolicies: { 'claude-current': 'r01-claude-context-policy-v2', 'codex-current-high': 'r01-codex-context-policy-v5' },
   stopRules: `${ROUND2_CONTROLS.stopRules} A development control halt may continue after re-audit (R01-D16); a two-stall halt caused by host sleep may continue (R01-D17).` });
-const ROUND2_CONTROLS_BY_VERSION = { 1: ROUND2_CONTROLS, 2: ROUND2_V2_CONTROLS, 3: ROUND2_V3_CONTROLS };
+// Package v4 (R01-D19, R01-D20): v3's controls; the full pass is a calibration.
+export const ROUND2_V4_CONTROLS = Object.freeze({ ...ROUND2_V3_CONTROLS, decisions: [...ROUND2_V3_CONTROLS.decisions, 'R01-D19', 'R01-D20'] });
+// Package v5 (R01-D21): Haiku-only recalibration.
+export const ROUND2_V5_CONTROLS = Object.freeze({ ...ROUND2_V4_CONTROLS, decisions: [...ROUND2_V4_CONTROLS.decisions, 'R01-D21'] });
+const ROUND2_CONTROLS_BY_VERSION = { 1: ROUND2_CONTROLS, 2: ROUND2_V2_CONTROLS, 3: ROUND2_V3_CONTROLS, 4: ROUND2_V4_CONTROLS, 5: ROUND2_V5_CONTROLS, 6: ROUND2_V5_CONTROLS };
 
 function readOracles(pkg) {
   return JSON.parse(readFileSync(join(pkg.directory, 'private-oracles.json'), 'utf8')).responses;

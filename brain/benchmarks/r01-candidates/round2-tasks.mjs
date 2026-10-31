@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { add, cmp, numeric, rational, spell } from './common.mjs';
 import { draw as seededDraw, synthesizeVelocities } from './pilot-tasks.mjs';
+import { FAMILY_GENERATORS, LADDERS_V4, LADDERS_V5, LADDERS_V6, ROUND2_FAMILY_RULES, ROUND2_FAMILY_RULES_V5, ROUND2_FAMILY_RULES_V6 } from './round2-families.mjs';
 
 export const ROUND2_DATA = 'context/evidence/data/r01-round2';
 export const ROUND2_WINDOWS_PATH = `${ROUND2_DATA}/windows.json`;
@@ -319,10 +320,13 @@ function preserveExact(N, k, windows) {
     request: 'Return the entire fixture unchanged, including exact rational values, original note order, all channels/expression/conditional state, and opaque annotations. Do not invent musical intent.' };
 }
 
+// Format-dependent families (R01-D19, R01-D20) live in round2-families.mjs.
 const GENERATORS = { 'derived-read': derivedRead, 'group-retime': groupRetime, regroup, 'member-move': memberMove,
-  'range-edit': rangeEdit, 'selective-delete': selectiveDelete, 'preserve-performed': preservePerformed, 'preserve-exact': preserveExact };
+  'range-edit': rangeEdit, 'selective-delete': selectiveDelete, 'preserve-performed': preservePerformed, 'preserve-exact': preserveExact,
+  ...FAMILY_GENERATORS };
+export { LADDERS_V4, LADDERS_V5, LADDERS_V6, ROUND2_FAMILY_RULES, ROUND2_FAMILY_RULES_V5, ROUND2_FAMILY_RULES_V6 };
 
-export const taskId = (family, level, instance) => `r2-${LADDERS[family].short}-L${level}-i${instance}`;
+export const taskId = (family, level, instance, ladder = LADDERS[family]) => `r2-${ladder.short}-L${level}-i${instance}`;
 
 export function loadRound2Windows(path = ROUND2_WINDOWS_PATH) {
   return JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8'));
@@ -339,7 +343,7 @@ export function round2Tasks(windows = loadRound2Windows(), { ladders = LADDERS, 
       for (const instance of ladder.instances ?? range(1, instances)) {
         const built = GENERATORS[family](level, instance, windows);
         const { detail, ...task } = built;
-        tasks.push({ id: taskId(family, level, instance), version: 1, family: ladder.family, cohort: ladder.cohort,
+        tasks.push({ id: taskId(family, level, instance, ladder), version: 1, family: ladder.family, cohort: ladder.cohort,
           source: task.source ?? 'synthetic', ...task,
           ...(ladder.cohort === 'source' && ladder.diagnosticLevel === levelIndex ? { diagnostics: true } : {}),
           ladder: { family, level, levelIndex, instance, axis: ladder.axis, from: ladder.from, ...detail } });

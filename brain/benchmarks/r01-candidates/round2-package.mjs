@@ -7,9 +7,10 @@ import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { buildPackage, writePackage } from './development-pairs.mjs';
 import { createAdapter } from './precision.mjs';
-import { INSTANCES, LADDERS, LADDERS_V2, LADDERS_V3, ROUND2_RULES, ROUND2_RULES_V2, ROUND2_RULES_V3, ROUND2_SEEDS, ROUND2_WINDOWS_PATH, ROUND2_WINDOWS_V3_PATH,
+import { INSTANCES, LADDERS, LADDERS_V2, LADDERS_V3, LADDERS_V4, LADDERS_V5, LADDERS_V6, ROUND2_FAMILY_RULES, ROUND2_FAMILY_RULES_V5, ROUND2_FAMILY_RULES_V6, ROUND2_RULES, ROUND2_RULES_V2, ROUND2_RULES_V3, ROUND2_SEEDS, ROUND2_WINDOWS_PATH, ROUND2_WINDOWS_V3_PATH,
   loadRound2Windows, round2Tasks } from './round2-tasks.mjs';
 import { ROUND2_WINDOW_RULES, ROUND2_WINDOW_RULES_V3 } from './round2-inputs.mjs';
+import { FAMILY_SEED } from './round2-families.mjs';
 
 export const ROUND2_PACKAGE = 'round2-development-v1';
 // Version 2 (R01-D14): harder shared ladder; cohorts Haiku 5.5 low and Luna high.
@@ -19,9 +20,23 @@ export const ROUND2_VERSIONS = Object.freeze({
   // Version 3 (R01-D18): one package per cohort, fresh instances, per-family repeats.
   3: { name: 'round2-development-v3', perCohort: LADDERS_V3, rules: ROUND2_RULES_V3, selectionVersion: 3,
     windows: ROUND2_WINDOWS_V3_PATH, windowRules: ROUND2_WINDOW_RULES_V3, decisions: ['R01-D8', 'R01-D11', 'R01-D12', 'R01-D13', 'R01-D14', 'R01-D18'] },
+  // Version 4 (R01-D19, R01-D20): format-dependent families, synthetic only (no
+  // real windows); one calibration instance per level in each cohort's package.
+  4: { name: 'round2-development-v4', perCohort: LADDERS_V4, rules: ROUND2_FAMILY_RULES, selectionVersion: 4, windows: null, windowRules: null,
+    inputVersion: 'round2-4-synthetic', decisions: ['R01-D8', 'R01-D11', 'R01-D12', 'R01-D14', 'R01-D18', 'R01-D19', 'R01-D20'] },
+  // Version 5 (R01-D21): Haiku-only recalibration of the families at higher levels.
+  5: { name: 'round2-development-v5', perCohort: LADDERS_V5, rules: ROUND2_FAMILY_RULES_V5, selectionVersion: 5, windows: null, windowRules: null,
+    inputVersion: 'round2-4-synthetic', decisions: ['R01-D8', 'R01-D11', 'R01-D12', 'R01-D18', 'R01-D19', 'R01-D20', 'R01-D21'] },
+  // Version 6 (R01-D21): development pass of the families on one shared ladder, fresh instances.
+  6: { name: 'round2-development-v6', perCohort: LADDERS_V6, rules: ROUND2_FAMILY_RULES_V6, selectionVersion: 6, windows: null, windowRules: null,
+    inputVersion: 'round2-4-synthetic', decisions: ['R01-D8', 'R01-D11', 'R01-D12', 'R01-D18', 'R01-D19', 'R01-D20', 'R01-D21'] },
 });
-// Version 3 package names by cohort.
+// Per-cohort package names by version.
 export const V3_PACKAGES = Object.freeze({ 'claude-current': 'round2-development-v3-haiku', 'codex-current-high': 'round2-development-v3-luna' });
+export const V4_PACKAGES = Object.freeze({ 'claude-current': 'round2-development-v4-haiku', 'codex-current-high': 'round2-development-v4-luna' });
+export const V5_PACKAGES = Object.freeze({ 'claude-current': 'round2-development-v5-haiku' });
+export const V6_PACKAGES = Object.freeze({ 'claude-current': 'round2-development-v6-haiku', 'codex-current-high': 'round2-development-v6-luna' });
+const PACKAGES_BY_VERSION = { 3: V3_PACKAGES, 4: V4_PACKAGES, 5: V5_PACKAGES, 6: V6_PACKAGES };
 
 /** Per-task repeats from a v3 ladder (R01-D18); earlier versions use the selection's single count. */
 export function repeatsByTask(built, ladders) {
@@ -54,13 +69,14 @@ export const round2Header = (version = 1, cohort = null) => { const v = ROUND2_V
   const ladders = v.perCohort ? v.perCohort[cohort] : v.ladders;
   assert(ladders, `round-2 package version ${version} needs a cohort with a ladder`);
   return Object.freeze({ schema: 'r01-pilot-package-v1', status: 'offline-materialized', stage: 'development',
-    round: 2, packageVersion: v.perCohort ? V3_PACKAGES[cohort] : v.name, inputVersion: v.perCohort ? 'round2-3' : 'round2-1',
-    windows: v.windows ?? ROUND2_WINDOWS_PATH, windowRules: v.windowRules ?? ROUND2_WINDOW_RULES,
+    round: 2, packageVersion: v.perCohort ? PACKAGES_BY_VERSION[version][cohort] : v.name, inputVersion: v.inputVersion ?? (v.perCohort ? 'round2-3' : 'round2-1'),
+    windows: v.windows === undefined ? ROUND2_WINDOWS_PATH : v.windows, windowRules: v.windowRules === undefined ? ROUND2_WINDOW_RULES : v.windowRules,
     taskRules: v.rules, ladders,
     instances: v.perCohort ? Object.fromEntries(Object.entries(ladders).map(([f, l]) => [f, l.instances])) : INSTANCES,
     ...(v.perCohort ? { cohort } : {}), decisions: v.decisions,
     ...(version >= 2 ? { selectionVersion: v.selectionVersion } : {}),
-    syntheticSeed: ROUND2_SEEDS.synthetic, velocitySeed: ROUND2_SEEDS.velocity }); };
+    ...(version >= 4 ? { syntheticSeed: FAMILY_SEED, velocitySeed: null }
+      : { syntheticSeed: ROUND2_SEEDS.synthetic, velocitySeed: ROUND2_SEEDS.velocity }) }); };
 
 export const ROUND2_LIMITS = [
   'Development stage, round 2 (R01-D8): works 4-6 and the round-2 seeds may be reused and tuned; results support design iteration only and are never pooled with round 1.',
@@ -89,14 +105,37 @@ const LIMITS_V3 = [
   ...ROUND2_LIMITS.slice(5),
 ];
 
+const LIMITS_V5 = [
+  'Development stage, round 2 (R01-D8): synthetic material only (seed r01-round2-families-v1); results support design iteration only.',
+  'Ladder v5 (R01-D21): Haiku-only recalibration above the v4 levels that saturated it (E389); one instance per level and one repeat. Large-edit is not probed (output cap, R01-D20).',
+  'Source tasks exclude current-document and Producer Pal arms. No source diagnostics run.',
+];
+const LIMITS_V6 = [
+  'Development stage, round 2 (R01-D8): synthetic material only (seed r01-round2-families-v1); results support design iteration only and are never pooled with round 1.',
+  'Ladder v6 (R01-D21): per family, the union of Luna\'s levels (E389) and Haiku\'s levels (pre-stated rule on the v5 recalibration), run identically by both models. Each model also runs levels chosen for the other.',
+  'Fresh instances 2-13, one repeat (R01-D18); instance 1 was used in calibration.',
+  'Source tasks exclude current-document and Producer Pal arms. No source diagnostics run.',
+  ...ROUND2_LIMITS.slice(5),
+];
+const LIMITS_V4 = [
+  'Development stage, round 2 (R01-D8): synthetic material only (seed r01-round2-families-v1); no work is opened and no real window is used. Results support design iteration only and are never pooled with round 1.',
+  'Ladder v4 (R01-D19, R01-D20): four format-dependent families on C3 and C4 FIELDS, uncalibrated levels shared by both cohort packages, one instance per level and one repeat (calibration). The development pass uses fresh instances in a later package.',
+  'Synthetic documents are constructed to exercise structure (derived onsets, overlapping memberships, rich surrounding state, interpretation provenance); they are not musical material and carry no performance intent.',
+  'Source tasks exclude current-document and Producer Pal arms. No source diagnostics run.',
+  ...ROUND2_LIMITS.slice(5),
+];
+
 export function buildRound2Package(adapter, tokenizer, { windows, instances = INSTANCES, version = 1, cohort = null } = {}) {
   const v = ROUND2_VERSIONS[version];
   assert(v, `unknown round-2 package version ${version}`);
-  windows ??= loadRound2Windows(v.windows);
-  assert.equal(windows.schema, 'r01-round2-windows-v1', 'round 2 needs round-2 windows');
+  // Version 4 is synthetic; its generators never read windows.
+  if (v.windows !== null) {
+    windows ??= loadRound2Windows(v.windows);
+    assert.equal(windows.schema, 'r01-round2-windows-v1', 'round 2 needs round-2 windows');
+  }
   const header = round2Header(version, cohort), ladders = header.ladders;
-  const built = buildPackage(adapter, tokenizer, { tasks: round2Tasks(windows, { instances, ladders }), header,
-    limits: version >= 3 ? LIMITS_V3 : version >= 2 ? LIMITS_V2 : ROUND2_LIMITS, promptRevision: 2 });
+  const built = buildPackage(adapter, tokenizer, { tasks: round2Tasks(windows ?? null, { instances, ladders }), header,
+    limits: version === 6 ? LIMITS_V6 : version === 5 ? LIMITS_V5 : version >= 4 ? LIMITS_V4 : version >= 3 ? LIMITS_V3 : version >= 2 ? LIMITS_V2 : ROUND2_LIMITS, promptRevision: 2 });
   built.manifest.timeouts = levelTimeouts(built, tokenizer);
   if (version >= 3) built.manifest.repeats = repeatsByTask(built, ladders);
   return built;
@@ -104,8 +143,8 @@ export function buildRound2Package(adapter, tokenizer, { windows, instances = IN
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const [upstream, tooling, output, version = '1', cohort = null] = process.argv.slice(2);
-  assert(upstream && tooling && output && (version !== '3' || cohort),
-    'usage: node --import tsx round2-package.mjs PINNED_PP TOOLING NEW_OUTPUT_DIRECTORY [VERSION=1|2|3] [COHORT (version 3)]');
+  assert(upstream && tooling && output && (Number(version) < 3 || cohort),
+    'usage: node --import tsx round2-package.mjs PINNED_PP TOOLING NEW_OUTPUT_DIRECTORY [VERSION=1|2|3|4] [COHORT (versions 3 and 4)]');
   const tokenizerPackage = JSON.parse(readFileSync(resolve(tooling, 'node_modules/js-tiktoken/package.json')));
   assert.equal(tokenizerPackage.version, '1.0.21');
   const { getEncoding } = await import(pathToFileURL(resolve(tooling, 'node_modules/js-tiktoken/dist/index.js')));
@@ -113,7 +152,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     const built = buildRound2Package(adapter, getEncoding('o200k_base'), { version: Number(version), cohort });
     writePackage(built, resolve(output), { extraSources: ['brain/benchmarks/r01-candidates/round2-tasks.mjs',
-      'brain/benchmarks/r01-candidates/round2-inputs.mjs', 'brain/benchmarks/r01-candidates/round2-package.mjs', built.manifest.windows] });
+      'brain/benchmarks/r01-candidates/round2-inputs.mjs', 'brain/benchmarks/r01-candidates/round2-package.mjs',
+      ...(Number(version) >= 4 ? ['brain/benchmarks/r01-candidates/round2-families.mjs'] : [built.manifest.windows])] });
     console.log(JSON.stringify({ counts: built.manifest.counts, timeouts: built.manifest.timeouts.byLevel }, null, 2));
   } finally { adapter.dispose(); }
 }

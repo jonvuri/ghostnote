@@ -275,13 +275,70 @@ on fresh instances: 576 runs, no halt.
 - **Tooling:** pinned tooling now lives in `.tmp/r01-tooling/` after a
   `/tmp` cleanup deleted the old copies.
 
-**Next: new format-dependent task families on the same two cohorts**
-([R01-D19](../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md),
-[handoff](work/r01-round-2-difficulty-scaling.md#next-steps-handoff-2026-10-30-after-e387-format-dependent-families)).
-The families are query-selected edits, overlapping memberships, edits within
-large state and, optionally, interpretation maintenance. The tool loop and
-stronger cohorts are deferred: Haiku is under-challenged (57 both-pass
-against 3 both-fail pairs), and corrections already act as a short loop.
+[R01-D19](../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md)
+turns step 6 into new format-dependent task families on the same two
+cohorts; the tool loop and stronger cohorts are deferred.
+[E388](evidence/experiments/e388-r01-round2-format-dependent-families-offline.md)
+builds the families offline.
+- **Families:** query-selected edits, overlapping memberships, edits within
+  large state and interpretation maintenance. Each is synthetic and has
+  level-aware wrong answers.
+- **Packages:** `round2-development-v4-haiku` and `-luna` share one
+  uncalibrated ladder. Each holds 16 tasks and 32 C3/C4 FIELDS cells, and
+  its full pass is the calibration.
+- **Rehearsal:** every golden passes, and all 316 wrong answers per package
+  are rejected. 272 focused tests pass.
+
+The operator accepted
+[R01-D20](../spec/r01-research/decisions/r01-d20-round-2-format-dependent-family-designs-and-calibration.md),
+and [E389](evidence/experiments/e389-r01-round2-v4-calibration.md) ran the
+calibration: 64 runs in 29 minutes, with no halt or stall.
+- **Haiku:** at the ceiling. It passed 30/32 on the first attempt and 32/32
+  within budget; its only misses were two C4 cells.
+- **Luna:** near 50%, with discordance. It passed 12/32 on the first
+  attempt (C3 6, C4 6) and 24/32 within budget, with 4 C3-only and 4
+  C4-only pairs. Interpretation maintenance is at its first-attempt floor
+  (0/8).
+- **Error visibility:** 6 of 10 Luna C3 failures were validator-caught,
+  against 3 of 10 for C4.
+- **Defects:** none found.
+
+The operator then delegated Haiku's levels and the development pass
+([R01-D21](../spec/r01-research/decisions/r01-d21-round-2-haiku-recalibration-and-shared-development-ladder.md),
+with the level rule fixed before data).
+[E390](evidence/experiments/e390-r01-round2-haiku-recalibration.md) probed
+Haiku at 2–3× the v4 tops: it passed 17/18, breaking only at query 64.
+[E391](evidence/experiments/e391-r01-round2-v6-development-pass.md) ran one
+shared ladder for both models on 12 fresh instances (576 runs, no halt).
+- **Luna:** C4 beats C3 FIELDS overall (OR 2.0, p = 0.023), on query edits
+  (5.9, p = 0.007) and inside large documents (9.0, p = 0.002). Overlap is
+  even, and interp leans C3 without significance.
+- **Haiku:** no accuracy difference (263/288). For the same correct answers,
+  C4 generates about two-thirds of C3's tokens (query 0.63, overlap 0.64,
+  large 0.75, interp 0.92).
+- **Luna abandons long C3 answers:** at query 64–96, 17/24 C3 first answers
+  were non-attempts, against 3/24 in C4.
+- **Error visibility:** C3 catches more of its own failures.
+
+The operator then made a **capability grid** R01's focus
+([R01-D22](../spec/r01-research/decisions/r01-d22-capability-grid-focus.md),
+[brief](work/r01-format-comparison.md#focus-capability-grid-r01-d22-2026-10-31)).
+- **State:** A1 performed core, A2 authoritative host state, A3 annotative
+  context.
+- **Interaction:** B1 restatement, B2 addressed editing, B3 sustained
+  editing.
+- **Desirable features:** local addressability is B2; state continuity and
+  edit lineage are B3.
+- **Evidence:** R01 and Phase 8 have measured only B1 and single-turn B2.
+  B3 is unmeasured for every format.
+
+**Next (fresh session):**
+1. Classify the operator's local Codex sessions that used Ghostnote into
+   grid cells.
+2. Assess how the live format (Ghostnote document 1.0, compact-bar FIELDS)
+   performed in those cells.
+3. Reassess R01 holistically and propose next steps. Round 2's step 4 waits
+   for this.
 R01's outcome (adoption, claims, naming) waits for round 2.
 Works A–C are development material (E366); only development runs have occurred. E353 remains the
 initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,

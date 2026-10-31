@@ -58,12 +58,85 @@ and manifests. They keep their IDs because retained, hashed artifacts cite them
 | [R01-D17](../../spec/r01-research/decisions/r01-d17-round-2-continuation-after-sleep-stall-halt.md) | Continuing after a sleep-caused stall halt; operator manages power |
 | [R01-D18](../../spec/r01-research/decisions/r01-d18-round-2-discordant-levels-fresh-instances.md) | Analysis model, per-cohort discordant levels and fresh instances over repeats (package v3; accepted, run as E387) |
 | [R01-D19](../../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md) | Round 2's step 6 becomes format-dependent task families on the current cohorts; tool loop and stronger cohorts deferred |
+| [R01-D20](../../spec/r01-research/decisions/r01-d20-round-2-format-dependent-family-designs-and-calibration.md) | Format-dependent family designs, calibration ladders and v4 packages (run as E388, E389) |
+| [R01-D21](../../spec/r01-research/decisions/r01-d21-round-2-haiku-recalibration-and-shared-development-ladder.md) | Haiku recalibration and one shared development ladder for both models (run as E390, E391) |
+| [R01-D22](../../spec/r01-research/decisions/r01-d22-capability-grid-focus.md) | R01 focus: a capability grid of state (A1–A3) and interaction (B1–B3), with the desirable features mapped onto it |
 
 Record further R01 protocol decisions, including the freeze-review answers,
 in that directory and this table; do not add them to the project decision
 index. Only R01's outcome (format adoption, claims or public naming) belongs
 in the project decision index. Number new R01 decisions R01-D1, R01-D2, and
 so on, so they cannot collide with project D numbers.
+
+## Focus: capability grid (R01-D22, 2026-10-31)
+
+R01 now organises its questions on two axes
+([R01-D22](../../spec/r01-research/decisions/r01-d22-capability-grid-focus.md)).
+
+- **State, by authority:**
+  - *A1 performed core* (pitch, onset, duration, velocity).
+  - *A2 authoritative host state* (channel, expression, mute, chance and
+    similar; loss makes a write unsafe).
+  - *A3 annotative context* (groups, timing intent, nominal timing,
+    provenance, interpretation state, annotations, overlays; loss
+    degrades, and the context can go stale or be recomputed).
+- **Interaction:**
+  - *B1 restatement* (each turn returns everything).
+  - *B2 addressed editing* (sparse operations aimed by ID or selector).
+  - *B3 sustained editing* (addressed edits across turns, with lineage,
+    stale-base safety and preservation of unseen state).
+
+The operator's desirable features map onto axis B:
+- local addressability is B2;
+- state continuity and edit lineage are B3.
+
+Their reassessment ([below](#reassessment-of-the-earlier-rationale)) carries
+over unchanged:
+- addressability is useful but not Ghostnote-only;
+- continuity is partly outside the notation;
+- lineage is conditional, and no three-way merge exists.
+
+An overlay is A3 content whose attachment depends on B3 identity.
+
+**Evidence by cell.**
+
+| Cells | Evidence |
+|---|---|
+| A1/B1 | All performed comparisons. C4 and baseline FIELDS hold up against MIDI JSON and beat it for Luna on larger range edits; bar\|beat is weakest |
+| A2/B1 | Preserve-exact and large-edit rich fields |
+| A3/B1 | C3 against C4 FIELDS only. C4 is better for Luna and cheaper for Haiku |
+| A1–A2/B2 | Phase 8's single-turn ID patches, with preservation and stale checks supplied by the compiler (E115, E137, E121) |
+| B3 (all) and A3/B2 | Unmeasured for every format |
+
+### Next session (queued)
+
+1. **Real-world usage by cell.** Investigate every local Codex session that
+   used Ghostnote so far. Sessions are under `~/.codex/sessions/` (with
+   `~/.codex/archived_sessions/` and `~/.codex/session_index.jsonl`); find
+   them by their Ghostnote MCP tool calls. Classify each Ghostnote
+   interaction into grid cells. Consider:
+   - which state the turn touched (A1–A3);
+   - whether it restated, addressed, or continued earlier edits over turns
+     (B1–B3);
+   - which authoring conveniences were wanted.
+
+   Count sessions, turns and tool calls per cell. Keep transcripts local:
+   record counts and short paraphrased examples, not private content.
+2. **Live format performance in those cells.** Assess how the current live
+   document format (Ghostnote document 1.0 with compact-bar FIELDS) performed
+   there: successes, failures, refusals, repairs, wasted restatement,
+   preservation or identity problems, payload sizes and tool-call counts.
+   Separate format causes from host, tool-design and model causes.
+3. **Holistic reassessment.** With that data, reassess R01 as a whole:
+   - its findings so far (E353–E391);
+   - the open round-2 step 4 (freeze for the rigorous round, or a stronger
+     model);
+   - whether B2/B3 evaluation (multi-turn or patch-based, the tool loop
+     R01-D19 deferred) is now the priority;
+   - what R01's outcome needs: adoption, claims and naming.
+
+   Record the result as an E record and the decision as R01-D23 or later,
+   then propose next steps to the operator.
 
 ## Current checkpoint: candidate package ready
 

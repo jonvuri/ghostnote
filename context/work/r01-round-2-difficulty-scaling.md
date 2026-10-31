@@ -8,7 +8,17 @@ step 6 is done: the model and package v3 are in
 and the v3 pass is
 [E387](../evidence/experiments/e387-r01-round2-v3-development-pass.md). Step 6,
 revised by [R01-D19](../../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md)
-to new format-dependent task families, is next.** Parent brief:
+to new format-dependent task families, is under way: the offline build is
+[E388](../evidence/experiments/e388-r01-round2-format-dependent-families-offline.md),
+its design ([R01-D20](../../spec/r01-research/decisions/r01-d20-round-2-format-dependent-family-designs-and-calibration.md))
+is accepted. The calibration is
+[E389](../evidence/experiments/e389-r01-round2-v4-calibration.md), Haiku's
+recalibration is [E390](../evidence/experiments/e390-r01-round2-haiku-recalibration.md)
+([R01-D21](../../spec/r01-research/decisions/r01-d21-round-2-haiku-recalibration-and-shared-development-ladder.md)),
+and the development pass is
+[E391](../evidence/experiments/e391-r01-round2-v6-development-pass.md). Step 4,
+the operator's decision, now waits for R01's holistic reassessment under the
+capability grid ([R01-D22](../../spec/r01-research/decisions/r01-d22-capability-grid-focus.md)).** Parent brief:
 [R01](r01-format-comparison.md). Round 2 is a version reset
 ([R01-D8](../../spec/r01-research/decisions/r01-d8-round-2-version-reset-and-work-reuse.md)).
 
@@ -243,6 +253,8 @@ The operator answered the open decisions:
 | [R01-D17](../../spec/r01-research/decisions/r01-d17-round-2-continuation-after-sleep-stall-halt.md) | Continuing after a sleep-caused stall halt; the operator manages host power |
 | [R01-D18](../../spec/r01-research/decisions/r01-d18-round-2-discordant-levels-fresh-instances.md) | The analysis model, per-cohort levels chosen for discordance, and fresh instances over repeats (package v3; accepted, run as E387) |
 | [R01-D19](../../spec/r01-research/decisions/r01-d19-round-2-format-dependent-families-before-step-6.md) | Step 6 becomes format-dependent task families on the current cohorts; the tool loop and stronger cohorts are deferred |
+| [R01-D20](../../spec/r01-research/decisions/r01-d20-round-2-format-dependent-family-designs-and-calibration.md) | The four family designs, calibration ladders, per-cohort v4 packages and selection v4 (accepted; calibration run as E389) |
+| [R01-D21](../../spec/r01-research/decisions/r01-d21-round-2-haiku-recalibration-and-shared-development-ladder.md) | Haiku recalibration (v5), a pre-stated rule for Haiku's levels, and one shared development ladder for both models (v6); delegated by the operator, run as E390 and E391 |
 
 The sections above incorporate these decisions. Steps 2–4 are complete.
 The calibration pass ([E382](../evidence/experiments/e382-r01-round2-calibration-pass.md))
@@ -451,15 +463,47 @@ layout.
      instances.
    - Offline rehearsal (goldens pass, wrong answers rejected) and focused
      tests.
+
+   *Done (E388).* All four families are built, including interpretation
+   maintenance. Packages `round2-development-v4-haiku` and `-luna` share
+   one uncalibrated ladder (16 tasks, 32 cells each). Every golden passes,
+   all 316 wrong answers per package are rejected, and 272 focused tests
+   pass. Large-edit stops at 384 notes to stay clear of CLI output limits.
+   R01-D20 proposes the designs and the calibration (accepted).
 2. **Calibration** (operator approval first). One instance per level, four
    levels per family, one repeat, both cohorts: for three families, about 24
    runs per cohort, under an hour. Choose per-cohort levels near 50% with
    discordance in view; ladders may differ between cohorts.
+
+   *Done (E389).* There were 32 runs per cohort, completed in 29 minutes
+   with no halt.
+   - **Haiku:** 30/32 on the first attempt (16/16 C3, 14/16 C4), so it is
+     saturated at every level.
+   - **Luna:** 12/32 on the first attempt (C3 6, C4 6) and 24/32 within
+     budget, with 8 of 16 pairs discordant (4 each way). Interpretation
+     maintenance is at its first-attempt floor.
+   - **Error visibility:** Luna's C3 failures are mostly validator-caught
+     (6/10, against 3/10 for C4).
+   - **Next:** Haiku needs harder levels before a development pass is useful
+     for it.
+
+   *Recalibration (E390, R01-D21).* Haiku passed 17/18 at query 48–96,
+   overlap 12–24 and interp 16–32, breaking only at query 64. The pre-stated
+   rule therefore gave Haiku query 64 and 96, overlap 24 and interp 32. The
+   shared development ladder is the union of both models' levels.
 3. **Development pass** (operator approval first). About 12 fresh instances ×
    one repeat at the chosen levels: for three families at three levels,
    about 216 runs per cohort, roughly 3–4 hours in parallel. Record an E
    record using the E387 model (C4 effect per family group, interactions)
    and sign tests.
+   *Done (E391).* Both models ran the same 144 tasks (12 fresh instances ×
+   12 levels, C3 and C4 FIELDS): 576 runs, no halt.
+   - **Luna:** C4 wins overall (OR 2.0, p = 0.023), on query edits (5.9) and
+     large documents (9.0). Overlap is even; interp leans C3 (n.s.).
+   - **Haiku:** no accuracy difference, but C4 needs about two-thirds of C3's
+     generated tokens for the same correct answers.
+   - **Abandonment:** Luna abandons most long C3 answers at query 64–96.
+
 4. **Then decide with the operator.**
    - If the families separate formats, consider freezing round 2 for the
      rigorous round on works 1–3.

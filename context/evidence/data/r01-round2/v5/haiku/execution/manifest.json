@@ -1,0 +1,944 @@
+{
+  "schema": "r01-pilot-execution-manifest-v1",
+  "stage": "development",
+  "status": "pinned-not-submitted",
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "feedback": "r01-feedback-v2-locating",
+  "evidence": "development stage: supports design iteration only, not candidate comparison",
+  "round": 2,
+  "controls": {
+    "decisions": [
+      "D64",
+      "R01-D8",
+      "R01-D11",
+      "R01-D12",
+      "R01-D13",
+      "R01-D14",
+      "R01-D16",
+      "R01-D17",
+      "R01-D18",
+      "R01-D19",
+      "R01-D20",
+      "R01-D21"
+    ],
+    "contextPolicies": {
+      "claude-current": "r01-claude-context-policy-v2",
+      "codex-current-high": "r01-codex-context-policy-v5"
+    },
+    "retries": "r01-retries-reported-v1",
+    "stopRules": "A control failure halts; a stall gets one identical resubmission and a second consecutive stall halts; a quota pause resumes with a labeled resubmission. A development control halt may continue after re-audit (R01-D16); a two-stall halt caused by host sleep may continue (R01-D17)."
+  },
+  "timeouts": {
+    "schema": "r01-round2-timeout-v1",
+    "baseMs": 120000,
+    "perTokenMs": 60,
+    "roundToMs": 10000,
+    "expectedOutput": "the largest golden response, in local o200k_base tokens, over every eligible arm and instance of the family level",
+    "formula": "timeoutMs = ceil((baseMs + perTokenMs x expected output tokens) / roundToMs) x roundToMs",
+    "rationale": "At least the round-1 limit; 60 ms per token allows about 17 answer tokens per second beyond two minutes for reasoning and latency. Elapsed time is reported as a measure.",
+    "byLevel": {
+      "query-edit": {
+        "48": {
+          "expectedOutputTokens": 10004,
+          "timeoutMs": 730000
+        },
+        "64": {
+          "expectedOutputTokens": 13285,
+          "timeoutMs": 920000
+        },
+        "96": {
+          "expectedOutputTokens": 19866,
+          "timeoutMs": 1320000
+        }
+      },
+      "overlap-edit": {
+        "12": {
+          "expectedOutputTokens": 2846,
+          "timeoutMs": 300000
+        },
+        "16": {
+          "expectedOutputTokens": 3484,
+          "timeoutMs": 330000
+        },
+        "24": {
+          "expectedOutputTokens": 4749,
+          "timeoutMs": 410000
+        }
+      },
+      "interp-maintain": {
+        "16": {
+          "expectedOutputTokens": 5422,
+          "timeoutMs": 450000
+        },
+        "24": {
+          "expectedOutputTokens": 7651,
+          "timeoutMs": 580000
+        },
+        "32": {
+          "expectedOutputTokens": 10294,
+          "timeoutMs": 740000
+        }
+      }
+    }
+  },
+  "repeats": {
+    "schema": "r01-round2-repeats-v1",
+    "rule": "Each family ladder sets its repeats; the planner schedules that many repetitions of each of its tasks."
+  },
+  "package": {
+    "name": "round2-development-v5-haiku",
+    "directory": "context/evidence/data/r01-round2/v5/haiku/package",
+    "manifestSha256": "1c286216e460d042737227bcfb7d8ec561bf14b207a98000ec068a7e2c3c325a",
+    "schema": "r01-pilot-package-v1",
+    "inputVersion": "round2-4-synthetic",
+    "windows": null,
+    "windowsSha256": null,
+    "taskRules": "r01-round2-task-rules-v5",
+    "syntheticSeed": "r01-round2-families-v1",
+    "velocitySeed": null,
+    "counts": {
+      "tasks": 9,
+      "cards": 2,
+      "scheduledCells": 54,
+      "primaryCells": 54,
+      "diagnosticCells": 0,
+      "eligibleCells": 18,
+      "exclusions": 36,
+      "goldenPasses": 18,
+      "wrongResultsRejected": 18,
+      "gratuitousRefusalsRejected": 18
+    }
+  },
+  "tooling": {
+    "node": "v24.11.1",
+    "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+    "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+    "tokenizer": "js-tiktoken@1.0.21/o200k_base"
+  },
+  "hashEncoding": {
+    "artifacts": "SHA-256 of the exact UTF-8 bytes",
+    "tasks": "SHA-256 of canonical sorted-key JSON",
+    "plan": "SHA-256 of canonical sorted-key JSON of plan.json as the runner writes it"
+  },
+  "selection": {
+    "schema": "r01-round2-selection-v5",
+    "round": 2,
+    "stage": "development",
+    "seed": "r01-round2-order-v5",
+    "cohorts": [
+      "claude-current"
+    ],
+    "optionalCohorts": [],
+    "tasks": null,
+    "instances": null,
+    "repeats": 1,
+    "maxRepairs": 2,
+    "timeoutMs": 120000,
+    "timeoutRule": "r01-round2-timeout-v1",
+    "stallResubmissions": 1,
+    "repeatRule": "r01-round2-repeats-v1",
+    "fullPass": "calibration",
+    "packageCohort": "claude-current",
+    "pass": "calibration",
+    "subset": false
+  },
+  "cohorts": [
+    {
+      "id": "claude-current",
+      "configSha256": "ba49acfc5dd7a81f495bd75d515723db11ea37efea600bc07b0fb0921a5693b1",
+      "profile": {
+        "provider": "claude",
+        "model": "claude-haiku-5-5",
+        "effort": "low",
+        "version": "2.1.302 (Claude Code)"
+      }
+    }
+  ],
+  "plan": {
+    "schema": "r01-cli-development-trial-plan-v1",
+    "seed": "r01-round2-order-v5",
+    "configurationSha256": "d328c2aad16c301c575cd583e4860aa641fa32eb4151a70692f038b008275108",
+    "developmentManifestSha256": "35a7567fd9316ef92900a3cc507305b1026ed9dfe243f49e4ea7d95a2a8ed49b",
+    "planSha256": "198f5966e72be2e282f583a87bdff16910349be49cfc4d10ef240754b0422466",
+    "counts": {
+      "configurations": 1,
+      "blocks": 9,
+      "initialAttempts": 18,
+      "primaryAttempts": 18,
+      "diagnosticAttempts": 0,
+      "exclusions": 36,
+      "maximumTaskAttempts": 54
+    }
+  },
+  "tasks": [
+    {
+      "id": "r2-query-L48-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "79a2a4cfc1d3c5ab9e1dd6f213a8c38f7aac7665934816fe9364e0452876d4db",
+      "ladder": {
+        "family": "query-edit",
+        "level": 48,
+        "instance": 1
+      },
+      "timeoutMs": 730000
+    },
+    {
+      "id": "r2-query-L64-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "f9d00ecaf7beec74699555f401d356b4a2625f46ebbd368e2e7cd2013853448a",
+      "ladder": {
+        "family": "query-edit",
+        "level": 64,
+        "instance": 1
+      },
+      "timeoutMs": 920000
+    },
+    {
+      "id": "r2-query-L96-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "d2662b91d99f42ee5b63f42d663eaf2447634e9c5c24719bbc0e81e2599c0883",
+      "ladder": {
+        "family": "query-edit",
+        "level": 96,
+        "instance": 1
+      },
+      "timeoutMs": 1320000
+    },
+    {
+      "id": "r2-overlap-L12-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "5c0893384a20ebed12feefd8fa828d7c3cbde6c5bf9aa833a1d3a9ec855a62bd",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 12,
+        "instance": 1
+      },
+      "timeoutMs": 300000
+    },
+    {
+      "id": "r2-overlap-L16-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "6e50cc9fd2575eeb2ca90aa25c1ee78be5c31afb56be7eb268a816faf7776c0a",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 16,
+        "instance": 1
+      },
+      "timeoutMs": 330000
+    },
+    {
+      "id": "r2-overlap-L24-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "785f0bbd0e473555f04dd5c519bf55409e7a31ab57f2dd9302fe4f86360e1cc1",
+      "ladder": {
+        "family": "overlap-edit",
+        "level": 24,
+        "instance": 1
+      },
+      "timeoutMs": 410000
+    },
+    {
+      "id": "r2-interp-L16-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "b4475d71e24da908e40c8142720778c26fa224b63cb9f7a89bceca0ae99f70e8",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 16,
+        "instance": 1
+      },
+      "timeoutMs": 450000
+    },
+    {
+      "id": "r2-interp-L24-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "4c3ef3335feee336c7fbba2f5679704ea6061f57facb85a0f30288c613a680ca",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 24,
+        "instance": 1
+      },
+      "timeoutMs": 580000
+    },
+    {
+      "id": "r2-interp-L32-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic",
+      "oracleSha256": "d11b4676c54a6b52a94d925e7958ac5a6853e4604b6ee390312d075194aaf187",
+      "ladder": {
+        "family": "interp-maintain",
+        "level": 32,
+        "instance": 1
+      },
+      "timeoutMs": 740000
+    }
+  ],
+  "cells": [
+    {
+      "id": "r2-query-L48-i1--baseline-fields",
+      "task": "r2-query-L48-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L48-i1--baseline-json",
+      "task": "r2-query-L48-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L48-i1--c3-fields",
+      "task": "r2-query-L48-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "2be15725935c8e14ac400c0dee8425f2d28ea6be3842367918cded322ddcaeee",
+      "promptSha256": "cc93c9ee79de78632f0e70b1d619979948d7be7f07bbd82981873c7381357229",
+      "promptTokens": 10925,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "e9028082c2c607e779393e962c370854e6bbff3359eec2d871296b398ad0c888",
+      "pairInputSha256": "2be15725935c8e14ac400c0dee8425f2d28ea6be3842367918cded322ddcaeee"
+    },
+    {
+      "id": "r2-query-L48-i1--c4-fields",
+      "task": "r2-query-L48-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "90b1e3b81c1c31b4e63c534818c60829192629e941d84078ae2a5b1d1dab5b3c",
+      "promptSha256": "e980e6100e1ec05854aad52994df77a2bc6576cfccd80f2504a46f67b81c86e4",
+      "promptTokens": 8094,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "aa65370ed70a0776942c18962c03170c66a5f42b509e49368629e443c1d4b921",
+      "pairInputSha256": "90b1e3b81c1c31b4e63c534818c60829192629e941d84078ae2a5b1d1dab5b3c"
+    },
+    {
+      "id": "r2-query-L48-i1--pp-barbeat",
+      "task": "r2-query-L48-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L48-i1--pp-midi-json",
+      "task": "r2-query-L48-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L64-i1--baseline-fields",
+      "task": "r2-query-L64-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L64-i1--baseline-json",
+      "task": "r2-query-L64-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L64-i1--c3-fields",
+      "task": "r2-query-L64-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "77ac6135626bbbc7b507edea387a7f5ddbf54472f55a2890e99d4525b2e302b5",
+      "promptSha256": "b8170aacd88cb10eede827f170ffcbd9849289d1db4d4287f15df6f6046a54ce",
+      "promptTokens": 14188,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "f0ef06f604766f0485604f1bf840b6973a580b93f56e5ab8c9727f56b53600e7",
+      "pairInputSha256": "77ac6135626bbbc7b507edea387a7f5ddbf54472f55a2890e99d4525b2e302b5"
+    },
+    {
+      "id": "r2-query-L64-i1--c4-fields",
+      "task": "r2-query-L64-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "0229bb6f7dcc929772db11eb7469fe090617ad90d16273c99c29f61c4f2d626b",
+      "promptSha256": "446b4c8132410eca703d51f4717cb769f5ea0a5878964f00c911d19cdbba9d42",
+      "promptTokens": 10391,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "d2b14e38c1e697e5d05d00fac1d380ba0a4df31b8dd5854531eefcb44db70284",
+      "pairInputSha256": "0229bb6f7dcc929772db11eb7469fe090617ad90d16273c99c29f61c4f2d626b"
+    },
+    {
+      "id": "r2-query-L64-i1--pp-barbeat",
+      "task": "r2-query-L64-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L64-i1--pp-midi-json",
+      "task": "r2-query-L64-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L96-i1--baseline-fields",
+      "task": "r2-query-L96-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L96-i1--baseline-json",
+      "task": "r2-query-L96-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L96-i1--c3-fields",
+      "task": "r2-query-L96-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "2e77ccf8f623d4879d1d0b59bba1d47480b5407bcf01915db0c677a35498374a",
+      "promptSha256": "5645941b3b2af20dc51e81ea36435454faa190c9b6987fcceffefb6e2734407f",
+      "promptTokens": 20719,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "3aeaee873dd77cfbec4895c324c0b1c248d8bded5d747903d7859c449c031f67",
+      "pairInputSha256": "2e77ccf8f623d4879d1d0b59bba1d47480b5407bcf01915db0c677a35498374a"
+    },
+    {
+      "id": "r2-query-L96-i1--c4-fields",
+      "task": "r2-query-L96-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "9a2094d5396255508cb4f865380e02668ec0a3b47b08d2c4f2b0b722d1fe61ab",
+      "promptSha256": "16eb99bfc61340e1f0ea81f712281795a99a3a909871d8d82989fdd4fccae46e",
+      "promptTokens": 14978,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "f40673c45cc159e7aa96478c6c0f0ce92c7d7c051632bf50c3625653a8544a2b",
+      "pairInputSha256": "9a2094d5396255508cb4f865380e02668ec0a3b47b08d2c4f2b0b722d1fe61ab"
+    },
+    {
+      "id": "r2-query-L96-i1--pp-barbeat",
+      "task": "r2-query-L96-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L96-i1--pp-midi-json",
+      "task": "r2-query-L96-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L12-i1--baseline-fields",
+      "task": "r2-overlap-L12-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L12-i1--baseline-json",
+      "task": "r2-overlap-L12-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L12-i1--c3-fields",
+      "task": "r2-overlap-L12-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "fed661c7a7b139339a15071ae9f05a6866bbc10a76a45862fdcdd030e2b37c82",
+      "promptSha256": "18b26a36ecdc04db0e772c95ef509bd83faf2df16e9b0e6131f450de1501d172",
+      "promptTokens": 3804,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "a12e256445f69ab0572c3bca7eb624aa9121428e879f6716138049ebdbc82883",
+      "pairInputSha256": "fed661c7a7b139339a15071ae9f05a6866bbc10a76a45862fdcdd030e2b37c82"
+    },
+    {
+      "id": "r2-overlap-L12-i1--c4-fields",
+      "task": "r2-overlap-L12-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "34adb0704e6236f736aad0d191711ab52590eb0539d74b1cec302bb4e56cf7f6",
+      "promptSha256": "ab533be86f0a81bc5410fd901c063c2795f8e64375e4453d712e630ac953b3fc",
+      "promptTokens": 3280,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "e813ba5797088b0013703fea35cf37483859c4461bda68eed70ed2de12598595",
+      "pairInputSha256": "34adb0704e6236f736aad0d191711ab52590eb0539d74b1cec302bb4e56cf7f6"
+    },
+    {
+      "id": "r2-overlap-L12-i1--pp-barbeat",
+      "task": "r2-overlap-L12-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L12-i1--pp-midi-json",
+      "task": "r2-overlap-L12-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L16-i1--baseline-fields",
+      "task": "r2-overlap-L16-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L16-i1--baseline-json",
+      "task": "r2-overlap-L16-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L16-i1--c3-fields",
+      "task": "r2-overlap-L16-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "a0b8c2773736db153dac0a97b250143cd6529f4877d4609808c5c56f74e026ef",
+      "promptSha256": "ad8a6f47a7968a29f5b5a7822e695663430e9deec8eb181993906233ea93c5e1",
+      "promptTokens": 4441,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "f5e617ff05ca807db490bada2c789d44d23561f303061cbcc25fab08821292d9",
+      "pairInputSha256": "a0b8c2773736db153dac0a97b250143cd6529f4877d4609808c5c56f74e026ef"
+    },
+    {
+      "id": "r2-overlap-L16-i1--c4-fields",
+      "task": "r2-overlap-L16-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "ba8b31b2716e87088950056b58ff534e17879ed403763a237028ee7469c7c658",
+      "promptSha256": "a87ff54c97e55ad8b9c0356005c333fc23441beab9d3e35db50e956ad3d15753",
+      "promptTokens": 3813,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "24d497563989a58b0e911fa7aa66efe5d8b1a962bad6bfe696f46b5cdaec5a51",
+      "pairInputSha256": "ba8b31b2716e87088950056b58ff534e17879ed403763a237028ee7469c7c658"
+    },
+    {
+      "id": "r2-overlap-L16-i1--pp-barbeat",
+      "task": "r2-overlap-L16-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L16-i1--pp-midi-json",
+      "task": "r2-overlap-L16-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L24-i1--baseline-fields",
+      "task": "r2-overlap-L24-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L24-i1--baseline-json",
+      "task": "r2-overlap-L24-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L24-i1--c3-fields",
+      "task": "r2-overlap-L24-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "894a28f9de9cdb575e1678b2fb180c3614de41195b118824b0258d5aac119b4a",
+      "promptSha256": "b784293b782e47d2a8935075ca505166de2c83c7b4e5fc59f17be120b91cd5c6",
+      "promptTokens": 5706,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "472ee6b1da5c8bc33fbd91952d8b48b95f27335b541c91e26cc868673bf3cb01",
+      "pairInputSha256": "894a28f9de9cdb575e1678b2fb180c3614de41195b118824b0258d5aac119b4a"
+    },
+    {
+      "id": "r2-overlap-L24-i1--c4-fields",
+      "task": "r2-overlap-L24-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "a5e44c5bb4db3638522d6e67e2a293d532fa6bbd8877fd074103e6fb458d3b90",
+      "promptSha256": "51fe238db3592cdd22a4dd3704bb45b0f5f5437b35d746c9b039233e5256ce3c",
+      "promptTokens": 4876,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "d32359485ba88f6e0a6c515d39d1214de137b857f23e99f88a7798b37e1e9832",
+      "pairInputSha256": "a5e44c5bb4db3638522d6e67e2a293d532fa6bbd8877fd074103e6fb458d3b90"
+    },
+    {
+      "id": "r2-overlap-L24-i1--pp-barbeat",
+      "task": "r2-overlap-L24-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L24-i1--pp-midi-json",
+      "task": "r2-overlap-L24-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L16-i1--baseline-fields",
+      "task": "r2-interp-L16-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L16-i1--baseline-json",
+      "task": "r2-interp-L16-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L16-i1--c3-fields",
+      "task": "r2-interp-L16-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "9c18a1187f713f534bc4e7a4329ac742065f0dd9a1a250f65662dbaca462eef9",
+      "promptSha256": "681be07ef5dc0ee51ebf1e4d0c7a81875b77fd3c259e9bc5e33af9b95b2059ca",
+      "promptTokens": 6548,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "e04011ef8c47d02df73ca2be5dfe8bbc76c42bf78f8ae5daa93d5b1249e3a174",
+      "pairInputSha256": "9c18a1187f713f534bc4e7a4329ac742065f0dd9a1a250f65662dbaca462eef9"
+    },
+    {
+      "id": "r2-interp-L16-i1--c4-fields",
+      "task": "r2-interp-L16-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "57f620274ec194319bcfc5259c9c8c6d38a1d3327955af6325b49b7a83a41e15",
+      "promptSha256": "52e9730df10596dbb6cb192e07650501d134143df995d735efe9c7ba29284ca1",
+      "promptTokens": 5833,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "abc2608f2c2bd6cb2bc38cc75a6bb35f8410b5765052aee8caefc2e5a6e6959e",
+      "pairInputSha256": "57f620274ec194319bcfc5259c9c8c6d38a1d3327955af6325b49b7a83a41e15"
+    },
+    {
+      "id": "r2-interp-L16-i1--pp-barbeat",
+      "task": "r2-interp-L16-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L16-i1--pp-midi-json",
+      "task": "r2-interp-L16-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L24-i1--baseline-fields",
+      "task": "r2-interp-L24-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L24-i1--baseline-json",
+      "task": "r2-interp-L24-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L24-i1--c3-fields",
+      "task": "r2-interp-L24-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "cf7f0595848127c7f83e4db95c42eba3b949b6dd8b0be74f42ae6a7b89e6f1d0",
+      "promptSha256": "be57857eb727b3e754c22259e843de13c8a68c84c8834181334edaa43c6eb71d",
+      "promptTokens": 8894,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "3a922b5dfa1966a48a02e35f8d20aea026163c05d198ad2dd184c4b88caff92b",
+      "pairInputSha256": "cf7f0595848127c7f83e4db95c42eba3b949b6dd8b0be74f42ae6a7b89e6f1d0"
+    },
+    {
+      "id": "r2-interp-L24-i1--c4-fields",
+      "task": "r2-interp-L24-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "c477311603dbe951467f560f36346ffc7e787a8b02f51d642fcff176ebb5bc07",
+      "promptSha256": "9c94b533ec6dbf24a40fe6adfa67c5830350fe68bc228adfd5a1b96fb02bb999",
+      "promptTokens": 7733,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "7b867d5f6a2565fc543a59244dfe3cc25aee79d1675f2c5082b2b7bdcef1a56d",
+      "pairInputSha256": "c477311603dbe951467f560f36346ffc7e787a8b02f51d642fcff176ebb5bc07"
+    },
+    {
+      "id": "r2-interp-L24-i1--pp-barbeat",
+      "task": "r2-interp-L24-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L24-i1--pp-midi-json",
+      "task": "r2-interp-L24-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L32-i1--baseline-fields",
+      "task": "r2-interp-L32-i1",
+      "arm": "baseline-fields",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L32-i1--baseline-json",
+      "task": "r2-interp-L32-i1",
+      "arm": "baseline-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L32-i1--c3-fields",
+      "task": "r2-interp-L32-i1",
+      "arm": "c3-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "83df40c9175bd8105adf73861f029ddb1465dd4c08a967410314552d0249de72",
+      "promptSha256": "31002bfbab744cef180e62975748ccd3c541780485b6719fcf59060d44c0fc07",
+      "promptTokens": 11652,
+      "cardSha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "oracleSha256": "22b952f2e1e82afbf860b2b20ada8ddee457d7f916c6606c6e0f6bc063a1ee70",
+      "pairInputSha256": "83df40c9175bd8105adf73861f029ddb1465dd4c08a967410314552d0249de72"
+    },
+    {
+      "id": "r2-interp-L32-i1--c4-fields",
+      "task": "r2-interp-L32-i1",
+      "arm": "c4-fields",
+      "role": "primary",
+      "eligible": true,
+      "payloadSha256": "4dbad9dd06ce83e1a4ce957c66300963c67a49c173f36b007568e0dc14f52d70",
+      "promptSha256": "ef7ee50fb52e2fe836faca98d53a6fc0f9f17c195ded4fbd73139321062c529a",
+      "promptTokens": 10165,
+      "cardSha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "oracleSha256": "26c79297fec8fa68b991b8760fdfbd235a0faa2682704cd89fcdad9f90b0b105",
+      "pairInputSha256": "4dbad9dd06ce83e1a4ce957c66300963c67a49c173f36b007568e0dc14f52d70"
+    },
+    {
+      "id": "r2-interp-L32-i1--pp-barbeat",
+      "task": "r2-interp-L32-i1",
+      "arm": "pp-barbeat",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L32-i1--pp-midi-json",
+      "task": "r2-interp-L32-i1",
+      "arm": "pp-midi-json",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    }
+  ],
+  "order": {
+    "claude-current": [
+      "r0:r2-interp-L32-i1--c3-fields",
+      "r0:r2-interp-L32-i1--c4-fields",
+      "r0:r2-overlap-L12-i1--c4-fields",
+      "r0:r2-overlap-L12-i1--c3-fields",
+      "r0:r2-interp-L24-i1--c4-fields",
+      "r0:r2-interp-L24-i1--c3-fields",
+      "r0:r2-overlap-L16-i1--c4-fields",
+      "r0:r2-overlap-L16-i1--c3-fields",
+      "r0:r2-query-L48-i1--c4-fields",
+      "r0:r2-query-L48-i1--c3-fields",
+      "r0:r2-query-L64-i1--c3-fields",
+      "r0:r2-query-L64-i1--c4-fields",
+      "r0:r2-overlap-L24-i1--c4-fields",
+      "r0:r2-overlap-L24-i1--c3-fields",
+      "r0:r2-interp-L16-i1--c4-fields",
+      "r0:r2-interp-L16-i1--c3-fields",
+      "r0:r2-query-L96-i1--c4-fields",
+      "r0:r2-query-L96-i1--c3-fields"
+    ]
+  },
+  "rehearsal": {
+    "path": "rehearsal.json",
+    "sha256": "7606abcc9da0cc86d5cb2a3f6fc9d3771838c18a77dfa1871e599cb7c104888d",
+    "counts": {
+      "eligibleCells": 18,
+      "goldenPasses": 18,
+      "taskSpecificVariants": 84,
+      "wrongAnswersScored": 168,
+      "wrongAnswersRejected": 168,
+      "gratuitousRefusalsScored": 18,
+      "gratuitousRefusalsRejected": 18,
+      "notDistinguishing": 0,
+      "unencodable": 0,
+      "equivalentSpellingsScored": 18,
+      "equivalentSpellingsAccepted": 18,
+      "equivalentSpellingsDelivered": 18
+    }
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-execution.mjs",
+      "sha256": "07577e2a5793b20237558b4b36552d7a83b1a048cdf30d98aeeae1ce597be0f2"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-pilot-runner.mjs",
+      "sha256": "815606dbe22fbca145956a4bceb33b393bbb3f4c59b98ece7cbe6d4fa81abd0b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "96927cfc44ddc9329e1087e051054c60cc45d8267c98751baadfcd3f1b717a8e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "25f0640a7b07d9298fd8d5a31d49cacd23a995e23eb14d5b1f44e540b4904517"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "44cb12efef41c9b0b91345863a44bbb80c59b337e76163f7579099805f94207a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "73c58a6fd91c69f5a3cfbd2f05c1e95e061dd276a746c56668d329ac725b3d35"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-tasks.mjs",
+      "sha256": "c02bc18713102121ccd48ef73c5827c0ab4e45abc361178cf9b1122b588d55c5"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-package.mjs",
+      "sha256": "0fe43fa950de601685b5c1c4cad1253cb9a511ffda675d02f09a493f10e09421"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-tasks.mjs",
+      "sha256": "240998b490c1ac54ead6a0e9fc62febe22c5cd3441195d9bbac566b25a2474eb"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-families.mjs",
+      "sha256": "3c408d0d627629dd4347975e2991a08ccee827485092feea1b4dedbea47d62f0"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-inputs.mjs",
+      "sha256": "7fcbfcb2724799e8df800507fe7fa7c960a2d78df4b9da4dc65fa65a48aeb184"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-package.mjs",
+      "sha256": "deb70b6da73271c477ed8fb68e333f6454726d0e0efdf906e5c44b8c2f963639"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "ec8a7f17cf203ab0c49b4449ef326063614eeb1959fbf38e792de1f6654a1a8e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "4dd35d43acb1fdb0cecebf9b8aa4de2485f927fbd68f96af8d078550fccab530"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-template.json",
+      "sha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-template-gpt-5.6-terra.json",
+      "sha256": "d8ff601c18d1a310fba6481b6509875242074a65adb76d64c4bc87ecfe3ade82"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    }
+  ]
+}

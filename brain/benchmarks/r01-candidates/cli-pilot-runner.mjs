@@ -10,7 +10,7 @@ import { buildTrialPlan, STAGES } from './cli-trial-plan.mjs';
 import { SCORING_VERSION, scoreResponse, surfaces } from './development-surfaces.mjs';
 import { developmentTasks } from './development-tasks.mjs';
 import { pilotTasks, loadWindows, RIGOROUS_SEEDS, RIGOROUS_WINDOWS_PATH } from './pilot-tasks.mjs';
-import { LADDERS_V2, LADDERS_V3, ROUND2_WINDOWS_V3_PATH, loadRound2Windows, round2Tasks } from './round2-tasks.mjs';
+import { LADDERS_V2, LADDERS_V3, LADDERS_V4, LADDERS_V5, LADDERS_V6, ROUND2_WINDOWS_V3_PATH, loadRound2Windows, round2Tasks } from './round2-tasks.mjs';
 import { canonical } from './common.mjs';
 import { auditAttempt } from './cli-control-audit.mjs';
 import { preflightProvider, runCliAttempt, sha } from './cli-attempt.mjs';
@@ -67,6 +67,14 @@ export const ROUND2_V2 = Object.freeze({ ...ROUND2, schema: 'r01-round2-selectio
 export const ROUND2_V3 = Object.freeze({ ...ROUND2, schema: 'r01-round2-selection-v3', seed: 'r01-round2-order-v3',
   cohorts: Object.freeze([]), optionalCohorts: Object.freeze([]), repeats: 1, repeatRule: 'r01-round2-repeats-v1' });
 const V3_COHORTS = ['claude-current', 'codex-current-high'];
+// Round 2 package v4 (R01-D19, R01-D20): per-cohort calibration packages of the
+// format-dependent families. The full pass of a v4 package is its calibration.
+export const ROUND2_V4 = Object.freeze({ ...ROUND2_V3, schema: 'r01-round2-selection-v4', seed: 'r01-round2-order-v4', fullPass: 'calibration' });
+// Package v5 (R01-D21): Haiku-only recalibration at higher levels; also a calibration.
+export const ROUND2_V5 = Object.freeze({ ...ROUND2_V4, schema: 'r01-round2-selection-v5', seed: 'r01-round2-order-v5' });
+// Package v6 (R01-D21): development pass of the families; identical tasks for both models.
+export const ROUND2_V6 = Object.freeze({ ...ROUND2_V3, schema: 'r01-round2-selection-v6', seed: 'r01-round2-order-v6' });
+const PER_COHORT = { 3: ROUND2_V3, 4: ROUND2_V4, 5: ROUND2_V5, 6: ROUND2_V6 };
 
 // Effort probes run only in subsets (E383), never in a full or calibration pass.
 // Kept outside ROUND2 so the pinned full-pass selection and plan hash are unchanged.
@@ -74,9 +82,9 @@ export const ROUND2_PROBE_COHORTS = Object.freeze(['codex-current-high']);
 
 /** A round-2 full pass, calibration pass (instance 1, one repeat; R01-D11) or recorded subset. */
 export function round2Selection({ version = 1, cohorts, tasks = null, instances = null, repeats, packageCohort = null } = {}) {
-  assert([1, 2, 3].includes(version), `unknown round-2 selection version ${version}`);
-  assert(version === 3 ? V3_COHORTS.includes(packageCohort) : packageCohort === null, 'a v3 selection names its package cohort, and only v3 does');
-  const base = version === 3 ? { ...ROUND2_V3, cohorts: Object.freeze([packageCohort]), packageCohort } : version === 2 ? ROUND2_V2 : ROUND2;
+  assert([1, 2, 3, 4, 5, 6].includes(version), `unknown round-2 selection version ${version}`);
+  assert(PER_COHORT[version] ? V3_COHORTS.includes(packageCohort) : packageCohort === null, 'a v3 or v4 selection names its package cohort, and only v3 and v4 do (likewise v5 and v6)');
+  const base = PER_COHORT[version] ? { ...PER_COHORT[version], cohorts: Object.freeze([packageCohort]), packageCohort } : version === 2 ? ROUND2_V2 : ROUND2;
   repeats ??= base.repeats;
   cohorts ??= base.cohorts;
   const probes = version === 1 ? ROUND2_PROBE_COHORTS : [];
@@ -91,11 +99,11 @@ export function round2Selection({ version = 1, cohorts, tasks = null, instances 
   const full = tasks === null && instances === null && repeats === base.repeats;
   const probe = ordered.some(id => probes.includes(id));
   assert(!probe || !full, 'effort-probe cohorts run only in subsets');
-  const pass = probe ? 'probe' : full ? 'development' : instances?.length === 1 && instances[0] === 1 && repeats === 1 && tasks === null ? 'calibration' : 'subset';
+  const pass = probe ? 'probe' : full ? base.fullPass ?? 'development' : instances?.length === 1 && instances[0] === 1 && repeats === 1 && tasks === null ? 'calibration' : 'subset';
   return { ...base, cohorts: ordered, tasks: tasks ? [...tasks] : null, instances: instances ? [...instances] : null, repeats, pass,
     subset: !full || probe || ordered.join() !== base.cohorts.join() };
 }
-const ROUND2_VERSION_OF = { [ROUND2.schema]: 1, [ROUND2_V2.schema]: 2, [ROUND2_V3.schema]: 3 };
+const ROUND2_VERSION_OF = { [ROUND2.schema]: 1, [ROUND2_V2.schema]: 2, [ROUND2_V3.schema]: 3, [ROUND2_V4.schema]: 4, [ROUND2_V5.schema]: 5, [ROUND2_V6.schema]: 6 };
 export const selectionFor = selection => selection.round === 2
   ? round2Selection({ ...selection, version: ROUND2_VERSION_OF[selection.schema], packageCohort: selection.packageCohort ?? null }) : pilotSelection(selection);
 const instanceOf = id => Number(id.match(/-i(\d+)$/)?.[1]);
@@ -107,7 +115,7 @@ export function pilotPlan(manifest, selection) {
   const scoped = taskIds ? selectTasks(manifest, taskIds) : manifest;
   const profiles = profilesFor(selection.stage);
   // v3 (R01-D18): the package's per-task repeats, unless a subset sets its own count.
-  const perTask = selection.schema === ROUND2_V3.schema && selection.repeats === ROUND2_V3.repeats
+  const perTask = [ROUND2_V3.schema, ROUND2_V4.schema, ROUND2_V5.schema, ROUND2_V6.schema].includes(selection.schema) && selection.repeats === ROUND2_V3.repeats
     ? { repeatsByTask: Object.fromEntries(scoped.tasks.map(t => [t.id, manifest.repeats.byTask[t.id]])) } : {};
   const plan = buildTrialPlan(scoped, { models: selection.cohorts.map(id => modelConfig(profiles[id])),
     seed: selection.seed, repeats: selection.repeats, ...perTask, maxRepairs: selection.maxRepairs,
@@ -165,6 +173,24 @@ export const PACKAGES = {
   'round2-development-v3-luna': { directory: 'context/evidence/data/r01-round2/v3/luna/package',
     regenerate: () => round2Tasks(loadRound2Windows(ROUND2_WINDOWS_V3_PATH), { ladders: LADDERS_V3['codex-current-high'] }),
     execution: 'context/evidence/data/r01-round2/v3/luna/execution/manifest.json' },
+  // Format-dependent families (R01-D19, R01-D20): per-cohort calibration packages, synthetic only.
+  'round2-development-v4-haiku': { directory: 'context/evidence/data/r01-round2/v4/haiku/package',
+    regenerate: () => round2Tasks(null, { ladders: LADDERS_V4['claude-current'] }),
+    execution: 'context/evidence/data/r01-round2/v4/haiku/execution/manifest.json' },
+  'round2-development-v4-luna': { directory: 'context/evidence/data/r01-round2/v4/luna/package',
+    regenerate: () => round2Tasks(null, { ladders: LADDERS_V4['codex-current-high'] }),
+    execution: 'context/evidence/data/r01-round2/v4/luna/execution/manifest.json' },
+  // Haiku-only recalibration at higher levels (R01-D21).
+  'round2-development-v5-haiku': { directory: 'context/evidence/data/r01-round2/v5/haiku/package',
+    regenerate: () => round2Tasks(null, { ladders: LADDERS_V5['claude-current'] }),
+    execution: 'context/evidence/data/r01-round2/v5/haiku/execution/manifest.json' },
+  // Development pass of the families (R01-D21): the same tasks in both packages.
+  'round2-development-v6-haiku': { directory: 'context/evidence/data/r01-round2/v6/haiku/package',
+    regenerate: () => round2Tasks(null, { ladders: LADDERS_V6['claude-current'] }),
+    execution: 'context/evidence/data/r01-round2/v6/haiku/execution/manifest.json' },
+  'round2-development-v6-luna': { directory: 'context/evidence/data/r01-round2/v6/luna/package',
+    regenerate: () => round2Tasks(null, { ladders: LADDERS_V6['codex-current-high'] }),
+    execution: 'context/evidence/data/r01-round2/v6/luna/execution/manifest.json' },
 };
 
 /** Canonical hash of the plan as the runner writes it to plan.json. */
@@ -289,7 +315,7 @@ export function resolvePackage(name) {
 
 const SOURCES = ['cli-pilot-runner.mjs', 'cli-paired-runner.mjs', 'cli-attempt.mjs', 'cli-controls.mjs',
   'cli-control-audit.mjs', 'claude-context-policy.mjs', 'codex-context-policy.mjs', 'codex-isolation.mjs',
-  'cli-trial-plan.mjs', 'development-surfaces.mjs', 'pilot-tasks.mjs', 'round2-tasks.mjs'];
+  'cli-trial-plan.mjs', 'development-surfaces.mjs', 'pilot-tasks.mjs', 'round2-tasks.mjs', 'round2-families.mjs'];
 
 function parseOptions(args) {
   const options = {}, positional = [];
@@ -308,9 +334,10 @@ function parseOptions(args) {
 const USAGE = `usage:
   node --import tsx cli-pilot-runner.mjs start PINNED_PP TOOLING PACKAGE NEW_OUTPUT [--cohorts a,b] [--tasks t1,t2 | --instances 1,2] [--repeats n] [--transport claude=SUMMARY_JSON] [--restart-of HALTED_OUTPUT]
   node --import tsx cli-pilot-runner.mjs resume PINNED_PP TOOLING OUTPUT [--after-interruption | --after-control-halt | --after-stall-halt]
-PACKAGE is "round2-development-v3-haiku", "round2-development-v3-luna", "round2-development-v2", "round2-development-v1",
+PACKAGE is "round2-development-v6-haiku", "round2-development-v6-luna", "round2-development-v5-haiku", "round2-development-v4-haiku", "round2-development-v4-luna", "round2-development-v3-haiku", "round2-development-v3-luna", "round2-development-v2", "round2-development-v1",
 "pilot-rigorous-v1", "pilot-development-v5", "development" or a package directory (pilot v1-v4 are retired).
-A round-2 v3 package is one cohort's; its full pass takes no --cohorts and uses the package's per-task repeats.
+A round-2 v3 or v4 package is one cohort's; its full pass takes no --cohorts and uses the package's per-task repeats.
+A v4 package's full pass is its calibration (R01-D20).
 --instances is for round 2; a round-2 calibration pass is --instances 1 --repeats 1 (R01-D11).
 The stage comes from the package. A rigorous start is a full pass, or a restart of the halted
 full pass's unfinished cohorts with --restart-of and --cohorts (R01-D6).`;

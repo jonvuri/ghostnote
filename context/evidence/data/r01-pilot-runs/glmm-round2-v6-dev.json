@@ -1,0 +1,313 @@
+{
+ "schema": "r01-round2-glmm-families-v1",
+ "source": "analysis-round2-v6-dev.json",
+ "package": [
+  "round2-development-v6-haiku",
+  "round2-development-v6-luna"
+ ],
+ "model": {
+  "pooled": "pass ~ cell(family, level) + c4 + (1 | instance)",
+  "byFamily": "pass ~ cell(family, level) + c4:family + (1 | instance)",
+  "estimator": "round2-glmm.py (penalized ML, profile intervals); instance x format pinned without repeats"
+ },
+ "cohorts": {
+  "claude-current": {
+   "pooled": {
+    "instanceSD": 0.4198842052689233,
+    "instanceFormatPinned": true,
+    "rows": 288,
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, all families",
+      "logOdds": 0.24781934072618086,
+      "oddsRatio": 1.2812284454839828,
+      "wald95": [
+       0.5351263988678138,
+       3.0675861497216017
+      ],
+      "waldP": 0.5779774837250209,
+      "profile95": [
+       0.5375469105484553,
+       3.1246993418053437
+      ],
+      "profileP": 0.5768975975133757
+     }
+    ]
+   },
+   "byFamily": {
+    "instanceSD": 0.42164077249858234,
+    "instanceFormatPinned": true,
+    "rows": 288,
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, query-edit",
+      "logOdds": 0.43166576743622437,
+      "oddsRatio": 1.5398203710334297,
+      "wald95": [
+       0.555919321328553,
+       4.2650915053341345
+      ],
+      "waldP": 0.40628206814426826,
+      "profile95": [
+       0.560353409042431,
+       4.378118751755116
+      ],
+      "profileP": 0.40366963938575207
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, overlap-edit",
+      "logOdds": 0.29191390557358554,
+      "oddsRatio": 1.338987733295821,
+      "wald95": [
+       0.13849003491659645,
+       12.945972257111649
+      ],
+      "waldP": 0.8009062239592879,
+      "profile95": [
+       0.13586592079279358,
+       16.91935002080741
+      ],
+      "profileP": 0.7997608572821213
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, large-edit",
+      "logOdds": 0.7476976148648434,
+      "oddsRatio": 2.112131474024012,
+      "wald95": [
+       0.041009141317756535,
+       108.78304739414857
+      ],
+      "waldP": 0.7100457457127776,
+      "profile95": [
+       0.04862293794614049,
+       168.58945167382706
+      ],
+      "profileP": 0.7046383452637144
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, interp-maintain",
+      "logOdds": -1.0416594188118466,
+      "oddsRatio": 0.3528686389902465,
+      "wald95": [
+       0.03352434228470228,
+       3.7142048999913655
+      ],
+      "waldP": 0.3857355685470425,
+      "profile95": [
+       0.025002579009876874,
+       3.4544238843995783
+      ],
+      "profileP": 0.37188249033927856
+     }
+    ]
+   },
+   "signTests": {
+    "all": {
+     "pairs": 144,
+     "bothPass": 120,
+     "bothFail": 1,
+     "c3Only": 11,
+     "c4Only": 12,
+     "signP": 1.0
+    },
+    "query-edit": {
+     "pairs": 48,
+     "bothPass": 28,
+     "bothFail": 1,
+     "c3Only": 8,
+     "c4Only": 11,
+     "signP": 0.6476058959960938
+    },
+    "overlap-edit": {
+     "pairs": 36,
+     "bothPass": 34,
+     "bothFail": 0,
+     "c3Only": 1,
+     "c4Only": 1,
+     "signP": 1.0
+    },
+    "large-edit": {
+     "pairs": 24,
+     "bothPass": 24,
+     "bothFail": 0,
+     "c3Only": 0,
+     "c4Only": 0,
+     "signP": 1.0
+    },
+    "interp-maintain": {
+     "pairs": 36,
+     "bothPass": 34,
+     "bothFail": 0,
+     "c3Only": 2,
+     "c4Only": 0,
+     "signP": 0.5
+    },
+    "lunaLevels": {
+     "pairs": 96,
+     "bothPass": 89,
+     "bothFail": 0,
+     "c3Only": 4,
+     "c4Only": 3,
+     "signP": 1.0
+    },
+    "haikuLevels": {
+     "pairs": 48,
+     "bothPass": 31,
+     "bothFail": 1,
+     "c3Only": 7,
+     "c4Only": 9,
+     "signP": 0.803619384765625
+    }
+   }
+  },
+  "codex-current-high": {
+   "pooled": {
+    "instanceSD": 0.7332903504029348,
+    "instanceFormatPinned": true,
+    "rows": 288,
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, all families",
+      "logOdds": 0.684881569026162,
+      "oddsRatio": 1.9835369094183442,
+      "wald95": [
+       1.0866386422908858,
+       3.6207240548064914
+      ],
+      "waldP": 0.025706575682524768,
+      "profile95": [
+       1.0980367915059979,
+       3.6856257518428635
+      ],
+      "profileP": 0.022975324388636916
+     }
+    ]
+   },
+   "byFamily": {
+    "instanceSD": 0.8708993584029602,
+    "instanceFormatPinned": true,
+    "rows": 288,
+    "contrasts": [
+     {
+      "contrast": "C4 vs C3 FIELDS, query-edit",
+      "logOdds": 1.7753269611996658,
+      "oddsRatio": 5.902210614732812,
+      "wald95": [
+       1.5046870939075594,
+       23.15171724521008
+      ],
+      "waldP": 0.010898443799946866,
+      "profile95": [
+       1.6013738914584745,
+       25.426912333249597
+      ],
+      "profileP": 0.006958600822077139
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, overlap-edit",
+      "logOdds": -0.00013305970190383734,
+      "oddsRatio": 0.9998669491501456,
+      "wald95": [
+       0.3692291649471871,
+       2.707624453625752
+      ],
+      "waldP": 0.9997911213380135,
+      "profile95": [
+       0.36619070197623005,
+       2.730045140266198
+      ],
+      "profileP": 1.0
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, large-edit",
+      "logOdds": 2.1977421565748134,
+      "oddsRatio": 9.00465941885256,
+      "wald95": [
+       1.8963637289507749,
+       42.75756280910964
+      ],
+      "waldP": 0.005689516055271682,
+      "profile95": [
+       2.0982499310909324,
+       49.42824478263567
+      ],
+      "profileP": 0.0024153836030495384
+     },
+     {
+      "contrast": "C4 vs C3 FIELDS, interp-maintain",
+      "logOdds": -0.4003227414970346,
+      "oddsRatio": 0.6701037408476971,
+      "wald95": [
+       0.2026723945065971,
+       2.215590458637726
+      ],
+      "waldP": 0.5117378092689173,
+      "profile95": [
+       0.19663276808271274,
+       2.2038665042259766
+      ],
+      "profileP": 0.5101048829897963
+     }
+    ]
+   },
+   "signTests": {
+    "all": {
+     "pairs": 144,
+     "bothPass": 24,
+     "bothFail": 74,
+     "c3Only": 15,
+     "c4Only": 31,
+     "signP": 0.02589608179323477
+    },
+    "query-edit": {
+     "pairs": 48,
+     "bothPass": 1,
+     "bothFail": 34,
+     "c3Only": 2,
+     "c4Only": 11,
+     "signP": 0.0224609375
+    },
+    "overlap-edit": {
+     "pairs": 36,
+     "bothPass": 10,
+     "bothFail": 10,
+     "c3Only": 8,
+     "c4Only": 8,
+     "signP": 1.0
+    },
+    "large-edit": {
+     "pairs": 24,
+     "bothPass": 3,
+     "bothFail": 12,
+     "c3Only": 0,
+     "c4Only": 9,
+     "signP": 0.00390625
+    },
+    "interp-maintain": {
+     "pairs": 36,
+     "bothPass": 10,
+     "bothFail": 18,
+     "c3Only": 5,
+     "c4Only": 3,
+     "signP": 0.7265625
+    },
+    "lunaLevels": {
+     "pairs": 96,
+     "bothPass": 22,
+     "bothFail": 32,
+     "c3Only": 14,
+     "c4Only": 28,
+     "signP": 0.04355852192384191
+    },
+    "haikuLevels": {
+     "pairs": 48,
+     "bothPass": 2,
+     "bothFail": 42,
+     "c3Only": 1,
+     "c4Only": 3,
+     "signP": 0.625
+    }
+   }
+  }
+ }
+}
