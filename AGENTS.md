@@ -15,7 +15,10 @@ Update facts and backlog status that changed. Record useful results once; a
 brief or the review summary can suffice. Use E records for durable measurements
 that need citation or reproduction, and D records for durable design decisions.
 Keep earlier E/D records unchanged. Stage only the task changes; do not commit.
-Report results, verification, and a suggested commit message. For reviews,
+Once the planned session scope is complete, report results, verification, and
+a suggested commit message; until then, state what remains instead. A commit
+message is one sentence, optionally followed by 2–3 bullets of 1–2 sentences
+each for extra detail. For reviews,
 inspect the diff and relevant state; report findings without unsolicited fixes.
 
 ## Live work
