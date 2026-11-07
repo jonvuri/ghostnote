@@ -416,7 +416,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
     if (pressured.length > 0) {
       // Defensive: Bitwig reports pressure as 0 (E236), so a live read never reaches this refusal.
       throw new EditRefusal('unsupported', 'pressure', 'This edit needs whole-clip replacement, and the clip has '
-        + 'notes with pressure. The host cannot write pressure, so replacement would lose it. Change only the '
+        + 'notes with pressure. Ghostnote cannot independently verify pressure replay, so replacement would lose it. Change only the '
         + 'cells of notes (add, remove, or move a note to a new cell), or remove the pressure in Bitwig first.',
       { events: pressured.slice(0, 64) });
     }

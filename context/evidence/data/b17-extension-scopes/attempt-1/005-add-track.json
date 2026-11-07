@@ -1,0 +1,77 @@
+{
+  "elapsedMs": 1564,
+  "value": {
+    "name": "add_tracks",
+    "args": {
+      "tracks": [
+        {
+          "name": "gn-b17s"
+        }
+      ]
+    },
+    "ms": 895,
+    "turns": 40,
+    "wire": {
+      "turns": 22,
+      "wireMs": 494,
+      "methods": {
+        "selection.status": 4,
+        "revision.get": 11,
+        "track.list": 14,
+        "batch.run": 2,
+        "cursor.pin": 8,
+        "selection.restoreMixer": 1
+      },
+      "clipReads": 0,
+      "stages": 2
+    },
+    "observes": 0,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-track-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "2e6323dd-ca89-424b-8e67-ea947f736dfe",
+          "target": {
+            "trackIds": [
+              "b92d43a9-48a4-473d-a007-ca16390398f7"
+            ]
+          },
+          "summary": "Created 1 track(s).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "0b2e0cc2-0ad8-4bd9-a961-c19743635b0c",
+          "target": {
+            "trackIds": [
+              "b92d43a9-48a4-473d-a007-ca16390398f7"
+            ]
+          },
+          "summary": "Named the new track(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "tracks": [
+          {
+            "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+            "name": "gn-b17s",
+            "kind": "Instrument"
+          }
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change does not remove a new track; use delete_track."
+        }
+      ],
+      "target": {
+        "tracks": 1
+      }
+    },
+    "scopeCalls": []
+  }
+}

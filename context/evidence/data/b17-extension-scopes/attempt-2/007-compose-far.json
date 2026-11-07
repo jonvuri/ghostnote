@@ -1,0 +1,640 @@
+{
+  "elapsedMs": 13743,
+  "value": {
+    "name": "compose_devices",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "name": "A",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "EQ-5"
+              }
+            }
+          ]
+        },
+        {
+          "name": "B",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "Gate"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "ms": 8848,
+    "turns": 340,
+    "wire": {
+      "turns": 252,
+      "wireMs": 5879,
+      "methods": {
+        "selection.status": 22,
+        "track.list": 67,
+        "devcursor.pin": 33,
+        "cursor.pointTrack": 31,
+        "device.list": 49,
+        "revision.get": 53,
+        "batch.run": 7,
+        "cursor.pin": 40,
+        "chain.observe": 18,
+        "devcursor.selectAt": 2,
+        "devcursor.status": 6,
+        "layer.list": 2,
+        "devcursor.selectInLayer": 2,
+        "directparam.list": 6,
+        "param.list": 2
+      },
+      "clipReads": 0,
+      "stages": 7
+    },
+    "observes": 18,
+    "scrolls": 1,
+    "result": {
+      "schema": "ghostnote-device-compose/2",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "12cd0655-21f9-471e-86ad-8945fcbed0b9",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage insert-container.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "7fbd653f-fcb5-46eb-b3b4-c6cd281ae7bd",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage confirm-entry-name.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "c2bf5421-570f-4551-a8d3-191e939fdd22",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "5bd755e8-0cb9-4f50-9f70-086cdb702296",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "A"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "82b901dc-79fa-4784-9a06-0db365634ba6",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "B"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "01db140b-edb5-4221-9c25-50c8757d274b",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "B"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "backend": "staged",
+        "containerPosition": 3,
+        "structure": [
+          {
+            "entryIndex": 0,
+            "entryName": "A",
+            "devices": [
+              {
+                "position": 0,
+                "name": "EQ-5",
+                "enabled": true
+              }
+            ]
+          },
+          {
+            "entryIndex": 1,
+            "entryName": "B",
+            "devices": [
+              {
+                "position": 0,
+                "name": "Gate",
+                "enabled": true
+              }
+            ]
+          }
+        ],
+        "layerChains": [
+          {
+            "entryIndex": 0,
+            "deviceIndex": 0,
+            "entryName": "A",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "EQ-5"
+            },
+            "observed": {
+              "deviceName": "EQ-5",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "030afac48929abab4f365d54b3a575cb5826ca8cfa3b694537ba14fe33136847",
+                "parameterCount": 29
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          },
+          {
+            "entryIndex": 1,
+            "deviceIndex": 0,
+            "entryName": "B",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "Gate"
+            },
+            "observed": {
+              "deviceName": "Gate",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "13efb705ba7c92883509d7487d089bc60fbe2769d50fd273f72d7dba4795da4e",
+                "parameterCount": 4
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeId": "12cd0655-21f9-471e-86ad-8945fcbed0b9"
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 8847.038375
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "containerKind": "FX Layer"
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2005,
+        "ms": 50,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 25.613625
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2172,
+        "ms": 26,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.394042
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2198,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.82925
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2394,
+        "ms": 17,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.45325
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2410,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.342417
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2604,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.227584
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 3136,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.238958
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4669,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.859584
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4718,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.494459
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4793,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.146792
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4939,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.144792
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 5921,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.295916
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 7457,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.187459
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 7505,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.435208
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 7579,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.1665
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 7724,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.1055
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 8701,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.263666
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 8826,
+        "ms": 20,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.271292
+        }
+      }
+    ]
+  }
+}

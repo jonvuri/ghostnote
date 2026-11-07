@@ -556,7 +556,10 @@ test('3g-d: track copy is ordinary use, and refusals and no-action context add n
   );
 });
 
-test('3g-d: an inserted but unconfirmed device container creates no managed event', async () => {
+test('3g-d: a device container after the scope count is confirmed through a scrolled scope (B08)', async () => {
+  // Before B08 this case was "inserted but unconfirmed": a container at position 3 had no fixed scope, so no
+  // managed event could be recorded. The scopes now scroll over the whole bank (E352), so the only unobservable
+  // position is past the bank edge, where an insert refuses before writing.
   const fx = fixture();
   for (const id of [
     'a9ffacb5-33e9-4fc7-8621-b1af31e410ef',
@@ -568,11 +571,11 @@ test('3g-d: an inserted but unconfirmed device container creates no managed even
     }))['applied'], true);
   }
   const result = await call(fx, 'create_device_alternates', {
-    trackId: fx.trackA, containerType: 'effect', names: ['outside view'],
+    trackId: fx.trackA, containerType: 'effect', names: ['formerly outside view'],
   });
-  assert.equal(result['creationConfirmed'], undefined);
-  assert.equal(result['managedEventId'], undefined);
-  assert.equal((await fx.observationStore.read()).value, '');
+  assert.equal(result['creationConfirmed'], true, JSON.stringify(result));
+  assert.equal((result['structure'] as { container: { devicePosition: number } }).container.devicePosition, 3);
+  assert.notEqual((await fx.observationStore.read()).value, '');
 });
 
 test('3g-d: a record failure reports a confirmed project write as partial success', async () => {
@@ -2649,7 +2652,7 @@ test('T-device-alternate names: a requested name matching the shipped entry is s
     'both explicit naming writes travelled through the recorded executor path');
 });
 
-test('T-fill preflight: cumulative capacity refuses the whole request without state, history, or emitted writes', async () => {
+test('B17: fill pages a destination narrower than the requested shape', async () => {
   const fx = fixture();
   const made = await call(fx, 'create_device_alternates', {
     trackId: fx.trackA, containerType: 'effect', names: ['destination'],
@@ -2674,12 +2677,10 @@ test('T-fill preflight: cumulative capacity refuses the whole request without st
     sourceDevicePositions: [1, 2],
     mode: 'copy',
   });
-  assert.equal(result['refused'], true, JSON.stringify(result));
-  assert.equal(result['nothingWasWritten'], true);
-  assert.equal(JSON.stringify(track.devices), before, 'both sources and the destination are unchanged');
-  assert.equal(fx.stash.list().length, beforeChanges, 'no change was recorded');
-  assert.equal(fx.sent.length, beforeSent, 'no write batch was emitted by the adapter');
-  assert.equal((await fx.fake.revision()).revision, beforeRevision, 'no stage ran');
+  assert.equal(result['applied'], true, JSON.stringify(result));
+  assert.deepEqual(track.devices[0]!.chains![0]!.devices.map(item => item.name), ['source-a', 'source-b']);
+  assert.ok(fx.stash.list().length > beforeChanges);
+  assert.ok(fx.sent.length > beforeSent);
 });
 
 test('T-fill preflight: a valid first source followed by an invalid source writes nothing', async () => {
@@ -2878,13 +2879,13 @@ test('T-selective-reduction: an unobservable temporary container position refuse
     containerType: 'effect',
     names: ['gn-keep-a', 'gn-remove', 'gn-keep-b'],
   }) as { structure: { container: { devicePosition: number } } };
+  // B08: the scopes reach the whole 16-device bank, so the temporary position is unobservable only past the
+  // bank edge: fill the track to 16 devices.
   await call(fx, 'add_device', {
-    devices: [
-      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor' },
-      { trackId: fx.trackA, from: 'bitwig', id: 'gn-anchor-2' },
-    ],
+    devices: Array.from({ length: 15 }, (_, index) => ({ trackId: fx.trackA, from: 'bitwig', id: `gn-anchor-${index}` })),
   });
   const track = fx.fake.model.findByChannelId(fx.trackA)!.track;
+  assert.equal(track.devices.length, 16);
   const before = JSON.stringify(track.devices);
   const sent = fx.sent.length;
 
@@ -2896,7 +2897,7 @@ test('T-selective-reduction: an unobservable temporary container position refuse
   });
   assert.equal(result['refused'], true, JSON.stringify(result));
   assert.equal(result['nothingWasWritten'], true);
-  assert.match(String(result['why']), /outside the observable container scopes/);
+  assert.match(String(result['why']), /observable bank is full/);
   assert.equal(JSON.stringify(track.devices), before);
   assert.equal(fx.sent.length, sent);
 });
@@ -3187,7 +3188,7 @@ test('T-refusal: a write it could not put back is refused, and names what is in 
   assert.equal((await call(fx, 'write_notes', {
     clips: [{ trackId: fx.trackA, row: 0, notes: [note({ gain: 0.7 })] }],
   }))['applied'], true);
-  // Only a human can add pressure. Put it into the fake model directly so the
+  // Seed pressure directly in the fake to exercise the defensive refusal; the
   // refusal still covers a real lossy note property after gain became exact.
   const slotState = control(fx.fake).model.tracks[0]!.slots[0]!;
   const [key, existing] = [...slotState.notes.entries()][0]!;
@@ -3197,7 +3198,7 @@ test('T-refusal: a write it could not put back is refused, and names what is in 
   assert.ok(refused(result), 'the clip now holds a value that cannot be recorded exactly');
   const inTheWay = result['inTheWay'] as { where: { row: number }; why: string[] }[];
   assert.equal(inTheWay[0]?.where.row, 0);
-  assert.match(inTheWay[0]!.why.join(' '), /pressure cannot be written/);
+  assert.match(inTheWay[0]!.why.join(' '), /withholds note pressure replay.*independent API readback reports zero/);
   // ⚠ And the notes are untouched: a refusal is not a partial application.
   assert.equal(
     (await call(fx, 'read_clip', { trackId: fx.trackA, row: 0 }) as { notes: NoteRecord[] }).notes.length,

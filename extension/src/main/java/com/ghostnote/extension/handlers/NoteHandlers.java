@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
  *
  * Three traps live in this surface and are NOT worked around here (the handlers
  * stay a faithful mirror of the API; the mitigation belongs in the brain):
- *   - pressure does not persist in the clip and must be refused (E15-E);
+ *   - pressure writes lack independent API verification and remain refused (E399, D66);
  *   - gain reads back 2x the written value; the brain applies the exact inverse
  *     once (E24);
  *   - an absent MIDI channel means channel 0 for low-level compatibility.

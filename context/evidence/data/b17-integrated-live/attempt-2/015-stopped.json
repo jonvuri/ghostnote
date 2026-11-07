@@ -1,0 +1,5 @@
+{
+  "scratchName": "gn-b17w",
+  "error": "AssertionError [ERR_ASSERTION]: competing probe driver 89421",
+  "next": "Inspect recorded effects and current state before any further write; do not repeat this driver."
+}

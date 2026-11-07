@@ -1,0 +1,89 @@
+{
+  "elapsedMs": 26271,
+  "value": {
+    "name": "duplicate_layer_chain",
+    "args": {
+      "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+      "containerPosition": 3,
+      "layerChain": "A",
+      "name": "C"
+    },
+    "ms": 1259,
+    "wire": {
+      "turns": 33,
+      "wireMs": 759,
+      "methods": {
+        "revision.get": 7,
+        "track.list": 7,
+        "selection.status": 3,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "devcursor.selectAt": 7,
+        "chain.inventory": 7,
+        "chain.select": 1,
+        "batch.run": 1,
+        "chain.setName": 1
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "0e194398-63ea-419f-838b-bd20dd0b5681",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerPosition": 3,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"C\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "C",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.627,
+            "green": 0.753,
+            "blue": 0.286
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "EQ-5"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4
+        },
+        "layerChains": [
+          "A",
+          "C",
+          "B2"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1258.3179580000033
+      },
+      "target": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+        "containerPosition": 3,
+        "layerChain": "A"
+      }
+    }
+  }
+}

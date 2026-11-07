@@ -1,0 +1,70 @@
+{
+  "elapsedMs": 22806,
+  "value": {
+    "name": "set_layer_chain_solo",
+    "args": {
+      "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+      "containerPosition": 3,
+      "layerChain": "A",
+      "mode": "exclusive"
+    },
+    "ms": 817,
+    "wire": {
+      "turns": 27,
+      "wireMs": 634,
+      "methods": {
+        "revision.get": 7,
+        "track.list": 7,
+        "selection.status": 3,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "devcursor.selectAt": 5,
+        "chain.inventory": 5,
+        "batch.run": 1
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-layer-chain-solo/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "bfe1f5b7-d605-4b96-a016-c1a3caf7bcd8",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerPosition": 3,
+            "layerChain": "A",
+            "mode": "exclusive"
+          },
+          "summary": "Set layer chain \"A\" solo exclusive.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChains": [
+          {
+            "name": "A",
+            "solo": true
+          },
+          {
+            "name": "B",
+            "solo": false
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 816.9406660000022
+      },
+      "target": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+        "containerPosition": 3,
+        "layerChain": "A",
+        "mode": "exclusive"
+      }
+    }
+  }
+}

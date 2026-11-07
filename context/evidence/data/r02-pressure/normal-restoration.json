@@ -1,0 +1,11 @@
+{
+  "recordedAt": "2026-10-29T14:15:38.975368+00:00",
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "sha256": "14fb411c5791317609fd2f5f0980a2ab211176d1ae90e206ec409da34c1ccb87",
+  "mtimeMs": 1793282945484.5188,
+  "profile": "normal-v1",
+  "methodCount": 93,
+  "methodsHash": "d6decf985f6b1f36",
+  "operatorReplacement": "requested; no confirmation received",
+  "freshHandshake": "pending; not run before confirmation"
+}

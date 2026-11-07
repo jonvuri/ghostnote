@@ -1,0 +1,88 @@
+{
+  "elapsedMs": 17989,
+  "value": {
+    "trackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+    "scopes": [
+      {
+        "slot": 0,
+        "position": 0,
+        "requestedPosition": 0,
+        "settled": true,
+        "deviceName": "Tool"
+      },
+      {
+        "slot": 1,
+        "position": 1,
+        "requestedPosition": 1,
+        "settled": true,
+        "deviceName": "Dual Pan"
+      },
+      {
+        "slot": 2,
+        "position": 3,
+        "requestedPosition": 3,
+        "settled": true,
+        "deviceName": "FX Layer"
+      }
+    ],
+    "scopeAt3": {
+      "slot": 2,
+      "status": "held",
+      "requestedPosition": 3,
+      "position": 3,
+      "settled": true,
+      "canScrollForwards": false,
+      "canScrollBackwards": true,
+      "deviceExists": true,
+      "deviceName": "FX Layer",
+      "devicePosition": 3,
+      "hasLayers": true,
+      "hasSlots": false,
+      "slotNames": [],
+      "chains": [
+        {
+          "index": 0,
+          "name": "A",
+          "channelId": "1ee6e222-676b-4f6f-a5a0-4d1f471e16e9",
+          "solo": true,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.329,0.329,0.318",
+          "devices": [
+            {
+              "index": 0,
+              "name": "EQ-5",
+              "enabled": true
+            }
+          ],
+          "deviceCount": 1
+        },
+        {
+          "index": 1,
+          "name": "B",
+          "channelId": "9ba394af-9caf-4ac0-b5a2-de056263dde1",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.329,0.329,0.318",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Gate",
+              "enabled": true
+            }
+          ],
+          "deviceCount": 1
+        }
+      ],
+      "visibleChainCount": 2,
+      "chainCount": 2,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": true
+    }
+  }
+}

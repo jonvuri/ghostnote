@@ -1,0 +1,21 @@
+{
+  "elapsedMs": 164,
+  "value": {
+    "hello": {
+      "contractVersion": 0,
+      "extensionVersion": "0.0.1",
+      "runtimeProfile": "normal-v1",
+      "hostApiVersion": 25,
+      "methodCount": 93,
+      "methodsHash": "a44ce79ed75df81b"
+    },
+    "deployment": {
+      "state": "fresh",
+      "detail": "running build started 2026-10-25T23:37:26.947Z, after the deployed file",
+      "deployedAtMs": 1792971216122.0261,
+      "startedAtMs": 1792971446947
+    },
+    "containerScopes": 3,
+    "containerScopePositions": 16
+  }
+}

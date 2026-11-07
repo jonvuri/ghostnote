@@ -11,7 +11,7 @@
  * Test ids map to the finding each one guards:
  *   E-immediate   E4    param writes must be setImmediately, never set
  *   E-resolution  E4b   DirectParameter writes must carry resolution=1
- *   E-pressure    E15-E pressure is never written — the API discards it
+ *   E-pressure    D66 pressure is never emitted — independent readback is blind
  *   E-insertfile  E4h   insertFile needs an absolute path and a .bwpreset name
  *   E-grid        E2    beats -> steps, and off-grid positions are refused
  *   E-point       E1/E2 track-then-slot pointing, never at an unverified slot
@@ -310,14 +310,9 @@ test('E-immediate: neither param path is caller-selectable', () => {
 // --- E15-E: pressure never reaches the wire ---------------------------------
 
 test('E-pressure: no frame ever carries pressure, whatever the caller asks for (E15-E)', () => {
-  // ⚠ The inverse of what this test used to assert. E2/e02e read "gain and
-  // timbre zero pressure" and the encoder answered by emitting pressure LAST.
-  // E15-E measured that `setPressure` never reaches the clip at all: the value
-  // lives in the writing cursor's own NoteStep cache, is invisible to every
-  // other cursor, and vanishes when that cursor is re-pointed. Emitting it is
-  // worse than useless — a snapshot taken through the writing cursor would read
-  // the phantom back as real. `assertOpsWritable` refuses it before the encoder
-  // is reached; this asserts the encoder could not emit it even if it were not.
+  // D66 retains pressure filtering because independent API readback is blind.
+  // E399 shows inspector effects; this test verifies product refusal, not an
+  // inert host setter. The encoder must also omit it defensively.
   const frames = encodeOp(
     { op: 'note.props', clip: CLIP_A, notes: [note({ gain: 0.7, timbre: 0.3, pressure: 0.9, pan: 0.1 })] },
     ctx,
@@ -438,7 +433,7 @@ test('4g-device-insert: every route carries the durable track and complete-chain
   }
 });
 
-test('E-chain: a create names its container by SLOT and its source by OBSERVED position', () => {
+test('E-chain: a create names its container by POSITION and its source by OBSERVED index', () => {
   // ⚠ The whole reason `chainIndex` is a context function. A chain is addressed
   // by NAME (E17ad, E18b), so its bank position exists nowhere in the address —
   // the only honest source is a `chain.inventory` reply, and the encoder must
@@ -449,15 +444,19 @@ test('E-chain: a create names its container by SLOT and its source by OBSERVED p
   assert.deepEqual(methods(frames), [WIRE.chainDuplicate],
     'ONE frame: the rename cannot be encoded, because nothing yet knows which chain to rename');
   const params = paramsOf(frames, WIRE.chainDuplicate);
-  // ⚠ `slot` is the CONTAINER's position in the track's own device chain, and
-  // `layerIndex` is the source chain's position inside that container. Two
-  // different numbers at two different levels; the stub answers 2 for this
-  // chain, so a frame that reused the container's 1 fails here.
-  assert.equal(params?.['slot'], 1);
-  assert.equal(params?.['layerIndex'], 2);
+  // ⚠ `position` is the container's position in the track's own device chain,
+  // and `chainIndex` is the source chain's absolute index inside that
+  // container. Two different numbers at two different levels; the stub answers
+  // 2 for this chain, so a frame that reused the container's 1 fails here. B17:
+  // no scope slot — the extension chooses and settles the scope itself.
+  assert.equal(params?.['slot'], undefined);
+  assert.equal(params?.['position'], 1);
+  assert.equal(params?.['chainIndex'], 2);
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId, 'the track the extension polls before it reads a scope');
   // ⚠ Carried so the extension can refuse a position that re-indexed since it
   // was observed, instead of copying whatever slid into it (E3, one level down).
   assert.equal(params?.['expectedName'], 'A take');
+  assert.equal(params?.['expectedChannelId'], 'id-A take');
   // ⚠ And NO cursor and NO trackIndex: these banks hang off `cursorTracks[0]`
   // via the slot scopes, and the load-bearing point is the settled one the
   // adapter makes in an earlier request. A point in this frame would look like a
@@ -472,7 +471,7 @@ test('E-chain: a source nobody observed is REFUSED, never given a guessed positi
   // The real context throws; this asserts the shape the encoder passes through,
   // so a future default of 0 would show up as a frame aimed at the first chain.
   const frames = encodeOp({ op: 'chain.create', source: unseen, name: 'B' }, ctx);
-  assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['layerIndex'], -1,
+  assert.equal(paramsOf(frames, WIRE.chainDuplicate)?.['chainIndex'], -1,
     'whatever the context says is what goes out — the encoder invents no position');
 });
 
@@ -481,13 +480,37 @@ test('E-chain-rename: a durable name write targets the freshly observed identity
   const frames = encodeOp({ op: 'chain.rename', chain: source, name: 'Original' }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainSetName]);
   const params = paramsOf(frames, WIRE.chainSetName);
-  assert.equal(params?.['slot'], 1);
+  assert.equal(params?.['slot'], undefined);
+  assert.equal(params?.['position'], 1);
   assert.equal(params?.['channelId'], 'id-A take');
   assert.equal(params?.['name'], 'Original');
-  assert.equal(params?.['layerIndex'], undefined, 'a position is never the rename identity');
+  assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
+  assert.equal(params?.['chainIndex'], undefined, 'an index is never the rename identity');
 });
 
-test('E-chain-relocate: all directions use one guarded slot-scoped mover', () => {
+test('B17 relocation encodes overflow indices and refuses an unobserved endpoint identity', () => {
+  const source = chainAt(device(TRACK_A, 1), 'source');
+  const destination = chainAt(device(TRACK_A, 1), 'destination');
+  const op: Op = { op: 'chain.relocate', source: deviceIn(source, 9), destination, mode: 'move' };
+  const paged = { ...ctx, chainIndex: (c: typeof source) => c.name === 'source' ? 5 : 10 };
+  const frames = encodeOp(op, paged);
+  assert.deepEqual(methods(frames), [WIRE.chainMove]);
+  const params = paramsOf(frames, WIRE.chainMove);
+  assert.deepEqual([params?.['srcPosition'], params?.['srcChain'], params?.['srcDevice'],
+    params?.['dstPosition'], params?.['dstChain']], [1, 5, 9, 1, 10]);
+  assert.equal(params?.['expectedSourceChannelId'], 'id-source');
+  assert.equal(params?.['expectedDestinationChannelId'], 'id-destination');
+  for (const missing of ['source', 'destination']) {
+    assert.throws(() => encodeOp(op, {
+      ...paged, chainId: (c) => {
+        if (c.name === missing) throw new Error('no fresh chain identity');
+        return `id-${c.name}`;
+      },
+    }), /no fresh chain identity/);
+  }
+});
+
+test('E-chain-relocate: all directions use one guarded absolute-position mover', () => {
   const a = chainAt(device(TRACK_A, 0), 'A take');
   const b = chainAt(device(TRACK_A, 1), 'B take');
   const named = deviceSlot(device(TRACK_A, 1), 'CHAIN');
@@ -506,13 +529,30 @@ test('E-chain-relocate: all directions use one guarded slot-scoped mover', () =>
     ['top', 'chain', 'move'], ['chain', 'top', 'move'], ['chain', 'chain', 'copy'],
     ['top', 'slot', 'move'], ['slot', 'top', 'move'],
   ]);
-  assert.equal(params[0]?.['dstLayer'], 2);
+  assert.equal(params[0]?.['dstChain'], 2);
   assert.deepEqual(params[0]?.['expectedDeviceNames'], ['Tool', 'Polysynth']);
   assert.deepEqual(params[0]?.['expectedDeviceEnabled'], [true, false]);
-  assert.equal(params[1]?.['srcLayer'], 2);
-  assert.equal(params[2]?.['dstLayer'], 3);
+  assert.equal(params[1]?.['srcChain'], 2);
+  assert.equal(params[2]?.['dstChain'], 3);
+  assert.equal(params[0]?.['expectedDestinationChannelId'], 'id-A take');
+  assert.equal(params[1]?.['expectedSourceChannelId'], 'id-A take');
+  assert.equal(params[2]?.['expectedSourceChannelId'], 'id-A take');
+  assert.equal(params[2]?.['expectedDestinationChannelId'], 'id-B take');
+  assert.equal(params[3]?.['expectedDestinationChannelId'], undefined);
+  assert.equal(params[4]?.['expectedSourceChannelId'], undefined);
   assert.equal(params[3]?.['expectedDestinationChain'], 'CHAIN');
   assert.equal(params[4]?.['expectedSourceChain'], 'CHAIN');
+  // B17: every nested endpoint names its container's absolute position; a layer-chain endpoint adds the
+  // chain's absolute index, a named-slot endpoint (the cursor route) names no chain. No scope slot anywhere.
+  assert.deepEqual([params[0]?.['dstPosition'], params[0]?.['dstChain']], [0, 2]);
+  assert.deepEqual([params[1]?.['srcPosition'], params[1]?.['srcChain']], [0, 2]);
+  assert.deepEqual([params[2]?.['srcPosition'], params[2]?.['srcChain'], params[2]?.['dstPosition'], params[2]?.['dstChain']],
+    [0, 2, 1, 3]);
+  assert.deepEqual([params[3]?.['dstPosition'], params[3]?.['dstChain']], [1, undefined]);
+  assert.deepEqual([params[4]?.['srcPosition'], params[4]?.['srcChain']], [1, undefined]);
+  for (const value of params) {
+    for (const stale of ['srcSlot', 'dstSlot', 'srcLayer', 'dstLayer']) assert.equal(value?.[stale], undefined, stale);
+  }
   for (const value of params) {
     assert.equal(value?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(value?.['expectedSourceName'], 'Polysynth');
@@ -524,9 +564,11 @@ test('E-chain-activate: exclusive switching carries stable identity guards', () 
   const frames = encodeOp({ op: 'chain.activate', chain: target }, ctx);
   assert.deepEqual(methods(frames), [WIRE.chainActivate]);
   const params = paramsOf(frames, WIRE.chainActivate);
-  assert.equal(params?.['slot'], 1);
-  assert.equal(params?.['layerIndex'], 3);
+  assert.equal(params?.['slot'], undefined);
+  assert.equal(params?.['position'], 1);
+  assert.equal(params?.['chainIndex'], 3);
   assert.equal(params?.['expectedName'], 'B take');
+  assert.equal(params?.['expectedChannelId'], 'id-B take');
   assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
 });
 
@@ -536,11 +578,33 @@ test('8h4e encoder: a solo set carries the identity guards and the requested fla
     const frames = encodeOp({ op: 'chain.solo', chain: target, solo }, ctx);
     assert.deepEqual(methods(frames), [WIRE.chainSetSolo]);
     const params = paramsOf(frames, WIRE.chainSetSolo);
-    assert.equal(params?.['slot'], 1);
-    assert.equal(params?.['layerIndex'], 3);
+    assert.equal(params?.['slot'], undefined);
+    assert.equal(params?.['position'], 1);
+    assert.equal(params?.['chainIndex'], 3);
     assert.equal(params?.['expectedName'], 'B take');
+    assert.equal(params?.['expectedChannelId'], 'id-B take');
     assert.equal(params?.['expectedTrackChannelId'], TRACK_A.channelId);
     assert.equal(params?.['solo'], solo);
+  }
+});
+
+test('B17 chain controls retain absolute overflow positions and their observed channel ID', () => {
+  const target = chainAt(device(TRACK_A, 17), 'sixth');
+  const observed: EncodeContext = { ...ctx, chainIndex: () => 5, chainId: () => 'sixth-id' };
+  const controls: Op[] = [
+    { op: 'chain.create', source: target, name: 'copy' },
+    { op: 'chain.activate', chain: target },
+    { op: 'chain.solo', chain: target, solo: true },
+  ];
+  for (const op of controls) {
+    const frames = encodeOp(op, observed);
+    assert.equal(frames.length, 1);
+    const params = frames[0]!.params as Record<string, unknown>;
+    assert.equal(params['position'], 17);
+    assert.equal(params['chainIndex'], 5);
+    assert.equal(params['expectedChannelId'], 'sixth-id');
+    assert.equal(params['slot'], undefined);
+    assert.equal(params['layerWindow'], undefined, 'window state stays in the extension');
   }
 });
 
@@ -946,3 +1010,36 @@ test('E-row: a row past the window REFUSES rather than emitting a frame the bank
     () => encodeOp({ op: 'note.write', clip: clip(slot(TRACK_A, outside)), notes: [note()] }, ctx),
     BlindSpotError);
 });
+
+for (const count of [17, 18]) {
+  test(`B17 encoder: complete ${count}-device fingerprints and distant positions retain the pool cursor`, () => {
+    const names = Array.from({ length: count }, (_, index) => `Device ${index}`);
+    const enabled = names.map((_, index) => index % 2 === 0);
+    const paged: EncodeContext = {
+      ...ctx, cursorForTrack: () => '2', deviceChainNames: () => names, deviceChainEnabled: () => enabled,
+      deviceTailIndex: () => count - 1, deviceName: (d) => names[d.chainIndex]!,
+      deviceEnabled: (d) => enabled[d.chainIndex]!,
+    };
+    const operations: Op[] = [
+      { op: 'device.insert', track: TRACK_A, source: { from: 'clap', id: 'example.plugin' } },
+      ...[0, count - 1].flatMap((index): Op[] => [
+        { op: 'device.delete', device: device(TRACK_A, index) },
+        { op: 'device.setEnabled', device: device(TRACK_A, index), enabled: false },
+      ]),
+      { op: 'device.relocate', track: TRACK_A, sourceFromEnd: 0, expectedName: names.at(-1)!, before: device(TRACK_A, 0) },
+    ];
+    for (const op of operations) {
+      const frames = encodeOp(op, paged);
+      assert.equal(frames.length, 2, 'paging stays inside one extension command after pointing');
+      const params = frames[1]!.params as Record<string, unknown>;
+      assert.equal(params['cursor'], '2');
+      assert.equal(params['expectedTrackChannelId'], TRACK_A.channelId);
+      assert.deepEqual(params['expectedDeviceNames'], names);
+      assert.deepEqual(params['expectedDeviceEnabled'], enabled);
+      if (op.op === 'device.delete' || op.op === 'device.setEnabled') assert.equal(params['deviceIndex'], op.device.chainIndex);
+      if (op.op === 'device.relocate') {
+        assert.equal(params['deviceIndex'], count - 1); assert.equal(params['anchorIndex'], 0);
+      }
+    }
+  });
+}

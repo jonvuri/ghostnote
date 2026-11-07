@@ -1,0 +1,3132 @@
+{
+  "result": {
+    "schema": "ghostnote-devices/1",
+    "source": {
+      "host": "bitwig-devices",
+      "read": "fresh-structure-read"
+    },
+    "target": {
+      "trackId": "2c494622-de74-4d56-804e-7a40127afc47"
+    },
+    "coverage": {
+      "status": "complete",
+      "devicesComplete": true,
+      "bankSize": 16,
+      "devicePages": 2,
+      "layerChainPositions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    "authority": {
+      "kind": "fresh-read"
+    },
+    "data": {
+      "trackId": "2c494622-de74-4d56-804e-7a40127afc47",
+      "devices": [
+        {
+          "devicePosition": 0,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 1,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 2,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 3,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 4,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 5,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 6,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 7,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 8,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 9,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 10,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 11,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 12,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 13,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 14,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 15,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 16,
+          "name": "Tool",
+          "enabled": true
+        },
+        {
+          "devicePosition": 17,
+          "name": "FX Layer",
+          "enabled": true,
+          "container": {
+            "containerKind": "FX Layer",
+            "layerChains": [
+              {
+                "position": 0,
+                "name": "A",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  },
+                  {
+                    "devicePosition": 1,
+                    "name": "Tool"
+                  },
+                  {
+                    "devicePosition": 2,
+                    "name": "Tool"
+                  },
+                  {
+                    "devicePosition": 3,
+                    "name": "Tool"
+                  },
+                  {
+                    "devicePosition": 4,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 2
+              },
+              {
+                "position": 1,
+                "name": "E",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 2,
+                "name": "D",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 3,
+                "name": "C",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 4,
+                "name": "B",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 1
+              },
+              {
+                "position": 5,
+                "name": "Tool",
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": {
+                  "red": 0.788,
+                  "green": 0.788,
+                  "blue": 0.788
+                },
+                "devices": [
+                  {
+                    "devicePosition": 0,
+                    "name": "Tool"
+                  }
+                ],
+                "devicesComplete": true,
+                "deviceCapacity": 4,
+                "devicePages": 1
+              }
+            ],
+            "complete": true,
+            "capacity": 5,
+            "chainPages": 2
+          }
+        }
+      ]
+    },
+    "warnings": [],
+    "timing": {
+      "totalMs": 2575.911875
+    }
+  },
+  "ms": 2575.9658329999997,
+  "turns": 65,
+  "calls": [
+    {
+      "method": "selection.status",
+      "sent": 3565.806125,
+      "received": 3591.467625,
+      "bytes": 245,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "79",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 5,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"79\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 3591.526042,
+      "received": 3616.610417,
+      "bytes": 1441,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "80",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "gn-b17r",
+              "position": 9,
+              "type": "Instrument",
+              "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+            },
+            {
+              "index": 10,
+              "name": "FX 1",
+              "position": 10,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 11,
+              "name": "Master",
+              "position": 11,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 12,
+          "itemCount": 12,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"80\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 3616.677667,
+      "received": 3639.383542,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "81",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"81\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 3639.435625,
+      "received": 3662.05275,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "82",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"82\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "0"
+      },
+      "sent": 3688.219084,
+      "received": 3828.628334,
+      "bytes": 938,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "83",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 4,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 5,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 6,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 7,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 8,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 9,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 10,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 11,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 12,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 13,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 14,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 15,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 16,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 17,
+              "name": "FX Layer",
+              "enabled": true
+            }
+          ],
+          "count": 18,
+          "itemCount": 18,
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "trackPosition": 8,
+          "bankSize": 16,
+          "pages": 2,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"83\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true},{\"index\":5,\"name\":\"Tool\",\"enabled\":true},{\"index\":6,\"name\":\"Tool\",\"enabled\":true},{\"index\":7,\"name\":\"Tool\",\"enabled\":true},{\"index\":8,\"name\":\"Tool\",\"enabled\":true},{\"index\":9,\"name\":\"Tool\",\"enabled\":true},{\"index\":10,\"name\":\"Tool\",\"enabled\":true},{\"index\":11,\"name\":\"Tool\",\"enabled\":true},{\"index\":12,\"name\":\"Tool\",\"enabled\":true},{\"index\":13,\"name\":\"Tool\",\"enabled\":true},{\"index\":14,\"name\":\"Tool\",\"enabled\":true},{\"index\":15,\"name\":\"Tool\",\"enabled\":true},{\"index\":16,\"name\":\"Tool\",\"enabled\":true},{\"index\":17,\"name\":\"FX Layer\",\"enabled\":true}],\"count\":18,\"itemCount\":18,\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"trackPosition\":8,\"bankSize\":16,\"pages\":2,\"paged\":true}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 3854.863625,
+      "received": 3875.84425,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "84",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"84\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 3875.881209,
+      "received": 3900.416667,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "85",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"85\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "device.list",
+      "params": {
+        "cursor": "0"
+      },
+      "sent": 3926.613542,
+      "received": 4067.113709,
+      "bytes": 938,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "86",
+        "result": {
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 4,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 5,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 6,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 7,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 8,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 9,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 10,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 11,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 12,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 13,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 14,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 15,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 16,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 17,
+              "name": "FX Layer",
+              "enabled": true
+            }
+          ],
+          "count": 18,
+          "itemCount": 18,
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "trackPosition": 8,
+          "bankSize": 16,
+          "pages": 2,
+          "paged": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"86\",\"result\":{\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true},{\"index\":5,\"name\":\"Tool\",\"enabled\":true},{\"index\":6,\"name\":\"Tool\",\"enabled\":true},{\"index\":7,\"name\":\"Tool\",\"enabled\":true},{\"index\":8,\"name\":\"Tool\",\"enabled\":true},{\"index\":9,\"name\":\"Tool\",\"enabled\":true},{\"index\":10,\"name\":\"Tool\",\"enabled\":true},{\"index\":11,\"name\":\"Tool\",\"enabled\":true},{\"index\":12,\"name\":\"Tool\",\"enabled\":true},{\"index\":13,\"name\":\"Tool\",\"enabled\":true},{\"index\":14,\"name\":\"Tool\",\"enabled\":true},{\"index\":15,\"name\":\"Tool\",\"enabled\":true},{\"index\":16,\"name\":\"Tool\",\"enabled\":true},{\"index\":17,\"name\":\"FX Layer\",\"enabled\":true}],\"count\":18,\"itemCount\":18,\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"trackPosition\":8,\"bankSize\":16,\"pages\":2,\"paged\":true}}"
+    },
+    {
+      "method": "revision.get",
+      "sent": 4067.201709,
+      "received": 4092.476042,
+      "bytes": 2844,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "87",
+        "result": {
+          "revision": 31,
+          "generation": "1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca",
+          "project": "gn-scale-test",
+          "projectStatus": "marked",
+          "sceneEpoch": 2,
+          "sceneCount": 10,
+          "contentEpoch": 32793,
+          "unpinnedCursorTracks": [],
+          "contentEvents": [
+            {
+              "seq": 32770,
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+              "trackIndex": 0,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32771,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32772,
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+              "trackIndex": 1,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32773,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32774,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32775,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32776,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 3,
+              "filled": true
+            },
+            {
+              "seq": 32777,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 4,
+              "filled": true
+            },
+            {
+              "seq": 32778,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32779,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 6,
+              "filled": true
+            },
+            {
+              "seq": 32780,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 7,
+              "filled": true
+            },
+            {
+              "seq": 32781,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 8,
+              "filled": true
+            },
+            {
+              "seq": 32782,
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+              "trackIndex": 2,
+              "slotIndex": 9,
+              "filled": true
+            },
+            {
+              "seq": 32783,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32784,
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+              "trackIndex": 3,
+              "slotIndex": 5,
+              "filled": true
+            },
+            {
+              "seq": 32785,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32786,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32787,
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+              "trackIndex": 4,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32788,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32789,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 1,
+              "filled": true
+            },
+            {
+              "seq": 32790,
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "trackIndex": 5,
+              "slotIndex": 2,
+              "filled": true
+            },
+            {
+              "seq": 32791,
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+              "trackIndex": 6,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32792,
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+              "trackIndex": 7,
+              "slotIndex": 0,
+              "filled": true
+            },
+            {
+              "seq": 32793,
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+              "trackIndex": 8,
+              "slotIndex": 0,
+              "filled": true
+            }
+          ]
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"87\",\"result\":{\"revision\":31,\"generation\":\"1b55cb0a-2f3b-46cb-aeb5-5e0d96548dca\",\"project\":\"gn-scale-test\",\"projectStatus\":\"marked\",\"sceneEpoch\":2,\"sceneCount\":10,\"contentEpoch\":32793,\"unpinnedCursorTracks\":[],\"contentEvents\":[{\"seq\":32770,\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\",\"trackIndex\":0,\"slotIndex\":4,\"filled\":true},{\"seq\":32771,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":1,\"filled\":true},{\"seq\":32772,\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\",\"trackIndex\":1,\"slotIndex\":2,\"filled\":true},{\"seq\":32773,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":0,\"filled\":true},{\"seq\":32774,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":1,\"filled\":true},{\"seq\":32775,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":2,\"filled\":true},{\"seq\":32776,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":3,\"filled\":true},{\"seq\":32777,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":4,\"filled\":true},{\"seq\":32778,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":5,\"filled\":true},{\"seq\":32779,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":6,\"filled\":true},{\"seq\":32780,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":7,\"filled\":true},{\"seq\":32781,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":8,\"filled\":true},{\"seq\":32782,\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\",\"trackIndex\":2,\"slotIndex\":9,\"filled\":true},{\"seq\":32783,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":0,\"filled\":true},{\"seq\":32784,\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\",\"trackIndex\":3,\"slotIndex\":5,\"filled\":true},{\"seq\":32785,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":0,\"filled\":true},{\"seq\":32786,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":1,\"filled\":true},{\"seq\":32787,\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\",\"trackIndex\":4,\"slotIndex\":2,\"filled\":true},{\"seq\":32788,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":0,\"filled\":true},{\"seq\":32789,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":1,\"filled\":true},{\"seq\":32790,\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"trackIndex\":5,\"slotIndex\":2,\"filled\":true},{\"seq\":32791,\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\",\"trackIndex\":6,\"slotIndex\":0,\"filled\":true},{\"seq\":32792,\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\",\"trackIndex\":7,\"slotIndex\":0,\"filled\":true},{\"seq\":32793,\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"trackIndex\":8,\"slotIndex\":0,\"filled\":true}]}}"
+    },
+    {
+      "method": "track.list",
+      "sent": 4067.233792,
+      "received": 4092.7305,
+      "bytes": 1441,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "88",
+        "result": {
+          "tracks": [
+            {
+              "index": 0,
+              "name": "Instrument Layer",
+              "position": 0,
+              "type": "Hybrid",
+              "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+            },
+            {
+              "index": 1,
+              "name": "Hybrid 2",
+              "position": 1,
+              "type": "Hybrid",
+              "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+            },
+            {
+              "index": 2,
+              "name": "gn-A",
+              "position": 2,
+              "type": "Instrument",
+              "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+            },
+            {
+              "index": 3,
+              "name": "gn-B",
+              "position": 3,
+              "type": "Instrument",
+              "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+            },
+            {
+              "index": 4,
+              "name": "Group 5",
+              "position": 4,
+              "type": "Group",
+              "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+            },
+            {
+              "index": 5,
+              "name": "gn-E16",
+              "position": 5,
+              "type": "Instrument",
+              "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+              "hidden": true
+            },
+            {
+              "index": 6,
+              "name": "gn-lay",
+              "position": 6,
+              "type": "Instrument",
+              "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+            },
+            {
+              "index": 7,
+              "name": "gn-lay4",
+              "position": 7,
+              "type": "Instrument",
+              "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+            },
+            {
+              "index": 8,
+              "name": "gn-sel",
+              "position": 8,
+              "type": "Instrument",
+              "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+            },
+            {
+              "index": 9,
+              "name": "gn-b17r",
+              "position": 9,
+              "type": "Instrument",
+              "channelId": "2c494622-de74-4d56-804e-7a40127afc47"
+            },
+            {
+              "index": 10,
+              "name": "FX 1",
+              "position": 10,
+              "type": "Effect",
+              "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+            },
+            {
+              "index": 11,
+              "name": "Master",
+              "position": 11,
+              "type": "Master",
+              "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+            }
+          ],
+          "count": 12,
+          "itemCount": 12,
+          "bankSize": 256
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"88\",\"result\":{\"tracks\":[{\"index\":0,\"name\":\"Instrument Layer\",\"position\":0,\"type\":\"Hybrid\",\"channelId\":\"98ba8aa3-dbce-4e51-8bb2-de9302542b6e\"},{\"index\":1,\"name\":\"Hybrid 2\",\"position\":1,\"type\":\"Hybrid\",\"channelId\":\"4a6a024a-f213-48f1-9029-532fc077d857\"},{\"index\":2,\"name\":\"gn-A\",\"position\":2,\"type\":\"Instrument\",\"channelId\":\"d61c23c2-4f85-4eee-bc08-8bb9baf6ff63\"},{\"index\":3,\"name\":\"gn-B\",\"position\":3,\"type\":\"Instrument\",\"channelId\":\"78a40fcf-3eae-48fc-badf-1ff18900166b\"},{\"index\":4,\"name\":\"Group 5\",\"position\":4,\"type\":\"Group\",\"channelId\":\"ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3\"},{\"index\":5,\"name\":\"gn-E16\",\"position\":5,\"type\":\"Instrument\",\"channelId\":\"e75d9383-425e-4bff-9ca6-802bb9caed02\",\"hidden\":true},{\"index\":6,\"name\":\"gn-lay\",\"position\":6,\"type\":\"Instrument\",\"channelId\":\"d367ac16-b7bd-4662-971f-fe924ec033a3\"},{\"index\":7,\"name\":\"gn-lay4\",\"position\":7,\"type\":\"Instrument\",\"channelId\":\"9a88b37d-337a-4ef2-96a8-a147419d7cda\"},{\"index\":8,\"name\":\"gn-sel\",\"position\":8,\"type\":\"Instrument\",\"channelId\":\"6fb96670-abde-4958-9147-f573a4b43918\"},{\"index\":9,\"name\":\"gn-b17r\",\"position\":9,\"type\":\"Instrument\",\"channelId\":\"2c494622-de74-4d56-804e-7a40127afc47\"},{\"index\":10,\"name\":\"FX 1\",\"position\":10,\"type\":\"Effect\",\"channelId\":\"52bd865e-c958-4bda-b9d3-97d0ea2f463a\"},{\"index\":11,\"name\":\"Master\",\"position\":11,\"type\":\"Master\",\"channelId\":\"834e65ab-efa4-4bc6-ae9d-4eafd818d16e\"}],\"count\":12,\"itemCount\":12,\"bankSize\":256}}"
+    },
+    {
+      "method": "selection.status",
+      "sent": 4092.79125,
+      "received": 4113.470667,
+      "bytes": 245,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "89",
+        "result": {
+          "trackIndex": -1,
+          "slotIndex": -1,
+          "mixerTrackIndex": 8,
+          "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+          "changes": 0,
+          "revision": 5,
+          "slotProject": "",
+          "mixerProject": "gn-scale-test",
+          "project": "gn-scale-test"
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"89\",\"result\":{\"trackIndex\":-1,\"slotIndex\":-1,\"mixerTrackIndex\":8,\"mixerChannelId\":\"6fb96670-abde-4958-9147-f573a4b43918\",\"changes\":0,\"revision\":5,\"slotProject\":\"\",\"mixerProject\":\"gn-scale-test\",\"project\":\"gn-scale-test\"}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4113.551292,
+      "received": 4138.242917,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "90",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"90\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4138.303625,
+      "received": 4162.341959,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "91",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"91\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 0,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4162.394,
+      "received": 4192.101125,
+      "bytes": 933,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "92",
+        "result": {
+          "success": true,
+          "position": 0,
+          "slot": 0,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 0,
+            "status": "held",
+            "requestedPosition": 0,
+            "position": 0,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": false,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 0,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.163416
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"92\",\"result\":{\"success\":true,\"position\":0,\"slot\":0,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":0,\"status\":\"held\",\"requestedPosition\":0,\"position\":0,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":false,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":0,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":0,\"slot\":0}],\"polls\":1,\"scrolls\":0,\"ms\":0.163416}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4192.177042,
+      "received": 4209.750167,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "93",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"93\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4209.793417,
+      "received": 4232.924292,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "94",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"94\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 1,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4232.975834,
+      "received": 4255.885667,
+      "bytes": 932,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "95",
+        "result": {
+          "success": true,
+          "position": 1,
+          "slot": 1,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 1,
+            "status": "held",
+            "requestedPosition": 1,
+            "position": 1,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 1,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 1,
+                "slot": 1
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.137791
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"95\",\"result\":{\"success\":true,\"position\":1,\"slot\":1,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":1,\"status\":\"held\",\"requestedPosition\":1,\"position\":1,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":1,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":1,\"slot\":1}],\"polls\":1,\"scrolls\":0,\"ms\":0.137791}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4255.957834,
+      "received": 4280.38125,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "96",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"96\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4280.416875,
+      "received": 4301.546042,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "97",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"97\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 2,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4301.577959,
+      "received": 4350.812542,
+      "bytes": 933,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "98",
+        "result": {
+          "success": true,
+          "position": 2,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 2,
+            "position": 2,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 2,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 2,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 25.390625
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"98\",\"result\":{\"success\":true,\"position\":2,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":2,\"position\":2,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":2,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":2,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":25.390625}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4350.872375,
+      "received": 4371.170417,
+      "bytes": 54,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "99",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"99\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4371.209417,
+      "received": 4396.695125,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "100",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"100\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 3,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4396.725959,
+      "received": 4449.192917,
+      "bytes": 934,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "101",
+        "result": {
+          "success": true,
+          "position": 3,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 3,
+            "position": 3,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 3,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 3,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 26.930958
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"101\",\"result\":{\"success\":true,\"position\":3,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":3,\"position\":3,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":3,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":3,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":26.930958}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4449.259959,
+      "received": 4465.663,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "102",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"102\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4465.695709,
+      "received": 4486.171709,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "103",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"103\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 4,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4486.202375,
+      "received": 4532.963542,
+      "bytes": 934,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "104",
+        "result": {
+          "success": true,
+          "position": 4,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 4,
+            "position": 4,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 4,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 4,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 22.877417
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"104\",\"result\":{\"success\":true,\"position\":4,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":4,\"position\":4,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":4,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":4,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":22.877417}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4533.023542,
+      "received": 4555.766959,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "105",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"105\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4555.79925,
+      "received": 4579.741709,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "106",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"106\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 5,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4579.78,
+      "received": 4630.81625,
+      "bytes": 934,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "107",
+        "result": {
+          "success": true,
+          "position": 5,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 5,
+            "position": 5,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 5,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 5,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 23.334416
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"107\",\"result\":{\"success\":true,\"position\":5,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":5,\"position\":5,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":5,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":5,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":23.334416}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4630.890667,
+      "received": 4655.964417,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "108",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"108\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4655.996667,
+      "received": 4677.742709,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "109",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"109\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 6,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4677.788375,
+      "received": 4725.054334,
+      "bytes": 933,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "110",
+        "result": {
+          "success": true,
+          "position": 6,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 6,
+            "position": 6,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 6,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 6,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 25.45525
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"110\",\"result\":{\"success\":true,\"position\":6,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":6,\"position\":6,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":6,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":6,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":25.45525}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4725.122042,
+      "received": 4750.169917,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "111",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"111\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4750.215667,
+      "received": 4773.838375,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "112",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"112\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 7,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4773.883375,
+      "received": 4823.388542,
+      "bytes": 934,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "113",
+        "result": {
+          "success": true,
+          "position": 7,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 7,
+            "position": 7,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 7,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 7,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 25.146333
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"113\",\"result\":{\"success\":true,\"position\":7,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":7,\"position\":7,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":7,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":7,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":25.146333}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4823.460959,
+      "received": 4847.785875,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "114",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"114\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4847.819625,
+      "received": 4868.549917,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "115",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"115\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 8,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4868.580042,
+      "received": 4918.22625,
+      "bytes": 934,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "116",
+        "result": {
+          "success": true,
+          "position": 8,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 8,
+            "position": 8,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 8,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 8,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 25.264583
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"116\",\"result\":{\"success\":true,\"position\":8,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":8,\"position\":8,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":8,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":8,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":25.264583}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 4918.286792,
+      "received": 4942.31325,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "117",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"117\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 4942.340625,
+      "received": 4963.433417,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "118",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"118\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 9,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 4963.487625,
+      "received": 5008.120167,
+      "bytes": 933,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "119",
+        "result": {
+          "success": true,
+          "position": 9,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 9,
+            "position": 9,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 9,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 9,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 19.34775
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"119\",\"result\":{\"success\":true,\"position\":9,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":9,\"position\":9,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":9,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":9,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":19.34775}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5008.182084,
+      "received": 5027.97075,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "120",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"120\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5028.008167,
+      "received": 5052.949375,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "121",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"121\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 10,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5053.0065,
+      "received": 5099.1175,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "122",
+        "result": {
+          "success": true,
+          "position": 10,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 10,
+            "position": 10,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 10,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 10,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 23.543291
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"122\",\"result\":{\"success\":true,\"position\":10,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":10,\"position\":10,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":10,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":10,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":23.543291}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5099.175875,
+      "received": 5119.327834,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "123",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"123\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5119.366292,
+      "received": 5142.476875,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "124",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"124\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 11,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5142.528125,
+      "received": 5189.059375,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "125",
+        "result": {
+          "success": true,
+          "position": 11,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 11,
+            "position": 11,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 11,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 11,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 23.956375
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"125\",\"result\":{\"success\":true,\"position\":11,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":11,\"position\":11,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":11,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":11,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":23.956375}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5189.1395,
+      "received": 5213.9675,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "126",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"126\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5214.005209,
+      "received": 5237.94325,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "127",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"127\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 12,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5237.977667,
+      "received": 5282.340875,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "128",
+        "result": {
+          "success": true,
+          "position": 12,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 12,
+            "position": 12,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 12,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 12,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 18.693708
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"128\",\"result\":{\"success\":true,\"position\":12,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":12,\"position\":12,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":12,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":12,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":18.693708}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5282.417042,
+      "received": 5307.136167,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "129",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"129\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5307.17175,
+      "received": 5332.081584,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "130",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"130\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 13,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5332.166542,
+      "received": 5380.26475,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "131",
+        "result": {
+          "success": true,
+          "position": 13,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 13,
+            "position": 13,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 13,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 13,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 24.496917
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"131\",\"result\":{\"success\":true,\"position\":13,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":13,\"position\":13,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":13,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":13,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":24.496917}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5380.326334,
+      "received": 5405.527375,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "132",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"132\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5405.56725,
+      "received": 5430.55925,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "133",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"133\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 14,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5430.604042,
+      "received": 5476.549667,
+      "bytes": 937,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "134",
+        "result": {
+          "success": true,
+          "position": 14,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 14,
+            "position": 14,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 14,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 14,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 24.9715
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"134\",\"result\":{\"success\":true,\"position\":14,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":14,\"position\":14,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":14,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":14,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":24.9715}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5476.617375,
+      "received": 5502.267834,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "135",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"135\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5502.304209,
+      "received": 5525.453834,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "136",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"136\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 15,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5525.489625,
+      "received": 5574.403,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "137",
+        "result": {
+          "success": true,
+          "position": 15,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 15,
+            "position": 15,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 15,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 15,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 25.159958
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"137\",\"result\":{\"success\":true,\"position\":15,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":15,\"position\":15,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":15,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":15,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":25.159958}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5574.46875,
+      "received": 5598.071875,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "138",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"138\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5598.104167,
+      "received": 5623.813584,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "139",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"139\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 16,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5623.850375,
+      "received": 5674.89975,
+      "bytes": 939,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "140",
+        "result": {
+          "success": true,
+          "position": 16,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 16,
+            "position": 16,
+            "settled": true,
+            "canScrollForwards": true,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "devicePosition": 16,
+            "hasLayers": false,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [],
+            "visibleChainCount": 0,
+            "chainCount": 0,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 0,
+            "devicePages": 0
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 16,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 30.580708
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"140\",\"result\":{\"success\":true,\"position\":16,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":16,\"position\":16,\"settled\":true,\"canScrollForwards\":true,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"Tool\",\"devicePosition\":16,\"hasLayers\":false,\"hasSlots\":false,\"slotNames\":[],\"chains\":[],\"visibleChainCount\":0,\"chainCount\":0,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":0,\"devicePages\":0},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":16,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":30.580708}}}"
+    },
+    {
+      "method": "devcursor.pin",
+      "params": {
+        "pinned": false
+      },
+      "sent": 5674.9585,
+      "received": 5694.544709,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "141",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"141\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "cursor.pointTrack",
+      "params": {
+        "cursor": "0",
+        "trackIndex": 9
+      },
+      "sent": 5694.585584,
+      "received": 5720.013625,
+      "bytes": 55,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "142",
+        "result": {
+          "success": true
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"142\",\"result\":{\"success\":true}}"
+    },
+    {
+      "method": "chain.observe",
+      "params": {
+        "position": 17,
+        "expectedTrackChannelId": "2c494622-de74-4d56-804e-7a40127afc47"
+      },
+      "sent": 5720.054625,
+      "received": 6141.495625,
+      "bytes": 2919,
+      "reply": {
+        "jsonrpc": "2.0",
+        "id": "143",
+        "result": {
+          "success": true,
+          "position": 17,
+          "slot": 2,
+          "deviceCount": 18,
+          "deviceBankSize": 16,
+          "scopeCount": 3,
+          "chainBankSize": 5,
+          "chainDeviceBankSize": 4,
+          "scope": {
+            "slot": 2,
+            "status": "held",
+            "requestedPosition": 17,
+            "position": 17,
+            "settled": true,
+            "canScrollForwards": false,
+            "canScrollBackwards": true,
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "devicePosition": 17,
+            "hasLayers": true,
+            "hasSlots": false,
+            "slotNames": [],
+            "chains": [
+              {
+                "index": 0,
+                "name": "A",
+                "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+                "reportedChannelIndex": 58,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  },
+                  {
+                    "index": 1,
+                    "name": "Tool",
+                    "enabled": true
+                  },
+                  {
+                    "index": 2,
+                    "name": "Tool",
+                    "enabled": true
+                  },
+                  {
+                    "index": 3,
+                    "name": "Tool",
+                    "enabled": true
+                  },
+                  {
+                    "index": 4,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 5,
+                "devicePages": 2
+              },
+              {
+                "index": 1,
+                "name": "E",
+                "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+                "reportedChannelIndex": -1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 2,
+                "name": "D",
+                "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+                "reportedChannelIndex": -1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 3,
+                "name": "C",
+                "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+                "reportedChannelIndex": -1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 4,
+                "name": "B",
+                "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+                "reportedChannelIndex": -1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              },
+              {
+                "index": 5,
+                "name": "Tool",
+                "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+                "reportedChannelIndex": -1,
+                "solo": false,
+                "mute": false,
+                "volume": 0.7937005259840999,
+                "pan": 0.5,
+                "color": "0.788,0.788,0.788",
+                "devices": [
+                  {
+                    "index": 0,
+                    "name": "Tool",
+                    "enabled": true
+                  }
+                ],
+                "deviceWindowPosition": 0,
+                "deviceCount": 1,
+                "devicePages": 1
+              }
+            ],
+            "visibleChainCount": 6,
+            "chainCount": 6,
+            "chainWindowPosition": 0,
+            "chainBankSize": 5,
+            "deviceBankSize": 4,
+            "namedSlotStatus": "held",
+            "namedSlotComplete": true,
+            "paged": true,
+            "chainPages": 2,
+            "devicePages": 7
+          },
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "Tool",
+            "deviceIndex": 0,
+            "isNested": true,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b17r",
+          "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+          "aim": {
+            "rule": "paged-windows-v3",
+            "scopes": [
+              {
+                "position": 17,
+                "slot": 2
+              }
+            ],
+            "polls": 2,
+            "scrolls": 1,
+            "ms": 394.241
+          }
+        }
+      },
+      "wire": "{\"jsonrpc\":\"2.0\",\"id\":\"143\",\"result\":{\"success\":true,\"position\":17,\"slot\":2,\"deviceCount\":18,\"deviceBankSize\":16,\"scopeCount\":3,\"chainBankSize\":5,\"chainDeviceBankSize\":4,\"scope\":{\"slot\":2,\"status\":\"held\",\"requestedPosition\":17,\"position\":17,\"settled\":true,\"canScrollForwards\":false,\"canScrollBackwards\":true,\"deviceExists\":true,\"deviceName\":\"FX Layer\",\"devicePosition\":17,\"hasLayers\":true,\"hasSlots\":false,\"slotNames\":[],\"chains\":[{\"index\":0,\"name\":\"A\",\"channelId\":\"cba047db-1e2f-4a80-a9a1-88dae90eaf09\",\"reportedChannelIndex\":58,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true},{\"index\":1,\"name\":\"Tool\",\"enabled\":true},{\"index\":2,\"name\":\"Tool\",\"enabled\":true},{\"index\":3,\"name\":\"Tool\",\"enabled\":true},{\"index\":4,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":5,\"devicePages\":2},{\"index\":1,\"name\":\"E\",\"channelId\":\"1cf2cc62-f196-496d-b2f6-7ef7324e88d0\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":2,\"name\":\"D\",\"channelId\":\"d3ac764c-5c3d-4083-b120-6b223dd3f769\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":3,\"name\":\"C\",\"channelId\":\"754cbc8a-bf4b-4a64-9c26-5d3819c05316\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":4,\"name\":\"B\",\"channelId\":\"0aa1f7a0-3126-435a-9801-b3647fbbf349\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1},{\"index\":5,\"name\":\"Tool\",\"channelId\":\"caa56907-9726-4573-8443-add39f2064fc\",\"reportedChannelIndex\":-1,\"solo\":false,\"mute\":false,\"volume\":0.7937005259840999,\"pan\":0.5,\"color\":\"0.788,0.788,0.788\",\"devices\":[{\"index\":0,\"name\":\"Tool\",\"enabled\":true}],\"deviceWindowPosition\":0,\"deviceCount\":1,\"devicePages\":1}],\"visibleChainCount\":6,\"chainCount\":6,\"chainWindowPosition\":0,\"chainBankSize\":5,\"deviceBankSize\":4,\"namedSlotStatus\":\"held\",\"namedSlotComplete\":true,\"paged\":true,\"chainPages\":2,\"devicePages\":7},\"cursorScope\":{\"status\":\"held\",\"deviceExists\":true,\"deviceName\":\"Tool\",\"deviceIndex\":0,\"isNested\":true,\"namedSlotComplete\":false},\"trackName\":\"gn-b17r\",\"trackChannelId\":\"2c494622-de74-4d56-804e-7a40127afc47\",\"aim\":{\"rule\":\"paged-windows-v3\",\"scopes\":[{\"position\":17,\"slot\":2}],\"polls\":2,\"scrolls\":1,\"ms\":394.241}}}"
+    }
+  ]
+}

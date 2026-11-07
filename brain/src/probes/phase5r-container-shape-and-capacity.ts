@@ -62,7 +62,7 @@ async function composeAndReverse(
       && expectedWitness?.behavior.verified === true
       && expectedWitness.behavior.maximumDivergence > 0
       && JSON.stringify(composed.capacities) === JSON.stringify({
-        topLevelContainerPositions: 3,
+        topLevelContainerPositions: 16,
         entriesPerLayer: 5,
         devicesPerEntry: 4,
         parameterRouteDepth: 2,
@@ -260,7 +260,7 @@ try {
         refused?: boolean; nothingWasWritten?: boolean; capacities?: Record<string, number>;
       };
       refused = result.refused === true && result.nothingWasWritten === true
-        && result.capacities?.topLevelContainerPositions === 3;
+        && result.capacities?.topLevelContainerPositions === 16;
     } catch {
       refused = false;
     }

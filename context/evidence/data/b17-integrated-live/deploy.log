@@ -1,0 +1,21 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :normalRuntimeProfileResource UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :compileHarnessTestJava UP-TO-DATE
+> Task :processHarnessTestResources UP-TO-DATE
+> Task :harnessTestClasses UP-TO-DATE
+
+> Task :runtimeProfileTest
+normal-v1: 93 methods, d6decf985f6b1f36
+capture-v1: 98 methods, 50dcd3ceb7b6dd45
+phase-8-probe-v1: 121 methods, 185f44ee3b08bbb7
+RuntimeProfileTest: PASS
+
+> Task :copyExtension
+Deployed (atomic rename) to: /Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension
+
+BUILD SUCCESSFUL in 453ms
+8 actionable tasks: 2 executed, 6 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

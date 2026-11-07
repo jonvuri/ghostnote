@@ -1,0 +1,209 @@
+{
+  "raw": {
+    "success": true,
+    "position": 17,
+    "slot": 2,
+    "deviceCount": 18,
+    "deviceBankSize": 16,
+    "scopeCount": 3,
+    "chainBankSize": 5,
+    "chainDeviceBankSize": 4,
+    "scope": {
+      "slot": 2,
+      "status": "held",
+      "requestedPosition": 17,
+      "position": 17,
+      "settled": true,
+      "canScrollForwards": false,
+      "canScrollBackwards": true,
+      "deviceExists": true,
+      "deviceName": "FX Layer",
+      "devicePosition": 17,
+      "hasLayers": true,
+      "hasSlots": false,
+      "slotNames": [],
+      "chains": [
+        {
+          "index": 0,
+          "name": "A",
+          "channelId": "cba047db-1e2f-4a80-a9a1-88dae90eaf09",
+          "reportedChannelIndex": 58,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 1,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 2,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 3,
+              "name": "Tool",
+              "enabled": true
+            },
+            {
+              "index": 4,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 5,
+          "devicePages": 2
+        },
+        {
+          "index": 1,
+          "name": "E",
+          "channelId": "1cf2cc62-f196-496d-b2f6-7ef7324e88d0",
+          "reportedChannelIndex": -1,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1,
+          "devicePages": 1
+        },
+        {
+          "index": 2,
+          "name": "D",
+          "channelId": "d3ac764c-5c3d-4083-b120-6b223dd3f769",
+          "reportedChannelIndex": -1,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1,
+          "devicePages": 1
+        },
+        {
+          "index": 3,
+          "name": "C",
+          "channelId": "754cbc8a-bf4b-4a64-9c26-5d3819c05316",
+          "reportedChannelIndex": -1,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1,
+          "devicePages": 1
+        },
+        {
+          "index": 4,
+          "name": "B",
+          "channelId": "0aa1f7a0-3126-435a-9801-b3647fbbf349",
+          "reportedChannelIndex": -1,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1,
+          "devicePages": 1
+        },
+        {
+          "index": 5,
+          "name": "Tool",
+          "channelId": "caa56907-9726-4573-8443-add39f2064fc",
+          "reportedChannelIndex": -1,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.788,0.788,0.788",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Tool",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1,
+          "devicePages": 1
+        }
+      ],
+      "visibleChainCount": 6,
+      "chainCount": 6,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": true,
+      "paged": true,
+      "chainPages": 2,
+      "devicePages": 7
+    },
+    "cursorScope": {
+      "status": "held",
+      "deviceExists": true,
+      "deviceName": "Tool",
+      "deviceIndex": 0,
+      "isNested": true,
+      "namedSlotComplete": false
+    },
+    "trackName": "gn-b17r",
+    "trackChannelId": "2c494622-de74-4d56-804e-7a40127afc47",
+    "aim": {
+      "rule": "paged-windows-v3",
+      "scopes": [
+        {
+          "position": 17,
+          "slot": 2
+        }
+      ],
+      "polls": 1,
+      "scrolls": 0,
+      "ms": 359.2055
+    }
+  },
+  "ms": 382.76266699999996,
+  "turns": 1
+}

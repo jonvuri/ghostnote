@@ -1,0 +1,316 @@
+{
+  "elapsedMs": 20312,
+  "value": {
+    "name": "duplicate_layer_chain",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "containerPosition": 3,
+      "layerChain": "A",
+      "name": "C"
+    },
+    "ms": 1058,
+    "turns": 34,
+    "wire": {
+      "turns": 27,
+      "wireMs": 638,
+      "methods": {
+        "revision.get": 7,
+        "track.list": 7,
+        "selection.status": 3,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "chain.observe": 8,
+        "chain.select": 1,
+        "batch.run": 1,
+        "chain.setName": 1
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "observes": 10,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-layer-chain-duplicate/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "120aabff-c745-41b8-9e38-75820b322626",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerPosition": 3,
+            "layerChain": "A"
+          },
+          "summary": "Copied layer chain \"A\" to \"C\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChain": {
+          "position": 1,
+          "name": "C",
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": {
+            "red": 0.329,
+            "green": 0.329,
+            "blue": 0.318
+          },
+          "devices": [
+            {
+              "devicePosition": 0,
+              "name": "EQ-5"
+            }
+          ],
+          "devicesComplete": true,
+          "deviceCapacity": 4
+        },
+        "layerChains": [
+          "A",
+          "C",
+          "B2"
+        ]
+      },
+      "next": {
+        "remove": "computer control in Bitwig, then read_devices"
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1057.5263750000013
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "containerPosition": 3,
+        "layerChain": "A"
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 90,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.221042
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 235,
+        "ms": 23,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.172375
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 259,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.371834
+        }
+      },
+      {
+        "method": "chain.select",
+        "params": {
+          "position": 3,
+          "chainIndex": 0,
+          "expectedName": "A",
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 284,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.054416
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 478,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.196166
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 604,
+        "ms": 17,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.14775
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 621,
+        "ms": 22,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.134083
+        }
+      },
+      {
+        "method": "chain.setName",
+        "params": {
+          "position": 3,
+          "channelId": "82ab1ec0-b40e-4749-ad5b-acb50df85e3f",
+          "name": "C",
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 644,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.036791
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 813,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.138959
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1032,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.221917
+        }
+      }
+    ]
+  }
+}

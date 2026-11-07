@@ -1,0 +1,54 @@
+{
+  "elapsedMs": 19660,
+  "value": {
+    "layers": [
+      {
+        "index": 0,
+        "name": "A",
+        "mute": false,
+        "solo": true,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+        "color": "0.267,0.784,0.996",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-5"
+          }
+        ],
+        "deviceCount": 1
+      },
+      {
+        "index": 1,
+        "name": "B",
+        "mute": false,
+        "solo": false,
+        "activated": true,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+        "color": "0.267,0.784,0.996",
+        "sends": [],
+        "devices": [
+          {
+            "index": 0,
+            "name": "Gate"
+          }
+        ],
+        "deviceCount": 1
+      }
+    ],
+    "count": 2,
+    "itemCount": 2,
+    "bankSize": 8,
+    "deviceBankSize": 4,
+    "hasLayers": true,
+    "layerMixerStatus": "marked:8",
+    "layerColorStatus": "marked:8",
+    "layerSendsStatus": "FAILED@0:JAL:No send bank exists: Requested a send bank size of 0",
+    "cursorDeviceName": "FX Layer"
+  }
+}

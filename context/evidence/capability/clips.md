@@ -50,9 +50,13 @@ not in this contract [K, [D21](../../decisions/d21-musical-patch-and-public-tool
 ## Note fidelity
 
 Twenty of 21 note properties round-trip exactly through an independent cursor.
-Gain uses the measured divide-by-two encoder. Pressure is readable but not
-writable and is refused before mutation [K,
-[E24](../experiments/e24-gain-inverse-and-complete-note-contract.md)].
+Gain uses the measured divide-by-two encoder [K,
+[E24](../experiments/e24-gain-inverse-and-complete-note-contract.md)]. Pressure
+readback is blind: on 6.1.4 the setter changes the inspector, but independent
+API readers return zero for both human and API edits. Ghostnote retains
+pressure refusal because it cannot verify the write, not because the setter
+is inert [K, [E399](../experiments/e399-pressure-getter-blindness-live.md),
+[D66](../../decisions/d66-pressure-refusal-is-a-verification-limit.md)].
 
 Consecutive notes with the same pitch can shorten the earlier duration. The
 musical path reports this change. Duplicate note identities refuse [K, E2,

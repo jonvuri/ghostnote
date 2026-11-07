@@ -1,0 +1,14 @@
+{
+  "elapsedMs": 7929,
+  "value": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 8,
+    "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+    "changes": 0,
+    "revision": 3,
+    "slotProject": "",
+    "mixerProject": "gn-scale-test",
+    "project": "gn-scale-test"
+  }
+}

@@ -242,7 +242,7 @@ test('7f-follow-up: managed FX ignores host noise but still reports automation',
   await reverseManagedFxChain(fx.host, checkpoint);
 });
 
-test('4g managed chain refuses an incomplete device bank before any write', async () => {
+test('4g managed chain refuses a request beyond write capacity even when paged reads are complete', async () => {
   const fx = fixture();
   modelTrack(fx).devices.push(existingDevice('A', 0.1), existingDevice('B', 0.2));
   fx.fake.model.deviceBankSize = 1;
@@ -254,7 +254,7 @@ test('4g managed chain refuses an incomplete device bank before any write', asyn
     }),
     (error: unknown) => error instanceof ManagedFxChainError
       && error.stage === 'preflight'
-      && /complete top-level/.test(error.message),
+      && /needs 3 device rows, but the bank has 1/.test(error.message),
   );
   assert.equal(fx.calls.length, 0);
   assert.deepEqual(modelTrack(fx).devices.map((item) => item.name), ['A', 'B']);

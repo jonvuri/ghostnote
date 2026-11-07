@@ -2,7 +2,7 @@
 title: Containers — device layers, selectors and drum machines
 kind: capability
 state: active
-updated: 2026-08-23
+updated: 2026-10-27
 scope: nested device containers; chain lifecycle, switching, addressing and state
 evidence: E4c, E4d, E16 §3.4e, E16n/o, E16w, E17, E18a-h, E71-E73; D6, D7, D18
 ---
@@ -268,7 +268,7 @@ back. Do not assume the Layer result transfers.
 
 ### ⚠ Container scope lags the cursor, and the budget was wrong
 
-`LiveAdapter.containerScope` re-points cursor 0 and reads `chain.inventory`. It
+`LiveAdapter.containerScope` re-pointed cursor 0 and read `chain.inventory`. It
 waited the `cursorPoint` budget (25 ms) — a budget borrowed from what a cursor
 *point* costs, while this reply arrives through `Rig.slotLayerBanks`, which must
 follow the cursor to another track first.
@@ -287,10 +287,10 @@ track just pointed at:
 
 Nothing was ever mis-reported, because the identity guard fails closed. But
 every container write refused about half the time when the cursor had been
-elsewhere. A mismatch is now retried within a bound of 8 attempts, because a
-mismatch is a staleness signal and never an observation. ⚠ The bound counts
-**attempts, not wall-clock**: a clock spins hot wherever `settle` is not real
-time, which is every offline test of this class.
+elsewhere. A mismatch was then retried within a bound of 8 attempts, because a
+mismatch is a staleness signal and never an observation. Since B17 the
+extension polls the track identity itself (5 ms polls, bounded at 400) before
+it reads a scope, and the brain re-points once on a refusal.
 
 ### Scrolled scopes retarget within one round trip (B08 research)
 
@@ -306,8 +306,53 @@ time, which is every offline test of this class.
 - ⚠ Two containers of one kind share a device name (`Instrument Layer`), so a
   scrolled scope's identity guard must use the requested position, the
   reported position, the reference bank's name there, and the chain name
-  [K, E352]. The product does not yet use scrolled scopes; B08 implementation
-  follows.
+  [K, E352].
+- **Shipped design (B08 implementation, B17 session 1).** Each of the three
+  product scopes is a one-wide bank on cursor track 0 (`Rig.scopeBanks`),
+  resting at its own index. Since B17 the extension owns the scrolling
+  (`ContainerScopes`): `chain.observe {position, expectedTrackChannelId}` and
+  every chain write name a container by its absolute top-level position (and a
+  chain by its absolute index); the extension chooses a scope, scrolls it,
+  polls every 5 ms until cursor track 0 confirms the track and the scope is
+  settled (reported equals requested, and the slot agrees with the 16-wide
+  reference bank on existence, name, and device position), performs the read
+  or write, and replies once. A move between two containers settles two
+  scopes in one operation. The operation holds a write lease, so no other
+  write or clip read interleaves. The brain holds no scope state;
+  `chain.inventory` remains the raw read of every scope. A position past the
+  device count answers as empty from the reference bank count; only the bank
+  edge is `outside-bank-window` in session 1; session 2 extends read reach
+  below. [K, E394; E395]
+- **Paged product reads (B17 session 2).** `device.list` stitches the 16-wide
+  top-level window; `chain.observe` stitches the five-chain and four-device
+  windows, retaining absolute indices and restoring windows before reply.
+  E397 proves eighteen top-level devices, a six-chain FX Layer at position
+  17, and five devices in chain A, with complete repeated public reads and
+  verified cleanup. The beyond-bank scope uses confirmed track identity,
+  total count, and its own absolute device position. Layer channel indices
+  are not local bank positions (E396); channel-ID witnesses reject stale
+  pages. Non-layer devices can retain stale layer counts and skip layer
+  traversal. This evidence proves reads; named-slot and parameter paging
+  remain outside its scope. [K,
+  [E396](../experiments/e396-paged-read-host-state-corrections.md),
+  [E397](../experiments/e397-paged-device-and-layer-reads-live.md)]
+- ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
+  on a track with fewer devices clamps to 0 and does not move when the track
+  later gains devices, although it still reports the requested position. The
+  extension re-issues the scroll every 10 polls of an unsettled scope and
+  refuses after 400 polls (about 2 s); waiting for such a scope never ends
+  [K, E394].
+
+- **Paged product writes (B17 sessions 3–7, verified live).** Layer controls,
+  move/copy, and top-level mutations work past the physical windows. Composition
+  supports six chains and five devices per chain, with no replacement structural
+  capacity; named-slot and parameter restrictions and D44 remain. E398 proves
+  containers at 17/18, sixth-chain controls, distant/mixed transfers, overflow
+  insertion, enabled-state, reordering and deletion, and cleanup. An overflow
+  device snapshot contains structure without claiming unavailable scalar state.
+  A discarded population-changing read retries once; no write is replayed.
+  See [E398](../experiments/e398-integrated-paged-writes-live.md) for the two
+  integration fixes and the six-chain composition's 44.4 s cost.
 
 ---
 

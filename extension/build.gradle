@@ -268,6 +268,14 @@ tasks.register('browserDiscoveryTest', JavaExec) {
 
 tasks.named('check') { dependsOn 'browserDiscoveryTest' }
 
+tasks.register('pressureProbeTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.PressureProbeTest'
+}
+
+tasks.named('check') { dependsOn 'pressureProbeTest' }
+
 tasks.register('runtimeProfileTest', JavaExec) {
     dependsOn harnessTestClasses
     classpath = sourceSets.harnessTest.runtimeClasspath
@@ -276,6 +284,15 @@ tasks.register('runtimeProfileTest', JavaExec) {
 }
 
 tasks.named('check') { dependsOn 'runtimeProfileTest' }
+
+// B17: the extension-owned scope policy and the write lease, offline against an in-memory scope model.
+tasks.register('containerScopesTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ContainerScopesTest'
+}
+
+tasks.named('check') { dependsOn 'containerScopesTest' }
 
 // A source-only golden check cannot detect a failing Java static initializer.
 // Exercise it before replacing any installed runtime profile.
@@ -323,3 +340,46 @@ tasks.register('gridDoctorTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.GridDoctorTest'
     args '/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar'
 }
+
+// B17: paged windows share the host model with reads and future paged writes.
+tasks.register('windowPagerTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.WindowPagerTest'
+}
+tasks.named('check') { dependsOn 'windowPagerTest' }
+
+tasks.register('containerPagingTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ContainerPagingTest'
+}
+tasks.named('check') { dependsOn 'containerPagingTest' }
+
+tasks.register('windowAccessTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.WindowAccessTest'
+}
+tasks.named('check') { dependsOn 'windowAccessTest' }
+
+tasks.register('chainControlHandlersTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ChainControlHandlersTest'
+}
+tasks.named('check') { dependsOn 'chainControlHandlersTest' }
+
+tasks.register('chainMoveHandlersTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ChainMoveHandlersTest'
+}
+tasks.named('check') { dependsOn 'chainMoveHandlersTest' }
+
+tasks.register('deviceMutationHandlersTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.DeviceMutationHandlersTest'
+}
+tasks.named('check') { dependsOn 'deviceMutationHandlersTest' }

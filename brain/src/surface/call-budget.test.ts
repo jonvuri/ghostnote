@@ -259,7 +259,7 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
     assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
     counts[label] = used;
   };
-  // A structure read: one bank read and one read for the containers in positions 0 through 2.
+  // A structure read: one bank read and one read for every container in the bank.
   await run('read', 'read_devices', { trackId: fx.trackId });
   await run('solo', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
   await run('solo-noop', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', mode: 'exclusive' });
@@ -268,6 +268,40 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
     devices: [{ from: 'layer-chain', containerPosition: 1, layerChain: 'C', devicePosition: 0 }], destination: { to: 'track-end' } });
   await run('controls', 'read_device_controls', { device: { trackId: fx.trackId, devicePosition: 0 } });
   assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
+});
+
+// B08/B17: the same tools on a container at position 3, past the three resting scopes, cost the same adapter
+// calls. The scope is scrolled inside the extension's `chain.observe`, which these counts do not see; the ledger
+// `containerScope` row carries the wire cost.
+test('call budget: the layer-chain tools on a container past position 2 (B08)', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [{ id: `P-${name}`, name, value: 0.5 }] });
+  fx.fake.model.visibleTracks()[0]!.devices.push(dev('Polysynth'), dev('Tool'), dev('Dual Pan'), { ...dev('FX Layer'),
+    params: [], chains: [
+      { name: 'A', solo: false, id: 'budget-far-a', devices: [dev('EQ+')] },
+      { name: 'B', solo: false, id: 'budget-far-b', devices: [dev('Delay+')] },
+    ] });
+  const counts: Record<string, Counts> = {};
+  const run = async (label: string, name: string, args: Wire) => {
+    const { result, counts: used } = await fx.call(name, args);
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result).slice(0, 300)}`);
+    counts[label] = used;
+    return result;
+  };
+  const read = await run('read', 'read_devices', { trackId: fx.trackId });
+  assert.deepEqual(read.data.devices[3].container.layerChains.map((item: Wire) => item.name), ['A', 'B']);
+  await run('solo', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', mode: 'exclusive' });
+  await run('solo-noop', 'set_layer_chain_solo', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', mode: 'exclusive' });
+  await run('rename', 'rename_layer_chain', { trackId: fx.trackId, containerPosition: 3, layerChain: 'B', name: 'C' });
+  await run('move', 'move_devices', { trackId: fx.trackId,
+    devices: [{ from: 'layer-chain', containerPosition: 3, layerChain: 'C', devicePosition: 0 }], destination: { to: 'track-end' } });
+  await run('controls', 'read_device_controls', { device: { trackId: fx.trackId, devicePosition: 0 } });
+  assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
+  await run('duplicate-chain', 'duplicate_layer_chain', { trackId: fx.trackId, containerPosition: 3, layerChain: 'A', name: 'D' });
+  await run('copy-devices', 'copy_devices', { trackId: fx.trackId, devices: [{ from: 'layer-chain', containerPosition: 3,
+    layerChain: 'A', devicePosition: 0 }], destination: { to: 'layer-chain', containerPosition: 3, layerChain: 'C' } });
+  assert.deepEqual(counts['duplicate-chain'], EXPECTED_8H4G_BUDGETS['duplicate-chain']);
+  assert.deepEqual(counts['copy-devices'], EXPECTED_8H4G_BUDGETS['copy-devices']);
 });
 
 // Each limb reads the container before the write and once after it; the executor adds its own preflight and
@@ -461,4 +495,64 @@ test('8i19 call budget: document files add no host call; a refused destination m
     assert.equal(missing.result.failure.code, 'absent');
     assert.deepEqual(missing.counts, {});
   } finally { await rm(dir, { recursive: true, force: true }); }
+});
+
+// B17 session 2: overflow costs host pages, not extra brain adapter calls.
+for (const [label, topCount, chainCount, deviceCount] of [
+  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen top-level devices', 17, 1, 1],
+] as const) {
+  test(`call budget: paged read_devices, ${label}`, async () => {
+    const fx = await fixture();
+    const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+    fx.fake.model.visibleTracks()[0]!.devices.push(...Array.from({ length: topCount }, (_, i) => ({
+      ...dev(i === topCount - 1 ? 'FX Layer' : `Tool ${i}`),
+      ...(i === topCount - 1 ? { chains: Array.from({ length: chainCount }, (_, c) => ({
+        name: `Chain ${c}`, id: `chain-${c}`, solo: false,
+        devices: Array.from({ length: deviceCount }, (_, d) => dev(`Device ${d}`)),
+      })) } : {}),
+    })));
+    const { result, counts } = await fx.call('read_devices', { trackId: fx.trackId });
+    assert.equal(result.failure, undefined);
+    assert.equal(result.coverage.status, 'complete');
+    assert.equal(result.data.devices.length, topCount);
+    assert.equal(result.coverage.devicePages, Math.ceil(topCount / 16));
+    assert.equal(result.data.devices[topCount - 1].container.chainPages, Math.ceil(chainCount / 5));
+    const chains = result.data.devices[topCount - 1].container.layerChains;
+    assert.equal(chains.length, chainCount);
+    assert.equal(chains.at(-1).devices.length, deviceCount);
+    assert.equal(chains.at(-1).devicePages, Math.ceil(deviceCount / 4));
+    assert.deepEqual(counts, { devices: 1, read: 1 });
+    if (chainCount > 5) {
+      const renamed = await fx.call('rename_layer_chain', { trackId: fx.trackId,
+        containerPosition: 0, layerChain: 'Chain 5', name: 'renamed' });
+      assert.equal(renamed.result.readback.status, 'verified');
+      assert.deepEqual(renamed.counts, EXPECTED_DEVICE_BUDGETS.rename);
+    }
+  });
+}
+
+test('B17 call budget: overflow chain controls and transfers use the same adapter calls', async () => {
+  const fx = await fixture();
+  const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+  const row = fx.fake.model.visibleTracks()[0]!;
+  row.devices.push(...Array.from({ length: 17 }, (_, i) => dev(`Top ${i}`)), {
+    ...dev('FX Layer'), chains: Array.from({ length: 6 }, (_, i) => ({
+      name: `Chain ${i}`, id: `budget-overflow-${i}`, solo: false,
+      devices: Array.from({ length: 5 }, (_, j) => dev(`Nested ${i}-${j}`)),
+    })),
+  });
+  for (const [label, tool, args, expected] of [
+    ['solo', 'set_layer_chain_solo', { containerPosition: 17, layerChain: 'Chain 5', mode: 'exclusive' }, EXPECTED_DEVICE_BUDGETS.solo],
+    ['rename', 'rename_layer_chain', { containerPosition: 17, layerChain: 'Chain 5', name: 'Sixth' }, EXPECTED_DEVICE_BUDGETS.rename],
+    ['duplicate', 'duplicate_layer_chain', { containerPosition: 17, layerChain: 'Sixth', name: 'Seventh' }, EXPECTED_8H4G_BUDGETS['duplicate-chain']],
+    ['copy', 'copy_devices', { devices: [{ from: 'layer-chain', containerPosition: 17, layerChain: 'Seventh', devicePosition: 4 }],
+      destination: { to: 'layer-chain', containerPosition: 17, layerChain: 'Chain 0' } }, EXPECTED_8H4G_BUDGETS['copy-devices']],
+    ['move', 'move_devices', { devices: [{ from: 'layer-chain', containerPosition: 17, layerChain: 'Chain 0', devicePosition: 5 }],
+      destination: { to: 'track-end' } }, EXPECTED_DEVICE_BUDGETS.move],
+  ] as const) {
+    const { result, counts } = await fx.call(tool, { trackId: fx.trackId, ...args });
+    assert.equal(result.failure, undefined, `${label}: ${JSON.stringify(result)}`);
+    assert.equal(result.readback.status, 'verified');
+    assert.deepEqual(counts, expected, label);
+  }
 });

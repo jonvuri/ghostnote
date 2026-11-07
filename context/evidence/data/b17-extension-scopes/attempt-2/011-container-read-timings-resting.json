@@ -1,0 +1,215 @@
+{
+  "elapsedMs": 17089,
+  "value": [
+    {
+      "ms": 114,
+      "turns": 6,
+      "wire": {
+        "turns": 5,
+        "wireMs": 114,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 1,
+          "cursor.pointTrack": 1,
+          "chain.observe": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scopeCalls": [
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 0,
+            "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+          },
+          "at": 92,
+          "ms": 22,
+          "slot": 0,
+          "aim": {
+            "rule": "extension-owned-scopes-v1",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.200292
+          }
+        }
+      ]
+    },
+    {
+      "ms": 119,
+      "turns": 6,
+      "wire": {
+        "turns": 5,
+        "wireMs": 118,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 1,
+          "cursor.pointTrack": 1,
+          "chain.observe": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scopeCalls": [
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 0,
+            "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+          },
+          "at": 96,
+          "ms": 23,
+          "slot": 0,
+          "aim": {
+            "rule": "extension-owned-scopes-v1",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.188042
+          }
+        }
+      ]
+    },
+    {
+      "ms": 121,
+      "turns": 6,
+      "wire": {
+        "turns": 5,
+        "wireMs": 121,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 1,
+          "cursor.pointTrack": 1,
+          "chain.observe": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scopeCalls": [
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 0,
+            "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+          },
+          "at": 97,
+          "ms": 24,
+          "slot": 0,
+          "aim": {
+            "rule": "extension-owned-scopes-v1",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.253292
+          }
+        }
+      ]
+    },
+    {
+      "ms": 118,
+      "turns": 6,
+      "wire": {
+        "turns": 5,
+        "wireMs": 118,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 1,
+          "cursor.pointTrack": 1,
+          "chain.observe": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scopeCalls": [
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 0,
+            "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+          },
+          "at": 94,
+          "ms": 24,
+          "slot": 0,
+          "aim": {
+            "rule": "extension-owned-scopes-v1",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.243125
+          }
+        }
+      ]
+    },
+    {
+      "ms": 125,
+      "turns": 6,
+      "wire": {
+        "turns": 5,
+        "wireMs": 125,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 1,
+          "cursor.pointTrack": 1,
+          "chain.observe": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scopeCalls": [
+        {
+          "method": "chain.observe",
+          "params": {
+            "position": 0,
+            "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+          },
+          "at": 100,
+          "ms": 25,
+          "slot": 0,
+          "aim": {
+            "rule": "extension-owned-scopes-v1",
+            "scopes": [
+              {
+                "position": 0,
+                "slot": 0
+              }
+            ],
+            "polls": 1,
+            "scrolls": 0,
+            "ms": 0.333667
+          }
+        }
+      ]
+    }
+  ]
+}

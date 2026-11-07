@@ -108,10 +108,13 @@ export interface Golden {
   addedInPhase9a?: string[];
   /** R05 popup browser discovery; research only. */
   addedInR05?: string[];
+  /** R02 independent public-API note-pressure reproduction. */
+  addedInR02?: string[];
   /** D03 internal plug-in preset file and popup-browser probe surface. */
   addedInD03?: string[];
   /** B08 scrollable container scope research. */
   addedInB08?: string[];
+  addedInB17?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

@@ -693,7 +693,7 @@ test('X-label: a rebuilt clip names play stop and automation as fidelity gaps (E
 
 test('X-label: a human-authored pressure is captured, labelled, and reported unrestored (E15-E)', async () => {
   const { fake, executor, clipA } = await fixture();
-  // Only a human can put pressure in a clip — `assertOpsWritable` refuses to,
+  // Seed pressure directly: Ghostnote refuses unverifiable pressure writes,
   // and the fake models the refusal — so the model is poked directly.
   const slotState = control(fake).model.tracks[0]!.slots[0]!;
   slotState.notes.set(noteKey(0, 60, 0), note({ pressure: 0.9, pan: 0.25 }));

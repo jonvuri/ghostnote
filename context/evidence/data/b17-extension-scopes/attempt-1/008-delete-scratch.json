@@ -1,0 +1,62 @@
+{
+  "elapsedMs": 7880,
+  "value": {
+    "name": "delete_track",
+    "args": {
+      "trackIds": [
+        "b92d43a9-48a4-473d-a007-ca16390398f7"
+      ]
+    },
+    "ms": 429,
+    "turns": 24,
+    "wire": {
+      "turns": 11,
+      "wireMs": 230,
+      "methods": {
+        "selection.status": 2,
+        "revision.get": 6,
+        "track.list": 7,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "observes": 0,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-track-delete/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "8b810488-f987-4dbb-bcf0-63650dd6639a",
+          "target": {
+            "trackIds": [
+              "b92d43a9-48a4-473d-a007-ca16390398f7"
+            ]
+          },
+          "summary": "Deleted 1 track(s).",
+          "fidelity": "none"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "removed": [
+          "b92d43a9-48a4-473d-a007-ca16390398f7"
+        ]
+      },
+      "warnings": [
+        {
+          "code": "not-reversible",
+          "message": "revert_change cannot put a deleted track back."
+        }
+      ],
+      "target": {
+        "trackIds": [
+          "b92d43a9-48a4-473d-a007-ca16390398f7"
+        ]
+      }
+    },
+    "scopeCalls": []
+  }
+}

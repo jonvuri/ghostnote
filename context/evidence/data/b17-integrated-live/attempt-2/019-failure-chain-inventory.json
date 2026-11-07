@@ -1,0 +1,175 @@
+{
+  "scopes": [
+    {
+      "slot": 0,
+      "status": "held",
+      "requestedPosition": 0,
+      "position": 0,
+      "settled": true,
+      "canScrollForwards": true,
+      "canScrollBackwards": false,
+      "deviceExists": true,
+      "deviceName": "Instrument Selector",
+      "devicePosition": 0,
+      "hasLayers": true,
+      "hasSlots": true,
+      "slotNames": [
+        "FX"
+      ],
+      "chains": [
+        {
+          "index": 0,
+          "name": "Polysynth",
+          "channelId": "9c2d9dde-853d-46c0-b743-dcc2142a5bee",
+          "reportedChannelIndex": 55,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.341,0.380,0.776",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1
+        },
+        {
+          "index": 1,
+          "name": "Polysynth",
+          "channelId": "c716c3e2-7401-4722-95c6-1dd1f5d6b547",
+          "reportedChannelIndex": 56,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.341,0.380,0.776",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1
+        }
+      ],
+      "visibleChainCount": 2,
+      "chainCount": 2,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": false
+    },
+    {
+      "slot": 1,
+      "status": "held",
+      "requestedPosition": 1,
+      "position": 1,
+      "settled": true,
+      "canScrollForwards": false,
+      "canScrollBackwards": true,
+      "deviceExists": true,
+      "deviceName": "Filter+",
+      "devicePosition": 1,
+      "hasLayers": false,
+      "hasSlots": true,
+      "slotNames": [
+        "Post FX",
+        "Pre FX"
+      ],
+      "chains": [],
+      "visibleChainCount": 0,
+      "chainCount": 2,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": false
+    },
+    {
+      "slot": 2,
+      "status": "held",
+      "requestedPosition": 2,
+      "position": 0,
+      "settled": false,
+      "canScrollForwards": true,
+      "canScrollBackwards": false,
+      "deviceExists": true,
+      "deviceName": "Instrument Selector",
+      "devicePosition": 0,
+      "hasLayers": true,
+      "hasSlots": true,
+      "slotNames": [
+        "FX"
+      ],
+      "chains": [
+        {
+          "index": 0,
+          "name": "Polysynth",
+          "channelId": "9c2d9dde-853d-46c0-b743-dcc2142a5bee",
+          "reportedChannelIndex": 55,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.341,0.380,0.776",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1
+        },
+        {
+          "index": 1,
+          "name": "Polysynth",
+          "channelId": "c716c3e2-7401-4722-95c6-1dd1f5d6b547",
+          "reportedChannelIndex": 56,
+          "solo": false,
+          "mute": false,
+          "volume": 0.7937005259840999,
+          "pan": 0.5,
+          "color": "0.341,0.380,0.776",
+          "devices": [
+            {
+              "index": 0,
+              "name": "Polysynth",
+              "enabled": true
+            }
+          ],
+          "deviceWindowPosition": 0,
+          "deviceCount": 1
+        }
+      ],
+      "visibleChainCount": 2,
+      "chainCount": 2,
+      "chainWindowPosition": 0,
+      "chainBankSize": 5,
+      "deviceBankSize": 4,
+      "namedSlotStatus": "held",
+      "namedSlotComplete": false
+    }
+  ],
+  "scopeCount": 3,
+  "deviceCount": 2,
+  "deviceBankSize": 16,
+  "cursorScope": {
+    "status": "held",
+    "deviceExists": true,
+    "deviceName": "Instrument Selector",
+    "deviceIndex": 0,
+    "isNested": false,
+    "namedSlotComplete": false
+  },
+  "trackName": "gn-sel",
+  "trackChannelId": "6fb96670-abde-4958-9147-f573a4b43918"
+}

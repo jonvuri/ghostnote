@@ -1,0 +1,130 @@
+{
+  "elapsedMs": 18590,
+  "value": [
+    {
+      "ms": 307,
+      "wire": {
+        "turns": 11,
+        "wireMs": 254,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "devcursor.selectAt": 2,
+          "chain.inventory": 2,
+          "chain.scroll": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scrolls": [
+        {
+          "slot": 2,
+          "position": 3
+        }
+      ]
+    },
+    {
+      "ms": 303,
+      "wire": {
+        "turns": 11,
+        "wireMs": 250,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "devcursor.selectAt": 2,
+          "chain.inventory": 2,
+          "chain.scroll": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scrolls": [
+        {
+          "slot": 2,
+          "position": 3
+        }
+      ]
+    },
+    {
+      "ms": 307,
+      "wire": {
+        "turns": 11,
+        "wireMs": 255,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "devcursor.selectAt": 2,
+          "chain.inventory": 2,
+          "chain.scroll": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scrolls": [
+        {
+          "slot": 2,
+          "position": 3
+        }
+      ]
+    },
+    {
+      "ms": 299,
+      "wire": {
+        "turns": 11,
+        "wireMs": 247,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "devcursor.selectAt": 2,
+          "chain.inventory": 2,
+          "chain.scroll": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scrolls": [
+        {
+          "slot": 2,
+          "position": 3
+        }
+      ]
+    },
+    {
+      "ms": 306,
+      "wire": {
+        "turns": 11,
+        "wireMs": 254,
+        "methods": {
+          "revision.get": 1,
+          "track.list": 1,
+          "selection.status": 1,
+          "devcursor.pin": 2,
+          "cursor.pointTrack": 2,
+          "devcursor.selectAt": 2,
+          "chain.inventory": 2,
+          "chain.scroll": 1
+        },
+        "clipReads": 0,
+        "stages": 0
+      },
+      "scrolls": [
+        {
+          "slot": 2,
+          "position": 3
+        }
+      ]
+    }
+  ]
+}

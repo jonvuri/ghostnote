@@ -1,0 +1,911 @@
+{
+  "elapsedMs": 26895,
+  "value": {
+    "name": "move_devices",
+    "args": {
+      "trackId": "78fcc039-6663-4f73-9d70-4ce3859fe43c",
+      "devices": [
+        {
+          "from": "layer-chain",
+          "containerPosition": 3,
+          "layerChain": "C",
+          "devicePosition": 1
+        }
+      ],
+      "destination": {
+        "to": "track-end"
+      }
+    },
+    "ms": 1473,
+    "wire": {
+      "turns": 48,
+      "wireMs": 1105,
+      "methods": {
+        "selection.status": 5,
+        "track.list": 10,
+        "devcursor.pin": 7,
+        "cursor.pointTrack": 7,
+        "device.list": 7,
+        "revision.get": 7,
+        "devcursor.selectAt": 5,
+        "chain.inventory": 5,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-device-move/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "dc855bc7-ce66-47e6-8344-f64ffbb5ecb7",
+          "target": {
+            "trackId": "78fcc039-6663-4f73-9d70-4ce3859fe43c",
+            "devices": 1,
+            "destination": {
+              "to": "track-end"
+            }
+          },
+          "summary": "Moved 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Dual Pan",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Ring-Mod",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "FX Layer",
+            "enabled": true
+          },
+          {
+            "devicePosition": 4,
+            "name": "Tool",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 3,
+            "position": 1,
+            "name": "C",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.267,
+              "green": 0.784,
+              "blue": 0.996
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "EQ-5"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1472.7814580000013
+      },
+      "target": {
+        "trackId": "78fcc039-6663-4f73-9d70-4ce3859fe43c",
+        "devices": 1,
+        "destination": {
+          "to": "track-end"
+        }
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "devcursor.selectAt",
+        "params": {
+          "deviceIndex": 3
+        },
+        "at": 349,
+        "ms": 24,
+        "reply": {
+          "success": true
+        }
+      },
+      {
+        "method": "chain.inventory",
+        "at": 400,
+        "ms": 22,
+        "reply": {
+          "scopes": [
+            {
+              "slot": 0,
+              "status": "held",
+              "requestedPosition": 0,
+              "position": 0,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": false,
+              "deviceExists": true,
+              "deviceName": "Tool",
+              "devicePosition": 0,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 1,
+              "status": "held",
+              "requestedPosition": 1,
+              "position": 1,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "Dual Pan",
+              "devicePosition": 1,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 2,
+              "status": "held",
+              "requestedPosition": 3,
+              "position": 3,
+              "settled": true,
+              "canScrollForwards": false,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "FX Layer",
+              "devicePosition": 3,
+              "hasLayers": true,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [
+                {
+                  "index": 0,
+                  "name": "A",
+                  "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 1,
+                  "name": "C",
+                  "channelId": "08c07ab9-5ce0-46c6-83db-d86d341a4dee",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    },
+                    {
+                      "index": 1,
+                      "name": "Tool",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 2
+                },
+                {
+                  "index": 2,
+                  "name": "B2",
+                  "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "Gate",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                }
+              ],
+              "visibleChainCount": 3,
+              "chainCount": 3,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            }
+          ],
+          "scopeCount": 3,
+          "deviceCount": 4,
+          "deviceBankSize": 16,
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "deviceIndex": 3,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b08i",
+          "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        }
+      },
+      {
+        "method": "devcursor.selectAt",
+        "params": {
+          "deviceIndex": 3
+        },
+        "at": 588,
+        "ms": 23,
+        "reply": {
+          "success": true
+        }
+      },
+      {
+        "method": "chain.inventory",
+        "at": 638,
+        "ms": 24,
+        "reply": {
+          "scopes": [
+            {
+              "slot": 0,
+              "status": "held",
+              "requestedPosition": 0,
+              "position": 0,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": false,
+              "deviceExists": true,
+              "deviceName": "Tool",
+              "devicePosition": 0,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 1,
+              "status": "held",
+              "requestedPosition": 1,
+              "position": 1,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "Dual Pan",
+              "devicePosition": 1,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 2,
+              "status": "held",
+              "requestedPosition": 3,
+              "position": 3,
+              "settled": true,
+              "canScrollForwards": false,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "FX Layer",
+              "devicePosition": 3,
+              "hasLayers": true,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [
+                {
+                  "index": 0,
+                  "name": "A",
+                  "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 1,
+                  "name": "C",
+                  "channelId": "08c07ab9-5ce0-46c6-83db-d86d341a4dee",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    },
+                    {
+                      "index": 1,
+                      "name": "Tool",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 2
+                },
+                {
+                  "index": 2,
+                  "name": "B2",
+                  "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "Gate",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                }
+              ],
+              "visibleChainCount": 3,
+              "chainCount": 3,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            }
+          ],
+          "scopeCount": 3,
+          "deviceCount": 4,
+          "deviceBankSize": 16,
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "deviceIndex": 3,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b08i",
+          "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        }
+      },
+      {
+        "method": "devcursor.selectAt",
+        "params": {
+          "deviceIndex": 3
+        },
+        "at": 661,
+        "ms": 23,
+        "reply": {
+          "success": true
+        }
+      },
+      {
+        "method": "chain.inventory",
+        "at": 711,
+        "ms": 21,
+        "reply": {
+          "scopes": [
+            {
+              "slot": 0,
+              "status": "held",
+              "requestedPosition": 0,
+              "position": 0,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": false,
+              "deviceExists": true,
+              "deviceName": "Tool",
+              "devicePosition": 0,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 1,
+              "status": "held",
+              "requestedPosition": 1,
+              "position": 1,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "Dual Pan",
+              "devicePosition": 1,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 2,
+              "status": "held",
+              "requestedPosition": 3,
+              "position": 3,
+              "settled": true,
+              "canScrollForwards": false,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "FX Layer",
+              "devicePosition": 3,
+              "hasLayers": true,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [
+                {
+                  "index": 0,
+                  "name": "A",
+                  "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 1,
+                  "name": "C",
+                  "channelId": "08c07ab9-5ce0-46c6-83db-d86d341a4dee",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    },
+                    {
+                      "index": 1,
+                      "name": "Tool",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 2
+                },
+                {
+                  "index": 2,
+                  "name": "B2",
+                  "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "Gate",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                }
+              ],
+              "visibleChainCount": 3,
+              "chainCount": 3,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            }
+          ],
+          "scopeCount": 3,
+          "deviceCount": 4,
+          "deviceBankSize": 16,
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "deviceIndex": 3,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b08i",
+          "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        }
+      },
+      {
+        "method": "devcursor.selectAt",
+        "params": {
+          "deviceIndex": 3
+        },
+        "at": 783,
+        "ms": 18,
+        "reply": {
+          "success": true
+        }
+      },
+      {
+        "method": "chain.inventory",
+        "at": 826,
+        "ms": 24,
+        "reply": {
+          "scopes": [
+            {
+              "slot": 0,
+              "status": "held",
+              "requestedPosition": 0,
+              "position": 0,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": false,
+              "deviceExists": true,
+              "deviceName": "Tool",
+              "devicePosition": 0,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 1,
+              "status": "held",
+              "requestedPosition": 1,
+              "position": 1,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "Dual Pan",
+              "devicePosition": 1,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 2,
+              "status": "held",
+              "requestedPosition": 3,
+              "position": 3,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "FX Layer",
+              "devicePosition": 3,
+              "hasLayers": true,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [
+                {
+                  "index": 0,
+                  "name": "A",
+                  "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 1,
+                  "name": "C",
+                  "channelId": "08c07ab9-5ce0-46c6-83db-d86d341a4dee",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 2,
+                  "name": "B2",
+                  "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "Gate",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                }
+              ],
+              "visibleChainCount": 3,
+              "chainCount": 3,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            }
+          ],
+          "scopeCount": 3,
+          "deviceCount": 5,
+          "deviceBankSize": 16,
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "deviceIndex": 3,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b08i",
+          "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        }
+      },
+      {
+        "method": "devcursor.selectAt",
+        "params": {
+          "deviceIndex": 3
+        },
+        "at": 1402,
+        "ms": 23,
+        "reply": {
+          "success": true
+        }
+      },
+      {
+        "method": "chain.inventory",
+        "at": 1451,
+        "ms": 22,
+        "reply": {
+          "scopes": [
+            {
+              "slot": 0,
+              "status": "held",
+              "requestedPosition": 0,
+              "position": 0,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": false,
+              "deviceExists": true,
+              "deviceName": "Tool",
+              "devicePosition": 0,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 1,
+              "status": "held",
+              "requestedPosition": 1,
+              "position": 1,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "Dual Pan",
+              "devicePosition": 1,
+              "hasLayers": false,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [],
+              "visibleChainCount": 0,
+              "chainCount": 2,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            },
+            {
+              "slot": 2,
+              "status": "held",
+              "requestedPosition": 3,
+              "position": 3,
+              "settled": true,
+              "canScrollForwards": true,
+              "canScrollBackwards": true,
+              "deviceExists": true,
+              "deviceName": "FX Layer",
+              "devicePosition": 3,
+              "hasLayers": true,
+              "hasSlots": false,
+              "slotNames": [],
+              "chains": [
+                {
+                  "index": 0,
+                  "name": "A",
+                  "channelId": "e05a53c5-3a1a-41a3-9dba-e7b2e27ed782",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 1,
+                  "name": "C",
+                  "channelId": "08c07ab9-5ce0-46c6-83db-d86d341a4dee",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "EQ-5",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                },
+                {
+                  "index": 2,
+                  "name": "B2",
+                  "channelId": "21b5c353-e552-411d-8991-58d7fc6d23d0",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": "0.267,0.784,0.996",
+                  "devices": [
+                    {
+                      "index": 0,
+                      "name": "Gate",
+                      "enabled": true
+                    }
+                  ],
+                  "deviceCount": 1
+                }
+              ],
+              "visibleChainCount": 3,
+              "chainCount": 3,
+              "chainBankSize": 5,
+              "deviceBankSize": 4,
+              "namedSlotStatus": "held",
+              "namedSlotComplete": true
+            }
+          ],
+          "scopeCount": 3,
+          "deviceCount": 5,
+          "deviceBankSize": 16,
+          "cursorScope": {
+            "status": "held",
+            "deviceExists": true,
+            "deviceName": "FX Layer",
+            "deviceIndex": 3,
+            "isNested": false,
+            "namedSlotComplete": false
+          },
+          "trackName": "gn-b08i",
+          "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+        }
+      }
+    ]
+  }
+}

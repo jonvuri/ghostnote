@@ -1,0 +1,110 @@
+{
+  "elapsedMs": 40569,
+  "value": {
+    "scopes": [
+      {
+        "slot": 0,
+        "status": "held",
+        "requestedPosition": 0,
+        "position": 0,
+        "settled": true,
+        "canScrollForwards": true,
+        "canScrollBackwards": false,
+        "deviceExists": true,
+        "deviceName": "Tool",
+        "devicePosition": 0,
+        "hasLayers": false,
+        "hasSlots": false,
+        "slotNames": [],
+        "chains": [],
+        "visibleChainCount": 0,
+        "chainCount": 2,
+        "chainBankSize": 5,
+        "deviceBankSize": 4,
+        "namedSlotStatus": "held",
+        "namedSlotComplete": true
+      },
+      {
+        "slot": 1,
+        "status": "held",
+        "requestedPosition": 1,
+        "position": 1,
+        "settled": true,
+        "canScrollForwards": true,
+        "canScrollBackwards": true,
+        "deviceExists": true,
+        "deviceName": "Dual Pan",
+        "devicePosition": 1,
+        "hasLayers": false,
+        "hasSlots": false,
+        "slotNames": [],
+        "chains": [],
+        "visibleChainCount": 0,
+        "chainCount": 1,
+        "chainBankSize": 5,
+        "deviceBankSize": 4,
+        "namedSlotStatus": "held",
+        "namedSlotComplete": true
+      },
+      {
+        "slot": 2,
+        "status": "held",
+        "requestedPosition": 5,
+        "position": 5,
+        "settled": true,
+        "canScrollForwards": false,
+        "canScrollBackwards": true,
+        "deviceExists": true,
+        "deviceName": "FX Layer",
+        "devicePosition": 5,
+        "hasLayers": true,
+        "hasSlots": false,
+        "slotNames": [],
+        "chains": [
+          {
+            "index": 0,
+            "name": "X",
+            "channelId": "a1fad982-1012-4a32-a805-02d23b41728d",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": "0.267,0.784,0.996",
+            "devices": [
+              {
+                "index": 0,
+                "name": "Peak Limiter",
+                "enabled": true
+              },
+              {
+                "index": 1,
+                "name": "Gate",
+                "enabled": true
+              }
+            ],
+            "deviceCount": 2
+          }
+        ],
+        "visibleChainCount": 1,
+        "chainCount": 1,
+        "chainBankSize": 5,
+        "deviceBankSize": 4,
+        "namedSlotStatus": "held",
+        "namedSlotComplete": true
+      }
+    ],
+    "scopeCount": 3,
+    "deviceCount": 6,
+    "deviceBankSize": 16,
+    "cursorScope": {
+      "status": "held",
+      "deviceExists": true,
+      "deviceName": "FX Layer",
+      "deviceIndex": 5,
+      "isNested": false,
+      "namedSlotComplete": false
+    },
+    "trackName": "gn-b08i",
+    "trackChannelId": "78fcc039-6663-4f73-9d70-4ce3859fe43c"
+  }
+}

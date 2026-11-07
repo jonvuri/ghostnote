@@ -345,23 +345,7 @@ export interface ObservedContainer {
   readonly chains: readonly ObservedChain[];
   /** ⚠ Was the chain bank known to hold everything? See `ObservedChain.devicesComplete`. */
   readonly chainsComplete: boolean;
-  /**
-   * ⚠ How wide the chain bank is (`Rig.SLOT_LAYER_BANK`) — the number
-   * `chainsComplete` is a yes/no answer about.
-   *
-   * Both are carried because they answer different questions and only one of
-   * them can be projected. `chainsComplete` says whether THIS reading saw
-   * everything; the SIZE is what lets a guard reason about a container two
-   * creates from now, without taking a second reading it has no way to take
-   * (nothing has been applied yet). `assertChainCreatable` needs exactly that,
-   * for the same reason `assertSceneRoom` needs `WindowCoverage.bankSize`: a
-   * budget that re-checks the current count per op lets a pair through and
-   * strands the second one.
-   *
-   * ⚠ OPTIONAL, and absence must fail closed. An extension too old to report it
-   * also makes `chainsComplete` false on both adapters, so a create is refused
-   * either way — but a guard must never treat a missing size as room.
-   */
+  /** Physical chain paging width; completeness describes the entire stitched reading. */
   readonly chainsBankSize?: number;
   /** Named device-chain slots observed independently from layer chains. */
   readonly slots?: readonly ObservedDeviceSlot[];

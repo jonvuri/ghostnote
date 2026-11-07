@@ -1,0 +1,262 @@
+{
+  "elapsedMs": 21699,
+  "value": {
+    "name": "copy_devices",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "devices": [
+        {
+          "from": "top-level",
+          "devicePosition": 0
+        }
+      ],
+      "destination": {
+        "to": "layer-chain",
+        "containerPosition": 3,
+        "layerChain": "C"
+      }
+    },
+    "ms": 1386,
+    "turns": 59,
+    "wire": {
+      "turns": 45,
+      "wireMs": 1047,
+      "methods": {
+        "selection.status": 5,
+        "track.list": 10,
+        "devcursor.pin": 7,
+        "cursor.pointTrack": 7,
+        "device.list": 8,
+        "revision.get": 7,
+        "chain.observe": 6,
+        "batch.run": 1,
+        "cursor.pin": 8
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "observes": 6,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-device-copy/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "88fd6cec-0eb1-46b2-890c-9b9890347d8d",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "devices": 1,
+            "destination": {
+              "to": "layer-chain",
+              "containerPosition": 3,
+              "layerChain": "C"
+            }
+          },
+          "summary": "Copied 1 device(s).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Dual Pan",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Ring-Mod",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "FX Layer",
+            "enabled": true
+          }
+        ],
+        "topLevelComplete": true,
+        "layerChains": [
+          {
+            "containerPosition": 3,
+            "position": 1,
+            "name": "C",
+            "solo": false,
+            "mute": false,
+            "volume": 0.7937005259840999,
+            "pan": 0.5,
+            "color": {
+              "red": 0.329,
+              "green": 0.329,
+              "blue": 0.318
+            },
+            "devices": [
+              {
+                "devicePosition": 0,
+                "name": "EQ-5"
+              },
+              {
+                "devicePosition": 1,
+                "name": "Tool"
+              }
+            ],
+            "devicesComplete": true,
+            "deviceCapacity": 4
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 1385.979792000002
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "devices": 1,
+        "destination": {
+          "to": "layer-chain",
+          "containerPosition": 3,
+          "layerChain": "C"
+        }
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 356,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.272166
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 549,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.199125
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 597,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.383708
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 668,
+        "ms": 23,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.137375
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 810,
+        "ms": 23,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.220291
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 1362,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.303459
+        }
+      }
+    ]
+  }
+}

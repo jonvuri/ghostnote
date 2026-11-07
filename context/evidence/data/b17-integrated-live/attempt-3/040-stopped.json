@@ -1,0 +1,6 @@
+{
+  "scratchId": "d5082b46-5af5-4672-81ba-3b14f59a42bb",
+  "scratchName": "gn-b17w",
+  "error": "AssertionError [ERR_ASSERTION]: {\"schema\":\"ghostnote-device-delete/1\",\"failure\":{\"code\":\"authority-unavailable\",\"stage\":\"write\",\"effects\":[]},\"message\":\"The Bitwig extension did not complete the read.\",\"retryWhen\":\"once; then check the connection\",\"target\":{\"devices\":1},\"diagnostic\":{\"error\":\"Internal error: Parameter index (=19) must be in the range 0 to 16\",\"type\":\"BridgeError\"}}\n+ actual - expected\n\n+ {\n+   code: 'authority-unavailable',\n+   effects: [],\n+   stage: 'write'\n+ }\n- undefined\n",
+  "next": "Inspect recorded effects and current state before any further write; do not repeat this driver."
+}

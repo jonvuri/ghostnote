@@ -6,6 +6,12 @@ updated: 2026-11-07
 
 ## Now
 
+**Next: [B18](work/b18-content-event-window.md)** (note identity survives
+Launcher activity), then [B19](work/b19-real-use-tooling-and-annotations.md)
+in three sessions: quick tool wins; overlays, clip annotations and provenance
+(with a last format evaluation and possible final benchmark); clip operations
+and stateless analysis tools.
+
 [R01](work/r01-format-comparison.md)'s [candidate package](../spec/r01-research/README.md)
 is ready for review: contracts, bounded offline prototypes for ideas 1–4,
 matched examples, a common oracle, and a staged agent-trial protocol.
@@ -360,35 +366,93 @@ round 3 offline:
   nothing read them; timing questions were answered against source MIDI.
 - **Tool costs:** nine ranked proposals, three of them description-only.
 
-**Next: [B18](work/b18-content-event-window.md)** (note identity survives
-Launcher activity), then [B19](work/b19-real-use-tooling-and-annotations.md)
-in three sessions: quick tool wins; overlays, clip annotations and provenance
-(with a last format evaluation and possible final benchmark); clip operations
-and stateless analysis tools. The operator merges this branch into `main`
-first.
 Works A–C are development material (E366); only development runs have occurred. E353 remains the
 initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,
 product runtime change or scored model comparison occurred. Annotation persistence,
-storage ownership and live checks remain deferred. The live state below was
-not rechecked by R01.
+storage ownership remain deferred. R01's only live work is the E393 probe
+recorded below.
 
-[B08](work/b08-scrollable-container-scopes.md) research is complete with a
-**go** verdict. [E352](evidence/experiments/e352-scrollable-container-scopes-retarget-live.md)
-records that a layer bank hung off a one-wide scrollable device bank retargets
-to the container at the scrolled position, including position 3, with the
-complete identity correct on the first read at 0 ms wait (polled 23 ms, one
-status round trip); nested chain and device windows scroll with total
-`itemCount`; out-of-range scrolls clamp; a solo written through a scrolled
-scope read back through an independent scope and the cursor route. The probe
-profile gained `probe.scopeScroll` (120 methods, hash `eee07e622b789114`)
-with an offline-tested driver. B08 implementation is next in the
-[backlog](BACKLOG.md): scrollable product scopes, the five chain tools and
-`compose_devices` past position 2, call-budget tests, and a re-measured
-`containerScope` ledger row. The brief's result section lists the design
-notes from the probe. R01, R02, and P01 follow.
+R02's local work is complete. On 2026-11-07, the user confirmed filing the
+upstream report with the [minimal reproduction](../extension/repro/pressure-getter/README.md):
+one script, one Launcher clip, one note, no note observer. The
+[closeout](work/r02-pressure-reproduction.md#closeout--2026-11-07) retains the
+actual confirmation. No ticket reference, submitted text, console output, or
+upstream response was supplied; filing does not add a new measured result to
+E399. Any upstream follow-up is external and does not block other work.
+
+[R02](work/r02-pressure-reproduction.md) has completed the audit and live
+pressure reproduction. [E399](evidence/experiments/e399-pressure-getter-blindness-live.md)
+shows human pressure 51% and API pressure 75% in the inspector, surviving
+reselection and cursor retargeting, while both API readers return zero.
+Velocity controls pass. This corrects the earlier inert-setter inference;
+[D66](decisions/d66-pressure-refusal-is-a-verification-limit.md) retains product
+refusal because independent API verification is unavailable. Current
+explanations and descriptions are v58 (46 tools); write admission is unchanged.
+The [local report draft](work/r02-pressure-upstream-report.md) remains supporting
+material; the user filed using the minimal repro. The planning note wrongly
+assigned filing to the agent and has been corrected. The agent sent nothing;
+no external communication by the agent is authorized.
+
+The owned scratch track was removed; all original track IDs/names and mixer
+selection match. The UI shows no item selected, but the bridge retains the
+deleted Launcher slot's old index. That discrepancy is recorded, not treated
+as exact selection restoration. The normal archive is deployed; operator
+replacement with **ghostnote** and its fresh handshake remain pending.
+R01 and P01 have separate worktrees; this checkout owns R02.
+
+[B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
+is complete and verified live in
+[E398](evidence/experiments/e398-integrated-paged-writes-live.md). The integrated
+normal build composes five-device and six-chain shapes at positions 17 and 18,
+duplicates and controls the sixth chain, transfers overflow devices between
+chains, containers and the track, and inserts, disables, reorders and deletes
+past the sixteen-device window. Width-derived admission caps are retired;
+D44's six-unit budget, named-slot bounds and parameter restrictions remain.
+Descriptions are v57 (46 tools); normal wire: 93 methods, hash
+`d6decf985f6b1f36`.
+
+Two live integration fixes are in the brain: a discarded population-changing
+read retries once without replaying a write, and overflow deletion uses a
+structural snapshot instead of an unsupported parameter cursor. An initial
+composition failure now reports possible effects truthfully. All 2,601 brain
+tests and extension checks pass. Both scratch fixtures were removed; original
+track/device inventories and selection match the baseline. No controller
+replacement was pending at the B17 closeout. No competing client was present then.
+
+E398's dense six-chain structure read costs six turns / median 862 ms.
+Five-device composition took 26.3 s; six-chain composition took 44.4 s, close
+to D44's exceptional 45 s ceiling. These are fixture-specific costs. P01 owns
+the repeated proof work and the six-unit budget review; the backlog now
+puts B18 and B19 first. New clients load the current brain; an already
+running MCP server must restart to pick up these fixes.
+
+Earlier checkpoints remain in [E395](evidence/experiments/e395-extension-owned-container-scopes-live.md)
+(session 1, extension-owned scopes) and
+[E397](evidence/experiments/e397-paged-device-and-layer-reads-live.md)
+(session 2, complete paged reads). Their smaller-fixture timings are historical.
+
+[B08](work/b08-scrollable-container-scopes.md) is complete and verified live.
+[E394](evidence/experiments/e394-scrollable-container-scopes-product-live.md)
+records the product build composing FX Layers at top-level positions 3 and 5,
+`read_devices` listing their chains, the five chain tools and a move between
+the two far containers applying and reading back, the solo read back through
+the cursor route and a second scope, cleanup, and one defect fixed in the
+session (a scope scrolled on a track with fewer devices clamps and stays; the
+adapter now re-issues the scroll). That build had 93 methods, hash
+`a44ce79ed75df81b`, with `chain.scroll`; descriptions were v55 (46 tools).
+The `containerScope` ledger row has a far-position variant (about 305 ms, 11
+turns). [D65](decisions/d65-proved-routes-run-with-one-readback.md) sets the new
+runtime posture: routes proved in tests and E records are trusted at
+runtime, a tool call makes one independent readback at the end, and
+concurrent operator edits are not a design case.
+P01 then takes the container-scope read policy (now `ContainerScopes.choose`
+in the extension: skip non-containers, rotate the far scope, scope count and
+width) and rebuilds staged `compose_devices` under D65 (direct chain
+insertion in one batch, one readback, re-derived D44 weights), then applies
+the rule to the other staged paths.
 
 [V14 — Add devices and presets by name](work/v14-add-devices-by-name.md) is
-complete. `resolve_device_name` (46 tools, descriptions v54) resolves an exact
+complete. `resolve_device_name` (46 tools, descriptions v54 then) resolves an exact
 stock-device, VST3, CLAP, or Bitwig-preset name from the running host's
 installation, preferences, indexes, and content locations with no Bitwig call.
 [E351](evidence/experiments/e351-device-name-resolution-live.md) records all
@@ -417,9 +481,9 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) now orders B08, R01, R02, then the P01 offline audit.
-R01 also assesses the first-save annotation-continuity limitation
-recorded in the V01 closeout.
+The [backlog](BACKLOG.md) puts B18 and B19 first; R01 stays open until B19's
+overlay session. That session also settles the first-save annotation
+continuity limitation recorded in the V01 closeout.
 
 [DIET](work/instruction-diet.md) is complete and independently reviewed.
 Use the shorter [context guide](README.md) for relevant reading. D54 governs
@@ -432,29 +496,46 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The normal `ghostnote` archive was restored with `copyExtension` after the
-  B08 probe (SHA-256
-  `ae998a5d238b34665243523c48c4dd073d7cc82dd3e5d872525e7ea0051f7524`; the jar
-  now carries the probe class, normal profile unchanged). The operator
-  confirmed replacement; `npm run probe:hello` passed: `normal-v1`, API 25,
-  92 methods, hash `8be1975eaa99d78f`, expected build markers, fresh
-  initialization at `2026-10-25T20:05:43.639Z`. The Ghostnote MCP server
-  answered product tools again after that replacement; it had stopped
-  answering after the earlier replacement to the probe build (E352).
-- **2026-10-31 (E393 probe):** the loaded `ghostnote` archive is `main`'s B17
-  normal build (`normal-v1`, API 25, 93 methods, hash `d6decf985f6b1f36`,
-  fresh initialization `2026-10-31T21:04:25Z`), newer than this checkout's
-  92-method golden; this checkout's `probe:hello` fails its golden check
-  against it. E393 created and deleted scratch track `gn-r3-window` in
-  `gn-scale-test`; the track list matches its entry state and the mixer
-  selection stayed on `gn-sel`. The Launcher slot cursor was left at track
-  index 9, row 0 (entry slot selection not recorded).
-- Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
-  E352 deleted its scratch track `gn-b08`; `list_tracks` then listed the
-  original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure
-  read back unchanged, and the mixer selection stayed on `gn-sel`. No scratch
-  track, solo flag, or popup remains. Re-read project, target, and selection
-  before more writes.
+- **2026-10-31 (E393 probe), the latest live work:** scratch track
+  `gn-r3-window` in `gn-scale-test` was created and deleted; the track list
+  matches its entry state and the mixer selection stayed on `gn-sel`.
+  `selection.status` afterwards still reported Launcher index 9 / slot 0, the
+  stale bridge index R02 recorded; do not treat it as a verified selection.
+- R02 live experiment used the verified probe initialization
+  `2026-10-29T13:49:14.427Z`, marker `r02-pressure-v1`, 122 methods,
+  hash `a8455ecb24cf6f8c`. Its
+  [deployment record](evidence/data/r02-pressure/deployment-01.json) and
+  [E399](evidence/experiments/e399-pressure-getter-blindness-live.md) retain
+  build hashes, all attempts, samples, controls and cleanup.
+- R02 scratch track `d9ca38aa-221e-4ae1-b02f-f14fa3a9e644` is removed.
+  All eleven original track IDs/names match; mixer `gn-sel` remains selected.
+  Launcher `selection.status` retains deleted index 9 / slot 0 despite the
+  UI showing no item selected. Do not resolve that index to a new track and
+  treat it as a verified selection. No playback launch or save ran.
+- The normal `ghostnote` archive was redeployed after R02
+  ([restoration record](evidence/data/r02-pressure/normal-restoration.json)).
+  On 2026-10-31 the E393 handshake found a fresh `normal-v1` initialization
+  (`2026-10-31T21:04:25Z`, API 25, 93 methods, hash `d6decf985f6b1f36`), so
+  the normal build was loaded after R02.
+- Previous verified build: integrated B17 normal `ghostnote`, SHA-256
+  `ac17f782d2ac4252c8259c06aee242d08f2356ac48072853973ef499c6eee5d8`.
+  The operator replied “Controller replaced”. Fresh handshake passed on
+  initialization `2026-10-28T02:58:49.135Z`: `normal-v1`, API 25, 93 methods,
+  hash `d6decf985f6b1f36`; markers `paged-windows-v3`,
+  `paged-chain-controls-v1`, `paged-chain-moves-v2`, and
+  `paged-device-mutations-v1`. This handshake predates the R02 deployment.
+- Last verified foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
+  Both owned `gn-b17w` tracks were removed: first
+  `f11d8e43-b4af-4f63-b94a-11f635dfcd38`, then
+  `d5082b46-5af5-4672-81ba-3b14f59a42bb`. All original track/device inventories
+  match their baseline. Mixer selection is `gn-sel` (index 8, channel
+  `6fb96670-abde-4958-9147-f573a4b43918`); no Launcher slot is selected.
+  Selection revision advanced 1 → 5 during the scratch lifecycles; selected
+  identity is preserved. No playback launch or project save ran. Final scope
+  status: closed, 435 aims, zero refusals; no write block. Owned drivers exited;
+  unrelated editor processes were left alone. Re-check live claims, project,
+  selection, clients and targets on resume. [E398](evidence/experiments/e398-integrated-paged-writes-live.md)
+  retains attempts, corrections, timings and preservation comparisons.
 - Preserved V01 project: `engram purifico`, saved under the Ghostworks construct
   of the same name. It contains Addictive Drums 2 (operator set GM mapping),
   Engram Bass, Purifico Stabs, FX 1, and Master. The first two Launcher scenes
@@ -464,7 +545,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Baseline: 46 normal tools, descriptions v54.
+  Current source: 46 normal tools, descriptions v58; running server version unconfirmed.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

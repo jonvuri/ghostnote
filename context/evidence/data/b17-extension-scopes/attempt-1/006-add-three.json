@@ -1,0 +1,135 @@
+{
+  "elapsedMs": 4793,
+  "value": {
+    "name": "add_devices",
+    "args": {
+      "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+      "devices": [
+        {
+          "kind": "native",
+          "name": "Tool"
+        },
+        {
+          "kind": "native",
+          "name": "Dual Pan"
+        },
+        {
+          "kind": "native",
+          "name": "Ring-Mod"
+        }
+      ]
+    },
+    "ms": 3207,
+    "turns": 122,
+    "wire": {
+      "turns": 86,
+      "wireMs": 1969,
+      "methods": {
+        "selection.status": 7,
+        "track.list": 22,
+        "devcursor.pin": 11,
+        "cursor.pointTrack": 11,
+        "device.list": 29,
+        "revision.get": 15,
+        "batch.run": 3,
+        "cursor.pin": 24
+      },
+      "clipReads": 0,
+      "stages": 3
+    },
+    "observes": 0,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-device-add/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "6ff5782a-e566-4d94-bfb7-ef3c297155d9",
+          "target": {
+            "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+            "deviceIndex": 0
+          },
+          "summary": "Added device 0 (Tool).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "37f79fa7-d1d6-4ee8-b3e4-61f8a4576c3b",
+          "target": {
+            "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+            "deviceIndex": 1
+          },
+          "summary": "Added device 1 (Dual Pan).",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "2bf400fe-8b75-43c3-83a6-47659fedcaf2",
+          "target": {
+            "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+            "deviceIndex": 2
+          },
+          "summary": "Added device 2 (Ring-Mod).",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "added": [
+          {
+            "deviceIndex": 0,
+            "source": "native",
+            "devicePosition": 0,
+            "name": "Tool"
+          },
+          {
+            "deviceIndex": 1,
+            "source": "native",
+            "devicePosition": 1,
+            "name": "Dual Pan"
+          },
+          {
+            "deviceIndex": 2,
+            "source": "native",
+            "devicePosition": 2,
+            "name": "Ring-Mod"
+          }
+        ],
+        "topLevel": [
+          {
+            "devicePosition": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Dual Pan",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Ring-Mod",
+            "enabled": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeIds": [
+            "2bf400fe-8b75-43c3-83a6-47659fedcaf2",
+            "37f79fa7-d1d6-4ee8-b3e4-61f8a4576c3b",
+            "6ff5782a-e566-4d94-bfb7-ef3c297155d9"
+          ]
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 3206.9470420000007
+      },
+      "target": {
+        "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+        "devices": 3
+      }
+    },
+    "scopeCalls": []
+  }
+}

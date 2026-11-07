@@ -23,7 +23,7 @@ import {
   deviceIn as deviceInAt, deviceSlot,
   drumPad, mixer, notes as notesAt, param, remote, remotes, scene, slot, snapshotAddresses, track,
   clipSnapshotFrom, decodeClipSnapshotRef, encodeClipSnapshotRef, unpinnedCursorTracksOf,
-  type ClipAddress, type NoteRecord, type RevisionMark, type SelectionOutcome, type TrackAddress,
+  type ClipAddress, type NoteRecord, type Op, type RevisionMark, type SelectionOutcome, type TrackAddress,
   CollapsedGroupRowError,
 } from '../../contract/index.js';
 import { BridgeError } from '../../client.js';
@@ -2593,6 +2593,63 @@ test('4g-device-enabled: a raw unrelated toggle fails the full enabled fingerpri
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), false);
 });
 
+for (const count of [17, 18]) {
+  for (const position of [0, count - 1]) {
+    for (const op of ['device.setEnabled', 'device.delete', 'device.insert', 'device.relocate'] as const) {
+      test(`B17 live/fake ${op}: pages ${count}-device chain at ${position}`, async () => {
+        class PagedTransport extends DeviceChainTransport {
+          disabled = new Set<number>();
+          protected override dispatch(method: string, params: Record<string, unknown>): unknown {
+            if (method === WIRE.deviceSetEnabled) {
+              this.disabled.add(params['deviceIndex'] as number);
+              this.revision++;
+              return {};
+            }
+            const reply = super.dispatch(method, params) as Record<string, any>;
+            return method === WIRE.deviceList
+              ? { ...reply, bankSize: 16, paged: true,
+                devices: reply['devices'].map((item: any) => ({ ...item, enabled: !this.disabled.has(item.index) })) }
+              : reply;
+          }
+        }
+        const wire = new PagedTransport();
+        const names = Array.from({ length: count }, (_, index) => `Tool ${index}`);
+        wire.chains.set(0, [...names]);
+        const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+        const read = await adapter.devices(TRACK);
+        assert.equal(read.devicesComplete, true);
+        assert.equal(read.devices.length, count);
+        const operation: Op = op === 'device.insert'
+          ? { op, track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID }, expectedDeviceName: 'Phaser' }
+          : op === 'device.relocate'
+            ? { op, track: TRACK, sourceFromEnd: 0, expectedName: names.at(-1)!, before: deviceAt(TRACK, 0) }
+            : { op, device: deviceAt(TRACK, position), enabled: false };
+        const liveResult = await adapter.apply({ ops: [operation] });
+        assert(liveResult.stages.every(stage => stage.ops.every(item => item.ok)), JSON.stringify(liveResult));
+        const { FakeAdapter } = await import('../fake/adapter.js');
+        const fake = new FakeAdapter({ tracks: ['paged'] });
+        const fakeTrack = fake.model.visibleTracks()[0]!;
+        fakeTrack.channelId = CHANNEL_ID;
+        fakeTrack.devices.push(...names.map(name => ({ name, enabled: true, paramsLive: true, params: [] })));
+        const before = structuredClone(fakeTrack.devices);
+        const fakeRead = await fake.devices(TRACK);
+        assert.equal(fakeRead.devicesComplete, true);
+        assert.equal(fakeRead.devices.length, count);
+        const fakeResult = await fake.apply({ ops: [operation] });
+        assert(fakeResult.stages.every(stage => stage.ops.every(item => item.ok)), JSON.stringify(fakeResult));
+        assert.equal(wire.frames.some((frame) => frame.method === WIRE.batchRun), true);
+        assert.deepEqual(wire.chains.get(0), fakeTrack.devices.map(item => item.name));
+        const wanted = [...names];
+        if (op === 'device.insert') wanted.push('Phaser');
+        if (op === 'device.delete') wanted.splice(position, 1);
+        if (op === 'device.relocate') wanted.unshift(wanted.pop()!);
+        assert.deepEqual(wire.chains.get(0), wanted);
+        if (op === 'device.setEnabled') assert.equal(fakeTrack.devices[position]!.enabled, false);
+      });
+    }
+  }
+}
+
 test('L-mint: an insert reports the chain index it OBSERVED, and the delete undoes it', async () => {
   const wire = new DeviceChainTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -2812,6 +2869,27 @@ class InventoryTransport implements Transport {
         return this.stale
           ? { scopes: stripped, trackName: 'whoever' }
           : { scopes: stripped, trackName: 'whoever', trackChannelId: on };
+      }
+      case WIRE.chainObserve: {
+        // B17: the extension settles a scope at the position on the track cursor 0 is REALLY on. It polls the
+        // named track first, so a cursor that never arrives refuses rather than describing another track.
+        const on = this.pointed === undefined ? undefined : this.tracks.get(this.pointed);
+        const expected = params['expectedTrackChannelId'];
+        if (!this.stale && expected !== undefined && expected !== on) {
+          throw new BridgeError(-32000, `container scope track-not-confirmed after 400 polls: cursor track 0 reports ${on}, not ${expected}`);
+        }
+        const position = params['position'] as number;
+        const scopes = (on === undefined ? undefined : this.inventory.get(on)) ?? [];
+        const slots = (scopes as { slot: number }[]).map((item) => item.slot);
+        const deviceCount = slots.length === 0 ? 0 : Math.max(...slots) + 1;
+        const scope = (scopes as Record<string, unknown>[]).find((item) => item['slot'] === position);
+        const stripped = scope === undefined ? undefined : this.stale
+          ? (({ chainBankSize, deviceBankSize, ...rest }) => rest)(scope) : scope;
+        return {
+          position, slot: position, deviceCount, trackName: 'whoever',
+          ...(this.stale ? {} : { trackChannelId: on, deviceBankSize: 16, chainBankSize: 5 }),
+          ...(stripped === undefined ? {} : { scope: stripped }),
+        };
       }
       default:
         return {};
@@ -3269,30 +3347,34 @@ class ParameterTransport implements Transport {
           results };
       }
       case WIRE.chainInventory:
-        return {
-          trackChannelId: CHANNEL_ID,
-          scopes: [{
-            slot: 0,
-            status: 'held',
-            deviceExists: true,
-            deviceName: this.devices[0]?.name,
-            chains: [],
-            chainCount: 0,
-            chainBankSize: 5,
+      case WIRE.chainObserve: {
+        const scope = {
+          slot: 0,
+          status: 'held',
+          deviceExists: true,
+          deviceName: this.devices[0]?.name,
+          chains: [],
+          chainCount: 0,
+          chainBankSize: 5,
+          deviceBankSize: 4,
+          namedSlotStatus: 'held',
+          namedSlotComplete: true,
+          namedSlot: {
+            name: 'CHAIN',
+            devices: [
+              { index: 0, name: 'Pad synth', enabled: true },
+              { index: 1, name: 'Later synth', enabled: true },
+            ],
+            deviceCount: 2,
             deviceBankSize: 4,
-            namedSlotStatus: 'held',
-            namedSlotComplete: true,
-            namedSlot: {
-              name: 'CHAIN',
-              devices: [
-                { index: 0, name: 'Pad synth', enabled: true },
-                { index: 1, name: 'Later synth', enabled: true },
-              ],
-              deviceCount: 2,
-              deviceBankSize: 4,
-            },
-          }],
+          },
         };
+        if (frame.method === WIRE.chainInventory) return { trackChannelId: CHANNEL_ID, scopes: [scope] };
+        // The one scope stands at position 0; another position inside the device count has none here.
+        const position = params['position'] as number;
+        return { trackChannelId: CHANNEL_ID, position, slot: position === 0 ? 0 : 2, deviceCount: this.devices.length,
+          ...(position === 0 ? { scope } : {}) };
+      }
       default:
         return {};
     }
@@ -3332,7 +3414,9 @@ test('6.1 scope: a non-layer device does not inherit the previous container laye
       const container = entry?.value.of === 'device' ? entry.value.device.container : undefined;
       assert.equal(container?.chainsComplete, hasLayers === false && !staleChildren);
       assert.equal(container?.slotsComplete, false, 'No new named-slot coverage claim');
-      assert.equal(wire.frames.filter(frame => frame.method === WIRE.chainInventory).length, 1);
+      assert.equal(wire.frames.filter(frame => frame.method === WIRE.chainObserve).length, 1);
+      assert.equal(wire.frames.filter(frame => frame.method === WIRE.chainInventory).length, 0,
+        'three slot names: no named-slot descent, so no raw inventory');
     }
   }
 });
@@ -4326,34 +4410,31 @@ test('5r Chain: a confirmed cursor slot completes an incomplete fixed slot scope
     { index: 0, name: 'First', enabled: true },
     { index: 1, name: 'Later', enabled: false },
   ]);
-  const selectAt = wire.frames.findIndex((frame) => frame.method === WIRE.deviceCursorSelectAt);
+  const observeAt = wire.frames.findIndex((frame) => frame.method === WIRE.chainObserve);
+  const selectAt = wire.frames.findIndex((frame, at) => at > observeAt && frame.method === WIRE.deviceCursorSelectAt);
   const inventoryAt = wire.frames.findIndex((frame) => frame.method === WIRE.chainInventory);
-  assert.ok(selectAt >= 0 && inventoryAt > selectAt);
+  assert.ok(observeAt >= 0 && selectAt > observeAt && inventoryAt > selectAt,
+    'the scope read first, then the cursor descent, then the raw inventory for the cursor scope');
 });
 
-test('L-chain: an inventory still naming the PREVIOUS track is retried, not reported as a miss', async () => {
-  // ⚠⚠ Measured 2026-08-15: `chain.inventory` follows a re-pointed cursor at a
-  // structural pace, not a cursor-point one — it named the track just pointed at
-  // 0/6 immediately, 3/6 at the 25ms `cursorPoint` budget this read was
-  // borrowing, and 6/6 only from 100ms. So the identity guard was firing on
-  // containers that were perfectly observable a tick later, and `C-chain-switch`
-  // failed two live runs in three on it. A mismatch is a staleness signal, never
-  // an observation, so it is retried within a bound; every other miss still
-  // answers at once because each of those IS an observation.
-  class LaggingInventory extends InventoryTransport {
+test('L-chain: an observation still naming the PREVIOUS track is re-pointed once, not reported as a miss', async () => {
+  // ⚠⚠ Measured 2026-08-15: the scopes follow a re-pointed cursor at a structural pace, not a cursor-point one
+  // (0/6 immediately, 6/6 from 100 ms). B17: the extension polls the track identity before it reads a scope,
+  // so the lag is absorbed there. A reply that still names another track is a stale cursor, which a bounded
+  // re-point addresses: the cursor is what the stale reply is stale about, so a bare re-read could wait forever.
+  class LaggingObservation extends InventoryTransport {
     private reads = 0;
 
     override async send(frame: Frame): Promise<unknown> {
       const reply = await super.send(frame);
-      if (frame.method !== WIRE.chainInventory) return reply;
+      if (frame.method !== WIRE.chainObserve) return reply;
       this.reads += 1;
-      // The first two reads still describe wherever the cursor used to be.
-      return this.reads <= 2
+      return this.reads <= 1
         ? { ...(reply as Record<string, unknown>), trackChannelId: 'some-other-track' }
         : reply;
     }
   }
-  const wire = new LaggingInventory(
+  const wire = new LaggingObservation(
     new Map([[0, CHANNEL_ID]]),
     new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
   );
@@ -4363,12 +4444,13 @@ test('L-chain: an inventory still naming the PREVIOUS track is retried, not repo
     .entries[addressKey(deviceAt(TRACK, 0))];
   const observed = entry?.value.of === 'device' ? entry.value.device : undefined;
   assert.equal(observed?.container?.chains[0]?.name, 'A take',
-    'the lagging reply was waited out rather than answered as unobservable');
-  // ⚠ And it re-POINTS each time rather than only re-reading: the cursor is what
-  // the stale reply is stale about, so a bare re-read could wait forever.
+    'the stale reply was re-pointed past rather than answered as unobservable');
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.chainObserve).length, 2);
+  // ⚠ And it re-POINTS before the second observation rather than only re-reading (one point precedes the read's
+  // own parameter inventory, then one for each observation).
   assert.equal(
     wire.frames.filter((f) => f.method === WIRE.cursorPointTrack).length,
-    wire.frames.filter((f) => f.method === WIRE.chainInventory).length + 1,
+    wire.frames.filter((f) => f.method === WIRE.chainObserve).length + 1,
   );
 });
 
@@ -4385,7 +4467,8 @@ test('L-chain: a cursor that never arrives is still a refusal, not an endless wa
 
   const hit = (await adapter.resolve([chainAt(deviceAt(TRACK, 0), 'A take')])).resolved[0];
   assert.equal(hit?.found, false, 'another track\'s container is never reported under this address');
-  assert.ok(wire.frames.filter((f) => f.method === WIRE.chainInventory).length <= 8);
+  // The extension refuses each observation (`track-not-confirmed`); the brain re-points once and stops.
+  assert.ok(wire.frames.filter((f) => f.method === WIRE.chainObserve).length <= 2);
 });
 
 test('L-chain: a device INSIDE a chain reads its own name, never the track chain\'s', async () => {
@@ -4478,14 +4561,20 @@ class ChainCreateTransport implements Transport {
         if (params['cursor'] === '0') this.pointed = params['trackIndex'] as number;
         return {};
 
-      case WIRE.chainInventory: {
-        // ⚠ Answers for the track cursor 0 is really ON, so a missing point
-        // reads as a missing container rather than as the right one.
-        if (this.pointed !== 0) return { scopes: [], trackName: 'nobody' };
+      case WIRE.chainObserve: {
+        // ⚠ Answers for the track cursor 0 is really ON: the extension polls the named track and refuses a
+        // cursor that is not there, so a missing point reads as a refusal rather than as the right container.
+        if (this.pointed !== 0) {
+          throw new BridgeError(-32000, 'container scope track-not-confirmed after 400 polls: cursor track 0 reports nobody');
+        }
+        if (params['position'] !== 0) return { trackChannelId: CHANNEL_ID, position: params['position'], deviceCount: 1 };
         return {
           trackName: 'gn-fixture',
           trackChannelId: CHANNEL_ID,
-          scopes: [{
+          position: 0,
+          slot: 0,
+          deviceCount: 1,
+          scope: {
             slot: 0,
             status: 'held',
             deviceExists: true,
@@ -4500,12 +4589,12 @@ class ChainCreateTransport implements Transport {
             chainCount: this.chains.length,
             chainBankSize: 4,
             deviceBankSize: 4,
-          }],
+          },
         };
       }
 
       case WIRE.chainSelect: {
-        const at = params['layerIndex'] as number;
+        const at = params['chainIndex'] as number;
         const chain = this.chains[at];
         if (chain === undefined) throw new Error(`no chain at ${at}`);
         if (params['expectedName'] !== chain.name) throw new Error('stale position');
@@ -4514,7 +4603,7 @@ class ChainCreateTransport implements Transport {
       }
 
       case WIRE.chainDuplicate: {
-        const at = params['layerIndex'] as number;
+        const at = params['chainIndex'] as number;
         const source = this.chains[at];
         if (source === undefined) throw new Error(`no chain at ${at}`);
         // ⚠ `e17ak` arm A: with nothing selected this call returns cleanly and
@@ -4539,7 +4628,7 @@ class ChainCreateTransport implements Transport {
       }
 
       case WIRE.chainActivate: {
-        const at = params['layerIndex'] as number;
+        const at = params['chainIndex'] as number;
         const target = this.chains[at];
         if (target === undefined || target.name !== params['expectedName']) {
           throw new Error('stale activation position');
@@ -4551,7 +4640,7 @@ class ChainCreateTransport implements Transport {
       }
 
       case WIRE.chainSetSolo: {
-        const at = params['layerIndex'] as number;
+        const at = params['chainIndex'] as number;
         const target = this.chains[at];
         if (target === undefined || target.name !== params['expectedName']) {
           throw new Error('stale solo position');
@@ -4620,6 +4709,7 @@ test('L-chain-create: the copy is SELECTED first, then named by the id it was ob
   // visibility E2 says does not exist, and would fail as a silent no-op.
   const order = wire.frames.map((f) => f.method);
   const selectAt = order.indexOf(WIRE.chainSelect);
+  assert.equal((wire.frames[selectAt]?.params as Record<string, unknown>)['expectedChannelId'], 'chain-id-1');
   const batchAt = order.findIndex((m, i) => m === WIRE.batchRun && i > selectAt);
   assert.ok(selectAt >= 0 && batchAt > selectAt, 'select comes before the batch that duplicates');
   const batch = wire.frames[batchAt]!.params as Record<string, unknown>;
@@ -4655,22 +4745,19 @@ test('L-chain-create: a duplicate that silently did nothing mints NOTHING and sa
   assert.match(failed[0]?.error ?? '', /exactly one more was expected/);
 });
 
-test('L-chain-create: an extension too old to report chain ids mints NOTHING', async () => {
+test('L-chain-create: missing chain IDs refuse before selection or duplication', async () => {
   // Silence must fail closed: `methodsHash` is over method NAMES, so a
   // deployment that predates the per-chain `channelId` cannot be detected at the
   // handshake. Falling back to position would rename by guesswork.
   const wire = new ChainCreateTransport(true);
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
-  const receipt = await adapter.apply({
+  await assert.rejects(adapter.apply({
     ops: [{ op: 'chain.create', source: SHIPPED(), name: 'gn-B' }],
-  });
-
-  assert.deepEqual(receipt.minted, {});
-  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped', 'gn-shipped'],
-    '⚠ the copy is REAL and is wearing the source name — which is what the failure has to report');
-  const failed = receipt.stages.flatMap((s) => s.ops).filter((o) => !o.ok);
-  assert.match(failed[0]?.error ?? '', /names two chains and neither resolves/);
+  }), /no fresh observation recorded an identity/);
+  assert.deepEqual(wire.chains.map((c) => c.name), ['gn-shipped']);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainSelect), false);
+  assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainDuplicate), false);
 });
 
 test('L-chain-create: a rename the extension REFUSES is reported, never thrown', async () => {
@@ -4727,14 +4814,12 @@ test('L-chain-create: a container with no observable scope is refused, not writt
   const wire = new ChainCreateTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
-  // Position 4 is past the scopes the stub reports, exactly as it would be past
-  // `Rig.SLOT_SCOPES` live — and a chain created out there could be resolved by
-  // nothing and removed by nothing.
+  // The stub's empty-position reply omits the chain width. Creation refuses without that write limit.
   await assert.rejects(
     adapter.apply({
       ops: [{ op: 'chain.create', source: chainAt(deviceAt(TRACK, 4), 'gn-shipped'), name: 'gn-B' }],
     }),
-    /no container scope covers device position 4/,
+    /is absent from/,
   );
   assert.equal(wire.frames.some((f) => f.method === WIRE.chainDuplicate), false);
 });
@@ -4782,7 +4867,8 @@ test('L-chain-solo: on and off change only the addressed chain, proved by readba
     ? ((frame.params as Record<string, unknown>)['ops'] as { method: string; params: Record<string, unknown> }[])
     : [frame as { method: string; params: Record<string, unknown> }])
     .filter((frame) => frame.method === WIRE.chainSetSolo);
-  assert.deepEqual(sent.map((frame) => [frame.params['layerIndex'], frame.params['solo']]), [[1, true], [0, false]]);
+  assert.deepEqual(sent.map((frame) => [frame.params['chainIndex'], frame.params['solo']]), [[1, true], [0, false]]);
+  assert.deepEqual(sent.map((frame) => frame.params['expectedChannelId']), ['chain-id-2', 'chain-id-1']);
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
 });
 
@@ -4812,19 +4898,25 @@ test('L-chain-activate: missing solo observation refuses before the write frame'
   assert.equal(wire.frames.some((frame) => frame.method === WIRE.chainActivate), false);
 });
 
-test('L-chain: a container position with no scope is UNREACHABLE on a read, not missing', async () => {
+test('L-chain: a container position past the device count is missing, including beyond the first window', async () => {
   const wire = new InventoryTransport(
     new Map([[0, CHANNEL_ID]]),
     new Map([[CHANNEL_ID, [CONTAINER_SCOPE([{ index: 0, name: 'A take' }])]]]),
   );
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  (adapter as unknown as Record<string, unknown>)['deviceBankSize'] = 16;
 
-  // Position 4 is past the scopes the stub reports, exactly as it would be past
-  // `Rig.SLOT_SCOPES` live.
-  const far = chainAt(deviceAt(TRACK, 4), 'A take');
+  // Position 16 is beyond the first window but also beyond this one-device track.
+  const far = chainAt(deviceAt(TRACK, 16), 'A take');
   const snapshot = await adapter.read([far]);
-  assert.deepEqual(snapshot.unreachable.map(addressKey), [addressKey(far)]);
-  assert.deepEqual(snapshot.missing, []);
+  assert.deepEqual(snapshot.unreachable, []);
+  assert.deepEqual(snapshot.missing.map(addressKey), [addressKey(far)]);
+  assert.equal(wire.frames.some((f) => f.method === WIRE.chainObserve), true);
+  // Position 4 on a one-device track is an EMPTY observation (B08): the reference bank was read.
+  const empty = chainAt(deviceAt(TRACK, 4), 'A take');
+  const observed = await adapter.read([empty]);
+  assert.deepEqual(observed.missing.map(addressKey), [addressKey(empty)]);
+  assert.deepEqual(observed.unreachable, []);
 });
 
 test('8h3c: pages keep one capture and refuse stale or inconsistent page replies', async () => {
@@ -5014,8 +5106,9 @@ test('8i1 (D43): the unpinned cursor list rides beside the mark, so a snapshot r
 });
 
 test('8i3 relocation preflight: a layer-chain route skips the named-slot descent; a slot route keeps it', async () => {
-  // The preflight reads each top-level container scope. The descent into an empty device slot (Delay+) never
-  // settles (about 3 s, E252), and only a device-slot endpoint uses it.
+  // The preflight reads the endpoint containers only (each is one `chain.observe`, which may scroll a scope inside
+  // the extension). The descent into an empty device slot (Delay+) never settles
+  // (about 3 s, E252), and only a device-slot endpoint uses it.
   class ScopeRecordingAdapter extends LiveAdapter {
     readonly slots: boolean[] = [];
     preflight(ops: readonly Parameters<LiveAdapter['apply']>[0]['ops'][number][]): Promise<void> {
@@ -5035,35 +5128,83 @@ test('8i3 relocation preflight: a layer-chain route skips the named-slot descent
   const move = (destination: Parameters<LiveAdapter['apply']>[0]['ops'][number]) => destination;
   await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: chainAt(layer, 'A'),
     mode: 'move' })]).catch(() => undefined);
-  assert.deepEqual(adapter.slots, [false, false]);
+  assert.deepEqual(adapter.slots, [false]);
   adapter.slots.length = 0;
   await adapter.preflight([move({ op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: deviceSlot(layer, 'FX'),
     mode: 'move' })]).catch(() => undefined);
-  assert.deepEqual(adapter.slots, [true, true]);
+  assert.deepEqual(adapter.slots, [true]);
 });
 
-test('8i3 container scope: an empty-slot descent gives up after two misses with the slots incomplete', async () => {
-  const frames: string[] = [];
-  const scope = { deviceExists: true, deviceName: 'Delay+', hasSlots: true, slotNames: ['FX'], chains: [] };
-  const transport = {
-    async send(frame: Frame) {
-      frames.push(frame.method);
-      if (frame.method === WIRE.chainInventory) {
-        // The cursor stays on the parent: the slot is empty, so the descent never settles.
-        return { trackChannelId: CHANNEL_ID, scopes: [scope], cursorScope: { status: 'held', deviceExists: true,
-          isNested: false, deviceName: 'Delay+' } };
+/**
+ * A named-slot descent as the extension routes it: `devcursor.selectAt` begins the cursor route and
+ * `devcursor.selectFirstInSlot` appends one step; the cursor scope reports the slot only while the route holds
+ * exactly one step and the host has settled the descent (`settleOnDescent` says which descent lands; never
+ * for an empty slot).
+ */
+class SlotDescentTransport implements Transport {
+  readonly frames: string[] = [];
+  private steps = 0;
+  private descents = 0;
+  private readonly scope = { slot: 0, status: 'held', deviceExists: true, deviceName: 'Chain', hasSlots: true,
+    slotNames: ['FX'], chains: [] };
+  constructor(private readonly settleOnDescent: number | undefined) {}
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame.method);
+    const parent = { status: 'held', deviceExists: true, isNested: false, deviceName: 'Chain' };
+    switch (frame.method) {
+      case WIRE.chainObserve:
+        return { trackChannelId: CHANNEL_ID, position: 0, slot: 0, deviceCount: 1, scope: this.scope, cursorScope: parent };
+      case WIRE.deviceCursorSelectAt:
+        this.steps = 0;
+        return {};
+      case WIRE.deviceCursorSelectFirstInSlot:
+        this.steps += 1;
+        this.descents += 1;
+        return {};
+      case WIRE.chainInventory: {
+        const settled = this.steps === 1 && this.settleOnDescent !== undefined && this.descents >= this.settleOnDescent;
+        return { trackChannelId: CHANNEL_ID, scopes: [this.scope], cursorScope: settled
+          ? { status: 'held', deviceExists: true, isNested: true, deviceName: 'First', parentDeviceIndex: 0,
+            parentDeviceName: 'Chain', slotName: 'FX', namedSlotComplete: true,
+            namedSlot: { name: 'FX', devices: [{ index: 0, name: 'First', enabled: true }], deviceCount: 1, deviceBankSize: 4 } }
+          : parent };
       }
-      return {};
-    },
-    async close() {},
-  } as unknown as Transport;
-  const adapter = new UntimedAdapter({ transport });
-  const internals = adapter as unknown as Record<string, any>;
+      default:
+        return {};
+    }
+  }
+
+  async close(): Promise<void> {}
+}
+
+const descentAdapter = (transport: Transport): Record<string, any> => {
+  const internals = new UntimedAdapter({ transport }) as unknown as Record<string, any>;
   internals['index'] = new Map([[CHANNEL_ID, 0]]);
   internals['cursorTrackHeld'] = () => true;
-  const result = await internals['containerScope'](TRACK, 0);
-  assert.equal(frames.filter((method) => method === WIRE.deviceCursorSelectFirstInSlot).length, 2);
+  return internals;
+};
+
+test('8i3 container scope: an empty-slot descent gives up after two misses with the slots incomplete', async () => {
+  const wire = new SlotDescentTransport(undefined);
+  const result = await descentAdapter(wire)['containerScope'](TRACK, 0);
+  assert.equal(wire.frames.filter((method) => method === WIRE.deviceCursorSelectFirstInSlot).length, 2);
   assert.equal(result.ok ? result.container.slotsComplete === true : false, false, 'the slots stay incomplete');
+});
+
+test('container scope: a retried slot descent re-selects the parent first, so the second pass can settle', async () => {
+  // The first descent has not settled when it is read; the second must land. The extension reports the slot only
+  // while the cursor route holds exactly one step, and only `devcursor.selectAt` clears it, so a retry that only
+  // repeated `selectFirstInSlot` would stack a second step and read incomplete coverage forever.
+  const wire = new SlotDescentTransport(2);
+  const result = await descentAdapter(wire)['containerScope'](TRACK, 0);
+  assert.equal(result.ok && result.container.slotsComplete, true, JSON.stringify(result));
+  assert.deepEqual(result.container.slots[0].devices.map((device: { name: string }) => device.name), ['First']);
+  const order = wire.frames.filter((method) => method === WIRE.deviceCursorSelectAt
+    || method === WIRE.deviceCursorSelectFirstInSlot || method === WIRE.chainInventory);
+  assert.deepEqual(order, [WIRE.deviceCursorSelectAt, WIRE.deviceCursorSelectFirstInSlot, WIRE.chainInventory,
+    WIRE.deviceCursorSelectAt, WIRE.deviceCursorSelectFirstInSlot, WIRE.chainInventory],
+    'each pass begins the route again');
 });
 
 /** 8i7: a bank of two tracks with raw mixer fields; `batch.run` applies `track.setMixer` frames to them. */
@@ -5285,3 +5426,314 @@ test('8i8 review: a slot restore that the observer never confirms reports unconf
     slot: slot(track('track-a'), scene(2, at.sceneEpoch)), lengthBeats: 4 }]), (outcome) => outcomes.push(outcome));
   assert.deepEqual(outcomes, [{ slot: 'unconfirmed' }]);
 });
+
+// --- B17: extension-owned container scopes ---------------------------------------
+
+/**
+ * A `chain.observe` stub as the B17 extension answers: the scope settled at the requested position, or no scope
+ * when the position holds no device, with the track identity it polled. The scrolling and the settle happen
+ * inside the extension; the brain sees one reply, or one refusal (`BridgeError`) after the extension's bound.
+ */
+class ObserveTransport implements Transport {
+  readonly frames: Frame[] = [];
+  /** When set, every observation refuses with this reason, as the extension does after its poll bound. */
+  refuse: 'scope-not-settled' | 'track-not-confirmed' | 'scopes-unavailable' | undefined;
+  constructor(readonly devices: { name: string; chains?: string[] }[]) {}
+
+  async send(frame: Frame): Promise<unknown> {
+    this.frames.push(frame);
+    const params = (frame.params ?? {}) as Record<string, any>;
+    if (frame.method !== WIRE.chainObserve) return {};
+    if (this.refuse !== undefined) {
+      throw new BridgeError(-32000, `container scope ${this.refuse} after 400 polls: scope 2 asked for ${params['position']} reports 0`);
+    }
+    const position = params['position'] as number;
+    const device = this.devices[position];
+    const base = { position, trackChannelId: CHANNEL_ID, trackName: 'gn-observe', deviceCount: this.devices.length,
+      deviceBankSize: 16, scopeCount: 3, chainBankSize: 5, chainDeviceBankSize: 4, aim: { polls: 1, scrolls: 0, ms: 0.1 } };
+    if (device === undefined) return { ...base, slot: -1 };
+    const slot = position < 3 ? position : 2;
+    return { ...base, slot, scope: {
+      slot, status: 'held', position, requestedPosition: position, settled: true,
+      deviceExists: true, deviceName: device.name, devicePosition: position,
+      hasLayers: (device.chains?.length ?? 0) > 0, hasSlots: false, slotNames: [],
+      chains: (device.chains ?? []).map((name, index) => ({ index, name, channelId: `${name}-id`, solo: false, devices: [], deviceCount: 0 })),
+      chainCount: device.chains?.length ?? 0, chainBankSize: 5, deviceBankSize: 4,
+      namedSlotStatus: 'held', namedSlotComplete: true,
+    } };
+  }
+
+  async close(): Promise<void> {}
+}
+
+function observeAdapter(wire: ObserveTransport): Record<string, any> {
+  const adapter = new UntimedAdapter({ transport: wire });
+  const internals = adapter as unknown as Record<string, any>;
+  internals['index'] = new Map([[CHANNEL_ID, 0]]);
+  internals['cursorTrackHeld'] = () => true;
+  internals['deviceBankSize'] = 16;
+  return internals;
+}
+
+const observes = (wire: ObserveTransport) => wire.frames
+  .filter((frame) => frame.method === WIRE.chainObserve)
+  .map((frame) => (frame.params as any)['position']);
+
+test('B17 container scope: a container at any bank position is one observe naming the position and the track', async () => {
+  const wire = new ObserveTransport([{ name: 'FX Layer', chains: ['A1', 'A2'] }, { name: 'Dual Pan' },
+    { name: 'Ring-Mod' }, { name: 'Instrument Layer', chains: ['B1', 'B2', 'B3'] }]);
+  const internals = observeAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 3, false);
+  assert.equal(result.ok, true, JSON.stringify(result));
+  assert.equal(result.deviceName, 'Instrument Layer');
+  assert.deepEqual(result.container.chains.map((chain: { name: string }) => chain.name), ['B1', 'B2', 'B3']);
+  assert.equal(result.container.chainsComplete, true);
+  assert.deepEqual(observes(wire), [3]);
+  assert.deepEqual(wire.frames[0]?.params, { position: 3, expectedTrackChannelId: CHANNEL_ID },
+    'the position and the track, nothing about scopes');
+  assert.ok(!wire.frames.some((frame) => frame.method === WIRE.chainInventory || frame.method === WIRE.deviceCursorSelectAt),
+    'no raw inventory and no device-cursor move for a layer-chain read');
+  const resting = await internals['containerScope'](TRACK, 0, false);
+  assert.equal(resting.ok && resting.deviceName, 'FX Layer');
+  assert.deepEqual(observes(wire), [3, 0]);
+  // The brain keeps no scope state between the two reads.
+  assert.equal(internals['scopeSlots'], undefined);
+  assert.equal(internals['scopeSlotOf'], undefined);
+});
+
+test('B17 container scope: a position past the device count is empty, including beyond the first window', async () => {
+  const wire = new ObserveTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' }]);
+  const internals = observeAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 5, false);
+  assert.deepEqual(result, { ok: true, deviceName: undefined, container: {
+    chains: [], chainsComplete: true, slots: [], slotsComplete: true, chainsBankSize: 5 } });
+  assert.deepEqual(observes(wire), [5]);
+  const past = await internals['containerScope'](TRACK, 16, false);
+  assert.deepEqual(past, result);
+  assert.deepEqual(observes(wire), [5, 16]);
+});
+
+test('B17 container scope: an extension refusal after its settle bound is unsupported, never a tombstone', async () => {
+  const wire = new ObserveTransport([{ name: 'FX Layer', chains: ['A1'] }, { name: 'Dual Pan' },
+    { name: 'Ring-Mod' }, { name: 'Instrument Layer', chains: ['B1'] }]);
+  wire.refuse = 'scope-not-settled';
+  const internals = observeAdapter(wire);
+  const result = await internals['containerScope'](TRACK, 3, false);
+  assert.deepEqual(result, { ok: false, miss: 'unsupported' });
+  assert.deepEqual(observes(wire), [3], 'one observation: the extension already polled to its bound');
+  wire.refuse = 'scopes-unavailable';
+  assert.deepEqual(await internals['containerScope'](TRACK, 3, false), { ok: false, miss: 'unsupported' });
+});
+
+test('B17 container scope: a track the cursor did not confirm is re-pointed once, then unsupported', async () => {
+  const wire = new ObserveTransport([{ name: 'FX Layer', chains: ['A1'] }]);
+  wire.refuse = 'track-not-confirmed';
+  const internals = observeAdapter(wire);
+  let points = 0;
+  internals['cursorTrackHeld'] = () => false;
+  internals['pointCursorTrack'] = async () => { points += 1; };
+  const result = await internals['containerScope'](TRACK, 0, false);
+  assert.deepEqual(result, { ok: false, miss: 'unsupported' });
+  assert.deepEqual(observes(wire), [0, 0]);
+  assert.equal(points, 2, 'the cursor is what a stale reply is stale about, so the retry re-points');
+});
+
+for (const [label, topCount, chainCount, deviceCount] of [
+  ['six chains', 1, 6, 1], ['five devices in a chain', 1, 1, 5], ['seventeen devices', 17, 1, 1], ['eighteen devices', 18, 1, 1],
+] as const) {
+  test(`B17 paged live/fake conformance: ${label}`, async () => {
+    const { FakeAdapter } = await import('../fake/adapter.js');
+    const fake = new FakeAdapter({ tracks: ['paged'] });
+    const fakeTrack = fake.model.visibleTracks()[0]!;
+    const dev = (name: string) => ({ name, enabled: true, paramsLive: true, params: [] });
+    const chains = Array.from({ length: chainCount }, (_, index) => ({
+      index, name: `Chain ${index}`, channelId: `chain-${index}`, solo: false,
+      devices: Array.from({ length: deviceCount }, (_, d) => ({ index: d, name: `Device ${d}`, enabled: true })),
+      deviceCount,
+    }));
+    fakeTrack.devices.push(...Array.from({ length: topCount }, (_, i) => ({ ...dev(`Top ${i}`),
+      ...(i === topCount - 1 ? { chains: chains.map(c => ({ name: c.name, id: c.channelId, solo: c.solo,
+        devices: c.devices.map(d => dev(d.name)) })) } : {}),
+    })));
+    const wire = new ObserveTransport(Array.from({ length: topCount }, (_, i) => ({ name: `Top ${i}` })));
+    const send = wire.send.bind(wire);
+    wire.send = async (frame) => {
+      if (frame.method === WIRE.deviceList) {
+        wire.frames.push(frame);
+        return { trackChannelId: CHANNEL_ID, bankSize: 16, paged: true, count: topCount, itemCount: topCount,
+          devices: Array.from({ length: topCount }, (_, index) => ({ index, name: `Top ${index}`, enabled: true })) };
+      }
+      const reply = await send(frame) as any;
+      if (frame.method === WIRE.chainObserve && reply.scope) {
+        reply.scope = { ...reply.scope, paged: true, hasLayers: true, chains, chainCount };
+      }
+      return reply;
+    };
+    const live = observeAdapter(wire);
+    const liveTop = await live['deviceChain'](TRACK);
+    const fakeTop = await fake.devices(track(fakeTrack.channelId));
+    assert.deepEqual(liveTop.devices, fakeTop.devices);
+    assert.equal(liveTop.blind, false);
+    assert.equal(fakeTop.devicesComplete, true);
+    const observed = await live['containerScope'](TRACK, topCount - 1, false);
+    assert.equal(observed.ok, true);
+    const fakeContainer = fake.model.observeContainer(fakeTrack, topCount - 1)!;
+    assert.deepEqual(observed.container, fakeContainer);
+    assert.equal(observed.container.chainsComplete, true);
+    assert.equal(observed.container.chains.at(-1).devicesComplete, true);
+    assert.deepEqual(observes(wire), [topCount - 1], 'one extension call, no brain page state');
+  });
+}
+
+test('B17 paged device list retries an arriving track or population once, never a restoration failure', async () => {
+  for (const [message, failures, expectedReads] of [
+    ['device.list track changed during paging', 1, 2],
+    ['device.list track changed during paging', 2, 2],
+    ['window population changed during paging', 1, 2],
+    ['window population changed during paging', 2, 2],
+    ['window did not restore; reload ghostnote before writes', 1, 1],
+    ['window did not restore; reload ghostnote before writes: window population changed during paging', 1, 1],
+  ] as const) {
+    const wire = new ObserveTransport([]);
+    let reads = 0;
+    wire.send = async (frame) => {
+      assert.equal(frame.method, WIRE.deviceList);
+      if (++reads <= failures) throw new BridgeError(-32603, `Internal error: ${message}`);
+      return { devices: [{ index: 0, name: 'Tool' }], count: 1, itemCount: 1,
+        trackChannelId: CHANNEL_ID, bankSize: 16, paged: true };
+    };
+    const live = observeAdapter(wire);
+    if (failures === 1 && expectedReads === 2) {
+      const result = await live['deviceChain'](TRACK);
+      assert.equal(result.blind, false);
+      assert.equal(result.devices[0].name, 'Tool');
+    } else {
+      await assert.rejects(live['deviceChain'](TRACK), new RegExp(message));
+    }
+    assert.equal(reads, expectedReads);
+  }
+});
+
+test('B17 live/fake: six-chain controls duplicate, rename and solo absolute overflow targets', async () => {
+  const { FakeAdapter } = await import('../fake/adapter.js');
+  const wire = new ChainCreateTransport();
+  wire.chains.splice(0, 1, ...Array.from({ length: 6 }, (_, i) => ({
+    name: `Chain ${i}`, channelId: `original-${i}`, solo: false,
+  })));
+  const send = wire.send.bind(wire);
+  wire.send = async frame => {
+    const reply = await send(frame) as any;
+    if (frame.method === WIRE.chainObserve && reply.scope) {
+      reply.scope.paged = true;
+      reply.scope.chainBankSize = 5;
+      reply.scope.chains.forEach((c: any) => { c.deviceCount = 0; });
+    }
+    return reply;
+  };
+  const live = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const fake = new FakeAdapter({ tracks: ['paged'] });
+  const row = fake.model.visibleTracks()[0]!;
+  row.channelId = CHANNEL_ID;
+  row.devices.push({ name: 'FX Layer', params: [], paramsLive: true,
+    chains: wire.chains.map(c => ({ name: c.name, id: c.channelId, solo: c.solo, devices: [] })) });
+  const container = deviceAt(TRACK, 0);
+  const ops: Op[] = [
+    { op: 'chain.create', source: chainAt(container, 'Chain 5'), name: 'Seventh' },
+    { op: 'chain.rename', chain: chainAt(container, 'Seventh'), name: 'Renamed' },
+    { op: 'chain.activate', chain: chainAt(container, 'Renamed') },
+    { op: 'chain.solo', chain: chainAt(container, 'Renamed'), solo: false },
+  ];
+  for (const op of ops) {
+    for (const adapter of [live, fake]) {
+      const result = await adapter.apply({ ops: [op] });
+      assert(result.stages.every(s => s.ops.every(item => item.ok)), JSON.stringify(result));
+    }
+    assert.deepEqual(wire.chains.map(c => [c.name, c.solo]), row.devices[0]!.chains!.map(c => [c.name, c.solo]));
+  }
+});
+
+test('B17 live/fake: distant nested endpoints and mixed transfers use complete paged sequences', async () => {
+  const { FakeAdapter } = await import('../fake/adapter.js');
+  class PagedMoves extends DeviceChainTransport {
+    layers = Array.from({ length: 6 }, (_, i) => ({ name: `Chain ${i}`, channelId: `id-${i}`,
+      devices: Array.from({ length: 5 }, (_, j) => `Nested ${i}-${j}`) }));
+    override dispatch(method: string, p: Record<string, any>): unknown {
+      if (method === WIRE.chainObserve) return {
+        trackChannelId: CHANNEL_ID, position: p.position, slot: 2, deviceCount: this.chains.get(0)!.length,
+        scope: { slot: 2, status: 'held', deviceExists: true, deviceName: 'FX Layer', hasLayers: true,
+          paged: true, chainBankSize: 5, deviceBankSize: 4, chainCount: this.layers.length,
+          namedSlotComplete: true, slotNames: [],
+          chains: this.layers.map((c, index) => ({ ...c, index, solo: false, deviceCount: c.devices.length,
+            devices: c.devices.map((name, index) => ({ name, index, enabled: true })) })) },
+      };
+      if (method === WIRE.chainMove) {
+        const source = p.src === 'top' ? this.chains.get(0)! : this.layers[p.srcChain]!.devices;
+        const destination = p.dst === 'top' ? this.chains.get(0)! : this.layers[p.dstChain]!.devices;
+        assert.equal(source[p.srcDevice], p.expectedSourceName);
+        const name = source[p.srcDevice]!;
+        if (p.verb === 'move') source.splice(p.srcDevice, 1);
+        destination.push(name);
+        this.revision++;
+        return {};
+      }
+      const reply = super.dispatch(method, p) as object;
+      return method === WIRE.deviceList ? { ...reply, paged: true, bankSize: 16 } : reply;
+    }
+  }
+  const wire = new PagedMoves();
+  wire.chains.set(0, [...Array.from({ length: 17 }, (_, i) => `Top ${i}`), 'FX Layer']);
+  const live = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const fake = new FakeAdapter({ tracks: ['paged'] });
+  const row = fake.model.visibleTracks()[0]!;
+  row.channelId = CHANNEL_ID;
+  row.devices.push(...wire.chains.get(0)!.map(name => ({ name, paramsLive: true, params: [], enabled: true })));
+  row.devices[17]!.chains = wire.layers.map(c => ({ name: c.name, id: c.channelId, solo: false,
+    devices: c.devices.map(name => ({ name, params: [], paramsLive: true, enabled: true })) }));
+  const container = deviceAt(TRACK, 17);
+  for (const op of [
+    { op: 'chain.relocate', source: deviceInAt(chainAt(container, 'Chain 5'), 4), destination: chainAt(container, 'Chain 0'), mode: 'copy' },
+    { op: 'chain.relocate', source: deviceInAt(chainAt(container, 'Chain 0'), 5), destination: TRACK, mode: 'move' },
+    { op: 'chain.relocate', source: deviceAt(TRACK, 18), destination: chainAt(container, 'Chain 5'), mode: 'move' },
+  ] as const) {
+    for (const adapter of [live, fake]) {
+      const result = await adapter.apply({ ops: [op] });
+      assert(result.stages.every(s => s.ops.every(item => item.ok)), JSON.stringify(result));
+    }
+    assert.deepEqual(wire.chains.get(0), row.devices.map(d => d.name));
+    assert.deepEqual(wire.layers.map(c => c.devices), row.devices[17]!.chains!.map(c => c.devices.map(d => d.name)));
+  }
+});
+
+for (const count of [17, 20]) {
+  test(`B17 executor deletes device ${count - 1} using its structure without overflowing the parameter cursor`, async () => {
+    class PagedDeleteTransport extends DeviceChainTransport {
+      override async send(frame: Frame): Promise<unknown> {
+        if (frame.method === WIRE.deviceCursorSelectAt) {
+          throw new Error('overflow deletion must not select a parameter-bank handle');
+        }
+        if (frame.method === WIRE.chainObserve) {
+          this.frames.push(frame);
+          return new ObserveTransport((this.chains.get(0) ?? []).map(name => ({ name }))).send(frame);
+        }
+        const reply = await super.send(frame) as Record<string, any>;
+        return frame.method === WIRE.deviceList ? { ...reply, bankSize: 16, paged: true } : reply;
+      }
+    }
+    const wire = new PagedDeleteTransport();
+    const names = Array.from({ length: count }, (_, i) => `Tool ${i}`);
+    wire.chains.set(0, [...names]);
+    const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+    const target = deviceAt(TRACK, count - 1);
+    const controls = await adapter.read([param(target, 'gain')]);
+    assert.equal(controls.unreachable.length, 1, 'parameter reads remain unsupported');
+    const take = await new Executor(adapter).run([{ op: 'device.delete', device: target,
+      expectedName: names.at(-1)!, expectedChain: names, expectedEnabledChain: names.map(() => true) }],
+    { clearance: directedDestruction('delete_device') });
+    assert(take.receipt.stages.every(stage => stage.applied && stage.ops.every(op => op.ok)));
+    assert.deepEqual(wire.chains.get(0), names.slice(0, -1));
+    const saved = take.stash.entries[addressKey(target)]!.value;
+    assert.equal(saved.of, 'device');
+    assert.equal(saved.of === 'device' && saved.device.params, undefined);
+    assert.equal(wire.frames.filter(f => f.method === WIRE.batchRun).length, 1, 'one delete only');
+  });
+}

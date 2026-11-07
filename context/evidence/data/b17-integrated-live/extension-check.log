@@ -1,0 +1,149 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileHarnessTestJava UP-TO-DATE
+> Task :processHarnessTestResources UP-TO-DATE
+> Task :harnessTestClasses UP-TO-DATE
+
+> Task :browserDiscoveryTest
+BrowserDiscoveryTest: PASS
+
+> Task :chainControlHandlersTest
+PASS solo writes at first, sixth and eleventh chains preserve every other flag
+PASS activation clears multi-solo flags on every page, including when the target is already soloed
+PASS rename finds an ID on the last page even when every name is identical
+PASS duplication across the boundary restores shifted identities and the copy can be renamed
+PASS a duplicate no-op or thrown partial write is never repeated
+PASS malformed indices, stale identity, missing IDs and wrong track refuse without a write
+PASS stuck navigation refuses before any write
+PASS duplicate channel IDs across pages refuse without writing
+PASS activation reports partial effects when a later page cannot be acquired
+PASS restoration failure preserves applied effects and blocks a queued control before lease release
+PASS an unexpected duplicate placement refuses restoration without repeating the duplicate
+PASS reply releases the scope before a batch continuation starts another control
+Chain controls: 12 test groups passed.
+
+> Task :chainMoveHandlersTest
+PASS overflow move/copy holds both endpoints across same and different containers
+PASS six-chain/five-device boundary clamps the source window after moving its last device
+PASS chain-to-track start/end transfers restore a shifted container
+PASS top-to-chain handles a destination shifted by source removal
+PASS a later move uses the freshly shifted source device index
+PASS identity guards, malformed indices and unsupported routes refuse without a transfer
+PASS no-op and thrown partial transfers never repeat and retain actual effects
+PASS failed device or layer restoration latches before queued work can run
+PASS mixed partial and no-op transfers retain the correct container through restoration
+PASS seventeen/eighteen-device mixed transfers page top-level sources and guards
+PASS overflow top-source shifts, partial effects, and restoration failures retain their destination
+PASS overflow fingerprint mismatches and named slots refuse
+PASS batch continuation starts only after endpoints and lease are released
+PASS navigation failure and stale overlapping chain IDs refuse before work
+Chain moves: 14 test groups passed.
+
+> Task :clipReaderTest
+ok - one batch and the exists task close the read
+ok - an empty clip closes on the exists task
+ok - callbacks after the close are counted and do not change the copy
+ok - release callbacks have state counters and cannot change the close copy
+ok - synthetic faults and research routes require the research profile
+ok - the open task subscribes before it removes the pins (E232)
+ok - the bind task selects the row at park, then points (E228)
+ok - a read expands collapsed parents at park and collapses them before the restore (E240)
+ok - the group point route unpins, finds the parents, binds, then pins (8h4a5)
+ok - a same-type device settles on name and value callbacks under its own target (E243)
+ok - display text counts only under the armed stamp; the CLAP callback form maps to the listed ID (E244)
+ok - a second callback for one cell is a duplicate
+ok - sounding cells past the limit stop decoding and mark the capture (8h4c2)
+ok - a false clipExists value is no start signal
+ok - the notes-v1 frame matches the wire golden
+ok - frame encodings: const, dict u8/u16, raw f64/i32, and pages
+ok - reads run at once; writes wait behind an open read in FIFO order
+ok - a clip read waits for a write lease and for earlier entries
+ok - a full queue refuses before the request runs
+ok - every method has a gate class; undo, redo, actions, and unknown methods are writes
+ok - a batch refuses a clip read inside it and runs a deferred write (B17 invokeAsync)
+Clip reader: 21 test groups passed.
+
+> Task :containerPagingTest
+Container paging: non-layer stale-count regression passed.
+
+> Task :containerScopesTest
+PASS a resting position settles in the request's own task without a scroll
+PASS a far position takes the highest resting scope and settles after one scroll
+PASS a position settled by the previous aim is reused; the displaced scope is re-aimed when its rest is asked for
+PASS a position past the device count is an empty observation, not a scroll
+PASS a hung scope is scrolled again every RESCROLL_POLLS polls and refuses at the bound
+PASS a scope clamped on an earlier track is re-aimed, not waited for (E353)
+PASS two positions hold two scopes at once; three distinct far positions use all three
+PASS independent endpoints at one container hold separate scopes
+PASS the track identity is polled before any scope is read
+PASS an unbuilt scope is skipped; no built scope refuses before the lease
+PASS an aim holds a write lease: writes and clip reads wait, plain reads run; release pumps
+PASS validation throws before anything is taken; a second open aim is refused
+Container scopes: 12 test groups passed.
+
+> Task :deviceMutationHandlersTest
+PASS first and last delete/enable on seventeen/eighteen-device tracks across pool cursors
+PASS every insertion route crosses the sixteenth-device boundary with a complete fingerprint
+PASS distant reorder holds independent source and anchor on their owning pool cursor
+PASS whole-chain names and enabled state include overflow and unrelated first-page devices
+PASS malformed indices, identities and insertion identifiers refuse without effects
+PASS failed navigation and changed track refuse before writing
+PASS an unavailable population cannot be mistaken for an empty insertion target
+PASS no-op and thrown partial mutations are attempted once and retain actual effects
+PASS restoration failure latches before queued writes and releases once
+PASS distant reorder partial effects and anchor restoration failures never repeat
+PASS batch continuation runs after both reorder windows restore
+Device mutations: 11 test groups passed.
+
+> Task :gridReadTest
+Breadth: typed fixtures, command order, independent pairs, identity limits, failure locks, and late return pass.
+Grid exploration: schema isolation, bounded paths, projections, and query controls pass.
+Detached factory: ownership bounds, failures, cleanup, and late completion pass.
+Attachment: edit failures, partial insertion, readback, layout, limits, and late completion pass.
+Engine operator gates, lifetime, sequence, and graph checks pass.
+Survey target validation, repeated sessions, stale targets, exclusion, and timeout lock pass.
+Grid read: bounds, completeness, identity, fresh reads, async outcomes, and profile checks pass.
+
+> Task :runtimeProfileTest
+normal-v1: 93 methods, d6decf985f6b1f36
+capture-v1: 98 methods, 50dcd3ceb7b6dd45
+phase-8-probe-v1: 121 methods, 185f44ee3b08bbb7
+RuntimeProfileTest: PASS
+
+> Task :captureRuntimeProfileResource UP-TO-DATE
+> Task :captureJar UP-TO-DATE
+> Task :normalRuntimeProfileResource UP-TO-DATE
+> Task :jar UP-TO-DATE
+> Task :probeRuntimeProfileResource UP-TO-DATE
+> Task :probeJar UP-TO-DATE
+> Task :compileTestJava NO-SOURCE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+
+> Task :verifyExtensionArchives
+Extension archive registrations and runtime profiles agree.
+
+> Task :windowAccessTest
+PASS absolute targets across each boundary use the intended handle and restore
+PASS two endpoints in one page preserve their absolute mapping
+PASS layer identity witnesses reject stale pages with identical names
+PASS clamped requests reissue; refused navigation never writes
+PASS population changes before work refuse; legitimate write effects survive restoration
+PASS work errors and duplicate callbacks never repeat the write
+PASS failed restoration retains the write result and latches before queued writers run
+PASS nested windows restore inside out under one lease
+PASS a nested restoration failure still restores the outer window
+PASS invalid ranges and simultaneous aliases refuse before navigation
+PASS asynchronous restoration exceptions reply once
+Window access: 11 test groups passed.
+
+> Task :windowPagerTest
+PASS WindowPager: boundaries, overlap, delayed witnesses, retries, refusal, restoration, nested leases
+
+> Task :check
+
+BUILD SUCCESSFUL in 1s
+22 actionable tasks: 12 executed, 10 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html

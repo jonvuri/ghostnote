@@ -13,10 +13,10 @@
     "`rig.methods` during the Phase-0 sitting. methodsHash is sha256 of the sorted",
     "names joined by \\n, first 16 hex chars; contract.hello returns the same value."
   ],
-  "extractedAt": "2026-10-25",
+  "extractedAt": "2026-10-29",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 179,
-  "methodsHash": "9f2a826c2eccc4af",
+  "count": 181,
+  "methodsHash": "a1e33c168f3daa7f",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -33,6 +33,7 @@
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
+    "chain.observe",
     "chain.select",
     "chain.setName",
     "chain.setSolo",
@@ -95,6 +96,7 @@
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue",
+    "probe.pressure",
     "probe.scopeScroll",
     "rig.methods",
     "selection.restoreMixer",
@@ -160,6 +162,7 @@
     "chain.duplicate",
     "chain.inventory",
     "chain.move",
+    "chain.observe",
     "chain.select",
     "chain.setName",
     "chain.setSolo",
@@ -276,6 +279,7 @@
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue",
+    "probe.pressure",
     "probe.scopeScroll",
     "remote.list",
     "remote.selectPage",
@@ -577,6 +581,13 @@
     "probe.browserDiscovery"
   ],
   "addedInB08": [
+    "chain.scroll",
     "probe.scopeScroll"
+  ],
+  "addedInB17": [
+    "chain.observe"
+  ],
+  "addedInR02": [
+    "probe.pressure"
   ]
 }

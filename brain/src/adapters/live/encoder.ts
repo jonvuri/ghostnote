@@ -17,9 +17,8 @@
  *     did not land within 1.5s (E4b). Different API from the above, different
  *     trap, and it is the only path that works for CLAP plugins.
  *   - note properties are emitted in `NOTE_PROP_WRITE_ORDER`, and `pressure` is
- *     NOT AMONG THEM: the write never reaches the clip, it only populates the
- *     writing cursor's own NoteStep cache (E15-E). `assertOpsWritable` refuses it
- *     in the contract, so it cannot arrive here at all.
+ *     not emitted: independent API pressure readback is blind (E399, D66).
+ *     `assertOpsWritable` retains the contract refusal.
  *   - plugin insertion keeps VST3 class UIDs and CLAP IDs distinct. It rejects
  *     malformed identifiers before the silent insertion API runs.
  *   - `device.insert` from a file is REFUSED unless the path is absolute and
@@ -752,29 +751,32 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     // already has and for the same reason.
     //
     // ⚠ NO POINT FRAME, and its absence is deliberate. `chain.duplicate` reads
-    // `Rig.slotLayerBanks`, which hang off `cursorDeviceBanks[0]` on the track
-    // `cursorTracks[0]` points at — and a bank RE-SCOPE is not a same-turn
-    // effect the way a cursor retarget is. A point in this request would look
-    // like a precondition while guaranteeing nothing. The load-bearing point is
-    // the settled one `containerScope` makes immediately before this stage, and
-    // the identity guard on its reply is what proves it landed.
+    // `Rig.slotLayerBanks`, which hang off the scope banks on the track
+    // `cursorTracks[0]` points at. B17: the frame names the container's
+    // absolute position and the track; the extension settles a scope at that
+    // position, polling the track identity too, before it selects anything.
+    // The load-bearing point is the one `containerScope` made before this
+    // stage; the extension's own settle is what proves the frame acts there.
     case 'chain.create':
       return [frame(WIRE.chainDuplicate, {
-        slot: op.source.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.source),
+        position: op.source.container.chainIndex,
+        chainIndex: ctx.chainIndex(op.source),
         // ⚠ Sent so the extension can refuse a chain that is not the one we
         // observed. The index is a bank position and a bank re-indexes; the
         // handler compares this against `layer.name().get()` before it selects
         // anything, which turns a stale position into an error instead of a copy
         // of somebody else's chain.
         expectedName: op.source.name,
+        expectedChannelId: ctx.chainId(op.source),
+        expectedTrackChannelId: op.source.container.track.channelId,
       })];
 
     case 'chain.rename':
       return [frame(WIRE.chainSetName, {
-        slot: op.chain.container.chainIndex,
+        position: op.chain.container.chainIndex,
         channelId: ctx.chainId(op.chain),
         name: op.name,
+        expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
     case 'chain.relocate': {
@@ -789,17 +791,23 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
         src: sourceChain === undefined ? 'top'
           : sourceChain.kind === 'chain' ? 'chain' : 'slot',
         srcDevice: op.source.chainIndex,
+        // B17: every nested endpoint names its container's absolute top-level position; a layer-chain
+        // endpoint adds the chain's absolute index. The extension settles a scope for each chain endpoint;
+        // a named-slot endpoint goes through the cursor-bound slot handle.
         ...(sourceChain === undefined ? {} : {
-          srcSlot: sourceChain.container.chainIndex,
-          ...(sourceChain.kind === 'chain' ? { srcLayer: ctx.chainIndex(sourceChain) } : {}),
+          srcPosition: sourceChain.container.chainIndex,
+          ...(sourceChain.kind === 'chain' ? {
+            srcChain: ctx.chainIndex(sourceChain), expectedSourceChannelId: ctx.chainId(sourceChain),
+          } : {}),
           expectedSourceChain: sourceChain.name,
         }),
         dst: destinationChain === undefined ? 'top'
           : destinationChain.kind === 'chain' ? 'chain' : 'slot',
         ...(destinationChain === undefined ? { where: 'chainEnd' } : {
-          dstSlot: destinationChain.container.chainIndex,
-          ...(destinationChain.kind === 'chain'
-            ? { dstLayer: ctx.chainIndex(destinationChain) } : {}),
+          dstPosition: destinationChain.container.chainIndex,
+          ...(destinationChain.kind === 'chain' ? {
+            dstChain: ctx.chainIndex(destinationChain), expectedDestinationChannelId: ctx.chainId(destinationChain),
+          } : {}),
           expectedDestinationChain: destinationChain.name,
         }),
         verb: op.mode,
@@ -813,17 +821,19 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
 
     case 'chain.activate':
       return [frame(WIRE.chainActivate, {
-        slot: op.chain.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.chain),
+        position: op.chain.container.chainIndex,
+        chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
+        expectedChannelId: ctx.chainId(op.chain),
         expectedTrackChannelId: op.chain.container.track.channelId,
       })];
 
     case 'chain.solo':
       return [frame(WIRE.chainSetSolo, {
-        slot: op.chain.container.chainIndex,
-        layerIndex: ctx.chainIndex(op.chain),
+        position: op.chain.container.chainIndex,
+        chainIndex: ctx.chainIndex(op.chain),
         expectedName: op.chain.name,
+        expectedChannelId: ctx.chainId(op.chain),
         expectedTrackChannelId: op.chain.container.track.channelId,
         solo: op.solo,
       })];

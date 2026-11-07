@@ -22,6 +22,7 @@ import com.ghostnote.extension.handlers.NoteHandlers;
 import com.ghostnote.extension.handlers.NavigationHandlers;
 import com.ghostnote.extension.handlers.ObservationHandlers;
 import com.ghostnote.extension.handlers.ParamHandlers;
+import com.ghostnote.extension.handlers.PressureHandlers;
 import com.ghostnote.extension.handlers.StructureHandlers;
 import com.ghostnote.extension.handlers.TrackHandlers;
 import com.ghostnote.extension.handlers.StatusHandlers;
@@ -68,6 +69,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new CoreHandlers(host, rig, state, registry),
             new BrowserDiscoveryHandlers(host, rig, state),
             new ScopeScrollHandlers(host, rig, state),
+            new PressureHandlers(host, rig, state),
             new TrackHandlers(host, rig, state),
             new MixerHandlers(host, rig, state),
             new CursorHandlers(host, rig, state),

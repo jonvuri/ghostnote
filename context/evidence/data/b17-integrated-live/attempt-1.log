@@ -1,0 +1,50 @@
+entry
+connection
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+clients
+create-scratch
+owned-scratch
+base-sixteen
+base-seventeen
+compose-five-devices
+stopped
+failure-track-list
+failure-selection-status
+failure-rig-info
+failure-chain-inventory
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"schema":"ghostnote-device-compose/2","failure":{"code":"unsupported","stage":"plan","effects":[]},"message":"Nothing was written. Internal error: window population changed during paging","target":{"trackId":"f11d8e43-b4af-4f63-b94a-11f635dfcd38","containerKind":"FX Layer"},"detail":{"reason":"composition-refused"}}
++ actual - expected
+
++ {
++   code: 'unsupported',
++   effects: [],
++   stage: 'plan'
++ }
+- undefined
+
+    at tool (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:48:10)
+    at async <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:117:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: { code: 'unsupported', stage: 'plan', effects: [] },
+  expected: undefined,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

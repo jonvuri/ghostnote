@@ -111,6 +111,8 @@ public class Rig {
 
     /** Device chain view for each pool cursor track (E3/E4). */
     public final DeviceBank[] cursorDeviceBanks;
+    /** Independent one-device reorder anchor on each pool cursor; never borrows cursor-0 scopes. */
+    public final DeviceBank[] cursorDeviceAnchors;
 
     /** Host-level cursor clip: always follows the user's clip selection. */
     public final Clip followerClip;
@@ -139,6 +141,8 @@ public class Rig {
     public final GroupPoint groupPoint;
     /** 8h3c: orders Ghostnote writes behind an open clip read. */
     public final WriteGate writeGate;
+    /** B17: the extension-owned container scopes; `chain.observe` and the chain writes settle through it. */
+    public final ContainerScopes containerScopes;
     /** D43: the owned cursor tracks that stay pinned, with their names for the report. */
     private final List<CursorTrack> pinnedTracks = new ArrayList<>();
     private final List<String> pinnedTrackNames = new ArrayList<>();
@@ -241,13 +245,29 @@ public class Rig {
      * on the container; a slot-scoped bank has no such hidden argument, because the
      * container is named by the parameter rather than by cursor state.
      *
-     * ⚠ Scoped to the track `cursorTracks[0]` points at, and to the first three
-     * top-level device slots. Session 5r needs one container after position 1.
+     * ⚠ Scoped to the track `cursorTracks[0]` points at. B08 (E352): each scope
+     * is a ONE-WIDE device bank of its own on that track, scrolled to the
+     * top-level position it observes, rather than a fixed slot of the 16-wide
+     * bank. Scrolling retargets the hung layer bank and its nested device banks
+     * within one wire round trip, so any top-level position inside the 16-wide
+     * reference bank is observable through one of the three scopes. Scope `s`
+     * rests at position `s`, which keeps the first three positions at the fixed
+     * cost. B17: {@link ContainerScopes} owns the scrolling; `chain.observe`
+     * and every chain write name an absolute position, the extension aims and
+     * settles a scope for it, and `scopeSettled` is the identity guard.
      */
     public static final int SLOT_SCOPES = 3;
     public static final int SLOT_LAYER_BANK = 5;
     public static final int SLOT_LAYER_DEVICE_BANK = 4;
     public static final int PARAMETER_ROUTE_DEPTH = 2;
+    /** B08: the one-wide scrollable bank each scope hangs off. */
+    public final DeviceBank[] scopeBanks = new DeviceBank[SLOT_SCOPES];
+    /**
+     * The top-level position each scope was last asked to show. A scroll past
+     * the item count clamps, so the reported `scrollPosition` can differ from
+     * this; the guard compares the two and refuses the difference.
+     */
+    public final int[] scopeRequestedPosition = new int[SLOT_SCOPES];
     public final DeviceLayerBank[] slotLayerBanks = new DeviceLayerBank[SLOT_SCOPES];
     public final DeviceBank[][] slotLayerDeviceBanks = new DeviceBank[SLOT_SCOPES][SLOT_LAYER_BANK];
     /**
@@ -259,6 +279,33 @@ public class Rig {
      * must ABORT unless this reads `held`.
      */
     public final String[] slotScopeStatus = new String[SLOT_SCOPES];
+
+    /** The device a scope currently shows: the single slot of its one-wide bank. */
+    public Device scopeDevice(int scope) {
+        return scopeBanks[scope].getDevice(0);
+    }
+
+    /**
+     * A scope must report its requested absolute position and an existing device at that position.
+     * Within the current reference window it must also agree with the reference device's name and existence.
+     * Beyond that window, the track identity, total count, and device position are the witnesses (B17).
+     */
+    public boolean scopeSettled(int scope) {
+        if (slotLayerBanks[scope] == null) return false;
+        int requested = scopeRequestedPosition[scope];
+        if (requested < 0 || requested >= cursorDeviceBanks[0].itemCount().get()) return false;
+        if (scopeBanks[scope].scrollPosition().get() != requested) return false;
+        Device slot = scopeDevice(scope);
+        if (!slot.exists().get() || slot.position().get() != requested) return false;
+        int relative = requested - cursorDeviceBanks[0].scrollPosition().get();
+        if (relative < 0 || relative >= config.deviceBank) return true;
+        Device reference = cursorDeviceBanks[0].getDevice(relative);
+        boolean exists = reference.exists().get();
+        if (exists != slot.exists().get()) return false;
+        if (!exists) return true;
+        return reference.name().get().equals(slot.name().get())
+            && slot.position().get() == requested;
+    }
 
     /**
      * Nesting views on cursorDevice0. All four Bitwig nesting mechanisms are
@@ -823,6 +870,7 @@ public class Rig {
         cursorTracks = new CursorTrack[config.cursorPool];
         cursorClips = new PinnableCursorClip[config.cursorPool];
         cursorDeviceBanks = new DeviceBank[config.cursorPool];
+        cursorDeviceAnchors = new DeviceBank[config.cursorPool];
         remotePages0 = new CursorRemoteControlsPage[config.remotePages];
         remoteControls0 = new RemoteControl[config.remotePages][REMOTE_BANK];
         remotePageObservedGeneration = new long[config.remotePages];
@@ -1071,10 +1119,21 @@ public class Rig {
             markClip(cursorClips[i]);
             cursorClips[i].isPinned().markInterested();
 
+            cursorDeviceAnchors[i] = cursorTracks[i].createDeviceBank(1);
+            cursorDeviceAnchors[i].itemCount().markInterested();
+            cursorDeviceAnchors[i].scrollPosition().markInterested();
+            Device anchor = cursorDeviceAnchors[i].getDevice(0);
+            anchor.position().markInterested();
+            anchor.exists().markInterested();
+            anchor.name().markInterested();
+            anchor.isEnabled().markInterested();
+
             cursorDeviceBanks[i] = cursorTracks[i].createDeviceBank(config.deviceBank);
             cursorDeviceBanks[i].itemCount().markInterested();
+            cursorDeviceBanks[i].scrollPosition().markInterested();
             for (int d = 0; d < config.deviceBank; d++) {
                 Device device = cursorDeviceBanks[i].getDevice(d);
+                device.position().markInterested();
                 device.exists().markInterested();
                 device.name().markInterested();
                 device.isEnabled().markInterested();
@@ -1111,6 +1170,7 @@ public class Rig {
         clipReader = new ClipReader(host, this, config.scenes);
         groupPoint = new GroupPoint(host, this, clipReader.groups);
         writeGate = new WriteGate(task -> host.scheduleTask(task, 0), System::nanoTime, WriteGate.DEFAULT_LIMIT);
+        containerScopes = ContainerScopes.over(host, this);
 
         noteObserverTrack = host.createCursorTrack(
             "GN_CT_NOTE_OBSERVER", "ghostnote note observer", 0, config.scenes, false);
@@ -1213,7 +1273,21 @@ public class Rig {
         // documented-current observer and cost the session its readback.
         for (int s = 0; s < SLOT_SCOPES; s++) {
             try {
-                Device slot = cursorDeviceBanks[0].getDevice(s);
+                // B08 (E352): a one-wide bank of this scope's own, so the slot it
+                // hangs off can be scrolled to any top-level position. Its item
+                // count, scroll position, and scroll limits are the guard's inputs.
+                scopeBanks[s] = cursorTracks[0].createDeviceBank(1);
+                scopeBanks[s].itemCount().markInterested();
+                scopeBanks[s].scrollPosition().markInterested();
+                scopeBanks[s].canScrollForwards().markInterested();
+                scopeBanks[s].canScrollBackwards().markInterested();
+                Device slot = scopeBanks[s].getDevice(0);
+                slot.exists().markInterested();
+                slot.name().markInterested();
+                // The device's own chain position: with the slot name, the strongest
+                // identity a scrolled scope can report (two containers of one kind
+                // share a name, E352).
+                slot.position().markInterested();
                 // `hasLayers` is not marked by the pool loop above, and a handler
                 // that cannot say whether the slot IS a container cannot tell "no
                 // chains" from "not a container".
@@ -1222,8 +1296,10 @@ public class Rig {
                 slot.slotNames().markInterested();
                 slotLayerBanks[s] = slot.createLayerBank(SLOT_LAYER_BANK);
                 slotLayerBanks[s].itemCount().markInterested();
+                slotLayerBanks[s].scrollPosition().markInterested();
                 for (int l = 0; l < SLOT_LAYER_BANK; l++) {
                     DeviceLayer layer = slotLayerBanks[s].getItemAt(l);
+                    layer.channelIndex().markInterested();
                     layer.exists().markInterested();
                     layer.name().markInterested();
                     // 3f-e reads and writes solo through this cursor-free slot
@@ -1245,13 +1321,20 @@ public class Rig {
                     // Product relocation needs a true population count so a
                     // full bank is distinguishable from an overflowing one.
                     slotLayerDeviceBanks[s][l].itemCount().markInterested();
+                    slotLayerDeviceBanks[s][l].scrollPosition().markInterested();
                     for (int d = 0; d < SLOT_LAYER_DEVICE_BANK; d++) {
                         Device nested = slotLayerDeviceBanks[s][l].getDevice(d);
+                        nested.position().markInterested();
                         nested.exists().markInterested();
                         nested.name().markInterested();
                         nested.isEnabled().markInterested();
                     }
                 }
+                // Rest scope `s` at position `s`: the first three positions then
+                // cost no scroll. Best effort only; a bank with fewer items clamps,
+                // and ContainerScopes re-scrolls whatever it finds unsettled.
+                scopeRequestedPosition[s] = s;
+                scopeBanks[s].scrollPosition().set(s);
                 slotScopeStatus[s] = "held";
             } catch (Throwable t) {
                 slotScopeStatus[s] = "FAILED:" + t.getClass().getSimpleName() + ":" + t.getMessage();

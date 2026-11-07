@@ -243,8 +243,8 @@ const STALE_GAIN_REPORT =
   + 'exact. Treat this as a stale result.';
 
 const PRESSURE_NOT_REPLAYED =
-  'note pressure cannot be written through this API at all: the value reaches the writing handle '
-  + 'and never the clip. What a person authored is kept in the record and cannot be put back.';
+  'Ghostnote withholds note pressure replay because independent API readback reports zero '
+  + 'even when the inspector shows a nonzero value. The supplied value stays in the record.';
 
 const NOTE_TIMING_NOT_REPLAYABLE =
   'one or more note lengths use host timing that the writable grid cannot represent. A reversal '

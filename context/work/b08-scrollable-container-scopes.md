@@ -183,3 +183,43 @@ answer (E352).
 Probe sources: `extension/.../ScopeScrollProbe.java`, `ScopeScrollHandlers.java`,
 `brain/src/probes/b08-scope-scroll-lib.ts` with offline tests, and
 `npm run probe:b08-scope`. The probe profile now has 120 methods.
+
+## Implementation
+
+Complete on 2026-10-25, verified live in
+[E394](../evidence/experiments/e394-scrollable-container-scopes-product-live.md).
+
+- Extension: each of the three product scopes is a one-wide `DeviceBank` on
+  cursor track 0 (`Rig.scopeBanks`), resting at its own index, with the layer
+  bank and nested device banks hung off its slot. `chain.scroll` (new product
+  method; normal profile 93 methods, hash `a44ce79ed75df81b`) aims a scope.
+  `chain.inventory` reports `position`, `requestedPosition`, `settled`
+  (`Rig.scopeSettled`: reported equals requested, and the slot agrees with
+  the 16-wide reference bank on existence, name, and device position), the
+  reference `deviceCount`, and `deviceBankSize`. Every chain write takes the
+  scope slot plus the container `position` and refuses an unsettled scope;
+  `chain.move` names scopes for chain endpoints and positions for named-slot
+  endpoints. The cursor-bound named-slot route reaches the whole bank.
+- Brain: `LiveAdapter.containerScope` finds a settled scope at the position,
+  scrolls one when needed (own scope for a resting position; otherwise a
+  displaced scope, then the highest slot), re-issues the scroll on every
+  unsettled pass (a bank scrolled on a track with fewer devices clamps and
+  stays, E394), answers an empty position from the reference count, and
+  records the scope for the encoder. Relocations and chain-create batches
+  hold their scopes so two containers stay settled at once; the relocation
+  preflight reads only endpoint containers. The fake's reach is the bank
+  width. The five chain tools, `compose_devices` (engine capacity 16), and
+  `read_devices` (chains at every bank position; `coverage.layerChainPositions`
+  lists the positions read; `layerChains: outside-limit` gone) changed with
+  descriptions v55. Call-budget tests cover a container at position 3; the
+  conformance suite's blind position is the bank edge.
+- Nested windows (more than five chains or four devices in a chain) stay at
+  their fixed sizes; the inventory still reports completeness. Scrolling
+  them is a follow-up if a workflow needs it.
+- Cost: an isolated far container read is about 305 ms and 11 turns (one
+  scroll); resting positions keep about 190 ms. A `read_devices` aims one
+  scope at every position past 2 in turn, containers or not, and sends scope
+  2 back to 2 on each read; a cheaper structure-read policy is a P01
+  candidate.
+- The running MCP server keeps the brain it started with; restart it to serve
+  v55 and the new reach.

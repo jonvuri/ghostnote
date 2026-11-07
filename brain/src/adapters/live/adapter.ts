@@ -34,7 +34,7 @@ import {
   type SceneGuard, type SelectionOutcome,
   ContractVersionError, RuntimeProfileMismatchError, StaleAddressError, WireDriftError,
   addressKey, addressScene, addressTrack, assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable,
-  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, chain as chainAt, chainCopyUnnamed,
+  assertClipSources, assertSceneRoom, assertTrackRoom, assertSlotsFree, assertTopLevelDeviceWriteWindow, chain as chainAt, chainCopyUnnamed,
   chainPath, chooseStepSize, clipSourceFingerprint, clip as clipAt, clipMetadata as clipMetadataAt, clipPlay as clipPlayAt,
   contentDelta, device as deviceAt, deviceIn,
   deviceSlot,
@@ -133,10 +133,24 @@ interface WireInventoryChain {
 }
 
 interface WireInventoryScope {
-  slot: number;
+  paged?: boolean;
+  chainPages?: number;
+  devicePages?: number;
+  slot?: number;
   status?: string;
+  /**
+   * B08: the scope's one-wide bank. `position` is the reported scroll position (after clamping),
+   * `requestedPosition` what `chain.scroll` last asked for, and `settled` the extension's identity guard
+   * (reported equals requested, and the slot agrees with the reference bank there). An extension without
+   * scrollable scopes sends none of these, and the scope then stands for the position equal to its index.
+   */
+  position?: number;
+  requestedPosition?: number;
+  settled?: boolean | string;
+  canScrollForwards?: boolean | string;
   deviceExists?: boolean;
   deviceName?: string;
+  devicePosition?: number | string;
   hasLayers?: boolean;
   hasSlots?: boolean;
   slotNames?: string[];
@@ -170,9 +184,33 @@ interface WireCursorInventoryScope {
 
 interface WireInventory {
   scopes?: WireInventoryScope[];
+  /** B08: the reference bank's device count and width, so an empty position is an observation. */
+  deviceCount?: number | string;
+  deviceBankSize?: number;
+  scopeCount?: number;
   cursorScope?: WireCursorInventoryScope;
   trackName?: string;
   trackChannelId?: string;
+}
+
+/**
+ * `chain.observe`'s reply (B17): the scope the extension settled at `position`, in the shape of one
+ * `chain.inventory` scope, or no `scope` when the position holds no device (`deviceCount` says so). The
+ * extension polls the track identity and the scope itself before it replies; a refusal arrives as an error.
+ */
+interface WireObserve {
+  position?: number;
+  slot?: number;
+  deviceCount?: number | string;
+  deviceBankSize?: number;
+  scopeCount?: number;
+  chainBankSize?: number;
+  chainDeviceBankSize?: number;
+  scope?: WireInventoryScope;
+  cursorScope?: WireCursorInventoryScope;
+  trackName?: string;
+  trackChannelId?: string;
+  aim?: { polls?: number; scrolls?: number; ms?: number };
 }
 
 /** 8h4g (E248): a parked writer window starts here. It is the reader width: 4,194,304 steps of 1/512. */
@@ -504,6 +542,12 @@ const PARAMETER_INVENTORY_ACQUISITIONS = 3;
 const PARAMETER_COHORT_POLLS = 4;
 /** 8i3: named-slot descents of one container scope read before it answers with the slots incomplete. */
 const CONTAINER_SLOT_DESCENTS = 2;
+/**
+ * B17: how many times a container read points cursor track 0 when the extension refuses the observation because
+ * the cursor did not confirm the track within its own poll bound. The cursor is what a stale reply is stale about,
+ * so the retry re-points rather than re-reading; two attempts bound it.
+ */
+const CONTAINER_POINT_ATTEMPTS = 2;
 /** Observe delayed enabled values without repeating the setter. */
 const DEVICE_ENABLED_READ_ATTEMPTS = 8;
 /**
@@ -730,6 +774,7 @@ export interface LiveTraceEvent {
   readonly action:
     | 'cursor-point'
     | 'track-reuse'
+    | 'scope-observe'
     | 'device-retarget'
     | 'device-reuse'
     | 'device-reuse-invalid' | 'device-cursor-recover'
@@ -822,6 +867,31 @@ const addressBorrowsSelection = (address: Address): boolean =>
   || address.kind === 'device' || address.kind === 'deviceEnabled' || address.kind === 'param'
   || address.kind === 'remotes' || address.kind === 'remote' || address.kind === 'drumPad'
   || address.kind === 'chain';
+
+/**
+ * B08: the scope an inventory reply shows settled at `containerIndex`, with its slot.
+ *
+ * A scope that reports a `position` is scrollable and counts only when it reports the requested position,
+ * the same reported position, and `settled` true (the extension's identity guard against the reference
+ * bank). A scope without one comes from an extension with fixed scopes and stands for the position equal to
+ * its slot, as it always did.
+ */
+function settledScopeAt(
+  reply: WireInventory,
+  containerIndex: number,
+): { scope: WireInventoryScope; slot: number } | undefined {
+  for (const [index, scope] of (reply.scopes ?? []).entries()) {
+    const slot = scope.slot ?? index;
+    if (typeof scope.position !== 'number') {
+      if (slot === containerIndex) return { scope, slot };
+      continue;
+    }
+    if (scope.position === containerIndex && scope.requestedPosition === containerIndex && scope.settled === true) {
+      return { scope, slot };
+    }
+  }
+  return undefined;
+}
 
 export class LiveAdapter implements BitwigAdapter {
   private readonly transport: Transport;
@@ -917,7 +987,10 @@ export class LiveAdapter implements BitwigAdapter {
   private groupPoint: string | undefined;
   /** Top-level device-bank width, fixed at extension init. */
   private deviceBankSize: number | undefined;
-  /** Top-level container positions with complete fixed observation scopes. */
+  /**
+   * How many container scopes the rig built (`Rig.SLOT_SCOPES`): the reach before the hello reports the bank
+   * width. B17: the extension owns the scopes, so the brain keeps no scope or window state beyond this size.
+   */
   private containerScopeSize = 3;
   /**
    * ⚠ How wide the SCENE window is — the number rule 5's second population is an
@@ -1611,6 +1684,14 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
+   * B08: how far a container scope can reach — the reference bank's width once the hello reported it, and the
+   * scope count before that (an extension without scrollable scopes observes exactly the first few positions).
+   */
+  private get containerPositions(): number {
+    return this.deviceBankSize ?? this.containerScopeSize;
+  }
+
+  /**
    * The bank position an observation THIS BATCH took reported for this chain.
    *
    * ⚠ It refuses rather than resolving on demand, and the refusal is the design.
@@ -1687,29 +1768,41 @@ export class LiveAdapter implements BitwigAdapter {
     } else {
       this.onTrace?.({ action: 'track-reuse', target: `${cursor}:${trackIndex}` });
     }
-    const res = (await this.transport.send({
-      method: WIRE.deviceList,
-      params: { cursor },
-    })) as {
+    type DeviceListReply = {
       devices?: WireDevice[];
       count?: number;
       itemCount?: number;
       trackChannelId?: string;
       bankSize?: number;
+      paged?: boolean;
     };
+    const read = async (): Promise<DeviceListReply> => await this.transport.send({
+      method: WIRE.deviceList, params: { cursor },
+    }) as DeviceListReply;
+    let res: DeviceListReply;
+    try {
+      res = await read();
+    } catch (error) {
+      // B17 live: track identity or a preceding insertion's item count can arrive during paging. The extension
+      // discards that mixed reading and restores its window. Retry this read once; never retry a write or a
+      // restoration failure. The reply below must still prove the requested track and complete item count.
+      if (!(error instanceof BridgeError)
+          || !/^Internal error: (device\.list track changed during paging|window population changed during paging)$/.test(error.message)) throw error;
+      this.heldCursorTracks.delete(cursor);
+      if (cursor === '0') this.heldDeviceTarget = undefined;
+      await this.settle('cursorPoint');
+      res = await read();
+    }
     const devices = res.devices ?? [];
-    // ⚠ E5's rule, one level down. `deviceList` walks `rig.config.deviceBank`
-    // slots while `itemCount` is the CHAIN's true length, so a chain longer than
-    // the bank window is partially visible — and a diff over a partial view
-    // cannot tell an insert from something scrolling into frame. Looking is
-    // allowed; concluding from a half-view is not.
+    // A paged reply proves the complete count independently of the physical width. Legacy replies remain
+    // bounded by their bank; neither route may infer an empty tail from a partial list.
     const bankSize = res.bankSize ?? this.deviceBankSize;
     const contiguous = devices.every((device, index) => device.index === index);
     const complete = res.trackChannelId === trackRef.channelId
       && Number.isInteger(res.itemCount) && res.itemCount! >= 0
       && res.itemCount === devices.length
       && res.count === devices.length
-      && bankSize !== undefined && devices.length <= bankSize
+      && bankSize !== undefined && (res.paged === true || devices.length <= bankSize)
       && contiguous;
     if (res.trackChannelId === trackRef.channelId) {
       this.rememberCursorTrack(cursor, { channelId: trackRef.channelId, index: trackIndex });
@@ -1750,6 +1843,7 @@ export class LiveAdapter implements BitwigAdapter {
         'the complete top-level device chain is unavailable at the mutation boundary',
       );
     }
+    assertTopLevelDeviceWriteWindow(op, observed.devices.length, observed.bankSize);
     const actual = observed.devices.map((item) => item.name);
     if (expected !== undefined
         && (actual.length !== expected.length
@@ -1942,6 +2036,7 @@ export class LiveAdapter implements BitwigAdapter {
       readonly devices?: readonly WireDevice[];
       readonly itemCount?: number;
       readonly trackChannelId?: string;
+      readonly bankSize?: number;
     };
     let top: ParameterDeviceList | undefined;
     for (let attempt = 0; attempt < CLIP_POINT_ATTEMPTS; attempt++) {
@@ -1964,6 +2059,11 @@ export class LiveAdapter implements BitwigAdapter {
     if (topTarget === undefined) {
       const blind = typeof top.itemCount === 'number' && top.itemCount > topDevices.length;
       return { standing: blind ? 'unreachable' : 'missing' };
+    }
+    // Paged device.list reaches beyond the physical parameter cursor bank. Parameter paging is not proved.
+    const parameterWidth = top.bankSize ?? this.deviceBankSize;
+    if (parameterWidth !== undefined && topAddress.chainIndex >= parameterWidth) {
+      return { standing: 'unreachable' };
     }
     await this.transport.send({
       method: WIRE.deviceCursorSelectAt, params: { deviceIndex: topAddress.chainIndex },
@@ -2654,59 +2754,52 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
-   * ⚠⚠ A container device's chains, through `chain.inventory` — the only route
+   * ⚠⚠ A container device's chains, through `chain.observe` — the only route
    * by which anything in this system can SEE a layer chain.
    *
-   * Everything about this call is narrow, and every limit is reported rather
-   * than smoothed over:
+   * B17: the extension owns the scopes. This names the container by its
+   * absolute top-level position and the track by its channelId; the extension
+   * aims one of its one-wide scope banks at the position, polls until cursor
+   * track 0 confirms the track and the scope settles there (re-issuing a
+   * clamped scroll, E394), and replies once with the settled scope, or refuses
+   * after its bound. The brain holds no scope state and sends no scroll.
    *
-   *   - it reads `Rig.slotLayerBanks`, which hang off the FIRST FEW top-level
-   *     device slots of the track `cursorTracks[0]` points at. A container
-   *     further along the chain has no scope and is `outside-bank-window`;
-   *   - the scopes are built at `init()` (D7), so a scope that failed to build
-   *     reports its own status. Standing rule 13: *"the handle does not exist"*
-   *     and *"the API declines"* are indistinguishable in the outcome, and three
-   *     false ○s in E17 came from exactly that. A scope that is not `held` is
+   * Every limit is reported rather than smoothed over:
+   *
+   *   - a position past the reference bank is `outside-bank-window`; a position
+   *     past the track's device count is an EMPTY observation (the reply carries
+   *     `deviceCount`), which is what makes a device read of an empty position
+   *     `missing` while a position nothing could look at is `unreachable`;
+   *   - a scope that failed to build (standing rule 13: *"the handle does not
+   *     exist"* and *"the API declines"* are indistinguishable in the outcome),
+   *     a track the cursor did not confirm, or a scope that did not settle is
    *     `unsupported` — we did not look — never `absent`;
    *   - the bank SIZES come off the reply, and when they do not (an extension
    *     older than this slice) completeness is UNKNOWN, which makes every
-   *     zero-match answer `outside-bank-window` instead of `absent`. A stale
-   *     deployment fails closed rather than silently reporting tombstones.
+   *     zero-match answer `outside-bank-window` instead of `absent`.
    *
-   * ⚠⚠ It points cursor `'0'` SPECIFICALLY, and not a pool cursor: the slot
-   * scopes were built from `cursorDeviceBanks[0]` at init and follow that one
-   * cursor for the life of the extension. Handing this a pool ref would scope
-   * the read to whatever track that cursor happens to hold — the e16o trap, one
-   * level up, with a reply that looks perfectly healthy.
+   * ⚠⚠ It points cursor `'0'` SPECIFICALLY, and not a pool cursor: the scopes
+   * hang off cursor track 0 for the life of the extension. Handing this a pool
+   * ref would scope the read to whatever track that cursor happens to hold —
+   * the e16o trap, one level up, with a reply that looks perfectly healthy.
    *
-   * ⚠ And the point is VERIFIED, not assumed: the reply carries the pointed
-   * track's own `channelId`, which is compared against the track we were asked
-   * about. A mismatch is `unsupported` rather than a guess — reporting another
-   * track's chains under this address is the whole failure class.
+   * ⚠ And the point is VERIFIED, not assumed: the extension polls the pointed
+   * track's own `channelId` before it reads a scope (measured 2026-08-15: the
+   * scopes follow a re-pointed cursor at a structural pace, 0/6 correct at
+   * 0 ms and 6/6 from 100 ms), and a refusal here re-points once, bounded,
+   * because the cursor is what a stale reply is stale about.
    *
-   * ⚠⚠ **The identity guard is POLLED, because `cursorPoint` is the wrong budget
-   * for this read and was borrowed rather than measured.** `settle('cursorPoint')`
-   * is 25ms (E1), which is what a cursor POINT costs; this reply comes through
-   * `Rig.slotLayerBanks`, which have to follow the cursor to a different track
-   * before the inventory means anything. Measured on 2026-08-15, re-pointing from
-   * one track to another and reading immediately: the reply named the track we
-   * had just pointed at 0/6 at 0ms, **3/6 at 25ms**, 5/6 at 50ms and 6/6 from
-   * 100ms — so at the borrowed budget this read was a coin flip, and
-   * `C-chain-switch` failed two runs in three on exactly that.
-   *
-   * Nothing was ever mis-reported, because the guard below fails closed — but a
-   * refusal on a container that is perfectly observable a tick later is a
-   * capability that works or does not depending on where the cursor last was.
-   * So a MISMATCH is retried within a bound rather than answered: a mismatch is
-   * a staleness signal and never an observation. Every other miss still answers
-   * immediately, because each of those IS an observation (see the list above).
+   * The named-slot descent (a Chain device's slot devices) stays on the cursor
+   * route: `devcursor.selectAt`, `devcursor.selectFirstInSlot`, then
+   * `chain.inventory` for `cursorScope`, bounded by `CONTAINER_SLOT_DESCENTS`
+   * (8i3, E252: a descent into an empty slot never settles).
    */
   private async containerScope(
     trackRef: TrackAddress,
     containerIndex: number,
     /**
-     * 8h4e (E238): false skips the named-slot descent. A layer-chain route needs only the fixed scope; the descent
-     * into an empty slot (the FX slot of an Instrument Layer) never settles and costs eight retries (about 3 s).
+     * 8h4e (E238): false skips the named-slot descent. A layer-chain route needs only the scope; the descent
+     * into an empty slot (the FX slot of an Instrument Layer) never settles and costs its misses (about 0.4 s).
      * Without the descent, `slotsComplete` is false, so a slot address still refuses. A container that already
      * lists layer chains also skips it.
      */
@@ -2715,83 +2808,98 @@ export class LiveAdapter implements BitwigAdapter {
     const trackIndex = this.index.get(trackRef.channelId);
     if (trackIndex === undefined) return { ok: false, miss: 'absent' };
     if (containerIndex < 0) return { ok: false, miss: 'absent' };
-    // ⚠ Bounded by ATTEMPTS, not by a clock. A wall-clock deadline spins hot
-    // wherever `settle` is not real time — which is every offline test of this
-    // class — and a bound that means something different in the suite from what
-    // it means live is not a bound. Eight passes is ~1s at the structural budget
-    // against a measured need of ~100ms.
-    let reply: WireInventory | undefined;
-    let trackReply: WireInventory | undefined;
-    let descents = 0;
-    for (let attempt = 0; attempt < 8; attempt += 1) {
+    // B17: scope positions are absolute; the extension pages the bounded windows.
+    let observed: WireObserve | undefined;
+    for (let attempt = 0; attempt < CONTAINER_POINT_ATTEMPTS && observed === undefined; attempt += 1) {
       this.heldClips.delete('0');
-      this.heldDeviceTarget = undefined;
       if (!this.cursorTrackHeld('0', { channelId: trackRef.channelId, index: trackIndex })) {
         await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
         await this.pointCursorTrack('0', trackIndex);
       } else {
         this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
       }
-      if (containerIndex < this.containerScopeSize) {
+      let reply: WireObserve;
+      try {
+        reply = await this.transport.send({
+          method: WIRE.chainObserve,
+          params: { position: containerIndex, expectedTrackChannelId: trackRef.channelId },
+        }) as WireObserve;
+      } catch (error) {
+        // The extension refused: the cursor did not confirm the track, the scope did not settle within its
+        // bound, or no scope was built or free. We looked and could not see: `unsupported`, never a tombstone.
+        this.heldCursorTracks.delete('0');
+        if (error instanceof BridgeError && /track-not-confirmed/.test(error.message)) continue;
+        return { ok: false, miss: 'unsupported' };
+      }
+      // ⚠ The identity guard, before anything in the reply is believed. The extension polled it; a reply that
+      // still names another track is a stale cursor, which a re-point addresses. `trackName` rides along too
+      // and is deliberately NOT used for this: a name is not an identity (standing rule 2).
+      if (reply.trackChannelId !== trackRef.channelId) {
+        this.heldCursorTracks.delete('0');
+        continue;
+      }
+      observed = reply;
+    }
+    if (observed === undefined) return { ok: false, miss: 'unsupported' };
+    this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
+    this.onTrace?.({ action: 'scope-observe', target: `${containerIndex}:${observed.aim?.scrolls ?? 0}` });
+    if (observed.scope === undefined) {
+      // A position past the track's device count holds nothing. The reference bank was read, so this is an
+      // observation rather than a scope that failed to settle (a scroll there clamps and never settles).
+      if (typeof observed.deviceCount === 'number' && containerIndex >= observed.deviceCount) {
+        const chainBank = observed.chainBankSize;
+        return { ok: true, deviceName: undefined, container: {
+          chains: [], chainsComplete: true, slots: [], slotsComplete: true,
+          ...(chainBank === undefined ? {} : { chainsBankSize: chainBank }),
+        } };
+      }
+      return { ok: false, miss: 'unsupported' };
+    }
+    let scope: WireInventoryScope = observed.scope;
+    if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
+    let reply: { cursorScope?: WireCursorInventoryScope } = observed;
+    const slotName = scope.hasSlots === true && scope.slotNames?.length === 1
+      ? scope.slotNames[0] : undefined;
+    // A layer container (the scope already lists layer chains) needs no slot descent: no product route
+    // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
+    const layerContainer = (scope.chains?.length ?? 0) > 0;
+    if (slots && !layerContainer && slotName !== undefined && scope.deviceExists === true
+        && containerIndex < this.containerPositions) {
+      this.heldDeviceTarget = undefined;
+      // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the scope with the
+      // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device.
+      for (let descents = 0; descents < CONTAINER_SLOT_DESCENTS; descents += 1) {
+        // ⚠ Re-select the parent on EVERY pass. `devcursor.selectAt` begins the cursor route and
+        // `devcursor.selectFirstInSlot` appends one step to it; the extension reports the slot only while the
+        // route holds exactly one step, so a retry that only repeated the descent could never settle.
         await this.transport.send({
           method: WIRE.deviceCursorSelectAt, params: { deviceIndex: containerIndex },
         });
+        await this.transport.send({
+          method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
+        });
+        await this.settle('trackStruct');
+        const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
+        if (nestedReply.trackChannelId !== trackRef.channelId) {
+          // The cursor moved under us (not a design case, D65): the scope reading stands, slots incomplete.
+          this.heldCursorTracks.delete('0');
+          break;
+        }
+        const cursorScope = nestedReply.cursorScope;
+        const cursorSettled = cursorScope?.status === 'held'
+          && cursorScope.deviceExists === true
+          && cursorScope.isNested === true
+          && cursorScope.parentDeviceIndex === containerIndex
+          && cursorScope.parentDeviceName === scope.deviceName
+          && cursorScope.slotName === slotName;
+        if (cursorSettled) {
+          reply = nestedReply;
+          // The nested reply is read through the same settled scope.
+          scope = settledScopeAt(nestedReply, containerIndex)?.scope ?? scope;
+          break;
+        }
       }
-      // The fast path stays fast: a cursor already on this track answers on the
-      // first pass at the cursor budget. Only a mismatch pays the structural one.
-      await this.settle(attempt === 0 ? 'cursorPoint' : 'trackStruct');
-      reply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
-      // ⚠ The identity guard, before anything in the reply is believed. `trackName`
-      // rides along too and is deliberately NOT used for this: a name is not an
-      // identity (standing rule 2), and two tracks may share one.
-      if (reply.trackChannelId !== trackRef.channelId) {
-        reply = undefined;
-        this.heldCursorTracks.delete('0');
-        continue;
-      }
-      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
-      trackReply = reply;
-      const fixedScope = (reply.scopes ?? [])[containerIndex];
-      const slotName = fixedScope?.hasSlots === true && fixedScope.slotNames?.length === 1
-        ? fixedScope.slotNames[0] : undefined;
-      // A layer container (the fixed scope already lists layer chains) needs no slot descent: no product route
-      // addresses its named slot, and the descent into an empty slot never settles (8h4e, E238).
-      const layerContainer = (fixedScope?.chains?.length ?? 0) > 0;
-      if (!slots || layerContainer || slotName === undefined || fixedScope?.deviceExists !== true
-          || containerIndex >= this.containerScopeSize) break;
-      await this.transport.send({
-        method: WIRE.deviceCursorSelectFirstInSlot, params: { slot: slotName },
-      });
-      await this.settle('trackStruct');
-      const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
-      if (nestedReply.trackChannelId !== trackRef.channelId) {
-        reply = undefined;
-        this.heldCursorTracks.delete('0');
-        continue;
-      }
-      this.rememberCursorTrack('0', { channelId: trackRef.channelId, index: trackIndex });
-      trackReply = nestedReply;
-      const cursorScope = nestedReply.cursorScope;
-      const cursorSettled = cursorScope?.status === 'held'
-        && cursorScope.deviceExists === true
-        && cursorScope.isNested === true
-        && cursorScope.parentDeviceIndex === containerIndex
-        && cursorScope.parentDeviceName === fixedScope.deviceName
-        && cursorScope.slotName === slotName;
-      if (cursorSettled) {
-        reply = nestedReply;
-        break;
-      }
-      reply = undefined;
-      // 8i3 (E252): a descent into an empty slot never settles, and every miss ends as the fixed scope with the
-      // slots incomplete. Two misses give that answer; eight cost about 3 s on each read of such a device (Delay+).
-      if (++descents >= CONTAINER_SLOT_DESCENTS) break;
     }
-    reply ??= trackReply;
-    if (reply === undefined) return { ok: false, miss: 'unsupported' };
-    const scope = (reply.scopes ?? [])[containerIndex];
-    if (scope === undefined) return { ok: false, miss: 'outside-bank-window' };
-    if (scope.status !== 'held') return { ok: false, miss: 'unsupported' };
     const chainBank = scope.chainBankSize;
     const deviceBank = scope.deviceBankSize;
     const chains = scope.chains ?? [];
@@ -2806,7 +2914,7 @@ export class LiveAdapter implements BitwigAdapter {
     const useCursorSlot = cursorSlotMatches;
     const namedSlot = useCursorSlot ? cursorScope?.namedSlot : scope.namedSlot;
     const cursorSlotRequired = scope.deviceExists === true && scope.hasSlots === true
-      && scope.slotNames?.length === 1 && containerIndex < this.containerScopeSize;
+      && scope.slotNames?.length === 1 && containerIndex < this.containerPositions;
     const namedSlotComplete = cursorSlotRequired
       ? cursorSlotMatches && cursorScope?.namedSlotComplete === true
       : scope.namedSlotStatus === 'held' && scope.namedSlotComplete === true;
@@ -2852,12 +2960,13 @@ export class LiveAdapter implements BitwigAdapter {
             ...(typeof d.enabled === 'boolean' ? { enabled: d.enabled } : {}),
           })),
           devicesComplete: deviceBank !== undefined && typeof c.deviceCount === 'number'
-            && c.deviceCount <= deviceBank && (c.devices ?? []).length === c.deviceCount,
+            && (scope.paged === true || c.deviceCount <= deviceBank) && (c.devices ?? []).length === c.deviceCount
+            && (c.devices ?? []).every((device, index) => device.index === index),
           ...(deviceBank === undefined ? {} : { devicesBankSize: deviceBank }),
         })),
         chainsComplete: scope.hasLayers === false ? chains.length === 0
           : chainBank !== undefined && typeof scope.chainCount === 'number'
-          && scope.chainCount <= chainBank && chains.length === scope.chainCount
+          && (scope.paged === true || scope.chainCount <= chainBank) && chains.length === scope.chainCount
           && chains.every((chain, index) => chain.index === index),
         // ⚠ Carried through so a guard can count a container it has no second
         // reading of — see `ObservedContainer.chainsBankSize`. Absent from an
@@ -2906,9 +3015,6 @@ export class LiveAdapter implements BitwigAdapter {
     if (address.kind !== 'chain' && address.kind !== 'device') return undefined;
     if (!nestingObservable(address)) return { address, found: false, reason: 'unsupported' as const };
     const container = address.kind === 'chain' ? address.container : address.chain!.container;
-    if (container.chainIndex >= this.containerScopeSize) {
-      return { address, found: false, reason: 'outside-bank-window' as const };
-    }
     // Prove the top-level anchor before the shared container cursor is moved.
     // An empty device position is absent even if that cursor still holds an
     // older nested target from another request.
@@ -4305,9 +4411,9 @@ export class LiveAdapter implements BitwigAdapter {
 
   /**
    * 8h4e: one `device` read with `ReadOptions.structure`. It reads no DirectParameter inventory and pins no
-   * parameter cursor. A top-level device in the container scopes costs one `containerScope` (one
-   * `chain.inventory` on a held track, plus the point and select frames); a device past the scopes costs one
-   * `device.list`. A nested device uses the one-level container-scope lookup.
+   * parameter cursor. A top-level device costs one `containerScope` (one `chain.observe` on a
+   * held track, plus the point frames), including beyond the first bank window. A nested device uses
+   * the one-level container-scope lookup.
    */
   private async readDeviceStructure(
     address: DeviceAddress,
@@ -4324,7 +4430,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (found.ok) return entry({ chainIndex: found.device.index, name: found.device.name });
       return found.miss === 'outside-bank-window' || found.miss === 'unsupported' ? 'unreachable' : undefined;
     }
-    if (address.chainIndex < this.containerScopeSize) {
+    if (address.chainIndex >= 0) {
       const scope = await this.containerScope(address.track, address.chainIndex, false);
       if (scope.ok) {
         return scope.deviceName === undefined ? undefined : entry({
@@ -4333,8 +4439,8 @@ export class LiveAdapter implements BitwigAdapter {
       }
       if (scope.miss === 'absent') return undefined;
     }
-    // Past the container scopes (or a scope that did not hold): the device exists when the device bank has
-    // it. Its chains are not observable, so the entry has no `container`.
+    // Past the scopes' reach (or a scope that did not hold): the device exists when the device bank has it.
+    // Its chains are not observable, so the entry has no `container`.
     const chain = await this.deviceChain(address.track);
     if (chain === undefined) return 'unreachable';
     const found = chain.devices.find((item) => item.index === address.chainIndex);
@@ -4574,7 +4680,9 @@ export class LiveAdapter implements BitwigAdapter {
             };
           }
           if (inventory.standing === 'unstable') return 'unstable';
-          if (inventory.standing === 'unreachable') return 'unreachable';
+          // The paged structure remains readable beyond the parameter cursor. In particular, deleting an
+          // overflow device needs its structural snapshot, not unavailable scalar state for reconstruction.
+          if (inventory.standing === 'unreachable') return this.readDeviceStructure(address);
           if (inventory.standing === 'ambiguous') return undefined;
           const absentScope = await this.containerScope(address.track, address.chainIndex);
           return absentScope.ok || absentScope.miss === 'absent' ? undefined : 'unreachable';
@@ -4826,7 +4934,7 @@ export class LiveAdapter implements BitwigAdapter {
     }
 
     const scope = await this.containerScope(
-      endpoint.container.track, endpoint.container.chainIndex);
+      endpoint.container.track, endpoint.container.chainIndex, true);
     if (!scope.ok) {
       throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
     }
@@ -4900,7 +5008,8 @@ export class LiveAdapter implements BitwigAdapter {
       if (destination.bankSize === undefined) {
         throw new InvalidOpError(op.op, 'the destination did not report its device-bank width');
       }
-      if (destination.devices.length >= destination.bankSize) {
+      if ((op.source.chain?.kind === 'deviceSlot' || op.destination.kind === 'deviceSlot')
+          && destination.devices.length >= destination.bankSize) {
         throw new InvalidOpError(
           op.op,
           `the destination device bank is full at ${destination.devices.length}/${destination.bankSize}`,
@@ -4924,12 +5033,23 @@ export class LiveAdapter implements BitwigAdapter {
     const slots = relocations.some((op) => op.destination.kind === 'deviceSlot' || op.source.chain?.kind === 'deviceSlot');
     for (const trackRef of new Map(relocations.map((op) =>
       [op.source.track.channelId, op.source.track])).values()) {
-      const observed = await this.relocationSequence(trackRef);
-      tracks.set(trackRef.channelId, observed);
-      for (const item of observed.devices) {
-        const at = deviceAt(trackRef, item.index);
-        const scope = await this.containerScope(trackRef, item.index, slots);
-        containers.set(addressKey(at), scope.ok ? scope.container : undefined);
+      tracks.set(trackRef.channelId, await this.relocationSequence(trackRef));
+    }
+    // B08: only the endpoint containers are read. `assertChainRelocatable` observes nothing else, and a scope
+    // aimed at every device on the track in turn would cost a scroll and a read for each one. Both endpoints
+    // hold their scopes so a relocation between two containers keeps both settled at once.
+    for (const op of relocations) {
+      for (const endpoint of [op.source.chain, op.destination]) {
+        if (endpoint === undefined || endpoint.kind === 'track' || endpoint.kind === 'drumPad') continue;
+        const key = addressKey(endpoint.container);
+        if (containers.has(key)) continue;
+        const track = tracks.get(endpoint.container.track.channelId);
+        if (!track?.devices.some((item) => item.index === endpoint.container.chainIndex)) {
+          containers.set(key, undefined);
+          continue;
+        }
+        const scope = await this.containerScope(endpoint.container.track, endpoint.container.chainIndex, slots);
+        containers.set(key, scope.ok ? scope.container : undefined);
       }
     }
     assertChainRelocatable(
@@ -5312,9 +5432,11 @@ export class LiveAdapter implements BitwigAdapter {
     await this.transport.send({
       method: WIRE.chainSelect,
       params: {
-        slot: op.source.container.chainIndex,
-        layerIndex: this.chainIndex(op.source),
+        position: op.source.container.chainIndex,
+        chainIndex: this.chainIndex(op.source),
         expectedName: op.source.name,
+        expectedChannelId: this.chainId(op.source),
+        expectedTrackChannelId: op.source.container.track.channelId,
       },
     });
     await this.settle('trackStruct');
@@ -5381,7 +5503,10 @@ export class LiveAdapter implements BitwigAdapter {
     try {
       await this.transport.send({
         method: WIRE.chainSetName,
-        params: { slot: container.chainIndex, channelId: witness.chain.id, name: op.name },
+        params: {
+          position: container.chainIndex, channelId: witness.chain.id, name: op.name,
+          expectedTrackChannelId: container.track.channelId,
+        },
       });
       // A rename is a name write, not a structural one; `trackStruct` is the
       // budget `track.rename` already pays for the same class of change.
@@ -5723,8 +5848,13 @@ export class LiveAdapter implements BitwigAdapter {
         // ⚠ The positions the ENCODER will use come from THIS reading, not from
         // the pre-batch one. A container re-indexes when a chain is added, and an
         // earlier stage in the same batch is allowed to have added one.
-        this.recordChainPositions(createOp.source.container, containerBefore.container);
-        await this.selectSourceChain(createOp);
+        try {
+          this.recordChainPositions(createOp.source.container, containerBefore.container);
+          await this.selectSourceChain(createOp);
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
       }
 
       const renameAt = stage.ops.findIndex((o) => o.op === 'chain.rename');

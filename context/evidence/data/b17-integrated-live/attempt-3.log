@@ -1,0 +1,71 @@
+entry
+connection
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+clients
+create-scratch
+owned-scratch
+base-sixteen
+base-seventeen
+compose-five-devices
+duplicate-B
+duplicate-C
+duplicate-D
+duplicate-E
+duplicate-F
+compose-six-chains
+overflow-structure
+solo-sixth
+rename-sixth
+grow-inner
+move-fifth-out
+same-container-distant
+cross-container
+after-transfers
+disable-overflow
+reorder-distant
+after-reorder
+delete-reordered
+insert-overflow
+delete-overflow
+stopped
+failure-track-list
+failure-selection-status
+failure-rig-info
+failure-chain-inventory
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"schema":"ghostnote-device-delete/1","failure":{"code":"authority-unavailable","stage":"write","effects":[]},"message":"The Bitwig extension did not complete the read.","retryWhen":"once; then check the connection","target":{"devices":1},"diagnostic":{"error":"Internal error: Parameter index (=19) must be in the range 0 to 16","type":"BridgeError"}}
++ actual - expected
+
++ {
++   code: 'authority-unavailable',
++   effects: [],
++   stage: 'write'
++ }
+- undefined
+
+    at tool (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:48:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/b17-integrated-live.ts:156:3) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: { code: 'authority-unavailable', stage: 'write', effects: [] },
+  expected: undefined,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

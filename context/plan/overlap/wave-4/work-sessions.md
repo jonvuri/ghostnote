@@ -36,7 +36,8 @@ required outcomes and assess whether the mechanism earns its cost.
 **Inputs:** [T1/T2/T6](simplification.md), D54, D15, D38, D49, D52, the
 [performance ledger](../../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), and
 current executor, adapter, write-set, stash, and surface code. Reuse E247,
-E252, and E257 traces before collecting new measurements.
+E252, E253, E257, and [E394](../../../evidence/experiments/e394-scrollable-container-scopes-product-live.md)
+traces before collecting new measurements.
 
 **Questions:** which inventories/captures are needed to identify and execute
 the requested edit? Which exist only to construct a later reversal? Can one
@@ -69,6 +70,40 @@ work that the product no longer needs?
    If a route needs new host evidence, prepare a focused live check. Keep
    native journal/transaction operations distinct from agent history: they
    can be required for the host command itself. Do not strip D52 guards.
+7. **Container-scope read policy (B08, E394).** A structure read of a track
+   aims a scope at every device past position 2 in turn, containers or not,
+   and the highest-slot choice sends scope 2 back to position 2 on every
+   read (six devices: four scrolls, about 115 ms each). Adopt both cheaper
+   policies: skip the scope for a device whose top-level entry shows no
+   layers (`hasLayers` is already marked on every scope slot; add it to the
+   `device.list` row or read it from the resting scope), and rotate the far
+   scopes so the last-used far positions stay settled across reads. Then
+   assess the window shape with the same traces: whether three one-wide
+   scopes is the right count once `read_devices` only aims at containers,
+   and whether a resting position other than `s` serves the common
+   project better. Measure before and after on the E394 scratch shape and
+   update the ledger `containerScope` rows.
+8. **Staged `compose_devices` under D65 (first application).** Per native
+   device the staged path pays about 3.5 s each way (E252): the insertion
+   landing (about 1 s) and the move are the host's; the rest is per-stage
+   readback (a settled DirectParameter inventory before and after the move
+   for the scalar fingerprint, the container structure proof, the
+   remote-control page checks). Rebuild the path as: insert the container
+   (and position it), name the chains in one stage, insert every device
+   directly into its chain's `endOfDeviceChainInsertionPoint()` in one
+   `batch.run` (no insert-then-move; the chain scopes already expose the
+   insertion points that `chain.move` uses), wait for the devices to land,
+   and read the container back once through the scope. Prove the direct
+   chain insertion live first (an E record on a scratch track: native,
+   VST3, CLAP, preset), since a wrong insertion point is a silent no-op.
+   Then re-derive the D44 unit weights from the new measurements (E254
+   already showed 2 devices with 2 container modulators at 12.4 s after
+   D46; the `write-limits.ts` comment still describes the retired behavior
+   sampling) and lift the 6-unit bound to whatever the landing time
+   supports. The same rule then goes over `set_device_controls` cohorts,
+   the modulation writers, relocation proofs, and clip property captures:
+   one readback at the end of each call. Descriptions, tests, cost budgets,
+   and the ledger change together.
 
 **Acceptance:** a call/obligation table, measured or source-supported benefit,
 a retain/remove/share verdict per step, relevant behavior tests, updated

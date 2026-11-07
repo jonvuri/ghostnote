@@ -1,0 +1,117 @@
+{
+  "elapsedMs": 212,
+  "value": {
+    "name": "list_tracks",
+    "args": {},
+    "ms": 24,
+    "turns": 2,
+    "wire": {
+      "turns": 1,
+      "wireMs": 23,
+      "methods": {
+        "revision.get": 1,
+        "track.list": 1
+      },
+      "clipReads": 0,
+      "stages": 0
+    },
+    "observes": 0,
+    "scrolls": 0,
+    "result": {
+      "schema": "ghostnote-tracks/1",
+      "source": {
+        "host": "bitwig",
+        "read": "fresh-track-bank-read"
+      },
+      "target": {
+        "project": "gn-scale-test"
+      },
+      "coverage": {
+        "status": "complete",
+        "listed": 11,
+        "notListed": 0,
+        "scenes": {
+          "addressable": 128,
+          "inProject": 10
+        }
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "tracks": [
+          {
+            "trackId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+            "name": "Instrument Layer",
+            "kind": "Hybrid",
+            "position": 0
+          },
+          {
+            "trackId": "4a6a024a-f213-48f1-9029-532fc077d857",
+            "name": "Hybrid 2",
+            "kind": "Hybrid",
+            "position": 1
+          },
+          {
+            "trackId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "name": "gn-A",
+            "kind": "Instrument",
+            "position": 2
+          },
+          {
+            "trackId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+            "name": "gn-B",
+            "kind": "Instrument",
+            "position": 3
+          },
+          {
+            "trackId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+            "name": "Group 5",
+            "kind": "Group",
+            "position": 4,
+            "group": true,
+            "launcherSlots": "mirror-children"
+          },
+          {
+            "trackId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+            "name": "gn-E16",
+            "kind": "Instrument",
+            "position": 5
+          },
+          {
+            "trackId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+            "name": "gn-lay",
+            "kind": "Instrument",
+            "position": 6
+          },
+          {
+            "trackId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+            "name": "gn-lay4",
+            "kind": "Instrument",
+            "position": 7
+          },
+          {
+            "trackId": "6fb96670-abde-4958-9147-f573a4b43918",
+            "name": "gn-sel",
+            "kind": "Instrument",
+            "position": 8
+          },
+          {
+            "trackId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a",
+            "name": "FX 1",
+            "kind": "Effect",
+            "position": 9
+          },
+          {
+            "trackId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+            "name": "Master",
+            "kind": "Master",
+            "position": 10
+          }
+        ]
+      },
+      "warnings": []
+    },
+    "scopeCalls": []
+  }
+}

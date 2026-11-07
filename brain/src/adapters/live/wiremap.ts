@@ -1,9 +1,9 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The product encoder can emit 96 methods. The normal extension registers 91;
- * the optional capture extension registers all 96. The Phase 8 probe extension
- * registers 109 methods. The historical source inventory has 168 declarations.
+ * The product encoder can emit 98 methods. The normal extension registers 93;
+ * the optional capture extension registers all 98. The Phase 8 probe extension
+ * registers 121 methods. The historical source inventory has 180 declarations.
  *
  *   - historical exploration methods stay in source evidence but no active
  *     runtime registers them;
@@ -116,14 +116,27 @@ export const WIRE = {
    * E17 probes read "nothing happened" while a container changed one level above
    * where they looked.
    *
-   * ⚠ Its reach is small and fixed, and the resolver treats the limits as
-   * limits: `Rig.SLOT_SCOPES` container positions on the track `cursorTracks[0]`
-   * points at, `SLOT_LAYER_BANK` chains, `SLOT_LAYER_DEVICE_BANK` devices. A
-   * chain past the bank is `outside-bank-window`, never `absent`.
+   * B17: the product container read is `chain.observe` below. This raw read of
+   * every scope and the cursor-bound named-slot view stays for the named-slot
+   * descent (`cursorScope`) and as an independent readback route. Its nested
+   * windows are `SLOT_LAYER_BANK` chains and `SLOT_LAYER_DEVICE_BANK` devices;
+   * a chain past the window is `outside-bank-window`, never `absent`.
    */
   chainInventory: 'chain.inventory',
-  /** Slot-scoped device relocation, promoted only for `chain.relocate`. */
+  /**
+   * Device relocation into or out of a layer chain, promoted only for `chain.relocate`. B17: a chain endpoint
+   * names its container's absolute position and the chain's absolute index; the extension settles a scope for
+   * each endpoint container (two at once for a move between containers) and replies once.
+   */
   chainMove: 'chain.move',
+  /**
+   * B17: observe one container by its absolute top-level position. The extension owns the scopes (B08's
+   * one-wide scrollable banks on cursor track 0): it aims one at the position, polls until the scope and the
+   * named track settle, re-issuing a clamped scroll (E394), and replies once with the settled scope, its
+   * chains and their devices, the cursor-bound named-slot view, and the aim's cost. A deferred reply, as
+   * `clip.read` uses; the brain holds no scope slot and sends no scroll.
+   */
+  chainObserve: 'chain.observe',
   /**
    * ⚠⚠ NEW in session 3f step 6b-2, and the first WRITE in this system that
    * reaches inside a container. `layer.select` + `Channel.duplicate()`, the one

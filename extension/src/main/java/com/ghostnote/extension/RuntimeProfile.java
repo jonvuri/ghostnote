@@ -104,6 +104,7 @@ public enum RuntimeProfile {
             "chain.duplicate",
             "chain.inventory",
             "chain.move",
+            "chain.observe",
             "chain.select",
             "chain.setName",
             "chain.setSolo",
@@ -206,6 +207,7 @@ public enum RuntimeProfile {
         );
 
         private static final Set<String> ACTIVE_PROBE = methods(
+            "probe.pressure",
             "probe.browserDiscovery",
             "probe.scopeScroll",
             "api.runtimeMethods",
@@ -313,7 +315,6 @@ public enum RuntimeProfile {
             "cursor.playState",
             "cursor.status",
             "devcursor.status",
-            "device.list",
             "directparam.callbacks",
             "directparam.completion",
             "directparam.list",
@@ -372,11 +373,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 97
-                    || NORMAL.size() != 92
-                    || PROBE.size() != 120
+                    || PRODUCT.size() != 98
+                    || NORMAL.size() != 93
+                    || PROBE.size() != 122
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 179
+                    || ALL_CLASSIFIED.size() != 181
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

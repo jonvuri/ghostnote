@@ -15,7 +15,10 @@ import java.util.function.LongSupplier;
  * is dropped or reordered. A full queue refuses the new request before it runs.
  *
  * <p>A write that continues in later tasks holds a {@link Lease} until its last task ends. A clip read does not
- * open while a lease is held; this is the 8h3a delivery barrier for scheduled writes.
+ * open while a lease is held; this is the 8h3a delivery barrier for scheduled writes. B17: an operation that
+ * scrolls and settles the container scopes across tasks ({@code chain.observe} and the chain writes) holds a
+ * {@link #writeLease() write lease}: while one is held, a clip read does not open and no other write runs, so
+ * two scope operations never contend for the scopes, and a plain read still runs at once.
  */
 public final class WriteGate {
     public enum Kind { READ, WRITE, CLIP_READ }
@@ -35,8 +38,16 @@ public final class WriteGate {
     private final int limit;
     private final ArrayDeque<Entry> queue = new ArrayDeque<>();
     private boolean readOpen, pumping;
-    private int leases;
+    private int leases, writeLeases;
     private long queuedTotal, refusedTotal, readsOpened;
+    private String blockedReason;
+
+    /** A window could not return to the fixed-index write view. Only controller initialization clears this. */
+    public void blockWrites(String reason) { blockedReason = reason; }
+    public String blockedReason() { return blockedReason; }
+    public void requireAvailable(Kind kind) {
+        if (kind != Kind.READ && blockedReason != null) throw new IllegalStateException(blockedReason);
+    }
 
     public WriteGate(Consumer<Runnable> schedule, LongSupplier clock, int limit) {
         if (limit < 1) throw new IllegalArgumentException("queue limit must be positive");
@@ -48,7 +59,7 @@ public final class WriteGate {
         switch (kind) {
             case READ -> { task.run(0); return true; }
             case WRITE -> {
-                if (!readOpen && queue.isEmpty()) { task.run(0); return true; }
+                if (!readOpen && writeLeases == 0 && queue.isEmpty()) { task.run(0); return true; }
             }
             case CLIP_READ -> {
                 if (!readOpen && leases == 0 && queue.isEmpty()) { open(task, 0); return true; }
@@ -78,9 +89,27 @@ public final class WriteGate {
         };
     }
 
+    /**
+     * B17: a lease that also holds back every later write. The holder is an admitted write that continues in
+     * later tasks and must not interleave with another write; it releases once, when its last task ends.
+     */
+    public Lease writeLease() {
+        leases++;
+        writeLeases++;
+        boolean[] released = {false};
+        return () -> {
+            if (released[0]) return;
+            released[0] = true;
+            leases--;
+            writeLeases--;
+            pump();
+        };
+    }
+
     public boolean readOpen() { return readOpen; }
     public int waiting() { return queue.size(); }
     public int leases() { return leases; }
+    public int writeLeases() { return writeLeases; }
     public int limit() { return limit; }
     public long queuedTotal() { return queuedTotal; }
     public long refusedTotal() { return refusedTotal; }
@@ -94,7 +123,11 @@ public final class WriteGate {
 
     private boolean ready(Entry head) {
         if (readOpen) return false;
-        return head.kind != Kind.CLIP_READ || leases == 0;
+        return switch (head.kind) {
+            case READ -> true;
+            case WRITE -> writeLeases == 0;
+            case CLIP_READ -> leases == 0;
+        };
     }
 
     /** Run the head of the queue in its own task, then the next one. */

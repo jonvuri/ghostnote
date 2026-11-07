@@ -1,0 +1,408 @@
+{
+  "elapsedMs": 30317,
+  "value": {
+    "name": "compose_devices",
+    "args": {
+      "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "name": "X",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "Peak Limiter"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "ms": 5832,
+    "turns": 229,
+    "wire": {
+      "turns": 171,
+      "wireMs": 3968,
+      "methods": {
+        "selection.status": 16,
+        "track.list": 47,
+        "devcursor.pin": 24,
+        "cursor.pointTrack": 23,
+        "device.list": 33,
+        "revision.get": 37,
+        "batch.run": 4,
+        "cursor.pin": 24,
+        "chain.observe": 11,
+        "devcursor.selectAt": 1,
+        "devcursor.status": 3,
+        "layer.list": 1,
+        "devcursor.selectInLayer": 1,
+        "directparam.list": 3,
+        "param.list": 1
+      },
+      "clipReads": 0,
+      "stages": 4
+    },
+    "observes": 11,
+    "scrolls": 1,
+    "result": {
+      "schema": "ghostnote-device-compose/2",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "2ea1bb37-4d13-41ef-b1c4-cba0030f4e43",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage insert-container.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "6c1c66d9-ccb7-496e-898b-12eb062d8e1d",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer"
+          },
+          "summary": "Composition stage confirm-entry-name.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "306ae208-d6f2-4852-922a-870bc27cc5c3",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "X"
+          },
+          "summary": "Composition stage insert-source.",
+          "fidelity": "exact"
+        },
+        {
+          "changeId": "683969bf-0811-4afb-ac74-40dd17fa587f",
+          "target": {
+            "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+            "containerKind": "FX Layer",
+            "layerChain": "X"
+          },
+          "summary": "Composition stage relocate-source.",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "backend": "staged",
+        "containerPosition": 5,
+        "structure": [
+          {
+            "entryIndex": 0,
+            "entryName": "X",
+            "devices": [
+              {
+                "position": 0,
+                "name": "Peak Limiter",
+                "enabled": true
+              }
+            ]
+          }
+        ],
+        "layerChains": [
+          {
+            "entryIndex": 0,
+            "deviceIndex": 0,
+            "entryName": "X",
+            "sourceKind": "native",
+            "sourceIdentity": {
+              "kind": "native",
+              "exactCatalogName": "Peak Limiter"
+            },
+            "observed": {
+              "deviceName": "Peak Limiter",
+              "enabled": true,
+              "position": 0
+            },
+            "instance": "new",
+            "stateClaim": "The source created a new device instance.",
+            "scalarFingerprint": {
+              "after": {
+                "algorithm": "sha256",
+                "sha256": "0b0873b49088d7054021f57c9a5c79793712454681e058046a0eca76b19af4b7",
+                "parameterCount": 4
+              }
+            },
+            "pages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "containerPages": {
+              "verified": true,
+              "actualPages": [],
+              "witnesses": []
+            },
+            "behaviors": [],
+            "verified": true
+          }
+        ]
+      },
+      "next": {
+        "revert": {
+          "tool": "revert_change",
+          "changeId": "2ea1bb37-4d13-41ef-b1c4-cba0030f4e43"
+        }
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 5831.3241659999985
+      },
+      "target": {
+        "trackId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170",
+        "containerKind": "FX Layer"
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2016,
+        "ms": 47,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 24.067334
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2183,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.168917
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2208,
+        "ms": 22,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.137625
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2399,
+        "ms": 20,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.198625
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 2931,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.267334
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4452,
+        "ms": 26,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.821875
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4499,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.364459
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4570,
+        "ms": 23,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.088416
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 4712,
+        "ms": 24,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.251666
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 5683,
+        "ms": 26,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.270042
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 5,
+          "expectedTrackChannelId": "15b2d8b7-3e06-432f-8f52-6c28f4d87170"
+        },
+        "at": 5807,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 5,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.26475
+        }
+      }
+    ]
+  }
+}

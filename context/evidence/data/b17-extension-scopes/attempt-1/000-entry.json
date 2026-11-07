@@ -1,0 +1,31 @@
+{
+  "elapsedMs": 162,
+  "value": {
+    "hello": {
+      "contractVersion": 0,
+      "extensionVersion": "0.0.1",
+      "runtimeProfile": "normal-v1",
+      "hostApiVersion": 25,
+      "methodCount": 93,
+      "methodsHash": "d6decf985f6b1f36"
+    },
+    "deployment": {
+      "state": "fresh",
+      "detail": "running build started 2026-10-27T02:08:51.831Z, after the deployed file",
+      "deployedAtMs": 1793065466620.8909,
+      "startedAtMs": 1793066931831
+    },
+    "containerScopeRoute": "extension-owned-scopes-v1",
+    "containerScopeStatus": {
+      "rule": "extension-owned-scopes-v1",
+      "open": false,
+      "aims": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "pollMs": 5,
+      "maxPolls": 400
+    },
+    "containerScopes": 3,
+    "containerScopePositions": 16
+  }
+}

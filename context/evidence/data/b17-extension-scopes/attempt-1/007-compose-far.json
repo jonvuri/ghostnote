@@ -1,0 +1,181 @@
+{
+  "elapsedMs": 7449,
+  "value": {
+    "name": "compose_devices",
+    "args": {
+      "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+      "containerKind": "FX Layer",
+      "layerChains": [
+        {
+          "name": "A",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "EQ-5"
+              }
+            }
+          ]
+        },
+        {
+          "name": "B",
+          "devices": [
+            {
+              "source": {
+                "kind": "native",
+                "name": "Gate"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "ms": 2656,
+    "turns": 98,
+    "wire": {
+      "turns": 74,
+      "wireMs": 1706,
+      "methods": {
+        "selection.status": 7,
+        "track.list": 22,
+        "devcursor.pin": 11,
+        "cursor.pointTrack": 11,
+        "device.list": 15,
+        "revision.get": 17,
+        "batch.run": 3,
+        "cursor.pin": 8,
+        "chain.observe": 4
+      },
+      "clipReads": 0,
+      "stages": 3
+    },
+    "observes": 4,
+    "scrolls": 1,
+    "result": {
+      "schema": "ghostnote-device-compose/2",
+      "failure": {
+        "code": "unavailable",
+        "stage": "write",
+        "effects": [
+          {
+            "changeId": "5e29106b-7b6b-4226-8901-2d46e8ef9c50",
+            "target": {
+              "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+              "containerKind": "FX Layer"
+            },
+            "summary": "Composition stage insert-container.",
+            "fidelity": "exact"
+          },
+          {
+            "changeId": "380d856a-1d03-4848-a656-d3a17b53b79b",
+            "target": {
+              "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+              "containerKind": "FX Layer"
+            },
+            "summary": "Composition stage confirm-entry-name.",
+            "fidelity": "exact"
+          }
+        ]
+      },
+      "message": "The entry names were not proved. revert_change with the composition change ID reverses the completed stages.",
+      "target": {
+        "trackId": "b92d43a9-48a4-473d-a007-ca16390398f7",
+        "containerKind": "FX Layer"
+      },
+      "detail": {
+        "failedStage": "prepare-entries",
+        "compositionChangeId": "5e29106b-7b6b-4226-8901-2d46e8ef9c50"
+      }
+    },
+    "scopeCalls": [
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "b92d43a9-48a4-473d-a007-ca16390398f7"
+        },
+        "at": 1994,
+        "ms": 47,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 2,
+          "scrolls": 1,
+          "ms": 23.009708
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "b92d43a9-48a4-473d-a007-ca16390398f7"
+        },
+        "at": 2158,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.525291
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "b92d43a9-48a4-473d-a007-ca16390398f7"
+        },
+        "at": 2183,
+        "ms": 25,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.570542
+        }
+      },
+      {
+        "method": "chain.observe",
+        "params": {
+          "position": 3,
+          "expectedTrackChannelId": "b92d43a9-48a4-473d-a007-ca16390398f7"
+        },
+        "at": 2376,
+        "ms": 16,
+        "slot": 2,
+        "aim": {
+          "rule": "extension-owned-scopes-v1",
+          "scopes": [
+            {
+              "position": 3,
+              "slot": 2
+            }
+          ],
+          "polls": 1,
+          "scrolls": 0,
+          "ms": 0.155541
+        }
+      }
+    ]
+  }
+}

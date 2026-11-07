@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-28
+updated: 2026-11-07
 ---
 
 # Evidence index
@@ -18,6 +18,14 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E399 | R02 on Bitwig 6.1.4: human pressure 51% and API pressure 75% remain in the inspector while independent getters return zero; velocity controls pass. Corrects the inert-setter inference; scratch removed, Launcher selection reporting discrepancy retained (2026-10-29) | [open](experiments/e399-pressure-getter-blindness-live.md) |
+| E398 | B17 integrated paged writes: overflow composition, sixth-chain controls, distant/mixed transfers and top-level mutations pass; discarded-read settlement and overflow deletion snapshots corrected; all originals and selection preserved after cleanup. Six-chain composition 44.4 s; dense container read 862 ms / 6 turns (2026-10-27) | [open](experiments/e398-integrated-paged-writes-live.md) |
+| E397 | B17 session 2: complete paged reads of eighteen top-level devices, six chains and five nested devices; restored windows, selection and cleanup pass (2026-10-27) | [open](experiments/e397-paged-device-and-layer-reads-live.md) |
+| E396 | B17 session 2 host-state corrections before final read acceptance (2026-10-27) | [open](experiments/e396-paged-read-host-state-corrections.md) |
+| E395 | B17 session 1: the extension owns the container scopes (`chain.observe` and self-settling chain writes replace `chain.scroll`); the E394 shape repeats with the same results at positions 3 and 5, an isolated far container read costs 6 turns and about 140 ms (was 11 turns, 305 ms), 136 aims with no refusal, cleanup and preserved state pass; `batch.run` continues across a deferred op (2026-10-26) | [open](experiments/e395-extension-owned-container-scopes-live.md) |
+| E394 | B08 implementation: the product scrollable scopes compose, read, solo, rename, duplicate, copy, and move layer chains at top-level positions 3 and 5, with independent readback and cleanup; a scope scrolled on a shorter track clamps and stays, repaired by re-issuing the scroll; far container read about 305 ms, 11 turns (2026-10-25) | [open](experiments/e394-scrollable-container-scopes-product-live.md) |
+| E393 | R01 round 3 real-use follow-ups: the mid-turn ID re-mint is Ghostnote's fail-closed 24-event content window (confirmed live: 24 events keep IDs, 25 re-mint, concurrency irrelevant, reason hidden); per-note timing overlays came from description routing and were never used; nine ranked tool-cost proposals | [open](experiments/e393-r01-round3-real-use-followups.md) |
+| E392 | R01 real Ghostnote usage by capability cell: 11 product sessions, 564 calls; 17 of 20 note writes are A1/B1 scripted generation, 3 single-turn B2 transforms, no B3; no notation-caused failure; largest costs are tool design, guidance and host identity | [open](experiments/e392-r01-real-usage-by-capability-cell.md) |
 | E377 | R01 Luna at medium effort on the other 14 v5 tasks (231 runs): first-attempt 119 → 136, within budget 143 → 174; over all 87 cells 119 → 145 of 261 (Haiku low 252). Gains on boundary/multi-step tasks (p09, p16, p01, p08); p10 refusal falls 9 → 4 of 18 (deletes instead of refusing). C3 FIELDS on source tasks 6 → 10 of 24, C4 FIELDS 15 → 16. Median output 1.3×. Development evidence only (2026-10-28) | [open](experiments/e377-r01-luna-medium-effort-remaining-tasks.md) |
 | E378 | R01 rigorous-stage materialization: fresh inventory and lineage pass; works 4–6 (trailing, the gapra whitewood, open spaces) as roles A–C with 126, 128 and 62 notes; one R01-D3 target-rule refusal (trailing's 128-note window lacked a p08 range). Package `pilot-rigorous-v1` (87 eligible, 33 exclusions) and a rigorous execution manifest (Haiku low, Luna medium, 261 runs each); the rehearsal accepts all goldens and rejects all 568 wrong answers. No submission (2026-10-28) | [open](experiments/e378-r01-rigorous-inputs-and-execution-manifest.md) |
 | E379 | R01 rigorous three-repeat run (pilot-rigorous-v1, works 4–6): 522/522 runs, 752 submissions, no control failure or halt, two recovered stalls. Haiku low 247/261 first-attempt (261 within budget), Luna medium 138/261 (187). Source tasks C3 vs C4 FIELDS: Haiku 24 vs 23, Luna 8 vs 15; C4 leads on onset-changing edits (Luna 12/12 vs 2/12), C3 on reading one derived onset (3/3 vs 0/3). bar\|beat hardest performed arm (Luna 5/24). Token gap 3.95× (2026-10-28) | [open](experiments/e379-r01-rigorous-three-repeat-run.md) |

@@ -1,0 +1,139 @@
+{
+  "elapsedMs": 16971,
+  "value": {
+    "name": "read_devices",
+    "args": {
+      "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed"
+    },
+    "ms": 2819,
+    "wire": {
+      "turns": 67,
+      "wireMs": 1539,
+      "methods": {
+        "selection.status": 2,
+        "track.list": 2,
+        "devcursor.pin": 16,
+        "cursor.pointTrack": 16,
+        "device.list": 3,
+        "revision.get": 1,
+        "devcursor.selectAt": 13,
+        "chain.inventory": 13,
+        "chain.scroll": 2
+      },
+      "clipReads": 0,
+      "stages": 0
+    },
+    "scrolls": [
+      {
+        "slot": 2,
+        "position": 2
+      },
+      {
+        "slot": 2,
+        "position": 3
+      }
+    ],
+    "result": {
+      "schema": "ghostnote-devices/1",
+      "source": {
+        "host": "bitwig-devices",
+        "read": "fresh-structure-read"
+      },
+      "target": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed"
+      },
+      "coverage": {
+        "status": "complete",
+        "devicesComplete": true,
+        "bankSize": 16,
+        "layerChainPositions": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "authority": {
+        "kind": "fresh-read"
+      },
+      "data": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+        "devices": [
+          {
+            "devicePosition": 0,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "devicePosition": 1,
+            "name": "Dual Pan",
+            "enabled": true
+          },
+          {
+            "devicePosition": 2,
+            "name": "Ring-Mod",
+            "enabled": true
+          },
+          {
+            "devicePosition": 3,
+            "name": "FX Layer",
+            "enabled": true,
+            "container": {
+              "containerKind": "FX Layer",
+              "layerChains": [
+                {
+                  "position": 0,
+                  "name": "A",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.627,
+                    "green": 0.753,
+                    "blue": 0.286
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "EQ-5"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                },
+                {
+                  "position": 1,
+                  "name": "B",
+                  "solo": false,
+                  "mute": false,
+                  "volume": 0.7937005259840999,
+                  "pan": 0.5,
+                  "color": {
+                    "red": 0.627,
+                    "green": 0.753,
+                    "blue": 0.286
+                  },
+                  "devices": [
+                    {
+                      "devicePosition": 0,
+                      "name": "Gate"
+                    }
+                  ],
+                  "devicesComplete": true,
+                  "deviceCapacity": 4
+                }
+              ],
+              "complete": true,
+              "capacity": 5
+            }
+          }
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 2818.3415830000013
+      }
+    }
+  }
+}

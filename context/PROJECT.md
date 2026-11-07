@@ -1,7 +1,7 @@
 ---
 title: ghostnote project context
 kind: project
-updated: 2026-10-25
+updated: 2026-10-26
 ---
 
 # ghostnote
@@ -22,7 +22,7 @@ surface without relying on the user's UI selection.
   concurrency reporting, and fidelity-aware reversal. D54 makes custom recovery
   optional for new capabilities; [P01](BACKLOG.md) assesses existing costs.
 - The default tool profile is `agent-native-v1` (D40): 46 tools on one
-  address, health, result, and error vocabulary, descriptions v54. The 8i
+  address, health, result, and error vocabulary, descriptions v58. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
   [C01 removal](BACKLOG.md). `check_grid_support` reports the Grid admission
   gate (D52, E343); the product refuses native Grid writes without an

@@ -1,0 +1,62 @@
+{
+  "elapsedMs": 25013,
+  "value": {
+    "name": "rename_layer_chain",
+    "args": {
+      "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+      "containerPosition": 3,
+      "layerChain": "B",
+      "name": "B2"
+    },
+    "ms": 934,
+    "wire": {
+      "turns": 27,
+      "wireMs": 631,
+      "methods": {
+        "revision.get": 7,
+        "track.list": 7,
+        "selection.status": 3,
+        "devcursor.pin": 3,
+        "cursor.pointTrack": 3,
+        "devcursor.selectAt": 5,
+        "chain.inventory": 5,
+        "batch.run": 1
+      },
+      "clipReads": 0,
+      "stages": 1
+    },
+    "scrolls": [],
+    "result": {
+      "schema": "ghostnote-layer-chain-rename/1",
+      "applied": true,
+      "effects": [
+        {
+          "changeId": "af9558dd-1fab-49c6-9c29-feb1f203b5c5",
+          "target": {
+            "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+            "containerPosition": 3,
+            "layerChain": "B"
+          },
+          "summary": "Renamed layer chain \"B\" to \"B2\".",
+          "fidelity": "exact"
+        }
+      ],
+      "readback": {
+        "status": "verified",
+        "layerChains": [
+          "A",
+          "B2"
+        ]
+      },
+      "warnings": [],
+      "timing": {
+        "totalMs": 933.7249169999996
+      },
+      "target": {
+        "trackId": "7aa6a536-cbff-4d77-8f95-bcb01e2c18ed",
+        "containerPosition": 3,
+        "layerChain": "B"
+      }
+    }
+  }
+}

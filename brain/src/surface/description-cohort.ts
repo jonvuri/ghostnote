@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v54';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v58';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -896,3 +896,20 @@ export const TOOL_DESCRIPTION_V53_SHA256 = '3180edf177fbeda04df21cd860a238df54db
  * identity from the running host's preferences, indexes, and content roots. No earlier description changes.
  */
 export const TOOL_DESCRIPTION_V54_SHA256 = 'f13534e980deac485a601640f0360294196f44f24acff82cfb56329478c72719';
+
+/**
+ * v55 (B08, E352): layer chains are observable at every top-level position inside the 16-device bank, through
+ * container scopes scrolled to the position. read_devices lists every container's chains and reports the
+ * observed positions in coverage; containerPosition accepts 0 through 15 in the five layer-chain tools and
+ * compose_devices; the `layerChains: outside-limit` marker is gone. No earlier description changes.
+ */
+export const TOOL_DESCRIPTION_V55_SHA256 = '484c2f3f0514c7586e8daa844befa0658ffabd7f9c541a0b4d09b98d0ed92073';
+
+/** v56 (B17 session 2): read_devices pages the top-level, chain, and chain-device windows. Write limits stay. */
+export const TOOL_DESCRIPTION_V56_SHA256 = '76cf46f587e86e1c1d7db37b89fed80e20aa74841ad47bb1d22faa813c433df3';
+
+/** v57 (B17 session 6): paged write admission and composition; physical widths are not capacities. */
+export const TOOL_DESCRIPTION_V57_SHA256 = 'bdf8baac6b9a610827c00d6354b543ccca5153eff7a8a810834ffc77c2ddbad2';
+
+/** v58 (R02): pressure refusal reflects unavailable verification, not an inert setter. */
+export const TOOL_DESCRIPTION_V58_SHA256 = '36e7ef9662dfb7abd62bfe6db8fa5bbbd2703bb23362d38d6e6a6c8866748c46';

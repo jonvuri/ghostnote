@@ -50,6 +50,11 @@ check('the 8h4a5 build markers: the group point route and the DirectParameter se
   rig['groupPoint'] === 'expand-collapsed-point-v1' && rig['parameterSettle'] === 'same-ids-switch-v1'
     && (reader?.['groupPoint'] as Record<string, unknown> | undefined)?.['rule'] === 'expand-collapsed-point-v1',
   { groupPoint: rig['groupPoint'], parameterSettle: rig['parameterSettle'] });
+const scopeStatus = rig['containerScopeStatus'] as { rule?: string; open?: boolean } | undefined;
+check('the B17 session-2 build marker: paged windows, and no scope operation is open',
+  rig['containerScopeRoute'] === 'paged-windows-v3' && scopeStatus?.rule === 'paged-windows-v3'
+    && scopeStatus.open === false && rig['windowWriteBlock'] == null,
+  { containerScopeRoute: rig['containerScopeRoute'], containerScopeStatus: scopeStatus });
 check('the 8h4f build marker: track.create makes instrument and audio tracks',
   JSON.stringify(rig['trackCreateKinds']) === JSON.stringify(['instrument', 'audio']),
   { trackCreateKinds: rig['trackCreateKinds'] });
@@ -82,6 +87,8 @@ const goldenFiles: Record<string, string> = {
 const goldenFile = goldenFiles[hello.runtimeProfile];
 check('runtime profile has an active golden', goldenFile !== undefined, hello);
 if (hello.runtimeProfile === 'phase-8-probe-v1') {
+  const pressure = await client.request('probe.pressure', { operation: 'status' }) as { marker?: string };
+  check('the R02 pressure handler has the expected build marker', pressure.marker === 'r02-pressure-v1', pressure);
   const browser = await client.request('probe.browserDiscovery', { operation: 'status' }) as { marker?: string };
   check('the R05 browser handler has the expected build marker', browser.marker === 'r05-browser-discovery-v4', browser.marker);
   const scopes = await client.request('probe.scopeScroll', { operation: 'status' }) as { marker?: string; scopes?: { status: string }[] };

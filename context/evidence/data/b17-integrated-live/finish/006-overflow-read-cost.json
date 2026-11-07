@@ -1,0 +1,1542 @@
+[
+  {
+    "ms": 884.0055000000011,
+    "turns": 6,
+    "snapshot": {
+      "contract": "ghostnote/0",
+      "at": {
+        "revision": 88,
+        "sceneEpoch": 2,
+        "contentEpoch": 32793,
+        "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+        "project": "gn-scale-test",
+        "window": {
+          "tracks": {
+            "count": 12,
+            "bankSize": 256
+          },
+          "scenes": {
+            "count": 10,
+            "bankSize": 128
+          }
+        }
+      },
+      "entries": {
+        "device:d5082b46-5af5-4672-81ba-3b14f59a42bb:17": {
+          "address": {
+            "kind": "device",
+            "track": {
+              "kind": "track",
+              "channelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+            },
+            "chainIndex": 17
+          },
+          "fidelity": "none",
+          "value": {
+            "of": "device",
+            "device": {
+              "chainIndex": 17,
+              "name": "FX Layer",
+              "container": {
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 1,
+                    "name": "B",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 2,
+                    "name": "C",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 3,
+                    "name": "D",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "71b75a84-b266-45bf-abef-16e3bd769178",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 4,
+                    "name": "E",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 5,
+                    "name": "Sixth",
+                    "mute": false,
+                    "solo": true,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cae385e4-d10f-4e91-bf2c-b0922642aa71",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  }
+                ],
+                "chainsComplete": true,
+                "chainsBankSize": 5,
+                "slots": [],
+                "slotsComplete": true
+              }
+            }
+          }
+        }
+      },
+      "missing": [],
+      "unreachable": [],
+      "unstable": []
+    }
+  },
+  {
+    "ms": 863.1443340000005,
+    "turns": 6,
+    "snapshot": {
+      "contract": "ghostnote/0",
+      "at": {
+        "revision": 88,
+        "sceneEpoch": 2,
+        "contentEpoch": 32793,
+        "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+        "project": "gn-scale-test",
+        "window": {
+          "tracks": {
+            "count": 12,
+            "bankSize": 256
+          },
+          "scenes": {
+            "count": 10,
+            "bankSize": 128
+          }
+        }
+      },
+      "entries": {
+        "device:d5082b46-5af5-4672-81ba-3b14f59a42bb:17": {
+          "address": {
+            "kind": "device",
+            "track": {
+              "kind": "track",
+              "channelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+            },
+            "chainIndex": 17
+          },
+          "fidelity": "none",
+          "value": {
+            "of": "device",
+            "device": {
+              "chainIndex": 17,
+              "name": "FX Layer",
+              "container": {
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 1,
+                    "name": "B",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 2,
+                    "name": "C",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 3,
+                    "name": "D",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "71b75a84-b266-45bf-abef-16e3bd769178",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 4,
+                    "name": "E",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 5,
+                    "name": "Sixth",
+                    "mute": false,
+                    "solo": true,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cae385e4-d10f-4e91-bf2c-b0922642aa71",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  }
+                ],
+                "chainsComplete": true,
+                "chainsBankSize": 5,
+                "slots": [],
+                "slotsComplete": true
+              }
+            }
+          }
+        }
+      },
+      "missing": [],
+      "unreachable": [],
+      "unstable": []
+    }
+  },
+  {
+    "ms": 862.0885419999995,
+    "turns": 6,
+    "snapshot": {
+      "contract": "ghostnote/0",
+      "at": {
+        "revision": 88,
+        "sceneEpoch": 2,
+        "contentEpoch": 32793,
+        "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+        "project": "gn-scale-test",
+        "window": {
+          "tracks": {
+            "count": 12,
+            "bankSize": 256
+          },
+          "scenes": {
+            "count": 10,
+            "bankSize": 128
+          }
+        }
+      },
+      "entries": {
+        "device:d5082b46-5af5-4672-81ba-3b14f59a42bb:17": {
+          "address": {
+            "kind": "device",
+            "track": {
+              "kind": "track",
+              "channelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+            },
+            "chainIndex": 17
+          },
+          "fidelity": "none",
+          "value": {
+            "of": "device",
+            "device": {
+              "chainIndex": 17,
+              "name": "FX Layer",
+              "container": {
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 1,
+                    "name": "B",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 2,
+                    "name": "C",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 3,
+                    "name": "D",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "71b75a84-b266-45bf-abef-16e3bd769178",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 4,
+                    "name": "E",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 5,
+                    "name": "Sixth",
+                    "mute": false,
+                    "solo": true,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cae385e4-d10f-4e91-bf2c-b0922642aa71",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  }
+                ],
+                "chainsComplete": true,
+                "chainsBankSize": 5,
+                "slots": [],
+                "slotsComplete": true
+              }
+            }
+          }
+        }
+      },
+      "missing": [],
+      "unreachable": [],
+      "unstable": []
+    }
+  },
+  {
+    "ms": 855.8099170000005,
+    "turns": 6,
+    "snapshot": {
+      "contract": "ghostnote/0",
+      "at": {
+        "revision": 88,
+        "sceneEpoch": 2,
+        "contentEpoch": 32793,
+        "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+        "project": "gn-scale-test",
+        "window": {
+          "tracks": {
+            "count": 12,
+            "bankSize": 256
+          },
+          "scenes": {
+            "count": 10,
+            "bankSize": 128
+          }
+        }
+      },
+      "entries": {
+        "device:d5082b46-5af5-4672-81ba-3b14f59a42bb:17": {
+          "address": {
+            "kind": "device",
+            "track": {
+              "kind": "track",
+              "channelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+            },
+            "chainIndex": 17
+          },
+          "fidelity": "none",
+          "value": {
+            "of": "device",
+            "device": {
+              "chainIndex": 17,
+              "name": "FX Layer",
+              "container": {
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 1,
+                    "name": "B",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 2,
+                    "name": "C",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 3,
+                    "name": "D",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "71b75a84-b266-45bf-abef-16e3bd769178",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 4,
+                    "name": "E",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 5,
+                    "name": "Sixth",
+                    "mute": false,
+                    "solo": true,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cae385e4-d10f-4e91-bf2c-b0922642aa71",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  }
+                ],
+                "chainsComplete": true,
+                "chainsBankSize": 5,
+                "slots": [],
+                "slotsComplete": true
+              }
+            }
+          }
+        }
+      },
+      "missing": [],
+      "unreachable": [],
+      "unstable": []
+    }
+  },
+  {
+    "ms": 845.1360420000001,
+    "turns": 6,
+    "snapshot": {
+      "contract": "ghostnote/0",
+      "at": {
+        "revision": 88,
+        "sceneEpoch": 2,
+        "contentEpoch": 32793,
+        "generation": "966a2dbe-e3d8-4a58-9221-e6db226d79fc",
+        "project": "gn-scale-test",
+        "window": {
+          "tracks": {
+            "count": 12,
+            "bankSize": 256
+          },
+          "scenes": {
+            "count": 10,
+            "bankSize": 128
+          }
+        }
+      },
+      "entries": {
+        "device:d5082b46-5af5-4672-81ba-3b14f59a42bb:17": {
+          "address": {
+            "kind": "device",
+            "track": {
+              "kind": "track",
+              "channelId": "d5082b46-5af5-4672-81ba-3b14f59a42bb"
+            },
+            "chainIndex": 17
+          },
+          "fidelity": "none",
+          "value": {
+            "of": "device",
+            "device": {
+              "chainIndex": 17,
+              "name": "FX Layer",
+              "container": {
+                "chains": [
+                  {
+                    "index": 0,
+                    "name": "A",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "ae6e8a06-fb0c-4651-96b8-806e122bfe19",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 1,
+                    "name": "B",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cdc507e5-9007-426e-9c2e-ddc243bc498f",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 2,
+                    "name": "C",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "e01a7ca9-5f08-4e6a-8bbe-7449ee72b688",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 3,
+                    "name": "D",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "71b75a84-b266-45bf-abef-16e3bd769178",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 4,
+                    "name": "E",
+                    "mute": false,
+                    "solo": false,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "c38bdbc9-63b6-4c7f-8cc4-27ce8c5d99c8",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 4,
+                        "name": "Dual Pan",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  },
+                  {
+                    "index": 5,
+                    "name": "Sixth",
+                    "mute": false,
+                    "solo": true,
+                    "volume": 0.7937005259840999,
+                    "pan": 0.5,
+                    "color": {
+                      "red": 0.639,
+                      "green": 0.475,
+                      "blue": 0.251
+                    },
+                    "id": "cae385e4-d10f-4e91-bf2c-b0922642aa71",
+                    "devices": [
+                      {
+                        "index": 0,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 1,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 2,
+                        "name": "Tool",
+                        "enabled": true
+                      },
+                      {
+                        "index": 3,
+                        "name": "Tool",
+                        "enabled": true
+                      }
+                    ],
+                    "devicesComplete": true,
+                    "devicesBankSize": 4
+                  }
+                ],
+                "chainsComplete": true,
+                "chainsBankSize": 5,
+                "slots": [],
+                "slotsComplete": true
+              }
+            }
+          }
+        }
+      },
+      "missing": [],
+      "unreachable": [],
+      "unstable": []
+    }
+  }
+]

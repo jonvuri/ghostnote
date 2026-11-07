@@ -131,15 +131,11 @@ test('T-gain: the shared contract encoder applies the measured inverse once (E24
   assert.equal(gainOnReadback(gain?.[1] as number), 0.7);
 });
 
-// --- E15-E: pressure cannot be written at all --------------------------------
+// --- D66: pressure writes require unavailable independent readback -----------
 
 test('T-pressure: pressure is never emitted, whatever order it is asked for in (E15-E)', () => {
-  // ⚠ This test used to assert the OPPOSITE — that writing gain after pressure
-  // "destroys" it (E2/e02e). E15-E measured that the pressure being destroyed
-  // was never in the clip: `setPressure` populates only the writing cursor's own
-  // NoteStep cache, invisible to every other cursor and gone the moment that
-  // cursor is re-pointed. Gain and timbre did not zero it; they forced the cache
-  // to be re-read, which replaced the phantom with the clip's real 0.
+  // E399 corrects the inert-setter inference. D66 retains filtering because
+  // the independent API reader is blind to both human and setter pressure.
   assert.deepEqual(orderedNoteProps(note({ pressure: 0.9 })), []);
   assert.deepEqual(
     orderedNoteProps(note({ gain: 0.7, pressure: 0.9, pan: 0.3 })).map(([k]) => k),
@@ -149,7 +145,8 @@ test('T-pressure: pressure is never emitted, whatever order it is asked for in (
 
 test('T-pressure: 16 of the 17 other properties DO persist — this is pressure-specific (E15-E)', () => {
   // Measured one property at a time: write alone, settle, read, re-point the
-  // writing cursor away and back, read again. Only pressure evaporated.
+  // writing cursor away and back, read again. Only pressure lost API visibility.
+  // E399 shows that this does not establish loss from the clip.
   for (const prop of ['pan', 'timbre', 'transpose', 'chance', 'repeatCount'] as const) {
     assert.ok(
       orderedNoteProps(note({ [prop]: 0.5 })).some(([k]) => k === prop),
@@ -368,7 +365,7 @@ test('T-props: a note carrying ONLY pressure never reaches the plan (E15-E)', ()
   // It is refused up front, so there is no stage to build.
   assert.throws(
     () => assertOpsWritable([{ op: 'note.write', clip: CLIP, notes: [note({ pressure: 0.9 })] }]),
-    /E15-E/,
+    /independent verification.*E399, D66/,
   );
 });
 
@@ -712,19 +709,18 @@ let fixtureChainId = 0;
 const someChain = (name: string, devices: FakeChain['devices'] = []): FakeChain =>
   ({ name, solo: false, id: `fixture-chain-${++fixtureChainId}`, devices });
 
-test('T-scope: a container is observable only in the first few device positions', () => {
-  // ⚠ Not a fake limitation — `Rig.slotLayerBanks` are allocated at init (D7)
-  // on `SLOT_SCOPES` top-level device slots, so a container further along the
-  // chain has no bank to be read through. The model carries the same number so
-  // an offline pass cannot certify a reach live Bitwig does not have.
+test('T-scope: container scopes reach past the first device window', () => {
+  // B17 reads page the physical windows; their widths remain write limits.
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
-  for (let i = 0; i <= model.containerScopes; i++) {
+  for (let i = 0; i <= model.deviceBankSize; i++) {
     track.devices.push({ name: `dev-${i}`, paramsLive: true, params: [], chains: [someChain('A')] });
   }
   assert.notEqual(model.observeContainer(track, 0), undefined);
-  assert.equal(model.observeContainer(track, model.containerScopes), undefined,
-    'past the scopes nothing was looked at — which is not the same as nothing being there');
+  assert.notEqual(model.observeContainer(track, model.containerScopes), undefined,
+    'the scope count no longer bounds the reach');
+  assert.notEqual(model.observeContainer(track, model.deviceBankSize - 1), undefined);
+  assert.equal(model.observeContainer(track, model.deviceBankSize)?.chains[0]?.name, 'A');
 });
 
 test('5p fake adapter: container inventory preserves nested enabled state', () => {
@@ -739,7 +735,7 @@ test('5p fake adapter: container inventory preserves nested enabled state', () =
   assert.equal(model.observeContainer(track, 0)?.chains[0]?.devices[0]?.enabled, false);
 });
 
-test('T-full: an exact item count distinguishes a full bank from overflow', () => {
+test('T-full: paging includes the chain beyond a full window', () => {
   const model = new ProjectModel();
   const track = model.createTrack('gn-A');
   const chains = Array.from({ length: model.chainBankSize }, (_, i) => someChain(`c${i}`));
@@ -749,7 +745,8 @@ test('T-full: an exact item count distinguishes a full bank from overflow', () =
   assert.equal(observed.chainsComplete, true);
 
   track.devices[0]!.chains = [...chains, someChain('overflow')];
-  assert.equal(model.observeContainer(track, 0)!.chainsComplete, false);
+  assert.equal(model.observeContainer(track, 0)!.chainsComplete, true);
+  assert.equal(model.observeContainer(track, 0)!.chains.at(-1)?.name, 'overflow');
 });
 
 test('T-dupname: copying a container gives two chains ONE name (e17n)', () => {
@@ -836,78 +833,19 @@ test('T-create: a source name the container does not hold copies nothing', () =>
   assert.equal(track.devices[0]!.chains!.length, 1);
 });
 
-test('T-create: the LAST bank slot is usable, and the create after it refuses', async () => {
-  // ⚠⚠ The boundary the mint diff is written around. A container filled to its
-  // bank width reports itself INCOMPLETE, because the enumeration omits nothing
-  // past the window and a full bank is byte-identical to an overflowing one. If
-  // the diff demanded completeness on both sides, this create would copy the
-  // chain and then decline to name it — leaving it wearing the source's name,
-  // every time, in every container's last slot.
+test('B17: chain duplication crosses the physical window, including a projected batch', async () => {
   const adapter = new FakeAdapter({ tracks: ['gn-A'] });
   const first = (await adapter.tracks())[0]!;
-  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
-  const bank = adapter.model.chainBankSize;
-  model.devices.push({
-    name: 'container',
-    paramsLive: true,
-    params: [],
-    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
-  });
+  const row = adapter.model.visibleTracks()[0]!;
+  row.devices.push({ name: 'container', paramsLive: true, params: [],
+    chains: Array.from({ length: 5 }, (_, i) => someChain(`c${i}`)) });
   const container = deviceAddress(track(first.channelId), 0);
-  const source = chainAddress(container, 'c0');
-
-  const filled = await adapter.apply({ ops: [{ op: 'chain.create', source, name: 'last' }] });
-  assert.deepEqual(filled.minted[0], chainAddress(container, 'last'),
-    'the chain that fills the bank is still identified and still named');
-  const hit = (await adapter.resolve([chainAddress(container, 'last')])).resolved[0];
-  assert.equal(hit?.found, true, 'and it resolves, because a visible name resolves either way');
-
-  // ⚠ And now the bank IS full, so standing rule 5 refuses the next one before
-  // anything is copied. A chain created past the window could be resolved by
-  // nothing and removed by nothing — there is no typed chain delete at all.
-  await assert.rejects(
-    adapter.apply({ ops: [{ op: 'chain.create', source, name: 'overflow' }] }),
-    /outside the window/,
-  );
-  assert.equal(model.devices[0]!.chains!.length, bank, 'nothing was copied');
-});
-
-test('T-create: two creates in ONE batch are SUMMED against the bank, not checked one at a time', async () => {
-  // ⚠⚠ The regression, and it is the mistake `assertSceneRoom`'s header already
-  // names one population up: nothing has been applied when the guard runs, so
-  // every create in a batch sees the same reading, and checking each against it
-  // independently is a post-hoc check wearing a precondition's clothes.
-  //
-  // Measured before the fix, on exactly this fixture: two creates against a
-  // 4-of-5 container produced SIX chains — one stranded past a bank that can
-  // address five, unresolvable and with no typed delete to remove it — and both
-  // stage receipts reported `ok: true`.
-  const adapter = new FakeAdapter({ tracks: ['gn-A'] });
-  const first = (await adapter.tracks())[0]!;
-  const model = adapter.model.tracks.find((t) => t.channelId === first.channelId)!;
-  const bank = adapter.model.chainBankSize;
-  model.devices.push({
-    name: 'container',
-    paramsLive: true,
-    params: [],
-    chains: Array.from({ length: bank - 1 }, (_, i) => someChain(`c${i}`)),
-  });
-  const container = deviceAddress(track(first.channelId), 0);
-  const source = chainAddress(container, 'c0');
-
-  await assert.rejects(
-    adapter.apply({
-      ops: [
-        { op: 'chain.create', source, name: 'x1' },
-        { op: 'chain.create', source, name: 'x2' },
-      ],
-    }),
-    /would leave the container holding 6 chains in a bank 5 wide/,
-  );
-  // ⚠ The WHOLE batch is refused, so not even the first create ran. A create
-  // that landed and a create that was refused cannot be mixed here: there is no
-  // typed delete, so a partial batch is a partial batch forever.
-  assert.equal(model.devices[0]!.chains!.length, bank - 1, 'nothing was copied');
+  const copied = await adapter.apply({ ops: [
+    { op: 'chain.create', source: chainAddress(container, 'c4'), name: 'sixth' },
+    { op: 'chain.create', source: chainAddress(container, 'sixth'), name: 'seventh' },
+  ] });
+  assert.equal(copied.stages.every(stage => stage.ops.every(op => op.ok)), true);
+  assert.deepEqual(row.devices[0]!.chains!.map(c => c.name), ['c0', 'c1', 'c2', 'c3', 'c4', 'sixth', 'seventh']);
 });
 
 test('T-create: two creates in ONE batch cannot claim the same name', async () => {
@@ -1259,6 +1197,7 @@ test('8h4e fake: a structure read reports names and containers with no parameter
     });
   }
   const inScope = deviceAddress(track(first.channelId), 0);
+  // B08: a position past the scope count reads through a scrolled scope, with its container.
   const pastScope = deviceAddress(track(first.channelId), adapter.model.containerScopes);
   const nested = deviceInAddress(chainAddress(inScope, 'A'), 0);
   const generation = adapter.model.parameterObservationGeneration;
@@ -1271,7 +1210,7 @@ test('8h4e fake: a structure read reports names and containers with no parameter
   assert.equal(of(inScope)?.params, undefined);
   assert.equal(of(inScope)?.container?.chains[0]?.name, 'A');
   assert.equal(of(pastScope)?.name, `dev-${adapter.model.containerScopes}`);
-  assert.equal(of(pastScope)?.container, undefined);
+  assert.equal(of(pastScope)?.container?.chains[0]?.name, 'A');
   assert.deepEqual(snapshot.unreachable, []);
   assert.equal(of(nested)?.name, 'Inner');
   assert.equal(of(nested)?.params, undefined);

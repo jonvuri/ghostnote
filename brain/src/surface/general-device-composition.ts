@@ -128,6 +128,11 @@ export const generalDeviceCompositionInputValidator = z.object(
   }
 });
 
+/** Current compose_devices backend input; the retired stable-v1 artifact remains frozen. */
+export const pagedDeviceCompositionInputValidator = generalDeviceCompositionInputValidator.safeExtend({
+  expectedDeviceOrder: z.array(orderItem),
+});
+
 const checkpointEntry = z.object({
   entryIndex: z.number().int().min(0), deviceIndex: z.number().int().min(0),
   entryName: z.string().min(1),
@@ -145,8 +150,9 @@ const publicCheckpoint = z.object({
   schemaVersion: z.literal(5),
   state: z.enum(['container-inserted', 'container-positioned', 'entries-prepared', 'composing']),
   trackId: z.string().min(1), containerKind: z.enum(GENERAL_DEVICE_CONTAINER_KINDS),
-  requestedContainerPosition: z.number().int().min(0)
-    .max(GENERAL_DEVICE_COMPOSITION_CAPACITIES.topLevelContainerPositions - 1),
+  // Frozen at the stable-v1 (v25) bound of three container positions: the public artifact of the stable
+  // profile must stay byte-equal until C01 retires it. The engine capacity behind it is 16 (B08).
+  requestedContainerPosition: z.number().int().min(0).max(2),
   containerInsertChangeId: z.string().min(1), insertedContainerPosition: z.number().int().min(0),
   currentContainerPosition: z.number().int().min(0),
   seedUnchanged: z.boolean(),
@@ -277,7 +283,7 @@ export async function runGeneralDeviceCompositionReversal(
 function publicResult(
   workspace: Workspace, input: GeneralDeviceCompositionInput, result: GeneralDeviceCompositionResult,
 ): Record<string, unknown> {
-  if (result.checkpoint === undefined && result.stages.length === 0) {
+  if (result.checkpoint === undefined && result.stages.length === 0 && !result.effectsPossible) {
     return {
       refused: true, nothingWasWritten: true, capacities: result.capacities,
       why: result.why ?? 'Nothing was written.',
@@ -287,6 +293,7 @@ function publicResult(
   if (checkpoint !== undefined) remember(workspace, checkpoint);
   return {
     applied: result.stages.some((item) => item.applied), complete: result.complete,
+    ...(result.effectsPossible ? { effectsPossible: true } : {}),
     partialCompletion: !result.complete && result.stages.some((item) => item.applied),
     ...(result.failedStage === undefined ? {} : { failedStage: result.failedStage }),
     ...(result.why === undefined ? {} : { why: result.why }),
