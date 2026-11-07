@@ -1,0 +1,1823 @@
+{
+  "schema": "r01-claude-transport-faults-v1",
+  "profile": {
+    "provider": "claude",
+    "model": "claude-haiku-4-5-20251001",
+    "thinkingBudget": 1024,
+    "maxOutputTokens": 12000,
+    "version": "2.1.302 (Claude Code)"
+  },
+  "binary": {
+    "name": "claude",
+    "path": "/Users/jonvuri/.local/bin/claude",
+    "realPath": "/Users/jonvuri/.local/share/claude/versions/2.1.302",
+    "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+  },
+  "startedAt": "2026-10-26T02:38:42.273Z",
+  "scenarios": [
+    {
+      "id": "success",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 283.71879100000007,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "d362660487ec21a9a3d7f51d6f1bf702c276c08bd63bbec6e9e0790289b1f043"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "a4d215f8-b697-4cda-8f63-608c5b7ace29",
+          "session_id": "f432aa03-cba8-4b0d-b3b9-214c60cd31ab"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-DAWqYU",
+          "session_id": "f432aa03-cba8-4b0d-b3b9-214c60cd31ab",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "ee249615-6b0b-4121-b10e-794975435ed8",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-DAWqYU",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11210.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "id": "msg_local_1",
+            "type": "message",
+            "role": "assistant",
+            "model": "claude-haiku-4-5-20251001",
+            "content": [
+              {
+                "type": "text",
+                "text": "OK"
+              }
+            ],
+            "stop_reason": null,
+            "stop_sequence": null,
+            "usage": {
+              "input_tokens": 10,
+              "output_tokens": 1,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0
+            },
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "f432aa03-cba8-4b0d-b3b9-214c60cd31ab",
+          "uuid": "0b0f6d2e-0fba-4ce6-9e18-83488c3049df",
+          "timestamp": "2026-10-26T02:38:42.690Z",
+          "request_id": "req_local_1"
+        },
+        {
+          "duration_api_ms": 17,
+          "stop_reason": "end_turn",
+          "session_id": "f432aa03-cba8-4b0d-b3b9-214c60cd31ab",
+          "total_cost_usd": 0.000019999999999999998,
+          "usage": {
+            "input_tokens": 10,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 2,
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {
+            "claude-haiku-4-5-20251001": {
+              "inputTokens": 10,
+              "outputTokens": 2,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0.000019999999999999998,
+              "contextWindow": 200000,
+              "maxOutputTokens": 32000,
+              "thinkingTokens": 0,
+              "canonicalModel": "claude-haiku-4-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "permission_denials": [],
+          "terminal_reason": "completed",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": false,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": null,
+          "result": "OK",
+          "ttft_ms": 34,
+          "type": "result",
+          "duration_ms": 39,
+          "uuid": "ae6c8526-3b11-414a-ae33-1921230e3d28",
+          "ttft_stream_ms": 34,
+          "time_to_request_ms": 27,
+          "first_content_frame_ms": 34,
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "102bcb56-051a-44fe-b77b-b034044800cc.request.json",
+        "index.jsonl",
+        "req_local_1.response.json"
+      ]
+    },
+    {
+      "id": "http-500",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 242.70674999999994,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "f8a72ec45c045021431ed54231ad9171e3fee0575301ac8b0e9ad275f90d7395"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "7b9dcf5c-e442-4d68-ab22-36370a5b3dc6",
+          "session_id": "76ff7620-dc65-4612-8b86-fd893b21ccc1"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-eXazH1",
+          "session_id": "76ff7620-dc65-4612-8b86-fd893b21ccc1",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "04e35d6a-5fef-422b-a808-1a982eefbb74",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-eXazH1",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11242.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "1fc0bc4a-aabd-441b-a4cd-8885e44e1850",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58504)."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "76ff7620-dc65-4612-8b86-fd893b21ccc1",
+          "uuid": "a9050382-9ae1-42b1-bc33-d174ab3024dd",
+          "timestamp": "2026-10-26T02:38:43.106Z",
+          "error": "server_error",
+          "request_id": "req_local_1",
+          "is_api_error_message": true,
+          "api_error_status": 500
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "76ff7620-dc65-4612-8b86-fd893b21ccc1",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": 500,
+          "result": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58504).",
+          "type": "result",
+          "duration_ms": 36,
+          "uuid": "3a084064-a0f7-4351-87fb-1c3fd15ab974",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "b93a342c-4764-47ad-a211-c123ab0112cb.request.json"
+      ]
+    },
+    {
+      "id": "http-529-overloaded",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 245.55333300000007,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "bb2fbea45ab3db47b3732e32b420cb6d91ee28faf1eb3097062aa9f438fb50cb"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "325a3f75-e843-4311-b30a-1927589f72ab",
+          "session_id": "1c3f7c5d-5060-4110-82f7-fa098b260eaa"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-cJA6PR",
+          "session_id": "1c3f7c5d-5060-4110-82f7-fa098b260eaa",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "3459820f-9a86-47e2-887d-d7de0ac8d3e5",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-cJA6PR",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11278.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "c14fc79d-7736-4355-b946-499faf7db998",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58511)."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "1c3f7c5d-5060-4110-82f7-fa098b260eaa",
+          "uuid": "6302a8ef-3e9a-427c-a194-3b6be21c8b66",
+          "timestamp": "2026-10-26T02:38:43.509Z",
+          "error": "server_error",
+          "request_id": "req_local_1",
+          "is_api_error_message": true,
+          "api_error_status": 529
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "1c3f7c5d-5060-4110-82f7-fa098b260eaa",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": 529,
+          "result": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58511).",
+          "type": "result",
+          "duration_ms": 37,
+          "uuid": "39f0ff3a-e21f-4125-aa9c-c17e46546a03",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "42b4a1fd-0838-45e9-a3d5-fc287306dbfa.request.json"
+      ]
+    },
+    {
+      "id": "http-429-rate-limit",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 248.95316700000012,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "19b5d63e3fb07615891bb9e3794fc2206d7f84ac75fb434d395446455d1e806d"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "65c52068-2042-44b3-8975-a47bf0f9dba4",
+          "session_id": "703ac5f1-8cf6-42c7-9bf1-23b1c0d4d677"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-HOxnnf",
+          "session_id": "703ac5f1-8cf6-42c7-9bf1-23b1c0d4d677",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "9cd5c396-26b5-44a5-952e-72b750e203e3",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-HOxnnf",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11314.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "ca314179-1c54-418b-8bd1-451532139e3d",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: Request rejected (429) · local fault"
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "703ac5f1-8cf6-42c7-9bf1-23b1c0d4d677",
+          "uuid": "f163eabc-d4bc-4ca4-8163-4a023f3615c1",
+          "timestamp": "2026-10-26T02:38:43.917Z",
+          "error": "rate_limit",
+          "request_id": "req_local_1",
+          "is_api_error_message": true,
+          "api_error_status": 429
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "703ac5f1-8cf6-42c7-9bf1-23b1c0d4d677",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": 429,
+          "result": "API Error: Request rejected (429) · local fault",
+          "type": "result",
+          "duration_ms": 36,
+          "uuid": "0a9c91b2-af90-4739-bba6-c9bf5e688a6d",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "5ecb04c0-64a3-47e1-896a-30a5b160ae37.request.json"
+      ]
+    },
+    {
+      "id": "reset-before-events",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 273.52645900000016,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "9a3e312c8fa5edeb897914ef4caeb819fd51432d3bcf6f7c713bfcf260d65f98"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "66b8c8ac-926c-451d-8093-5f14e4ad531d",
+          "session_id": "c238183e-781d-43de-b714-7833d2f1df55"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-VWjNCc",
+          "session_id": "c238183e-781d-43de-b714-7833d2f1df55",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "a6999c5f-9be8-47c5-8417-60e10048a1fd",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-VWjNCc",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11352.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "a01ec3dd-6f8d-4a99-8e8a-d566ea197623",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "c238183e-781d-43de-b714-7833d2f1df55",
+          "uuid": "9540fb85-b145-4afa-9c30-08a3b6ab4d1e",
+          "timestamp": "2026-10-26T02:38:44.359Z",
+          "error": "server_error",
+          "request_id": "req_local_1",
+          "is_api_error_message": true
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "c238183e-781d-43de-b714-7833d2f1df55",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": null,
+          "result": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again.",
+          "type": "result",
+          "duration_ms": 82,
+          "uuid": "9d42fb24-960e-40c1-b706-4493e25964a3",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "e9420f95-ecab-4e59-86e1-1d375ecf86ab.request.json"
+      ]
+    },
+    {
+      "id": "reset-mid-stream",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 292.2332080000001,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "0",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "046d633a6ea96e8415fe6358de8727c42989b0a1d462c138e5af4c5afcaaaaec"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "b151918e-dd34-4c1e-ac0c-065474fb344e",
+          "session_id": "8d93a8d7-30a3-4824-98c7-5c9f4d2606c0"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-eUdl15",
+          "session_id": "8d93a8d7-30a3-4824-98c7-5c9f4d2606c0",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "d74ef760-cd79-47b6-bab7-09da5c4ce777",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-eUdl15",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11389.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "93770618-9c47-406f-9fcc-d1be5af8ede9",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "8d93a8d7-30a3-4824-98c7-5c9f4d2606c0",
+          "uuid": "31be3918-3a6e-4142-86a1-7a18242d6880",
+          "timestamp": "2026-10-26T02:38:44.801Z",
+          "error": "server_error",
+          "request_id": "req_local_1",
+          "is_api_error_message": true
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "8d93a8d7-30a3-4824-98c7-5c9f4d2606c0",
+          "total_cost_usd": 0.000015,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {
+            "claude-haiku-4-5-20251001": {
+              "inputTokens": 10,
+              "outputTokens": 1,
+              "cacheReadInputTokens": 0,
+              "cacheCreationInputTokens": 0,
+              "webSearchRequests": 0,
+              "costUSD": 0.000015,
+              "contextWindow": 200000,
+              "maxOutputTokens": 32000,
+              "thinkingTokens": 0,
+              "canonicalModel": "claude-haiku-4-5",
+              "provider": "firstParty",
+              "costBasis": "list"
+            }
+          },
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": null,
+          "result": "API Error: Connection to the API was lost (ECONNRESET). This is usually temporary — try again.",
+          "type": "result",
+          "duration_ms": 85,
+          "uuid": "40b0dd6b-8e93-4400-8a11-3912e8d3fa71",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "c4d49614-ea33-41c7-88bc-6704808061f8.request.json"
+      ]
+    },
+    {
+      "id": "positive-control-http-500-one-retry",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 749.9390829999998,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "1",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "398197cb9ef7d3790b3bbb55eecf7a2bcf469ab5cbe8f085fba665c9a3ad4679"
+        },
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "398197cb9ef7d3790b3bbb55eecf7a2bcf469ab5cbe8f085fba665c9a3ad4679"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "fb38b174-657a-40c5-90b5-3e4b46bc5c5d",
+          "session_id": "170a3c76-fef6-44ed-ad73-f867e52afeea"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-dIoGsm",
+          "session_id": "170a3c76-fef6-44ed-ad73-f867e52afeea",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "b1d0b750-f387-4352-9245-0b60b2c1577e",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-dIoGsm",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11429.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "system",
+          "subtype": "api_retry",
+          "attempt": 1,
+          "max_retries": 1,
+          "retry_delay_ms": 509,
+          "error_status": 500,
+          "error": "server_error",
+          "session_id": "170a3c76-fef6-44ed-ad73-f867e52afeea",
+          "uuid": "618a5c75-8bb1-44c4-94d5-e39644429d51"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "b81e91a6-9835-4f10-bbf4-b8ca41bbff9d",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58539)."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "170a3c76-fef6-44ed-ad73-f867e52afeea",
+          "uuid": "109637e3-7c5a-4b2d-b56b-790e6212aa31",
+          "timestamp": "2026-10-26T02:38:45.732Z",
+          "error": "server_error",
+          "request_id": "req_local_2",
+          "is_api_error_message": true,
+          "api_error_status": 500
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "170a3c76-fef6-44ed-ad73-f867e52afeea",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": 500,
+          "result": "API Error: 500 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58539).",
+          "type": "result",
+          "duration_ms": 547,
+          "uuid": "280eafdf-9457-4956-821f-689f0a81084a",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "972e8a52-0fa4-4e20-b8b1-02c801d5f7b9.request.json",
+        "e49d23ce-3198-480f-a904-08328be3e0dc.request.json"
+      ]
+    },
+    {
+      "id": "positive-control-http-529-one-retry",
+      "model": "claude-haiku-4-5-20251001",
+      "process": {
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "elapsedMs": 858.7498329999999,
+        "controlAuditRequired": true
+      },
+      "retryControls": {
+        "CLAUDE_CODE_MAX_RETRIES": "1",
+        "CLAUDE_CODE_RETRY_WATCHDOG": "0",
+        "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
+        "CLAUDE_CODE_DISABLE_REFUSAL_FALLBACK": "1"
+      },
+      "server": [
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "209857a6aa8ccecb8df5b863b12697217560a5b9c800b0a9b1d836934907281e"
+        },
+        {
+          "method": "POST",
+          "url": "/v1/messages?beta=true",
+          "auth": "x-api-key",
+          "model": "claude-haiku-4-5-20251001",
+          "stream": true,
+          "stainlessRetryCount": "0",
+          "bodySha256": "209857a6aa8ccecb8df5b863b12697217560a5b9c800b0a9b1d836934907281e"
+        }
+      ],
+      "events": [
+        {
+          "type": "system",
+          "subtype": "ui_invalidate",
+          "event": "ui.render",
+          "uuid": "579a4226-2094-4c5c-9d40-fc83832ab827",
+          "session_id": "2f312162-8562-48a5-bdc2-e210c2715283"
+        },
+        {
+          "type": "system",
+          "subtype": "init",
+          "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-4o3WkT",
+          "session_id": "2f312162-8562-48a5-bdc2-e210c2715283",
+          "tools": [],
+          "mcp_servers": [],
+          "model": "claude-haiku-4-5-20251001",
+          "permissionMode": "dontAsk",
+          "slash_commands": [],
+          "apiKeySource": "ANTHROPIC_API_KEY",
+          "claude_code_version": "2.1.302",
+          "output_style": "default",
+          "agents": [
+            "claude",
+            "Explore",
+            "general-purpose",
+            "Plan"
+          ],
+          "skills": [],
+          "plugins": [
+            {
+              "name": "cc-plugin-agents-md",
+              "path": "builtin",
+              "source": "cc-plugin-agents-md@builtin"
+            },
+            {
+              "name": "cc-plugin-telemetry",
+              "path": "builtin",
+              "source": "cc-plugin-telemetry@builtin"
+            },
+            {
+              "name": "cc-plugin-plugin-authoring",
+              "path": "builtin",
+              "source": "cc-plugin-plugin-authoring@builtin"
+            }
+          ],
+          "capabilities": [
+            "interrupt_receipt_v1",
+            "interrupt_cancel_queued_v1",
+            "interrupt_send_now_v1",
+            "msg_lifecycle_v1",
+            "request_marker_lists_v1",
+            "sdk_mcp_tools_list_changed",
+            "sdk_mcp_manifests",
+            "mcp_read_resource_v1",
+            "mcp_tool_ui_meta_v1",
+            "ui_surface_v1",
+            "mcp_call_result_not_for_model_v1"
+          ],
+          "analytics_disabled": false,
+          "product_feedback_disabled": false,
+          "uuid": "1c75b647-55c4-4713-93f6-8649dd1c231b",
+          "original_cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-4o3WkT",
+          "additional_directories": [],
+          "messaging_socket_path": "/tmp/cc-socks/11462.sock",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "per_turn_effort_active": false,
+          "view_mode": "default"
+        },
+        {
+          "type": "system",
+          "subtype": "api_retry",
+          "attempt": 1,
+          "max_retries": 1,
+          "retry_delay_ms": 612,
+          "error_status": 529,
+          "error": "overloaded",
+          "session_id": "2f312162-8562-48a5-bdc2-e210c2715283",
+          "uuid": "b47c4b54-3aea-4baa-aa4c-1eb083591c38"
+        },
+        {
+          "type": "assistant",
+          "message": {
+            "diagnostics": null,
+            "id": "9d60dea8-62ce-40e9-a05e-8a064221111f",
+            "container": null,
+            "model": "<synthetic>",
+            "role": "assistant",
+            "stop_details": null,
+            "stop_reason": "stop_sequence",
+            "stop_sequence": "",
+            "type": "message",
+            "usage": {
+              "output_tokens_details": null,
+              "input_tokens": 0,
+              "output_tokens": 0,
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "server_tool_use": {
+                "web_search_requests": 0,
+                "web_fetch_requests": 0
+              },
+              "service_tier": null,
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "inference_geo": null,
+              "iterations": null,
+              "speed": null,
+              "fallback_credit": null
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58547)."
+              }
+            ],
+            "context_management": null
+          },
+          "parent_tool_use_id": null,
+          "session_id": "2f312162-8562-48a5-bdc2-e210c2715283",
+          "uuid": "1f395f72-38ca-4131-87a2-628699f01df1",
+          "timestamp": "2026-10-26T02:38:46.743Z",
+          "error": "server_error",
+          "request_id": "req_local_2",
+          "is_api_error_message": true,
+          "api_error_status": 529
+        },
+        {
+          "duration_api_ms": 0,
+          "stop_reason": "stop_sequence",
+          "session_id": "2f312162-8562-48a5-bdc2-e210c2715283",
+          "total_cost_usd": 0,
+          "usage": {
+            "output_tokens_details": {
+              "thinking_tokens": 0
+            },
+            "input_tokens": 0,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 0,
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "modelUsage": {},
+          "permission_denials": [],
+          "terminal_reason": "api_error",
+          "fast_mode_state": "off",
+          "fast_mode_disabled_reason": "sdk_opt_in_required",
+          "subagent_stats": {
+            "spawned": 0,
+            "requested": {
+              "background": 0,
+              "foreground": 0,
+              "unset": 0
+            },
+            "started_in_background": 0,
+            "max_depth": 0,
+            "spawned_by_subagents": 0,
+            "completed": 0,
+            "failed": 0,
+            "killed": {
+              "parent": 0,
+              "user": 0,
+              "system": 0
+            },
+            "refused": {
+              "depth_limit": 0,
+              "concurrency_limit": 0,
+              "budget": 0
+            },
+            "by_type": {}
+          },
+          "safety_stops": 0,
+          "is_error": true,
+          "num_turns": 1,
+          "subtype": "success",
+          "api_error_status": 529,
+          "result": "API Error: 529 local fault. This is a server-side issue, usually temporary — try again in a moment. If it persists, check your inference gateway (127.0.0.1:58547).",
+          "type": "result",
+          "duration_ms": 651,
+          "uuid": "d2c07592-2c20-4343-bd75-ff083143c38c",
+          "queued_turn_count": 0,
+          "result_index": 0
+        }
+      ],
+      "captureFiles": [
+        "33e07e4f-a64a-4877-9b71-8fb076236541.request.json",
+        "6675096d-425b-4eda-8558-f66832527373.request.json"
+      ]
+    }
+  ],
+  "source": {
+    "path": "brain/benchmarks/r01-candidates/claude-transport-faults.mjs",
+    "sha256": "08796eca2d75fa8992d6a96edf9b1a51d95356c429b7be7bf5d14ddacced73e3"
+  }
+}

@@ -18,10 +18,10 @@ import java.util.Arrays;
  * every {@link #POLL_MS} with {@code host.scheduleTask} (E2: a handler cannot see its own scroll in the same
  * task; D27 bounds what one task can observe) until the scopes settle or {@link #MAX_POLLS} pass.
  *
- * <p>Settling (B08, E352, E353): a scope is settled at a position when {@link Rig#scopeSettled} holds for the
+ * <p>Settling (B08, E352, E394): a scope is settled at a position when {@link Rig#scopeSettled} holds for the
  * position it was last asked for. A scope that was asked for the position and has not settled is scrolled
  * again every {@link #RESCROLL_POLLS} polls: a bank scrolled while cursor track 0 sat on a track with fewer
- * devices clamps and stays after the track gains devices (E353), and only a repeated scroll repairs it. The
+ * devices clamps and stays after the track gains devices (E394), and only a repeated scroll repairs it. The
  * track identity is polled too, with the same bound: after the brain points cursor track 0, the scopes and the
  * reference bank follow it at a structural pace (0/6 correct at 0 ms, 6/6 from 100 ms, containers.md §6).
  *
@@ -39,7 +39,7 @@ public final class ContainerScopes {
     public static final String RULE = WindowPager.RULE;
     public static final String POLICY = "container-scope-lru-v1";
     static final int POLL_MS = 5;
-    /** Polls between repeated scrolls of an unsettled scope (E353: a clamped bank needs the repeat). */
+    /** Polls between repeated scrolls of an unsettled scope (E394: a clamped bank needs the repeat). */
     static final int RESCROLL_POLLS = 10;
     /** Polls before an aim refuses: 400 polls of 5 ms, about 2 s. */
     static final int MAX_POLLS = 400;
@@ -323,7 +323,7 @@ public final class ContainerScopes {
         for (int s = 0; s < count; s++) {
             if (!excluded[s] && scopes.held(s) && settledAt(s, position)) return s;
         }
-        // Asked for it already but not settled: scroll it again (E353), never wait for it.
+        // Asked for it already but not settled: scroll it again (E394), never wait for it.
         for (int s = 0; s < count; s++) {
             if (!excluded[s] && scopes.held(s) && scopes.requestedPosition(s) == position) {
                 scroll(a, s, position);

@@ -1,0 +1,30 @@
+{
+  "type": "session_configured",
+  "session_id": "01a175df-17ba-7aa1-b172-c1fcb8d8f3b8",
+  "thread_id": "01a175df-17ba-7aa1-b172-c1fcb8d8f3b8",
+  "thread_source": "user",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "model_provider_id": "openai",
+  "approval_policy": "never",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-control-pRSFPD",
+  "reasoning_effort": "low"
+}

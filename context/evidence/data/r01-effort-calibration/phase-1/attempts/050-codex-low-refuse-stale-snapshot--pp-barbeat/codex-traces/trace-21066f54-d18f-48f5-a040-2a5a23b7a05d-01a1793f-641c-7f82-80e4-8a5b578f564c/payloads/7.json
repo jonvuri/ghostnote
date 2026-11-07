@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793f-65c9-7622-b42f-2203f5f86217",
+  "turn_id": "01a1793f-65c9-7622-b42f-2203f5f86217",
+  "last_agent_message": "REFUSE stale-snapshot",
+  "started_at": 1793035560,
+  "completed_at": 1793035562,
+  "duration_ms": 1844,
+  "time_to_first_token_ms": 1843
+}

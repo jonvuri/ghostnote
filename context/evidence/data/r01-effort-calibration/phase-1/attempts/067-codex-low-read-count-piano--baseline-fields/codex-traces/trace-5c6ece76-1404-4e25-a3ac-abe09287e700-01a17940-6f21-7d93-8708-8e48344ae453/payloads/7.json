@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a17940-7143-77b1-ac25-1780ea533975",
+  "turn_id": "01a17940-7143-77b1-ac25-1780ea533975",
+  "last_agent_message": "{\"count\":94,\"before4\":24}",
+  "started_at": 1793035628,
+  "completed_at": 1793035630,
+  "duration_ms": 2023,
+  "time_to_first_token_ms": 1869
+}

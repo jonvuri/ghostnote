@@ -1,0 +1,91 @@
+{
+  "schema": "r01-pilot-session-v1",
+  "stage": "development",
+  "session": 1,
+  "command": "start",
+  "afterInterruption": false,
+  "startedAt": "2026-10-27T12:14:15.640Z",
+  "node": "v24.11.1",
+  "package": {
+    "name": "pilot-development-v2",
+    "manifestSha256": "f59aca2971aad760c36cba4f87f2404ea3962ae24b8da4fe59f0fe5c62fe1030"
+  },
+  "binaries": {
+    "claude": {
+      "name": "claude",
+      "path": "/Users/jonvuri/.local/bin/claude",
+      "realPath": "/Users/jonvuri/.local/share/claude/versions/2.1.302",
+      "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+    },
+    "codex": {
+      "name": "codex",
+      "path": "/Users/jonvuri/.local/bin/codex",
+      "realPath": "/Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex",
+      "sha256": "8813367285524ac798dd96d1b071aea30d58708c7226fd236cd275cf1cfdee31"
+    }
+  },
+  "authentication": {
+    "claude": {
+      "authMethod": "claude.ai",
+      "apiProvider": "firstParty",
+      "subscriptionType": "max"
+    },
+    "codex": {
+      "method": "chatgpt"
+    }
+  },
+  "transportArgument": null,
+  "transportEvidenceSha256": {},
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "feedback": "r01-feedback-v2-locating",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "unscoredInterruptedAttempts": [],
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-pilot-runner.mjs",
+      "sha256": "259c653871c01c01b8d011441e05f2b2a79565e8829c1964f9f4c263b30491f0"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "0ff3b288d90eb5df1b1733a447211954ad46bb41474c1490eb5eb69d82e219f0"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "27e1c7881f707a0f27677a168461a9abc6bd8f261a5878f0d347f4db344ee5de"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "932162bf3ab954ac69fdb009d80365207aa00109918e7c3e1f413f28eee1d39f"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "b69fb2f480c794d4a60832b9be7f4efaf353f7ffb7c5ff1551193489c6bde503"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-context-policy.mjs",
+      "sha256": "1d3077b42203afb100fbb1f979efb1ca111467e1f525e2afa7fd809dd7659e29"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-isolation.mjs",
+      "sha256": "b12d112dfd8e393286ba23611c43c8f68ab3098e705f4d1871b5cb28dce1a589"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-trial-plan.mjs",
+      "sha256": "5841e9b53c3b1daff7c5d3cbe11d101e34759d4c1dc24130c1066629cf65a0fc"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "64d34971cf4b143f3e5ee223b1766193f58be13bf424d41db94b33d2cbe0c1c9"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-tasks.mjs",
+      "sha256": "f876f57becc04c81810543b522f4ae955a03c4f354cda081b573fa05d7d56574"
+    }
+  ]
+}

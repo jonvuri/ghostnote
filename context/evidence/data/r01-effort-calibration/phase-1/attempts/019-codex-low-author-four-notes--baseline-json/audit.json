@@ -1,0 +1,225 @@
+{
+  "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"id\":\"note1\",\"clip\":\"clip\",\"at\":\"0\",\"duration\":\"1/4\",\"pitch\":60,\"velocity\":96,\"channel\":1,\"mute\":false},{\"id\":\"note2\",\"clip\":\"clip\",\"at\":\"3/8\",\"duration\":\"1/8\",\"pitch\":63,\"velocity\":77,\"channel\":1,\"mute\":false},{\"id\":\"note3\",\"clip\":\"clip\",\"at\":\"5/8\",\"duration\":\"3/8\",\"pitch\":67,\"velocity\":88,\"channel\":1,\"mute\":false},{\"id\":\"note4\",\"clip\":\"clip\",\"at\":\"11/8\",\"duration\":\"5/8\",\"pitch\":58,\"velocity\":103,\"channel\":1,\"mute\":false}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 3833,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 245,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "73d93d7e1cc5e7589763185f1d8d9adcc5c23e59d7bca2e5ff2c2315e6874bb1",
+      "contextBytes": 18728,
+      "localSerializedContextTokens": null,
+      "requestSha256": "78cfec95d537ed3cb7489d31027590c000df8ed583694dbb1107459f5aee4c85",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 3922.1336249999877
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "4a6dc403174ac3ea81f22bb0183f078bef9779844b8641035103eeb605799e80"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "7f8bb1460df38acc66c384c1957b1526a6b66c4ab97c1a5b5915df16bd964aac"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "617916fc9779dd454bd3d465b1a0c52b6952d89d4637a51b97af026f972624e1"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "e90ca064a6400d3a150a1cffe31495071825f3b20a161261c5d65b8b8bee62be"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "7271ec53e7d8ffc68562c29e98eb79080974b542e782bf091cc85a4bddada451"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 4066,
+        "sha256": "efa5e6794a09f44784f897be63b6b774a596c0a3c7a91ae3b8ac3cf8bfbdbaef"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 3591,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "4a6dc403174ac3ea81f22bb0183f078bef9779844b8641035103eeb605799e80"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "7f8bb1460df38acc66c384c1957b1526a6b66c4ab97c1a5b5915df16bd964aac"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "617916fc9779dd454bd3d465b1a0c52b6952d89d4637a51b97af026f972624e1"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "e90ca064a6400d3a150a1cffe31495071825f3b20a161261c5d65b8b8bee62be"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "7271ec53e7d8ffc68562c29e98eb79080974b542e782bf091cc85a4bddada451"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 4066,
+            "sha256": "efa5e6794a09f44784f897be63b6b774a596c0a3c7a91ae3b8ac3cf8bfbdbaef"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 3591
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-UWN5V2/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 3833,
+  "finalOutputTokens": 245,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/manifest.json",
+      "sha256": "46a80a6dcd945be99dd997c5b809beeef38c6d59b031e38ce071ba5fef4f951f"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/trace.jsonl",
+      "sha256": "2ba80331b6f2b12d5f3671a69ea78bb3c3ba62ead075ed23743e4fd81850c22d"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/1.json",
+      "sha256": "738431edfb231dba852fc3444ed9d3775a1cfec432def1d8a70f08358ea8fbfc"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/2.json",
+      "sha256": "784c68ce79d58289bbdd03c4f1bcde53eb5c110c62d667ac3952be995fbfbcbe"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/3.json",
+      "sha256": "aa7fbbab5719f04d3509bd8be1cf0ed51bdf1e36549f2b022810f0991c42412c"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/4.json",
+      "sha256": "447dc95e4d3b69dd0ae199f627f9a31dc704383f5c18a120a606619f4a87a3a0"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/5.json",
+      "sha256": "176c0984477e2e8cc1ddf127a9d5f56303c753ef6483af5041c9bb65ac96d9a7"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/6.json",
+      "sha256": "413f859a959246a462d5097bcf10295978baa963fa473bebc2b36c067c06a3ec"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/7.json",
+      "sha256": "55a8c416f54ae679d472d9c4b3509cbcc766f032cd22423019cd231d25bfbbd1"
+    },
+    {
+      "path": "codex-traces/trace-3981be87-3c9e-4531-b420-a7b6c17a0115-01a1793c-8337-73e0-b7bf-d6b190d67921/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

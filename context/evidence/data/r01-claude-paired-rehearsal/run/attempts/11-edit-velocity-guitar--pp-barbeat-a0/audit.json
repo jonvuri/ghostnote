@@ -1,0 +1,202 @@
+{
+  "answer": "v64 n389/1024 Gb2 1|1\nn389/2048 G2 1|2+n133/1024\nB2 1|3+n143/2048\nv91 n461/2048 D3 1|4+n5/512\nv64 n123/512 Gb3 1|4+n481/2048\nG3 2|1+n115/512\nGb3 2|2+n55/256\nn443/512 Gb3 2|3+n419/2048\nn983/1024 C3 3|3+n143/2048\nn1147/1024 B2 4|3+n61/2048",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-4-5-20251001",
+  "servedModels": [
+    "claude-haiku-4-5-20251001"
+  ],
+  "modelVerified": true,
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "rawFinalUsage": {
+    "input_tokens": 1519,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 1704,
+    "output_tokens_details": {
+      "thinking_tokens": 1524
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 1519,
+        "output_tokens": 1704,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-4-5-20251001"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "reasoning": null,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled",
+        "display": "updates"
+      },
+      "effort": null,
+      "maxOutputTokens": 12000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "eb381d5f6da684d3b9d9f311f6d30113047a8fe71f4e936ae3454cb25d1a131d",
+      "contextBytes": 6100,
+      "localSerializedContextTokens": 1562,
+      "requestSha256": "49f28cfb8eacaca1990fd6173a5de1309a8bb3b3a6b67239d85825764a920b70",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 5
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "transportControl": {
+    "faultSuitePass": true,
+    "binaryMatches": true,
+    "retryControlsMatch": true,
+    "oneCapturedRequest": true
+  },
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v1",
+    "policySha256": "d54829afffc2694d49b3f7c4dfb43fcd4d92ca2b4b91b7a00ba92bc326d20639",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "f26bf3d8048329c78d32b19cab99181caad984769215c7a3d44a66d805bf5804"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "environment",
+        "role": "client-reminder",
+        "bytes": 782,
+        "sha256": "d53659bd2ce69fa8cb7285366f7d8791c6f1718aec07bddd94e7ecf93fb2c650"
+      },
+      {
+        "kind": "model-identity",
+        "role": "client-reminder",
+        "bytes": 176,
+        "sha256": "97c808babde1e22c53c5672ec87de5288a2e600f531a25aa094c0cb9a471a65d"
+      },
+      {
+        "kind": "token-budget",
+        "role": "client-reminder",
+        "bytes": 86,
+        "sha256": "d1b5389a85a66596a261545470fb784c0be377158bbf7e47a9671ee84dfcc533"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 558,
+        "sha256": "892615b6f0708120cce43bea38b7ac4c06da921ffa4d9b927db842a726ecc828"
+      },
+      {
+        "kind": "date",
+        "role": "client-reminder",
+        "bytes": 65,
+        "sha256": "493d714b92fc3638c2d61c980d020b277c72624c47d4df56f66ccb7fdd5e03e1"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 3495,
+        "sha256": "2650474b7a25fd485d3126aedf31b7790c49f88622d1c09642a03e39bdea27a2"
+      }
+    ],
+    "clientAddedTextBytes": 2092,
+    "taskBytes": 3495,
+    "volatile": {
+      "sessionId": "857db900-793d-4a42-8239-dff2aea52f6d",
+      "versionSuffix": "364",
+      "promptId": "72da3083-d831-482e-93b7-b9d6e49bad18",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-25"
+    }
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 1519,
+  "finalOutputTokens": 1704,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/c4a9bcb0-682e-431a-85f2-03120c909245.request.json",
+      "sha256": "49f28cfb8eacaca1990fd6173a5de1309a8bb3b3a6b67239d85825764a920b70"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "91e3d2dcd52b1cfb2927dd74f83922ee438715017158faa08adf7986c758d199"
+    },
+    {
+      "path": "api-bodies/req_011CgQ5Kz5rdTf3bnmRgYrQN.response.json",
+      "sha256": "acdf0e55c28848de4f0c5ce01962d24d3141e1bb1dfee1b827d4aed5b66f56f0"
+    }
+  ]
+}

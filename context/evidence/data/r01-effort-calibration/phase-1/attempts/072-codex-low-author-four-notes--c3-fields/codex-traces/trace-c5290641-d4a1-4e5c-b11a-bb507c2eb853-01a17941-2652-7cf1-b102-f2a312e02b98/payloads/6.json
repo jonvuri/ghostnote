@@ -1,0 +1,33 @@
+{
+  "response_id": "resp_0313eaa9ed3d202d016adf8d9cdf2c81949e7bb3edeaa28bed",
+  "upstream_request_id": null,
+  "token_usage": {
+    "input_tokens": 3640,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 82,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 3722
+  },
+  "output_items": [
+    {
+      "type": "message",
+      "status": "completed",
+      "id": "msg_0313eaa9ed3d202d016adf8d9d98ec81949fe5e2c6dfd05c92",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE note1 60 0 1/4 96\nNOTE note2 63 3/8 1/8 77\nNOTE note3 67 5/8 3/8 88\nNOTE note4 58 11/8 5/8 103",
+          "annotations": [],
+          "logprobs": []
+        }
+      ],
+      "phase": "final_answer",
+      "internal_chat_message_metadata_passthrough": {
+        "turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+        "create_time": 1793035677.6009233
+      }
+    }
+  ]
+}

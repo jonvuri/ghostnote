@@ -1,0 +1,801 @@
+{
+ "claude-current": {
+  "runs": 261,
+  "submissions": 275,
+  "first": 247,
+  "within": 261,
+  "perRepeat": [
+   80,
+   83,
+   84
+  ],
+  "stalls": 0,
+  "repairsUsed": 14,
+  "medianInitialOutputTokens": 1505,
+  "totalInputTokens": 895292,
+  "totalOutputTokens": 626761,
+  "medianElapsedMs": 6978.270125000039,
+  "sourceByTaskArm": {
+   "p02-read-group-timing|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-fields": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-detached-fields": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-json": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   }
+  },
+  "sourceByArm": {
+   "c3-fields": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "c3-json": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   },
+   "c4-detached-fields": {
+    "f": 20,
+    "w": 21,
+    "n": 21
+   },
+   "c4-fields": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   },
+   "c4-json": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   }
+  },
+  "performedByArm": {
+   "baseline-fields": {
+    "f": 23,
+    "w": 24,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 21,
+    "w": 24,
+    "n": 24
+   },
+   "c3-fields": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   },
+   "c4-fields": {
+    "f": 22,
+    "w": 24,
+    "n": 24
+   },
+   "pp-barbeat": {
+    "f": 20,
+    "w": 24,
+    "n": 24
+   },
+   "pp-midi-json": {
+    "f": 24,
+    "w": 24,
+    "n": 24
+   }
+  },
+  "performedByTask": {
+   "p01-read-sounding-at": {
+    "f": 12,
+    "w": 18,
+    "n": 18
+   },
+   "p03-author-constrained": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   },
+   "p05-edit-velocity-large": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p06-transpose-every-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p08-shift-transpose-range": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 16,
+    "w": 18,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   }
+  },
+  "byTask": {
+   "p01-read-sounding-at": {
+    "f": 12,
+    "w": 18,
+    "n": 18
+   },
+   "p02-read-group-timing": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p03-author-constrained": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p05-edit-velocity-large": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p06-transpose-every-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p08-shift-transpose-range": {
+    "f": 17,
+    "w": 18,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 16,
+    "w": 18,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 11,
+    "w": 12,
+    "n": 12
+   },
+   "p13-read-derived-window": {
+    "f": 12,
+    "w": 15,
+    "n": 15
+   },
+   "p14-group-existing-notes": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p15-move-member-between-groups": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   },
+   "p16-retime-two-groups": {
+    "f": 15,
+    "w": 15,
+    "n": 15
+   }
+  },
+  "cellsFailingEveryRepeat": 1,
+  "p10Refusals": 18
+ },
+ "codex-current": {
+  "runs": 261,
+  "submissions": 477,
+  "first": 138,
+  "within": 187,
+  "perRepeat": [
+   44,
+   43,
+   51
+  ],
+  "stalls": 2,
+  "repairsUsed": 214,
+  "medianInitialOutputTokens": 381,
+  "totalInputTokens": 2471458,
+  "totalOutputTokens": 376289,
+  "medianElapsedMs": 4477.08825000003,
+  "sourceByTaskArm": {
+   "p02-read-group-timing|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-detached-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p02-read-group-timing|c4-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p04-author-known-spread|c3-json": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-detached-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p04-author-known-spread|c4-json": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c3-json": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-detached-fields": {
+    "f": 1,
+    "w": 1,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p07-halve-spread-move-anchor|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c3-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p12-preserve-exact-wider|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-detached-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-fields": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p13-read-derived-window|c4-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p14-group-existing-notes|c3-json": {
+    "f": 0,
+    "w": 0,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-detached-fields": {
+    "f": 0,
+    "w": 1,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-fields": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p14-group-existing-notes|c4-json": {
+    "f": 1,
+    "w": 1,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-fields": {
+    "f": 0,
+    "w": 2,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c3-json": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-detached-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p15-move-member-between-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-fields": {
+    "f": 1,
+    "w": 2,
+    "n": 3
+   },
+   "p16-retime-two-groups|c3-json": {
+    "f": 2,
+    "w": 2,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-detached-fields": {
+    "f": 2,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-fields": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   },
+   "p16-retime-two-groups|c4-json": {
+    "f": 3,
+    "w": 3,
+    "n": 3
+   }
+  },
+  "sourceByArm": {
+   "c3-fields": {
+    "f": 8,
+    "w": 14,
+    "n": 24
+   },
+   "c3-json": {
+    "f": 10,
+    "w": 14,
+    "n": 24
+   },
+   "c4-detached-fields": {
+    "f": 8,
+    "w": 12,
+    "n": 21
+   },
+   "c4-fields": {
+    "f": 15,
+    "w": 17,
+    "n": 24
+   },
+   "c4-json": {
+    "f": 13,
+    "w": 15,
+    "n": 24
+   }
+  },
+  "performedByArm": {
+   "baseline-fields": {
+    "f": 15,
+    "w": 21,
+    "n": 24
+   },
+   "baseline-json": {
+    "f": 16,
+    "w": 19,
+    "n": 24
+   },
+   "c3-fields": {
+    "f": 16,
+    "w": 21,
+    "n": 24
+   },
+   "c4-fields": {
+    "f": 18,
+    "w": 22,
+    "n": 24
+   },
+   "pp-barbeat": {
+    "f": 5,
+    "w": 12,
+    "n": 24
+   },
+   "pp-midi-json": {
+    "f": 14,
+    "w": 20,
+    "n": 24
+   }
+  },
+  "performedByTask": {
+   "p01-read-sounding-at": {
+    "f": 5,
+    "w": 14,
+    "n": 18
+   },
+   "p03-author-constrained": {
+    "f": 15,
+    "w": 17,
+    "n": 18
+   },
+   "p05-edit-velocity-large": {
+    "f": 15,
+    "w": 17,
+    "n": 18
+   },
+   "p06-transpose-every-pitch": {
+    "f": 13,
+    "w": 16,
+    "n": 18
+   },
+   "p08-shift-transpose-range": {
+    "f": 4,
+    "w": 8,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 2,
+    "w": 7,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 12,
+    "w": 18,
+    "n": 18
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   }
+  },
+  "byTask": {
+   "p01-read-sounding-at": {
+    "f": 5,
+    "w": 14,
+    "n": 18
+   },
+   "p02-read-group-timing": {
+    "f": 6,
+    "w": 6,
+    "n": 15
+   },
+   "p03-author-constrained": {
+    "f": 15,
+    "w": 17,
+    "n": 18
+   },
+   "p04-author-known-spread": {
+    "f": 6,
+    "w": 11,
+    "n": 15
+   },
+   "p05-edit-velocity-large": {
+    "f": 15,
+    "w": 17,
+    "n": 18
+   },
+   "p06-transpose-every-pitch": {
+    "f": 13,
+    "w": 16,
+    "n": 18
+   },
+   "p07-halve-spread-move-anchor": {
+    "f": 8,
+    "w": 11,
+    "n": 15
+   },
+   "p08-shift-transpose-range": {
+    "f": 4,
+    "w": 8,
+    "n": 18
+   },
+   "p09-delete-near-miss": {
+    "f": 2,
+    "w": 7,
+    "n": 18
+   },
+   "p10-refuse-ambiguous-pitch": {
+    "f": 12,
+    "w": 18,
+    "n": 18
+   },
+   "p11-preserve-window": {
+    "f": 18,
+    "w": 18,
+    "n": 18
+   },
+   "p12-preserve-exact-wider": {
+    "f": 12,
+    "w": 12,
+    "n": 12
+   },
+   "p13-read-derived-window": {
+    "f": 1,
+    "w": 2,
+    "n": 15
+   },
+   "p14-group-existing-notes": {
+    "f": 1,
+    "w": 5,
+    "n": 15
+   },
+   "p15-move-member-between-groups": {
+    "f": 9,
+    "w": 12,
+    "n": 15
+   },
+   "p16-retime-two-groups": {
+    "f": 11,
+    "w": 13,
+    "n": 15
+   }
+  },
+  "cellsFailingEveryRepeat": 29,
+  "p10Refusals": 12
+ },
+ "generatedTokenGap": 3.9501312335958003
+}

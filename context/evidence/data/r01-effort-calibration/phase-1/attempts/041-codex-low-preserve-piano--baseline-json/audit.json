@@ -1,0 +1,225 @@
+{
+  "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n1\",\"pitch\":42,\"velocity\":64},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n2\",\"pitch\":68,\"velocity\":64},{\"at\":\"85/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n3\",\"pitch\":49,\"velocity\":64},{\"at\":\"85/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n4\",\"pitch\":57,\"velocity\":64},{\"at\":\"85/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n5\",\"pitch\":54,\"velocity\":64},{\"at\":\"85/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n6\",\"pitch\":61,\"velocity\":64},{\"at\":\"255/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n7\",\"pitch\":49,\"velocity\":64},{\"at\":\"255/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n8\",\"pitch\":68,\"velocity\":64},{\"at\":\"85/64\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n9\",\"pitch\":56,\"velocity\":64},{\"at\":\"85/64\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n10\",\"pitch\":59,\"velocity\":64},{\"at\":\"857/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n11\",\"pitch\":49,\"velocity\":64},{\"at\":\"857/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n12\",\"pitch\":61,\"velocity\":64},{\"at\":\"257/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n13\",\"pitch\":42,\"velocity\":64},{\"at\":\"257/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n14\",\"pitch\":68,\"velocity\":64},{\"at\":\"599/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n15\",\"pitch\":49,\"velocity\":64},{\"at\":\"599/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n16\",\"pitch\":57,\"velocity\":64},{\"at\":\"171/64\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n17\",\"pitch\":54,\"velocity\":64},{\"at\":\"171/64\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n18\",\"pitch\":65,\"velocity\":64},{\"at\":\"769/256\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n19\",\"pitch\":49,\"velocity\":64},{\"at\":\"769/256\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n20\",\"pitch\":57,\"velocity\":64},{\"at\":\"1715/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n21\",\"pitch\":53,\"velocity\":64},{\"at\":\"1715/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n22\",\"pitch\":66,\"velocity\":64},{\"at\":\"1885/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n23\",\"pitch\":49,\"velocity\":64},{\"at\":\"1885/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n24\",\"pitch\":57,\"velocity\":64},{\"at\":\"2055/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n25\",\"pitch\":47,\"velocity\":64},{\"at\":\"2055/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n26\",\"pitch\":73,\"velocity\":64},{\"at\":\"1113/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n27\",\"pitch\":54,\"velocity\":64},{\"at\":\"1113/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n28\",\"pitch\":62,\"velocity\":64},{\"at\":\"599/128\",\"clip\":\"clip\",\"duration\":\"85/64\",\"id\":\"t1n29\",\"pitch\":59,\"velocity\":64},{\"at\":\"599/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n30\",\"pitch\":66,\"velocity\":64},{\"at\":\"1283/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n31\",\"pitch\":73,\"velocity\":64},{\"at\":\"171/32\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n32\",\"pitch\":61,\"velocity\":64},{\"at\":\"171/32\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n33\",\"pitch\":64,\"velocity\":64},{\"at\":\"1453/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n34\",\"pitch\":66,\"velocity\":64},{\"at\":\"769/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n35\",\"pitch\":47,\"velocity\":64},{\"at\":\"769/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n36\",\"pitch\":73,\"velocity\":64},{\"at\":\"1623/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n37\",\"pitch\":54,\"velocity\":64},{\"at\":\"1623/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n38\",\"pitch\":62,\"velocity\":64},{\"at\":\"427/64\",\"clip\":\"clip\",\"duration\":\"85/128\",\"id\":\"t1n39\",\"pitch\":59,\"velocity\":64},{\"at\":\"427/64\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n40\",\"pitch\":70,\"velocity\":64},{\"at\":\"1793/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n41\",\"pitch\":62,\"velocity\":64},{\"at\":\"939/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n42\",\"pitch\":59,\"velocity\":64},{\"at\":\"939/128\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n43\",\"pitch\":71,\"velocity\":64},{\"at\":\"1963/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n44\",\"pitch\":62,\"velocity\":64},{\"at\":\"4097/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n45\",\"pitch\":43,\"velocity\":64},{\"at\":\"4097/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n46\",\"pitch\":78,\"velocity\":64},{\"at\":\"4267/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n47\",\"pitch\":50,\"velocity\":64},{\"at\":\"4267/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n48\",\"pitch\":67,\"velocity\":64},{\"at\":\"4437/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n49\",\"pitch\":55,\"velocity\":64},{\"at\":\"4437/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n50\",\"pitch\":71,\"velocity\":64},{\"at\":\"4607/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n51\",\"pitch\":50,\"velocity\":64},{\"at\":\"4607/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n52\",\"pitch\":78,\"velocity\":64},{\"at\":\"4777/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n53\",\"pitch\":57,\"velocity\":64},{\"at\":\"4777/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n54\",\"pitch\":69,\"velocity\":64},{\"at\":\"2477/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n55\",\"pitch\":50,\"velocity\":64},{\"at\":\"2477/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n56\",\"pitch\":71,\"velocity\":64},{\"at\":\"5125/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n57\",\"pitch\":43,\"velocity\":64},{\"at\":\"5125/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n58\",\"pitch\":78,\"velocity\":64},{\"at\":\"5295/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n59\",\"pitch\":50,\"velocity\":64},{\"at\":\"5295/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n60\",\"pitch\":67,\"velocity\":64},{\"at\":\"5465/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n61\",\"pitch\":57,\"velocity\":64},{\"at\":\"5465/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n62\",\"pitch\":76,\"velocity\":64},{\"at\":\"5635/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n63\",\"pitch\":50,\"velocity\":64},{\"at\":\"5635/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n64\",\"pitch\":67,\"velocity\":64},{\"at\":\"5805/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n65\",\"pitch\":55,\"velocity\":64},{\"at\":\"5805/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n66\",\"pitch\":74,\"velocity\":64},{\"at\":\"5975/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n67\",\"pitch\":50,\"velocity\":64},{\"at\":\"5975/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n68\",\"pitch\":67,\"velocity\":64},{\"at\":\"6145/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n69\",\"pitch\":42,\"velocity\":64},{\"at\":\"6145/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n70\",\"pitch\":76,\"velocity\":64},{\"at\":\"6315/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n71\",\"pitch\":49,\"velocity\":64},{\"at\":\"6315/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n72\",\"pitch\":64,\"velocity\":64},{\"at\":\"6493/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n73\",\"pitch\":54,\"velocity\":64},{\"at\":\"6493/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n74\",\"pitch\":69,\"velocity\":64},{\"at\":\"6663/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n75\",\"pitch\":49,\"velocity\":64},{\"at\":\"6663/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n76\",\"pitch\":76,\"velocity\":64},{\"at\":\"6833/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n77\",\"pitch\":56,\"velocity\":64},{\"at\":\"6833/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n78\",\"pitch\":64,\"velocity\":64},{\"at\":\"7003/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n79\",\"pitch\":49,\"velocity\":64},{\"at\":\"7003/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n80\",\"pitch\":68,\"velocity\":64},{\"at\":\"7173/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n81\",\"pitch\":42,\"velocity\":64},{\"at\":\"7173/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n82\",\"pitch\":76,\"velocity\":64},{\"at\":\"7351/512\",\"clip\":\"clip\",\"duration\":\"141/512\",\"id\":\"t1n83\",\"pitch\":49,\"velocity\":64},{\"at\":\"7351/512\",\"clip\":\"clip\",\"duration\":\"141/512\",\"id\":\"t1n84\",\"pitch\":64,\"velocity\":64},{\"at\":\"7491/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n85\",\"pitch\":54,\"velocity\":64},{\"at\":\"7491/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n86\",\"pitch\":74,\"velocity\":64},{\"at\":\"7661/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n87\",\"pitch\":49,\"velocity\":64},{\"at\":\"7661/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n88\",\"pitch\":64,\"velocity\":64},{\"at\":\"7839/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n89\",\"pitch\":54,\"velocity\":64},{\"at\":\"7839/512\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n90\",\"pitch\":73,\"velocity\":64},{\"at\":\"8009/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n91\",\"pitch\":49,\"velocity\":64},{\"at\":\"8009/512\",\"clip\":\"clip\",\"duration\":\"177/512\",\"id\":\"t1n92\",\"pitch\":64,\"velocity\":64},{\"at\":\"4093/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n93\",\"pitch\":40,\"velocity\":64},{\"at\":\"4093/256\",\"clip\":\"clip\",\"duration\":\"85/256\",\"id\":\"t1n94\",\"pitch\":73,\"velocity\":64}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 6748,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3073,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "cde69bad8567ad08be317fe56e24baecb4cfdf47a570f2a6a16de3fc78568282",
+      "contextBytes": 28923,
+      "localSerializedContextTokens": null,
+      "requestSha256": "f461672d216e1660efc94087ba785560389edd08e6a46efa171d3cae6c46002b",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 30386.347375000012
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "46db74abed4eea765535d3ec6b835f41bcc6f8a7f2b8fd6498de6fe9b4d7dac4"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "f98c23977ecf3f3e63bbcbc87d1b76272871bb5d477f61e59812b3d14adfc836"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "e35014dbb67051604e35b8cf8c665d0a4a51c390f0780dffd43a435325242a7e"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "a90dbf06679f547b0ba2e2167e3d0f0bb491bb58004dd7e78466e36709956209"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "bb9e6ecea4ae8e45203a5529398077c7b9bfd44ba50918fd32fe5579e39e3b66"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 14261,
+        "sha256": "290b2a9fdb0c1c69890d5ab64c710b4784e6467d6adb4f2d42e7dffbaaebb5c4"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 11906,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "46db74abed4eea765535d3ec6b835f41bcc6f8a7f2b8fd6498de6fe9b4d7dac4"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "f98c23977ecf3f3e63bbcbc87d1b76272871bb5d477f61e59812b3d14adfc836"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "e35014dbb67051604e35b8cf8c665d0a4a51c390f0780dffd43a435325242a7e"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "a90dbf06679f547b0ba2e2167e3d0f0bb491bb58004dd7e78466e36709956209"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "bb9e6ecea4ae8e45203a5529398077c7b9bfd44ba50918fd32fe5579e39e3b66"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 14261,
+            "sha256": "290b2a9fdb0c1c69890d5ab64c710b4784e6467d6adb4f2d42e7dffbaaebb5c4"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 11906
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-Jn2cfL/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 6748,
+  "finalOutputTokens": 3073,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/manifest.json",
+      "sha256": "b4c1fbbed1ec42875cf5fda2a3c98d3bc713ea37bf88e851e7c960716a37bcde"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/trace.jsonl",
+      "sha256": "1806065013a44bc7c6f8abbfcdf74b5023721e44b1f8c5d4502f2cb4516c9923"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/1.json",
+      "sha256": "3334012fec29f5e507b137cc4a6ca2c559c7a2466e7907bacab12c5792b80dd2"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/2.json",
+      "sha256": "7a6ae4c0a685d31de58b35aebaf08248c854caf5c5c0c7359c1ff406e176c2be"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/3.json",
+      "sha256": "e0c925ceeb574bb933afc102b97fc444513ca402c9da84456a3638b4128cf4c4"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/4.json",
+      "sha256": "661710fc2178e5d1e4f8e4991030984b1eeb76c1c9998dd10b4fc426b073e9f6"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/5.json",
+      "sha256": "60366d5b0dcf93eecc68374aefc38de1268f57c0ae21754005a7851674ddb783"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/6.json",
+      "sha256": "c5dc012e6fe5899189c923323895c03473a85ff5d1606f859b4f646a0832ff40"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/7.json",
+      "sha256": "9c1fe2a1fa174866231c2e8fcef0a11bb84e02eb370a64881d31d092d381dcbc"
+    },
+    {
+      "path": "codex-traces/trace-d0096853-3b8e-4463-a718-ea820cb3bcf1-01a1793e-58ac-7a70-8dce-212617d1155b/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "answer": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 85/256 42 64 1 false\nEVENT t1n2 clip 0 85/256 68 64 1 false\nEVENT t1n3 clip 85/256 85/256 49 64 1 false\nEVENT t1n4 clip 85/256 85/256 57 64 1 false\nEVENT t1n5 clip 85/128 85/256 54 64 1 false\nEVENT t1n6 clip 85/128 85/256 61 64 1 false\nEVENT t1n7 clip 255/256 85/256 49 64 1 false\nEVENT t1n8 clip 255/256 85/256 68 64 1 false\nEVENT t1n9 clip 85/64 177/512 56 64 1 false\nEVENT t1n10 clip 85/64 177/512 59 64 1 false\nEVENT t1n11 clip 857/512 85/256 49 64 1 false\nEVENT t1n12 clip 857/512 85/256 61 64 1 false\nEVENT t1n13 clip 257/128 85/256 42 64 1 false\nEVENT t1n14 clip 257/128 85/256 68 64 1 false\nEVENT t1n15 clip 599/256 85/256 49 64 1 false\nEVENT t1n16 clip 599/256 85/256 57 64 1 false\nEVENT t1n17 clip 171/64 85/256 54 64 1 false\nEVENT t1n18 clip 171/64 85/256 65 64 1 false\nEVENT t1n19 clip 769/256 177/512 49 64 1 false\nEVENT t1n20 clip 769/256 177/512 57 64 1 false\nEVENT t1n21 clip 1715/512 85/256 53 64 1 false\nEVENT t1n22 clip 1715/512 85/256 66 64 1 false\nEVENT t1n23 clip 1885/512 85/256 49 64 1 false\nEVENT t1n24 clip 1885/512 85/256 57 64 1 false\nEVENT t1n25 clip 2055/512 85/256 47 64 1 false\nEVENT t1n26 clip 2055/512 85/256 73 64 1 false\nEVENT t1n27 clip 1113/256 85/256 54 64 1 false\nEVENT t1n28 clip 1113/256 85/256 62 64 1 false\nEVENT t1n29 clip 599/128 85/64 59 64 1 false\nEVENT t1n30 clip 599/128 85/256 66 64 1 false\nEVENT t1n31 clip 1283/256 85/256 73 64 1 false\nEVENT t1n32 clip 171/32 85/256 61 64 1 false\nEVENT t1n33 clip 171/32 85/256 64 64 1 false\nEVENT t1n34 clip 1453/256 85/256 66 64 1 false\nEVENT t1n35 clip 769/128 85/256 47 64 1 false\nEVENT t1n36 clip 769/128 85/256 73 64 1 false\nEVENT t1n37 clip 1623/256 85/256 54 64 1 false\nEVENT t1n38 clip 1623/256 85/256 62 64 1 false\nEVENT t1n39 clip 427/64 85/128 59 64 1 false\nEVENT t1n40 clip 427/64 85/256 70 64 1 false\nEVENT t1n41 clip 1793/256 85/256 62 64 1 false\nEVENT t1n42 clip 939/128 85/256 59 64 1 false\nEVENT t1n43 clip 939/128 85/256 71 64 1 false\nEVENT t1n44 clip 1963/256 85/256 62 64 1 false\nEVENT t1n45 clip 4097/512 85/256 43 64 1 false\nEVENT t1n46 clip 4097/512 85/256 78 64 1 false\nEVENT t1n47 clip 4267/512 85/256 50 64 1 false\nEVENT t1n48 clip 4267/512 85/256 67 64 1 false\nEVENT t1n49 clip 4437/512 85/256 55 64 1 false\nEVENT t1n50 clip 4437/512 85/256 71 64 1 false\nEVENT t1n51 clip 4607/512 85/256 50 64 1 false\nEVENT t1n52 clip 4607/512 85/256 78 64 1 false\nEVENT t1n53 clip 4777/512 177/512 57 64 1 false\nEVENT t1n54 clip 4777/512 177/512 69 64 1 false\nEVENT t1n55 clip 2477/256 85/256 50 64 1 false\nEVENT t1n56 clip 2477/256 85/256 71 64 1 false\nEVENT t1n57 clip 5125/512 85/256 43 64 1 false\nEVENT t1n58 clip 5125/512 85/256 78 64 1 false\nEVENT t1n59 clip 5295/512 85/256 50 64 1 false\nEVENT t1n60 clip 5295/512 85/256 67 64 1 false\nEVENT t1n61 clip 5465/512 85/256 57 64 1 false\nEVENT t1n62 clip 5465/512 85/256 76 64 1 false\nEVENT t1n63 clip 5635/512 85/256 50 64 1 false\nEVENT t1n64 clip 5635/512 85/256 67 64 1 false\nEVENT t1n65 clip 5805/512 85/256 55 64 1 false\nEVENT t1n66 clip 5805/512 85/256 74 64 1 false\nEVENT t1n67 clip 5975/512 85/256 50 64 1 false\nEVENT t1n68 clip 5975/512 85/256 67 64 1 false\nEVENT t1n69 clip 6145/512 85/256 42 64 1 false\nEVENT t1n70 clip 6145/512 85/256 76 64 1 false\nEVENT t1n71 clip 6315/512 177/512 49 64 1 false\nEVENT t1n72 clip 6315/512 177/512 64 64 1 false\nEVENT t1n73 clip 6493/512 85/256 54 64 1 false\nEVENT t1n74 clip 6493/512 85/256 69 64 1 false\nEVENT t1n75 clip 6663/512 85/256 49 64 1 false\nEVENT t1n76 clip 6663/512 85/256 76 64 1 false\nEVENT t1n77 clip 6833/512 85/256 56 64 1 false\nEVENT t1n78 clip 6833/512 85/256 64 64 1 false\nEVENT t1n79 clip 7003/512 85/256 49 64 1 false\nEVENT t1n80 clip 7003/512 85/256 68 64 1 false\nEVENT t1n81 clip 7173/512 177/512 42 64 1 false\nEVENT t1n82 clip 7173/512 177/512 76 64 1 false\nEVENT t1n83 clip 7351/512 141/512 49 64 1 false\nEVENT t1n84 clip 7351/512 141/512 64 64 1 false\nEVENT t1n85 clip 7491/512 85/256 54 64 1 false\nEVENT t1n86 clip 7491/512 85/256 74 64 1 false\nEVENT t1n87 clip 7661/512 177/512 49 64 1 false\nEVENT t1n88 clip 7661/512 177/512 64 64 1 false\nEVENT t1n89 clip 7839/512 85/256 54 64 1 false\nEVENT t1n90 clip 7839/512 85/256 73 64 1 false\nEVENT t1n91 clip 8009/512 177/512 49 64 1 false\nEVENT t1n92 clip 8009/512 177/512 64 64 1 false\nEVENT t1n93 clip 4093/256 85/256 40 64 1 false\nEVENT t1n94 clip 4093/256 85/256 73 64 1 false",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 5901,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 2220,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "dd981267ac9b792d4de3faae4213eed65d50c00c89db82433e8dda7036247aac",
+      "contextBytes": 23098,
+      "localSerializedContextTokens": null,
+      "requestSha256": "1d7bde14b44e529fca503c90339f03f4cd932aeeee369b229698ff36528c0664",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 17080.664541000006
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "b32b40fd44e32d90318ac2ac0dbf6afb1c1d7ae286cb3680e27061492b51ec86"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "f755ea96fa9edacfe5eefb78fb1c827869ace38954096dd0ee1b328ed5c78007"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "66baeb03f1ee0e8dcd7e07f4de4b85785f24e3b1472111ca0bd044b63d37db4a"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "fef3288b6134d5d05ba6f762c9fa3115471a98b0ade3c84976c0a5a5893ccad2"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "b517c5288b2bc8deed5332a0145b20817e8697b26dffba2bd65b19e7062b891e"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 8436,
+        "sha256": "56bfdcc6f1fa96ee60dde2bf8f0df3ba55545c8847b5745ea8cc7002c7769831"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 7945,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "b32b40fd44e32d90318ac2ac0dbf6afb1c1d7ae286cb3680e27061492b51ec86"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "f755ea96fa9edacfe5eefb78fb1c827869ace38954096dd0ee1b328ed5c78007"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "66baeb03f1ee0e8dcd7e07f4de4b85785f24e3b1472111ca0bd044b63d37db4a"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "fef3288b6134d5d05ba6f762c9fa3115471a98b0ade3c84976c0a5a5893ccad2"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "b517c5288b2bc8deed5332a0145b20817e8697b26dffba2bd65b19e7062b891e"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 8436,
+            "sha256": "56bfdcc6f1fa96ee60dde2bf8f0df3ba55545c8847b5745ea8cc7002c7769831"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 7945
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-Pk0E18/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 5901,
+  "finalOutputTokens": 2220,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/manifest.json",
+      "sha256": "cc3bc022b38b851b40fa79ddbe079ca5350651fe0e6d340407fd2deb259c6b34"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/trace.jsonl",
+      "sha256": "517326d7e3b52e24e6f1d8f25da84d4e2ecac358f8c6f84a148dd9f5ddc05efa"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/1.json",
+      "sha256": "abf714c464c242e383f8c225a57a743904f9735ee4f8d6855c512ca937cf126d"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/2.json",
+      "sha256": "ff8333d34758bdd751154ca0d97c78f979a883fd4d56081686936262d4e04751"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/3.json",
+      "sha256": "90a914504076d002fc09cde201615b13763f96b8fb0b4c24715f3c965e0d3227"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/4.json",
+      "sha256": "130260f72aba2fc1a9bef7d6a83e4590c8a6d868f239a8e309ce34a8e101274b"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/5.json",
+      "sha256": "6deaf8abe078124d00064260673ee13056e933ef94889f3e858031871247e947"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/6.json",
+      "sha256": "565fd817f5b34a7dda1cc8c766e2ae149139d2c32d192fb627b25420332aa361"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/7.json",
+      "sha256": "594adaaf0ea440e6f6cc2d9af80b13d821cff53e82534ad6d6cb29ac68c4d9f9"
+    },
+    {
+      "path": "codex-traces/trace-925a410c-9b86-401b-9bc7-7b5492c91197-01a1793d-a7f7-7a01-84b2-70b99c0992ec/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793b-f2d0-7c81-aa43-c61a7320da91",
+  "turn_id": "01a1793b-f2d0-7c81-aa43-c61a7320da91",
+  "last_agent_message": "REFUSE missing-timing",
+  "started_at": 1793035334,
+  "completed_at": 1793035339,
+  "duration_ms": 5589,
+  "time_to_first_token_ms": 4548
+}

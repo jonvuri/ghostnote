@@ -1,0 +1,214 @@
+{
+  "schema": "r01-natural-token-policy-amendment-v1",
+  "decision": "context/decisions/d57-r01-natural-token-use.md",
+  "stage": "development",
+  "newExternalCalls": 0,
+  "historicalSnapshots": [
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "fe993feea1ff3ec6047f5221ef96bca29d5ab9db0e7c608940cfbd550719c76f"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "67cb84792ecc9199f9c933b7f6fbf7d73e45de06db08dbe0958014f20a1d74d1"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "3eabdfa513f430fbdabeabdde36f191a2e8850170ccbb6a0ca65b14e6b352248"
+    },
+    {
+      "originalPath": "context/BACKLOG.md",
+      "snapshotPath": "prior-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "2c767ee7f84919c2c6720f0542f45f063032894731c7d23aa2b0cf9c4c704dd9"
+    },
+    {
+      "originalPath": "context/NOW.md",
+      "snapshotPath": "prior-source-snapshots/context/NOW.md.txt",
+      "sha256": "6d948eddeff10491f23e4a07fa5d14bd98cff33c22e3fba7082865d1aa18ea6c"
+    },
+    {
+      "originalPath": "context/decisions/INDEX.md",
+      "snapshotPath": "prior-source-snapshots/context/decisions/INDEX.md.txt",
+      "sha256": "df0a9f7f51e4d71c7acb1be6b3f6c2a0a091d7c534b95d4d34adf33e46287bfe"
+    },
+    {
+      "originalPath": "context/decisions/d56-r01-codex-reject-tool-use.md",
+      "snapshotPath": "prior-source-snapshots/context/decisions/d56-r01-codex-reject-tool-use.md.txt",
+      "sha256": "71d9f405214ff8463dfe02870f445462b6cb3aa7f6b6ef33c9dda94173fac341"
+    },
+    {
+      "originalPath": "context/work/r01-codex-admission.md",
+      "snapshotPath": "prior-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "b8e036af4bf49fe82375b77a9fc4d5f74e36ad83ac8a45967d6318dc2f54c4f1"
+    },
+    {
+      "originalPath": "context/work/r01-format-comparison.md",
+      "snapshotPath": "prior-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "08e4abac5cb5e1d3ba5b2523bb0eb5ed96d3851fcdcd1f7aea8cb98af9dfb2b4"
+    },
+    {
+      "originalPath": "spec/r01-research/CLI-CONTROLS.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "34ab8ea54cc07ca8fd581bd9811b362694aa84a6908e5e6da7fa74c46c60a32e"
+    },
+    {
+      "originalPath": "spec/r01-research/PILOT-DRAFT.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "9bc7a787e48f43328659f85732d0cd8d9b8639e7071d35b06b6a220c928bf885"
+    },
+    {
+      "originalPath": "spec/r01-research/README.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "d72dbed9f872f020e90af69b116902b4677725ba97bc4c9d4c05073e93314899"
+    },
+    {
+      "originalPath": "spec/r01-research/TRIAL-PROTOCOL.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/TRIAL-PROTOCOL.md.txt",
+      "sha256": "addf33b29d822f70fb65058e451ff6d50108bec83046c8c34175dedcb9c9750b"
+    }
+  ],
+  "testsPassed": 64,
+  "verification": {
+    "localLinksChecked": 304,
+    "localLinksPass": true,
+    "retainedProbeIssues": [
+      "transport-retry-control-unverified",
+      "codex-client-context-policy-pending"
+    ]
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-controls.test.mjs",
+      "sha256": "e20758128a67593a81212d8ee7e264f3e3d4b0fdbc174eebcf36e40e0355efcf"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "32c9a17e6e390a32ddc607ec8cf3b9af666156ffe01a0b18fb755192d753b95c"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "5dca125fb23439dd2567d4c95154aadf961f4bfa2f98faa26c2115f0995fd4b9"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "210937da501dc3721a8f3ec22b1b995844354434ba8f5ab89475bd2120129888"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.test.mjs",
+      "sha256": "f2c26643c3c56d8205aac035ed16426135889375927876f64c462eb85fa4d370"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "03ee950f0c910250c998bc2aafc9e2717040ef6c9671fb6457c49d4e03f27818"
+    },
+    {
+      "path": "context/BACKLOG.md",
+      "sha256": "607c6f397e5e36aac0325cb3e9b7040daeb349bf6c41b518c6f377dab261149c"
+    },
+    {
+      "path": "context/NOW.md",
+      "sha256": "31ec9e8eaea1fd7e7efaa3ec3b4955e618f90709450d1f0b46f6d55fb0836937"
+    },
+    {
+      "path": "context/decisions/INDEX.md",
+      "sha256": "efb7a4959ee90eb310129cb6994d59769cb4b94fdaf1813a6173deb673521d99"
+    },
+    {
+      "path": "context/decisions/d57-r01-natural-token-use.md",
+      "sha256": "1372e583631b1ed8233160f583444b4eaa6337f0919b7da0be5bb78e34e77a9c"
+    },
+    {
+      "path": "context/work/r01-codex-admission.md",
+      "sha256": "80de758837657eac09abf8fd320dfb7f7186b3ca193e0580d72dcdb95e7b4c17"
+    },
+    {
+      "path": "context/work/r01-format-comparison.md",
+      "sha256": "d7a3bed2a09e1dc3f0612bc0c0d4c54dca25742e37a4666148d2af70b70376db"
+    },
+    {
+      "path": "spec/r01-research/CLI-CONTROLS.md",
+      "sha256": "04d85be62378c0162ec2873abdc1bcba9c81206972caa29486f0248e4ef8ab53"
+    },
+    {
+      "path": "spec/r01-research/PILOT-DRAFT.md",
+      "sha256": "1d0f2d5cceea0c8ed0859224e9a7422eea7dcb3cd827ca0fe7e714bd1b3104c5"
+    },
+    {
+      "path": "spec/r01-research/README.md",
+      "sha256": "8d857dc6ebdc34660c568636865624fde6c243cbef267733f7a58ff965b48ce2"
+    },
+    {
+      "path": "spec/r01-research/TRIAL-PROTOCOL.md",
+      "sha256": "e53b5ca87461a1d5fdc7a6dbcf2a44cc478b8a6a67f91e30840aee9965c4d56a"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "exclude-tools.audit.json",
+      "sha256": "bc24b296bb7f06c150de8e98f29758b3374347e995ebfb765daccadad08218b2"
+    },
+    {
+      "path": "isolated-home.audit.json",
+      "sha256": "b170bfe1cdf8cfc4d7b795d912245f3c94bbed36a92557304ccec28d7c4f7567"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "fe993feea1ff3ec6047f5221ef96bca29d5ab9db0e7c608940cfbd550719c76f"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "67cb84792ecc9199f9c933b7f6fbf7d73e45de06db08dbe0958014f20a1d74d1"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "3eabdfa513f430fbdabeabdde36f191a2e8850170ccbb6a0ca65b14e6b352248"
+    },
+    {
+      "path": "prior-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "2c767ee7f84919c2c6720f0542f45f063032894731c7d23aa2b0cf9c4c704dd9"
+    },
+    {
+      "path": "prior-source-snapshots/context/NOW.md.txt",
+      "sha256": "6d948eddeff10491f23e4a07fa5d14bd98cff33c22e3fba7082865d1aa18ea6c"
+    },
+    {
+      "path": "prior-source-snapshots/context/decisions/INDEX.md.txt",
+      "sha256": "df0a9f7f51e4d71c7acb1be6b3f6c2a0a091d7c534b95d4d34adf33e46287bfe"
+    },
+    {
+      "path": "prior-source-snapshots/context/decisions/d56-r01-codex-reject-tool-use.md.txt",
+      "sha256": "71d9f405214ff8463dfe02870f445462b6cb3aa7f6b6ef33c9dda94173fac341"
+    },
+    {
+      "path": "prior-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "b8e036af4bf49fe82375b77a9fc4d5f74e36ad83ac8a45967d6318dc2f54c4f1"
+    },
+    {
+      "path": "prior-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "08e4abac5cb5e1d3ba5b2523bb0eb5ed96d3851fcdcd1f7aea8cb98af9dfb2b4"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "34ab8ea54cc07ca8fd581bd9811b362694aa84a6908e5e6da7fa74c46c60a32e"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "9bc7a787e48f43328659f85732d0cd8d9b8639e7071d35b06b6a220c928bf885"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "d72dbed9f872f020e90af69b116902b4677725ba97bc4c9d4c05073e93314899"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/TRIAL-PROTOCOL.md.txt",
+      "sha256": "addf33b29d822f70fb65058e451ff6d50108bec83046c8c34175dedcb9c9750b"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "9daafab883510ef0b49bb022de641778095ced84c223e9fe72d0df62238e6561"
+    }
+  ]
+}

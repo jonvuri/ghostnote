@@ -11,14 +11,11 @@
  *   - `gain` reads back 2x the setter input. E24 measured nine values from 0.1
  *     through 1.0, repeated independent-cursor reads, and a zero revert. The
  *     shared property encoder therefore writes `gain / GAIN_READ_SCALE`.
- *   - `pressure` CANNOT BE WRITTEN AT ALL (E15-E). `NoteStep.setPressure` leaves
- *     the value in the writing cursor's own `NoteStep` cache and never in the
- *     clip: re-point that cursor and the value is gone, and any other cursor
- *     reads 0 the whole time. 16 of the other 17 properties persist under the
- *     identical test, so this is specific to pressure, not to the method.
- *     It is `unwritable` below, which makes a write REFUSE and any snapshot
- *     carrying it `lossy` — a phantom that only the writer can see is worse than
- *     a missing feature, because it would make readback lie to a snapshot.
+ *   - `pressure` has no independent API readback (E399, D66). The setter
+ *     changes the inspector, but separate cursors report zero; refreshing the
+ *     writer also returns zero while the inspector retains the value.
+ *     The existing `unwritable` contract label means Ghostnote refuses to emit
+ *     an unverifiable pressure write. It does not mean the host setter is inert.
  */
 import type { ObservedContainer } from './chains.js';
 
@@ -52,10 +49,10 @@ export type NoteProp =
  * `fidelity: 'lossy'` and a revert says so up front. D5: "every take carries a
  * fidelity label ... so a revert never silently under-delivers."
  *
- * `unwritable` is the stronger case: the write provably does not reach the clip,
- * so the contract refuses to emit it rather than pretending. Reading one back is
- * still meaningful (a human may have authored it), and it degrades fidelity for
- * the same reason — we cannot restore what we cannot write.
+ * `unwritable` means Ghostnote refuses to emit the property. For pressure this
+ * is a verification limit: the API reads zero even for human-authored values
+ * and cannot independently confirm a setter effect (E399, D66). Imported or
+ * synthetic nonzero pressure remains lossy because replay is withheld.
  */
 export type PropFidelity = 'exact' | 'unverified' | 'unwritable';
 
@@ -67,7 +64,7 @@ export const NOTE_PROP_FIDELITY: Record<NoteProp | 'velocity' | 'duration', Prop
   // E24: the stable inverse is write / 2, verified through an independent cursor.
   gain: 'exact',
   pan: 'exact',
-  // ⚠ E15-E: the write never reaches the clip. See this file's header.
+  // D66: refuse pressure writes because independent API readback is unavailable.
   pressure: 'unwritable',
   // E2: "float noise only" — round-trips within the 2e-3 tolerance.
   timbre: 'exact',
@@ -99,7 +96,7 @@ export const UNVERIFIED_NOTE_PROPS: readonly string[] = Object.entries(NOTE_PROP
   .filter(([, f]) => f === 'unverified')
   .map(([k]) => k);
 
-/** Properties the API accepts and then discards — derived from the table above. */
+/** Properties Ghostnote refuses to emit — derived from the table above. */
 export const UNWRITABLE_NOTE_PROPS: readonly string[] = Object.entries(NOTE_PROP_FIDELITY)
   .filter(([, f]) => f === 'unwritable')
   .map(([k]) => k);
@@ -123,10 +120,9 @@ export const NOTE_PROP_WRITE_ORDER: readonly (NoteProp | 'velocity' | 'duration'
  * results for the same op, and the conformance suite could never be
  * adapter-agnostic.
  *
- * ⚠ This used to say the fake models "applying `gain` zeroes whatever `pressure`
- * it already had". E15-E retired that mechanism — nothing was ever zeroed, the
- * pressure was never in the clip — and `traps.ts` no longer models it. The
- * filtering below is now the whole job.
+ * The old gain/timbre-reset model was retired in E15-E. E399 establishes
+ * pressure getter blindness; neither observation proves that another setter
+ * erases pressure. The filtering below enforces the retained D66 refusal.
  */
 export function orderedNoteProps(note: NoteRecord): (readonly [string, unknown])[] {
   const bag = note as unknown as Record<string, unknown>;

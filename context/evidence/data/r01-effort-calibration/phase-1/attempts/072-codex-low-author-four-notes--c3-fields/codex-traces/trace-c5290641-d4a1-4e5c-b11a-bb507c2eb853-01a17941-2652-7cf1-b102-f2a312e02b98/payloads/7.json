@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+  "turn_id": "01a17941-283c-7463-9af8-9297aa35b0a6",
+  "last_agent_message": "R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE note1 60 0 1/4 96\nNOTE note2 63 3/8 1/8 77\nNOTE note3 67 5/8 3/8 88\nNOTE note4 58 11/8 5/8 103",
+  "started_at": 1793035675,
+  "completed_at": 1793035678,
+  "duration_ms": 2689,
+  "time_to_first_token_ms": 1850
+}

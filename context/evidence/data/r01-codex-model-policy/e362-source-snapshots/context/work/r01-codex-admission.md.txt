@@ -1,0 +1,25 @@
+# R01 Codex/Luna admission investigation
+
+Scope: close the Codex proof gates in the [pilot draft](../../spec/r01-research/PILOT-DRAFT.md)
+for GPT-6 Luna on Codex 0.163.0, or stop after reasonable investigation and
+record the remaining blockers. No pilot run, reserved-source access, provider
+substitution or change to operator configuration is in scope.
+
+Investigate an isolated temporary `CODEX_HOME` with a private subscription-auth
+copy; inspect actual requests for global instructions, skills and all tool
+surfaces. Investigate served-model evidence, effective output ceiling and
+transport retry control using supported configuration and bounded local fault
+tests. Retain each external submission, including failures. Admission stays
+closed until every gate has evidence; requested identity and a logical-request
+count cannot substitute for served identity and HTTP-attempt counts.
+
+Verification: focused control regressions, replay retained captures, relevant
+local fault tests, documentation links and diff checks. Record durable results
+in a new E record, update the current status, and stage only this task's changes.
+
+Result: [E362](../evidence/experiments/e362-r01-codex-isolation-and-remaining-gates.md)
+verifies global AGENTS/skill isolation and local custom-provider retry controls.
+Stopped as requested with tools, remaining context policy, served identity,
+subscription-route retries and output ceiling still blocking admission. Two
+correct unscored subscription edits and all local failures are retained; 58
+focused regressions pass. Luna remains pending in the pilot.

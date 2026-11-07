@@ -1,0 +1,225 @@
+{
+  "answer": "R01-GROUPED-FIELDS 1\nCONTEXT {\"musical\":{\"nominal\":{},\"provenance\":{\"kind\":\"inferred\",\"source\":\"development-grid-fit\"}}}\nGROUP triplet label=\"triplet with anticipated third\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}} {\n  FIELDS id pitch at duration velocity nominal\n  NOTE b1 36 0 7/24 94 {\"at\":\"0\",\"duration\":\"1/3\"}\n  NOTE b2 39 1025/3072 5/24 81 {\"at\":\"1025/3072\",\"duration\":\"1/3\"}\n  NOTE b3 43 1015/1536 11/24 101 {\"at\":\"2/3\",\"duration\":\"1/3\"}\n}\nNOTES {\n  FIELDS id pitch at duration velocity\n  NOTE b4 34 1499/512 5/4 88\n}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 4099,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 201,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "a0a1990e474ab80e35ece165fa4fa2bedb64e736bdacc3f44dd66bf3e18dfb92",
+      "contextBytes": 20292,
+      "localSerializedContextTokens": null,
+      "requestSha256": "e15d9082ea546465dd35ab7f402bb9f1cd9a22f349dbdd714a09f6ddc0aa6835",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 4495.090292000037
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "bcd08337217c490e791af0ff89dca79d5926efc555b1da99bbb42f58c23aff76"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "aa02fa2dba3a27b7cd8fb66caed942b2f49b78c4ac19fa6998478933cbaf346f"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2746,
+        "sha256": "c5c486b3daa7c1f26dff16c3956c5e59209ce07636805ffd72c8a7f490b95258"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 582,
+        "sha256": "e8ca170081ac3dd196e09aae0ef30d2711349ae02ba49b5ab6c73539f22cfdf9"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "4214622abb075432aadb20d0c7414b606c8c56696bae41424181b17e48d8d0eb"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 5633,
+        "sha256": "e2a0504349b62eaa7d719fbe2cd7b58aefcae24d466e6ecfbcdffd50c56c57ad"
+      }
+    ],
+    "clientAddedContextBytes": 14631,
+    "taskBytes": 5200,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "bcd08337217c490e791af0ff89dca79d5926efc555b1da99bbb42f58c23aff76"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "aa02fa2dba3a27b7cd8fb66caed942b2f49b78c4ac19fa6998478933cbaf346f"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2746,
+            "sha256": "c5c486b3daa7c1f26dff16c3956c5e59209ce07636805ffd72c8a7f490b95258"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 582,
+            "sha256": "e8ca170081ac3dd196e09aae0ef30d2711349ae02ba49b5ab6c73539f22cfdf9"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "4214622abb075432aadb20d0c7414b606c8c56696bae41424181b17e48d8d0eb"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 5633,
+            "sha256": "e2a0504349b62eaa7d719fbe2cd7b58aefcae24d466e6ecfbcdffd50c56c57ad"
+          }
+        ],
+        "clientAddedContextBytes": 14631,
+        "taskBytes": 5200
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-x7TtyG/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 4099,
+  "finalOutputTokens": 201,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/manifest.json",
+      "sha256": "7db66009279bbbf1169fa247b7f1f41c7de98461537e156d25d426a0cc9538b7"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/trace.jsonl",
+      "sha256": "199df9cd47f3c618971d4b02a2200756e1f04ff03344f2d2492c00521d661349"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/1.json",
+      "sha256": "37d19636e0fb9d60f46eef3ca91478a9a3864826e127c9d9d2d257a8cdd2d92e"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/2.json",
+      "sha256": "c5996afe29ee1476c058805e5764bac496d076851de8edff7e458e28e2da1174"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/3.json",
+      "sha256": "e5cbe301ce7343bcdc3093ac7e9ce4e6233abf693def5eeeeaeec0855429dbf2"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/4.json",
+      "sha256": "70bdb9e92a4ad88a614bbf43dcdca127627fe6ef711c6e214bb08488ac07528b"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/5.json",
+      "sha256": "f90058c69febe0101b55b04eb5ddc73444c2b345caaea9cbd7b1b42e42d15133"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/6.json",
+      "sha256": "e3616ce26831f60ba160fee53e0237ab312537c6d1774a4f96aa00dd8f55d6de"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/7.json",
+      "sha256": "783839717e6ef5b5449d1333fbfcf1953d0c883fbe0abd642ce8359cd2a6e8dd"
+    },
+    {
+      "path": "codex-traces/trace-22f0a995-cd42-49cb-9cbb-efb52fc8b203-01a1793f-f60c-7170-9d13-9fd7af603515/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

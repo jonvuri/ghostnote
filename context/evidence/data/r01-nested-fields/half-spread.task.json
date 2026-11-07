@@ -1,0 +1,177 @@
+{
+  "kind": "unscored-nested-fields-development",
+  "id": "half-spread",
+  "initial": {
+    "id": "synthetic-harmony",
+    "family": "dense strummed harmony",
+    "meter": {
+      "numerator": 5,
+      "denominator": 4
+    },
+    "notes": [
+      {
+        "id": "a",
+        "pitch": 60,
+        "at": "4099/512",
+        "duration": "2",
+        "velocity": 90
+      },
+      {
+        "id": "b",
+        "pitch": 64,
+        "at": "4105/512",
+        "duration": "7/4",
+        "velocity": 84
+      },
+      {
+        "id": "c",
+        "pitch": 67,
+        "at": "257/32",
+        "duration": "3/2",
+        "velocity": 82
+      },
+      {
+        "id": "d",
+        "pitch": 71,
+        "at": "515/64",
+        "duration": "1",
+        "velocity": 78
+      }
+    ],
+    "groups": [
+      {
+        "id": "c7",
+        "members": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "label": "C major seventh",
+        "provenance": {
+          "kind": "declared",
+          "source": "synthetic-author"
+        },
+        "anchor": "8",
+        "delay": "3/512",
+        "spread": {
+          "a": "0",
+          "b": "6/512",
+          "c": "13/512",
+          "d": "21/512"
+        },
+        "performanceOrder": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "presentationOrder": [
+          "d",
+          "c",
+          "b",
+          "a"
+        ]
+      },
+      {
+        "id": "inner",
+        "members": [
+          "b",
+          "c"
+        ],
+        "label": "inner voices",
+        "provenance": {
+          "kind": "declared",
+          "source": "synthetic-author"
+        }
+      }
+    ]
+  },
+  "expected": {
+    "id": "synthetic-harmony",
+    "family": "dense strummed harmony",
+    "meter": {
+      "numerator": 5,
+      "denominator": 4
+    },
+    "notes": [
+      {
+        "id": "a",
+        "pitch": 60,
+        "at": "4099/512",
+        "duration": "2",
+        "velocity": 90
+      },
+      {
+        "id": "b",
+        "pitch": 64,
+        "at": "2051/256",
+        "duration": "7/4",
+        "velocity": 84
+      },
+      {
+        "id": "c",
+        "pitch": 67,
+        "at": "8211/1024",
+        "duration": "3/2",
+        "velocity": 82
+      },
+      {
+        "id": "d",
+        "pitch": 71,
+        "at": "8219/1024",
+        "duration": "1",
+        "velocity": 78
+      }
+    ],
+    "groups": [
+      {
+        "id": "c7",
+        "members": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "label": "C major seventh",
+        "provenance": {
+          "kind": "declared",
+          "source": "synthetic-author"
+        },
+        "anchor": "8",
+        "delay": "3/512",
+        "spread": {
+          "a": "0",
+          "b": "3/512",
+          "c": "13/1024",
+          "d": "21/1024"
+        },
+        "performanceOrder": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "presentationOrder": [
+          "d",
+          "c",
+          "b",
+          "a"
+        ]
+      },
+      {
+        "id": "inner",
+        "members": [
+          "b",
+          "c"
+        ],
+        "label": "inner voices",
+        "provenance": {
+          "kind": "declared",
+          "source": "synthetic-author"
+        }
+      }
+    ]
+  },
+  "prompt": "Unscored development exercise with synthetic data. Do not use tools. Return only the entire edited R01-GROUPED-FIELDS document, without Markdown or explanation.\nGrammar: GROUP id attributes { ... } contains local FIELDS headers and NOTE rows. A row's values follow its local FIELDS columns. A note with spread has onset = containing group anchor + delay (default 0) + spread. Fractions are exact quarter-note units; do not round. A note with at instead has explicit timing. REF id adds an existing note to another group without redefining it. Containment determines membership; each note has one definition. CONTEXT and group WITH JSON carry metadata to preserve. If order is present, it records original note presentation order; preserve it. A dash marks an absent optional value. Do not invent information or change any field other than the requested edits.\n\nTask: Halve every spread in group c7. Preserve its anchor and shared delay, all durations, velocities, pitches, IDs, group membership, orders, and metadata.\n\nR01-GROUPED-FIELDS 1\nCONTEXT {\"id\":\"synthetic-harmony\",\"family\":\"dense strummed harmony\",\"meter\":{\"numerator\":5,\"denominator\":4}}\nGROUP c7 anchor=8 delay=3/512 label=\"C major seventh\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE a 60 2 90 0\n  NOTE b 64 7/4 84 6/512\n  NOTE c 67 3/2 82 13/512\n  NOTE d 71 1 78 21/512\n}\nGROUP inner label=\"inner voices\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}} {\n  REF b\n  REF c\n}\n"
+}

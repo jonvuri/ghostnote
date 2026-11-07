@@ -1,0 +1,90 @@
+{
+  "schema": "r01-haiku55-admission-v1",
+  "stage": "development",
+  "date": "2026-10-26",
+  "profile": "claude-current",
+  "model": "claude-haiku-5-5",
+  "effort": "low (provisional; calibration pending)",
+  "cli": {
+    "version": "2.1.302 (Claude Code)",
+    "sha256": "5262ce9de86243fed0d21edc39b271555d56780d0112e2b194439fe1c6662d37"
+  },
+  "contextPolicy": {
+    "schema": "r01-claude-context-policy-v2",
+    "sha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806"
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-context-policy.mjs",
+      "sha256": "641714a1d92d48933aaa8cab4657eeba201e22421a9222048df107a4c5d2bb7b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/claude-controls.test.mjs",
+      "sha256": "c578a9e11f973dc1ea9c4802bf891d2446c550770ae5c1b6b0eb41385b71a878"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.mjs",
+      "sha256": "b08a05a374633644216fc6470c3b5b7625a4784977713033250f9c3fd98a619e"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-paired-runner.test.mjs",
+      "sha256": "28bbd74feb769ee5b8e7bed32e6690f93cc3aad91ab77117bdbd9f0a76d53791"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-draft.mjs",
+      "sha256": "7de18bd732dae15c8d7093c75d5a8b4af0627ec49eae22bcb59c7efe53b70638"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-draft.test.mjs",
+      "sha256": "3d2444f8d7432d7b1664c9b20c1155d3ae493be9774d5d9baee4a6d953f88ac5"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-controls.mjs",
+      "sha256": "eb88b40e81d27c9bc7b50e16dd1efc1d74a16c737816eb4460b3394de1caa7f6"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "b69fb2f480c794d4a60832b9be7f4efaf353f7ffb7c5ff1551193489c6bde503"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-probe.mjs",
+      "sha256": "6f61899af9ff849914a079bffd740bca5a76ce74757abab8db8b4c063e4912f8"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-attempt.mjs",
+      "sha256": "73061342ca3dbae0213c17d4e204ac0d6f4ffd97b0cb6f3b71a7a1ae3b7c5b61"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "probe-1/manifest.json",
+      "sha256": "8d71917621bbe8a43535f79b2ca002fc3a31cc059e449a2ce38844f63ca15ac2"
+    },
+    {
+      "path": "probe-1.audit.json",
+      "sha256": "68b6117f12d8c3c7734cd46b5f06b2ae0bf8b215e44c6bbc9ca9d0c4c91884b1"
+    },
+    {
+      "path": "run/plan.json",
+      "sha256": "5b00f12df1de6f5c4298b0a3aecff4c0b06c21130735802edf9d73e39f419eac"
+    },
+    {
+      "path": "run/preflight.json",
+      "sha256": "244909a40f3b4145e3fc9eace0fbd91fa4de8839315a0c8aca380802a201f612"
+    },
+    {
+      "path": "run/results.json",
+      "sha256": "9e3a69f447fa59d069f5d55401e5c5e3f61cce6ac7bd8a41369e0c85851ca1b9"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "5f55bf0f2a6e231be2c1e5ff490ee38976e64d73ee6ef70dee1a7f16d9884b09"
+    },
+    {
+      "path": "../r01-pilot-draft/draft-2-manifest.json",
+      "sha256": "ac10473fe839712f5f3ce81806205b79cf294fda70ee19cbe3ed7cbc2392c5d7"
+    }
+  ],
+  "operatorContext": "../r01-cli-claude-controls/operator-context.json",
+  "note": "Raw captures contain account context; local research evidence, not an anonymized dataset."
+}

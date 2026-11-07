@@ -41,7 +41,7 @@ Add new E/D records to their indexes. Newer capability findings cite their
 sources and distinguish observations from inferences; update a subject page
 when its current reading changes.
 
-Apply D54 and D55 to inherited prescriptions: correctness and honest results are the
+Apply D54 and D65 to inherited prescriptions: correctness and honest results are the
 requirements. Read counts, captures, recovery records, and verification scope
 are mechanisms to assess against evidence and cost. P01 examines existing
 runtime mechanisms; implementation briefs examine proposed ones. Keep current

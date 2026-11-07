@@ -132,7 +132,7 @@ export const WIRE = {
   /**
    * B17: observe one container by its absolute top-level position. The extension owns the scopes (B08's
    * one-wide scrollable banks on cursor track 0): it aims one at the position, polls until the scope and the
-   * named track settle, re-issuing a clamped scroll (E353), and replies once with the settled scope, its
+   * named track settle, re-issuing a clamped scroll (E394), and replies once with the settled scope, its
    * chains and their devices, the cursor-bound named-slot view, and the aim's cost. A deferred reply, as
    * `clip.read` uses; the brain holds no scope slot and sends no scroll.
    */

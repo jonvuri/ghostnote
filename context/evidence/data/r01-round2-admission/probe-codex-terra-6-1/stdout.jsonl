@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a18299-5475-7313-98c3-26e0c9672874"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-control-ummbuI/codex-home/config.toml."}}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"{\"notes\":[{\"id\":\"a\",\"pitch\":60,\"at\":\"3/512\",\"duration\":\"1\",\"velocity\":90},{\"id\":\"b\",\"pitch\":64,\"at\":\"9/512\",\"duration\":\"7/4\",\"velocity\":91}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":3021,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":55,"reasoning_output_tokens":0}}

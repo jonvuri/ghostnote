@@ -1,0 +1,18 @@
+FORMAT: Explicit-note FIELDS
+
+SCOPE
+Exact source-state cohort; retain performed notes and supplied musical/opaque context.
+
+INPUT AND OUTPUT GRAMMAR
+Start with R01-COMPACT-FIELDS 1. Optional CONTEXT JSON precedes FIELDS. FIELDS names columns for subsequent NOTE rows; another FIELDS may change the binding. Each row must match its binding and include id pitch at duration velocity. at is always explicit performed timing; group references do not derive it. No group blocks are supported. Whitespace separates cells except inside JSON strings or balanced JSON containers. A bare - means absent, not null; quote the literal ID "-". IDs may be bare safe identifiers or JSON strings. Timing uses exact integer/fraction text; pitch and velocity use JSON numbers. Preserve opaque JSON cells. No comments are accepted.
+Optional groups cells are JSON ID arrays and must agree with shared group membership. Nominal columns are nominal.location (map or note), nominal.at, optional nominal.duration, nominal.division and nominal.extra. An entry requires location and onset; map requires an empty musical.nominal marker in CONTEXT. nominal.extra holds provenance/state and other nominal metadata. extra holds other note properties, never core fields or another nominal definition. CONTEXT retains shared groups/root state; note definition order preserves source note order. Explicit group timing must agree with explicit note onsets.
+
+PRESERVATION
+Return all notes and shared context. Each ID has one definition. Absent optional columns do not authorize discarding supplied properties; retain unused nominal or group context without treating it as executable performance.
+
+COMPLETE FORMAT EXAMPLE
+R01-COMPACT-FIELDS 1
+CONTEXT {"groups":[{"id":"exampleGroup","members":["exampleA","exampleB"],"label":"authored pair","anchor":"1/8","delay":"1/512","spread":{"exampleA":"0","exampleB":"5/4"},"provenance":{"kind":"declared"}}],"musical":{"nominal":{},"provenance":{"kind":"inferred","source":"example-grid"}}}
+FIELDS id pitch at duration velocity groups nominal.location nominal.at
+NOTE exampleA 62 65/512 3/4 73 ["exampleGroup"] map 1/8
+NOTE exampleB 69 705/512 1/2 85 ["exampleGroup"] map 11/8

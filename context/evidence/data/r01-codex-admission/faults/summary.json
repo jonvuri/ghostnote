@@ -1,0 +1,44 @@
+{
+  "schema": "r01-codex-local-fault-exploration-v1",
+  "binary": {
+    "name": "codex",
+    "path": "/Users/jonvuri/.local/bin/codex",
+    "realPath": "/Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex",
+    "sha256": "8813367285524ac798dd96d1b071aea30d58708c7226fd236cd275cf1cfdee31"
+  },
+  "sourceSha256": "17931947bc0a1448bb52f7d829875093fc9a0c74a6aed44436bcac46a98f0f19",
+  "results": [
+    {
+      "id": "http-500",
+      "httpRequests": 1,
+      "expected": 1,
+      "exitCode": 1,
+      "signal": null,
+      "dummyOnly": true
+    },
+    {
+      "id": "http-429",
+      "httpRequests": 1,
+      "expected": 1,
+      "exitCode": 1,
+      "signal": null,
+      "dummyOnly": true
+    },
+    {
+      "id": "stream-disconnect",
+      "httpRequests": 1,
+      "expected": 1,
+      "exitCode": 1,
+      "signal": null,
+      "dummyOnly": true
+    },
+    {
+      "id": "positive-http-500",
+      "httpRequests": 2,
+      "expected": 2,
+      "exitCode": 1,
+      "signal": null,
+      "dummyOnly": true
+    }
+  ]
+}

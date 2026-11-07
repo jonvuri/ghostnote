@@ -1,0 +1,32 @@
+{
+  "type": "session_configured",
+  "session_id": "01a1785a-521a-7170-8164-8a7aa06ee358",
+  "thread_id": "01a1785a-521a-7170-8164-8a7aa06ee358",
+  "model": "gpt-6-luna",
+  "model_provider_id": "openai",
+  "approval_policy": "on-request",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "active_permission_profile": {
+    "id": ":read-only"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-gates-ITO8KE",
+  "reasoning_effort": "low"
+}

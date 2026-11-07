@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a18299-3928-7d33-8377-54bec55c1b69",
+  "turn_id": "01a18299-3928-7d33-8377-54bec55c1b69",
+  "last_agent_message": "{\"notes\":[{\"id\":\"a\",\"pitch\":60,\"at\":\"3/512\",\"duration\":\"1\",\"velocity\":90},{\"id\":\"b\",\"pitch\":64,\"at\":\"9/512\",\"duration\":\"7/4\",\"velocity\":91}]}",
+  "started_at": 1793192442,
+  "completed_at": 1793192448,
+  "duration_ms": 6632,
+  "time_to_first_token_ms": 5991
+}

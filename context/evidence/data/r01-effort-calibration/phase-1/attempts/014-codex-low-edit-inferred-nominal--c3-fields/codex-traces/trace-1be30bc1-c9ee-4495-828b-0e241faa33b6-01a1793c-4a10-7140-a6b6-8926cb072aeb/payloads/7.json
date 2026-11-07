@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793c-4c11-78c1-bcf1-1ed77fda2241",
+  "turn_id": "01a1793c-4c11-78c1-bcf1-1ed77fda2241",
+  "last_agent_message": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"triplet\",\"members\":[\"b1\",\"b2\",\"b3\"],\"label\":\"triplet with anticipated third\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}],\"musical\":{\"nominal\":{},\"provenance\":{\"kind\":\"inferred\",\"source\":\"development-grid-fit\",\"state\":\"stale\"}}}\nFIELDS id pitch at duration velocity groups nominal.location nominal.at nominal.duration\nNOTE b1 36 0 7/24 94 [\"triplet\"] map 0 1/3\nNOTE b2 39 1025/3072 5/24 81 [\"triplet\"] map 1/3 1/3\nNOTE b3 43 1015/1536 11/24 101 [\"triplet\"] map 2/3 1/3\nNOTE b4 34 1499/512 5/4 88 - - - -",
+  "started_at": 1793035357,
+  "completed_at": 1793035360,
+  "duration_ms": 3507,
+  "time_to_first_token_ms": 2077
+}

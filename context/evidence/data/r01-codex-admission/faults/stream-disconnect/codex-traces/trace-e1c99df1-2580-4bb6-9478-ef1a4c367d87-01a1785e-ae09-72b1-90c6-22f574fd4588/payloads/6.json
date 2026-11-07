@@ -1,0 +1,5 @@
+{
+  "type": "error",
+  "message": "stream disconnected before completion: Transport error: network error: error decoding response body",
+  "codex_error_info": "other"
+}

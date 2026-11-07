@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "trace_id": "94b09664-6393-4ff5-869f-837bf0a0e3a0",
+  "rollout_id": "01a1793c-094c-7d62-93ec-fd72caf3b1b8",
+  "root_thread_id": "01a1793c-094c-7d62-93ec-fd72caf3b1b8",
+  "started_at_unix_ms": 1793035340843,
+  "raw_event_log": "trace.jsonl",
+  "payloads_dir": "payloads"
+}

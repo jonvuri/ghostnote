@@ -1,0 +1,5263 @@
+[
+  {
+    "id": "p01-read-sounding-at--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p01-read-sounding-at--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p01-read-sounding-at--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p01-read-sounding-at--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p01-read-sounding-at--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p01-read-sounding-at--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p02-read-group-timing--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p02-read-group-timing--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p02-read-group-timing--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p02-read-group-timing--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p02-read-group-timing--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p03-author-constrained--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 115
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "2961/512",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "281/256",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 52,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p04-author-known-spread--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p04-author-known-spread--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p04-author-known-spread--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p04-author-known-spread--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p04-author-known-spread--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p05-edit-velocity-large--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p06-transpose-every-pitch--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p07-halve-spread-move-anchor--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p07-halve-spread-move-anchor--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p07-halve-spread-move-anchor--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p07-halve-spread-move-anchor--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p07-halve-spread-move-anchor--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p08-shift-transpose-range--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 64
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "317/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 50,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p09-delete-near-miss--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 99
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "253/512",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 77,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p10-refuse-ambiguous-pitch--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "expectedRefusal": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "expectedRefusal": true,
+      "reason": "required-refusal-mismatch"
+    },
+    "gratuitousRefusal": null
+  },
+  {
+    "id": "p11-preserve-window--baseline-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p11-preserve-window--baseline-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p11-preserve-window--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p11-preserve-window--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": true,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": false,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p11-preserve-window--pp-barbeat",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p11-preserve-window--pp-midi-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "performedState": true,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [],
+      "extra": [],
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "performedState": false,
+      "rootPreserved": true,
+      "envelopePreserved": true,
+      "nativeIdentityDiagnostic": null,
+      "missing": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 76
+          },
+          "count": 1
+        }
+      ],
+      "extra": [
+        {
+          "note": {
+            "articulation": "normal",
+            "at": "0",
+            "chance": {
+              "enabled": false,
+              "value": 1
+            },
+            "channel": 1,
+            "duration": "59/128",
+            "expression": {
+              "gain": 1,
+              "pan": 0,
+              "pressure": 0,
+              "timbre": 0.5,
+              "transpose": 0,
+              "velocitySpread": 0
+            },
+            "mute": false,
+            "occurrence": {
+              "condition": "always",
+              "enabled": false
+            },
+            "pitch": 65,
+            "recurrence": {
+              "enabled": false,
+              "length": 1,
+              "mask": 1
+            },
+            "releaseVelocity": 0.7874015748031497,
+            "repeat": {
+              "count": 1,
+              "curve": 0,
+              "enabled": false,
+              "velocityCurve": 0,
+              "velocityEnd": 1
+            },
+            "velocity": 1
+          },
+          "count": 1
+        }
+      ],
+      "reason": "performed-state-or-envelope-mismatch"
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p12-preserve-exact-wider--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p12-preserve-exact-wider--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p12-preserve-exact-wider--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p12-preserve-exact-wider--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p13-read-derived-window--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p13-read-derived-window--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p13-read-derived-window--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p13-read-derived-window--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p13-read-derived-window--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p14-group-existing-notes--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p14-group-existing-notes--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p14-group-existing-notes--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p14-group-existing-notes--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p14-group-existing-notes--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p15-move-member-between-groups--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p15-move-member-between-groups--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p15-move-member-between-groups--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p15-move-member-between-groups--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p15-move-member-between-groups--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p16-retime-two-groups--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p16-retime-two-groups--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p16-retime-two-groups--c3-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p16-retime-two-groups--c4-json",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "p16-retime-two-groups--c4-detached-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  }
+]

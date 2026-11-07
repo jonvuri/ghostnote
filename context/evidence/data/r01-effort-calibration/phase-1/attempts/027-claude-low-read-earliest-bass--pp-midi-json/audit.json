@@ -1,0 +1,265 @@
+{
+  "answer": "{\"earliestAt\":\"0\",\"pitches\":[37]}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-5-5",
+  "servedModels": [
+    "claude-haiku-5-5"
+  ],
+  "modelVerified": true,
+  "modelSelectionPolicy": "served-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "served-model",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 1856,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 152,
+    "output_tokens_details": {
+      "thinking_tokens": 131
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 1856,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 152,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 1856,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1856
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-5-5"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-5-5",
+      "reasoning": null,
+      "thinking": {
+        "type": "adaptive",
+        "display": "updates"
+      },
+      "effort": "low",
+      "maxOutputTokens": 128000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "4bf9733129d64cf3ceb6f0ae73891f9600c7df28300ad2d964b159820e1db7fd",
+      "contextBytes": 5621,
+      "localSerializedContextTokens": null,
+      "requestSha256": "c6645e2e7582926fba6b9a2c6b92beb2c1c522afc60f2241b36306fc4117f5c7",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 1
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "no-tools-advertised-or-used",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": {
+    "faultSuitePass": false,
+    "binaryMatches": false,
+    "retryControlsMatch": false,
+    "oneCapturedRequest": true
+  },
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 2567.268959000008
+  },
+  "codexContext": null,
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v2",
+    "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "d6767e5f3e0c2f942e6c46ac8a138f465e2ba2f4e91d95ce45b08619d3224a64"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 559,
+        "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 3198,
+        "sha256": "959a7ba321735afa4b8b8a3213890173dedd1223932d2f70604d736fe044fa98"
+      },
+      {
+        "kind": "system-turn",
+        "role": "client-system-turn",
+        "bytes": 953,
+        "sha256": "9ffeeb2703c715ee2ee08bb6a1070e12858f8c81533888743f998b314b8a5ced"
+      }
+    ],
+    "clientAddedTextBytes": 1937,
+    "taskBytes": 3198,
+    "maxTokens": 128000,
+    "volatile": {
+      "sessionId": "859c9373-354e-4e11-bc1d-1b24bbb2bd60",
+      "versionSuffix": "364",
+      "promptId": "cac455b8-71e9-4e43-9ad6-8a639c7f07a7",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-26"
+    },
+    "requests": [
+      {
+        "schema": "r01-claude-context-audit-v1",
+        "policy": "r01-claude-context-policy-v2",
+        "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "billing-metadata",
+            "role": "client-system",
+            "bytes": 192,
+            "sha256": "d6767e5f3e0c2f942e6c46ac8a138f465e2ba2f4e91d95ce45b08619d3224a64"
+          },
+          {
+            "kind": "sdk-identity",
+            "role": "client-system",
+            "bytes": 62,
+            "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+          },
+          {
+            "kind": "supplied-instruction",
+            "role": "client-system",
+            "bytes": 171,
+            "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+          },
+          {
+            "kind": "account",
+            "role": "client-reminder",
+            "bytes": 559,
+            "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+          },
+          {
+            "kind": "task",
+            "role": "task",
+            "bytes": 3198,
+            "sha256": "959a7ba321735afa4b8b8a3213890173dedd1223932d2f70604d736fe044fa98"
+          },
+          {
+            "kind": "system-turn",
+            "role": "client-system-turn",
+            "bytes": 953,
+            "sha256": "9ffeeb2703c715ee2ee08bb6a1070e12858f8c81533888743f998b314b8a5ced"
+          }
+        ],
+        "clientAddedTextBytes": 1937,
+        "taskBytes": 3198,
+        "maxTokens": 128000,
+        "volatile": {
+          "sessionId": "859c9373-354e-4e11-bc1d-1b24bbb2bd60",
+          "versionSuffix": "364",
+          "promptId": "cac455b8-71e9-4e43-9ad6-8a639c7f07a7",
+          "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+          "date": "2026-10-26"
+        }
+      }
+    ]
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 1858,
+  "finalOutputTokens": 152,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/70307236-d4f9-4bf8-8ce6-a1493ef6f7ce.request.json",
+      "sha256": "c6645e2e7582926fba6b9a2c6b92beb2c1c522afc60f2241b36306fc4117f5c7"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "5c42452b7b6245953490ed1fe4b58b717d8845334480842f6f99fa518b25b997"
+    },
+    {
+      "path": "api-bodies/req_011CgREfiMvbj8hLymwSNHia.response.json",
+      "sha256": "fca3b51d752007a0b93bd1ce6f24f2f18f60c9b6a88b1b437acbb6b09f539936"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "response_id": "resp_0699b2e3fde1420e016adf8d2fda14819580a6a2b813c0c4b9",
+  "upstream_request_id": null,
+  "token_usage": {
+    "input_tokens": 3831,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 170,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 4001
+  },
+  "output_items": [
+    {
+      "type": "message",
+      "status": "completed",
+      "id": "msg_0699b2e3fde1420e016adf8d308ff88195af7baee4f70cc997",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT note1 clip 0 1/4 60 96 1 false\nEVENT note2 clip 3/8 1/8 63 77 1 false\nEVENT note3 clip 5/8 3/8 67 88 1 false\nEVENT note4 clip 11/8 5/8 58 103 1 false",
+          "annotations": [],
+          "logprobs": []
+        }
+      ],
+      "phase": "final_answer",
+      "internal_chat_message_metadata_passthrough": {
+        "turn_id": "01a1793f-7eae-7570-8709-4a5a2c157027",
+        "create_time": 1793035568.565274
+      }
+    }
+  ]
+}

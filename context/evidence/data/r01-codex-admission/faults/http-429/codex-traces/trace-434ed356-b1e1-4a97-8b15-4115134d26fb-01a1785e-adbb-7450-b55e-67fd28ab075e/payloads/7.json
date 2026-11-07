@@ -1,0 +1,17 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1785e-adc4-7ee1-a9fb-092b930b703d",
+  "turn_id": "01a1785e-adc4-7ee1-a9fb-092b930b703d",
+  "last_agent_message": null,
+  "error": {
+    "message": "exceeded retry limit, last status: 429 Too Many Requests",
+    "codex_error_info": {
+      "response_too_many_failed_attempts": {
+        "http_status_code": 429
+      }
+    }
+  },
+  "started_at": 1793020833,
+  "completed_at": 1793020833,
+  "duration_ms": 10
+}

@@ -1,0 +1,225 @@
+{
+  "answer": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"c7\",\"members\":[\"a\",\"b\",\"c\",\"d\"],\"label\":\"C major seventh\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"anchor\":\"8\",\"delay\":\"1/256\",\"spread\":{\"a\":\"0\",\"b\":\"1/256\",\"c\":\"3/256\",\"d\":\"5/256\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]},{\"id\":\"inner\",\"members\":[\"b\",\"c\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}]}\nFIELDS id pitch at duration velocity groups\nNOTE a 60 2049/256 2 90 [\"c7\"]\nNOTE b 64 2050/256 7/4 84 [\"c7\",\"inner\"]\nNOTE c 67 2053/256 3/2 82 [\"c7\",\"inner\"]\nNOTE d 71 2055/256 1 78 [\"c7\"]",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 4075,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 233,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "a9644de224d35b696ca1e34bf0c6f5724dbbfb5007ec585ee177076b1599c252",
+      "contextBytes": 20163,
+      "localSerializedContextTokens": null,
+      "requestSha256": "3f3550a66ac2f3a8e09140abba3ac53a779e0ccf63f7117c96d7ebf18f26c9ba",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 4791.1544170000125
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "1a249609a8cb551581f5b0c3fc95c90857d54ad8ed48708cd5850c771c3ff496"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "7db0d68b4d06a0a2e2a09b1a141155461543a437da856e715f8aa04ecc056df2"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "6a3b5b6c2965cafdf20286315a013c7e96cace7e905ca8baf52633f10eea7e90"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "6859a70929060499f86726a4b8cc297cba857741b052865631502fe579f30afd"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "f150a0b3c28121bd19895dc2439286c48902b266fc25fcbc2017dacb27ad4015"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 5501,
+        "sha256": "ca5c9970eea21dba6db965024a45c7e80efa08bbb9d2e616717a51ef1ccab42d"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 4985,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "1a249609a8cb551581f5b0c3fc95c90857d54ad8ed48708cd5850c771c3ff496"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "7db0d68b4d06a0a2e2a09b1a141155461543a437da856e715f8aa04ecc056df2"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "6a3b5b6c2965cafdf20286315a013c7e96cace7e905ca8baf52633f10eea7e90"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "6859a70929060499f86726a4b8cc297cba857741b052865631502fe579f30afd"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "f150a0b3c28121bd19895dc2439286c48902b266fc25fcbc2017dacb27ad4015"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 5501,
+            "sha256": "ca5c9970eea21dba6db965024a45c7e80efa08bbb9d2e616717a51ef1ccab42d"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 4985
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-OpzFaI/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 4075,
+  "finalOutputTokens": 233,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/manifest.json",
+      "sha256": "4f18ba50f92ecd2d5d90f43342058a7855c51117f111c23f7feb4a8ff7925b10"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/trace.jsonl",
+      "sha256": "86682ff4f7a8b8d2821e311d0dbe23ca83cef025226b7f5aa2fb353e04b065e5"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/1.json",
+      "sha256": "246dce451effe2b1ddb8da4720e3d2e27d5bcbb5f9aaca3b2444fad53a674a15"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/2.json",
+      "sha256": "64f8102300ed37062af6741a5d46bf3c8f7dba60e53f25a925258de979306af5"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/3.json",
+      "sha256": "b8703d4639294ed175a17c0ff8025afea1ce50452e5a93f47659d3862fe58a6a"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/4.json",
+      "sha256": "6c8f5005d729edbd7d1b464df20de65a34bb37f20a59c3ce6ab22d39b6589a02"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/5.json",
+      "sha256": "d1e842155a12f5fe5c71377a496f449dd9314fe7671688a4ea5b5cca891aed0d"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/6.json",
+      "sha256": "4b283cda4747263280750738112d64d842236f6aa9153227806205d4fca3b8ba"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/7.json",
+      "sha256": "8e9a4ca244a2242fdc706eb8ec743d0f70038b40d22f38e1e78928ab01115a36"
+    },
+    {
+      "path": "codex-traces/trace-fd38d7f1-c0ee-4b3a-8bf2-e8b8fd1a6f72-01a1793d-0f5e-7790-8578-be1d62e74032/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

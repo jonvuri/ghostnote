@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793d-1157-76e3-b2e8-01fa0bf76330",
+  "turn_id": "01a1793d-1157-76e3-b2e8-01fa0bf76330",
+  "last_agent_message": "R01-COMPACT-FIELDS 1\nCONTEXT {\"groups\":[{\"id\":\"c7\",\"members\":[\"a\",\"b\",\"c\",\"d\"],\"label\":\"C major seventh\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"anchor\":\"8\",\"delay\":\"1/256\",\"spread\":{\"a\":\"0\",\"b\":\"1/256\",\"c\":\"3/256\",\"d\":\"5/256\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]},{\"id\":\"inner\",\"members\":[\"b\",\"c\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}]}\nFIELDS id pitch at duration velocity groups\nNOTE a 60 2049/256 2 90 [\"c7\"]\nNOTE b 64 2050/256 7/4 84 [\"c7\",\"inner\"]\nNOTE c 67 2053/256 3/2 82 [\"c7\",\"inner\"]\nNOTE d 71 2055/256 1 78 [\"c7\"]",
+  "started_at": 1793035407,
+  "completed_at": 1793035411,
+  "duration_ms": 4225,
+  "time_to_first_token_ms": 2160
+}

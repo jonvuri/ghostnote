@@ -270,7 +270,7 @@ export function assessBindingProposal(
     if (!equal(next.repeat, prior?.repeat ?? EVENT_DEFAULTS.repeat))
       refuse('repeat', 'Host repeat controls have no total-trigger-count mapping');
     if (!equal(next.expression?.pressure, prior?.expression?.pressure ?? 0))
-      refuse('pressure', 'The host cannot write pressure');
+      refuse('pressure', 'Ghostnote cannot independently verify pressure writes');
     if (!equal(next.expression?.transpose, prior?.expression?.transpose) && Math.abs(next.expression!.transpose) > 96)
       refuse('transpose', 'The host transpose setter supports -96 through 96 semitones');
     const reconstruction = !prior || ['clip', 'at', 'pitch', 'channel'].some(k => !equal(next[k as keyof Event], prior[k as keyof Event]));
@@ -384,7 +384,7 @@ export function d9MappedFields(
   const e = values(checked);
   if (e.articulation !== 'normal') refuse('articulation', 'The host cannot write articulation labels');
   if (!equal(e.repeat, EVENT_DEFAULTS.repeat)) refuse('repeat', 'Host repeat controls need an explicit semantic converter');
-  if (e.expression!.pressure !== 0) refuse('pressure', 'The host cannot write pressure');
+  if (e.expression!.pressure !== 0) refuse('pressure', 'Ghostnote cannot independently verify pressure writes');
   if (Math.abs(e.expression!.transpose) > 96) refuse('transpose', 'The transpose setter supports -96 through 96 semitones');
   if (e.recurrence!.length > 8) refuse('recurrence', 'The host supports at most eight recurrence cycles');
   const rationalNumber = (s: string) => {

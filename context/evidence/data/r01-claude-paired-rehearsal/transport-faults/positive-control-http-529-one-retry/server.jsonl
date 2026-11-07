@@ -1,0 +1,2 @@
+{"method":"POST","url":"/v1/messages?beta=true","auth":"x-api-key","model":"claude-haiku-4-5-20251001","stream":true,"stainlessRetryCount":"0","bodySha256":"209857a6aa8ccecb8df5b863b12697217560a5b9c800b0a9b1d836934907281e"}
+{"method":"POST","url":"/v1/messages?beta=true","auth":"x-api-key","model":"claude-haiku-4-5-20251001","stream":true,"stainlessRetryCount":"0","bodySha256":"209857a6aa8ccecb8df5b863b12697217560a5b9c800b0a9b1d836934907281e"}

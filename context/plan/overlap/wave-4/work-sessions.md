@@ -36,7 +36,7 @@ required outcomes and assess whether the mechanism earns its cost.
 **Inputs:** [T1/T2/T6](simplification.md), D54, D15, D38, D49, D52, the
 [performance ledger](../../../contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md), and
 current executor, adapter, write-set, stash, and surface code. Reuse E247,
-E252, E253, E257, and [E353](../../../evidence/experiments/e353-scrollable-container-scopes-product-live.md)
+E252, E253, E257, and [E394](../../../evidence/experiments/e394-scrollable-container-scopes-product-live.md)
 traces before collecting new measurements.
 
 **Questions:** which inventories/captures are needed to identify and execute
@@ -70,7 +70,7 @@ work that the product no longer needs?
    If a route needs new host evidence, prepare a focused live check. Keep
    native journal/transaction operations distinct from agent history: they
    can be required for the host command itself. Do not strip D52 guards.
-7. **Container-scope read policy (B08, E353).** A structure read of a track
+7. **Container-scope read policy (B08, E394).** A structure read of a track
    aims a scope at every device past position 2 in turn, containers or not,
    and the highest-slot choice sends scope 2 back to position 2 on every
    read (six devices: four scrolls, about 115 ms each). Adopt both cheaper
@@ -81,9 +81,9 @@ work that the product no longer needs?
    assess the window shape with the same traces: whether three one-wide
    scopes is the right count once `read_devices` only aims at containers,
    and whether a resting position other than `s` serves the common
-   project better. Measure before and after on the E353 scratch shape and
+   project better. Measure before and after on the E394 scratch shape and
    update the ledger `containerScope` rows.
-8. **Staged `compose_devices` under D55 (first application).** Per native
+8. **Staged `compose_devices` under D65 (first application).** Per native
    device the staged path pays about 3.5 s each way (E252): the insertion
    landing (about 1 s) and the move are the host's; the rest is per-stage
    readback (a settled DirectParameter inventory before and after the move

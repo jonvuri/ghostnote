@@ -1,0 +1,54 @@
+1 claude-current r0 r2-large-L128-i1--c3-fields a0 initial: exit 0 35982 ms
+2 claude-current r0 r2-large-L128-i1--c4-fields a0 initial: exit 0 30807 ms
+3 claude-current r0 r2-query-L4-i1--c4-fields a0 initial: exit 0 16216 ms
+4 claude-current r0 r2-query-L4-i1--c3-fields a0 initial: exit 0 19695 ms
+5 claude-current r0 r2-overlap-L6-i1--c4-fields a0 initial: exit 0 15810 ms
+6 claude-current r0 r2-overlap-L6-i1--c3-fields a0 initial: exit 0 30530 ms
+7 claude-current r0 r2-overlap-L2-i1--c4-fields a0 initial: exit 0 13292 ms
+8 claude-current r0 r2-overlap-L2-i1--c4-fields a1 correction: exit 0 10382 ms
+9 claude-current r0 r2-overlap-L2-i1--c3-fields a0 initial: exit 0 22477 ms
+10 claude-current r0 r2-overlap-L8-i1--c3-fields a0 initial: exit 0 30605 ms
+11 claude-current r0 r2-overlap-L8-i1--c4-fields a0 initial: exit 0 18744 ms
+12 claude-current r0 r2-query-L8-i1--c4-fields a0 initial: exit 0 18237 ms
+13 claude-current r0 r2-query-L8-i1--c4-fields a1 correction: exit 0 16495 ms
+14 claude-current r0 r2-query-L8-i1--c3-fields a0 initial: exit 0 30425 ms
+15 claude-current r0 r2-interp-L8-i1--c4-fields a0 initial: exit 0 34884 ms
+16 claude-current r0 r2-interp-L8-i1--c3-fields a0 initial: exit 0 37494 ms
+17 claude-current r0 r2-interp-L12-i1--c3-fields a0 initial: exit 0 59281 ms
+18 claude-current r0 r2-interp-L12-i1--c4-fields a0 initial: exit 0 53262 ms
+19 claude-current r0 r2-large-L256-i1--c4-fields a0 initial: exit 0 47408 ms
+20 claude-current r0 r2-large-L256-i1--c3-fields a0 initial: exit 0 62351 ms
+21 claude-current r0 r2-query-L16-i1--c3-fields a0 initial: exit 0 49573 ms
+22 claude-current r0 r2-query-L16-i1--c4-fields a0 initial: exit 0 28445 ms
+23 claude-current r0 r2-overlap-L4-i1--c4-fields a0 initial: exit 0 20913 ms
+24 claude-current r0 r2-overlap-L4-i1--c3-fields a0 initial: exit 0 29639 ms
+25 claude-current r0 r2-interp-L4-i1--c3-fields a0 initial: exit 0 20633 ms
+26 claude-current r0 r2-interp-L4-i1--c4-fields a0 initial: exit 0 18988 ms
+27 claude-current r0 r2-interp-L2-i1--c4-fields a0 initial: exit 0 13047 ms
+28 claude-current r0 r2-interp-L2-i1--c3-fields a0 initial: exit 0 15892 ms
+29 claude-current r0 r2-large-L64-i1--c4-fields a0 initial: exit 0 18521 ms
+30 claude-current r0 r2-large-L64-i1--c3-fields a0 initial: exit 0 24955 ms
+31 claude-current r0 r2-query-L32-i1--c4-fields a0 initial: exit 0 52571 ms
+32 claude-current r0 r2-query-L32-i1--c3-fields a0 initial: exit 0 70511 ms
+33 claude-current r0 r2-large-L384-i1--c3-fields a0 initial: exit 0 85504 ms
+34 claude-current r0 r2-large-L384-i1--c4-fields a0 initial: exit 0 65434 ms
+{
+  "stage": "development",
+  "status": "complete",
+  "counts": {
+    "plannedRuns": 32,
+    "submittedRuns": 32,
+    "finishedRuns": 32,
+    "submissions": 34,
+    "quotaPauses": 0,
+    "resumedSubmissions": 0,
+    "stalls": 0,
+    "stallResubmissions": 0,
+    "firstAttemptPasses": 30,
+    "withinBudgetPasses": 32,
+    "repairsUsed": 2,
+    "totalInputTokens": 265519,
+    "finalOutputTokens": 337018
+  }
+}
+

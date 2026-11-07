@@ -1,0 +1,3005 @@
+{
+  "schema": "r01-pilot-execution-rehearsal-v2",
+  "scoring": "r01-scoring-v2-functional-rationals",
+  "stage": "development",
+  "package": "round2-development-v4-haiku",
+  "packageManifestSha256": "1b1f33b55ed370ee721c0756470382aed19529c00de46a66910f2b91c8fc7ca9",
+  "counts": {
+    "eligibleCells": 32,
+    "goldenPasses": 32,
+    "taskSpecificVariants": 158,
+    "wrongAnswersScored": 316,
+    "wrongAnswersRejected": 316,
+    "gratuitousRefusalsScored": 32,
+    "gratuitousRefusalsRejected": 32,
+    "notDistinguishing": 0,
+    "unencodable": 0,
+    "equivalentSpellingsScored": 32,
+    "equivalentSpellingsAccepted": 32,
+    "equivalentSpellingsDelivered": 32
+  },
+  "variants": {
+    "r2-query-L4-i1": [
+      "untouched",
+      "transpose-only",
+      "anchors-only",
+      "upper-bound-inclusive",
+      "lower-bound-exclusive",
+      "onsets-omit-delay",
+      "whole-selected-groups-transposed",
+      "delay-moved-instead-of-anchor",
+      "selected-after-moving"
+    ],
+    "r2-query-L8-i1": [
+      "untouched",
+      "transpose-only",
+      "anchors-only",
+      "upper-bound-inclusive",
+      "lower-bound-exclusive",
+      "onsets-omit-delay",
+      "whole-selected-groups-transposed",
+      "delay-moved-instead-of-anchor",
+      "selected-after-moving"
+    ],
+    "r2-query-L16-i1": [
+      "untouched",
+      "transpose-only",
+      "anchors-only",
+      "upper-bound-inclusive",
+      "lower-bound-exclusive",
+      "onsets-omit-delay",
+      "whole-selected-groups-transposed",
+      "delay-moved-instead-of-anchor",
+      "selected-after-moving"
+    ],
+    "r2-query-L32-i1": [
+      "untouched",
+      "transpose-only",
+      "anchors-only",
+      "upper-bound-inclusive",
+      "lower-bound-exclusive",
+      "onsets-omit-delay",
+      "whole-selected-groups-transposed",
+      "delay-moved-instead-of-anchor",
+      "selected-after-moving"
+    ],
+    "r2-overlap-L2-i1": [
+      "untouched",
+      "last-change-missing",
+      "retime-missing",
+      "retime-moves-referenced-members",
+      "scale-moves-referenced-members",
+      "spread-added-instead-of-set",
+      "removed-note-deleted"
+    ],
+    "r2-overlap-L4-i1": [
+      "untouched",
+      "last-change-missing",
+      "retime-missing",
+      "retime-moves-referenced-members",
+      "scale-moves-referenced-members",
+      "spread-added-instead-of-set",
+      "removed-from-every-other-group",
+      "removed-from-wrong-group",
+      "removed-note-deleted"
+    ],
+    "r2-overlap-L6-i1": [
+      "untouched",
+      "last-change-missing",
+      "retime-missing",
+      "retime-moves-referenced-members",
+      "scale-moves-referenced-members",
+      "spread-added-instead-of-set",
+      "removed-from-every-other-group",
+      "removed-from-wrong-group",
+      "removed-note-deleted"
+    ],
+    "r2-overlap-L8-i1": [
+      "untouched",
+      "last-change-missing",
+      "retime-missing",
+      "retime-moves-referenced-members",
+      "scale-moves-referenced-members",
+      "spread-added-instead-of-set",
+      "removed-from-every-other-group",
+      "removed-from-wrong-group",
+      "removed-note-deleted"
+    ],
+    "r2-large-L64-i1": [
+      "untouched",
+      "move-missing",
+      "retime-missing",
+      "moved-note-keeps-onset",
+      "delay-moved-instead-of-anchor",
+      "next-group-retimed",
+      "annotation-dropped",
+      "chance-dropped",
+      "pan-zeroed",
+      "nominal-entry-dropped",
+      "inferred-state-dropped",
+      "presentation-order-dropped",
+      "last-loose-note-dropped"
+    ],
+    "r2-large-L128-i1": [
+      "untouched",
+      "move-missing",
+      "retime-missing",
+      "moved-note-keeps-onset",
+      "delay-moved-instead-of-anchor",
+      "next-group-retimed",
+      "annotation-dropped",
+      "chance-dropped",
+      "pan-zeroed",
+      "nominal-entry-dropped",
+      "inferred-state-dropped",
+      "presentation-order-dropped",
+      "last-loose-note-dropped"
+    ],
+    "r2-large-L256-i1": [
+      "untouched",
+      "move-missing",
+      "retime-missing",
+      "moved-note-keeps-onset",
+      "delay-moved-instead-of-anchor",
+      "next-group-retimed",
+      "annotation-dropped",
+      "chance-dropped",
+      "pan-zeroed",
+      "nominal-entry-dropped",
+      "inferred-state-dropped",
+      "presentation-order-dropped",
+      "last-loose-note-dropped"
+    ],
+    "r2-large-L384-i1": [
+      "untouched",
+      "move-missing",
+      "retime-missing",
+      "moved-note-keeps-onset",
+      "delay-moved-instead-of-anchor",
+      "next-group-retimed",
+      "annotation-dropped",
+      "chance-dropped",
+      "pan-zeroed",
+      "nominal-entry-dropped",
+      "inferred-state-dropped",
+      "presentation-order-dropped",
+      "last-loose-note-dropped"
+    ],
+    "r2-interp-L2-i1": [
+      "untouched",
+      "no-lifecycle-updates",
+      "last-edit-missing",
+      "velocity-edit-stales",
+      "declared-groups-staled",
+      "overlay-groups-not-staled",
+      "mapped-inheritance-ignored"
+    ],
+    "r2-interp-L4-i1": [
+      "untouched",
+      "no-lifecycle-updates",
+      "last-edit-missing",
+      "velocity-edit-stales",
+      "declared-groups-staled",
+      "pitch-stales-nominal",
+      "overlay-groups-not-staled",
+      "mapped-inheritance-ignored",
+      "declared-nominal-staled"
+    ],
+    "r2-interp-L8-i1": [
+      "untouched",
+      "no-lifecycle-updates",
+      "last-edit-missing",
+      "velocity-edit-stales",
+      "declared-groups-staled",
+      "pitch-stales-nominal",
+      "overlay-groups-not-staled",
+      "anchor-member-nominals-kept",
+      "mapped-inheritance-ignored",
+      "declared-nominal-staled"
+    ],
+    "r2-interp-L12-i1": [
+      "untouched",
+      "no-lifecycle-updates",
+      "last-edit-missing",
+      "velocity-edit-stales",
+      "declared-groups-staled",
+      "pitch-stales-nominal",
+      "overlay-groups-not-staled",
+      "anchor-member-nominals-kept",
+      "mapped-inheritance-ignored",
+      "declared-nominal-staled"
+    ]
+  },
+  "notDistinguishing": [],
+  "unencodable": [],
+  "cells": [
+    {
+      "id": "r2-query-L4-i1--c3-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "83b8af43ab32a2626b674915453a4f54b481fb0d90d551f819c6f7952646624c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "052bffea5ca491ded09c03e2176135aa3c851d0595a7437cae5177d3ec799517",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "aebe1087335dd440fc251ce721ff170a18984466c8b0459f678e7fde1de8ad5f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "50e66908087c0fea80e67fe9ca255c62f7132a454d26f9372a965c48b060703a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "e27f52d8d8ac9d223e8c276f19156577c1bb58f1f2286e21f59f7a4c92dc682a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "b7e89892cd3ce448fcbcfcd7a3d53f89683d397bd72712c2684ed368a989c8cb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "176dc1f9c0901c31d3996ecafb67647d8f6fa6db3fc1842dc8d8aec55e507a9b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "e3e18616fb2ab762c32d70d1b95c6cd673481583f908318243edf5194ed9be79",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "1c366b935d3708eb327a50fe9718502b1240efc71214d1b9b6006156aeb8f8e4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L4-i1--c4-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "573157be791b74ad06fed2d717fcadd5cea4c9896ed9e61954b85e922b6ac861",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "f246a398e45222f028d2f7683d7626b567a3d7e17ad287a22c7942d20ce1ca00",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "a08e69274b22914951b74220f48542eed84032f1d036474821e432f32a209389",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "2719f15bf63296164e4313efa56a69986275b36c503b0a7d6f0b043ea03035e8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "3187336dfcec19f132b79dd3741b74a7e2ab243bd9d3347b0ea76eedeb949762",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "f25495ec9b20174ac3e8931693a9040045fb91b9698322e77bb550978c61783b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "bac6dd357180b2958e72a196672f1463a14fa343924b1bff68e9f50ac04418c4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "1ccce62b4554e8f8e39e971a9d2fdf6eb2b4daf6f75f803d15aecccdccabe528",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "ce4c8891ab3f60e56cd7c1be481a88286016c3686ea9593120cf56aea442575c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L8-i1--c3-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "4577356a98162d08c3e2c5227d0e2377fbd832f15e5ea55581513a1bfc2406a0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "15f7fb27340683eb4c1c3a507b5905efbf05454237755b790308b504fa26f3d1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "d6498ff8e7af17923918f5ce7b5a0dbff87772ab28a7352c608c33cad7b66a6f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "c2924259a8dd1cb3de0b8601dca20ac1c4c5d123f4958d40c1f2c41f5a508276",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "8c607079538aed60a1df5c879e0a55fef6eb4dcb26a00146c1e33ac6710a6409",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "b776a667e20b30d4522f9436776b4996420dfb712c3801661a982a849b425fd8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "47a1376ca42362a63ec9b79bafa50503acbb834f94b769a605a6ee7f72c3c37a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "e7f39e2192b8d0cffdcde9153c4c5860a6aa5a91b5b2568623937b2d5cd04805",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "b5651a526c3a7a4f1cc85505ab516501bb3910160dffd401f9a9659a2a5e57d2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L8-i1--c4-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "4d8b878692a418fd3a809bae00436cfe9fbc2a38f6e02e055ff9edeb1ef7092c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "c3c060e2ed124c0a631936978b4a7b6452a820f83274c544d74a79f6c353e253",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "fde66cbd2801ff4b9c2a06ab2415d897f182167bfac7fcbabad0e4e8af87a302",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "42344c93ce691a986ebfd030df413cc38101ca978d2a684fdbbbb8ca26773dce",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "5a4044617de13ffeb983aa945beae419655398b2536e75e0fe7012cfb1ab287b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "3a23a44cf94e9cf82e16c227a6075141be7851d244bf3bd55e89b614da3fbc14",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "ef382ca25f679ad0dc9ae1df3fd8a5612b03ef8e333e6d5b1d9ca51c28608644",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "7e3a52ceb7e916ffc0d332377df8172a40acf67eb3fb62418a8fb466ce37c383",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "2f8374903a627ba45b9a41ebe40436c6260888b1c6010eb506dabfe4f012d8f2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L16-i1--c3-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "2821916a5a5e9d05d9fa15e556782f1a9149f6c80dbffafabb4433b46ac6f81e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "d83e3777599d4b6d93ed488e0c5ff7435a0199588206a1ef0512e908c5764a2b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "86bc0c287a8d4b67c795e82e26cb475d43be776e9ad97e334c3d3a742dee9121",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "8b623c701322e66a140b8d0754d2a88734559b6cbc7ea61218d3d134c309e5d8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "e7238a0da10a986bbd34d50e0bd093ef8de35d20d0cfe50e77726e18f9cada65",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "990007ee0161a63ea07f24cd6037604fe4e963be91932bd5f311b3c531a4abcc",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "785cf33c090244e4809183f643b56ab84be1cbf63beb35ebd4f8c30fc5a59347",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "77ea151e9e39378a43097effd453fcb9c814a53fa7a3fa22f4dab7b8f2dde2a6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "b1748766bbe415b32c5a1679cdedf1bcb4bb0d0f9a0e3c72be6d34056f81ab12",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L16-i1--c4-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e18fd644757262b7cac2b653c0d4c5d50bf585e1d176a0ba773840fbf4164ad3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "582ca1cfda843ede01f85a58eef3e73d5864c90676a88d1c3d67c13c61565bf6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "5524bcba71d346c2655123ac084debfcf8ee46773c3820a8f3e87be14a9c9589",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "00d21bcd998d81060d96f86307a184d5f24f3aa9c81b492bfe7b6747e840650f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "09e219ba24f65697622cc838ebad1bdbfe518a669083dfd66d169fa82436bf33",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "8481d224c7878c6df26de8017c8ba9c4f0eaf60b04218a83a59c39a988ceeac7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "4b9da1795acdc09f882bff8dbb32432bf8094132419f9b877551704492a12097",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "eb7a5baadf77608773d704b16cdda6645162dfc736aa17a7efed429848d7a4b3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "3d226bb4934c4f8ac7cf0d0be9eec6612e29b7cbe8ae49200107dd2277888fda",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L32-i1--c3-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "35ee02d35090237860fd26648f1bd6a0807c29fc56e69ed17a2da90f5ddc681e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "5805c210ffc7029423ba178d5141ea319c63c3a06c2773f291dd46076f241433",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "8aad2c021609591f00ebe3dcf54600bd4585fdc4cc908f4ff9953b7cef5853d3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "ff98918e948cc394fefb4703832361ae9082d4ee51dc1fdfa48b7ba42f2eb4cf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "c925e94d6c3bc23f67e120b77d0f76bcfec2acb1d6960cabe96e7badb0c27f70",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "d1429186a5b3e5c67ef35e51f29c1b934388ffca1d1c0bdc46b751a568ca16c0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "d3b505f8c31cd187180292588ef07ccba040746a0566cd60f51c7f3e2798e692",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "28c445dcee5a51f4a714c917cbd7a570a41f6584f9d64a74e0b04ba6e8ca377a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "cea5e693f91eb7439fcc2894847a4eeb2e61ad1584490b4fbe019a85acb23eb4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-query-L32-i1--c4-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "477c394a9d9a429f07828bf409289a021eff4fd8eea4caaa495050911fc07f4e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "transpose-only",
+          "kind": "surface",
+          "responseSha256": "b4160263ad27057dccbd686499f565c14aef05858aaa941089dc4bf30edb24d0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchors-only",
+          "kind": "surface",
+          "responseSha256": "8d3892de2bc1495370b7cedb03927ee1ae27986c7d38e3a1c6df6f4dc6fd6743",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "upper-bound-inclusive",
+          "kind": "surface",
+          "responseSha256": "fdb43bcaab340baa98bdabc5cbc3f4cd34c734ad95476046a6ceb7f95127d099",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "lower-bound-exclusive",
+          "kind": "surface",
+          "responseSha256": "54f6a140bbfd8dbc1165987b6af252aa418e3cf8eb3c87203b10ab1e98f3807b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "onsets-omit-delay",
+          "kind": "surface",
+          "responseSha256": "a07b41c0547980a7638b98fb71831c6ba555f6e26d7f7d42035064dfbb6a97cf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "whole-selected-groups-transposed",
+          "kind": "surface",
+          "responseSha256": "2d3086334c2405ed2e89f134985f106d32ab4f240976549731fe818331fd97b3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "d2ae37232fe4755d4da5f2c7d8b316f9bb6e50d7fd24c6acd23d2f0ae0014e83",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "selected-after-moving",
+          "kind": "surface",
+          "responseSha256": "52a51336b083a4e82abe596b1e4953c374731c9265a6c2835532ca53f4444d5d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L2-i1--c3-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "4d8b4252ca2728e58847be53dd10c4b24493e0fd12ee7796a4a10bf9e443a6ba",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "95237e20a06e260db0560e760808a2957dd636d4c4c8c1e8180a8a8c4f3214a9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "5ffd19bd6ff11d189f0c4ce86114f6d1c51c071ac18d7f73fcdba47380f055a7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "f009abe9c1fee1a87ad8e704d4b82cd262927e5220652c635e2ba36a63eff80b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "f35182ac75f81b36184765c2654ce00eb9ad8d610e0c3e70ef61652a5f99427d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "e40cd76f6bef349b2c76d606a7960cdd8fb20fdab2fb16420a0ba2a467dbd59c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "e6fd2ccbd7615e926c5cf5c85bdf2a66575345ce76c7812f1e07f133f63322df",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L2-i1--c4-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "8a327958314f8a307a3bbdb2072a9c54b3511e3a1eda64b5403c6fcdf1edd4f0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "af41a04718350173b60ea26632a788ac675eae7b145aa4acdf91d9bd4634b06b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "8271ab5cafd2d33ebfe2cf9a7c80e39741e6894c15135abb9e9840c4dc372678",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "2791110b48444e65a5f935ef18255dd5f81765f0b5e363a020c235d66350475b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "af6e0332d92e9b3a67300e0c9dbc27d17ed8dd7d07297be54e75b2edaf816dec",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "e4c668d7090acd76b650a5381e31b12e6b42dadcbfecd32a338a7f4d3321b906",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "3148ea9d51916cfa5de5117896f911b937178b7354ae6a075940e35273e6499f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L4-i1--c3-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "664a75f4df5e8dbd98a33cca2e780ec6a15a5c03c16ade1eeebfe83603996f6d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "2cfbdb28561068da2d31cc0754a8e5d98543091972e919eb80db1060c519f1b6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "ba577e0e36a9da8edb92f7b44d92bde461d2eff752571b0ba468cf3b6ce7d2e0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "c43d5dbc5e5aa19f8e02c137da73f6d4bf4b954611d0e1e962ab75db812b1cba",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "8287a0174598f2e0cd0f876d91f7a040f1bce1f8c92466ad801ae7cafbf34a09",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "f6a93d5cb688b6ed09b2e6df370f8b4af8fcc7ea1c5b44347ea75041c52c23b6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "5ae59b354f311b9a416dd705d8660f17194e2259a84e8da812736d432b4b1400",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "0bf54be9b6e6cb3ad74183e8bfe7e8e17f4359f1a82eaaecd21748cb5c6d4ef0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "404e48a6779f7e0e0d8620430f433b295917aeb78502db85ff4835b08ed1f63f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L4-i1--c4-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "0abeedde2333501dc2e5c532081fdd229474e9dccef340e87e10d12741fc03c0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "39152d52dabeb6c5676f9454935f37f24475ce5156b3e0094653173c1bc8fdde",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "29783ca7ba8a8ee895cfa12c28a4be2067fa649da5bc496cce8a6e37a1d94327",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "1862eb413a532a16d516987049c97017e6b09a3c3af67bab710cbcc9e39ab0c3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "ca0cc03c00a5b9df59074cbabbc49f36222cb1f23b3620486c6884c6f1219e80",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "883aee93ff14fdcb18394742397134d4b60ef23531a23826e9632f8b2e438afe",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "91719778747130b1fd4d797ebb324f8afc16d8a3e73d75d2330f693a11e09563",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "9c9721c9fe462d913e9f3f6058176d71ff7841d33ea9d50e0454793faedc5ebc",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "8e5bb0c055f76e331b24d5229ebf57f9c440d7fe866f687f3136a4426a0417cb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L6-i1--c3-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "9f1807d8034722f370ba71907c6270a3e79016c2352b436e7da6eafc5fd7c90d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "6c1a39f05505276955e68abb53ce7bbdf9c3608c071dccf94f995d9f848fdab0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "89e9b364e531a755eb2fa33eb6c059472f65b5f58a426fed6e00951b0b33b313",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "ce77b05a41a8d06dd6c7c8d320bba40e72e4f32bcacdb260c41275c3a933dafa",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "e26899d69d693613292b4f4a68222daac8db32661c69dd970e6c67c95cddda80",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "98e955ce0f1e27cb3afef4087a2af82949fcc3b6d49e81d341251c40554a966d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "cd2cfed11e5eed4954f42ad3a994e3610b592d48f34e5faca59b3f6a5d690485",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "d1bae9ba2f99163a869c1afb538b49ddd2d99e0146eaffaeadbf42383fd5d934",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "cbb176af02feb765fcd5293a0cf1edf331c9947df335c5717ad5f67ee9695d50",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L6-i1--c4-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "df0f2bece5e9bc2edd4debdf7b6bf8904ac0dba7a9b26a86a0a69ea9c77aaae5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "9a733311b1ca29564892eb9ef40bdf910158877b88752e8844a870079d1262f4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "4ba67aba73385dd76ba601a81903e1732f04e03e9d8d1d4e281f48f7552207b9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "47b132c788e6100519a521c9f61408c56a1b6f41978d0b9f2479497b6f5f7ef9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "d8ad55ce9ab1919b978a3d127e3d6f9d2841946b69af4ea9aa7fb60eeac0dd0d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "bc23d10e5bb3aa3cb9d44c3c79e56df7cfad52fc6449c4746bdd87015ed70bff",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "8454d67b5969d6705ccd3a8ce0afaccb19573a86302e4b4e90e4628faacd5bf5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "59426d8eca54da13f0e8520cf782799e354126a524da808dfa95c3f1aae2ffbf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "c8dc7222f7d68719980236fb59ebe2e246ba49ed562927b2e5bb129195352fbf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L8-i1--c3-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e27259b62c1f3ae9223a1cbf3e5963f78a2758dba00150e3c9e049cbb75f4398",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "cb011db5260ea4e595ca82897ed52d79ca189e6908695459f09fe72e1f4a0ea1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "8891d1e4bd88e70259c7f88e21ee91d5f4daef609f701ec22ff426dfa763f968",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "11a3df0d356f8536c048b20437579bd38b03d72ccb99c03b2dd21f159cc51b0e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "8a77fda7a493fcbdc701f3fd8ad5ee5f3c8b2c7268cbf14683a4f690bab6a183",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "797d01214d6db50ce23ca0b2980ecfc4ab04fb2ddab412bc57ed9f43f5b8b922",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "78cebe49d11ddcd328243df4a68371c12758a33f30c8ace95e7c4d697bd8a44d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "e48d46d54bff275947d243b30aa725483f99c6628adf9eef18622d3ef09fbc5d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "faddf98c3307c368c7be3b276a5c22be9321f76ad2cbd0e6834d25d0ffface10",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-overlap-L8-i1--c4-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e252ec965e82f91aa557c0ea1fc09034e9f298c2c0b1afce745582c5b3189876",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-change-missing",
+          "kind": "surface",
+          "responseSha256": "0f109a0e5da2133055c7bdd67cadd0e713959f1dcfe201c8660415ead7f6fcc5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "05603d90d2f520d51450feca314a2f4f4af8e2132020d1d30e2f92bd648e481e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "1a19c5aaa30a40cdb9b5ac42c65c89cd79bf2389d4bb77c57a1b5e22feecf232",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "scale-moves-referenced-members",
+          "kind": "surface",
+          "responseSha256": "f88a1619d917c8c94ad38b7f51f4ded2ea248cf53409cbdebe85619352414be6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "spread-added-instead-of-set",
+          "kind": "surface",
+          "responseSha256": "5aec9219adc3a07466ffab06b4cbb9f18beed4f4442c722bb5c8eb01459618e4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-every-other-group",
+          "kind": "surface",
+          "responseSha256": "b9993d3eac6f8981d08826e6cb4f9abd0f3ccbbb4aa398ba2fe4ab889a4d735d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-from-wrong-group",
+          "kind": "surface",
+          "responseSha256": "1f05edd7708b26df56b1fc5719fd4a26fb9c3b6f2f0042553d9df3b8b7832cec",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "removed-note-deleted",
+          "kind": "surface",
+          "responseSha256": "d607e256b90bf989d29c5faa1e144ab8140125c0754658cfb6c01778449b947f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L64-i1--c3-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "d5a49553fe798620a4ea90352072055f71f5ffc451cdc047de3fc8f4b57cb9bd",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "37bb401924597d8dd39d36c0e3a50e45c6f8ee12cd0b75ebd223515aef2be5ec",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "1de49955abb978ab41fd1ae8eac631af4a7e3ea40dc6fc7b96a1a1321ffb1f88",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "87b1c52337408f668665643c611e7b220eb50496da477b8bbc915cdd2040ee04",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "67d7595ae7c57ea3e6312fcc03f75e0c4b56ef1ae0efee3c56108b042b46d319",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "de3aff489ecf9530c86763ee1def5e098b368aec4d2d189b9c4e6d2ea40ae3c0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "d95fbbf4e4dbac808324cebab1d6719ba71844b35ed10a0c71b79a732ad12ca0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "7bc55567e6c72bfa6713eaccad408425920fefb9ace2d1033754dbb0542410d9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "00ee59eb0a9c9476ee34adec709a746fd5dd522d7cda36bd7913581e8d27d165",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "65d58197fa126e0a2fef0b9a2f0c842d493c92d8b7783e0c56c5cea86906c4eb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "45ba53de78dfc0713fa3c4f018bb3f5d6e4f91f8a0a45359535bc1f591ca3dc1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "9dbce853d36ecdfd85b9d6cb01d9be84a56d7eeb06df1eeb64bf995402d63008",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "14840ebfb5c24eed1971ba709065a24e19a85d49ff40520b37b4eeb74304027b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L64-i1--c4-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "912d71f1201092ba55ae64518c57454fc40be81df882ed0928d8fa498d8c3982",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "7ae62c7dba9f897b5659861724e77df30ffec9486b459dedc480a8d74c4388b6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "134084e4e48cf724aaecff7a6810d9467a7708de1ae237fba06b0730b3b44268",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "f9b92f61e60d879fecdcb120aa1b0738d2fc53d204bdb830afadd7d964c1a411",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "e64277d7270414ebd3d47719a9c8c8b2e0f6e19c12e03c245a59066c2e403ecd",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "a9fef253924588026d23bab6e56c6cdd6e2cd9df27b2c71ec9d4bc6e5557cfff",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "0bcabf5c7517416842a414a3eb28dde7d3c13572ab22e277900bf85a2ba00bb5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "faff2ee994f6d58578ecb1ec0bd13246df848c8ba8dce358941c9c1f7526a280",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "f4a8551512723aa52af50ba311cbc1d11a8bb814868e46620abb25073a67338e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "cbeacadabfbe394a613581dc8de36c603622a4857fdedb15926c417d58a04908",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "f8dc2a1bdd33f2fee1cca40975b86957d2e014ae6fb875d3a4861c301df61419",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "c0975ce786fddebb4272dfbda60ebbd682879d82e93d629f9b4f19dcea767d2a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "c61677b7ea6582eed5f29ddff761539c603f9e8189db23d5f63d733ed0ad0697",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L128-i1--c3-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "318cd8fcff36d68a960a923ca321e540586c66dbebdee2029ba488406c3a5b26",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "1cf17e55281aab2456b957cc563cd92a43e05d299a39cd1fa241722b965db522",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "f21742467c3914e040b611e9af9b4eaffcbbe634d4c39e0f3cd4ff4aa29b967e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "f45b95dfc72a7dbc85a3d769babd3f7006349b69cd9927c422efa3694dedaa32",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "f414897a234733cec598bfd6210a7d72f513e5aac352d5c9332ffcf8ab17c864",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "60776adca071ff7a58943dbc210781d67b7080d379753be3994ffc03c3ba36f4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "6834201d1bfdff169d8f1010a076bf35b8ae297e09741bf6dafb8dbd96a602fc",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "ff622f949191ad82f9a62de0360eae0a028dc82cd711e186051f76ae9c4d0b61",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "15b4ff480262cc73aaf771c605acc21ccf497ea83cd081cba01164bcdefeed99",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "adad623cf5fc9b008303ad0cebf9cb9d1fe840bdbf229a62784978286b8f964b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "f6aeb7ee9cd40b10092cfd24414bd98b316706b7325cf89c3f248a4cf63dd961",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "bbd6c81737b98af98630b7be61b2cbacc93272825cb453ec10d97fbb7198f61f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "c2058d7b6df7732e6007f11c0637d871cbeb789ee5d5e028714b74efec3191c4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L128-i1--c4-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "9d7ee92be427e65a36bcd6499936dd1dab5031ddcd713ff6c36cef1cf2ffe17d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "132d6e48799a9a4cff4f0b97a794c5be7a5acd1c9c79abcb6075c480002fecd3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "aaf266a8250a88f19f272fb03e7d47cd9dfd2576c1e56b53fcfab163206f8f01",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "3cafcc11e68b11666086a862e2612ea25dadfb06c7c96a43aa6f9ed25e6d3f2f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "23a19ecde4af5681841b88a21bdf87a8f05285ceaa7892f1f38280880affb566",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "03b75f8764c49cbe51f3a3cdee5862f9a525b70eceaa10c8c9dae7e6e0f3d36a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "72969f0c2ea37e5901c0954cfec8e53e6b048e7eb90cbfb648334ae4719e52a4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "d69870dc10154e8cc9e351b998b4d6a18127318637d9f146a6a49ada9d702184",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "33fddf19b714169110d9629662c7348eeecad53ff777011abf415138ae57b81e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "a258869b57c5f9aa05fcf7bb14eebe303e2313d7a8014453aa93e67a7d5a4bf5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "d792e19f6a7345aa8c425c2e7610820d0040801b0e35f7a95b0aad8ac705e551",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "fec5b570000442d62cadda764f7e406fc5dc20901e48d20e60ba97209c00fbd4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "134ee328a84507632f14f3f2842286c789ee1b297271174f0e4ad2262fd60d5e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L256-i1--c3-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "e6e79556b70cfb7a830c0a0cc75671f7e9fb32d39d89aad8a6caab8a9951f3e5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "13b2ba7cd2e84e52e4bffb8e5998815a9473b7dd917074fbdf612d42d99797f2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "614fbf316a9efbe901ab8cbfcb8d2525982b48659370d61c29bc198d68a8309e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "ff8fb38b457957290490a5fb9a0cb6168915dbf669cdad8a0773d95a898e5d6f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "2e04881fa380183b4802ef25635310f762d0640cc367c21705a8598b4ce019fd",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "e266376b4b0c6470cfbe8f2d9701de0a2c7d0a89221c9f468c201b587fe55203",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "1be027b7e983c6aaac181202d2e0de249b17d451345f8b1d2a84503362c7d639",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "8065f5a0da517b5d211d15c2cc5f45c00dcaf90943fea29869935479e8e743d7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "5fe6d9028a969d4efd3b855fc3058ae4c7e35a2a4715756a20f133f383e9c0bd",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "8b3d51a60913b422d757471857e7a2e18f5b03d453ed4c548aa48386fdf04cbe",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "f13c125d20e7876c6601d593b94ad72cd778523b4074ecd56dc033a212c442c0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "98b2325e90b5f87b18be3860cef186885355fbe5a6cfb813bb7c04b7c00e6316",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "27c17bdc5f400117dbf8961d95ad2a15fa5517db4ea53aae2b7552f199754037",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L256-i1--c4-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "d244d758d7dec02f7fad414a2c38f0d5d26fd3b353077d4522e2d0a0b4f1edfa",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "8755d4467d5c75f11f85fb3ecd5967d9903ed6c390ae438c4c1d10d860fe5da1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "718332286234f3552d11578e015382d43baac9f953e3f6b79e03cd41fac36e87",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "a9523a03bb5d48274ac772aeefe05dc41a3e4378e01444179748b1e2dda96df5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "9ab0b4c23b29399cfab104ad044b4a203c77d503fa443ec86f4897b529b83456",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "1313aa5f26cd00303702f8c0e0ae6511744eba908462c9ea98424d61d84d2951",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "c004bbad316a19a57d4b9112b6f5dc0a1525d8dbd7f75bc2bf2542a000a985f8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "0d97268631fbb80cd8e4f85506d1ee8c3acc7e56539e228b60a7a214f4269a2c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "1d0d4acb9b89a794b59d3409db06064e9108f5b06fa009b75603454829b364ec",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "5999cad7bc22a74b50b0c8fb7b6b2ab7c621bd00a76de7e7c5efd5f8f6d0d26f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "cedd377c0de6e18cef0577a16b5046c930bce5b933e466d0e0b4e1500ec94ed1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "8285baf198da5bea5cb4ebc0d70d77791b5b77f5428908b172890a4cbde9bb3a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "be91b348fa5b199929b4a7b8e85be7a9987fb67b1327dcc85eb4364d143dbd1c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L384-i1--c3-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "6e164ee8129bb1873d86d7614456ca6f62587510e1eafae0ff6fe3ee11b7edee",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "f83a02655c938b225fabe216defa235332e62f182784586be36ffae43e5bd369",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "4b056cef1d233ee0cc70939aa0871e82481e80d2b7905b21af725b0493ac3883",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "0ca6705c93baab1f835ede1234e08af1b454d6a3c70bcbf60fadc4fd0bbd563d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "bd713bb88ca7d7f09f56ae7ef5ec0356e155207b85bfaee92502dedfc25d3a20",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "90bb9db6dd4054b6692768a2c51d7c3d636d8d21c130b48259655b1764c110bb",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "7b52938d5f903af4031caeca4369b3ab0e8f71edbcd49e5d04e0a807535c2fff",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "786b1cacbce752c0b3283f29fd4e77a5de026c81c60d9a0293a9a39c287b91bf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "4c498926dfd67a32cb469038b6b40d9baf86cd0efbb44575085a8101ad959d8f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "73f1439e9db57affe41776ef827889b9cc854326f9b1fa687e8be81a9e58aa02",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "77fc6e28c1cfbb491255b22845acafe6507fd73f9848e2d205e4928c7b717998",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "d10c724fcaede0628ef415a25c26065dd8aa78a51a63d75e96ae0cdab381d970",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "3ee2e2db6c11a769d67364c7922c1eacb5a5195d3c42cf86b38cd103b7bf5c1f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-large-L384-i1--c4-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "7c2d7a5b1c3ba504c1245feb7c01c4f7b6a1a30f9e5a610349a34fffd0360481",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "move-missing",
+          "kind": "surface",
+          "responseSha256": "6f594dff1f365f9757b64234010923731cbd91142252f43dd05bc28d694c5ac9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "retime-missing",
+          "kind": "surface",
+          "responseSha256": "a39636e5c90be5fe43cf3dd8dacfce22b18ce4533218678d06eb817e6eb11770",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "moved-note-keeps-onset",
+          "kind": "surface",
+          "responseSha256": "5dc67f49a96ec63bdc1ab37b98701da8561a0072f8c359a774d00c4b849f0334",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "delay-moved-instead-of-anchor",
+          "kind": "surface",
+          "responseSha256": "27429f1cecac8490c4ac4689b77694369708d42611b66569113165e7331b3141",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "next-group-retimed",
+          "kind": "surface",
+          "responseSha256": "6a52011fc699ee59912ba5bc954251110bfcd1897155ee378a16aed4fa823db4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "annotation-dropped",
+          "kind": "surface",
+          "responseSha256": "93357606fd56ab0c91b83ab269a53e8415666cfd73ebf23093cc3f938ee9a9d5",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "chance-dropped",
+          "kind": "surface",
+          "responseSha256": "19a4359ba4e94e793b1af47333c6a8bda00abeeb8d5e70094fa8da2eb98b76da",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pan-zeroed",
+          "kind": "surface",
+          "responseSha256": "cb99dc43e79dfa725fafd7b4b192eb8dde6a804b77bc9ca6a21a54b060f58514",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "nominal-entry-dropped",
+          "kind": "surface",
+          "responseSha256": "dc44a8eb5a14c66ff75c1312d7ec1e6a8fb79c22af09ce4bea8dad037b499c51",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "inferred-state-dropped",
+          "kind": "surface",
+          "responseSha256": "e3e511d9f8796657db90eb7ee90b8250684c3f38f18393166382177bd7c99f3b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "presentation-order-dropped",
+          "kind": "surface",
+          "responseSha256": "58a715518689d80fc8838f92b559ebc3e96e8a903e7a1df02f12334c5c62380b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-loose-note-dropped",
+          "kind": "surface",
+          "responseSha256": "b3a91e3553ebc40ff8da82b099065a35f099edcf0fc4e295d1c77bc08b58b407",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L2-i1--c3-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "cdbea130217ff2d4f2f2633affa82e15a31aac52524884ede79fc5bdd15540c7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "c878808a9b26237c8438bba5b2bf482d6185da9429896509a57337c01943304d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "1fa954ce53e6f62f99f72107573b28b0a3a24d23bc4add7e37bde798b1f89d11",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "92ea742d66f84539235bd68010e62474aeed663d3c991b23bb95b7678fe32f68",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "26a3add76381e31368a4343c0138d59188d3f02d3c341598412c3dc84edfa981",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "eab70688567f41ed4d5c1954da7dc03c242028379cba9db930b63de5567a59ec",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "266797843bfb524085d326618c49318e5da0b43ba27543ae56955bc6edd9f7e7",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L2-i1--c4-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "31907fc278d66e5e07112f97312a8c739658f837c3e239e38edfb92a24a97eba",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "4c0d0b056fd8f721067bd60be03c3593b3956c9332265dfbeccbf6bb1051a807",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "84aae7c139cd66eb9ce90139296ac0e41d3158f8f798187c43ba36a9855fc665",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "2f627e5c2bf1e3396dc9372c33a649da4f971351c251d520a6eba0cc817ddac2",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "bdb47b34b261769adcb5c7df4ed0900a9c766b7f70e1f75aa072ac93c09aaf57",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "dc0b65f127c7cf4063b818169d73669b8bfc2e8e2de6d0d8a882862c5a929a1c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "26d3686b837aea80b0fbda564b1c58e7af731d846a79f3e1f93d68bd525aaa4a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L4-i1--c3-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "2bc82b5fec071e5062683512ffb72a3bae86bac0ec4af418a210bbd65790a3e3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "f2b036b526731ba1ef6c58b132ab9319970af21d5b7cdc0fe1ccbce1fe9edad8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "b704f595b075cf607f65814936e75e010ae4164772e7046e6bbf310b7edba72a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "b0b60024ae0ada58c2d374197e5ecb29d607ad95215c05745033f401dfe23268",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "0c34e7035f807b3335feb47de5bfc9e6f38fe46e43196296a42a136998436d7c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "8451ea211cb0bd2909e89fefd9a9fd177d30d1ed66729fa2835965818d3015fe",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "93a26ab47daead2c34e3760d833468ead165a532262c406f549a1db5044a9524",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "3c380e86f69f4d94cd43f8120ef74f48f2922b217aaf8bcb046fd297e57d9140",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "0d3519f0dcd98c33be50ec623d08e57e40c73df41ffd7bca20df825a95afeaea",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L4-i1--c4-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "eef38271c41f1db12383daee2ff93894058bdf6a76ec9089a5829932043ebc31",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "87af123b45930634193d3923c8c3b2924b055a35c3b339aa31427100aeae8540",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "54482b37e2883ef9f052619f13eb8f0c8d74f0c2c841588a167b1f4b18022f8f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "3ee37cf3646a459ebf9782bf12c7cf9584ede8beea9c6630384a6bd9244f3bee",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "8a435dbb6cb7bb0f2b516b882d3b9c994ccbac732bd58ce2e695513e997454f1",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "2d04567f1e1955eeb2ed63b2a9d307ef6244afd7cffce229590e3285f2ec0e7d",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "f0e186829cce2645d116c1c8833ae0f5d0f768849126d4cb77699be491952a5a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "b9144a771ca06d939eb37836785d4bd4c434d3830900443253f55a30d7c0f43a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "f914fb12a40cb80e4fc47d06611d590a05303784165c94ed258a8191f4e0f5df",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L8-i1--c3-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "5d39892e36855e5186aa4fdfb4edc9e45e636d17c21bea0372c3a845fa01e803",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "4ef00eac537ec30aab5126ef3a60f9ae42bd7191dae8b09e78f4eb3b68e2ac13",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "d65e018e9ef471d5ffdc3d8af769c2f2933ed9a3b6d51c483b64fe5dd3905666",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "9f61c0e8d6925f6743d672e679549a88413523df6ec6be2d7f345b0f0dc710c6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "4c8e69a10bddc2ac657f197f9686eb7e1296f9af7cd081387332c295ad98f6ed",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "ce422e6ca8c67ab60d4a3b89fdaf54bad9915f0cd2a35d011085e17e9d490e47",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "64e2cb65fe5a42a745f32a2ae49ad1bee4f4848491ac8f0f42407d3d5b793c64",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-member-nominals-kept",
+          "kind": "surface",
+          "responseSha256": "df66b56d7dae17f5d2b62be712b0dfd55da53391151fd42d11d707b25e54a6db",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "a5f89eedb470cf7167d740743f7a19b4d2952f8771439cb8b45255a216d8c52e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "f88a9c740cca7a0507a69fba3c1f72252a37be8ef126f890cb244d0bb7bf3be9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L8-i1--c4-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "fd2bfc7c12fbddee194bc1e4e5afa79f7ced4b654b7e8acccd3b877fe9a10947",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "8fb1226016510e2eb3b537c52144967c873b098be2640da60964d689abbe4633",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "025ca2beb729fe14df8398d7cd2cbfcd71a939200e0e03527ab4db92cbd4a036",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "1de20a523b2df8e2878270e8d3e2531539f997cdc6ac87000d0d8f45aec29d46",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "b4f43bf96f6b94f7771185caf0037792cbeb9f93a130801d684c47482d846dee",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "daa4e3d48699824d29d5441c52db8f3ee90786a642986d7d23233c49eccefa21",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "cf6259c2d1691b447c2a5e1a8dff88f4da5157ef73a324745cc94d0b2f5d49e6",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-member-nominals-kept",
+          "kind": "surface",
+          "responseSha256": "0730247f0ace150b06a739e820a1be9a74bf2d2ef76f55678cbf372f03810de9",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "63059000a212a221546f256c00445b46643199033aebefe9deee07b436645927",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "128fec2fd655bbe236054509a8c4d9d4bcf0bdac64184d9ab17a23cfbbd3cf89",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L12-i1--c3-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c3-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "47e69312b5ede814b9fcfb421deaa7336b9adc7e88cc56e4039cf83dec998c36",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "5d81655007605d45cc4af42b7fefcaedc6cade81b4d3019e00b08b89a4b1de8c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "d51d980032fea655807461128f8a6291e0092ee73570060d6c27cdd8b470ea3b",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "a95dddccc3a1ff97c66bfec402ced5f14d7529373e698af20a393d4212188242",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "e234519d1c22ac2c230a66c7c52f28367793d5487af1aecdbed2cbdc13154d8f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "d87cfc15994bc14065287ad9f5f6a767b64575e4b1559d73464761fbeda02a63",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "4809cc6b24dd24ab2389b9f3303da04d485fc3f9056e5750467cdc3350f97be8",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-member-nominals-kept",
+          "kind": "surface",
+          "responseSha256": "129455c097a1edc45508b7775e8cbec8f106a2fa1f159824ec39a4310189fa39",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "7b1ecd56943feccb9fa7715f46173c53ab1d356d5b6b0df2bc0438d6db16cbbf",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "87194110980a26b8fbb82644ff1ee92e63ae01aee9623169daa6e5210736b43f",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    },
+    {
+      "id": "r2-interp-L12-i1--c4-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c4-fields",
+      "golden": {
+        "pass": true
+      },
+      "equivalentSpelling": {
+        "pass": true,
+        "respelled": true
+      },
+      "wrongAnswers": [
+        {
+          "variant": "untouched",
+          "kind": "surface",
+          "responseSha256": "002040d290837a632ddf93ac14a1e7761b55a2f1a228a40d64b03244f3b9eff0",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "no-lifecycle-updates",
+          "kind": "surface",
+          "responseSha256": "96347cf98b0e80c91b2ec200cff81cf13b3993760dad611a0630a2db3b21c222",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "last-edit-missing",
+          "kind": "surface",
+          "responseSha256": "615103a864c3d38b58da71225a78723d77f621fd5d5aa933b265f55c54630732",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "velocity-edit-stales",
+          "kind": "surface",
+          "responseSha256": "7f002ab3d7937272cc29503ea6940a30cee39ea296884814d0681d2cc8cb0b00",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-groups-staled",
+          "kind": "surface",
+          "responseSha256": "3d076c54d88896d71f280d68a4e416b9aee8a807e9cc673a8ec39e68f8812a5c",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "pitch-stales-nominal",
+          "kind": "surface",
+          "responseSha256": "73df30b9e3668133c981432f83842a391897fed64def138aba02b10fc341a1e4",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "overlay-groups-not-staled",
+          "kind": "surface",
+          "responseSha256": "c9997a8fe8589e12bef4264f77b8f761ef8db3225f8ecab995c1930221e80f96",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "anchor-member-nominals-kept",
+          "kind": "surface",
+          "responseSha256": "e0d119cd13fc95e657136211508ebde2d436592a20da59abd6a3e27e1b24470a",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "mapped-inheritance-ignored",
+          "kind": "surface",
+          "responseSha256": "a881a17c9e3d3a6f4e3d2640339839c3c405e11d57b385da8efd7d422b0ea59e",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        },
+        {
+          "variant": "declared-nominal-staled",
+          "kind": "surface",
+          "responseSha256": "b1db1a2361611cef896e1d98774ade98265ba3b8590541d364ffba27ac1eeba3",
+          "pass": false,
+          "reason": "source-state-mismatch"
+        }
+      ],
+      "gratuitousRefusal": {
+        "pass": false,
+        "reason": "gratuitous-refusal"
+      }
+    }
+  ]
+}

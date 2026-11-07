@@ -1,0 +1,7202 @@
+[
+  {
+    "id": "r2-query-L8-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L8-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L16-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L64-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-query-L96-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L4-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L6-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-overlap-L24-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L128-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-large-L256-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L2-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L4-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i2--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i2--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i3--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i3--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i4--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i4--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-interp-L32-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  }
+]

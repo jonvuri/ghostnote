@@ -1,0 +1,18 @@
+FORMAT: Ghostnote Document FIELDS
+
+SCOPE
+Performed core-note cohort; fixed 4/4, channel 1, clip length 64 quarter notes.
+
+INPUT AND OUTPUT GRAMMAR
+The first line is DOC ghostnote-document 1.0 desired. Envelope records precede the single FIELDS binding: CLIP, COVERAGE and any supplied META, BASE or EXTENSIONS each carry a JSON object. FIELDS names columns once; EVENT rows supply exactly one cell per column. Required columns are id clip at duration pitch velocity; the supplied binding also includes channel and mute. IDs and clip references are explicit; at and duration are rational quarter-note text, pitch/velocity/channel are integers and mute is true or false. An optional trailing WITH JSON object holds additional event properties and cannot redefine bound fields. The optional-cell omission marker is _, not -; it cannot omit required fields. Preserve envelope records and any supplied OVERLAY records. This task returns a complete desired document, never ADD/UPDATE patch records.
+
+PRESERVATION
+Preserve clip, coverage and other document state. Event IDs remain unique and reference an existing clip. The native document parser rejects negative realized onsets and duplicate same-channel, same-pitch onset addresses; it does not silently discard a conflicting event.
+
+COMPLETE FORMAT EXAMPLE
+DOC ghostnote-document 1.0 desired
+CLIP {"id":"clip","length":"64"}
+COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"clip","fields":"all","from":"0","status":"complete","to":"64"}
+FIELDS id clip at duration pitch velocity channel mute
+EVENT exampleA clip 65/512 3/4 62 73 1 false
+EVENT exampleB clip 705/512 1/2 69 85 1 false

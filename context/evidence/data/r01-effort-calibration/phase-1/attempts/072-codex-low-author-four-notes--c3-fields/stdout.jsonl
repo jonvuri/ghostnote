@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a17941-2652-7cf1-b102-f2a312e02b98"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-UC3XLd/codex-home/config.toml."}}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"R01-COMPACT-FIELDS 1\nFIELDS id pitch at duration velocity\nNOTE note1 60 0 1/4 96\nNOTE note2 63 3/8 1/8 77\nNOTE note3 67 5/8 3/8 88\nNOTE note4 58 11/8 5/8 103"}}
+{"type":"turn.completed","usage":{"input_tokens":3640,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":82,"reasoning_output_tokens":0}}

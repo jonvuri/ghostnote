@@ -2762,7 +2762,7 @@ export class LiveAdapter implements BitwigAdapter {
    * absolute top-level position and the track by its channelId; the extension
    * aims one of its one-wide scope banks at the position, polls until cursor
    * track 0 confirms the track and the scope settles there (re-issuing a
-   * clamped scroll, E353), and replies once with the settled scope, or refuses
+   * clamped scroll, E394), and replies once with the settled scope, or refuses
    * after its bound. The brain holds no scope state and sends no scroll.
    *
    * Every limit is reported rather than smoothed over:
@@ -2882,7 +2882,7 @@ export class LiveAdapter implements BitwigAdapter {
         await this.settle('trackStruct');
         const nestedReply = (await this.transport.send({ method: WIRE.chainInventory })) as WireInventory;
         if (nestedReply.trackChannelId !== trackRef.channelId) {
-          // The cursor moved under us (not a design case, D55): the scope reading stands, slots incomplete.
+          // The cursor moved under us (not a design case, D65): the scope reading stands, slots incomplete.
           this.heldCursorTracks.delete('0');
           break;
         }

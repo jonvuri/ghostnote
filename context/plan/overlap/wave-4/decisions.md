@@ -135,6 +135,11 @@ This planning session sends no report. A later session must first produce
 the reproduction, exact result, and concrete report. D37 and the current
 pressure warnings stay in force until superseded by evidence and a decision.
 
+**Clarification — 2026-10-29:** the user said they would file upstream if the
+issue was reconfirmed. Agent work ends with the local evidence and report;
+this record does not authorize contact, submission, or transmission on the
+user’s behalf.
+
 ## W4-007 — Compare Producer Pal formats
 
 Date: 2026-10-24. Source: user's workflow-priority follow-up and

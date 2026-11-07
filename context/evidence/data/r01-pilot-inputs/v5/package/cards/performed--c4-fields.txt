@@ -1,0 +1,18 @@
+FORMAT: Group-local FIELDS
+
+SCOPE
+Performed core-note cohort; fixed 4/4, channel 1, clip length 64 quarter notes.
+
+INPUT AND OUTPUT GRAMMAR
+Start with R01-GROUPED-FIELDS 1. GROUP id [anchor=value] [delay=value] [label=value] [prose=value] [WITH JSON] { opens a group; NOTES { opens ungrouped notes; } closes a block. Each block starts without a FIELDS binding. FIELDS declares columns for subsequent NOTE rows; row width must match. Required columns are id pitch duration velocity. Each note has exactly one of at (direct onset) or spread (derived onset); a binding may include both with - for the absent cell. Derived onset equals the containing group's anchor + delay (default 0) + spread. REF id adds membership without another note definition; forward references are allowed. NOTE/REF body order defines members. One note has at most one timing owner. Containment alone does not derive timing, and recursive GROUP blocks are unsupported. Whitespace separates cells except inside JSON strings or balanced JSON containers. A bare - means absent, not null; quote the literal ID "-". IDs may be bare safe identifiers or JSON strings. Timing uses exact integer/fraction text; pitch and velocity use JSON numbers. Preserve opaque JSON cells. No comments are accepted.
+
+PRESERVATION
+Return all blocks, definitions and references. Shared timing and note rows are colocated. Changing a derived onset requires changing its spread consistently; editing pitch or velocity leaves timing unchanged. Labels and prose do not supply missing numerical timing.
+
+COMPLETE FORMAT EXAMPLE
+R01-GROUPED-FIELDS 1
+NOTES {
+  FIELDS id pitch at duration velocity
+  NOTE exampleA 62 65/512 3/4 73
+  NOTE exampleB 69 705/512 1/2 85
+}

@@ -1,0 +1,4 @@
+{
+  "type": "warning",
+  "message": "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-E7uHet/codex-home/config.toml."
+}

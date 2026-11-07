@@ -1,0 +1,225 @@
+{
+  "answer": "R01-GROUPED-FIELDS 1\nGROUP c7 anchor=8 delay=1/256 label=\"C major seventh\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE a 60 2 90 0\n  NOTE b 64 7/4 84 1/256\n  NOTE c 67 3/2 82 3/256\n  NOTE d 71 1 78 5/256\n}\nGROUP inner label=\"inner voices\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}} {\n  REF b\n  REF c\n}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 4085,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 176,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "f4fde6188553be5d30d04a07cbbc1b046a89ce90c4e049cb6891a59680cb822e",
+      "contextBytes": 20278,
+      "localSerializedContextTokens": null,
+      "requestSha256": "686feb2752ae46dec65a13260f05265b268b2009c07e81bf42a5b30fbfa35407",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 4245.159167000002
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "a3bce7e3b266471ed274ae1745990ee3ae411641bc18d584416101acd68f1ad2"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "ec5a82e456f6ab726b4802751d04c0228ed61038313216daa9b25d0a3e0ef871"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "9f2facde39c4d6b70cc75d2fc1b2dc06bd3b3efd915ff127ca6908ba1ff4dfc8"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "77d64b50bebb668207cd0cea10458f169f43da8e5bfc9dc24c3c61e795d251f7"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "4dc18f147250b226b5dd9dbfc2fd731cc1ac87cc92891e228e4b0f0898fc3434"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 5616,
+        "sha256": "56b5d8ddfed33ef5afdc71ab8094d5f75f670dadd8956d41d3cca342819ec725"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 5189,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "a3bce7e3b266471ed274ae1745990ee3ae411641bc18d584416101acd68f1ad2"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "ec5a82e456f6ab726b4802751d04c0228ed61038313216daa9b25d0a3e0ef871"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "9f2facde39c4d6b70cc75d2fc1b2dc06bd3b3efd915ff127ca6908ba1ff4dfc8"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "77d64b50bebb668207cd0cea10458f169f43da8e5bfc9dc24c3c61e795d251f7"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "4dc18f147250b226b5dd9dbfc2fd731cc1ac87cc92891e228e4b0f0898fc3434"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 5616,
+            "sha256": "56b5d8ddfed33ef5afdc71ab8094d5f75f670dadd8956d41d3cca342819ec725"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 5189
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-lSuUuk/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 4085,
+  "finalOutputTokens": 176,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/manifest.json",
+      "sha256": "fcfa8007f9d8238ac812170bcb12203a1ee482a35c6911ccc8d603b2e283a3df"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/trace.jsonl",
+      "sha256": "9a58e12139e23d353d71f7d4a60ab0bc3d128cd7f8efc3c230e4ada8f8f62561"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/1.json",
+      "sha256": "d8b7e0bbe969711297278590e6df6b74f0d846858bcdf98e34cd2ef37acf9437"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/2.json",
+      "sha256": "ef0b8e9ffb3974511587b39610c83691756356822afde4299e55abeb057ff66b"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/3.json",
+      "sha256": "cd4dcbb4377376453181a886352cbef8deea7a2c86991fa6bcd219921e485228"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/4.json",
+      "sha256": "578ad48fe06578b63e5eee8ee5858d03d0f919ad001d2dfd0e6e3b8b41633903"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/5.json",
+      "sha256": "b860d0038b4ccfcead82eb5b9c76f025c527c141869e565fe2a2390e06ebbbc7"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/6.json",
+      "sha256": "f64881b895047e12014f3eba9760aecfee9035e5ffd094e7718791a36c426b6e"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/7.json",
+      "sha256": "3497f5ffb6919a1ca3c2221d14f4063aae91cb56f23ea9aa28eb2c34ec94e727"
+    },
+    {
+      "path": "codex-traces/trace-accf5fba-ae76-40d0-b8e8-207f57f398b6-01a1793b-c2cd-78d0-af2b-aab3d1b937af/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

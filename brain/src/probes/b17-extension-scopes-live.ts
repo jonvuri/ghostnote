@@ -4,7 +4,7 @@
  *
  *   npm run probe:b17-live -- --out NEW_DIRECTORY
  *
- * Runs only against the B17 normal build (NORMAL_B17) on `gn-scale-test`. Repeats the E353 shape so the results
+ * Runs only against the B17 normal build (NORMAL_B17) on `gn-scale-test`. Repeats the E394 shape so the results
  * compare directly: a scratch track `gn-b17s`, a container composed at position 3 and a second one at position 5,
  * read_devices, the five layer-chain tools, and a cross-container move, the solo read back through the cursor
  * route (D15) and the raw scope inventory, the container read cost at a resting and at a far position for the

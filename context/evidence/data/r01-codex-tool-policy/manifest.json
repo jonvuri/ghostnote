@@ -1,0 +1,204 @@
+{
+  "schema": "r01-codex-tool-policy-amendment-v1",
+  "policy": "r01-codex-no-tool-use-v1",
+  "decision": "context/decisions/d56-r01-codex-reject-tool-use.md",
+  "stage": "development",
+  "newExternalCalls": 0,
+  "testsPassed": 63,
+  "historicalSnapshots": [
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "46388ebe1472ec34df40cbdf27e6b376c0b0b546d12c1986c7aead879bc4806c"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "3810d9d4d944e4eb18589d9610727e7fab721c9d8e6c9dbc69772db952c854c9"
+    },
+    {
+      "originalPath": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "snapshotPath": "prior-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "d213e267f28b68b5790e36a5257b6ab44a078a25f2394673f2d832b13f6ec2ca"
+    },
+    {
+      "originalPath": "context/BACKLOG.md",
+      "snapshotPath": "prior-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "9641de431cd3b785bec25af92d6873067d6999af88a1f2750b3dfc3916fbae35"
+    },
+    {
+      "originalPath": "context/NOW.md",
+      "snapshotPath": "prior-source-snapshots/context/NOW.md.txt",
+      "sha256": "54ca3d482377cf2ad81c69578cc126e5d50012d766cf4f24e3bfff315ffa4689"
+    },
+    {
+      "originalPath": "context/decisions/INDEX.md",
+      "snapshotPath": "prior-source-snapshots/context/decisions/INDEX.md.txt",
+      "sha256": "2bc03af3f783e879c2e3383a6d968294aa0408f83b77273aa04f554a07f76561"
+    },
+    {
+      "originalPath": "context/decisions/d55-r01-luna-model-selection-evidence.md",
+      "snapshotPath": "prior-source-snapshots/context/decisions/d55-r01-luna-model-selection-evidence.md.txt",
+      "sha256": "99072ab8a6c34f9d254584c6f3e30ee3b3bb0017591ac907d1b2a7e3514092d7"
+    },
+    {
+      "originalPath": "context/work/r01-codex-admission.md",
+      "snapshotPath": "prior-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "611a1f69883ac0ba6651fd0a9d9682909abefd844ba5f443d2c1fe42270104ac"
+    },
+    {
+      "originalPath": "context/work/r01-format-comparison.md",
+      "snapshotPath": "prior-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "7461afba601d4ea31fac12051614814e208a6d83c601b7db97429f6d01b806e5"
+    },
+    {
+      "originalPath": "spec/r01-research/CLI-CONTROLS.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "bd3b2b468e580d67da5452035d2f849144f03d44a1fbbd5ac2b658f86d7d43e7"
+    },
+    {
+      "originalPath": "spec/r01-research/DEVELOPMENT-PAIRS.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/DEVELOPMENT-PAIRS.md.txt",
+      "sha256": "82da179af820cd5b5a476028fd7ea517fe8fb5ae16b56cf2eeda278bf69c17b7"
+    },
+    {
+      "originalPath": "spec/r01-research/PILOT-DRAFT.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "8b812c1a7d8fb6ef587f5efb11ab4ad20fe5e7eb1d9099c45a26b01d858a11c4"
+    },
+    {
+      "originalPath": "spec/r01-research/README.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "c4d59c4b9708379e1fb592b604fdf74db89ba19b87a15196695a16e55813c35f"
+    },
+    {
+      "originalPath": "spec/r01-research/TRIAL-PROTOCOL.md",
+      "snapshotPath": "prior-source-snapshots/spec/r01-research/TRIAL-PROTOCOL.md.txt",
+      "sha256": "aca1508f92144934452e832a865ed23dfcd751a9534ef574a653af32a7210386"
+    }
+  ],
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "fe993feea1ff3ec6047f5221ef96bca29d5ab9db0e7c608940cfbd550719c76f"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "67cb84792ecc9199f9c933b7f6fbf7d73e45de06db08dbe0958014f20a1d74d1"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "3eabdfa513f430fbdabeabdde36f191a2e8850170ccbb6a0ca65b14e6b352248"
+    },
+    {
+      "path": "context/BACKLOG.md",
+      "sha256": "2c767ee7f84919c2c6720f0542f45f063032894731c7d23aa2b0cf9c4c704dd9"
+    },
+    {
+      "path": "context/NOW.md",
+      "sha256": "6d948eddeff10491f23e4a07fa5d14bd98cff33c22e3fba7082865d1aa18ea6c"
+    },
+    {
+      "path": "context/decisions/INDEX.md",
+      "sha256": "df0a9f7f51e4d71c7acb1be6b3f6c2a0a091d7c534b95d4d34adf33e46287bfe"
+    },
+    {
+      "path": "context/decisions/d56-r01-codex-reject-tool-use.md",
+      "sha256": "71d9f405214ff8463dfe02870f445462b6cb3aa7f6b6ef33c9dda94173fac341"
+    },
+    {
+      "path": "context/work/r01-codex-admission.md",
+      "sha256": "b8e036af4bf49fe82375b77a9fc4d5f74e36ad83ac8a45967d6318dc2f54c4f1"
+    },
+    {
+      "path": "context/work/r01-format-comparison.md",
+      "sha256": "08e4abac5cb5e1d3ba5b2523bb0eb5ed96d3851fcdcd1f7aea8cb98af9dfb2b4"
+    },
+    {
+      "path": "spec/r01-research/CLI-CONTROLS.md",
+      "sha256": "34ab8ea54cc07ca8fd581bd9811b362694aa84a6908e5e6da7fa74c46c60a32e"
+    },
+    {
+      "path": "spec/r01-research/PILOT-DRAFT.md",
+      "sha256": "9bc7a787e48f43328659f85732d0cd8d9b8639e7071d35b06b6a220c928bf885"
+    },
+    {
+      "path": "spec/r01-research/README.md",
+      "sha256": "d72dbed9f872f020e90af69b116902b4677725ba97bc4c9d4c05073e93314899"
+    },
+    {
+      "path": "spec/r01-research/TRIAL-PROTOCOL.md",
+      "sha256": "addf33b29d822f70fb65058e451ff6d50108bec83046c8c34175dedcb9c9750b"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "exclude-tools.audit.json",
+      "sha256": "7ce9cd15e15a6ae7c7220eee3d4c38598b69b3041502b9fd584772bae7b63698"
+    },
+    {
+      "path": "isolated-home.audit.json",
+      "sha256": "49877891faf855795e81d67c6c810d563d122f47f3b756bb8ce014122af61a41"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.mjs",
+      "sha256": "46388ebe1472ec34df40cbdf27e6b376c0b0b546d12c1986c7aead879bc4806c"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/cli-control-audit.test.mjs",
+      "sha256": "3810d9d4d944e4eb18589d9610727e7fab721c9d8e6c9dbc69772db952c854c9"
+    },
+    {
+      "path": "prior-source-snapshots/brain/benchmarks/r01-candidates/codex-isolation.test.mjs",
+      "sha256": "d213e267f28b68b5790e36a5257b6ab44a078a25f2394673f2d832b13f6ec2ca"
+    },
+    {
+      "path": "prior-source-snapshots/context/BACKLOG.md.txt",
+      "sha256": "9641de431cd3b785bec25af92d6873067d6999af88a1f2750b3dfc3916fbae35"
+    },
+    {
+      "path": "prior-source-snapshots/context/NOW.md.txt",
+      "sha256": "54ca3d482377cf2ad81c69578cc126e5d50012d766cf4f24e3bfff315ffa4689"
+    },
+    {
+      "path": "prior-source-snapshots/context/decisions/INDEX.md.txt",
+      "sha256": "2bc03af3f783e879c2e3383a6d968294aa0408f83b77273aa04f554a07f76561"
+    },
+    {
+      "path": "prior-source-snapshots/context/decisions/d55-r01-luna-model-selection-evidence.md.txt",
+      "sha256": "99072ab8a6c34f9d254584c6f3e30ee3b3bb0017591ac907d1b2a7e3514092d7"
+    },
+    {
+      "path": "prior-source-snapshots/context/work/r01-codex-admission.md.txt",
+      "sha256": "611a1f69883ac0ba6651fd0a9d9682909abefd844ba5f443d2c1fe42270104ac"
+    },
+    {
+      "path": "prior-source-snapshots/context/work/r01-format-comparison.md.txt",
+      "sha256": "7461afba601d4ea31fac12051614814e208a6d83c601b7db97429f6d01b806e5"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/CLI-CONTROLS.md.txt",
+      "sha256": "bd3b2b468e580d67da5452035d2f849144f03d44a1fbbd5ac2b658f86d7d43e7"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/DEVELOPMENT-PAIRS.md.txt",
+      "sha256": "82da179af820cd5b5a476028fd7ea517fe8fb5ae16b56cf2eeda278bf69c17b7"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/PILOT-DRAFT.md.txt",
+      "sha256": "8b812c1a7d8fb6ef587f5efb11ab4ad20fe5e7eb1d9099c45a26b01d858a11c4"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/README.md.txt",
+      "sha256": "c4d59c4b9708379e1fb592b604fdf74db89ba19b87a15196695a16e55813c35f"
+    },
+    {
+      "path": "prior-source-snapshots/spec/r01-research/TRIAL-PROTOCOL.md.txt",
+      "sha256": "aca1508f92144934452e832a865ed23dfcd751a9534ef574a653af32a7210386"
+    },
+    {
+      "path": "verification.txt",
+      "sha256": "28dfe73b8295bc4af0a36c517864fef592511446ee15466430e4ad887415f211"
+    }
+  ]
+}

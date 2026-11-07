@@ -1,0 +1,13 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1785e-ae73-7662-95bf-6d0046200a83",
+  "turn_id": "01a1785e-ae73-7662-95bf-6d0046200a83",
+  "last_agent_message": null,
+  "error": {
+    "message": "We’re currently experiencing high demand, which may cause temporary errors.",
+    "codex_error_info": "internal_server_error"
+  },
+  "started_at": 1793020833,
+  "completed_at": 1793020833,
+  "duration_ms": 11
+}

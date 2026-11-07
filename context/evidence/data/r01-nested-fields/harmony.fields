@@ -1,0 +1,13 @@
+R01-GROUPED-FIELDS 1
+CONTEXT {"id":"synthetic-harmony","family":"dense strummed harmony","meter":{"numerator":5,"denominator":4}}
+GROUP c7 anchor=8 delay=3/512 label="C major seventh" WITH {"provenance":{"kind":"declared","source":"synthetic-author"},"performanceOrder":["a","b","c","d"],"presentationOrder":["d","c","b","a"]} {
+  FIELDS id pitch duration velocity spread
+  NOTE a 60 2 90 0
+  NOTE b 64 7/4 84 6/512
+  NOTE c 67 3/2 82 13/512
+  NOTE d 71 1 78 21/512
+}
+GROUP inner label="inner voices" WITH {"provenance":{"kind":"declared","source":"synthetic-author"}} {
+  REF b
+  REF c
+}

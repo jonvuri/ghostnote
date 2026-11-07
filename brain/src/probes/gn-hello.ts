@@ -91,6 +91,8 @@ if (hello.runtimeProfile === 'phase-8-probe-v1') {
   check('the P01 chain insertion handler is fresh and has the expected build marker',
     insertion['marker'] === 'p01-chain-insert-v2' && insertion['busy'] === false
       && insertion['pendingReceipt'] === 0 && insertion['uncertain'] === false, insertion);
+  const pressure = await client.request('probe.pressure', { operation: 'status' }) as { marker?: string };
+  check('the R02 pressure handler has the expected build marker', pressure.marker === 'r02-pressure-v1', pressure);
   const browser = await client.request('probe.browserDiscovery', { operation: 'status' }) as { marker?: string };
   check('the R05 browser handler has the expected build marker', browser.marker === 'r05-browser-discovery-v4', browser.marker);
   const scopes = await client.request('probe.scopeScroll', { operation: 'status' }) as { marker?: string; scopes?: { status: string }[] };

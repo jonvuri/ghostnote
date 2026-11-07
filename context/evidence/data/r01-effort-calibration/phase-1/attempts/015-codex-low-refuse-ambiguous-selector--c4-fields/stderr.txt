@@ -1,0 +1,10 @@
+2026-10-26T17:22:41.838262Z TRACE codex_api::sse::responses: unhandled responses event: codex.response.metadata
+2026-10-26T17:22:41.932416Z TRACE codex_api::sse::responses: unhandled responses event: response.in_progress
+2026-10-26T17:22:41.932441Z TRACE codex_api::sse::responses: unhandled responses event: responsesapi.websocket_timing
+2026-10-26T17:22:42.316303Z TRACE codex_api::sse::responses: unhandled responses event: codex.response.metadata
+2026-10-26T17:22:42.644343Z TRACE codex_api::sse::responses: unhandled responses event: response.in_progress
+2026-10-26T17:22:43.006189Z TRACE codex_api::sse::responses: unhandled responses event: response.content_part.added
+2026-10-26T17:22:43.117155Z TRACE codex_api::sse::responses: unhandled responses event: response.metadata
+2026-10-26T17:22:43.117173Z TRACE codex_api::sse::responses: unhandled responses event: response.output_text.done
+2026-10-26T17:22:43.117180Z TRACE codex_api::sse::responses: unhandled responses event: response.content_part.done
+2026-10-26T17:22:43.117229Z TRACE codex_api::sse::responses: unhandled responses event: responsesapi.websocket_timing

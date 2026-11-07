@@ -1,0 +1,346 @@
+{
+  "schema": "r01-claim-stages-v1",
+  "node": "v24.11.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "cpu": "Apple M4 Pro",
+  "commit": "6eba1ee91752f7580e747ac96f2b15c6f36907b9",
+  "repetitions": 3,
+  "results": [
+    {
+      "notes": 28,
+      "pairs": 0,
+      "roles": 0,
+      "claims": 0,
+      "bytes": 2538,
+      "samples": [
+        {
+          "parseMs": 0.6319579999999974,
+          "expansionMs": 0.06104100000001722,
+          "sealMs": 0.007042000000012649,
+          "validateMs": 0.2747090000000014,
+          "carryMs": 0.4070000000000107,
+          "units": 0
+        },
+        {
+          "parseMs": 0.6728750000000048,
+          "expansionMs": 0.01037500000001046,
+          "sealMs": 0.0008750000000077307,
+          "validateMs": 0.2905409999999904,
+          "carryMs": 0.348542000000009,
+          "units": 0
+        },
+        {
+          "parseMs": 0.5962089999999876,
+          "expansionMs": 0.006541999999996051,
+          "sealMs": 0.0005419999999958236,
+          "validateMs": 0.28716600000001336,
+          "carryMs": 0.3464170000000024,
+          "units": 0
+        }
+      ],
+      "medians": {
+        "parseMs": 0.6319579999999974,
+        "expansionMs": 0.01037500000001046,
+        "sealMs": 0.0008750000000077307,
+        "validateMs": 0.28716600000001336,
+        "carryMs": 0.348542000000009,
+        "units": 0
+      }
+    },
+    {
+      "notes": 28,
+      "pairs": 28,
+      "roles": 0,
+      "claims": 56,
+      "bytes": 25117,
+      "samples": [
+        {
+          "parseMs": 7.794582999999989,
+          "expansionMs": 0.16354100000000926,
+          "sealMs": 1.0591249999999945,
+          "validateMs": 6.933834000000019,
+          "carryMs": 8.308665999999988,
+          "units": 2671
+        },
+        {
+          "parseMs": 7.98358300000001,
+          "expansionMs": 0.11062499999999886,
+          "sealMs": 1.3138339999999857,
+          "validateMs": 7.280167000000006,
+          "carryMs": 7.769083000000023,
+          "units": 2671
+        },
+        {
+          "parseMs": 7.7000839999999755,
+          "expansionMs": 0.09029100000000767,
+          "sealMs": 0.9207499999999982,
+          "validateMs": 6.786208999999985,
+          "carryMs": 7.893833000000001,
+          "units": 2671
+        }
+      ],
+      "medians": {
+        "parseMs": 7.794582999999989,
+        "expansionMs": 0.11062499999999886,
+        "sealMs": 1.0591249999999945,
+        "validateMs": 6.933834000000019,
+        "carryMs": 7.893833000000001,
+        "units": 2671
+      }
+    },
+    {
+      "notes": 256,
+      "pairs": 0,
+      "roles": 0,
+      "claims": 0,
+      "bytes": 21548,
+      "samples": [
+        {
+          "parseMs": 3.4951250000000016,
+          "expansionMs": 0.01333399999998619,
+          "sealMs": 0.0007910000000208584,
+          "validateMs": 1.7492500000000177,
+          "carryMs": 1.7618329999999958,
+          "units": 0
+        },
+        {
+          "parseMs": 2.8362499999999784,
+          "expansionMs": 0.012875000000008185,
+          "sealMs": 0.0006250000000136424,
+          "validateMs": 1.5245840000000044,
+          "carryMs": 2.0460410000000024,
+          "units": 0
+        },
+        {
+          "parseMs": 2.8940410000000156,
+          "expansionMs": 0.012625000000014097,
+          "sealMs": 0.0007080000000314612,
+          "validateMs": 1.6983749999999986,
+          "carryMs": 1.9444589999999948,
+          "units": 0
+        }
+      ],
+      "medians": {
+        "parseMs": 2.8940410000000156,
+        "expansionMs": 0.012875000000008185,
+        "sealMs": 0.0007080000000314612,
+        "validateMs": 1.6983749999999986,
+        "carryMs": 1.9444589999999948,
+        "units": 0
+      }
+    },
+    {
+      "notes": 256,
+      "pairs": 128,
+      "roles": 0,
+      "claims": 256,
+      "bytes": 125407,
+      "samples": [
+        {
+          "parseMs": 36.52279200000004,
+          "expansionMs": 0.46050000000002456,
+          "sealMs": 3.754791999999952,
+          "validateMs": 33.07845900000001,
+          "carryMs": 35.94291700000002,
+          "units": 12274
+        },
+        {
+          "parseMs": 34.30791700000003,
+          "expansionMs": 0.41441700000001447,
+          "sealMs": 3.781208000000049,
+          "validateMs": 30.382499999999993,
+          "carryMs": 34.51108399999998,
+          "units": 12274
+        },
+        {
+          "parseMs": 35.100540999999964,
+          "expansionMs": 0.3838339999999789,
+          "sealMs": 3.6410419999999704,
+          "validateMs": 32.70262500000001,
+          "carryMs": 35.935834,
+          "units": 12274
+        }
+      ],
+      "medians": {
+        "parseMs": 35.100540999999964,
+        "expansionMs": 0.41441700000001447,
+        "sealMs": 3.754791999999952,
+        "validateMs": 32.70262500000001,
+        "carryMs": 35.935834,
+        "units": 12274
+      }
+    },
+    {
+      "notes": 4096,
+      "pairs": 0,
+      "roles": 0,
+      "claims": 0,
+      "bytes": 350304,
+      "samples": [
+        {
+          "parseMs": 45.451875000000086,
+          "expansionMs": 0.3514589999999771,
+          "sealMs": 0.0009169999999585343,
+          "validateMs": 22.88799999999992,
+          "carryMs": 28.301416000000017,
+          "units": 0
+        },
+        {
+          "parseMs": 41.165333999999916,
+          "expansionMs": 0.3484999999999445,
+          "sealMs": 0.0008329999999432403,
+          "validateMs": 25.91329099999996,
+          "carryMs": 31.393208000000072,
+          "units": 0
+        },
+        {
+          "parseMs": 37.563625,
+          "expansionMs": 0.7496670000000449,
+          "sealMs": 0.0009999999999763531,
+          "validateMs": 23.902500000000032,
+          "carryMs": 27.93033300000002,
+          "units": 0
+        }
+      ],
+      "medians": {
+        "parseMs": 41.165333999999916,
+        "expansionMs": 0.3514589999999771,
+        "sealMs": 0.0009169999999585343,
+        "validateMs": 23.902500000000032,
+        "carryMs": 28.301416000000017,
+        "units": 0
+      }
+    },
+    {
+      "notes": 4096,
+      "pairs": 2048,
+      "roles": 0,
+      "claims": 4096,
+      "bytes": 2039043,
+      "samples": [
+        {
+          "parseMs": 540.659125,
+          "expansionMs": 7.436707999999953,
+          "sealMs": 61.52000000000021,
+          "validateMs": 495.192,
+          "carryMs": 537.7440830000003,
+          "units": 199082
+        },
+        {
+          "parseMs": 531.6022499999999,
+          "expansionMs": 7.159209000000374,
+          "sealMs": 60.003000000000156,
+          "validateMs": 487.11987499999987,
+          "carryMs": 565.2242500000002,
+          "units": 199082
+        },
+        {
+          "parseMs": 533.0533749999995,
+          "expansionMs": 7.45495899999969,
+          "sealMs": 58.125708999999915,
+          "validateMs": 491.0626250000005,
+          "carryMs": 544.036916,
+          "units": 199082
+        }
+      ],
+      "medians": {
+        "parseMs": 533.0533749999995,
+        "expansionMs": 7.436707999999953,
+        "sealMs": 60.003000000000156,
+        "validateMs": 491.0626250000005,
+        "carryMs": 544.036916,
+        "units": 199082
+      }
+    },
+    {
+      "notes": 16384,
+      "pairs": 0,
+      "roles": 0,
+      "claims": 0,
+      "bytes": 1419840,
+      "samples": [
+        {
+          "parseMs": 170.85483300000033,
+          "expansionMs": 1.6750840000004246,
+          "sealMs": 0.0014169999994919635,
+          "validateMs": 91.33554100000038,
+          "carryMs": 112.01350000000002,
+          "units": 0
+        },
+        {
+          "parseMs": 158.44308399999954,
+          "expansionMs": 2.2221249999993233,
+          "sealMs": 0.0016660000001138542,
+          "validateMs": 89.2774159999999,
+          "carryMs": 113.62512500000048,
+          "units": 0
+        },
+        {
+          "parseMs": 161.25774999999976,
+          "expansionMs": 1.0589170000002923,
+          "sealMs": 0.001959000000169908,
+          "validateMs": 91.89433399999962,
+          "carryMs": 114.25579199999993,
+          "units": 0
+        }
+      ],
+      "medians": {
+        "parseMs": 161.25774999999976,
+        "expansionMs": 1.6750840000004246,
+        "sealMs": 0.0016660000001138542,
+        "validateMs": 91.33554100000038,
+        "carryMs": 113.62512500000048,
+        "units": 0
+      }
+    },
+    {
+      "notes": 16384,
+      "pairs": 6000,
+      "roles": 128,
+      "claims": 12128,
+      "bytes": 6425255,
+      "samples": [
+        {
+          "parseMs": 1662.0500840000004,
+          "expansionMs": 22.546167000000423,
+          "sealMs": 324.9190830000007,
+          "validateMs": 1591.1678329999995,
+          "carryMs": 1911.9906659999997,
+          "units": 2682542
+        },
+        {
+          "parseMs": 1629.0409999999993,
+          "expansionMs": 23.555999999998676,
+          "sealMs": 325.67504200000076,
+          "validateMs": 1596.141125,
+          "carryMs": 1940.637666999999,
+          "units": 2682542
+        },
+        {
+          "parseMs": 1633.8468749999993,
+          "expansionMs": 25.500583000000915,
+          "sealMs": 326.53412500000195,
+          "validateMs": 1596.3841670000002,
+          "carryMs": 1924.2577090000013,
+          "units": 2682542
+        }
+      ],
+      "medians": {
+        "parseMs": 1633.8468749999993,
+        "expansionMs": 23.555999999998676,
+        "sealMs": 325.67504200000076,
+        "validateMs": 1596.141125,
+        "carryMs": 1924.2577090000013,
+        "units": 2682542
+      }
+    }
+  ],
+  "correctness": [
+    "unrelated velocity retains claims",
+    "duration change stales only dependent pair",
+    "claim removal preserves notes",
+    "independent whole-document reseal agrees"
+  ],
+  "limits": "Independent pure stages, not end-to-end latency; carry includes validation even for the no-claim control. No host measurements."
+}

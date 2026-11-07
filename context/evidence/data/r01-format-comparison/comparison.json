@@ -1,0 +1,4999 @@
+{
+  "schema": "r01-offline-format-v1",
+  "upstream": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "ghostnote": "6eba1ee91752f7580e747ac96f2b15c6f36907b9",
+  "node": "v24.11.1",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "random": "Math.random=0.5 during each isolated witness",
+  "comparison": "Common PP note fields at 1e-12 tolerance; explicit extra-field losses. Ghostnote native round trips use deep equality.",
+  "sources": [
+    {
+      "path": "docs/features/midi-notation.md",
+      "sha256": "87083695af874618d9d2e0296713128a404c0ee839e7b58855d23d9796264d93"
+    },
+    {
+      "path": "src/notation/types.ts",
+      "sha256": "943bebb4b90704feb61f63f63c34e2b504f4e4a51fb6034a6c264d56489f0d3b"
+    },
+    {
+      "path": "src/notation/midi-json/midi-json-notation.ts",
+      "sha256": "aa7ab541c80a9ec47ea54406eb0af8c7388232930cd1f7a33da68faf988da649"
+    },
+    {
+      "path": "src/notation/midi-json/midi-json-note.ts",
+      "sha256": "bdca780034bbdab3382acfcfb96e1038e461e41abaa8f9a5162d1f1ed6315aaa"
+    },
+    {
+      "path": "src/notation/midi-json/parser/midi-json-parser.ts",
+      "sha256": "3f37a27af6d532552a03e6a845bd16f675165c8e6e01e31d1c6e17d74f864743"
+    },
+    {
+      "path": "src/notation/barbeat/parser/barbeat-grammar.peggy",
+      "sha256": "42b8bcd25597ae7e4c30f4ea608e35387ab4e6a250388ab82f1d284dfb53daa6"
+    },
+    {
+      "path": "src/notation/stark/parser/stark-grammar.peggy",
+      "sha256": "81de2bdd88d1f51f1882ccb3e79367ddf3adf3f1eea44f35cf2fffed2b4df5f8"
+    },
+    {
+      "path": "src/notation/stark/stark-serializer.ts",
+      "sha256": "e9b4da79445d9318b442fc9f0cb9a457bdd07d9dcbb6fb56683baaf3fe37dc68"
+    },
+    {
+      "path": "src/notation/transform/parser/transform-grammar.peggy",
+      "sha256": "b0ea9bca9bd8921b562ee83e419c34e5ddf87a7d1a5c67cc637c3f6133cbdde6"
+    },
+    {
+      "path": "src/tools/clip/update/helpers/notes/note-updates.ts",
+      "sha256": "619f2f908df9a10c655d68d7678c54095e62e1f97e341fdbbce40324ad528ac1"
+    },
+    {
+      "path": "src/tools/clip/update/helpers/notes/note-transforms.ts",
+      "sha256": "e77f89fb4e53843eff2e47c5383fc15a6f97d1be396cc953845aa3ac14ba2237"
+    },
+    {
+      "path": "src/tools/shared/clip/clip-notes.ts",
+      "sha256": "36ae033b4dff664d89cd222c23bb09b6c66c0bf92bac448277cf35ba775fa724"
+    },
+    {
+      "path": "src/skills/build-skills.ts",
+      "sha256": "8839f88a60c971c22c30eef692fe2ddf11c3d8d2ccccdf02cb428227f79c37cc"
+    },
+    {
+      "path": "src/skills/drivers.ts",
+      "sha256": "7c88e5ed561fa836052fd03770fc699cdcda6b0966bcc517499197dcd3c26b12"
+    },
+    {
+      "path": "src/tools/clip/update/update-clip.def.ts",
+      "sha256": "92610fe80548157115757035350ef41802d62d98563fa91f1a9a1e027d2c4f9e"
+    },
+    {
+      "path": "src/skills/notation/barbeat-standard.ts",
+      "sha256": "0a38e8b3ff68e255263cb5107ea971b88a41a6da28b322ad4dcc61293e87a22d"
+    },
+    {
+      "path": "src/skills/notation/midi-json.ts",
+      "sha256": "30a8d378c5fea2e6816b69b0c6dc95f4fc716c9032e838b50951c9d25b81530b"
+    },
+    {
+      "path": "src/skills/notation/stark.ts",
+      "sha256": "f03b64b5e51eaff37901615f63ed4f8b15c7e8ec35af3a399390fcfc5bdb743c"
+    },
+    {
+      "path": "src/skills/fragments/transforms/transforms-core.ts",
+      "sha256": "a4ace96341a60336e33d95fef3d0088908fab15272b2d449d26688edd2cc460c"
+    },
+    {
+      "path": "src/skills/fragments/transforms/transforms-expressions.ts",
+      "sha256": "742c7d9b09ee95bd7e406e9ddc56840eecdb8f79e30b97b9daf7d0da06a0e488"
+    },
+    {
+      "path": "src/skills/fragments/transforms/transforms-generative.ts",
+      "sha256": "240aeba64867c89a20867d6d4f5c9e68b049d8224ea0d934b049346706fbf485"
+    }
+  ],
+  "fixtures": [
+    {
+      "name": "quarters",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 62,
+          "at": "1",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 64,
+          "at": "2",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 65,
+          "at": "3",
+          "duration": "1",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "six-eight",
+      "numerator": 6,
+      "denominator": 8,
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 61,
+          "at": "1",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 62,
+          "at": "2",
+          "duration": "1",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "five-four",
+      "numerator": 5,
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "at": "1",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "at": "2",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "at": "3",
+          "duration": "1",
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "at": "4",
+          "duration": "1",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "dense-drums",
+      "drumMode": true,
+      "notes": [
+        {
+          "pitch": 42,
+          "at": "0/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "1/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "2/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "3/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "4/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "5/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "6/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "7/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "8/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "9/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "10/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "11/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "12/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "13/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "14/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "15/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "16/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "17/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "18/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "19/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "20/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "21/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "22/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "23/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "24/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "25/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "26/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "27/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "28/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "29/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "30/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "31/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "32/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "33/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "34/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "35/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "36/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "37/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "38/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "39/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "40/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "41/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "42/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "43/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "44/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "45/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "46/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "47/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "48/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "49/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "50/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "51/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "52/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "53/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "54/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "55/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "56/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "57/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "58/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "59/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "60/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "61/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "62/4",
+          "duration": "1/4",
+          "velocity": 100
+        },
+        {
+          "pitch": 42,
+          "at": "63/4",
+          "duration": "1/4",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "chord-distinct-lengths",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 70
+        },
+        {
+          "pitch": 64,
+          "at": "0",
+          "duration": "2",
+          "velocity": 100
+        },
+        {
+          "pitch": 67,
+          "at": "0",
+          "duration": "4",
+          "velocity": 120
+        }
+      ]
+    },
+    {
+      "name": "normalized-triplets",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "171/512",
+          "velocity": 100
+        },
+        {
+          "pitch": 62,
+          "at": "85/256",
+          "duration": "171/512",
+          "velocity": 100
+        },
+        {
+          "pitch": 64,
+          "at": "341/512",
+          "duration": "171/512",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "exact-triplets",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1/3",
+          "velocity": 100
+        },
+        {
+          "pitch": 62,
+          "at": "1/3",
+          "duration": "1/3",
+          "velocity": 100
+        },
+        {
+          "pitch": 64,
+          "at": "2/3",
+          "duration": "1/3",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "pickup",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "-1/2",
+          "duration": "1/2",
+          "velocity": 100
+        },
+        {
+          "pitch": 62,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "same-pitch-overlap",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "2",
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "at": "1",
+          "duration": "2",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "two-channels-same-address",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 90,
+          "channel": 1
+        },
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 110,
+          "channel": 2
+        }
+      ]
+    },
+    {
+      "name": "probability",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100,
+          "chance": {
+            "enabled": true,
+            "value": 0.75
+          }
+        }
+      ]
+    },
+    {
+      "name": "long-sustain",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "8",
+          "velocity": 100
+        }
+      ]
+    },
+    {
+      "name": "expression-and-mute",
+      "notes": [
+        {
+          "pitch": 60,
+          "at": "0",
+          "duration": "1",
+          "velocity": 100,
+          "mute": true,
+          "releaseVelocity": 0.4,
+          "expression": {
+            "velocitySpread": 0,
+            "gain": 1,
+            "pan": -0.3,
+            "pressure": 0.2,
+            "timbre": 0.7,
+            "transpose": 0.5
+          }
+        }
+      ]
+    }
+  ],
+  "roundtrips": [
+    {
+      "fixture": "quarters",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 100 1 false\nEVENT n1 clip 1 1 62 100 1 false\nEVENT n2 clip 2 1 64 100 1 false\nEVENT n3 clip 3 1 65 100 1 false\n",
+        "bytes": 386,
+        "tokens": 153,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "quarters",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100},{\"at\":\"1\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n1\",\"pitch\":62,\"velocity\":100},{\"at\":\"2\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n2\",\"pitch\":64,\"velocity\":100},{\"at\":\"3\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n3\",\"pitch\":65,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 566,
+        "tokens": 195,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "quarters",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/4 C3 1|1\nD3 1|2\nE3 1|3\nF3 1|4",
+        "bytes": 36,
+        "tokens": 32,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 62,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 65,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "quarters",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:100},{p:62,t:1,d:1,v:100},{p:64,t:2,d:1,v:100},{p:65,t:3,d:1,v:100}]",
+        "bytes": 85,
+        "tokens": 53,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 65,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "quarters",
+      "format": "stark",
+      "value": {
+        "text": "melody: C D E F",
+        "bytes": 15,
+        "tokens": 7,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 3,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 65,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "six-eight",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 100 1 false\nEVENT n1 clip 1 1 61 100 1 false\nEVENT n2 clip 2 1 62 100 1 false\n",
+        "bytes": 353,
+        "tokens": 137,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "six-eight",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100},{\"at\":\"1\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n1\",\"pitch\":61,\"velocity\":100},{\"at\":\"2\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n2\",\"pitch\":62,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 490,
+        "tokens": 170,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "six-eight",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/4 C3 1|1\nDb3 1|3\nD3 1|5",
+        "bytes": 30,
+        "tokens": 25,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 61,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 62,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "six-eight",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:2,v:100},{p:61,t:2,d:2,v:100},{p:62,t:4,d:2,v:100}]",
+        "bytes": 64,
+        "tokens": 40,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 61,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "six-eight",
+      "format": "stark",
+      "value": {
+        "text": "melody: C Db D",
+        "bytes": 14,
+        "tokens": 6,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 61,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "five-four",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 100 1 false\nEVENT n1 clip 1 1 60 100 1 false\nEVENT n2 clip 2 1 60 100 1 false\nEVENT n3 clip 3 1 60 100 1 false\nEVENT n4 clip 4 1 60 100 1 false\n",
+        "bytes": 419,
+        "tokens": 169,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "five-four",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100},{\"at\":\"1\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n1\",\"pitch\":60,\"velocity\":100},{\"at\":\"2\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n2\",\"pitch\":60,\"velocity\":100},{\"at\":\"3\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n3\",\"pitch\":60,\"velocity\":100},{\"at\":\"4\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n4\",\"pitch\":60,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 642,
+        "tokens": 220,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "five-four",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/4 C3 1|1,2,3,4,5",
+        "bytes": 23,
+        "tokens": 19,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 4,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "five-four",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:100},{p:60,t:1,d:1,v:100},{p:60,t:2,d:1,v:100},{p:60,t:3,d:1,v:100},{p:60,t:4,d:1,v:100}]",
+        "bytes": 106,
+        "tokens": 66,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 4,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "five-four",
+      "format": "stark",
+      "value": {
+        "text": "melody: C*5",
+        "bytes": 11,
+        "tokens": 6,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 3,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 4,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 4,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "dense-drums",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"16\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"16\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1/4 42 100 1 false\nEVENT n1 clip 1/4 1/4 42 100 1 false\nEVENT n2 clip 1/2 1/4 42 100 1 false\nEVENT n3 clip 3/4 1/4 42 100 1 false\nEVENT n4 clip 1 1/4 42 100 1 false\nEVENT n5 clip 5/4 1/4 42 100 1 false\nEVENT n6 clip 3/2 1/4 42 100 1 false\nEVENT n7 clip 7/4 1/4 42 100 1 false\nEVENT n8 clip 2 1/4 42 100 1 false\nEVENT n9 clip 9/4 1/4 42 100 1 false\nEVENT n10 clip 5/2 1/4 42 100 1 false\nEVENT n11 clip 11/4 1/4 42 100 1 false\nEVENT n12 clip 3 1/4 42 100 1 false\nEVENT n13 clip 13/4 1/4 42 100 1 false\nEVENT n14 clip 7/2 1/4 42 100 1 false\nEVENT n15 clip 15/4 1/4 42 100 1 false\nEVENT n16 clip 4 1/4 42 100 1 false\nEVENT n17 clip 17/4 1/4 42 100 1 false\nEVENT n18 clip 9/2 1/4 42 100 1 false\nEVENT n19 clip 19/4 1/4 42 100 1 false\nEVENT n20 clip 5 1/4 42 100 1 false\nEVENT n21 clip 21/4 1/4 42 100 1 false\nEVENT n22 clip 11/2 1/4 42 100 1 false\nEVENT n23 clip 23/4 1/4 42 100 1 false\nEVENT n24 clip 6 1/4 42 100 1 false\nEVENT n25 clip 25/4 1/4 42 100 1 false\nEVENT n26 clip 13/2 1/4 42 100 1 false\nEVENT n27 clip 27/4 1/4 42 100 1 false\nEVENT n28 clip 7 1/4 42 100 1 false\nEVENT n29 clip 29/4 1/4 42 100 1 false\nEVENT n30 clip 15/2 1/4 42 100 1 false\nEVENT n31 clip 31/4 1/4 42 100 1 false\nEVENT n32 clip 8 1/4 42 100 1 false\nEVENT n33 clip 33/4 1/4 42 100 1 false\nEVENT n34 clip 17/2 1/4 42 100 1 false\nEVENT n35 clip 35/4 1/4 42 100 1 false\nEVENT n36 clip 9 1/4 42 100 1 false\nEVENT n37 clip 37/4 1/4 42 100 1 false\nEVENT n38 clip 19/2 1/4 42 100 1 false\nEVENT n39 clip 39/4 1/4 42 100 1 false\nEVENT n40 clip 10 1/4 42 100 1 false\nEVENT n41 clip 41/4 1/4 42 100 1 false\nEVENT n42 clip 21/2 1/4 42 100 1 false\nEVENT n43 clip 43/4 1/4 42 100 1 false\nEVENT n44 clip 11 1/4 42 100 1 false\nEVENT n45 clip 45/4 1/4 42 100 1 false\nEVENT n46 clip 23/2 1/4 42 100 1 false\nEVENT n47 clip 47/4 1/4 42 100 1 false\nEVENT n48 clip 12 1/4 42 100 1 false\nEVENT n49 clip 49/4 1/4 42 100 1 false\nEVENT n50 clip 25/2 1/4 42 100 1 false\nEVENT n51 clip 51/4 1/4 42 100 1 false\nEVENT n52 clip 13 1/4 42 100 1 false\nEVENT n53 clip 53/4 1/4 42 100 1 false\nEVENT n54 clip 27/2 1/4 42 100 1 false\nEVENT n55 clip 55/4 1/4 42 100 1 false\nEVENT n56 clip 14 1/4 42 100 1 false\nEVENT n57 clip 57/4 1/4 42 100 1 false\nEVENT n58 clip 29/2 1/4 42 100 1 false\nEVENT n59 clip 59/4 1/4 42 100 1 false\nEVENT n60 clip 15 1/4 42 100 1 false\nEVENT n61 clip 61/4 1/4 42 100 1 false\nEVENT n62 clip 31/2 1/4 42 100 1 false\nEVENT n63 clip 63/4 1/4 42 100 1 false\n",
+        "bytes": 2690,
+        "tokens": 1337,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "dense-drums",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"16\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"16\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n0\",\"pitch\":42,\"velocity\":100},{\"at\":\"1/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n1\",\"pitch\":42,\"velocity\":100},{\"at\":\"1/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n2\",\"pitch\":42,\"velocity\":100},{\"at\":\"3/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n3\",\"pitch\":42,\"velocity\":100},{\"at\":\"1\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n4\",\"pitch\":42,\"velocity\":100},{\"at\":\"5/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n5\",\"pitch\":42,\"velocity\":100},{\"at\":\"3/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n6\",\"pitch\":42,\"velocity\":100},{\"at\":\"7/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n7\",\"pitch\":42,\"velocity\":100},{\"at\":\"2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n8\",\"pitch\":42,\"velocity\":100},{\"at\":\"9/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n9\",\"pitch\":42,\"velocity\":100},{\"at\":\"5/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n10\",\"pitch\":42,\"velocity\":100},{\"at\":\"11/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n11\",\"pitch\":42,\"velocity\":100},{\"at\":\"3\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n12\",\"pitch\":42,\"velocity\":100},{\"at\":\"13/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n13\",\"pitch\":42,\"velocity\":100},{\"at\":\"7/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n14\",\"pitch\":42,\"velocity\":100},{\"at\":\"15/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n15\",\"pitch\":42,\"velocity\":100},{\"at\":\"4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n16\",\"pitch\":42,\"velocity\":100},{\"at\":\"17/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n17\",\"pitch\":42,\"velocity\":100},{\"at\":\"9/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n18\",\"pitch\":42,\"velocity\":100},{\"at\":\"19/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n19\",\"pitch\":42,\"velocity\":100},{\"at\":\"5\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n20\",\"pitch\":42,\"velocity\":100},{\"at\":\"21/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n21\",\"pitch\":42,\"velocity\":100},{\"at\":\"11/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n22\",\"pitch\":42,\"velocity\":100},{\"at\":\"23/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n23\",\"pitch\":42,\"velocity\":100},{\"at\":\"6\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n24\",\"pitch\":42,\"velocity\":100},{\"at\":\"25/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n25\",\"pitch\":42,\"velocity\":100},{\"at\":\"13/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n26\",\"pitch\":42,\"velocity\":100},{\"at\":\"27/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n27\",\"pitch\":42,\"velocity\":100},{\"at\":\"7\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n28\",\"pitch\":42,\"velocity\":100},{\"at\":\"29/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n29\",\"pitch\":42,\"velocity\":100},{\"at\":\"15/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n30\",\"pitch\":42,\"velocity\":100},{\"at\":\"31/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n31\",\"pitch\":42,\"velocity\":100},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n32\",\"pitch\":42,\"velocity\":100},{\"at\":\"33/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n33\",\"pitch\":42,\"velocity\":100},{\"at\":\"17/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n34\",\"pitch\":42,\"velocity\":100},{\"at\":\"35/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n35\",\"pitch\":42,\"velocity\":100},{\"at\":\"9\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n36\",\"pitch\":42,\"velocity\":100},{\"at\":\"37/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n37\",\"pitch\":42,\"velocity\":100},{\"at\":\"19/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n38\",\"pitch\":42,\"velocity\":100},{\"at\":\"39/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n39\",\"pitch\":42,\"velocity\":100},{\"at\":\"10\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n40\",\"pitch\":42,\"velocity\":100},{\"at\":\"41/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n41\",\"pitch\":42,\"velocity\":100},{\"at\":\"21/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n42\",\"pitch\":42,\"velocity\":100},{\"at\":\"43/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n43\",\"pitch\":42,\"velocity\":100},{\"at\":\"11\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n44\",\"pitch\":42,\"velocity\":100},{\"at\":\"45/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n45\",\"pitch\":42,\"velocity\":100},{\"at\":\"23/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n46\",\"pitch\":42,\"velocity\":100},{\"at\":\"47/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n47\",\"pitch\":42,\"velocity\":100},{\"at\":\"12\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n48\",\"pitch\":42,\"velocity\":100},{\"at\":\"49/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n49\",\"pitch\":42,\"velocity\":100},{\"at\":\"25/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n50\",\"pitch\":42,\"velocity\":100},{\"at\":\"51/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n51\",\"pitch\":42,\"velocity\":100},{\"at\":\"13\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n52\",\"pitch\":42,\"velocity\":100},{\"at\":\"53/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n53\",\"pitch\":42,\"velocity\":100},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n54\",\"pitch\":42,\"velocity\":100},{\"at\":\"55/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n55\",\"pitch\":42,\"velocity\":100},{\"at\":\"14\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n56\",\"pitch\":42,\"velocity\":100},{\"at\":\"57/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n57\",\"pitch\":42,\"velocity\":100},{\"at\":\"29/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n58\",\"pitch\":42,\"velocity\":100},{\"at\":\"59/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n59\",\"pitch\":42,\"velocity\":100},{\"at\":\"15\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n60\",\"pitch\":42,\"velocity\":100},{\"at\":\"61/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n61\",\"pitch\":42,\"velocity\":100},{\"at\":\"31/2\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n62\",\"pitch\":42,\"velocity\":100},{\"at\":\"63/4\",\"clip\":\"clip\",\"duration\":\"1/4\",\"id\":\"n63\",\"pitch\":42,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 5450,
+        "tokens": 1919,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "dense-drums",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/16 Gb1 1|1x64",
+        "bytes": 20,
+        "tokens": 13,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 42,
+            "start_time": 0,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 1,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 2,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 3,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 4,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 6,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 7,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 8,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 9,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 10,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 11,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 12,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 13,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 14,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 15,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "dense-drums",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:42,t:0,d:0.25,v:100},{p:42,t:0.25,d:0.25,v:100},{p:42,t:0.5,d:0.25,v:100},{p:42,t:0.75,d:0.25,v:100},{p:42,t:1,d:0.25,v:100},{p:42,t:1.25,d:0.25,v:100},{p:42,t:1.5,d:0.25,v:100},{p:42,t:1.75,d:0.25,v:100},{p:42,t:2,d:0.25,v:100},{p:42,t:2.25,d:0.25,v:100},{p:42,t:2.5,d:0.25,v:100},{p:42,t:2.75,d:0.25,v:100},{p:42,t:3,d:0.25,v:100},{p:42,t:3.25,d:0.25,v:100},{p:42,t:3.5,d:0.25,v:100},{p:42,t:3.75,d:0.25,v:100},{p:42,t:4,d:0.25,v:100},{p:42,t:4.25,d:0.25,v:100},{p:42,t:4.5,d:0.25,v:100},{p:42,t:4.75,d:0.25,v:100},{p:42,t:5,d:0.25,v:100},{p:42,t:5.25,d:0.25,v:100},{p:42,t:5.5,d:0.25,v:100},{p:42,t:5.75,d:0.25,v:100},{p:42,t:6,d:0.25,v:100},{p:42,t:6.25,d:0.25,v:100},{p:42,t:6.5,d:0.25,v:100},{p:42,t:6.75,d:0.25,v:100},{p:42,t:7,d:0.25,v:100},{p:42,t:7.25,d:0.25,v:100},{p:42,t:7.5,d:0.25,v:100},{p:42,t:7.75,d:0.25,v:100},{p:42,t:8,d:0.25,v:100},{p:42,t:8.25,d:0.25,v:100},{p:42,t:8.5,d:0.25,v:100},{p:42,t:8.75,d:0.25,v:100},{p:42,t:9,d:0.25,v:100},{p:42,t:9.25,d:0.25,v:100},{p:42,t:9.5,d:0.25,v:100},{p:42,t:9.75,d:0.25,v:100},{p:42,t:10,d:0.25,v:100},{p:42,t:10.25,d:0.25,v:100},{p:42,t:10.5,d:0.25,v:100},{p:42,t:10.75,d:0.25,v:100},{p:42,t:11,d:0.25,v:100},{p:42,t:11.25,d:0.25,v:100},{p:42,t:11.5,d:0.25,v:100},{p:42,t:11.75,d:0.25,v:100},{p:42,t:12,d:0.25,v:100},{p:42,t:12.25,d:0.25,v:100},{p:42,t:12.5,d:0.25,v:100},{p:42,t:12.75,d:0.25,v:100},{p:42,t:13,d:0.25,v:100},{p:42,t:13.25,d:0.25,v:100},{p:42,t:13.5,d:0.25,v:100},{p:42,t:13.75,d:0.25,v:100},{p:42,t:14,d:0.25,v:100},{p:42,t:14.25,d:0.25,v:100},{p:42,t:14.5,d:0.25,v:100},{p:42,t:14.75,d:0.25,v:100},{p:42,t:15,d:0.25,v:100},{p:42,t:15.25,d:0.25,v:100},{p:42,t:15.5,d:0.25,v:100},{p:42,t:15.75,d:0.25,v:100}]",
+        "bytes": 1689,
+        "tokens": 1057,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 42,
+            "start_time": 0,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.25,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.5,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.75,
+            "duration": 0.25,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "dense-drums",
+      "format": "stark",
+      "value": {
+        "text": "hihat /16: X*64",
+        "bytes": 15,
+        "tokens": 8,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 3,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 4,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 5,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 6,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 7,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 8,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 9,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 10,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 11,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 12,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 13,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 14,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 15,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 16,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 17,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 18,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 19,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 20,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 21,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 22,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 23,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 24,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 25,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 26,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 27,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 28,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 29,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 30,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 31,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 32,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 33,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 34,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 35,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 36,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 37,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 38,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 39,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 40,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 41,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 42,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 43,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 44,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 45,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 46,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 47,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 48,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 49,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 50,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 51,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 52,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 53,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 54,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 55,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 56,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 57,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 58,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 59,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 60,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 61,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 62,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 63,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 42,
+            "start_time": 0,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 0.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 1.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 2.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 3.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 4.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 5.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 6.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 7.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 8.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 9.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 10.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 11.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 12.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 13.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 14.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.25,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.5,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 42,
+            "start_time": 15.75,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "chord-distinct-lengths",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 70 1 false\nEVENT n1 clip 0 2 64 100 1 false\nEVENT n2 clip 0 4 67 120 1 false\n",
+        "bytes": 352,
+        "tokens": 137,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "chord-distinct-lengths",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":70},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"2\",\"id\":\"n1\",\"pitch\":64,\"velocity\":100},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"4\",\"id\":\"n2\",\"pitch\":67,\"velocity\":120}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 489,
+        "tokens": 170,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "chord-distinct-lengths",
+      "format": "barbeat",
+      "value": {
+        "text": "v70 n/4 C3 v100 n/2 E3 v120 n/1 G3 1|1",
+        "bytes": 38,
+        "tokens": 25,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 70,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 67,
+            "start_time": 0,
+            "duration": 4,
+            "velocity": 120,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "chord-distinct-lengths",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:70},{p:64,t:0,d:2,v:100},{p:67,t:0,d:4,v:120}]",
+        "bytes": 63,
+        "tokens": 40,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 70,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 67,
+            "start_time": 0,
+            "duration": 4,
+            "velocity": 120,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "chord-distinct-lengths",
+      "format": "stark",
+      "value": {
+        "text": "melody: [C E G]?",
+        "bytes": 16,
+        "tokens": 8,
+        "differences": [
+          {
+            "note": 1,
+            "field": "duration",
+            "before": 2,
+            "after": 1
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 70
+          },
+          {
+            "note": 2,
+            "field": "duration",
+            "before": 4,
+            "after": 1
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 120,
+            "after": 70
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 70,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 70,
+            "probability": 1
+          },
+          {
+            "pitch": 67,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 70,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "normalized-triplets",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 171/512 60 100 1 false\nEVENT n1 clip 85/256 171/512 62 100 1 false\nEVENT n2 clip 341/512 171/512 64 100 1 false\n",
+        "bytes": 382,
+        "tokens": 147,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "normalized-triplets",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"171/512\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100},{\"at\":\"85/256\",\"clip\":\"clip\",\"duration\":\"171/512\",\"id\":\"n1\",\"pitch\":62,\"velocity\":100},{\"at\":\"341/512\",\"clip\":\"clip\",\"duration\":\"171/512\",\"id\":\"n2\",\"pitch\":64,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 519,
+        "tokens": 180,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "normalized-triplets",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n0.334/4 C3 1|1\nD3 1|1+n0.332/4\nE3 1|1+n0.666/4",
+        "bytes": 52,
+        "tokens": 40,
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          },
+          {
+            "note": 1,
+            "field": "start_time",
+            "before": 0.33203125,
+            "after": 0.3320000000000001
+          },
+          {
+            "note": 1,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          },
+          {
+            "note": 2,
+            "field": "start_time",
+            "before": 0.666015625,
+            "after": 0.6659999999999999
+          },
+          {
+            "note": 2,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.334,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.3320000000000001,
+            "duration": 0.334,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.6659999999999999,
+            "duration": 0.334,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "normalized-triplets",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:0.334,v:100},{p:62,t:85/256,d:0.334,v:100},{p:64,t:0.666,d:0.334,v:100}]",
+        "bytes": 85,
+        "tokens": 50,
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          },
+          {
+            "note": 1,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          },
+          {
+            "note": 2,
+            "field": "start_time",
+            "before": 0.666015625,
+            "after": 0.666
+          },
+          {
+            "note": 2,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.334
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.334,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.33203125,
+            "duration": 0.334,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.666,
+            "duration": 0.334,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "normalized-triplets",
+      "format": "stark",
+      "value": {
+        "text": "melody /8t: C/16 D E",
+        "bytes": 20,
+        "tokens": 11,
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.25
+          },
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "start_time",
+            "before": 0.33203125,
+            "after": 0.25
+          },
+          {
+            "note": 1,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.3333333333333333
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "start_time",
+            "before": 0.666015625,
+            "after": 0.5833333333333333
+          },
+          {
+            "note": 2,
+            "field": "duration",
+            "before": 0.333984375,
+            "after": 0.3333333333333333
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.25,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.25,
+            "duration": 0.3333333333333333,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.5833333333333333,
+            "duration": 0.3333333333333333,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "exact-triplets",
+      "format": "ghostnote-fields",
+      "error": "R06 $.events[0].duration: realized timing must use the 1/512 grid",
+      "warnings": []
+    },
+    {
+      "fixture": "exact-triplets",
+      "format": "ghostnote-json",
+      "error": "R06 $.events[0].duration: realized timing must use the 1/512 grid",
+      "warnings": []
+    },
+    {
+      "fixture": "exact-triplets",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/8t C3 1|1\nD3 1|1+n/12\nE3 1|1+n/6",
+        "bytes": 39,
+        "tokens": 32,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.33333333333333326,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.6666666666666665,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "exact-triplets",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1/3,v:100},{p:62,t:1/3,d:1/3,v:100},{p:64,t:2/3,d:1/3,v:100}]",
+        "bytes": 74,
+        "tokens": 50,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.3333333333333333,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.6666666666666666,
+            "duration": 0.3333333333333333,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "exact-triplets",
+      "format": "stark",
+      "value": {
+        "text": "melody /8t: C D E",
+        "bytes": 17,
+        "tokens": 9,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 2,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.3333333333333333,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.3333333333333333,
+            "duration": 0.3333333333333333,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 0.6666666666666666,
+            "duration": 0.3333333333333333,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "pickup",
+      "format": "ghostnote-fields",
+      "error": "R05 $.events[0].at: timing has an invalid sign",
+      "warnings": []
+    },
+    {
+      "fixture": "pickup",
+      "format": "ghostnote-json",
+      "error": "R05 $.events[0].at: timing has an invalid sign",
+      "warnings": []
+    },
+    {
+      "fixture": "pickup",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/8 C3 1|1-n/8\nn/4 D3 1|1",
+        "bytes": 30,
+        "tokens": 24,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": -0.5,
+            "duration": 0.5,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 62,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": [
+        "Note position resolves before the clip start (negative time): it sits before 1|1."
+      ]
+    },
+    {
+      "fixture": "pickup",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:-0.5,d:0.5,v:100},{p:62,t:0,d:1,v:100}]",
+        "bytes": 48,
+        "tokens": 31,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": -0.5,
+            "duration": 0.5,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "pickup",
+      "format": "stark",
+      "value": {
+        "text": "melody: C/8 D",
+        "bytes": 13,
+        "tokens": 7,
+        "differences": [
+          {
+            "note": 0,
+            "field": "start_time",
+            "before": -0.5,
+            "after": 0
+          },
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "start_time",
+            "before": 0,
+            "after": 0.5
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 0.5,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 62,
+            "start_time": 0.5,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "same-pitch-overlap",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 2 60 100 1 false\nEVENT n1 clip 1 2 60 100 1 false\n",
+        "bytes": 320,
+        "tokens": 121,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "same-pitch-overlap",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"2\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100},{\"at\":\"1\",\"clip\":\"clip\",\"duration\":\"2\",\"id\":\"n1\",\"pitch\":60,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 414,
+        "tokens": 145,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "same-pitch-overlap",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/2 C3 1|1,2",
+        "bytes": 17,
+        "tokens": 13,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 2,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "same-pitch-overlap",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:2,v:100},{p:60,t:1,d:2,v:100}]",
+        "bytes": 43,
+        "tokens": 27,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 2,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "same-pitch-overlap",
+      "format": "stark",
+      "value": {
+        "text": "melody: C C/2",
+        "bytes": 13,
+        "tokens": 7,
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 2,
+            "after": 1
+          },
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 1,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 1,
+            "duration": 2,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "two-channels-same-address",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 90 1 false\nEVENT n1 clip 0 1 60 110 2 false\n",
+        "bytes": 319,
+        "tokens": 121,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "two-channels-same-address",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":90},{\"at\":\"0\",\"channel\":2,\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n1\",\"pitch\":60,\"velocity\":110}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 425,
+        "tokens": 149,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "two-channels-same-address",
+      "format": "barbeat",
+      "value": {
+        "text": "v90 n/4 C3 v110 C3 1|1",
+        "bytes": 22,
+        "tokens": 15,
+        "differences": [
+          {
+            "note": 0,
+            "field": "channel",
+            "before": 1,
+            "after": null
+          },
+          {
+            "note": 1,
+            "field": "channel",
+            "before": 2,
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 90,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 110,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "two-channels-same-address",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:90},{p:60,t:0,d:1,v:110}]",
+        "bytes": 42,
+        "tokens": 27,
+        "differences": [
+          {
+            "note": 0,
+            "field": "channel",
+            "before": 1,
+            "after": null
+          },
+          {
+            "note": 1,
+            "field": "channel",
+            "before": 2,
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 90,
+            "velocity_deviation": 0,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 110,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "two-channels-same-address",
+      "format": "stark",
+      "value": {
+        "text": "melody: [C C]",
+        "bytes": 13,
+        "tokens": 7,
+        "differences": [
+          {
+            "field": "count",
+            "before": 2,
+            "after": 1
+          },
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 90,
+            "after": 105
+          },
+          {
+            "note": 0,
+            "field": "channel",
+            "before": 1,
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": [
+        "Stark: 1 same-pitch+start collision from mixed sections; keeping last note"
+      ]
+    },
+    {
+      "fixture": "probability",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 100 1 false WITH {\"chance\":{\"enabled\":true,\"value\":0.75}}\n",
+        "bytes": 333,
+        "tokens": 118,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "probability",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"chance\":{\"enabled\":true,\"value\":0.75},\"clip\":\"clip\",\"duration\":\"1\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 377,
+        "tokens": 132,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "probability",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/4 p0.75 C3 1|1",
+        "bytes": 21,
+        "tokens": 15,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 0.75,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "probability",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:100,c:0.75}]",
+        "bytes": 29,
+        "tokens": 19,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 0.75
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "probability",
+      "format": "stark",
+      "value": {
+        "text": "melody: C",
+        "bytes": 9,
+        "tokens": 4,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 0,
+            "field": "probability",
+            "before": 0.75,
+            "after": 1
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "long-sustain",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 8 60 100 1 false\n",
+        "bytes": 287,
+        "tokens": 105,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "long-sustain",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"8\",\"id\":\"n0\",\"pitch\":60,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 338,
+        "tokens": 120,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "long-sustain",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n2/1 C3 1|1",
+        "bytes": 16,
+        "tokens": 12,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 8,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "long-sustain",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:8,v:100}]",
+        "bytes": 22,
+        "tokens": 14,
+        "differences": [],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 8,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "long-sustain",
+      "format": "stark",
+      "value": {
+        "text": "melody /1.: C",
+        "bytes": 13,
+        "tokens": 6,
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 8,
+            "after": 6
+          },
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 6,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": [
+        "Stark: 1 note longer than 6 beats is shortened on read-back — Stark's longest note value is a dotted whole (6 beats). Use bar|beat or midi-json notation to preserve longer sustains."
+      ]
+    },
+    {
+      "fixture": "expression-and-mute",
+      "format": "ghostnote-fields",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"8\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT n0 clip 0 1 60 100 1 true WITH {\"expression\":{\"gain\":1,\"pan\":-0.3,\"pressure\":0.2,\"timbre\":0.7,\"transpose\":0.5,\"velocitySpread\":0},\"releaseVelocity\":0.4}\n",
+        "bytes": 413,
+        "tokens": 151,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "expression-and-mute",
+      "format": "ghostnote-json",
+      "value": {
+        "text": "{\"clips\":[{\"id\":\"clip\",\"length\":\"8\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"8\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"1\",\"expression\":{\"gain\":1,\"pan\":-0.3,\"pressure\":0.2,\"timbre\":0.7,\"transpose\":0.5,\"velocitySpread\":0},\"id\":\"n0\",\"mute\":true,\"pitch\":60,\"releaseVelocity\":0.4,\"velocity\":100}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+        "bytes": 470,
+        "tokens": 169,
+        "differences": []
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "expression-and-mute",
+      "format": "barbeat",
+      "value": {
+        "text": "v100 n/4 C3 1|1",
+        "bytes": 15,
+        "tokens": 11,
+        "differences": [
+          {
+            "note": 0,
+            "field": "mute",
+            "before": true,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "release_velocity",
+            "before": 0.4,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "expression",
+            "before": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.3,
+              "pressure": 0.2,
+              "timbre": 0.7,
+              "transpose": 0.5
+            },
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "expression-and-mute",
+      "format": "midi-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:100}]",
+        "bytes": 22,
+        "tokens": 14,
+        "differences": [
+          {
+            "note": 0,
+            "field": "mute",
+            "before": true,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "release_velocity",
+            "before": 0.4,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "expression",
+            "before": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.3,
+              "pressure": 0.2,
+              "timbre": 0.7,
+              "transpose": 0.5
+            },
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 100,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture": "expression-and-mute",
+      "format": "stark",
+      "value": {
+        "text": "melody: C",
+        "bytes": 9,
+        "tokens": 4,
+        "differences": [
+          {
+            "note": 0,
+            "field": "velocity",
+            "before": 100,
+            "after": 105
+          },
+          {
+            "note": 0,
+            "field": "mute",
+            "before": true,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "release_velocity",
+            "before": 0.4,
+            "after": null
+          },
+          {
+            "note": 0,
+            "field": "expression",
+            "before": {
+              "velocitySpread": 0,
+              "gain": 1,
+              "pan": -0.3,
+              "pressure": 0.2,
+              "timbre": 0.7,
+              "transpose": 0.5
+            },
+            "after": null
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    }
+  ],
+  "witnesses": [
+    {
+      "name": "midi-json-is-not-standard-json",
+      "value": {
+        "text": "[{p:60,t:0,d:1,v:100},{p:62,t:1,d:1,v:100},{p:64,t:2,d:1,v:100},{p:65,t:3,d:1,v:100}]",
+        "probability": {
+          "pitch": 60,
+          "start_time": 0,
+          "duration": 0.6666666666666666,
+          "velocity": 100,
+          "velocity_deviation": 0,
+          "probability": 0.75
+        }
+      },
+      "warnings": []
+    },
+    {
+      "name": "midi-json-clamp-drop-and-unknown-field",
+      "value": {
+        "input": "[{p:999,t:0,v:999,c:2,channel:2},{p:62,t:1,d:0},{p:64,t:2,d:1/0}]",
+        "notes": [
+          {
+            "pitch": 127,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 127,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": [
+        "ignoring 2 invalid MIDI JSON notes: d must be greater than 0, non-finite d, v, or c"
+      ]
+    },
+    {
+      "name": "midi-json-unlisted-denominator",
+      "value": {
+        "text": "[{p:60,t:0,d:0.0588,v:100}]",
+        "differences": [
+          {
+            "note": 0,
+            "field": "duration",
+            "before": 0.058823529411764705,
+            "after": 0.0588
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "name": "midi-json-rounding-can-change-reimported-cell",
+      "value": {
+        "text": "[{p:60,t:0.666,d:0.334,v:100}]",
+        "sourceAt": "341/512",
+        "imported": {
+          "events": [
+            {
+              "id": "note",
+              "clip": "clip",
+              "pitch": 60,
+              "velocity": 100,
+              "at": "85/128",
+              "duration": "171/512"
+            }
+          ],
+          "report": {
+            "boundary": "explicit-source-notes",
+            "notes": [
+              {
+                "id": "note",
+                "sourceAt": "5998794703657501/9007199254740992",
+                "sourceDuration": "6016809102166983/18014398509481984",
+                "at": "85/128",
+                "duration": "171/512",
+                "atDelta": "-17451448556061/9007199254740992",
+                "durationDelta": "-281474976711/18014398509481984",
+                "minimumDurationPromotion": false
+              }
+            ],
+            "changedOverlaps": [],
+            "collisionGroups": [],
+            "codecLoss": 0
+          }
+        }
+      },
+      "warnings": []
+    },
+    {
+      "name": "barbeat-patterns-and-meter",
+      "value": {
+        "text": "[v80 v100] [C3 E3 G3] n/4 1|1x6",
+        "bytes": 31,
+        "tokens": 22,
+        "notes": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 80,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 67,
+            "start_time": 2,
+            "duration": 1,
+            "velocity": 80,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 60,
+            "start_time": 3,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 64,
+            "start_time": 4,
+            "duration": 1,
+            "velocity": 80,
+            "probability": 1,
+            "velocity_deviation": 0
+          },
+          {
+            "pitch": 67,
+            "start_time": 5,
+            "duration": 1,
+            "velocity": 100,
+            "probability": 1,
+            "velocity_deviation": 0
+          }
+        ]
+      },
+      "warnings": [
+        "velocity/duration/probability set after the note(s) but before the time position has no effect: these apply to the notes that follow, so put the setting before them (v1 C4, not C4 v1)"
+      ]
+    },
+    {
+      "name": "stark-chords-and-drum-repeats",
+      "value": {
+        "drumText": "hihat /16: X*16",
+        "chordRead": "melody /1: [C, E, G,] [A, C E]",
+        "chords": [
+          {
+            "pitch": 48,
+            "start_time": 0,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 52,
+            "start_time": 0,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 55,
+            "start_time": 0,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 57,
+            "start_time": 4,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 60,
+            "start_time": 4,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          },
+          {
+            "pitch": 64,
+            "start_time": 4,
+            "duration": 4,
+            "velocity": 105,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "name": "pitch-time-merge-is-local-but-replaces-matched-note",
+      "value": {
+        "before": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 90,
+            "probability": 0.6,
+            "velocity_deviation": 3,
+            "mute": 0,
+            "release_velocity": 64
+          }
+        ],
+        "incoming": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 110,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 1,
+            "velocity": 110,
+            "velocity_deviation": 0,
+            "probability": 1
+          }
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "name": "transform-preserves-carried-properties-and-moves",
+      "value": {
+        "text": "C3: velocity += 10\nC3: timing += n/8",
+        "bytes": 36,
+        "tokens": 16,
+        "before": [
+          {
+            "pitch": 60,
+            "start_time": 0,
+            "duration": 2,
+            "velocity": 90,
+            "release_velocity": 64,
+            "mute": 0,
+            "probability": 0.6
+          },
+          {
+            "pitch": 64,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 70,
+            "release_velocity": 32,
+            "mute": 0
+          }
+        ],
+        "after": [
+          {
+            "pitch": 60,
+            "start_time": 0.5,
+            "duration": 2,
+            "velocity": 100,
+            "release_velocity": 64,
+            "mute": 0,
+            "probability": 0.6
+          },
+          {
+            "pitch": 64,
+            "start_time": 1,
+            "duration": 1,
+            "velocity": 70,
+            "release_velocity": 32,
+            "mute": 0
+          }
+        ],
+        "sameObjectDuringOperation": true
+      },
+      "warnings": []
+    },
+    {
+      "name": "transform-half-open-bars",
+      "value": [
+        {
+          "pitch": 60,
+          "start_time": 0,
+          "duration": 1,
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "start_time": 8,
+          "duration": 1,
+          "velocity": 100
+        },
+        {
+          "pitch": 60,
+          "start_time": 12,
+          "duration": 1,
+          "velocity": 100
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "name": "ghostnote-sparse-update-and-stale-base",
+      "value": {
+        "text": "DOC ghostnote-document 1.0 patch\nBASE {\"sha256\":\"3eee62383466920ccd5c362fd9ac9e0603fa26e6673076a1f64fcf80c3501466\"}\nFIELDS id clip at duration pitch velocity channel mute\nUPDATE n0 {\"at\":\"1/2\",\"pitch\":61}\n",
+        "bytes": 205,
+        "tokens": 74,
+        "report": {
+          "added": [],
+          "removed": [],
+          "changedFields": [
+            {
+              "id": "n0",
+              "fields": [
+                "at",
+                "pitch"
+              ]
+            }
+          ],
+          "clipFields": [],
+          "clearedDefaults": [],
+          "overlayChanges": []
+        }
+      },
+      "warnings": []
+    },
+    {
+      "name": "small-edit-in-large-clip",
+      "value": {
+        "notes": 1024,
+        "changed": 1,
+        "fields": {
+          "bytes": 200,
+          "tokens": 70
+        },
+        "json": {
+          "bytes": 267,
+          "tokens": 93
+        },
+        "midiJson": {
+          "text": "[{p:60,t:512,d:1,v:110}]",
+          "bytes": 24,
+          "tokens": 14
+        },
+        "transform": {
+          "text": "C3 129|1: velocity = 110",
+          "bytes": 24,
+          "tokens": 11
+        },
+        "limit": "Request payloads only; Ghostnote includes a base hash, PP requires external meter and clip addressing."
+      },
+      "warnings": []
+    },
+    {
+      "name": "ghostnote-loop-and-play-range",
+      "value": [
+        {
+          "id": "clip",
+          "length": "8",
+          "loop": {
+            "from": "2",
+            "to": "6"
+          },
+          "playRange": {
+            "from": "1",
+            "to": "7"
+          }
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "instructions": [
+    {
+      "group": "barbeat-standard",
+      "name": "barbeatStandard",
+      "bytes": 4069,
+      "tokens": 1275
+    },
+    {
+      "group": "barbeat-standard",
+      "name": "barbeatStandardWrite",
+      "bytes": 4381,
+      "tokens": 1636
+    },
+    {
+      "group": "midi-json",
+      "name": "midiJson",
+      "bytes": 1017,
+      "tokens": 344
+    },
+    {
+      "group": "stark",
+      "name": "starkBasic",
+      "bytes": 2455,
+      "tokens": 781
+    },
+    {
+      "group": "stark",
+      "name": "starkBasicWrite",
+      "bytes": 646,
+      "tokens": 233
+    },
+    {
+      "group": "stark",
+      "name": "starkStandard",
+      "bytes": 2977,
+      "tokens": 932
+    },
+    {
+      "group": "stark",
+      "name": "starkStandardWrite",
+      "bytes": 767,
+      "tokens": 273
+    },
+    {
+      "group": "transforms-core",
+      "name": "transformsBasic",
+      "bytes": 688,
+      "tokens": 199
+    },
+    {
+      "group": "transforms-core",
+      "name": "transformsCore",
+      "bytes": 5629,
+      "tokens": 1568
+    },
+    {
+      "group": "transforms-core",
+      "name": "transformsEditing",
+      "bytes": 1293,
+      "tokens": 324
+    },
+    {
+      "group": "transforms-expressions",
+      "name": "transformsExpressions",
+      "bytes": 2609,
+      "tokens": 731
+    },
+    {
+      "group": "transforms-generative",
+      "name": "transformsGenerative",
+      "bytes": 5293,
+      "tokens": 1473
+    },
+    {
+      "group": "ghostnote",
+      "name": "Core+",
+      "bytes": 3639,
+      "tokens": 938
+    },
+    {
+      "group": "ghostnote",
+      "name": "Core+Patch",
+      "bytes": 4714,
+      "tokens": 1213
+    },
+    {
+      "group": "ghostnote",
+      "name": "Core+Timing overlays",
+      "bytes": 10405,
+      "tokens": 2838
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "barbeat/standard",
+      "bytes": 36243,
+      "tokens": 10516
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "barbeat/basic",
+      "bytes": 3769,
+      "tokens": 1202
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "midi-json/standard",
+      "bytes": 28808,
+      "tokens": 7947
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "midi-json/basic",
+      "bytes": 3354,
+      "tokens": 996
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "stark/standard",
+      "bytes": 31537,
+      "tokens": 8808
+    },
+    {
+      "group": "producer-pal-assembled-clip-tools",
+      "name": "stark/basic",
+      "bytes": 5440,
+      "tokens": 1666
+    }
+  ]
+}

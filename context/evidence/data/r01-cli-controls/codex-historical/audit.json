@@ -1,0 +1,116 @@
+{
+  "probeAnswerMatches": false,
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-5.4-mini-2026-03-17",
+  "servedModels": [],
+  "modelVerified": false,
+  "oneLogicalInference": false,
+  "settingsMatch": true,
+  "rawFinalUsage": null,
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-5.4-mini-2026-03-17",
+      "reasoning": {
+        "effort": "low",
+        "summary": "auto"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "request_user_input"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "host_skills.instructions",
+        "permissions.instructions",
+        "agents_md.instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "1d9d7aeab31638a96e2378094da7fbcf0e13e62a3902b3ae023fcf6922a0a9bc",
+      "contextBytes": 6237,
+      "localSerializedContextTokens": 1570,
+      "requestSha256": "d75f5269cc1674258ed52b80d8d8f6d73e9be3fcbb0678939c92a5b156d5946d",
+      "userProjectInstructionsPresent": true,
+      "skillsPresent": true
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 0,
+  "inferenceStarts": 1,
+  "inferenceFailures": 1,
+  "reroutes": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /Users/jonvuri/.codex/config.toml.",
+    "Model metadata for `gpt-5.4-mini-2026-03-17` not found. Defaulting to fallback metadata; this can degrade performance and cause issues."
+  ],
+  "transportClean": false,
+  "reportedModelAvailable": false,
+  "totalInputTokens": null,
+  "finalOutputTokens": null,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": false,
+  "issues": [
+    "invalid-token-accounting",
+    "transport-or-client-failure",
+    "missing-or-multiple-inference-requests",
+    "served-model-unverified-or-mismatched",
+    "advertised-tools-present",
+    "unexpected-client-instructions",
+    "transport-retry-control-unverified"
+  ],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/manifest.json",
+      "sha256": "122b34aadbcbfa76b6eb6d45eb23d3895eea1236d2eb16b52c8fd127572f4ce1"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/trace.jsonl",
+      "sha256": "b5ed6f8e2625de1a1e152fdf5bb76d677e71a14a90c5250966401896f19026fa"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/1.json",
+      "sha256": "e6d73e1c85c08618531d1c2b3b84c5c6a95ebbb203e6754fb4bc79c1c777d9db"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/2.json",
+      "sha256": "3fce1ef88e19ae49fbf6f52483abe13c27c143919bb9e5a9bc8d843b1f4770b5"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/3.json",
+      "sha256": "3c6ccf096d3f5f0e39d2fff9c1a9d0fe6e8d161cc6c44af913d524e668fa503a"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/4.json",
+      "sha256": "8e9a84b3d6d728e775867c71be87ba2629c3c5af3d2c48dccf051b52581b9180"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/5.json",
+      "sha256": "6ab627a19567e2d1de7a0e96ff7fe40b2b62806f0005af39ab95ab48df51e25d"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/6.json",
+      "sha256": "ca95e60e4bcc5cd83a97d01ba82430031b42f2b4981c5fbf752bd7b13294c242"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/7.json",
+      "sha256": "57cda348dd16c9f1ded0fb537161c40c821e80cc6e1d7d74c236960abe29cc1f"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/8.json",
+      "sha256": "782e4174a66dc37366c70dca78de5d66e0454d7a2840a376c5740fa00d178747"
+    },
+    {
+      "path": "codex-traces/trace-90c4f7f8-e62c-4cdf-8ac6-63d50fd4f118-01a175df-17ba-7aa1-b172-c1fcb8d8f3b8/payloads/9.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

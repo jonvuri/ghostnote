@@ -1,0 +1,2 @@
+This is an unscored transport smoke test using synthetic development data. Do not use tools. Change only the velocity of note b to 91. Preserve every other field and the note order exactly. Return only the complete JSON object, without Markdown or explanation.
+{"notes":[{"id":"a","pitch":60,"at":"3/512","duration":"1","velocity":90},{"id":"b","pitch":64,"at":"9/512","duration":"7/4","velocity":84}]}

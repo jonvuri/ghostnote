@@ -1,0 +1,33 @@
+{
+  "response_id": "resp_0d45de98a71a8bad016adf8da33f3481969fb1498f8ce48194",
+  "upstream_request_id": null,
+  "token_usage": {
+    "input_tokens": 4078,
+    "cached_input_tokens": 1920,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 23,
+    "reasoning_output_tokens": 0,
+    "total_tokens": 4101
+  },
+  "output_items": [
+    {
+      "type": "message",
+      "status": "completed",
+      "id": "msg_0d45de98a71a8bad016adf8da3c7588196aa6142528b307b3d",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "{\"delay\":\"1/256\",\"spread\":\"1/128\",\"at\":\"65/8\"}",
+          "annotations": [],
+          "logprobs": []
+        }
+      ],
+      "phase": "final_answer",
+      "internal_chat_message_metadata_passthrough": {
+        "turn_id": "01a17941-3ea5-7f30-835b-62d1d3a2dcf0",
+        "create_time": 1793035683.8256166
+      }
+    }
+  ]
+}

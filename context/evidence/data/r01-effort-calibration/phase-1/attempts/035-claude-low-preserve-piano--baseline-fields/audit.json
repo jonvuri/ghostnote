@@ -1,0 +1,265 @@
+{
+  "answer": "DOC ghostnote-document 1.0 desired\nCLIP {\"id\":\"clip\",\"length\":\"64\"}\nCOVERAGE {\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}\nFIELDS id clip at duration pitch velocity channel mute\nEVENT t1n1 clip 0 85/256 42 64 1 false\nEVENT t1n2 clip 0 85/256 68 64 1 false\nEVENT t1n3 clip 85/256 85/256 49 64 1 false\nEVENT t1n4 clip 85/256 85/256 57 64 1 false\nEVENT t1n5 clip 85/128 85/256 54 64 1 false\nEVENT t1n6 clip 85/128 85/256 61 64 1 false\nEVENT t1n7 clip 255/256 85/256 49 64 1 false\nEVENT t1n8 clip 255/256 85/256 68 64 1 false\nEVENT t1n9 clip 85/64 177/512 56 64 1 false\nEVENT t1n10 clip 85/64 177/512 59 64 1 false\nEVENT t1n11 clip 857/512 85/256 49 64 1 false\nEVENT t1n12 clip 857/512 85/256 61 64 1 false\nEVENT t1n13 clip 257/128 85/256 42 64 1 false\nEVENT t1n14 clip 257/128 85/256 68 64 1 false\nEVENT t1n15 clip 599/256 85/256 49 64 1 false\nEVENT t1n16 clip 599/256 85/256 57 64 1 false\nEVENT t1n17 clip 171/64 85/256 54 64 1 false\nEVENT t1n18 clip 171/64 85/256 65 64 1 false\nEVENT t1n19 clip 769/256 177/512 49 64 1 false\nEVENT t1n20 clip 769/256 177/512 57 64 1 false\nEVENT t1n21 clip 1715/512 85/256 53 64 1 false\nEVENT t1n22 clip 1715/512 85/256 66 64 1 false\nEVENT t1n23 clip 1885/512 85/256 49 64 1 false\nEVENT t1n24 clip 1885/512 85/256 57 64 1 false\nEVENT t1n25 clip 2055/512 85/256 47 64 1 false\nEVENT t1n26 clip 2055/512 85/256 73 64 1 false\nEVENT t1n27 clip 1113/256 85/256 54 64 1 false\nEVENT t1n28 clip 1113/256 85/256 62 64 1 false\nEVENT t1n29 clip 599/128 85/64 59 64 1 false\nEVENT t1n30 clip 599/128 85/256 66 64 1 false\nEVENT t1n31 clip 1283/256 85/256 73 64 1 false\nEVENT t1n32 clip 171/32 85/256 61 64 1 false\nEVENT t1n33 clip 171/32 85/256 64 64 1 false\nEVENT t1n34 clip 1453/256 85/256 66 64 1 false\nEVENT t1n35 clip 769/128 85/256 47 64 1 false\nEVENT t1n36 clip 769/128 85/256 73 64 1 false\nEVENT t1n37 clip 1623/256 85/256 54 64 1 false\nEVENT t1n38 clip 1623/256 85/256 62 64 1 false\nEVENT t1n39 clip 427/64 85/128 59 64 1 false\nEVENT t1n40 clip 427/64 85/256 70 64 1 false\nEVENT t1n41 clip 1793/256 85/256 62 64 1 false\nEVENT t1n42 clip 939/128 85/256 59 64 1 false\nEVENT t1n43 clip 939/128 85/256 71 64 1 false\nEVENT t1n44 clip 1963/256 85/256 62 64 1 false\nEVENT t1n45 clip 4097/512 85/256 43 64 1 false\nEVENT t1n46 clip 4097/512 85/256 78 64 1 false\nEVENT t1n47 clip 4267/512 85/256 50 64 1 false\nEVENT t1n48 clip 4267/512 85/256 67 64 1 false\nEVENT t1n49 clip 4437/512 85/256 55 64 1 false\nEVENT t1n50 clip 4437/512 85/256 71 64 1 false\nEVENT t1n51 clip 4607/512 85/256 50 64 1 false\nEVENT t1n52 clip 4607/512 85/256 78 64 1 false\nEVENT t1n53 clip 4777/512 177/512 57 64 1 false\nEVENT t1n54 clip 4777/512 177/512 69 64 1 false\nEVENT t1n55 clip 2477/256 85/256 50 64 1 false\nEVENT t1n56 clip 2477/256 85/256 71 64 1 false\nEVENT t1n57 clip 5125/512 85/256 43 64 1 false\nEVENT t1n58 clip 5125/512 85/256 78 64 1 false\nEVENT t1n59 clip 5295/512 85/256 50 64 1 false\nEVENT t1n60 clip 5295/512 85/256 67 64 1 false\nEVENT t1n61 clip 5465/512 85/256 57 64 1 false\nEVENT t1n62 clip 5465/512 85/256 76 64 1 false\nEVENT t1n63 clip 5635/512 85/256 50 64 1 false\nEVENT t1n64 clip 5635/512 85/256 67 64 1 false\nEVENT t1n65 clip 5805/512 85/256 55 64 1 false\nEVENT t1n66 clip 5805/512 85/256 74 64 1 false\nEVENT t1n67 clip 5975/512 85/256 50 64 1 false\nEVENT t1n68 clip 5975/512 85/256 67 64 1 false\nEVENT t1n69 clip 6145/512 85/256 42 64 1 false\nEVENT t1n70 clip 6145/512 85/256 76 64 1 false\nEVENT t1n71 clip 6315/512 177/512 49 64 1 false\nEVENT t1n72 clip 6315/512 177/512 64 64 1 false\nEVENT t1n73 clip 6493/512 85/256 54 64 1 false\nEVENT t1n74 clip 6493/512 85/256 69 64 1 false\nEVENT t1n75 clip 6663/512 85/256 49 64 1 false\nEVENT t1n76 clip 6663/512 85/256 76 64 1 false\nEVENT t1n77 clip 6833/512 85/256 56 64 1 false\nEVENT t1n78 clip 6833/512 85/256 64 64 1 false\nEVENT t1n79 clip 7003/512 85/256 49 64 1 false\nEVENT t1n80 clip 7003/512 85/256 68 64 1 false\nEVENT t1n81 clip 7173/512 177/512 42 64 1 false\nEVENT t1n82 clip 7173/512 177/512 76 64 1 false\nEVENT t1n83 clip 7351/512 141/512 49 64 1 false\nEVENT t1n84 clip 7351/512 141/512 64 64 1 false\nEVENT t1n85 clip 7491/512 85/256 54 64 1 false\nEVENT t1n86 clip 7491/512 85/256 74 64 1 false\nEVENT t1n87 clip 7661/512 177/512 49 64 1 false\nEVENT t1n88 clip 7661/512 177/512 64 64 1 false\nEVENT t1n89 clip 7839/512 85/256 54 64 1 false\nEVENT t1n90 clip 7839/512 85/256 73 64 1 false\nEVENT t1n91 clip 8009/512 177/512 49 64 1 false\nEVENT t1n92 clip 8009/512 177/512 64 64 1 false\nEVENT t1n93 clip 4093/256 85/256 40 64 1 false\nEVENT t1n94 clip 4093/256 85/256 73 64 1 false",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-5-5",
+  "servedModels": [
+    "claude-haiku-5-5"
+  ],
+  "modelVerified": true,
+  "modelSelectionPolicy": "served-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "served-model",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 4690,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 2973,
+    "output_tokens_details": {
+      "thinking_tokens": 145
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4690,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 2973,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 4690,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 4690
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-5-5"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-5-5",
+      "reasoning": null,
+      "thinking": {
+        "type": "adaptive",
+        "display": "updates"
+      },
+      "effort": "low",
+      "maxOutputTokens": 128000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "1f25c66069faf097b60abcbb3e57d5a01096517ad978b536b5a425d1322df0ea",
+      "contextBytes": 10530,
+      "localSerializedContextTokens": null,
+      "requestSha256": "281305717fae5651e4fa3fa60fe1faf3708b495bcc0a051b0a33d30c83a9d56b",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 1
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "no-tools-advertised-or-used",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": {
+    "faultSuitePass": false,
+    "binaryMatches": false,
+    "retryControlsMatch": false,
+    "oneCapturedRequest": true
+  },
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 9629.395624999976
+  },
+  "codexContext": null,
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v2",
+    "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "b92ee24e84d25616913aa4aa7c6a5534bfb26b56f985a2282515f2881302ab97"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 559,
+        "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 7945,
+        "sha256": "daf9c3e5f4d9d76cbb6b242ec773d859ce0b93f2ff7171290808d13164ee4c6e"
+      },
+      {
+        "kind": "system-turn",
+        "role": "client-system-turn",
+        "bytes": 953,
+        "sha256": "e42db144a0d8818aee419c6cf309b14385676f95f5c1869a54192ca730e8a607"
+      }
+    ],
+    "clientAddedTextBytes": 1937,
+    "taskBytes": 7945,
+    "maxTokens": 128000,
+    "volatile": {
+      "sessionId": "a6d8f87c-85a1-4e0b-9f62-0479b6a00658",
+      "versionSuffix": "364",
+      "promptId": "cc7bb87b-007e-4205-bd0b-ed57bc13a816",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-26"
+    },
+    "requests": [
+      {
+        "schema": "r01-claude-context-audit-v1",
+        "policy": "r01-claude-context-policy-v2",
+        "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "billing-metadata",
+            "role": "client-system",
+            "bytes": 192,
+            "sha256": "b92ee24e84d25616913aa4aa7c6a5534bfb26b56f985a2282515f2881302ab97"
+          },
+          {
+            "kind": "sdk-identity",
+            "role": "client-system",
+            "bytes": 62,
+            "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+          },
+          {
+            "kind": "supplied-instruction",
+            "role": "client-system",
+            "bytes": 171,
+            "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+          },
+          {
+            "kind": "account",
+            "role": "client-reminder",
+            "bytes": 559,
+            "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+          },
+          {
+            "kind": "task",
+            "role": "task",
+            "bytes": 7945,
+            "sha256": "daf9c3e5f4d9d76cbb6b242ec773d859ce0b93f2ff7171290808d13164ee4c6e"
+          },
+          {
+            "kind": "system-turn",
+            "role": "client-system-turn",
+            "bytes": 953,
+            "sha256": "e42db144a0d8818aee419c6cf309b14385676f95f5c1869a54192ca730e8a607"
+          }
+        ],
+        "clientAddedTextBytes": 1937,
+        "taskBytes": 7945,
+        "maxTokens": 128000,
+        "volatile": {
+          "sessionId": "a6d8f87c-85a1-4e0b-9f62-0479b6a00658",
+          "versionSuffix": "364",
+          "promptId": "cc7bb87b-007e-4205-bd0b-ed57bc13a816",
+          "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+          "date": "2026-10-26"
+        }
+      }
+    ]
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 4692,
+  "finalOutputTokens": 2973,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/e8d55dba-aed3-46d4-a4d3-dc31c7d6ea64.request.json",
+      "sha256": "281305717fae5651e4fa3fa60fe1faf3708b495bcc0a051b0a33d30c83a9d56b"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "40b0a5454cdaab1ecfd33f292c5f0f923788761584dccc9319f4573bd0a90b65"
+    },
+    {
+      "path": "api-bodies/req_011CgREiG3xravWa94cG2VZe.response.json",
+      "sha256": "bc6a947b3d1246f6aba9501c51e8f615e54212cbf5139cef8c626f904ac0f4e1"
+    }
+  ]
+}

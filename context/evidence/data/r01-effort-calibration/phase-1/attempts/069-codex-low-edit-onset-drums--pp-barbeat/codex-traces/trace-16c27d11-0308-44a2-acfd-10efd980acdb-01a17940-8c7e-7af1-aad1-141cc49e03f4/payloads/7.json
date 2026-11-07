@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a17940-8f0b-7ad2-b8d1-ec581e4d6ad3",
+  "turn_id": "01a17940-8f0b-7ad2-b8d1-ec581e4d6ad3",
+  "last_agent_message": "v64 n7/1024 Eb1 1|1+n5/512\nEb1 Db2 1|4+n9/1024\nDb2 Eb2 2|1+n161/2048,1+n503/2048\nEb2 2|2+n245/1024,3+n39/256\nEb1 2|3+n29/128\nn13/2048 Eb1 3|1+n19/512\nn7/1024 Eb1 3|2+n95/1024\nD1 3|3+n141/1024,4+n55/256\nD1 4|2+n35/1024\nn13/2048 D1 4|3+n191/2048,4+n75/512",
+  "started_at": 1793035636,
+  "completed_at": 1793035640,
+  "duration_ms": 3720,
+  "time_to_first_token_ms": 2167
+}

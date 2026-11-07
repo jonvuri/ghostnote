@@ -187,7 +187,7 @@ Probe sources: `extension/.../ScopeScrollProbe.java`, `ScopeScrollHandlers.java`
 ## Implementation
 
 Complete on 2026-10-25, verified live in
-[E353](../evidence/experiments/e353-scrollable-container-scopes-product-live.md).
+[E394](../evidence/experiments/e394-scrollable-container-scopes-product-live.md).
 
 - Extension: each of the three product scopes is a one-wide `DeviceBank` on
   cursor track 0 (`Rig.scopeBanks`), resting at its own index, with the layer
@@ -204,7 +204,7 @@ Complete on 2026-10-25, verified live in
   scrolls one when needed (own scope for a resting position; otherwise a
   displaced scope, then the highest slot), re-issues the scroll on every
   unsettled pass (a bank scrolled on a track with fewer devices clamps and
-  stays, E353), answers an empty position from the reference count, and
+  stays, E394), answers an empty position from the reference count, and
   records the scope for the encoder. Relocations and chain-create batches
   hold their scopes so two containers stay settled at once; the relocation
   preflight reads only endpoint containers. The fake's reach is the bank

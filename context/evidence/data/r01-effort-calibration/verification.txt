@@ -1,0 +1,1757 @@
+✔ retained historical-Haiku request satisfies context policy v1 and counts every client block (10.618375ms)
+✔ unexpected reminders, instructions, tools, betas and request fields are rejected (1.131584ms)
+✔ delivered task bytes and working directory are compared exactly, not normalized (0.876375ms)
+✔ policy selection is by model; v1 is unchanged (0.110541ms)
+✔ retained Haiku 5.5 request satisfies context policy v2 (2.962083ms)
+✔ v2 rejects context, layout, effort and task drift (3.788ms)
+✔ fault evaluation requires one HTTP attempt per captured request and detects permitted retries (1.342916ms)
+✔ retained local fault suite passes and pins the trial retry controls (1.867375ms)
+✔ Claude admission keeps context/model controls; retry evidence is reporting only (1.826708ms)
+✔ Claude output ceilings are observational even for historical captures (0.350625ms)
+✔ requested or initialization model names cannot establish served identity (1.208458ms)
+✔ mismatched response model and any reroute fail identity control (0.236291ms)
+✔ Luna request policy rejects missing/mismatched requests, failed completion and observed reroutes (0.378625ms)
+✔ request-only admission is scoped to Luna and the pinned Codex version (0.095417ms)
+✔ one logical Codex inference does not prove absence of HTTP retries (0.332083ms)
+✔ retries and recovered errors are reporting only; every request still matches model and settings (0.187917ms)
+✔ effective reasoning and temperature are audited from captured requests (0.079792ms)
+✔ output ceiling observations do not gate natural token use (0.148333ms)
+✔ unused Codex tools are accounted context; injected AGENTS/skills still fail isolation (0.114125ms)
+✔ token counters reject missing, negative, fractional and impossible cache totals (0.16625ms)
+✔ process failure cannot be hidden by a completion event (0.097375ms)
+✔ full serialized context has independent hashes/counts, not an inferred overhead subtraction (0.109667ms)
+✔ Claude fixed budget and additive cache accounting remain unverified without live capture validation (0.142042ms)
+✔ overage and usage-model mismatches remain visible (0.106959ms)
+✔ unknown overage events remain unknown unless an overage was observed (0.082083ms)
+✔ additional_tools namespaces are audited alongside top-level tool declarations (0.074709ms)
+✔ Codex actual call evidence rejects exec, wait, questions and other calls even with a correct final answer (10.047291ms)
+✔ tool use cannot hide in a prior request, stdout event, or trace-only observation (0.27ms)
+✔ retained trace loader detects calls that stdout and final response omit (18.212667ms)
+✔ retained correct Codex edit still fails experimental controls (5.003125ms)
+✔ retained unavailable historical model is a transport outcome, not a musical failure (5.162917ms)
+✔ retained Claude probe verifies exact served model, fixed thinking, cap, final usage and answer (4.140209ms)
+✔ orphan Claude requests cannot disappear from request counts (8.137541ms)
+✔ duplicate and escaping index references fail capture validation (5.707333ms)
+✔ captured response identity and final usage are checked independently (7.985541ms)
+✔ retained retries audit every request and use the final self-corrected answer (8.066792ms)
+✔ child environment excludes billing credentials and inherited model overrides (0.830375ms)
+✔ historical Claude retains a fixed thinking budget, not adaptive effort (0.583917ms)
+✔ current Claude uses adaptive effort without leaking a fixed budget (0.073792ms)
+✔ Claude invocation disables tools, client fallback and retries and captures local raw bodies (0.067834ms)
+✔ Codex uses subscription auth and fresh restricted context without rejected provider overrides (0.083084ms)
+✔ calibration cells cover every task and family with balanced primary arms (0.8295ms)
+✔ schedule is deterministic, matched across configurations and independent of list order (0.680041ms)
+✔ configurations differ only in effort within a provider (0.070208ms)
+✔ generated tokens use output (which includes reasoning) without double counting (0.070084ms)
+✔ summary excludes unadmitted submissions and reports matched ratios to the reference (0.339167ms)
+✔ rehearsal plan has 11 initial attempts, 33 maximum submissions and four explicit exclusions (1.113125ms)
+✔ a failed answer receives an equal-form correction carrying the full history, then can pass (4.214917ms)
+✔ feedback discloses only the reason code and native validation message (8.937542ms)
+✔ the correction budget stops after two repairs; no fourth submission occurs (0.65ms)
+✔ transport, control and quota failures stop the sequence without scoring or retrying (1.867042ms)
+✔ a delivered prompt that differs from the plan refuses before submission (0.506542ms)
+✔ recovered retries remain successful first attempts and survive into submission reports (1.256ms)
+✔ Haiku 5.5 admission selection uses the current profile and every primary arm of one task (5.59275ms)
+✔ Codex startup notice is not tool execution; cached input is not double counted (2.952708ms)
+✔ Claude final totals include both caches and supersede interim output count (0.45775ms)
+✔ tool activity, unknown items, errors, and missing completion prevent admission (0.634083ms)
+✔ planning is deterministic, offline, and leaves its inputs unchanged (20.097875ms)
+✔ changing the seed changes paired order without changing coverage or model configurations (9.108083ms)
+✔ every eligible cell appears once per repetition/configuration with no duplicates or dropped cells (2.94375ms)
+✔ task/repetition/provider blocks remain contiguous and diagnostics retain explicit labels (3.590042ms)
+✔ excluded cells remain explicit for every repetition/configuration and never become attempts (3.655ms)
+✔ manifest and configuration hashes cover changed evidence and runtime controls (17.527ms)
+✔ same-provider models get separate configurations and a numeric zero seed is valid (2.133792ms)
+✔ optional reasoning settings and output caps are retained exactly without undefined fields (9.232417ms)
+✔ invalid configuration refuses rather than silently expanding limits or enabling fallback (0.654792ms)
+✔ invalid manifests, duplicate cells, unpinned prompts and unequal paired facts refuse (3.269ms)
+✔ two explicit corrections are allowed and all failed results remain in order (0.278584ms)
+✔ success on initial or correction completes without discarding earlier failure evidence (0.12425ms)
+✔ refusal-task mismatches are task failures; transport/control failures halt without repair (0.180167ms)
+✔ zero/one correction budgets exhaust at their declared bounds (0.105125ms)
+✔ attempt evidence is retained by value and invalid state/results refuse (0.285875ms)
+✔ retained stronger Codex request matches every fixed context block (5.25975ms)
+✔ context rejects new tools, schema changes, instruction changes and external feedback (9.42925ms)
+✔ task and scratch are bound to the attempt; only named volatility is accepted (3.506292ms)
+✔ multiple self-correcting assistant messages score the final message without a retry violation (3.894333ms)
+✔ private home copies only subscription auth; local refresh cannot mutate the source (6.046291ms)
+✔ API auth, mixed credentials and missing subscription tokens fail before home creation (7.013209ms)
+✔ default authentication location uses HOME without changing the inherited environment (2.695666ms)
+✔ attempt runner uses private auth and removes it without retaining credentials (360.625041ms)
+✔ retained stronger subscription probe passes the fixed context policy (5.790459ms)
+✔ retained local faults distinguish HTTP attempts from logical inference counts (6.368292ms)
+✔ independent normalization goldens, ties, promotion and negative coordinates (12.361583ms)
+✔ multiset equality is order/ID independent but preserves duplicates and every field (0.454875ms)
+✔ correspondence does not invent lineage for duplicates or moves (0.356708ms)
+✔ shared backend preserves expression/channels and refuses stale or unknown targets (5.042083ms)
+✔ view omissions are retrievable under the same guard; reordering does not retarget (3.658334ms)
+✔ admission refusals stay distinct from equivalence and count-changing commands (4.814833ms)
+✔ small edit in 1024 notes, half-open selection, ordinary-code control and independent readback (182.21175ms)
+✔ commands carry unrelated claims and stale dependent claims through the real patch backend (15.101ms)
+✔ compact FIELDS preserves synthetic-drums (2.148208ms)
+✔ compact FIELDS preserves synthetic-bass (0.514ms)
+✔ compact FIELDS preserves synthetic-harmony (0.480291ms)
+✔ compact FIELDS preserves synthetic-irregular (0.244417ms)
+✔ compact FIELDS preserves negative-pickup (0.111ms)
+✔ compact FIELDS preserves normalized-collision (0.10775ms)
+✔ compact FIELDS preserves duplicate-multiplicity (0.102375ms)
+✔ compact FIELDS preserves large-local-edit (42.814375ms)
+✔ compact FIELDS preserves engram-drums (3.168292ms)
+✔ compact FIELDS preserves engram-bass (1.490166ms)
+✔ compact FIELDS preserves via-purifico-piano (2.60175ms)
+✔ compact FIELDS preserves air-loom-guitar (0.249292ms)
+✔ minimal notes omit unused optional columns and empty containers (0.069792ms)
+✔ nominal timing is adjacent, with original map/note location retained (0.251667ms)
+✔ unknown metadata, quoted IDs, empty maps and unreduced timing survive 20 cycles (1.177291ms)
+✔ special property names remain data without prototype mutation (0.11275ms)
+✔ empty fixtures and absence/empty distinctions remain exact (0.104291ms)
+✔ field order can change between rows without changing the note values or presentation order (0.087875ms)
+✔ one-note edits preserve unrelated state and retain interpretation invalidation (0.3575ms)
+✔ group arithmetic keeps explicit onsets consistent without changing common delay (0.644833ms)
+✔ malformed bindings, duplicate IDs, late context and structural overrides refuse (0.267125ms)
+✔ nominal fields cannot override each other or silently move between locations (0.1735ms)
+✔ group membership and shared nominal context cannot contradict row data (0.188959ms)
+✔ retained excerpts reconstruct every selected source note exactly, including tails (1.150209ms)
+✔ development and reserved assets have disjoint known lineages (2.001375ms)
+✔ half-open selection preserves full tails and refuses oversized selections (1.64ms)
+✔ normalization collisions preserve multiplicity and mark host admission refused (0.992458ms)
+✔ decoder keeps release event metadata and refuses hash mismatch and ambiguous truncation (0.901625ms)
+✔ development manifest has 14 unique tasks and all shared performed outcomes are grid-closed (3.277375ms)
+✔ individual performed edit/delete selectors match exactly one input note (0.097792ms)
+✔ gold group arithmetic is exact, grid-closed, and preserves every unrelated field (0.161375ms)
+✔ gold nominal edit moves only b2 and stales only its inferred nominal entry (0.088875ms)
+✔ eligible input facts and golden responses: read-count-piano (36.691458ms)
+✔ eligible input facts and golden responses: read-earliest-bass (3.334791ms)
+✔ eligible input facts and golden responses: edit-velocity-guitar (8.344792ms)
+✔ eligible input facts and golden responses: edit-onset-drums (10.8055ms)
+✔ eligible input facts and golden responses: author-four-notes (2.911167ms)
+✔ eligible input facts and golden responses: delete-one-note (4.040833ms)
+✔ eligible input facts and golden responses: preserve-piano (43.432667ms)
+✔ eligible input facts and golden responses: read-group-timing (1.571542ms)
+✔ eligible input facts and golden responses: halve-group-spread (1.250625ms)
+✔ eligible input facts and golden responses: preserve-exact-wider (0.616583ms)
+✔ eligible input facts and golden responses: edit-inferred-nominal (0.911167ms)
+✔ eligible input facts and golden responses: refuse-missing-timing (0.204875ms)
+✔ eligible input facts and golden responses: refuse-ambiguous-selector (0.392875ms)
+✔ eligible input facts and golden responses: refuse-stale-snapshot (2.376958ms)
+✔ eligibility makes source limitations, collision exclusions, and diagnostic scope explicit (1.952417ms)
+✔ format-card examples roundtrip and do not reuse task note IDs (1.970958ms)
+✔ missing notes and protected pitch/velocity/duration/onset changes fail performed scoring (15.091792ms)
+✔ duplicate multiplicity fails scoring, including a baseline validation refusal (1.190291ms)
+✔ source scoring rejects annotation loss, spelling changes, and note order changes (0.603959ms)
+✔ source scoring rejects omitted staleness even when performed notes are correct (0.416833ms)
+✔ wrong but self-consistent residual arithmetic fails the independent golden comparison (0.598ms)
+✔ performed IDs are diagnostic; source identities are required (3.375042ms)
+✔ baseline envelope changes and invented structured root state fail preservation (12.402167ms)
+✔ answers require exact keys/values and refusals require the exact expected reason (3.522833ms)
+✔ detached control preserves exact state and identical local row content (1.817833ms)
+✔ detached control rejects missing, shared, duplicate and unreferenced ROWS definitions (0.278459ms)
+✔ package build is deterministic, fully charged, and paired by identical request/fact hashes (759.562083ms)
+✔ nested FIELDS preserves synthetic-drums (2.247041ms)
+✔ nested FIELDS preserves synthetic-bass (0.426125ms)
+✔ nested FIELDS preserves synthetic-harmony (0.602458ms)
+✔ nested FIELDS preserves synthetic-irregular (0.261667ms)
+✔ nested FIELDS preserves negative-pickup (0.128958ms)
+✔ nested FIELDS preserves normalized-collision (0.108542ms)
+✔ nested FIELDS preserves duplicate-multiplicity (0.111042ms)
+✔ nested FIELDS preserves large-local-edit (15.839041ms)
+✔ nested FIELDS preserves engram-drums (0.769417ms)
+✔ nested FIELDS preserves engram-bass (0.577542ms)
+✔ nested FIELDS preserves via-purifico-piano (1.61625ms)
+✔ nested FIELDS preserves air-loom-guitar (0.411875ms)
+✔ simple grouped example contains the only note definitions and timing refinements (0.197917ms)
+✔ partial timing, overlapping groups, forward references and original note order survive (0.242583ms)
+✔ unreduced timing, nominal context, quoted IDs and opaque JSON stay exact over cycles (1.598458ms)
+✔ missing and empty groups, spread and nominal maps remain distinct (0.182833ms)
+✔ special map keys remain data without prototype mutation (0.1295ms)
+✔ halving nested spread preserves shared delay, durations and exact fractional cells (0.645208ms)
+✔ individual edit retains unrelated note state and existing interpretation lifecycle (0.341375ms)
+✔ invalid scopes, references, redefinitions and timing conflicts refuse (0.5315ms)
+✔ partial order, contradictory spelling and sidecar nominal maps refuse (0.172416ms)
+✔ draft covers each protocol family twice with real and synthetic sources (0.395667ms)
+✔ eligible counts, diagnostics and exclusions are computed, not assumed (1.02575ms)
+✔ draft 2 is a development-stage draft: admitted cohorts, no materialized hashes, and no work selected (6.599625ms)
+✔ retained draft manifest matches the generator (0.990291ms)
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+Note position resolves before the clip start (negative time): it sits before 1|1.
+{
+  "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "patchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "node": "v24.11.1",
+  "command": "node --import tsx benchmarks/r01-candidates/precision.test.mjs <upstream>",
+  "summary": {
+    "cases": 80,
+    "serializationCycles": 254,
+    "noteCycleChecks": 28604,
+    "allPassed": true
+  },
+  "precisionScreenSummary": {
+    "inputs": 55296,
+    "accepted": 53248,
+    "precisionRefused": 2048,
+    "silentNormalizedLosses": 0
+  },
+  "cases": [
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-3",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-regular-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 32,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-irregular-near-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 5,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-adjacent-duration-states",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-default-step-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 4,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-3",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-2",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-regular-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8,
+        "drumMode": true
+      },
+      "notes": 32,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-irregular-near-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8,
+        "drumMode": true
+      },
+      "notes": 5,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-adjacent-duration-states",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8,
+        "drumMode": true
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-default-step-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8,
+        "drumMode": true
+      },
+      "notes": 4,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-2",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-4",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-regular-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 32,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-irregular-near-repeat",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 5,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-adjacent-duration-states",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "drums-default-step-boundary",
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4,
+        "drumMode": true
+      },
+      "notes": 4,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-0",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-4",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "all-512-cells-at-1000000",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 512,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "duration-half-cell-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 10,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "onset-floor-boundaries",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 6,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "negative-pickup",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "overlap-and-duplicate-multiplicity",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "same-onset-distinct-duration-and-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 3,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-duration-rounding-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "across-onset-floor-boundary",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 2,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "very-small-chance",
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "notes": 1,
+      "cycles": 3,
+      "normalizedEquality": true
+    },
+    {
+      "name": "authored-tuplet-unquantized",
+      "options": {
+        "notation": "barbeat"
+      },
+      "notes": 1,
+      "cycles": 10,
+      "normalizedEquality": true
+    },
+    {
+      "name": "authored-tuplet-unquantized",
+      "options": {
+        "notation": "midi-json"
+      },
+      "notes": 1,
+      "cycles": 10,
+      "normalizedEquality": true
+    }
+  ],
+  "diagnosticControls": [
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "text": "v100 n0.334/4 C3 1|1+n0.666/4",
+      "normalizedEquality": false
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "text": "[{p:60,t:0.666,d:0.334,v:100}]",
+      "normalizedEquality": false
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "text": "v100 n0.334/4 C3 1|2+n0.166/4",
+      "normalizedEquality": false
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "text": "[{p:60,t:341/256,d:171/256,v:100}]",
+      "normalizedEquality": true
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "text": "v100 n0.334/4 C3 1|1+n0.666/4",
+      "normalizedEquality": false
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "text": "[{p:60,t:0.666,d:0.334,v:100}]",
+      "normalizedEquality": false
+    }
+  ],
+  "witnesses": [
+    {
+      "name": "authored-tuplet",
+      "notation": "barbeat",
+      "input": "v100 n/12 C3 1|1+n/12",
+      "output": "v100 n/8t C3 1|1+n0.33333333333333326/4",
+      "authored": [
+        {
+          "pitch": 60,
+          "start_time": 0.33333333333333326,
+          "duration": 0.3333333333333333,
+          "velocity": 100,
+          "probability": 1,
+          "velocity_deviation": 0
+        }
+      ],
+      "after": [
+        {
+          "pitch": 60,
+          "start_time": 0.33333333333333326,
+          "duration": 0.3333333333333333,
+          "velocity": 100,
+          "probability": 1,
+          "velocity_deviation": 0
+        }
+      ]
+    },
+    {
+      "name": "authored-tuplet",
+      "notation": "midi-json",
+      "input": "[{p:60,t:1/3,d:1/3,v:100}]",
+      "output": "[{p:60,t:1/3,d:1/3,v:100}]",
+      "authored": [
+        {
+          "pitch": 60,
+          "start_time": 0.3333333333333333,
+          "duration": 0.3333333333333333,
+          "velocity": 100,
+          "velocity_deviation": 0,
+          "probability": 1
+        }
+      ],
+      "after": [
+        {
+          "pitch": 60,
+          "start_time": 0.3333333333333333,
+          "duration": 0.3333333333333333,
+          "velocity": 100,
+          "velocity_deviation": 0,
+          "probability": 1
+        }
+      ]
+    },
+    {
+      "name": "ULP-adjacent-onset-refusal",
+      "at": 0.0019531249999999991,
+      "expectedCell": 0,
+      "barbeat": "R01_PRECISION_LOSS",
+      "midiJson": "[{p:60,t:0.0019531249999999991,d:171/512,v:100}]"
+    },
+    {
+      "name": "ULP-adjacent-onset-refusal",
+      "at": 3.9999999999999996,
+      "expectedCell": 2047,
+      "barbeat": "R01_PRECISION_LOSS",
+      "midiJson": "[{p:60,t:3.9999999999999996,d:171/512,v:100}]"
+    }
+  ],
+  "precisionScreens": [
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1024,
+      "precisionRefused": 512
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 3,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1024,
+      "precisionRefused": 512
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 3,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 3,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 3,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 4,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1024,
+      "precisionRefused": 512
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 2,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 2,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 2,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 2,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 6,
+        "timeSigDenominator": 8
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1024,
+      "precisionRefused": 512
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 4,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 4,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "barbeat",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 0,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 4,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 4,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "onset",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    },
+    {
+      "options": {
+        "notation": "midi-json",
+        "timeSigNumerator": 5,
+        "timeSigDenominator": 4
+      },
+      "base": 1000000,
+      "field": "duration",
+      "inputs": 1536,
+      "accepted": 1536,
+      "precisionRefused": 0
+    }
+  ],
+  "unsupportedFields": [
+    "channel",
+    "expression",
+    "mute",
+    "release_velocity"
+  ],
+  "limits": [
+    "No live host checks.",
+    "No model trials.",
+    "Meter denominators outside 4 and 8 are not admitted.",
+    "Native parsers retain tolerant/clamping semantics; this adapter guards serialized inputs.",
+    "Tuplet sources retain numeric floating representations, not symbolic rational ASTs.",
+    "formatExact reparses and refuses native arithmetic that changes normalized supported state; not every admitted numeric input is serializable."
+  ]
+}
+✔ benchmarks/r01-candidates/precision.test.mjs (1611.346375ms)
+✔ compact: preserves every field, ordering, overlap and unknown intent (2.147084ms)
+✔ compact: repeated cycles preserve exact non-grid and unreduced timing (1.602708ms)
+✔ compact: duplicate note definition and contradictory timing are refused (0.345792ms)
+✔ compact: imported pickup stays exact and has direct fallback (0.115333ms)
+✔ grouped: preserves every field, ordering, overlap and unknown intent (0.351166ms)
+✔ grouped: repeated cycles preserve exact non-grid and unreduced timing (1.140125ms)
+✔ grouped: duplicate note definition and contradictory timing are refused (0.096375ms)
+✔ grouped: imported pickup stays exact and has direct fallback (0.051958ms)
+✔ grouped timing is derived once and irregular notes remain direct (0.098666ms)
+✔ labels and prose never infer timing or a transform (0.192125ms)
+✔ one-note pitch edit preserves performance and stales only inferred dependent labels (0.345ms)
+✔ one-note onset edit reconciles residual while retaining anchor/common delay (0.207583ms)
+✔ halving spread golden result retains common lateness, duration and unrelated fields (0.190917ms)
+✔ fractional cell scaling remains exact until external realization (0.100084ms)
+✔ stale or ambiguous groups and invalid references are refused (0.1955ms)
+✔ presentation and performance orders are independent validated permutations (0.13025ms)
+✔ compact membership cannot contradict group definition (0.103958ms)
+✔ grouped explicit onset cannot override derived timing (0.106ms)
+✔ unknown targets, missing fields, invalid values, and invalid factors refuse without mutation (0.31675ms)
+✔ compact nominal entries move beside notes and shared provenance remains shared (0.11275ms)
+✔ inferred nominal timing stales through direct and group edits; declared intent remains (0.419208ms)
+✔ nominal invalid references, contradictory definitions and malformed timing refuse (0.160417ms)
+ℹ tests 197
+ℹ suites 0
+ℹ pass 197
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1911.9665

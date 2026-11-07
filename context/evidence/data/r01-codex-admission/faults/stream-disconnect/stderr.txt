@@ -1,0 +1,2 @@
+2026-10-26T13:20:33.308669Z TRACE codex_api::sse::responses: SSE event: {"type":"response.created","response":{"id":"local","model":"gpt-6-luna"}}
+2026-10-26T13:20:33.330084Z DEBUG codex_api::sse::responses: SSE Error: Transport error: network error: error decoding response body

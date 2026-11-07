@@ -1,0 +1,7 @@
+error: unexpected argument '--strict-config' found
+
+  tip: to pass '--strict-config' as a value, use '-- --strict-config'
+
+Usage: codex debug prompt-input [OPTIONS] [PROMPT]
+
+For more information, try '--help'.

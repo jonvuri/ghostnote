@@ -1,0 +1,5618 @@
+[
+  {
+    "id": "r2-read-L8-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L8-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L16-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L32-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-read-L48-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "reason": "answer-mismatch",
+      "differences": [
+        "$.unexpected: unexpected"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L16-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L32-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-retime-L48-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L12-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L16-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i5--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i5--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i6--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i6--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i7--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i7--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i8--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i8--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i9--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i9--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i10--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i10--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i11--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i11--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i12--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i12--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i13--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i13--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i14--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i14--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i15--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i15--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i16--c3-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  },
+  {
+    "id": "r2-regroup-L24-i16--c4-fields",
+    "golden": {
+      "status": "scored",
+      "pass": true,
+      "sourceAndContextEquivalent": true,
+      "exactSpelling": true,
+      "reason": null
+    },
+    "wrongResult": {
+      "status": "scored",
+      "pass": false,
+      "sourceAndContextEquivalent": false,
+      "exactSpelling": false,
+      "reason": "source-state-mismatch",
+      "differences": [
+        "$.notes[0].velocity: differs"
+      ]
+    },
+    "gratuitousRefusal": {
+      "status": "scored",
+      "pass": false,
+      "reason": "gratuitous-refusal"
+    }
+  }
+]

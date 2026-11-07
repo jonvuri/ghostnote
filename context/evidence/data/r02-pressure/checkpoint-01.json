@@ -1,0 +1,19 @@
+{
+  "operatorControllerReply": "Controller replaced",
+  "handshake": "hello-02.txt",
+  "firstAttempt": "hello-01.txt: sandbox blocked tsx IPC before any host request",
+  "initEpochMs": 1793281754427,
+  "initTime": "2026-10-29T13:49:14.427Z",
+  "runtimeProfile": "phase-8-probe-v1",
+  "hostApiVersion": 25,
+  "methodCount": 122,
+  "methodsHash": "a8455ecb24cf6f8c",
+  "marker": "r02-pressure-v1",
+  "project": "gn-scale-test",
+  "fixtureTrackId": "d9ca38aa-221e-4ae1-b02f-f14fa3a9e644",
+  "setup": "live-01/1793281818849-setup.json",
+  "setupOutcome": "All four note starts confirmed through both independent readers. Setup stopped at selection comparison: none became the owned test clip; mixer selection preserved. Reviewed state retained, no writes repeated.",
+  "pressureSetterAttempted": false,
+  "next": "Operator sets second note pressure and velocity, then read both independent cursors.",
+  "driverSha256AfterSelectionCorrection": "24258c0941e3532b9fa1afa59917d6ed237df976d5c9378f40cd1852019f201c"
+}

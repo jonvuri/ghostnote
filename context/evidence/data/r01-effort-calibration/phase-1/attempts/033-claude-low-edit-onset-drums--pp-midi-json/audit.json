@@ -1,0 +1,265 @@
+{
+  "answer": "[{p:39,t:5/512,d:7/256,v:64},{p:39,t:777/256,d:7/256,v:64},{p:49,t:777/256,d:7/256,v:64},{p:49,t:2209/512,d:7/256,v:64},{p:51,t:2209/512,d:7/256,v:64},{p:49,t:2551/512,d:7/256,v:64},{p:51,t:2551/512,d:7/256,v:64},{p:51,t:1525/256,d:7/256,v:64},{p:51,t:423/64,d:7/256,v:64},{p:39,t:221/32,d:7/256,v:64},{p:39,t:1043/128,d:13/512,v:64},{p:39,t:2399/256,d:7/256,v:64},{p:38,t:2701/256,d:7/256,v:64},{p:38,t:759/64,d:7/256,v:64},{p:38,t:3363/256,d:7/256,v:64},{p:38,t:7359/512,d:13/512,v:64},{p:38,t:1995/128,d:13/512,v:64}]",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "claude",
+  "requestedModel": "claude-haiku-5-5",
+  "servedModels": [
+    "claude-haiku-5-5"
+  ],
+  "modelVerified": true,
+  "modelSelectionPolicy": "served-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "served-model",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 2,
+    "cache_creation_input_tokens": 2063,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 525,
+    "output_tokens_details": {
+      "thinking_tokens": 153
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2063,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 525,
+        "cache_read_input_tokens": 0,
+        "cache_creation_input_tokens": 2063,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2063
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "usageModelNames": [
+    "claude-haiku-5-5"
+  ],
+  "requests": [
+    {
+      "model": "claude-haiku-5-5",
+      "reasoning": null,
+      "thinking": {
+        "type": "adaptive",
+        "display": "updates"
+      },
+      "effort": "low",
+      "maxOutputTokens": 128000,
+      "temperaturePresent": false,
+      "tools": [],
+      "contextKinds": [],
+      "contextSha256": "f3d76356888cf1e7b51c9506fdcab9009d50b5276877c9117c74dd4b7cf555ca",
+      "contextBytes": 5899,
+      "localSerializedContextTokens": null,
+      "requestSha256": "19d1913715f20fc881e7c3d4a83a8248ca49bb1dfa0992eec3620f493480feed",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": 3,
+      "reminderBlockCount": 1
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": true,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "no-tools-advertised-or-used",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": {
+    "faultSuitePass": false,
+    "binaryMatches": false,
+    "retryControlsMatch": false,
+    "oneCapturedRequest": true
+  },
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 4225.309916999991
+  },
+  "codexContext": null,
+  "claudeContext": {
+    "schema": "r01-claude-context-audit-v1",
+    "policy": "r01-claude-context-policy-v2",
+    "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+    "pass": true,
+    "issues": [],
+    "blocks": [
+      {
+        "kind": "billing-metadata",
+        "role": "client-system",
+        "bytes": 192,
+        "sha256": "ddf74e88de9389365c900e30b5843fc556982221174a11745eb6bf2eba254f0c"
+      },
+      {
+        "kind": "sdk-identity",
+        "role": "client-system",
+        "bytes": 62,
+        "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+      },
+      {
+        "kind": "supplied-instruction",
+        "role": "client-system",
+        "bytes": 171,
+        "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+      },
+      {
+        "kind": "account",
+        "role": "client-reminder",
+        "bytes": 559,
+        "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+      },
+      {
+        "kind": "task",
+        "role": "task",
+        "bytes": 3476,
+        "sha256": "484f18132d609111ebc3cd61bb0fb7d3b6931efdeb330c50fb65d33d3c3a9fa2"
+      },
+      {
+        "kind": "system-turn",
+        "role": "client-system-turn",
+        "bytes": 953,
+        "sha256": "c7484da4c9a9f8559fbeb780e3c88ab079de78c15d94efbad25cb90855da4d03"
+      }
+    ],
+    "clientAddedTextBytes": 1937,
+    "taskBytes": 3476,
+    "maxTokens": 128000,
+    "volatile": {
+      "sessionId": "26899bce-b235-4caa-93f3-fc5b41dea978",
+      "versionSuffix": "364",
+      "promptId": "ea40d094-890e-4d38-b4ed-b444e636c180",
+      "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+      "date": "2026-10-26"
+    },
+    "requests": [
+      {
+        "schema": "r01-claude-context-audit-v1",
+        "policy": "r01-claude-context-policy-v2",
+        "policySha256": "9fb87193e87d2c3131b2ca82babeca179565e62a89ef6a481272c0fdb3de4806",
+        "pass": true,
+        "issues": [],
+        "blocks": [
+          {
+            "kind": "billing-metadata",
+            "role": "client-system",
+            "bytes": 192,
+            "sha256": "ddf74e88de9389365c900e30b5843fc556982221174a11745eb6bf2eba254f0c"
+          },
+          {
+            "kind": "sdk-identity",
+            "role": "client-system",
+            "bytes": 62,
+            "sha256": "0d7062851dd7bd7e66d4be4f12ac4951e3d2f587ec408295333a49963bd3f6b7"
+          },
+          {
+            "kind": "supplied-instruction",
+            "role": "client-system",
+            "bytes": 171,
+            "sha256": "f2b8f00b41c4a23fd0649948dbea475b98853cfaea3de44122df2ce1b8fc06cc"
+          },
+          {
+            "kind": "account",
+            "role": "client-reminder",
+            "bytes": 559,
+            "sha256": "3dcfa4e99432cf84c4127a101ec4c432d51a4373710140093b0ccaf49c4f2d41"
+          },
+          {
+            "kind": "task",
+            "role": "task",
+            "bytes": 3476,
+            "sha256": "484f18132d609111ebc3cd61bb0fb7d3b6931efdeb330c50fb65d33d3c3a9fa2"
+          },
+          {
+            "kind": "system-turn",
+            "role": "client-system-turn",
+            "bytes": 953,
+            "sha256": "c7484da4c9a9f8559fbeb780e3c88ab079de78c15d94efbad25cb90855da4d03"
+          }
+        ],
+        "clientAddedTextBytes": 1937,
+        "taskBytes": 3476,
+        "maxTokens": 128000,
+        "volatile": {
+          "sessionId": "26899bce-b235-4caa-93f3-fc5b41dea978",
+          "versionSuffix": "364",
+          "promptId": "ea40d094-890e-4d38-b4ed-b444e636c180",
+          "accountEmailSha256": "49a2d06c62440a5f7b9baa35bc2f21f53a1c2c3a8ee996c3ca35944443bacfdd",
+          "date": "2026-10-26"
+        }
+      }
+    ]
+  },
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [
+    "allowed"
+  ],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [],
+  "transportClean": true,
+  "reportedModelAvailable": true,
+  "totalInputTokens": 2065,
+  "finalOutputTokens": 525,
+  "initializedPlugins": [
+    {
+      "name": "cc-plugin-agents-md",
+      "source": "cc-plugin-agents-md@builtin"
+    },
+    {
+      "name": "cc-plugin-telemetry",
+      "source": "cc-plugin-telemetry@builtin"
+    },
+    {
+      "name": "cc-plugin-plugin-authoring",
+      "source": "cc-plugin-plugin-authoring@builtin"
+    }
+  ],
+  "advertisedMcpServers": [],
+  "overageUsed": false,
+  "controlPass": true,
+  "issues": [],
+  "rawFiles": [
+    {
+      "path": "api-bodies/17758ef8-63d0-4cf6-bb81-efb205b72b7b.request.json",
+      "sha256": "19d1913715f20fc881e7c3d4a83a8248ca49bb1dfa0992eec3620f493480feed"
+    },
+    {
+      "path": "api-bodies/index.jsonl",
+      "sha256": "27e555dcb59c73c16c6d09c5953fa7f524c1c24c931d20882c851fe317f0bdb4"
+    },
+    {
+      "path": "api-bodies/req_011CgREhX4LAJ2cUxJv5tNVc.response.json",
+      "sha256": "c49dc0ed0b8aacee252b30d6ae5ae5bc29d5b3237a817f560a4c59c304dacd0f"
+    }
+  ]
+}

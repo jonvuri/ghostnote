@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793f-b440-7520-a071-3742a7103678",
+  "turn_id": "01a1793f-b440-7520-a071-3742a7103678",
+  "last_agent_message": "R01-GROUPED-FIELDS 1\nNOTES {\n  FIELDS id pitch at duration velocity extra\n  NOTE u3 61 887/513 149/512 83 {\"annotation\":{\"origin\":\"unknown\",\"confidence\":null}}\n  NOTE u1 61 29/512 1007/512 93 {\"channel\":2,\"mute\":false,\"releaseVelocity\":0.4,\"chance\":{\"enabled\":true,\"value\":0.7},\"expression\":{\"velocitySpread\":0,\"gain\":1,\"pan\":-0.2,\"pressure\":0.4,\"timbre\":0.3,\"transpose\":0.5}}\n  NOTE u2 61 29/512 233/512 72 {\"channel\":3}\n}",
+  "started_at": 1793035580,
+  "completed_at": 1793035585,
+  "duration_ms": 4581,
+  "time_to_first_token_ms": 1825
+}

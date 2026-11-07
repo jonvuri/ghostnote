@@ -1,0 +1,2757 @@
+{
+  "schema": "r01-corpus-excerpts-v1",
+  "manifestHash": "sha256:8d0604ba460cd0439a27845087e12d951642afc89bddb2c98ccba909837494d9",
+  "split": "development",
+  "excerpts": [
+    {
+      "id": "engram-drums",
+      "family": "transcribed-drums",
+      "source": {
+        "assetId": "a503469a-7a12-433b-83c3-db0d57ae0052",
+        "contentHash": "sha256:ebe6ceb5e5d058f09a8e5e0d588b0623408804aecbd5ccb5ce9934637bbcd7da",
+        "path": "shards/engram/transcript-muscriptor-large-from-stems/128-drums.mid",
+        "shardId": "1f6213ce-a6b4-4999-81d1-149f0ce68b34",
+        "shardTitle": "engram",
+        "signalId": "bffd7d12-87e1-4d32-aa27-6323816b0485",
+        "origin": "transcription",
+        "model": "large",
+        "runId": "33058487-b73c-401c-b717-270300ee0cef",
+        "ticksPerQuarter": 9600,
+        "timeOrigin": "clip",
+        "timing": "mapped",
+        "sourceSecondsAtTickZero": -1.0575963718820862,
+        "velocityIsPlaceholder": true
+      },
+      "meter": {
+        "numerator": 5,
+        "denominator": 4
+      },
+      "meterBasis": "source-MIDI-map; excerpt origin is not necessarily a bar boundary",
+      "extraction": {
+        "startTick": 192111,
+        "endTickExclusive": 345711,
+        "fullTailEndTick": 341996,
+        "shiftQuarterBeats": "64037/3200",
+        "policy": "onsets-in-half-open-window; complete-note-tails; no-quantization",
+        "carryInNotes": 0
+      },
+      "timingContext": {
+        "tempoIsImplicit": false,
+        "tempoMap": [
+          {
+            "microsecondsPerQuarter": 369161,
+            "at": "0",
+            "sourceTick": 182400
+          },
+          {
+            "microsecondsPerQuarter": 379138,
+            "at": "3163/3200",
+            "sourceTick": 201600
+          },
+          {
+            "microsecondsPerQuarter": 369161,
+            "at": "6363/3200",
+            "sourceTick": 211200
+          },
+          {
+            "microsecondsPerQuarter": 359184,
+            "at": "9563/3200",
+            "sourceTick": 220800
+          },
+          {
+            "microsecondsPerQuarter": 369161,
+            "at": "19163/3200",
+            "sourceTick": 249600
+          },
+          {
+            "microsecondsPerQuarter": 379138,
+            "at": "25563/3200",
+            "sourceTick": 268800
+          },
+          {
+            "microsecondsPerQuarter": 369161,
+            "at": "28763/3200",
+            "sourceTick": 278400
+          },
+          {
+            "microsecondsPerQuarter": 359184,
+            "at": "31963/3200",
+            "sourceTick": 288000
+          },
+          {
+            "microsecondsPerQuarter": 369161,
+            "at": "38363/3200",
+            "sourceTick": 307200
+          },
+          {
+            "microsecondsPerQuarter": 379138,
+            "at": "44763/3200",
+            "sourceTick": 326400
+          }
+        ],
+        "meterMap": [
+          {
+            "numerator": 5,
+            "denominator": 4,
+            "clocksPerClick": 24,
+            "thirtySecondsPerQuarter": 8,
+            "at": "0",
+            "sourceTick": 0
+          },
+          {
+            "numerator": 4,
+            "denominator": 4,
+            "clocksPerClick": 24,
+            "thirtySecondsPerQuarter": 8,
+            "at": "47963/3200",
+            "sourceTick": 336000
+          }
+        ],
+        "resolution": {
+          "requestedTiming": "auto",
+          "timing": "mapped",
+          "requestedAlignment": "bar",
+          "alignment": "bar",
+          "tempoEventMode": "explicit",
+          "encodingBpm": 167.04530268608846,
+          "nominalQuarterBpm": 130.10869565217368,
+          "sourceSecondsAtTickZero": -1.0575963718820862,
+          "ticksPerQuarter": 9600,
+          "fallbackReasons": [],
+          "notes": [
+            "Meter changes include temporary partial bars at phase resets; pulse and elapsed note timing are preserved.",
+            "Outside detected pulse coverage, edge tempo is extrapolated. Import tempo automation to reproduce performed seconds; declining it plays the recovered grid at the project tempo.",
+            "Fixed velocity 64; all parts retain a common full-source end. DAW clip-length and meter-import behavior is host dependent."
+          ],
+          "partialBars": []
+        }
+      },
+      "notes": [
+        {
+          "id": "t1n1",
+          "pitch": 39,
+          "at": "0",
+          "duration": "13/480",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n2",
+          "pitch": 39,
+          "at": "14569/4800",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n3",
+          "pitch": 49,
+          "at": "14569/4800",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n4",
+          "pitch": 49,
+          "at": "13811/3200",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n5",
+          "pitch": 51,
+          "at": "13811/3200",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n6",
+          "pitch": 49,
+          "at": "15949/3200",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n7",
+          "pitch": 51,
+          "at": "15949/3200",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n8",
+          "pitch": 51,
+          "at": "28601/4800",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n9",
+          "pitch": 51,
+          "at": "63451/9600",
+          "duration": "13/480",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n10",
+          "pitch": 39,
+          "at": "66311/9600",
+          "duration": "13/480",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n11",
+          "pitch": 39,
+          "at": "9779/1200",
+          "duration": "253/9600",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n12",
+          "pitch": 39,
+          "at": "3749/400",
+          "duration": "13/480",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n13",
+          "pitch": 38,
+          "at": "20261/1920",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n14",
+          "pitch": 38,
+          "at": "113867/9600",
+          "duration": "89/3200",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n15",
+          "pitch": 38,
+          "at": "63061/4800",
+          "duration": "13/480",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n16",
+          "pitch": 38,
+          "at": "1078/75",
+          "duration": "253/9600",
+          "velocity": 64,
+          "channel": 10
+        },
+        {
+          "id": "t1n17",
+          "pitch": 38,
+          "at": "1169/75",
+          "duration": "253/9600",
+          "velocity": 64,
+          "channel": 10
+        }
+      ],
+      "sourceEventDetails": [
+        {
+          "id": "t1n1",
+          "trackIndex": 1,
+          "startTick": 192111,
+          "endTick": 192371,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n2",
+          "trackIndex": 1,
+          "startTick": 221249,
+          "endTick": 221516,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n3",
+          "trackIndex": 1,
+          "startTick": 221249,
+          "endTick": 221516,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n4",
+          "trackIndex": 1,
+          "startTick": 233544,
+          "endTick": 233811,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n5",
+          "trackIndex": 1,
+          "startTick": 233544,
+          "endTick": 233811,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n6",
+          "trackIndex": 1,
+          "startTick": 239958,
+          "endTick": 240225,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n7",
+          "trackIndex": 1,
+          "startTick": 239958,
+          "endTick": 240225,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n8",
+          "trackIndex": 1,
+          "startTick": 249313,
+          "endTick": 249580,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n9",
+          "trackIndex": 1,
+          "startTick": 255562,
+          "endTick": 255822,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n10",
+          "trackIndex": 1,
+          "startTick": 258422,
+          "endTick": 258682,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n11",
+          "trackIndex": 1,
+          "startTick": 270343,
+          "endTick": 270596,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n12",
+          "trackIndex": 1,
+          "startTick": 282087,
+          "endTick": 282347,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n13",
+          "trackIndex": 1,
+          "startTick": 293416,
+          "endTick": 293683,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n14",
+          "trackIndex": 1,
+          "startTick": 305978,
+          "endTick": 306245,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n15",
+          "trackIndex": 1,
+          "startTick": 318233,
+          "endTick": 318493,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n16",
+          "trackIndex": 1,
+          "startTick": 330095,
+          "endTick": 330348,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n17",
+          "trackIndex": 1,
+          "startTick": 341743,
+          "endTick": 341996,
+          "noteOff": {
+            "status": 137,
+            "dataVelocity": 0
+          }
+        }
+      ],
+      "metrics": {
+        "notes": 17,
+        "uniquePitches": 4,
+        "sourceOverlappingNoteOns": 0,
+        "off512Onsets": 16,
+        "off512Durations": 17,
+        "minimumDurationPromotions": 0,
+        "tailsBeyondWindow": 0,
+        "normalizedAddressCollisions": []
+      },
+      "limitations": {
+        "intent": "unknown; instrument family is exporter metadata, not verified performance technique",
+        "dynamics": "fixed velocity 64; does not establish original dynamics",
+        "nonNoteEvents": {
+          "meta-6": 118
+        },
+        "hostAdmission": "no duplicate normalized pitch/channel/onset addresses; this is not a host-write verification"
+      }
+    },
+    {
+      "id": "engram-bass",
+      "family": "transcribed-bass",
+      "source": {
+        "assetId": "aeb2577d-6f28-4656-8c09-ca9ab6ace3a6",
+        "contentHash": "sha256:09c8a005daec90ef2ba75989a3c5990965972583d88ecb43ac592d0a5094d5fe",
+        "path": "shards/engram/transcript-muscriptor-large-from-stems/033-electric-bass.mid",
+        "shardId": "1f6213ce-a6b4-4999-81d1-149f0ce68b34",
+        "shardTitle": "engram",
+        "signalId": "bffd7d12-87e1-4d32-aa27-6323816b0485",
+        "origin": "transcription",
+        "model": "large",
+        "runId": "33058487-b73c-401c-b717-270300ee0cef",
+        "ticksPerQuarter": 9600,
+        "timeOrigin": "clip",
+        "timing": "mapped",
+        "sourceSecondsAtTickZero": -1.0575963718820862,
+        "velocityIsPlaceholder": true
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "meterBasis": "source-MIDI-map; excerpt origin is not necessarily a bar boundary",
+      "extraction": {
+        "startTick": 628532,
+        "endTickExclusive": 782132,
+        "fullTailEndTick": 725071,
+        "shiftQuarterBeats": "157133/2400",
+        "policy": "onsets-in-half-open-window; complete-note-tails; no-quantization",
+        "carryInNotes": 0
+      },
+      "timingContext": {
+        "tempoIsImplicit": false,
+        "tempoMap": [
+          {
+            "microsecondsPerQuarter": 458957,
+            "at": "0",
+            "sourceTick": 624000
+          },
+          {
+            "microsecondsPerQuarter": 468934,
+            "at": "3667/2400",
+            "sourceTick": 643200
+          },
+          {
+            "microsecondsPerQuarter": 458957,
+            "at": "6067/2400",
+            "sourceTick": 652800
+          },
+          {
+            "microsecondsPerQuarter": 468934,
+            "at": "13267/2400",
+            "sourceTick": 681600
+          },
+          {
+            "microsecondsPerQuarter": 458957,
+            "at": "18067/2400",
+            "sourceTick": 700800
+          },
+          {
+            "microsecondsPerQuarter": 448980,
+            "at": "22867/2400",
+            "sourceTick": 720000
+          }
+        ],
+        "meterMap": [
+          {
+            "numerator": 4,
+            "denominator": 4,
+            "clocksPerClick": 24,
+            "thirtySecondsPerQuarter": 8,
+            "at": "0",
+            "sourceTick": 336000
+          }
+        ],
+        "resolution": {
+          "requestedTiming": "auto",
+          "timing": "mapped",
+          "requestedAlignment": "bar",
+          "alignment": "bar",
+          "tempoEventMode": "explicit",
+          "encodingBpm": 167.04530268608846,
+          "nominalQuarterBpm": 130.10869565217368,
+          "sourceSecondsAtTickZero": -1.0575963718820862,
+          "ticksPerQuarter": 9600,
+          "fallbackReasons": [],
+          "notes": [
+            "Meter changes include temporary partial bars at phase resets; pulse and elapsed note timing are preserved.",
+            "Outside detected pulse coverage, edge tempo is extrapolated. Import tempo automation to reproduce performed seconds; declining it plays the recovered grid at the project tempo.",
+            "Fixed velocity 64; all parts retain a common full-source end. DAW clip-length and meter-import behavior is host dependent."
+          ],
+          "partialBars": []
+        }
+      },
+      "notes": [
+        {
+          "id": "t1n1",
+          "pitch": 37,
+          "at": "0",
+          "duration": "251/480",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n2",
+          "pitch": 42,
+          "at": "3277/3200",
+          "duration": "209/400",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n3",
+          "pitch": 35,
+          "at": "4949/3200",
+          "duration": "4913/9600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n4",
+          "pitch": 35,
+          "at": "6641/1200",
+          "duration": "819/1600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n5",
+          "pitch": 35,
+          "at": "25589/3200",
+          "duration": "4811/9600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n6",
+          "pitch": 34,
+          "at": "14433/1600",
+          "duration": "5023/9600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n7",
+          "pitch": 39,
+          "at": "91621/9600",
+          "duration": "2459/4800",
+          "velocity": 64,
+          "channel": 1
+        }
+      ],
+      "sourceEventDetails": [
+        {
+          "id": "t1n1",
+          "trackIndex": 1,
+          "startTick": 628532,
+          "endTick": 633552,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n2",
+          "trackIndex": 1,
+          "startTick": 638363,
+          "endTick": 643379,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n3",
+          "trackIndex": 1,
+          "startTick": 643379,
+          "endTick": 648292,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n4",
+          "trackIndex": 1,
+          "startTick": 681660,
+          "endTick": 686574,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n5",
+          "trackIndex": 1,
+          "startTick": 705299,
+          "endTick": 710110,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n6",
+          "trackIndex": 1,
+          "startTick": 715130,
+          "endTick": 720153,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n7",
+          "trackIndex": 1,
+          "startTick": 720153,
+          "endTick": 725071,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        }
+      ],
+      "metrics": {
+        "notes": 7,
+        "uniquePitches": 5,
+        "sourceOverlappingNoteOns": 0,
+        "off512Onsets": 6,
+        "off512Durations": 7,
+        "minimumDurationPromotions": 0,
+        "tailsBeyondWindow": 0,
+        "normalizedAddressCollisions": []
+      },
+      "limitations": {
+        "intent": "unknown; instrument family is exporter metadata, not verified performance technique",
+        "dynamics": "fixed velocity 64; does not establish original dynamics",
+        "nonNoteEvents": {
+          "meta-6": 118,
+          "status-c": 1
+        },
+        "hostAdmission": "no duplicate normalized pitch/channel/onset addresses; this is not a host-write verification"
+      }
+    },
+    {
+      "id": "via-purifico-piano",
+      "family": "transcribed-polyphonic-piano",
+      "source": {
+        "assetId": "53df095a-a3d0-4084-83e9-36be6f262459",
+        "contentHash": "sha256:60ba3b15b145c736fab5cf9feeed9b246cabc1453dafd91f44248f3933c920cf",
+        "path": "shards/via purifico/transcript-muscriptor-large/000-acoustic-piano.mid",
+        "shardId": "3eb3cfd4-80b1-4caa-8a8b-4d3e23be2eb7",
+        "shardTitle": "via purifico",
+        "signalId": "b7a211c3-296f-491b-b801-13ea71fc4aeb",
+        "origin": "registration",
+        "model": "large",
+        "runId": "c03f55a0-5d6e-48d2-a3aa-af21f0a8cc94",
+        "ticksPerQuarter": 9600,
+        "timeOrigin": "clip",
+        "timing": "mapped",
+        "sourceSecondsAtTickZero": 0.03204644412192877,
+        "velocityIsPlaceholder": true
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "meterBasis": "source-MIDI-map; excerpt origin is not necessarily a bar boundary",
+      "extraction": {
+        "startTick": 110,
+        "endTickExclusive": 153710,
+        "fullTailEndTick": 156800,
+        "shiftQuarterBeats": "11/960",
+        "policy": "onsets-in-half-open-window; complete-note-tails; no-quantization",
+        "carryInNotes": 0
+      },
+      "timingContext": {
+        "tempoIsImplicit": false,
+        "tempoMap": [
+          {
+            "microsecondsPerQuarter": 692322,
+            "at": "0",
+            "sourceTick": 0
+          }
+        ],
+        "meterMap": [
+          {
+            "numerator": 4,
+            "denominator": 4,
+            "clocksPerClick": 24,
+            "thirtySecondsPerQuarter": 8,
+            "at": "0",
+            "sourceTick": 0
+          }
+        ],
+        "resolution": {
+          "requestedTiming": "auto",
+          "timing": "mapped",
+          "requestedAlignment": "bar",
+          "alignment": "bar",
+          "tempoEventMode": "explicit",
+          "encodingBpm": 86.6648755925711,
+          "nominalQuarterBpm": 86.664929948068,
+          "sourceSecondsAtTickZero": 0.03204644412192877,
+          "ticksPerQuarter": 9600,
+          "fallbackReasons": [],
+          "notes": [
+            "Meter changes include temporary partial bars at phase resets; pulse and elapsed note timing are preserved.",
+            "Outside detected pulse coverage, edge tempo is extrapolated. Import tempo automation to reproduce performed seconds; declining it plays the recovered grid at the project tempo.",
+            "Fixed velocity 64; all parts retain a common full-source end. DAW clip-length and meter-import behavior is host dependent."
+          ],
+          "partialBars": []
+        }
+      },
+      "notes": [
+        {
+          "id": "t1n1",
+          "pitch": 42,
+          "at": "0",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n2",
+          "pitch": 68,
+          "at": "0",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n3",
+          "pitch": 49,
+          "at": "319/960",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n4",
+          "pitch": 57,
+          "at": "319/960",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n5",
+          "pitch": 54,
+          "at": "6379/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n6",
+          "pitch": 61,
+          "at": "6379/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n7",
+          "pitch": 49,
+          "at": "299/300",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n8",
+          "pitch": 68,
+          "at": "299/300",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n10",
+          "pitch": 59,
+          "at": "12757/9600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n9",
+          "pitch": 56,
+          "at": "12757/9600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n11",
+          "pitch": 49,
+          "at": "3217/1920",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n12",
+          "pitch": 61,
+          "at": "3217/1920",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n13",
+          "pitch": 42,
+          "at": "257/128",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n14",
+          "pitch": 68,
+          "at": "257/128",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n15",
+          "pitch": 49,
+          "at": "117/50",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n16",
+          "pitch": 57,
+          "at": "117/50",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n17",
+          "pitch": 54,
+          "at": "8551/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n18",
+          "pitch": 65,
+          "at": "8551/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n19",
+          "pitch": 49,
+          "at": "4807/1600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n20",
+          "pitch": 57,
+          "at": "4807/1600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n21",
+          "pitch": 53,
+          "at": "3217/960",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n22",
+          "pitch": 66,
+          "at": "3217/960",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n23",
+          "pitch": 49,
+          "at": "221/60",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n24",
+          "pitch": 57,
+          "at": "221/60",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n25",
+          "pitch": 47,
+          "at": "38549/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n26",
+          "pitch": 73,
+          "at": "38549/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n27",
+          "pitch": 54,
+          "at": "20869/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n28",
+          "pitch": 62,
+          "at": "20869/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n29",
+          "pitch": 59,
+          "at": "44927/9600",
+          "duration": "12757/9600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n30",
+          "pitch": 66,
+          "at": "44927/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n31",
+          "pitch": 73,
+          "at": "16039/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n32",
+          "pitch": 61,
+          "at": "8551/1600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n33",
+          "pitch": 64,
+          "at": "8551/1600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n34",
+          "pitch": 66,
+          "at": "3633/640",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n35",
+          "pitch": 47,
+          "at": "4807/800",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n36",
+          "pitch": 73,
+          "at": "4807/800",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n37",
+          "pitch": 54,
+          "at": "30437/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n38",
+          "pitch": 62,
+          "at": "30437/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n39",
+          "pitch": 59,
+          "at": "64063/9600",
+          "duration": "1063/1600",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n40",
+          "pitch": 70,
+          "at": "64063/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n41",
+          "pitch": 62,
+          "at": "16813/2400",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n42",
+          "pitch": 59,
+          "at": "70441/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n43",
+          "pitch": 71,
+          "at": "70441/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n44",
+          "pitch": 62,
+          "at": "73631/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n45",
+          "pitch": 43,
+          "at": "3841/480",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n46",
+          "pitch": 78,
+          "at": "3841/480",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n47",
+          "pitch": 50,
+          "at": "80009/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n48",
+          "pitch": 67,
+          "at": "80009/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n49",
+          "pitch": 55,
+          "at": "27733/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n50",
+          "pitch": 71,
+          "at": "27733/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n51",
+          "pitch": 50,
+          "at": "7199/800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n52",
+          "pitch": 78,
+          "at": "7199/800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n53",
+          "pitch": 57,
+          "at": "29859/3200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n54",
+          "pitch": 69,
+          "at": "29859/3200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n55",
+          "pitch": 50,
+          "at": "18581/1920",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n56",
+          "pitch": 71,
+          "at": "18581/1920",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n57",
+          "pitch": 43,
+          "at": "48047/4800",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n58",
+          "pitch": 78,
+          "at": "48047/4800",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n59",
+          "pitch": 50,
+          "at": "24821/2400",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n60",
+          "pitch": 67,
+          "at": "24821/2400",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n61",
+          "pitch": 57,
+          "at": "102473/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n62",
+          "pitch": 76,
+          "at": "102473/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n63",
+          "pitch": 50,
+          "at": "52831/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n64",
+          "pitch": 67,
+          "at": "52831/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n65",
+          "pitch": 55,
+          "at": "108851/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n66",
+          "pitch": 74,
+          "at": "108851/9600",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n67",
+          "pitch": 50,
+          "at": "37347/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n68",
+          "pitch": 67,
+          "at": "37347/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n69",
+          "pitch": 42,
+          "at": "3841/320",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n70",
+          "pitch": 76,
+          "at": "3841/320",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n71",
+          "pitch": 49,
+          "at": "39473/3200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n72",
+          "pitch": 64,
+          "at": "39473/3200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n73",
+          "pitch": 54,
+          "at": "121747/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n74",
+          "pitch": 69,
+          "at": "121747/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n75",
+          "pitch": 49,
+          "at": "15617/1200",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n76",
+          "pitch": 76,
+          "at": "15617/1200",
+          "duration": "319/960",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n77",
+          "pitch": 56,
+          "at": "64063/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n78",
+          "pitch": 64,
+          "at": "64063/4800",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n79",
+          "pitch": 49,
+          "at": "26263/1920",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n80",
+          "pitch": 68,
+          "at": "26263/1920",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n81",
+          "pitch": 42,
+          "at": "16813/1200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n82",
+          "pitch": 76,
+          "at": "16813/1200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n83",
+          "pitch": 49,
+          "at": "5743/400",
+          "duration": "527/1920",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n84",
+          "pitch": 64,
+          "at": "5743/400",
+          "duration": "527/1920",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n85",
+          "pitch": 54,
+          "at": "140467/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n86",
+          "pitch": 74,
+          "at": "140467/9600",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n87",
+          "pitch": 49,
+          "at": "17957/1200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n88",
+          "pitch": 64,
+          "at": "17957/1200",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n89",
+          "pitch": 54,
+          "at": "18373/1200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n90",
+          "pitch": 73,
+          "at": "18373/1200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n91",
+          "pitch": 49,
+          "at": "150173/9600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n92",
+          "pitch": 64,
+          "at": "150173/9600",
+          "duration": "26/75",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n93",
+          "pitch": 40,
+          "at": "51167/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n94",
+          "pitch": 73,
+          "at": "51167/3200",
+          "duration": "1063/3200",
+          "velocity": 64,
+          "channel": 1
+        }
+      ],
+      "sourceEventDetails": [
+        {
+          "id": "t1n1",
+          "trackIndex": 1,
+          "startTick": 110,
+          "endTick": 3300,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n2",
+          "trackIndex": 1,
+          "startTick": 110,
+          "endTick": 3300,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n3",
+          "trackIndex": 1,
+          "startTick": 3300,
+          "endTick": 6489,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n4",
+          "trackIndex": 1,
+          "startTick": 3300,
+          "endTick": 6489,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n5",
+          "trackIndex": 1,
+          "startTick": 6489,
+          "endTick": 9678,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n6",
+          "trackIndex": 1,
+          "startTick": 6489,
+          "endTick": 9678,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n7",
+          "trackIndex": 1,
+          "startTick": 9678,
+          "endTick": 12867,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n8",
+          "trackIndex": 1,
+          "startTick": 9678,
+          "endTick": 12867,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n10",
+          "trackIndex": 1,
+          "startTick": 12867,
+          "endTick": 16195,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n9",
+          "trackIndex": 1,
+          "startTick": 12867,
+          "endTick": 16195,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n11",
+          "trackIndex": 1,
+          "startTick": 16195,
+          "endTick": 19385,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n12",
+          "trackIndex": 1,
+          "startTick": 16195,
+          "endTick": 19385,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n13",
+          "trackIndex": 1,
+          "startTick": 19385,
+          "endTick": 22574,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n14",
+          "trackIndex": 1,
+          "startTick": 19385,
+          "endTick": 22574,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n15",
+          "trackIndex": 1,
+          "startTick": 22574,
+          "endTick": 25763,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n16",
+          "trackIndex": 1,
+          "startTick": 22574,
+          "endTick": 25763,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n17",
+          "trackIndex": 1,
+          "startTick": 25763,
+          "endTick": 28952,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n18",
+          "trackIndex": 1,
+          "startTick": 25763,
+          "endTick": 28952,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n19",
+          "trackIndex": 1,
+          "startTick": 28952,
+          "endTick": 32280,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n20",
+          "trackIndex": 1,
+          "startTick": 28952,
+          "endTick": 32280,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n21",
+          "trackIndex": 1,
+          "startTick": 32280,
+          "endTick": 35470,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n22",
+          "trackIndex": 1,
+          "startTick": 32280,
+          "endTick": 35470,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n23",
+          "trackIndex": 1,
+          "startTick": 35470,
+          "endTick": 38659,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n24",
+          "trackIndex": 1,
+          "startTick": 35470,
+          "endTick": 38659,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n25",
+          "trackIndex": 1,
+          "startTick": 38659,
+          "endTick": 41848,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n26",
+          "trackIndex": 1,
+          "startTick": 38659,
+          "endTick": 41848,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n27",
+          "trackIndex": 1,
+          "startTick": 41848,
+          "endTick": 45037,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n28",
+          "trackIndex": 1,
+          "startTick": 41848,
+          "endTick": 45037,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n29",
+          "trackIndex": 1,
+          "startTick": 45037,
+          "endTick": 57794,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n30",
+          "trackIndex": 1,
+          "startTick": 45037,
+          "endTick": 48227,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n31",
+          "trackIndex": 1,
+          "startTick": 48227,
+          "endTick": 51416,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n32",
+          "trackIndex": 1,
+          "startTick": 51416,
+          "endTick": 54605,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n33",
+          "trackIndex": 1,
+          "startTick": 51416,
+          "endTick": 54605,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n34",
+          "trackIndex": 1,
+          "startTick": 54605,
+          "endTick": 57794,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n35",
+          "trackIndex": 1,
+          "startTick": 57794,
+          "endTick": 60984,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n36",
+          "trackIndex": 1,
+          "startTick": 57794,
+          "endTick": 60984,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n37",
+          "trackIndex": 1,
+          "startTick": 60984,
+          "endTick": 64173,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n38",
+          "trackIndex": 1,
+          "startTick": 60984,
+          "endTick": 64173,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n39",
+          "trackIndex": 1,
+          "startTick": 64173,
+          "endTick": 70551,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n40",
+          "trackIndex": 1,
+          "startTick": 64173,
+          "endTick": 67362,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n41",
+          "trackIndex": 1,
+          "startTick": 67362,
+          "endTick": 70551,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n42",
+          "trackIndex": 1,
+          "startTick": 70551,
+          "endTick": 73741,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n43",
+          "trackIndex": 1,
+          "startTick": 70551,
+          "endTick": 73741,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n44",
+          "trackIndex": 1,
+          "startTick": 73741,
+          "endTick": 76930,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n45",
+          "trackIndex": 1,
+          "startTick": 76930,
+          "endTick": 80119,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n46",
+          "trackIndex": 1,
+          "startTick": 76930,
+          "endTick": 80119,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n47",
+          "trackIndex": 1,
+          "startTick": 80119,
+          "endTick": 83309,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n48",
+          "trackIndex": 1,
+          "startTick": 80119,
+          "endTick": 83309,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n49",
+          "trackIndex": 1,
+          "startTick": 83309,
+          "endTick": 86498,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n50",
+          "trackIndex": 1,
+          "startTick": 83309,
+          "endTick": 86498,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n51",
+          "trackIndex": 1,
+          "startTick": 86498,
+          "endTick": 89687,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n52",
+          "trackIndex": 1,
+          "startTick": 86498,
+          "endTick": 89687,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n53",
+          "trackIndex": 1,
+          "startTick": 89687,
+          "endTick": 93015,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n54",
+          "trackIndex": 1,
+          "startTick": 89687,
+          "endTick": 93015,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n55",
+          "trackIndex": 1,
+          "startTick": 93015,
+          "endTick": 96204,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n56",
+          "trackIndex": 1,
+          "startTick": 93015,
+          "endTick": 96204,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n57",
+          "trackIndex": 1,
+          "startTick": 96204,
+          "endTick": 99394,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n58",
+          "trackIndex": 1,
+          "startTick": 96204,
+          "endTick": 99394,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n59",
+          "trackIndex": 1,
+          "startTick": 99394,
+          "endTick": 102583,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n60",
+          "trackIndex": 1,
+          "startTick": 99394,
+          "endTick": 102583,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n61",
+          "trackIndex": 1,
+          "startTick": 102583,
+          "endTick": 105772,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n62",
+          "trackIndex": 1,
+          "startTick": 102583,
+          "endTick": 105772,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n63",
+          "trackIndex": 1,
+          "startTick": 105772,
+          "endTick": 108961,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n64",
+          "trackIndex": 1,
+          "startTick": 105772,
+          "endTick": 108961,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n65",
+          "trackIndex": 1,
+          "startTick": 108961,
+          "endTick": 112151,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n66",
+          "trackIndex": 1,
+          "startTick": 108961,
+          "endTick": 112151,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n67",
+          "trackIndex": 1,
+          "startTick": 112151,
+          "endTick": 115340,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n68",
+          "trackIndex": 1,
+          "startTick": 112151,
+          "endTick": 115340,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n69",
+          "trackIndex": 1,
+          "startTick": 115340,
+          "endTick": 118529,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n70",
+          "trackIndex": 1,
+          "startTick": 115340,
+          "endTick": 118529,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n71",
+          "trackIndex": 1,
+          "startTick": 118529,
+          "endTick": 121857,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n72",
+          "trackIndex": 1,
+          "startTick": 118529,
+          "endTick": 121857,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n73",
+          "trackIndex": 1,
+          "startTick": 121857,
+          "endTick": 125046,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n74",
+          "trackIndex": 1,
+          "startTick": 121857,
+          "endTick": 125046,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n75",
+          "trackIndex": 1,
+          "startTick": 125046,
+          "endTick": 128236,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n76",
+          "trackIndex": 1,
+          "startTick": 125046,
+          "endTick": 128236,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n77",
+          "trackIndex": 1,
+          "startTick": 128236,
+          "endTick": 131425,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n78",
+          "trackIndex": 1,
+          "startTick": 128236,
+          "endTick": 131425,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n79",
+          "trackIndex": 1,
+          "startTick": 131425,
+          "endTick": 134614,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n80",
+          "trackIndex": 1,
+          "startTick": 131425,
+          "endTick": 134614,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n81",
+          "trackIndex": 1,
+          "startTick": 134614,
+          "endTick": 137942,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n82",
+          "trackIndex": 1,
+          "startTick": 134614,
+          "endTick": 137942,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n83",
+          "trackIndex": 1,
+          "startTick": 137942,
+          "endTick": 140577,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n84",
+          "trackIndex": 1,
+          "startTick": 137942,
+          "endTick": 140577,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n85",
+          "trackIndex": 1,
+          "startTick": 140577,
+          "endTick": 143766,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n86",
+          "trackIndex": 1,
+          "startTick": 140577,
+          "endTick": 143766,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n87",
+          "trackIndex": 1,
+          "startTick": 143766,
+          "endTick": 147094,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n88",
+          "trackIndex": 1,
+          "startTick": 143766,
+          "endTick": 147094,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n89",
+          "trackIndex": 1,
+          "startTick": 147094,
+          "endTick": 150283,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n90",
+          "trackIndex": 1,
+          "startTick": 147094,
+          "endTick": 150283,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n91",
+          "trackIndex": 1,
+          "startTick": 150283,
+          "endTick": 153611,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n92",
+          "trackIndex": 1,
+          "startTick": 150283,
+          "endTick": 153611,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n93",
+          "trackIndex": 1,
+          "startTick": 153611,
+          "endTick": 156800,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n94",
+          "trackIndex": 1,
+          "startTick": 153611,
+          "endTick": 156800,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        }
+      ],
+      "metrics": {
+        "notes": 94,
+        "uniquePitches": 26,
+        "sourceOverlappingNoteOns": 0,
+        "off512Onsets": 90,
+        "off512Durations": 94,
+        "minimumDurationPromotions": 0,
+        "tailsBeyondWindow": 2,
+        "normalizedAddressCollisions": []
+      },
+      "limitations": {
+        "intent": "unknown; instrument family is exporter metadata, not verified performance technique",
+        "dynamics": "fixed velocity 64; does not establish original dynamics",
+        "nonNoteEvents": {
+          "meta-6": 53,
+          "status-c": 1
+        },
+        "hostAdmission": "no duplicate normalized pitch/channel/onset addresses; this is not a host-write verification"
+      }
+    },
+    {
+      "id": "air-loom-guitar",
+      "family": "transcribed-baked-guitar",
+      "source": {
+        "assetId": "537050c8-69d5-4800-8805-b779a65964f2",
+        "contentHash": "sha256:360f8eed3ac06fb298c7c67c2c6c79a6e6c331eea0394a6c7135e9716355ce45",
+        "path": "shards/air loom/transcript-muscriptor-large/026-clean-electric-guitar.mid",
+        "shardId": "2b86c35e-605e-4a88-bd74-fac68571164d",
+        "shardTitle": "air loom",
+        "signalId": "db3d3923-b0db-4f20-9225-99fb630e45ab",
+        "origin": "registration",
+        "model": "large",
+        "runId": "350aa1f0-cdf4-4722-ae70-af7bd96de595",
+        "ticksPerQuarter": 9600,
+        "timeOrigin": "signal",
+        "timing": "baked",
+        "sourceSecondsAtTickZero": 0,
+        "velocityIsPlaceholder": true
+      },
+      "meter": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "meterBasis": "synthetic-4/4-display-coordinate; musical-meter-unresolved",
+      "extraction": {
+        "startTick": 61248,
+        "endTickExclusive": 214848,
+        "fullTailEndTick": 239808,
+        "shiftQuarterBeats": "319/50",
+        "policy": "onsets-in-half-open-window; complete-note-tails; no-quantization",
+        "carryInNotes": 0
+      },
+      "timingContext": {
+        "tempoIsImplicit": true,
+        "tempoMap": [
+          {
+            "microsecondsPerQuarter": 500000,
+            "at": "0",
+            "sourceTick": 0
+          }
+        ],
+        "meterMap": [],
+        "resolution": {
+          "requestedTiming": "auto",
+          "timing": "baked",
+          "requestedAlignment": "bar",
+          "alignment": "source",
+          "tempoEventMode": "implicit-120",
+          "encodingBpm": 120,
+          "nominalQuarterBpm": null,
+          "sourceSecondsAtTickZero": 0,
+          "ticksPerQuarter": 9600,
+          "fallbackReasons": [
+            "Pulse unresolved; performed seconds retained.",
+            "No reliable bar anchor; source second zero retained."
+          ],
+          "notes": [
+            "Performed timing is baked into note positions. Play at encodingBpm to reproduce seconds; another project BPM scales all timing uniformly.",
+            "No tempo event is written; MIDI defaults to 120 BPM. Musical tempo is unresolved, and performed seconds are encoded at that default.",
+            "Fixed velocity 64; all parts retain a common full-source end. DAW clip-length and meter-import behavior is host dependent."
+          ],
+          "partialBars": []
+        }
+      },
+      "notes": [
+        {
+          "id": "t1n1",
+          "pitch": 54,
+          "at": "0",
+          "duration": "38/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n2",
+          "pitch": 55,
+          "at": "38/25",
+          "duration": "19/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n3",
+          "pitch": 59,
+          "at": "57/25",
+          "duration": "19/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n4",
+          "pitch": 62,
+          "at": "76/25",
+          "duration": "9/10",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n5",
+          "pitch": 66,
+          "at": "197/50",
+          "duration": "24/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n6",
+          "pitch": 67,
+          "at": "49/10",
+          "duration": "24/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n7",
+          "pitch": 66,
+          "at": "293/50",
+          "duration": "24/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n8",
+          "pitch": 66,
+          "at": "341/50",
+          "duration": "173/50",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n9",
+          "pitch": 60,
+          "at": "257/25",
+          "duration": "96/25",
+          "velocity": 64,
+          "channel": 1
+        },
+        {
+          "id": "t1n10",
+          "pitch": 59,
+          "at": "353/25",
+          "duration": "112/25",
+          "velocity": 64,
+          "channel": 1
+        }
+      ],
+      "sourceEventDetails": [
+        {
+          "id": "t1n1",
+          "trackIndex": 1,
+          "startTick": 61248,
+          "endTick": 75840,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n2",
+          "trackIndex": 1,
+          "startTick": 75840,
+          "endTick": 83136,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n3",
+          "trackIndex": 1,
+          "startTick": 83136,
+          "endTick": 90432,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n4",
+          "trackIndex": 1,
+          "startTick": 90432,
+          "endTick": 99072,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n5",
+          "trackIndex": 1,
+          "startTick": 99072,
+          "endTick": 108288,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n6",
+          "trackIndex": 1,
+          "startTick": 108288,
+          "endTick": 117504,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n7",
+          "trackIndex": 1,
+          "startTick": 117504,
+          "endTick": 126720,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n8",
+          "trackIndex": 1,
+          "startTick": 126720,
+          "endTick": 159936,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n9",
+          "trackIndex": 1,
+          "startTick": 159936,
+          "endTick": 196800,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        },
+        {
+          "id": "t1n10",
+          "trackIndex": 1,
+          "startTick": 196800,
+          "endTick": 239808,
+          "noteOff": {
+            "status": 128,
+            "dataVelocity": 0
+          }
+        }
+      ],
+      "metrics": {
+        "notes": 10,
+        "uniquePitches": 7,
+        "sourceOverlappingNoteOns": 0,
+        "off512Onsets": 9,
+        "off512Durations": 10,
+        "minimumDurationPromotions": 0,
+        "tailsBeyondWindow": 1,
+        "normalizedAddressCollisions": []
+      },
+      "limitations": {
+        "intent": "unknown; instrument family is exporter metadata, not verified performance technique",
+        "dynamics": "fixed velocity 64; does not establish original dynamics",
+        "nonNoteEvents": {
+          "status-c": 1
+        },
+        "hostAdmission": "no duplicate normalized pitch/channel/onset addresses; this is not a host-write verification"
+      }
+    }
+  ]
+}

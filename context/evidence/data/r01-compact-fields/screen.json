@@ -1,0 +1,255 @@
+{
+  "schema": "r01-compact-fields-screen-v1",
+  "node": "v24.11.1",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "corpusSha256": "c596d217dc53f57b94413f32d0feb048d7858ec80b524fbec96398773913ac32",
+  "sources": [
+    {
+      "path": "compact-fields.mjs",
+      "sha256": "6843d746c6d64f480a6918ffb6d8584377a95b5091896765b4a51a28defbb6ec"
+    },
+    {
+      "path": "compact-fields.test.mjs",
+      "sha256": "478c81d003b4a0f1a026e2791bb237e7a05d0bf434c6d4c611bdf8b0a96dd6ad"
+    },
+    {
+      "path": "compact-screen.mjs",
+      "sha256": "358d98ac45bca4bbc098e38ba31849f0e31584abebf9ca354cb2e22fcea01ffb"
+    },
+    {
+      "path": "structured.mjs",
+      "sha256": "51a3b5abbb4f42e2b30b10761cf657e202aba8b2126e2d0b76eca2a5c152c4aa"
+    },
+    {
+      "path": "fixtures.mjs",
+      "sha256": "cccc02a3642dab411b1cd54f6e19affde72c96280293cf6f1140b35f4d174291"
+    },
+    {
+      "path": "common.mjs",
+      "sha256": "44fabb980ed32b51317defcddf3ebddbb785362e3f4744100b517702ecf011cf"
+    }
+  ],
+  "limits": [
+    "Development fixtures only; no held-out source opened or model call made.",
+    "C3 JSON and FIELDS carry identical fixture state; sizes exclude instructions and model/tool overhead.",
+    "C3 preserves shared group context and adjacent membership references; group-derived note timing belongs to C4.",
+    "Source-state fidelity does not establish host admission or claim-engine equivalence."
+  ],
+  "spreadCheck": {
+    "exactOnsets": [
+      "4099/512",
+      "2051/256",
+      "8211/1024",
+      "8219/1024"
+    ],
+    "commonDelayPreserved": true
+  },
+  "results": [
+    {
+      "fixture": "synthetic-drums",
+      "notes": 7,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 642,
+        "tokens": 226
+      },
+      "compactJson": {
+        "bytes": 705,
+        "tokens": 253
+      },
+      "textSha256": "6a27bc24ad6d2bb361e5b5212ce6db24cf3bb854b1623f0161d7c5cbad8ea523"
+    },
+    {
+      "fixture": "synthetic-bass",
+      "notes": 4,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 571,
+        "tokens": 211
+      },
+      "compactJson": {
+        "bytes": 586,
+        "tokens": 220
+      },
+      "textSha256": "24bc14111b1cfa05be8178ef92423cfcc1f4dda7e71daffce8f6f934a9fc01b9",
+      "example": "R01-COMPACT-FIELDS 1\nCONTEXT {\"id\":\"synthetic-bass\",\"family\":\"syncopated bass\",\"meter\":{\"numerator\":6,\"denominator\":8},\"groups\":[{\"id\":\"triplet\",\"members\":[\"b1\",\"b2\",\"b3\"],\"label\":\"triplet with anticipated third\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}],\"musical\":{\"nominal\":{}}}\nFIELDS id pitch at duration velocity groups nominal.location nominal.at nominal.duration\nNOTE b1 36 0 7/24 94 [\"triplet\"] map 0 1/3\nNOTE b2 39 1/3 5/24 81 [\"triplet\"] map 1/3 1/3\nNOTE b3 43 1015/1536 11/24 101 [\"triplet\"] map 2/3 1/3\nNOTE b4 34 1499/512 5/4 88 - - - -\n"
+    },
+    {
+      "fixture": "synthetic-harmony",
+      "notes": 4,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 732,
+        "tokens": 253
+      },
+      "compactJson": {
+        "bytes": 758,
+        "tokens": 266
+      },
+      "textSha256": "c1ecc45440a8c7d0221c3576e1168602889c9c0c91711fa081cc957efff78819",
+      "example": "R01-COMPACT-FIELDS 1\nCONTEXT {\"id\":\"synthetic-harmony\",\"family\":\"dense strummed harmony\",\"meter\":{\"numerator\":5,\"denominator\":4},\"groups\":[{\"id\":\"c7\",\"members\":[\"a\",\"b\",\"c\",\"d\"],\"label\":\"C major seventh\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"anchor\":\"8\",\"delay\":\"3/512\",\"spread\":{\"a\":\"0\",\"b\":\"6/512\",\"c\":\"13/512\",\"d\":\"21/512\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]},{\"id\":\"inner\",\"members\":[\"b\",\"c\"],\"label\":\"inner voices\",\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}}]}\nFIELDS id pitch at duration velocity groups\nNOTE a 60 4099/512 2 90 [\"c7\"]\nNOTE b 64 4105/512 7/4 84 [\"c7\",\"inner\"]\nNOTE c 67 257/32 3/2 82 [\"c7\",\"inner\"]\nNOTE d 71 515/64 1 78 [\"c7\"]\n"
+    },
+    {
+      "fixture": "synthetic-irregular",
+      "notes": 3,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 473,
+        "tokens": 166
+      },
+      "compactJson": {
+        "bytes": 490,
+        "tokens": 175
+      },
+      "textSha256": "72cf1b6734da6ded8809eb608d30029e0d88f1f47a39c1c0295e4f431b391d50"
+    },
+    {
+      "fixture": "engram-drums",
+      "notes": 17,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 1002,
+        "tokens": 460
+      },
+      "compactJson": {
+        "bytes": 1172,
+        "tokens": 525
+      },
+      "textSha256": "8b24e2e8dd5a889c77f1dc6ef9bc21fb32cb15ce8cd7fd110d9a90ab299d52ef"
+    },
+    {
+      "fixture": "engram-bass",
+      "notes": 7,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 501,
+        "tokens": 220
+      },
+      "compactJson": {
+        "bytes": 561,
+        "tokens": 245
+      },
+      "textSha256": "9221487f5207f7a47e1aff43f3d6eec28279f4c0ff5b6000b2139dc1628ab047"
+    },
+    {
+      "fixture": "via-purifico-piano",
+      "notes": 94,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 4886,
+        "tokens": 2386
+      },
+      "compactJson": {
+        "bytes": 5903,
+        "tokens": 2759
+      },
+      "textSha256": "b57ad68a5c93666af767e8e146bdcef3af75dd50547d90c8a79a8fb9ea7567d4"
+    },
+    {
+      "fixture": "air-loom-guitar",
+      "notes": 10,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "pass",
+      "compactFields": {
+        "bytes": 596,
+        "tokens": 268
+      },
+      "compactJson": {
+        "bytes": 689,
+        "tokens": 305
+      },
+      "textSha256": "63bc58048c54844bc9949ac67b5e4e69aac60c218d3be56c1e298ef223400cbe"
+    },
+    {
+      "fixture": "negative-pickup",
+      "notes": 1,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "not attempted; codec stress only",
+      "compactFields": {
+        "bytes": 113,
+        "tokens": 42
+      },
+      "compactJson": {
+        "bytes": 116,
+        "tokens": 45
+      },
+      "textSha256": "7c6b90a0efab8af7f68fe2d6a63e6e60dfa99ae540cac0dabde1c8d4429cb5a4"
+    },
+    {
+      "fixture": "normalized-collision",
+      "notes": 2,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "not attempted; codec stress only",
+      "compactFields": {
+        "bytes": 139,
+        "tokens": 55
+      },
+      "compactJson": {
+        "bytes": 156,
+        "tokens": 61
+      },
+      "textSha256": "aa5395788652b46aed8fbe9fdf42f6f661f7b2d59cf9f1b52f479cc060af2641"
+    },
+    {
+      "fixture": "duplicate-multiplicity",
+      "notes": 2,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "not attempted; codec stress only",
+      "compactFields": {
+        "bytes": 136,
+        "tokens": 53
+      },
+      "compactJson": {
+        "bytes": 153,
+        "tokens": 59
+      },
+      "textSha256": "9c4708beb9c5d37f05dc96a5c2a7448e961a4d58a211a511f28483695f199835"
+    },
+    {
+      "fixture": "large-local-edit",
+      "notes": 1024,
+      "exactRoundTrip": true,
+      "canonicalStable": true,
+      "velocityEditPreservesOtherState": true,
+      "guardedBackendReadback": "not attempted; codec stress only",
+      "compactFields": {
+        "bytes": 25910,
+        "tokens": 15934
+      },
+      "compactJson": {
+        "bytes": 40235,
+        "tokens": 20028
+      },
+      "textSha256": "e4b810b54afa269824a506b7ff92b6b41f7b61bc4abde97e31c1930b9ce18529"
+    }
+  ]
+}

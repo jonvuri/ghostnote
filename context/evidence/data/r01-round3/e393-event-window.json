@@ -1,0 +1,890 @@
+{
+  "version": "r01-r3-event-window-v1",
+  "date": "2026-10-31T21:08:25.484Z",
+  "build": [
+    "normal-v1",
+    93,
+    "d6decf985f6b1f36"
+  ],
+  "project": "gn-scale-test",
+  "baseIds": [
+    "n1",
+    "n2"
+  ],
+  "summary": {
+    "A24": {
+      "identity": "current",
+      "sameIds": true
+    },
+    "B25": {
+      "identity": "retired-and-new",
+      "retiredRefs": [
+        {
+          "ref": "gnb1.vvbUJiw9GLxJ",
+          "reason": "identity-changed"
+        },
+        {
+          "ref": "gnb1.hWcqB6dwzl51",
+          "reason": "identity-changed"
+        }
+      ],
+      "sameIds": false
+    },
+    "C24concurrent": [
+      {
+        "identity": "current",
+        "ids": [
+          "es",
+          "et"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "es",
+          "et"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "es",
+          "et"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "es",
+          "et"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "es",
+          "et"
+        ]
+      }
+    ],
+    "D25concurrent": [
+      {
+        "identity": "retired-and-new",
+        "ids": [
+          "e1j",
+          "e1k"
+        ],
+        "retiredRefs": [
+          {
+            "ref": "gnb1.gaK1LJ9xBAZS",
+            "reason": "identity-changed"
+          }
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "e1j",
+          "e1k"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "e1j",
+          "e1k"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "e1j",
+          "e1k"
+        ]
+      },
+      {
+        "identity": "current",
+        "ids": [
+          "e1j",
+          "e1k"
+        ]
+      }
+    ]
+  },
+  "log": [
+    {
+      "step": "entry",
+      "project": "gn-scale-test",
+      "tracks": 11,
+      "epoch": 32793,
+      "revisionMark": 0
+    },
+    {
+      "step": "track",
+      "trackId": "8e71198d-d97f-4e65-a41a-f614b60454d4"
+    },
+    {
+      "step": "read-base",
+      "at": 32794,
+      "identity": "current",
+      "retained": 2,
+      "minted": 0,
+      "ref": "gnb1.hWcqB6dwzl51",
+      "ids": [
+        "n1",
+        "n2"
+      ],
+      "warnings": []
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 1
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 2
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 3
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 4
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 5
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 6
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 7
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 8
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 9
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 10
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 11
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 12
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 13
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 14
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 15
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 16
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 17
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 18
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 19
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 20
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 21
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 22
+    },
+    {
+      "step": "A-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 23
+    },
+    {
+      "step": "A-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 24
+    },
+    {
+      "step": "A-read-after-24",
+      "at": 32818,
+      "identity": "current",
+      "retained": 2,
+      "minted": 0,
+      "ref": "gnb1.hWcqB6dwzl51",
+      "ids": [
+        "n1",
+        "n2"
+      ],
+      "warnings": []
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 1
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 2
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 3
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 4
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 5
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 6
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 7
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 8
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 9
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 10
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 11
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 12
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 13
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 14
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 15
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 16
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 17
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 18
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 19
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 20
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 21
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 22
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 23
+    },
+    {
+      "step": "B-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 24
+    },
+    {
+      "step": "B-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 25
+    },
+    {
+      "step": "B-read-after-25",
+      "at": 32843,
+      "identity": "retired-and-new",
+      "retained": 0,
+      "minted": 2,
+      "retiredRefs": [
+        {
+          "ref": "gnb1.vvbUJiw9GLxJ",
+          "reason": "identity-changed"
+        },
+        {
+          "ref": "gnb1.hWcqB6dwzl51",
+          "reason": "identity-changed"
+        }
+      ],
+      "ref": "gnb1.gaK1LJ9xBAZS",
+      "ids": [
+        "es",
+        "et"
+      ],
+      "warnings": []
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 1
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 2
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 3
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 4
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 5
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 6
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 7
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 8
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 9
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 10
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 11
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 12
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 13
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 14
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 15
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 16
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 17
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 18
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 19
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 20
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 21
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 22
+    },
+    {
+      "step": "C-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 23
+    },
+    {
+      "step": "C-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 24
+    },
+    {
+      "step": "C-concurrent-after-24",
+      "reads": [
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.gaK1LJ9xBAZS",
+          "ids": [
+            "es",
+            "et"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.gaK1LJ9xBAZS",
+          "ids": [
+            "es",
+            "et"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.gaK1LJ9xBAZS",
+          "ids": [
+            "es",
+            "et"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.gaK1LJ9xBAZS",
+          "ids": [
+            "es",
+            "et"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.gaK1LJ9xBAZS",
+          "ids": [
+            "es",
+            "et"
+          ],
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 1
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 2
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 3
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 4
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 5
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 6
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 7
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 8
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 9
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 10
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 11
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 12
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 13
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 14
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 15
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 16
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 17
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 18
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 19
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 20
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 21
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 22
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 23
+    },
+    {
+      "step": "D-op",
+      "op": "add",
+      "events": 1,
+      "sinceRead": 24
+    },
+    {
+      "step": "D-op",
+      "op": "delete",
+      "events": 1,
+      "sinceRead": 25
+    },
+    {
+      "step": "D-concurrent-after-25",
+      "reads": [
+        {
+          "identity": "retired-and-new",
+          "retained": 0,
+          "minted": 2,
+          "retiredRefs": [
+            {
+              "ref": "gnb1.gaK1LJ9xBAZS",
+              "reason": "identity-changed"
+            }
+          ],
+          "ref": "gnb1.MbkOC9i4Nyxu",
+          "ids": [
+            "e1j",
+            "e1k"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.MbkOC9i4Nyxu",
+          "ids": [
+            "e1j",
+            "e1k"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.MbkOC9i4Nyxu",
+          "ids": [
+            "e1j",
+            "e1k"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.MbkOC9i4Nyxu",
+          "ids": [
+            "e1j",
+            "e1k"
+          ],
+          "warnings": []
+        },
+        {
+          "identity": "current",
+          "retained": 2,
+          "minted": 0,
+          "ref": "gnb1.MbkOC9i4Nyxu",
+          "ids": [
+            "e1j",
+            "e1k"
+          ],
+          "warnings": []
+        }
+      ]
+    }
+  ]
+}

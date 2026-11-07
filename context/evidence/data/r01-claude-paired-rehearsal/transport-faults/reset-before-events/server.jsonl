@@ -1,0 +1,1 @@
+{"method":"POST","url":"/v1/messages?beta=true","auth":"x-api-key","model":"claude-haiku-4-5-20251001","stream":true,"stainlessRetryCount":"0","bodySha256":"9a3e312c8fa5edeb897914ef4caeb819fd51432d3bcf6f7c713bfcf260d65f98"}

@@ -1,0 +1,14 @@
+{
+  "thread_id": "01a1785e-ae09-72b1-90c6-22f574fd4588",
+  "agent_path": "/root",
+  "task_name": null,
+  "nickname": null,
+  "agent_role": null,
+  "session_source": "exec",
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-local-Gu3kTM",
+  "rollout_path": null,
+  "model": "gpt-6-luna",
+  "provider_name": "r01-local",
+  "approval_policy": "never",
+  "sandbox_policy": "ReadOnly { network_access: false }"
+}

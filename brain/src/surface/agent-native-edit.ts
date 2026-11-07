@@ -96,7 +96,7 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'Bitwig does not report note pressure, so a whole-clip rewrite loses pressure that a person set in Bitwig; '
   + 'the result then has warning pressure-unobservable.\n'
   + 'Refusals before any write: code unsupported with detail.reason: pressure (the document sets a nonzero '
-  + 'pressure; the host cannot write it), repeat and articulation (no host mapping), overlap (two notes of one channel and pitch overlap; '
+  + 'pressure; independent API verification is unavailable), repeat and articulation (no host mapping), overlap (two notes of one channel and pitch overlap; '
   + `detail.overlaps lists at most ${OVERLAP_DETAIL_PAIRS} pairs with event IDs, channel, pitch, and onsets, and detail.overlapPairs counts all; `
   + 'with intent replace this refuses before any host call), transpose outside '
   + '-96..96, recurrence length above 8, timing (no writable grid), play-range, loop (only null or 0..length). '

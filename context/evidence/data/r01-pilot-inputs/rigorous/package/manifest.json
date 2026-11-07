@@ -1,0 +1,3797 @@
+{
+  "schema": "r01-pilot-package-v1",
+  "status": "offline-materialized",
+  "stage": "rigorous",
+  "inputVersion": "rigorous-1",
+  "packageVersion": 5,
+  "taskRevision": 5,
+  "windows": "context/evidence/data/r01-pilot-inputs/rigorous/windows.json",
+  "taskRules": {
+    "schema": "r01-pilot-task-rules-v4",
+    "target": "Sort notes by onset, then pitch, then ID. From index floor(n/2), take the first note whose pitch/onset address is unique and whose edited result neither collides with another note address nor leaves MIDI range 0-127. Instances sharing a window choose in instance order; a later instance skips notes already targeted.",
+    "velocity": "Transcriptions carry placeholder velocity 64, so real windows receive synthetic dynamics from r01-pilot-velocity-v1: per-work base 64-84, phrase depth 6-12 and phase 0-7 quarters; per note, beat accent +6 (+4 more on a four-quarter downbeat) within 1/16 quarter of a beat, +2 within 1/16 of an off-beat, a triangular eight-quarter phrase swell, register emphasis round((pitch - median pitch) / 6) clamped to +/-4, and jitter -5..5; rounded and clamped to 20-120. They are not recovered performance dynamics.",
+    "shiftRange": "The first of [4,6), [6,8), [8,10), [10,12) containing at least two onsets whose shifted result has no pitch/onset collision.",
+    "editVelocity": "91, or 37 if the target velocity is already 91.",
+    "synthetic": "Seeded SHA-256 draws from r01-pilot-synthetic-v1. p02/p04 spreads are even 1/512 cells; p07 (revision 4) uses six members with odd and even cells, so halving leaves the 1/512 grid.",
+    "sounding": "Work C. T is the note onset nearest quarter 8 (earlier on a tie) at which another note ends and a third note is held across (onset < T < end); a note sounds at T when onset <= T < onset + duration.",
+    "transposePitch": "Work C. Among pitches with 5-10 notes, by descending count then ascending pitch, the first whose notes can all move up two semitones within MIDI range without landing on an existing pitch/onset address.",
+    "shiftTransposeRange": "Work A. Over distinct onsets F >= 4 in ascending order, T is the first distinct onset >= F + 2; take the first [F, T) holding 4-12 notes whose shifted (+1/8) and transposed (+2) results collide with no other address. Both bounds are note onsets.",
+    "nearMiss": "Work B. Same-pitch onset pairs x < y with y - x <= 1 quarter, by x in the edit-target order from the median and excluding the p05 target; F = floor(x) and T = y, and x must be the only note of that pitch in [F, T). The note at T lies just outside the half-open range.",
+    "groupTiming": "Package v5 (D63): p13-p16 are synthetic and seeded from r01-pilot-synthetic-v1 under new draw domains (p13-v5 to p16-v5). Timed groups have whole-quarter anchors, a positive common delay and strictly increasing 1/512 spread cells from 0; timing-free groups have no anchor, delay or spread. Note-array order equals C4 block traversal (timed groups, then notes homed in timing-free groups, then loose notes) in every input and expected state, so neither format must reorder rows or add order cells.",
+    "readDerivedWindow": "p13: three timed groups (5, 4 and 5 members), a timing-free group with two untimed notes and one timed member, and three loose notes. X is the derived onset of the first group's third member and Y that of the third group's third member, so omitting the common delay moves a note across each bound. One loose note shares a timed member's onset, so the ID tie-break applies.",
+    "groupExisting": "p14: five loose notes whose onsets equal anchor + delay + spread for a hidden decomposition (delay an odd multiple of 1/128, spreads 1/512 cells) become one timed group appended after an existing timed group; the expected spreads reproduce every onset.",
+    "moveMember": "p15: groups are ordered target, source, timing-free. The moved note is the source group's first member and also belongs to the timing-free group; its stated spread exceeds every target spread, so appending it keeps note-array order.",
+    "retimeTwo": "p16: the first group's anchor moves later by an odd multiple of 1/16 and the second group's spreads (odd cells after 0) double. A timing-free group holds one member of each and an untimed note; a loose note lies between the two groups."
+  },
+  "stageRules": {
+    "decisions": [
+      "R01-D1",
+      "R01-D2",
+      "R01-D3"
+    ],
+    "seeds": "The synthetic draws use r01-pilot-synthetic-v2 and the real-source velocities r01-pilot-velocity-v2, in place of the development seeds named in taskRules.",
+    "roles": "Works 4-6 of the seeded order (or their replacements) fill roles A, B and C; taskRules' Work A/B/C refer to these roles.",
+    "windows": "Densest admissible window with target-rule refusal (r01-pilot-selection-rules-v3)."
+  },
+  "syntheticSeed": "r01-pilot-synthetic-v2",
+  "velocitySeed": "r01-pilot-velocity-v2",
+  "promptRevision": 2,
+  "scopeDelivery": "contract prose (no TASK SCOPE block)",
+  "node": "v24.11.1",
+  "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "counts": {
+    "tasks": 16,
+    "cards": 11,
+    "scheduledCells": 120,
+    "primaryCells": 96,
+    "diagnosticCells": 24,
+    "eligibleCells": 87,
+    "exclusions": 33,
+    "goldenPasses": 87,
+    "wrongResultsRejected": 87,
+    "gratuitousRefusalsRejected": 81
+  },
+  "limits": [
+    "Rigorous stage: versions frozen by R01-D1; works and seeds are fresh (R01-D2) and were not seen in development.",
+    "Real-source windows are transcriptions; their velocities are seeded synthetic dynamics over placeholder 64, not recovered performance dynamics or musical intent.",
+    "Source tasks exclude current-document and Producer Pal arms: no annotation adapter or sidecar is supplied (pilot draft 2, review answer 3).",
+    "Package v3 (E370): selector, spelling and contract wording revised, the TASK SCOPE block folded into the contract prose, and the bar|beat card documents d/t suffixes. Inputs and oracles equal v2.",
+    "Package v4 (D61): p01, p06, p07, p08 and p09 are harder replacements under new IDs (boundary read, multi-note transpose, off-grid halving with an anchor move, a two-step onset-bounded range, a near-miss delete); p09 and p10 share a conditional-refusal response line. Inputs equal v3; p01 now reads work C.",
+    "Package v5 (D63): adds four synthetic group-timing source tasks, p13-p16 (read a derived-onset window, group existing notes, move a member between timed groups, retime two groups). p01-p12 equal v4. Note-array order equals C4 block traversal in every new fixture.",
+    "Scoring follows D59: functionally equivalent parsed answers pass; rational strings compare by value.",
+    "Native Producer Pal parsing is tolerant; semantic pass does not establish canonical or strictly valid syntax.",
+    "Cell order is build order; trial order comes from the pilot runner plan.",
+    "Common performed scoring normalizes once at 1/512; IDs/order are not cross-format scored. Source scoring is exact.",
+    "Native Producer Pal parsing is tolerant; semantic pass does not establish canonical or strictly valid syntax.",
+    "Cell order is build order; trial order comes from the pilot runner plan."
+  ],
+  "tasks": [
+    {
+      "id": "p01-read-sounding-at",
+      "version": 1,
+      "family": "read",
+      "cohort": "performed",
+      "response": "answer",
+      "source": "reserved:C:open spaces"
+    },
+    {
+      "id": "p02-read-group-timing",
+      "version": 2,
+      "family": "read",
+      "cohort": "source",
+      "response": "answer",
+      "source": "synthetic"
+    },
+    {
+      "id": "p03-author-constrained",
+      "version": 1,
+      "family": "constrained-authoring",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p04-author-known-spread",
+      "version": 2,
+      "family": "constrained-authoring",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p05-edit-velocity-large",
+      "version": 2,
+      "family": "individual-edit",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "reserved:B:the gapra whitewood"
+    },
+    {
+      "id": "p06-transpose-every-pitch",
+      "version": 1,
+      "family": "individual-edit",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "reserved:C:open spaces"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor",
+      "version": 1,
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p08-shift-transpose-range",
+      "version": 1,
+      "family": "group-arithmetic",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "reserved:A:trailing"
+    },
+    {
+      "id": "p09-delete-near-miss",
+      "version": 1,
+      "family": "count-change",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "reserved:B:the gapra whitewood"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch",
+      "version": 2,
+      "family": "count-change",
+      "cohort": "performed",
+      "response": "refusal",
+      "source": "synthetic"
+    },
+    {
+      "id": "p11-preserve-window",
+      "version": 1,
+      "family": "preservation",
+      "cohort": "performed",
+      "response": "surface",
+      "source": "reserved:C:open spaces"
+    },
+    {
+      "id": "p12-preserve-exact-wider",
+      "version": 2,
+      "family": "preservation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p13-read-derived-window",
+      "version": 1,
+      "family": "read",
+      "cohort": "source",
+      "response": "answer",
+      "source": "synthetic"
+    },
+    {
+      "id": "p14-group-existing-notes",
+      "version": 1,
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p15-move-member-between-groups",
+      "version": 1,
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "p16-retime-two-groups",
+      "version": 1,
+      "family": "group-arithmetic",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    }
+  ],
+  "cards": {
+    "performed--baseline-fields": {
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "e7bc9e4908761747a5c9ffe402e67062b81d9397c1bae6dc8d29ba6a2c0f1e7c",
+        "bytes": 347,
+        "tokens": 129
+      },
+      "sha256": "6782f4665a8e29b9e5a3e8bad883144ef24484c9bd09fcfd0afccfc136fc34cb",
+      "bytes": 1651,
+      "tokens": 393
+    },
+    "performed--baseline-json": {
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "724fb7a7bf7945ce8543ed3d5e3d0d27f5464d7da7c1c366de5b83ff427fa449",
+        "bytes": 441,
+        "tokens": 153
+      },
+      "sha256": "82bab26b2d69200f52657c04b1dd2ff0838335cd2454eb93da3dfbf7318c978e",
+      "bytes": 1561,
+      "tokens": 387
+    },
+    "performed--c3-fields": {
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "bf738fde695a9dc1f4ff66ab2a8f40973ac7cea1dcc1e7cf80e401e3ec9a1398",
+        "bytes": 121,
+        "tokens": 49
+      },
+      "sha256": "1d257ec4909c4c9d653df5da215562813c6dd81ac314dff132d19f36ef276e68",
+      "bytes": 1189,
+      "tokens": 272
+    },
+    "performed--c4-fields": {
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "f29e7baa089e58e98dfe955d864b61b329f8dd45ba54a31efcb86961f7cbdad5",
+        "bytes": 137,
+        "tokens": 57
+      },
+      "sha256": "1c22c80466c60e62fb4570aeee25bfd5c11db89952b20310afea17e90cdab169",
+      "bytes": 1708,
+      "tokens": 391
+    },
+    "performed--pp-barbeat": {
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "0868293e996dafb90e07aa57980c7d10bce02ba0250b5af7310c6641af3d9c7b",
+        "bytes": 49,
+        "tokens": 34
+      },
+      "sha256": "8f2ba3a3ba74a41ec7f4bd9f45b47468b04487e0b2c1164925ed7fd4ea2c9b8d",
+      "bytes": 1783,
+      "tokens": 448
+    },
+    "performed--pp-midi-json": {
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3",
+      "example": {
+        "sha256": "8739f30d7778b72582f1e2edfeeeb542524a3da60f6e9323c54033ff282dffd1",
+        "bytes": 57,
+        "tokens": 35
+      },
+      "sha256": "37580ea585aa65e7cec64d1134ac94495a66cdb4cfa5b1c0a6bd8051edc9dd59",
+      "bytes": 1256,
+      "tokens": 295
+    },
+    "source--c3-fields": {
+      "arm": "c3-fields",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "9984a40c73ebe37a53c8a7468004e7b007c49e2290ec3844c7f6c428c60bca5a",
+        "bytes": 497,
+        "tokens": 158
+      },
+      "sha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "bytes": 2182,
+      "tokens": 484
+    },
+    "source--c4-fields": {
+      "arm": "c4-fields",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "2b85c8c9bea3d444c76170cfe1cdea4b94446b0c039f624145a261b8e80ec359",
+        "bytes": 357,
+        "tokens": 122
+      },
+      "sha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "bytes": 2543,
+      "tokens": 553
+    },
+    "source--c3-json": {
+      "arm": "c3-json",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "93ea1c4fe928ce60406560b2f43f46eef62a200fc177cc0b1f00802631c5bc0f",
+        "bytes": 473,
+        "tokens": 158
+      },
+      "sha256": "e8dfaf23a4721a87046c50533898fe9db6654e6a61b3c4e53711be97d276f1a7",
+      "bytes": 1728,
+      "tokens": 411
+    },
+    "source--c4-json": {
+      "arm": "c4-json",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "7a1228a8559710662587db12e7cb4363ce355979b2e191ebccba48c6523595d9",
+        "bytes": 587,
+        "tokens": 176
+      },
+      "sha256": "e0281712791900464a509645a3ee58a20be31dbca640b1b6f4ee0b2dd2879977",
+      "bytes": 2022,
+      "tokens": 457
+    },
+    "source--c4-detached-fields": {
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "2a256d5faedb835896cf961b37b43399f2ebf9b760f36aa809259483cc7bfffc",
+        "bytes": 380,
+        "tokens": 133
+      },
+      "sha256": "14ba65a764c64272870018a35cc380094ef33bcacbd54a0de9bb10846f93c1a6",
+      "bytes": 2773,
+      "tokens": 610
+    }
+  },
+  "cells": [
+    {
+      "id": "p01-read-sounding-at--baseline-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "f6938dd1fafcf94a3e22a7fd0351be8fa014204109857ef88a66526bedc87105",
+        "bytes": 3143,
+        "tokens": 1488
+      },
+      "prompt": {
+        "sha256": "ba8eb56c884439bd03084fd5e89fea93273943e628a25ba00665e772936fd586",
+        "bytes": 6467,
+        "tokens": 2219
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p01-read-sounding-at--baseline-json",
+      "task": "p01-read-sounding-at",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "7731d4e820e792db4fa0d28ce4393cd1adb469592de21f28126b5ee87b8971ec",
+        "bytes": 5817,
+        "tokens": 2052
+      },
+      "prompt": {
+        "sha256": "59f060c83cd30932c3c59167897f06bea7dc5c77d47423be84ba7646e80a7586",
+        "bytes": 9052,
+        "tokens": 2778
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p01-read-sounding-at--c3-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "4305f74e243fb045262e9496825e3ffe611ebd6b47a302b67bc26b50c4960f5b",
+        "bytes": 2077,
+        "tokens": 1168
+      },
+      "prompt": {
+        "sha256": "3ac1af1e115586043883d9ce39c7440108cf94635fbb5bbdd71469a573dcfea0",
+        "bytes": 4939,
+        "tokens": 1778
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p01-read-sounding-at--c4-fields",
+      "task": "p01-read-sounding-at",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "e6b2723c5eb278c286e2bdde0f024765bc8d59a1e482c663e30c4edca8f2610c",
+        "bytes": 2213,
+        "tokens": 1236
+      },
+      "prompt": {
+        "sha256": "d484936cab2abd258c10b9d845dbde4a5a8d1e94c109de7daf488c7b2d40d4b6",
+        "bytes": 5594,
+        "tokens": 1965
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p01-read-sounding-at--pp-barbeat",
+      "task": "p01-read-sounding-at",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "bbd6e3c1933438ab1d201a5f2586f1d144a6d57117b374257cf9eab6b95c3fb8",
+        "bytes": 832,
+        "tokens": 527
+      },
+      "prompt": {
+        "sha256": "9e181d5b0f526ae11556834e835037415979fe0ced1a73d926be3b0dd358b5d8",
+        "bytes": 4289,
+        "tokens": 1314
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p01-read-sounding-at--pp-midi-json",
+      "task": "p01-read-sounding-at",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "9adec829afd658a4d7a4fa7a760005ef8182b5d25c3baa9ac179860173d1880b",
+        "bytes": 252,
+        "tokens": 60
+      },
+      "input": {
+        "sha256": "dbdb9ef33329cf6421a5a97dd24535ede433c2292270e5aca1959cdc9a650d62",
+        "bytes": 1964,
+        "tokens": 1090
+      },
+      "prompt": {
+        "sha256": "c3a4e53c524b718a83070b35867d6f50d3ad52d960583a67cf30e75bc274856a",
+        "bytes": 4894,
+        "tokens": 1724
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p02-read-group-timing--baseline-fields",
+      "task": "p02-read-group-timing",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p02-read-group-timing--baseline-json",
+      "task": "p02-read-group-timing",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p02-read-group-timing--c3-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "decodedFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1bbd9786ca1db862f97bd2d0df5e04ae3fa3c4df0a643ffb62b268b1a10a2c81",
+        "bytes": 224,
+        "tokens": 47
+      },
+      "input": {
+        "sha256": "e3d2f8eb4f4242ef75a7a4bf9dadee04df203c47313ebdcb5ec29c70a4865d56",
+        "bytes": 532,
+        "tokens": 188
+      },
+      "prompt": {
+        "sha256": "107348bec433b231ae2a246316c3619492246f06691ca3ceb073e1374a35c1f5",
+        "bytes": 4740,
+        "tokens": 1045
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p02-read-group-timing--c4-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "decodedFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1bbd9786ca1db862f97bd2d0df5e04ae3fa3c4df0a643ffb62b268b1a10a2c81",
+        "bytes": 224,
+        "tokens": 47
+      },
+      "input": {
+        "sha256": "cd27c8b8468b1842ac6c864e42a11e23057fc104c7875b9c7abbe2e2f0b61248",
+        "bytes": 365,
+        "tokens": 132
+      },
+      "prompt": {
+        "sha256": "559d7b8a872de15fff4152490a1033834737b692d32be8b157569bcc78ef4444",
+        "bytes": 4934,
+        "tokens": 1058
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p02-read-group-timing--pp-barbeat",
+      "task": "p02-read-group-timing",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p02-read-group-timing--pp-midi-json",
+      "task": "p02-read-group-timing",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p02-read-group-timing--c3-json",
+      "task": "p02-read-group-timing",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "decodedFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1bbd9786ca1db862f97bd2d0df5e04ae3fa3c4df0a643ffb62b268b1a10a2c81",
+        "bytes": 224,
+        "tokens": 47
+      },
+      "input": {
+        "sha256": "63333c111904e37962813cb876711b618ac70c53ddd68195a61b94e8df1d251e",
+        "bytes": 558,
+        "tokens": 201
+      },
+      "prompt": {
+        "sha256": "aeabc0db08fd6c11e36a94c2c31176792cd6ef0e92fd6aa27f6fdcbb9d8076a0",
+        "bytes": 4313,
+        "tokens": 985
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p02-read-group-timing--c4-json",
+      "task": "p02-read-group-timing",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "decodedFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1bbd9786ca1db862f97bd2d0df5e04ae3fa3c4df0a643ffb62b268b1a10a2c81",
+        "bytes": 224,
+        "tokens": 47
+      },
+      "input": {
+        "sha256": "11e2c1f6a287b587ff5d79e41e2bdb412e272331d1423acd586b98a199d6433c",
+        "bytes": 718,
+        "tokens": 221
+      },
+      "prompt": {
+        "sha256": "6ed80ece1859b266c67cb3918635e6b28df7747ae1b75a77774607094d22ac94",
+        "bytes": 4767,
+        "tokens": 1052
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p02-read-group-timing--c4-detached-fields",
+      "task": "p02-read-group-timing",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "decodedFactsSha256": "a73153d0eb51bc2fdb57afe70631f161755e69027e47faab897c22e58a7e16f4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1bbd9786ca1db862f97bd2d0df5e04ae3fa3c4df0a643ffb62b268b1a10a2c81",
+        "bytes": 224,
+        "tokens": 47
+      },
+      "input": {
+        "sha256": "a9c9cb869f25440acb8d3549f0d18010f6128596fbcbc63fd8b97fc3250c3402",
+        "bytes": 388,
+        "tokens": 143
+      },
+      "prompt": {
+        "sha256": "2912bc76aae8c764abeeafb613603d4270d38e7b525cff8879ff3390d730f129",
+        "bytes": 5187,
+        "tokens": 1126
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 1,
+        "rowTables": 1
+      }
+    },
+    {
+      "id": "p03-author-constrained--baseline-fields",
+      "task": "p03-author-constrained",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "aff1cd6a0d5f8b4470a30d4973968e9361cecf1783440c107f58204649cad690",
+        "bytes": 256,
+        "tokens": 89
+      },
+      "prompt": {
+        "sha256": "b4855551c581417586fbb40adc4ba29152271611f53289ff6f4beb6a8684a534",
+        "bytes": 3661,
+        "tokens": 880
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p03-author-constrained--baseline-json",
+      "task": "p03-author-constrained",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "acf2edcaed69c758bbe48d8c94c6ac0c7ad73a4d20f22187fd354b1ac0d32eb4",
+        "bytes": 265,
+        "tokens": 94
+      },
+      "prompt": {
+        "sha256": "7a6589d3ee18ae70c462cae997f7c6b79212fea2957c9284210b6855b2076d35",
+        "bytes": 3581,
+        "tokens": 880
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p03-author-constrained--c3-fields",
+      "task": "p03-author-constrained",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "d0f1e19c5c905bb333533007bd8d81e96f13551015aedb4da286c4c1d6781712",
+        "bytes": 58,
+        "tokens": 17
+      },
+      "prompt": {
+        "sha256": "09fa1b693770a0980be2a3e067c337e03718b63b6d8caa28c0e9eae1862e5829",
+        "bytes": 3001,
+        "tokens": 687
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p03-author-constrained--c4-fields",
+      "task": "p03-author-constrained",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "2fc5eeb433d6a1b534596f0e083f83534eadd4a8fa3cc06f2a0e3e44fd08d337",
+        "bytes": 31,
+        "tokens": 14
+      },
+      "prompt": {
+        "sha256": "4a1b0ff71a5315a3325b3dd29c94b28d4bfc0437e7780751952991175ef0b6c9",
+        "bytes": 3493,
+        "tokens": 803
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p03-author-constrained--pp-barbeat",
+      "task": "p03-author-constrained",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "tokens": 0
+      },
+      "prompt": {
+        "sha256": "0b5bde1ccc2bf8609acf0ab44e218fe389dd523b134505c9852bcfdca94ecf01",
+        "bytes": 3538,
+        "tokens": 846
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p03-author-constrained--pp-midi-json",
+      "task": "p03-author-constrained",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedFactsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "713361f36ee94c75121dd9d94dc9263c93e7f3574cae6963755f2113ef6692f8",
+        "bytes": 333,
+        "tokens": 120
+      },
+      "input": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "tokens": 0
+      },
+      "prompt": {
+        "sha256": "c8461bc585e1899732e6d5356be4da2bb95c4420fb73af43705b41a0fce373c3",
+        "bytes": 3011,
+        "tokens": 694
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p04-author-known-spread--baseline-fields",
+      "task": "p04-author-known-spread",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p04-author-known-spread--baseline-json",
+      "task": "p04-author-known-spread",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p04-author-known-spread--c3-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "decodedFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30ee5586a0477c167ec9e23f9d650d3b19511ad2e82abb7c5982b069c0f1be6c",
+        "bytes": 691,
+        "tokens": 195
+      },
+      "input": {
+        "sha256": "d0f1e19c5c905bb333533007bd8d81e96f13551015aedb4da286c4c1d6781712",
+        "bytes": 58,
+        "tokens": 17
+      },
+      "prompt": {
+        "sha256": "4f00db6ced8db564398af0c90fa63886d8f17f7760c48be974150176a86daead",
+        "bytes": 4733,
+        "tokens": 1022
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p04-author-known-spread--c4-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "decodedFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30ee5586a0477c167ec9e23f9d650d3b19511ad2e82abb7c5982b069c0f1be6c",
+        "bytes": 691,
+        "tokens": 195
+      },
+      "input": {
+        "sha256": "2fc5eeb433d6a1b534596f0e083f83534eadd4a8fa3cc06f2a0e3e44fd08d337",
+        "bytes": 31,
+        "tokens": 14
+      },
+      "prompt": {
+        "sha256": "05131590c8045f560051a491b5a6035844230db303d46c53361b5b489a2df748",
+        "bytes": 5067,
+        "tokens": 1088
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p04-author-known-spread--pp-barbeat",
+      "task": "p04-author-known-spread",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p04-author-known-spread--pp-midi-json",
+      "task": "p04-author-known-spread",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p04-author-known-spread--c3-json",
+      "task": "p04-author-known-spread",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "decodedFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30ee5586a0477c167ec9e23f9d650d3b19511ad2e82abb7c5982b069c0f1be6c",
+        "bytes": 691,
+        "tokens": 195
+      },
+      "input": {
+        "sha256": "1fc91c8edb5404a7a3fbe6786eac8c2bd2469637b372fb1896dc60521938510a",
+        "bytes": 59,
+        "tokens": 19
+      },
+      "prompt": {
+        "sha256": "12934097e78444bc267346bc81980a93eeeb256eb26a9cef41cffedbc19acf89",
+        "bytes": 4281,
+        "tokens": 951
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p04-author-known-spread--c4-json",
+      "task": "p04-author-known-spread",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "decodedFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30ee5586a0477c167ec9e23f9d650d3b19511ad2e82abb7c5982b069c0f1be6c",
+        "bytes": 691,
+        "tokens": 195
+      },
+      "input": {
+        "sha256": "ef5e4e7d67be8fe097a50ee7eab4ea82bb531cca606add52659e78e31843fb2e",
+        "bytes": 59,
+        "tokens": 19
+      },
+      "prompt": {
+        "sha256": "6973010045daabda79817d1fd1f0caccf2043145de68607f7fd74cbb81bacb27",
+        "bytes": 4575,
+        "tokens": 998
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p04-author-known-spread--c4-detached-fields",
+      "task": "p04-author-known-spread",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "constrained-authoring",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "decodedFactsSha256": "bfce066ba420e00d28312534e1ce05216738af779961c3f303f42a05113ba5b1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30ee5586a0477c167ec9e23f9d650d3b19511ad2e82abb7c5982b069c0f1be6c",
+        "bytes": 691,
+        "tokens": 195
+      },
+      "input": {
+        "sha256": "dbb0793628298c13a6f7e6f4b5ff2d20a0a1bed6af9991e17691f85f38bef1e8",
+        "bytes": 32,
+        "tokens": 14
+      },
+      "prompt": {
+        "sha256": "bcc3f3c3615aa4ad0291b3a9d89bf75d86dab912f3203ecd5e046dea1eea4677",
+        "bytes": 5298,
+        "tokens": 1145
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 1,
+        "rowTables": 1
+      }
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "75ba875ffda68d1ae091783f914d725994580052230aa8e36f2c6dff89561cc8",
+        "bytes": 6432,
+        "tokens": 2987
+      },
+      "prompt": {
+        "sha256": "0256f3da4f85a46723ee22ebe9620bb304b913feda9007ff0e453c8079a008de",
+        "bytes": 9669,
+        "tokens": 3696
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p05-edit-velocity-large--baseline-json",
+      "task": "p05-edit-velocity-large",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "f958e449fd10f8e8fafbda05b9a2447b46c858b1e5725dcd3e5cd0d6cbe54fe1",
+        "bytes": 11944,
+        "tokens": 4145
+      },
+      "prompt": {
+        "sha256": "0e93d293750c478fed098fa7e52fb385c4f9c6d9214f06a15ad01e6dfc98195b",
+        "bytes": 15092,
+        "tokens": 4849
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p05-edit-velocity-large--c3-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "5eb7245b39573ba8b65386ab431ead3475c962ccf69aa1632aa830eb36bcf068",
+        "bytes": 4442,
+        "tokens": 2403
+      },
+      "prompt": {
+        "sha256": "168d6fdbe6cf48d6d5788b66e5c83b28669e6afdf658856c8ab23b1aed21e9a0",
+        "bytes": 7217,
+        "tokens": 2991
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p05-edit-velocity-large--c4-fields",
+      "task": "p05-edit-velocity-large",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "9231c9fd76fe5ccc9d35c88d6091b66a639fdd4de287bf478417f271c1ea2169",
+        "bytes": 4710,
+        "tokens": 2537
+      },
+      "prompt": {
+        "sha256": "790dd2dc55ce8473c4ce7adedb64ae01d10a9eb2fcc9ba631338630f485d448b",
+        "bytes": 8004,
+        "tokens": 3244
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-barbeat",
+      "task": "p05-edit-velocity-large",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "f6607f80b2fd47c31d6864e5f7b3f1a9b4d77be16fe7f8f7e91f43466bd9c37f",
+        "bytes": 1501,
+        "tokens": 906
+      },
+      "prompt": {
+        "sha256": "7d8e06e815786ddd5f5cffa874c11b9f92199221390eb474f812a8dc2937389a",
+        "bytes": 4871,
+        "tokens": 1671
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p05-edit-velocity-large--pp-midi-json",
+      "task": "p05-edit-velocity-large",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "007fc53b18e017721886c2c9a86b35ae1a0d8efaa26268df287b686b634aee8d",
+        "bytes": 165,
+        "tokens": 38
+      },
+      "input": {
+        "sha256": "259e41405cbf717807ff7285b2f4996bdc80d71dcaee94d89df7abd341e6afba",
+        "bytes": 4123,
+        "tokens": 2259
+      },
+      "prompt": {
+        "sha256": "21430e7a410471cd340e9875e022e0565fa14ca93ef461335957763c39be64e8",
+        "bytes": 6966,
+        "tokens": 2871
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--baseline-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "f6938dd1fafcf94a3e22a7fd0351be8fa014204109857ef88a66526bedc87105",
+        "bytes": 3143,
+        "tokens": 1488
+      },
+      "prompt": {
+        "sha256": "205d80d187c09f62899c9a856464b5bc992ae683112ed1c8ab7ff94f0539ac00",
+        "bytes": 6407,
+        "tokens": 2200
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--baseline-json",
+      "task": "p06-transpose-every-pitch",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "7731d4e820e792db4fa0d28ce4393cd1adb469592de21f28126b5ee87b8971ec",
+        "bytes": 5817,
+        "tokens": 2052
+      },
+      "prompt": {
+        "sha256": "32bd4aa5dd69d1aaf01a18a3f9e92111fab472d3b7069953e5648d95a0680e0e",
+        "bytes": 8992,
+        "tokens": 2759
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--c3-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "4305f74e243fb045262e9496825e3ffe611ebd6b47a302b67bc26b50c4960f5b",
+        "bytes": 2077,
+        "tokens": 1168
+      },
+      "prompt": {
+        "sha256": "2eaa6a0c392d07cef95d74dcf399c871d5a251be10350d968f59be4bd0848a76",
+        "bytes": 4879,
+        "tokens": 1759
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--c4-fields",
+      "task": "p06-transpose-every-pitch",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "e6b2723c5eb278c286e2bdde0f024765bc8d59a1e482c663e30c4edca8f2610c",
+        "bytes": 2213,
+        "tokens": 1236
+      },
+      "prompt": {
+        "sha256": "2e2a7e3625185103717640071838859986d4174e3092e43b4609cf9db54caaea",
+        "bytes": 5534,
+        "tokens": 1946
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--pp-barbeat",
+      "task": "p06-transpose-every-pitch",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "bbd6e3c1933438ab1d201a5f2586f1d144a6d57117b374257cf9eab6b95c3fb8",
+        "bytes": 832,
+        "tokens": 527
+      },
+      "prompt": {
+        "sha256": "6c4611a8e328d443949537ce05ba73c703fae16be42ff629d7db89d62fc77b8d",
+        "bytes": 4229,
+        "tokens": 1295
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p06-transpose-every-pitch--pp-midi-json",
+      "task": "p06-transpose-every-pitch",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "individual-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "842427ca540c6a6e8063771273c715d1b4b5d52869b52eaf279cd1021b65c9cc",
+        "bytes": 192,
+        "tokens": 41
+      },
+      "input": {
+        "sha256": "dbdb9ef33329cf6421a5a97dd24535ede433c2292270e5aca1959cdc9a650d62",
+        "bytes": 1964,
+        "tokens": 1090
+      },
+      "prompt": {
+        "sha256": "a835e4e948ca862dec66926e1eca13e368768f38c0d1fb1b3b8e07d5280a1f17",
+        "bytes": 4834,
+        "tokens": 1705
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--baseline-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--baseline-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c3-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "decodedFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "51fedd69327ace731ca5aea65cfc53f383ff75f53a31d965343c404ef6035054",
+        "bytes": 351,
+        "tokens": 75
+      },
+      "input": {
+        "sha256": "3a2ab94b536d1b20e9853e80f329cc8c7505f9b38544133ea956d390e2415287",
+        "bytes": 826,
+        "tokens": 300
+      },
+      "prompt": {
+        "sha256": "a681da50a7d3f0096aa61c0cb38e07c156d6d97431d7923468f4d37ed7081baa",
+        "bytes": 5161,
+        "tokens": 1185
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "decodedFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "51fedd69327ace731ca5aea65cfc53f383ff75f53a31d965343c404ef6035054",
+        "bytes": 351,
+        "tokens": 75
+      },
+      "input": {
+        "sha256": "2e8527e0818e79e47bec566329fb42a074e70125670e2c859aeedb55954adbce",
+        "bytes": 634,
+        "tokens": 234
+      },
+      "prompt": {
+        "sha256": "bf7a0c2e2b4b8c9b4b9b64c1e6e48fc1e1aebade1fef93d6988f722a58e5b16b",
+        "bytes": 5330,
+        "tokens": 1188
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--pp-barbeat",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--pp-midi-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c3-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "decodedFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "51fedd69327ace731ca5aea65cfc53f383ff75f53a31d965343c404ef6035054",
+        "bytes": 351,
+        "tokens": 75
+      },
+      "input": {
+        "sha256": "9229c9616fe9306fec2bafae78176d2001e2d634b94e1c1212dcf24d5b7f7d6b",
+        "bytes": 886,
+        "tokens": 325
+      },
+      "prompt": {
+        "sha256": "7ecbc248edce031dfadea88c5a45fbc9ed339c95760ca970ff3e51e308074564",
+        "bytes": 4768,
+        "tokens": 1137
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-json",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "decodedFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "51fedd69327ace731ca5aea65cfc53f383ff75f53a31d965343c404ef6035054",
+        "bytes": 351,
+        "tokens": 75
+      },
+      "input": {
+        "sha256": "746f18105aaba559ea51819d09fb6b788bdfcb554084fa157ff209a1f3d5547c",
+        "bytes": 1160,
+        "tokens": 362
+      },
+      "prompt": {
+        "sha256": "7fb7f10f73bd5926d1d8ffc22237172c73239a49ddef47d65fa6bd709c6d4749",
+        "bytes": 5336,
+        "tokens": 1221
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p07-halve-spread-move-anchor--c4-detached-fields",
+      "task": "p07-halve-spread-move-anchor",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "decodedFactsSha256": "29a0c4ab5e78074cd85b21502460bb6fe64b35b27b84e85503922e92f1898b81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "51fedd69327ace731ca5aea65cfc53f383ff75f53a31d965343c404ef6035054",
+        "bytes": 351,
+        "tokens": 75
+      },
+      "input": {
+        "sha256": "5d5e62fd01a2f82dc27a83221c35f9023f755370ee71a7ed45a5a4fe9e613309",
+        "bytes": 679,
+        "tokens": 256
+      },
+      "prompt": {
+        "sha256": "dd56808362198113b2fc49499c076e0140f798cef6ab5fa238ad401e2d5cc98b",
+        "bytes": 5605,
+        "tokens": 1267
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 2,
+        "rowTables": 2
+      }
+    },
+    {
+      "id": "p08-shift-transpose-range--baseline-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "3204e256dfb9a93b32ee125af36360a1ab359d222925df8e3fb4fcd0f847bd50",
+        "bytes": 5983,
+        "tokens": 2952
+      },
+      "prompt": {
+        "sha256": "ec2760669358a019a1572900bd5aa000ef548a38d4a972b7c39fc95593b7a601",
+        "bytes": 9327,
+        "tokens": 3690
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p08-shift-transpose-range--baseline-json",
+      "task": "p08-shift-transpose-range",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "814c202c9d96ca6e3f8ed6a03d32cb24202c40905ea1f999779cbed2949a0df4",
+        "bytes": 11409,
+        "tokens": 4092
+      },
+      "prompt": {
+        "sha256": "2254c50e2bb7440631c7bfebff492368eec3564252d744e42c62b81778ff7ca0",
+        "bytes": 14664,
+        "tokens": 4825
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p08-shift-transpose-range--c3-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "580fd135ffec2443d68a51f2bf2ae8122691c54fec6d3eef22659eb20aa89559",
+        "bytes": 4021,
+        "tokens": 2376
+      },
+      "prompt": {
+        "sha256": "bf25f5cffeb06dbc42e54b7b0c1bc5f0a517fd29fe661db0772957b9de3609b5",
+        "bytes": 6903,
+        "tokens": 2993
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p08-shift-transpose-range--c4-fields",
+      "task": "p08-shift-transpose-range",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "644fe928e25e093bceda6afd3cbcc868df4f6e998dbb2d1eb2edd4ff8c9ffd7f",
+        "bytes": 4285,
+        "tokens": 2508
+      },
+      "prompt": {
+        "sha256": "565a2ba0cbd54c919ad2edfb40ad93486e9b48f5f3cda6d03d9ff16a479f7d7b",
+        "bytes": 7686,
+        "tokens": 3244
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p08-shift-transpose-range--pp-barbeat",
+      "task": "p08-shift-transpose-range",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "6d778f35a848d472d60be2bcfc832dca3727d25f28954da8394f1fd348875be4",
+        "bytes": 1231,
+        "tokens": 769
+      },
+      "prompt": {
+        "sha256": "94b50dfc50eca9da61dd1af87da72e3c3efea52b1ca1fa1e9999a6d78c80aae9",
+        "bytes": 4708,
+        "tokens": 1563
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p08-shift-transpose-range--pp-midi-json",
+      "task": "p08-shift-transpose-range",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "decodedFactsSha256": "48cc6db6abfad7deb4fba2920a84619f30065ea4fe53e10fe8261f6a3485bf4e",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "334f02b314fa8cbb988c3af8a30e75cb83385cbc23f63e381e47785fd0a4befa",
+        "bytes": 272,
+        "tokens": 67
+      },
+      "input": {
+        "sha256": "ef13ed27441572e98af61a5fcf7d3efe5daa0f05b68601b94abc6540bb436dea",
+        "bytes": 3712,
+        "tokens": 2234
+      },
+      "prompt": {
+        "sha256": "1115af45b439832ae9c77af883dd0de414af4430432e1e2beee53c6274ee1e86",
+        "bytes": 6662,
+        "tokens": 2875
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--baseline-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "75ba875ffda68d1ae091783f914d725994580052230aa8e36f2c6dff89561cc8",
+        "bytes": 6432,
+        "tokens": 2987
+      },
+      "prompt": {
+        "sha256": "6ff7abfad7d96d11d86ce40425f16f3c7a15459368e1c7bd068b44b2bbad1341",
+        "bytes": 9862,
+        "tokens": 3738
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--baseline-json",
+      "task": "p09-delete-near-miss",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "f958e449fd10f8e8fafbda05b9a2447b46c858b1e5725dcd3e5cd0d6cbe54fe1",
+        "bytes": 11944,
+        "tokens": 4145
+      },
+      "prompt": {
+        "sha256": "07441175a4246ad0e80e2c9e3ffba19a3e65ad698352fc7df7ebb0b8babd3f52",
+        "bytes": 15285,
+        "tokens": 4891
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--c3-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "5eb7245b39573ba8b65386ab431ead3475c962ccf69aa1632aa830eb36bcf068",
+        "bytes": 4442,
+        "tokens": 2403
+      },
+      "prompt": {
+        "sha256": "6bbb2a5ef7b86667854f9fc3b0c7d68f4cac21dfbe70389feb11d5c39142752b",
+        "bytes": 7410,
+        "tokens": 3033
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--c4-fields",
+      "task": "p09-delete-near-miss",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "9231c9fd76fe5ccc9d35c88d6091b66a639fdd4de287bf478417f271c1ea2169",
+        "bytes": 4710,
+        "tokens": 2537
+      },
+      "prompt": {
+        "sha256": "6b424dd639f62de88a72090308a952c895110359d9fb9d71d9b8c25ca8a42dcc",
+        "bytes": 8197,
+        "tokens": 3286
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--pp-barbeat",
+      "task": "p09-delete-near-miss",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "f6607f80b2fd47c31d6864e5f7b3f1a9b4d77be16fe7f8f7e91f43466bd9c37f",
+        "bytes": 1501,
+        "tokens": 906
+      },
+      "prompt": {
+        "sha256": "34baa1cf4b32f15e220cbb49680e813cb6e12efa9f2ce76c654a529744a1b362",
+        "bytes": 5064,
+        "tokens": 1713
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p09-delete-near-miss--pp-midi-json",
+      "task": "p09-delete-near-miss",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "decodedFactsSha256": "67d161420a4c44e227ee779bdfae7cc8a32ab37fc3fe5ace37104dd060d8e6aa",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "c9771582e73ef28d13ffaee20b43dfcb0b8b82dc5a2cdd5ea3f1d72b657244d8",
+        "bytes": 358,
+        "tokens": 80
+      },
+      "input": {
+        "sha256": "259e41405cbf717807ff7285b2f4996bdc80d71dcaee94d89df7abd341e6afba",
+        "bytes": 4123,
+        "tokens": 2259
+      },
+      "prompt": {
+        "sha256": "640e2745c14626894f40390783a352cfc55da91539aa71ca934173ef4ed45c2d",
+        "bytes": 7159,
+        "tokens": 2913
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "052cd86cc5c3c08658d499c99af3e5a7cf98005392ba237711d23b8127c43f3b",
+        "bytes": 512,
+        "tokens": 202
+      },
+      "prompt": {
+        "sha256": "c2cc272dfded29ceb9f89e5f785d82ea7c62e8e7fef0b68d3ba6629124f5731a",
+        "bytes": 3935,
+        "tokens": 950
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--baseline-json",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "07c3f416732fcf421aa6af1de08101932e2652a1433522dc13e35e67ef40bed8",
+        "bytes": 778,
+        "tokens": 262
+      },
+      "prompt": {
+        "sha256": "03aca405d8bb54c7340be78c0ecc316572c3f36e13065ddcd259c965089033c3",
+        "bytes": 4112,
+        "tokens": 1005
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c3-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "83fd626419aad28703dbd2d5d68850d5a8d913f9a543c38778c94bdf12f3185d",
+        "bytes": 230,
+        "tokens": 106
+      },
+      "prompt": {
+        "sha256": "bae6bf4854e415ea343b46cb7c651166e86de4c76d6af4104194fb61ac5d9490",
+        "bytes": 3191,
+        "tokens": 733
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--c4-fields",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "f589025bfebdd72407d12bd2984b5ddccdb2ac5894d79853b9c3561032c80d8c",
+        "bytes": 254,
+        "tokens": 118
+      },
+      "prompt": {
+        "sha256": "9a543e5998541c33de95e5424a95ff48db807ece155a35d492029e707f739f60",
+        "bytes": 3734,
+        "tokens": 864
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-barbeat",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "72950fc0bbc8acbdce105292978e87cccd54aba81d38be39735e9c620b92faf6",
+        "bytes": 147,
+        "tokens": 92
+      },
+      "prompt": {
+        "sha256": "08bdbfc6f620b3d398ffee832d59768443a93cd8d19752887fd91042c7c43199",
+        "bytes": 3703,
+        "tokens": 896
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p10-refuse-ambiguous-pitch--pp-midi-json",
+      "task": "p10-refuse-ambiguous-pitch",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "count-change",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "decodedFactsSha256": "f0bd51ba4241c4cac12f1cd8ca68e15546e9f1f2e63fadc3e98f650301f12e8a",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "fcc5252df015d6c2764717d2b4f40012c2ee7fa6747c30231bfbc2756fdebe30",
+        "bytes": 351,
+        "tokens": 77
+      },
+      "input": {
+        "sha256": "0958eb16944fb3b65d667e1e05ca680d50aa8889b1ca41682fc3c6a955bdf753",
+        "bytes": 173,
+        "tokens": 96
+      },
+      "prompt": {
+        "sha256": "a6b7498aff523c2097dd01e7eb9ca9899c288113b32a62eed8437683ba91c43b",
+        "bytes": 3202,
+        "tokens": 747
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--baseline-fields",
+      "task": "p11-preserve-window",
+      "arm": "baseline-fields",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "f6938dd1fafcf94a3e22a7fd0351be8fa014204109857ef88a66526bedc87105",
+        "bytes": 3143,
+        "tokens": 1488
+      },
+      "prompt": {
+        "sha256": "b15004d449e2db97b557a91119d7b327e0a325a9e4041b4e38010f94c3ea7a9e",
+        "bytes": 6371,
+        "tokens": 2188
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--baseline-json",
+      "task": "p11-preserve-window",
+      "arm": "baseline-json",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--baseline-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "7731d4e820e792db4fa0d28ce4393cd1adb469592de21f28126b5ee87b8971ec",
+        "bytes": 5817,
+        "tokens": 2052
+      },
+      "prompt": {
+        "sha256": "96be4125b74da1b5c6656a934356a779f4dd16a3bf9301883554a09e391ac895",
+        "bytes": 8956,
+        "tokens": 2747
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--c3-fields",
+      "task": "p11-preserve-window",
+      "arm": "c3-fields",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c3-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "4305f74e243fb045262e9496825e3ffe611ebd6b47a302b67bc26b50c4960f5b",
+        "bytes": 2077,
+        "tokens": 1168
+      },
+      "prompt": {
+        "sha256": "8088418da26b7acf1e85ec5304760500b2442479a8b4d3f1818bc4c5443fa5ba",
+        "bytes": 4843,
+        "tokens": 1747
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--c4-fields",
+      "task": "p11-preserve-window",
+      "arm": "c4-fields",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--c4-fields.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "e6b2723c5eb278c286e2bdde0f024765bc8d59a1e482c663e30c4edca8f2610c",
+        "bytes": 2213,
+        "tokens": 1236
+      },
+      "prompt": {
+        "sha256": "5304b564185a644e661050b6e3bbae27e5ddd517489e4e223a6bf637e2ba34d5",
+        "bytes": 5498,
+        "tokens": 1934
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--pp-barbeat",
+      "task": "p11-preserve-window",
+      "arm": "pp-barbeat",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-barbeat.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "bbd6e3c1933438ab1d201a5f2586f1d144a6d57117b374257cf9eab6b95c3fb8",
+        "bytes": 832,
+        "tokens": 527
+      },
+      "prompt": {
+        "sha256": "ff4ec4aa3d792a7d94c3720813d0b63dc9c0204662108a9e8d9a38c1d405e329",
+        "bytes": 4193,
+        "tokens": 1283
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p11-preserve-window--pp-midi-json",
+      "task": "p11-preserve-window",
+      "arm": "pp-midi-json",
+      "cohort": "performed",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/performed--pp-midi-json.txt",
+      "sourceFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "decodedFactsSha256": "4924033c27a1a9ef78a1ebd098f00f8595d6d48d92b6bb1a515667d95c24a12d",
+      "instructions": {
+        "sha256": "30710df02cbaf16e2e1c784cb4331cf53dbca8ebf5148256cb0ae32da267ebd6",
+        "bytes": 1404,
+        "tokens": 275
+      },
+      "request": {
+        "sha256": "df8c59828e4c8962d05fed56faee6329c45d2ecb680d15e5cf8560df28a72a56",
+        "bytes": 156,
+        "tokens": 29
+      },
+      "input": {
+        "sha256": "dbdb9ef33329cf6421a5a97dd24535ede433c2292270e5aca1959cdc9a650d62",
+        "bytes": 1964,
+        "tokens": 1090
+      },
+      "prompt": {
+        "sha256": "7fdfc5d93218054c5755a25768aa3bc0ebba8415c870fa4808fc997535293a47",
+        "bytes": 4798,
+        "tokens": 1693
+      },
+      "exampleFactsSha256": "352406aa89343686243a19a763f0f77506f32013b2c545e8258001c58e681ed3"
+    },
+    {
+      "id": "p12-preserve-exact-wider--baseline-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p12-preserve-exact-wider--baseline-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "decodedFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "9e8fff3fdaeceff2c1cadc2500e212de92f78382f8b99f288952d8af983c1129",
+        "bytes": 240,
+        "tokens": 43
+      },
+      "input": {
+        "sha256": "6615355df9d662e7135e575bc058844d947c1c3fc5fee39a49a6080eada89345",
+        "bytes": 426,
+        "tokens": 153
+      },
+      "prompt": {
+        "sha256": "c474e78789e201d7ed03d64f5a82b0579c550f6b0699b6f7105d9777ffe8d2de",
+        "bytes": 4650,
+        "tokens": 1006
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "decodedFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "9e8fff3fdaeceff2c1cadc2500e212de92f78382f8b99f288952d8af983c1129",
+        "bytes": 240,
+        "tokens": 43
+      },
+      "input": {
+        "sha256": "dd4809586e06091bc297ccc3c9ebe49c2b32a92d20754bf710eec19d31d6f95f",
+        "bytes": 444,
+        "tokens": 162
+      },
+      "prompt": {
+        "sha256": "d3ad862ed87d9d1ecf4d750046f4f4888eefe84540bc09d50bbc215f81bb587d",
+        "bytes": 5029,
+        "tokens": 1084
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p12-preserve-exact-wider--pp-barbeat",
+      "task": "p12-preserve-exact-wider",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p12-preserve-exact-wider--pp-midi-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c3-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "decodedFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "9e8fff3fdaeceff2c1cadc2500e212de92f78382f8b99f288952d8af983c1129",
+        "bytes": 240,
+        "tokens": 43
+      },
+      "input": {
+        "sha256": "2b82cc79c2c3d5d3b17fe91b9a14c79ab5f4719fbfb01b594a39d6d4e20f6859",
+        "bytes": 454,
+        "tokens": 166
+      },
+      "prompt": {
+        "sha256": "49954feb9532130ba1e4dadb325d08e0bb378208c98723bb2230e5105280fcf1",
+        "bytes": 4225,
+        "tokens": 946
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-json",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "decodedFactsSha256": "f51947321fb9d86e900b57a47e6a5d10bbc2b917d147fbda96e179119710657d",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "9e8fff3fdaeceff2c1cadc2500e212de92f78382f8b99f288952d8af983c1129",
+        "bytes": 240,
+        "tokens": 43
+      },
+      "input": {
+        "sha256": "f9961c22e14f447a017b4e70e13c4cb146863bef0153a0a0ee2bcb9e938cc4cb",
+        "bytes": 606,
+        "tokens": 202
+      },
+      "prompt": {
+        "sha256": "c2a433dd46bbe4ffe67320419a24e5ae3ad790c535b60e46acb1c217ab33ee43",
+        "bytes": 4671,
+        "tokens": 1029
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p12-preserve-exact-wider--c4-detached-fields",
+      "task": "p12-preserve-exact-wider",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "preservation",
+      "role": "diagnostic",
+      "eligible": false,
+      "reason": "no group block to relocate; not an informative layout control"
+    },
+    {
+      "id": "p13-read-derived-window--baseline-fields",
+      "task": "p13-read-derived-window",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p13-read-derived-window--baseline-json",
+      "task": "p13-read-derived-window",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p13-read-derived-window--c3-fields",
+      "task": "p13-read-derived-window",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "decodedFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a55659e31a8f7dda6af61040f8e38a6921dca27f2477db8a18ae0f60e93238ec",
+        "bytes": 221,
+        "tokens": 53
+      },
+      "input": {
+        "sha256": "b255c78d90ca53dfd00d3bf5ea8cc1c9ec6092808d5b1179166c7120b66a84f4",
+        "bytes": 1805,
+        "tokens": 696
+      },
+      "prompt": {
+        "sha256": "bdef2dbc4fbf04ca7bee3c9af848c211e341c48c7fe32d16dbcfda779fb69379",
+        "bytes": 6010,
+        "tokens": 1559
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p13-read-derived-window--c4-fields",
+      "task": "p13-read-derived-window",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "decodedFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a55659e31a8f7dda6af61040f8e38a6921dca27f2477db8a18ae0f60e93238ec",
+        "bytes": 221,
+        "tokens": 53
+      },
+      "input": {
+        "sha256": "87e2acc1b4a8a60d47f00e7093748b5da9924ad96e4c01b7ceecf9d5fd665dcd",
+        "bytes": 1439,
+        "tokens": 545
+      },
+      "prompt": {
+        "sha256": "a45579c9e6cbbb7185356ebfde5aa7afe3c10abc4d77e56096cd76a1baeda0aa",
+        "bytes": 6005,
+        "tokens": 1477
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p13-read-derived-window--pp-barbeat",
+      "task": "p13-read-derived-window",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p13-read-derived-window--pp-midi-json",
+      "task": "p13-read-derived-window",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p13-read-derived-window--c3-json",
+      "task": "p13-read-derived-window",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "decodedFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a55659e31a8f7dda6af61040f8e38a6921dca27f2477db8a18ae0f60e93238ec",
+        "bytes": 221,
+        "tokens": 53
+      },
+      "input": {
+        "sha256": "0c22775f4277370e43403f10f1744bdb9dafeff8f3e4787c103ba6399a856035",
+        "bytes": 1999,
+        "tokens": 769
+      },
+      "prompt": {
+        "sha256": "d0b7884009c89ae0dc8db70ff14d6301699c59b6e0d9aa7b67ff8ca42cdfaad7",
+        "bytes": 5751,
+        "tokens": 1559
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p13-read-derived-window--c4-json",
+      "task": "p13-read-derived-window",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "decodedFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a55659e31a8f7dda6af61040f8e38a6921dca27f2477db8a18ae0f60e93238ec",
+        "bytes": 221,
+        "tokens": 53
+      },
+      "input": {
+        "sha256": "db1912877b78a63a242b54cf6a677516d3d577231948a7c2730aaa2dd8ea7547",
+        "bytes": 2800,
+        "tokens": 894
+      },
+      "prompt": {
+        "sha256": "dd75dea195bfe947093d9578960274e929fa4e6c8575acf19810b50fee5bb4c8",
+        "bytes": 6846,
+        "tokens": 1731
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p13-read-derived-window--c4-detached-fields",
+      "task": "p13-read-derived-window",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "read",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "decodedFactsSha256": "d541e9b8b871adbc2de541be063a7095775566b8f0e36349a41ddf2ec2928b2e",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a55659e31a8f7dda6af61040f8e38a6921dca27f2477db8a18ae0f60e93238ec",
+        "bytes": 221,
+        "tokens": 53
+      },
+      "input": {
+        "sha256": "0e51481a1fdd9f7d87acb43e4f897b5af85b2c3a7bc0f67583e03f5aa595d87e",
+        "bytes": 1528,
+        "tokens": 589
+      },
+      "prompt": {
+        "sha256": "3cf7e27c4d29c66e83e02d6424ce6e8e9e5f8ab007dc993e028d4ebb3b9f0bea",
+        "bytes": 6324,
+        "tokens": 1578
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 4,
+        "rowTables": 4
+      }
+    },
+    {
+      "id": "p14-group-existing-notes--baseline-fields",
+      "task": "p14-group-existing-notes",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p14-group-existing-notes--baseline-json",
+      "task": "p14-group-existing-notes",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p14-group-existing-notes--c3-fields",
+      "task": "p14-group-existing-notes",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "decodedFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3889b1f80760864957eb66471bc41ce644d53f6180c38fa7c9437856fc14187b",
+        "bytes": 565,
+        "tokens": 142
+      },
+      "input": {
+        "sha256": "b414b1d2260f62b6b1ff179aa0eb9475be3167f81e481526e5ae331dcee1efec",
+        "bytes": 745,
+        "tokens": 294
+      },
+      "prompt": {
+        "sha256": "ee3bcb8a0b71dc3bfc30af64375cadfd341571b9bf0b2c63fb1e3e75ac8ef4e4",
+        "bytes": 5294,
+        "tokens": 1246
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p14-group-existing-notes--c4-fields",
+      "task": "p14-group-existing-notes",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "decodedFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3889b1f80760864957eb66471bc41ce644d53f6180c38fa7c9437856fc14187b",
+        "bytes": 565,
+        "tokens": 142
+      },
+      "input": {
+        "sha256": "9905c31f432025fd5edb7de72531d8677762e0237f2da02e7261cf8281974bd0",
+        "bytes": 628,
+        "tokens": 259
+      },
+      "prompt": {
+        "sha256": "09adcd085a40085cd5c501199cd3c732bf5985f5309bd71fa50ce235d3ba7ba4",
+        "bytes": 5538,
+        "tokens": 1280
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p14-group-existing-notes--pp-barbeat",
+      "task": "p14-group-existing-notes",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p14-group-existing-notes--pp-midi-json",
+      "task": "p14-group-existing-notes",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p14-group-existing-notes--c3-json",
+      "task": "p14-group-existing-notes",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "decodedFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3889b1f80760864957eb66471bc41ce644d53f6180c38fa7c9437856fc14187b",
+        "bytes": 565,
+        "tokens": 142
+      },
+      "input": {
+        "sha256": "62a09b05fc58dabceba799bfb4a13bb3950fce27151cb7c02ea56d43e9e4f385",
+        "bytes": 855,
+        "tokens": 335
+      },
+      "prompt": {
+        "sha256": "17ebfdac90474388134937563ba54fe57c99d46a26de806d0a6c8f6720265ac0",
+        "bytes": 4951,
+        "tokens": 1214
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p14-group-existing-notes--c4-json",
+      "task": "p14-group-existing-notes",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "decodedFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3889b1f80760864957eb66471bc41ce644d53f6180c38fa7c9437856fc14187b",
+        "bytes": 565,
+        "tokens": 142
+      },
+      "input": {
+        "sha256": "7ca8a4a32de7819161e6227aaef12dc791feaff4c420a9df88f0bd1213a5733c",
+        "bytes": 1366,
+        "tokens": 434
+      },
+      "prompt": {
+        "sha256": "1d86f9589ec305e046302b048e093bd64e9f424fed901922babac57df87943e5",
+        "bytes": 5756,
+        "tokens": 1360
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p14-group-existing-notes--c4-detached-fields",
+      "task": "p14-group-existing-notes",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "decodedFactsSha256": "e74b820ebd35571b9b566644ffa93e6cf8f82abd56b3584e953a0174c258e4e1",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3889b1f80760864957eb66471bc41ce644d53f6180c38fa7c9437856fc14187b",
+        "bytes": 565,
+        "tokens": 142
+      },
+      "input": {
+        "sha256": "4df0548fbdcdedd23c7ad4b4f344a3e8d92772f09778792ded1ac09c9667d7bd",
+        "bytes": 651,
+        "tokens": 270
+      },
+      "prompt": {
+        "sha256": "d7ce43a7383a94fd5f25d565d30001939285e6bb0957bff19cd58738e2510cf6",
+        "bytes": 5791,
+        "tokens": 1348
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 1,
+        "rowTables": 1
+      }
+    },
+    {
+      "id": "p15-move-member-between-groups--baseline-fields",
+      "task": "p15-move-member-between-groups",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p15-move-member-between-groups--baseline-json",
+      "task": "p15-move-member-between-groups",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p15-move-member-between-groups--c3-fields",
+      "task": "p15-move-member-between-groups",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "decodedFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a175d9bd8a5bee37350250b6bc32ac667af297d501652fb00205de2afc84a457",
+        "bytes": 393,
+        "tokens": 89
+      },
+      "input": {
+        "sha256": "ab98d97a294be62f43a7b9ef0c71cda3e2b44522c1a411671cd0611ed87326f0",
+        "bytes": 1148,
+        "tokens": 422
+      },
+      "prompt": {
+        "sha256": "22771541068b4f863effe624384e360687f9e706c0736c4ef4109ede4f2e6a96",
+        "bytes": 5525,
+        "tokens": 1321
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p15-move-member-between-groups--c4-fields",
+      "task": "p15-move-member-between-groups",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "decodedFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a175d9bd8a5bee37350250b6bc32ac667af297d501652fb00205de2afc84a457",
+        "bytes": 393,
+        "tokens": 89
+      },
+      "input": {
+        "sha256": "afac990b5b7160c56956090f076689b5f65bbc67f9d46732e249bb3fae48f0ba",
+        "bytes": 958,
+        "tokens": 342
+      },
+      "prompt": {
+        "sha256": "8ff2bf29e445da8c16a2d2cd4b03ace4903cb60e213c528eac9edc52b3c72439",
+        "bytes": 5696,
+        "tokens": 1310
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p15-move-member-between-groups--pp-barbeat",
+      "task": "p15-move-member-between-groups",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p15-move-member-between-groups--pp-midi-json",
+      "task": "p15-move-member-between-groups",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p15-move-member-between-groups--c3-json",
+      "task": "p15-move-member-between-groups",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "decodedFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a175d9bd8a5bee37350250b6bc32ac667af297d501652fb00205de2afc84a457",
+        "bytes": 393,
+        "tokens": 89
+      },
+      "input": {
+        "sha256": "5e1815d115dbf992b5e6a47951a670fcfc0285a981c004f25cf1018f75265719",
+        "bytes": 1241,
+        "tokens": 459
+      },
+      "prompt": {
+        "sha256": "0d93b2cdedfff44b631639af4e23cc74dc6cf79e901e88321324f5f531411908",
+        "bytes": 5165,
+        "tokens": 1285
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p15-move-member-between-groups--c4-json",
+      "task": "p15-move-member-between-groups",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "decodedFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a175d9bd8a5bee37350250b6bc32ac667af297d501652fb00205de2afc84a457",
+        "bytes": 393,
+        "tokens": 89
+      },
+      "input": {
+        "sha256": "2e35cf781a881a68728aa27a7bf2754a87aab5fa83eeaf665f563b55881a7e04",
+        "bytes": 1656,
+        "tokens": 522
+      },
+      "prompt": {
+        "sha256": "d48a15d4288c4ea1a9082d108c0f9787945b334b7fc2af17761f384c70c53102",
+        "bytes": 5874,
+        "tokens": 1395
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p15-move-member-between-groups--c4-detached-fields",
+      "task": "p15-move-member-between-groups",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "decodedFactsSha256": "08bd4b05d530bb9f136a47213242c57860b2175555dc47ed379c4b08cbd24140",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "a175d9bd8a5bee37350250b6bc32ac667af297d501652fb00205de2afc84a457",
+        "bytes": 393,
+        "tokens": 89
+      },
+      "input": {
+        "sha256": "848f7e1043453ab7921bf76e52a0708a03c28fdd2847073a327398583a5953f6",
+        "bytes": 1025,
+        "tokens": 375
+      },
+      "prompt": {
+        "sha256": "19badadd83a6566881c13bd9056a52acc27c02117a05652cc10cd65ed4600cb6",
+        "bytes": 5993,
+        "tokens": 1400
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 3,
+        "rowTables": 3
+      }
+    },
+    {
+      "id": "p16-retime-two-groups--baseline-fields",
+      "task": "p16-retime-two-groups",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p16-retime-two-groups--baseline-json",
+      "task": "p16-retime-two-groups",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p16-retime-two-groups--c3-fields",
+      "task": "p16-retime-two-groups",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "decodedFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3352343e3c5accf250bd75f1c6cfc94f2d3be06e5ac6b9ff8e1d2e4a659a6e4c",
+        "bytes": 404,
+        "tokens": 87
+      },
+      "input": {
+        "sha256": "06e50eecf344ed9cd7ea1f84659efa1ec6a8eed46e42c37a3b2a95f0653dd802",
+        "bytes": 1221,
+        "tokens": 455
+      },
+      "prompt": {
+        "sha256": "8053c02853fdac4c7c2830f43f3c514e19954508a975dc2aa739cb7df9ea2b7e",
+        "bytes": 5609,
+        "tokens": 1352
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p16-retime-two-groups--c4-fields",
+      "task": "p16-retime-two-groups",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "decodedFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3352343e3c5accf250bd75f1c6cfc94f2d3be06e5ac6b9ff8e1d2e4a659a6e4c",
+        "bytes": 404,
+        "tokens": 87
+      },
+      "input": {
+        "sha256": "ecbc6b0650ea4092030b0007b9e51fda6d33391f2420f5c9e6a16567085cd1d4",
+        "bytes": 994,
+        "tokens": 361
+      },
+      "prompt": {
+        "sha256": "2d789442aaa0880ee98d489187156ef894c177306d6b2c3648423737b086f9ab",
+        "bytes": 5743,
+        "tokens": 1327
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p16-retime-two-groups--pp-barbeat",
+      "task": "p16-retime-two-groups",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p16-retime-two-groups--pp-midi-json",
+      "task": "p16-retime-two-groups",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "p16-retime-two-groups--c3-json",
+      "task": "p16-retime-two-groups",
+      "arm": "c3-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c3-json.txt",
+      "sourceFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "decodedFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3352343e3c5accf250bd75f1c6cfc94f2d3be06e5ac6b9ff8e1d2e4a659a6e4c",
+        "bytes": 404,
+        "tokens": 87
+      },
+      "input": {
+        "sha256": "33ecae0211f2bbbe693178788e3367a02497766acd6731b2acd83afebb3aa3ec",
+        "bytes": 1325,
+        "tokens": 496
+      },
+      "prompt": {
+        "sha256": "241b1d3afa06010583f0d85b0331e01e2ece884126697fa9dbfc0b4082da1e58",
+        "bytes": 5260,
+        "tokens": 1320
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p16-retime-two-groups--c4-json",
+      "task": "p16-retime-two-groups",
+      "arm": "c4-json",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-json.txt",
+      "sourceFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "decodedFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3352343e3c5accf250bd75f1c6cfc94f2d3be06e5ac6b9ff8e1d2e4a659a6e4c",
+        "bytes": 404,
+        "tokens": 87
+      },
+      "input": {
+        "sha256": "986ad30f77591e95566a20ebffdd85cf39e10ae35254e46c0f63b0171657541a",
+        "bytes": 1773,
+        "tokens": 562
+      },
+      "prompt": {
+        "sha256": "5878b1ba85906055ee68c6d1bf37b7e440b5e20448d508916011fbf968298aab",
+        "bytes": 6002,
+        "tokens": 1433
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "p16-retime-two-groups--c4-detached-fields",
+      "task": "p16-retime-two-groups",
+      "arm": "c4-detached-fields",
+      "cohort": "source",
+      "family": "group-arithmetic",
+      "role": "diagnostic",
+      "eligible": true,
+      "card": "cards/source--c4-detached-fields.txt",
+      "sourceFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "decodedFactsSha256": "6634b4b77277608c93ad0d87d8f8a011b22d9d02cd7c923cbba0d039c00993bc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "3352343e3c5accf250bd75f1c6cfc94f2d3be06e5ac6b9ff8e1d2e4a659a6e4c",
+        "bytes": 404,
+        "tokens": 87
+      },
+      "input": {
+        "sha256": "79ac52c619386c3abde6828d7a45c8c62cecda94ed68ad316c88707f4c18d857",
+        "bytes": 1061,
+        "tokens": 394
+      },
+      "prompt": {
+        "sha256": "ceee75051c99b77d7d94f588805af2661a9f7daf5fcbcf282642c0809cd34dcc",
+        "bytes": 6040,
+        "tokens": 1417
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "layoutAudit": {
+        "identicalGroupHeadersAndOrderedRowBodies": true,
+        "groupReferences": 3,
+        "rowTables": 3
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/common.mjs",
+      "sha256": "44fabb980ed32b51317defcddf3ebddbb785362e3f4744100b517702ecf011cf"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/compact-fields.mjs",
+      "sha256": "6843d746c6d64f480a6918ffb6d8584377a95b5091896765b4a51a28defbb6ec"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/detached-fields.mjs",
+      "sha256": "f4783a6a140a2129dffcf46428019048a82598d663370bc9283be7a70cfcb41a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-cards.mjs",
+      "sha256": "db281a3224d3301022c6174925a9d47d847671756c8ad38c1ace806689ebf6dd"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-pairs.mjs",
+      "sha256": "385f60f9fcc2448e412517895b01846bf54d16b1a2f8e5e6565fb8c28423633b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-pairs.test.mjs",
+      "sha256": "426fd90e301e3b70cbd5cd07fb99088aee7976b41e5a1a7df774284ab8512610"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "64d34971cf4b143f3e5ee223b1766193f58be13bf424d41db94b33d2cbe0c1c9"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-tasks.mjs",
+      "sha256": "8b64b17bf6f9ffedcd147a5ef83e3093937c230a83d60826a22510dcefb16b2a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/fixtures.mjs",
+      "sha256": "cccc02a3642dab411b1cd54f6e19affde72c96280293cf6f1140b35f4d174291"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/nested-fields.mjs",
+      "sha256": "9390b6d5e177400c30527f3d3b106c8dde449b75370e75ffe1d3e71cdb565597"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-inputs.mjs",
+      "sha256": "5750c9877df4ad321ea9056b20c7fde0c5709d374fe4c08e743a8a3b2b6f164c"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-package.mjs",
+      "sha256": "0fe43fa950de601685b5c1c4cad1253cb9a511ffda675d02f09a493f10e09421"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/pilot-tasks.mjs",
+      "sha256": "c02bc18713102121ccd48ef73c5827c0ab4e45abc361178cf9b1122b588d55c5"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/precision.mjs",
+      "sha256": "28ce7f3a5dc4a25af66365cc91f12008589150d1b353a6c79d0e609546aa8deb"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/structured.mjs",
+      "sha256": "51a3b5abbb4f42e2b30b10761cf657e202aba8b2126e2d0b76eca2a5c152c4aa"
+    },
+    {
+      "path": "brain/package-lock.json",
+      "sha256": "f244dda9703dbc1072eea87aa95a21c50179475779d233d97582ec626da9fb1a"
+    },
+    {
+      "path": "brain/src/document/cli.test.ts",
+      "sha256": "18714694fe0bf3008b082af65571af88fa287fe5ecfadfb9340eb3e3a7199b99"
+    },
+    {
+      "path": "brain/src/document/cli.ts",
+      "sha256": "2e8c04fd41b8c54700a18611c0f20abf7d991dbfcb972cd1625c60c9d994910a"
+    },
+    {
+      "path": "brain/src/document/codec.test.ts",
+      "sha256": "3cc674fc66874030de9971eb419b8ede437529be570c9461f86e6a29b268e605"
+    },
+    {
+      "path": "brain/src/document/display.ts",
+      "sha256": "17271d2a7dbcc6f3866724f13a2482049d3ed33eca863f594d7fae7755125c1d"
+    },
+    {
+      "path": "brain/src/document/error.ts",
+      "sha256": "269e108bff7f53878b6e4890a57feb25d239052dd9cbd5df1663140e927ddfa9"
+    },
+    {
+      "path": "brain/src/document/fields.ts",
+      "sha256": "d67e5792163cf52b603532ab32e7a546922529e41fdfe89368dd441608c07e4e"
+    },
+    {
+      "path": "brain/src/document/import.ts",
+      "sha256": "dcf6f544b6a3903718afab86196bc69285a7c8b1fa9c914a2f3345514c251d7e"
+    },
+    {
+      "path": "brain/src/document/index.ts",
+      "sha256": "df1d0b03c8e9a47d1770623eef47f70e03edc02a8cddbb60357f0723141ed21e"
+    },
+    {
+      "path": "brain/src/document/json.ts",
+      "sha256": "39da2dd0f5af6bf88b722cb627842d143f936499bad228ded974a75ba89e3bcc"
+    },
+    {
+      "path": "brain/src/document/materialize.ts",
+      "sha256": "0518571b0a0931f0a3dc6dbffcf360a945d7a79c06de1cdcc59d058cea810b29"
+    },
+    {
+      "path": "brain/src/document/model.ts",
+      "sha256": "97e53068fb79bac4e5a38eb20821463caa9c7245b57e2278fc10dfb3e2a728f5"
+    },
+    {
+      "path": "brain/src/document/rational.ts",
+      "sha256": "a41c1e793bf028ccdee4a2e8faf99bc192ef3b1a1f4d0b059b8c134d8b4706d8"
+    },
+    {
+      "path": "brain/src/document/reference.ts",
+      "sha256": "371f8c50bdbaa8707d9c7264e7135492fc90670feedf9670d8bff3c78af26e3c"
+    },
+    {
+      "path": "brain/src/document/schema-data.ts",
+      "sha256": "0625bc561562d2b1b1f4a2f3180ac8801973f8f44bd0e4c2add2cfcd400c66ad"
+    },
+    {
+      "path": "brain/src/document/semantic.ts",
+      "sha256": "a59dcd5c74da6a15e522fdda6ff47677fa691deaddbf2953fa8e41dda3424894"
+    },
+    {
+      "path": "brain/src/document/structure.ts",
+      "sha256": "cf7d545053914e8662ddbb433ac2668b6b4550a014f994d3038f639a3eeb60fd"
+    },
+    {
+      "path": "context/evidence/data/r01-candidates/corpus-excerpts.json",
+      "sha256": "c596d217dc53f57b94413f32d0feb048d7858ec80b524fbec96398773913ac32"
+    },
+    {
+      "path": "context/evidence/data/r01-candidates/precision-upstream.patch",
+      "sha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322"
+    },
+    {
+      "path": "context/evidence/data/r01-pilot-inputs/rigorous/windows.json",
+      "sha256": "87725a74f64cb6b975f2f3762f0fe2328d408c416eb921a00d5fb5373daae2bc"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "pairs.json",
+      "sha256": "80832417deb0368aab94b010878515b3f74f977bfb620d73e13f45c178aea498",
+      "bytes": 751949
+    },
+    {
+      "path": "private-oracles.json",
+      "sha256": "bbcc0de6a31f9f39f0f6068c99657acc63c36956f2d524e97adc75dc18b561b1",
+      "bytes": 417523
+    },
+    {
+      "path": "rehearsal.json",
+      "sha256": "052068c4e9cc2a2beb3247f28df396acf5c4d7f48b59c0ccf96b3c94ad67d483",
+      "bytes": 130135
+    },
+    {
+      "path": "cards/performed--baseline-fields.txt",
+      "sha256": "6782f4665a8e29b9e5a3e8bad883144ef24484c9bd09fcfd0afccfc136fc34cb",
+      "bytes": 1651
+    },
+    {
+      "path": "cards/performed--baseline-json.txt",
+      "sha256": "82bab26b2d69200f52657c04b1dd2ff0838335cd2454eb93da3dfbf7318c978e",
+      "bytes": 1561
+    },
+    {
+      "path": "cards/performed--c3-fields.txt",
+      "sha256": "1d257ec4909c4c9d653df5da215562813c6dd81ac314dff132d19f36ef276e68",
+      "bytes": 1189
+    },
+    {
+      "path": "cards/performed--c4-fields.txt",
+      "sha256": "1c22c80466c60e62fb4570aeee25bfd5c11db89952b20310afea17e90cdab169",
+      "bytes": 1708
+    },
+    {
+      "path": "cards/performed--pp-barbeat.txt",
+      "sha256": "8f2ba3a3ba74a41ec7f4bd9f45b47468b04487e0b2c1164925ed7fd4ea2c9b8d",
+      "bytes": 1783
+    },
+    {
+      "path": "cards/performed--pp-midi-json.txt",
+      "sha256": "37580ea585aa65e7cec64d1134ac94495a66cdb4cfa5b1c0a6bd8051edc9dd59",
+      "bytes": 1256
+    },
+    {
+      "path": "cards/source--c3-fields.txt",
+      "sha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "bytes": 2182
+    },
+    {
+      "path": "cards/source--c4-fields.txt",
+      "sha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "bytes": 2543
+    },
+    {
+      "path": "cards/source--c3-json.txt",
+      "sha256": "e8dfaf23a4721a87046c50533898fe9db6654e6a61b3c4e53711be97d276f1a7",
+      "bytes": 1728
+    },
+    {
+      "path": "cards/source--c4-json.txt",
+      "sha256": "e0281712791900464a509645a3ee58a20be31dbca640b1b6f4ee0b2dd2879977",
+      "bytes": 2022
+    },
+    {
+      "path": "cards/source--c4-detached-fields.txt",
+      "sha256": "14ba65a764c64272870018a35cc380094ef33bcacbd54a0de9bb10846f93c1a6",
+      "bytes": 2773
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "answer": "{\"clips\":[{\"id\":\"clip\",\"length\":\"64\"}],\"coverage\":[{\"channels\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],\"clip\":\"clip\",\"fields\":\"all\",\"from\":\"0\",\"status\":\"complete\",\"to\":\"64\"}],\"events\":[{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n449\",\"pitch\":32,\"velocity\":78},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n450\",\"pitch\":44,\"velocity\":87},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n451\",\"pitch\":56,\"velocity\":82},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n452\",\"pitch\":63,\"velocity\":85},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"505/512\",\"id\":\"t1n453\",\"pitch\":65,\"velocity\":85},{\"at\":\"0\",\"clip\":\"clip\",\"duration\":\"127/32\",\"id\":\"t1n454\",\"pitch\":70,\"velocity\":88},{\"at\":\"47/64\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n455\",\"pitch\":32,\"velocity\":72},{\"at\":\"47/64\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n456\",\"pitch\":44,\"velocity\":71},{\"at\":\"47/64\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n457\",\"pitch\":56,\"velocity\":73},{\"at\":\"47/64\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n458\",\"pitch\":63,\"velocity\":74},{\"at\":\"505/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n459\",\"pitch\":63,\"velocity\":83},{\"at\":\"763/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n460\",\"pitch\":29,\"velocity\":78},{\"at\":\"763/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n461\",\"pitch\":41,\"velocity\":87},{\"at\":\"763/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n462\",\"pitch\":53,\"velocity\":84},{\"at\":\"763/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n463\",\"pitch\":65,\"velocity\":87},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n464\",\"pitch\":29,\"velocity\":87},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n465\",\"pitch\":41,\"velocity\":90},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"763/512\",\"id\":\"t1n466\",\"pitch\":53,\"velocity\":92},{\"at\":\"1021/512\",\"clip\":\"clip\",\"duration\":\"505/512\",\"id\":\"t1n467\",\"pitch\":67,\"velocity\":94},{\"at\":\"763/256\",\"clip\":\"clip\",\"duration\":\"505/512\",\"id\":\"t1n468\",\"pitch\":65,\"velocity\":89},{\"at\":\"223/64\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n469\",\"pitch\":29,\"velocity\":78},{\"at\":\"223/64\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n470\",\"pitch\":41,\"velocity\":75},{\"at\":\"223/64\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n471\",\"pitch\":53,\"velocity\":78},{\"at\":\"2031/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n472\",\"pitch\":36,\"velocity\":84},{\"at\":\"2031/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n473\",\"pitch\":48,\"velocity\":89},{\"at\":\"2031/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n474\",\"pitch\":60,\"velocity\":81},{\"at\":\"2031/512\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n475\",\"pitch\":63,\"velocity\":87},{\"at\":\"135/32\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n476\",\"pitch\":63,\"velocity\":76},{\"at\":\"2289/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n477\",\"pitch\":65,\"velocity\":78},{\"at\":\"1209/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n478\",\"pitch\":36,\"velocity\":72},{\"at\":\"1209/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n479\",\"pitch\":48,\"velocity\":71},{\"at\":\"1209/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n480\",\"pitch\":60,\"velocity\":73},{\"at\":\"1209/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n481\",\"pitch\":63,\"velocity\":68},{\"at\":\"2547/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n482\",\"pitch\":67,\"velocity\":77},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n483\",\"pitch\":34,\"velocity\":66},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n484\",\"pitch\":46,\"velocity\":70},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n485\",\"pitch\":58,\"velocity\":74},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n486\",\"pitch\":63,\"velocity\":73},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n487\",\"pitch\":65,\"velocity\":71},{\"at\":\"2805/512\",\"clip\":\"clip\",\"duration\":\"645/256\",\"id\":\"t1n488\",\"pitch\":72,\"velocity\":74},{\"at\":\"383/64\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n489\",\"pitch\":65,\"velocity\":69},{\"at\":\"3193/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n490\",\"pitch\":34,\"velocity\":67},{\"at\":\"3193/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n491\",\"pitch\":46,\"velocity\":68},{\"at\":\"3193/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n492\",\"pitch\":58,\"velocity\":69},{\"at\":\"3193/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n493\",\"pitch\":65,\"velocity\":68},{\"at\":\"895/128\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n494\",\"pitch\":34,\"velocity\":77},{\"at\":\"895/128\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n495\",\"pitch\":46,\"velocity\":78},{\"at\":\"895/128\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n496\",\"pitch\":58,\"velocity\":74},{\"at\":\"895/128\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n497\",\"pitch\":60,\"velocity\":78},{\"at\":\"895/128\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n498\",\"pitch\":65,\"velocity\":77},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n499\",\"pitch\":34,\"velocity\":75},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n500\",\"pitch\":46,\"velocity\":70},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n501\",\"pitch\":58,\"velocity\":75},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n502\",\"pitch\":62,\"velocity\":77},{\"at\":\"1919/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n503\",\"pitch\":65,\"velocity\":78},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n504\",\"pitch\":32,\"velocity\":83},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n505\",\"pitch\":44,\"velocity\":82},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n506\",\"pitch\":56,\"velocity\":90},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n507\",\"pitch\":63,\"velocity\":82},{\"at\":\"8\",\"clip\":\"clip\",\"duration\":\"2043/512\",\"id\":\"t1n508\",\"pitch\":70,\"velocity\":86},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n509\",\"pitch\":32,\"velocity\":76},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n510\",\"pitch\":44,\"velocity\":76},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n511\",\"pitch\":56,\"velocity\":75},{\"at\":\"4483/512\",\"clip\":\"clip\",\"duration\":\"47/64\",\"id\":\"t1n512\",\"pitch\":63,\"velocity\":79},{\"at\":\"4859/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n513\",\"pitch\":29,\"velocity\":76},{\"at\":\"4859/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n514\",\"pitch\":41,\"velocity\":84},{\"at\":\"4859/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n515\",\"pitch\":53,\"velocity\":82},{\"at\":\"4859/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n516\",\"pitch\":58,\"velocity\":87},{\"at\":\"4859/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n517\",\"pitch\":60,\"velocity\":85},{\"at\":\"5117/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n518\",\"pitch\":58,\"velocity\":85},{\"at\":\"2623/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n519\",\"pitch\":29,\"velocity\":79},{\"at\":\"2623/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n520\",\"pitch\":41,\"velocity\":84},{\"at\":\"2623/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n521\",\"pitch\":53,\"velocity\":79},{\"at\":\"2623/256\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n522\",\"pitch\":60,\"velocity\":84},{\"at\":\"5375/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n523\",\"pitch\":60,\"velocity\":84},{\"at\":\"5633/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n524\",\"pitch\":29,\"velocity\":84},{\"at\":\"5633/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n525\",\"pitch\":41,\"velocity\":78},{\"at\":\"5633/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n526\",\"pitch\":53,\"velocity\":88},{\"at\":\"5633/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n527\",\"pitch\":60,\"velocity\":82},{\"at\":\"5633/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n528\",\"pitch\":63,\"velocity\":81},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n529\",\"pitch\":29,\"velocity\":79},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n530\",\"pitch\":41,\"velocity\":73},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n531\",\"pitch\":53,\"velocity\":78},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n532\",\"pitch\":58,\"velocity\":80},{\"at\":\"5891/512\",\"clip\":\"clip\",\"duration\":\"247/512\",\"id\":\"t1n533\",\"pitch\":60,\"velocity\":84},{\"at\":\"3069/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n534\",\"pitch\":36,\"velocity\":85},{\"at\":\"3069/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n535\",\"pitch\":48,\"velocity\":89},{\"at\":\"3069/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n536\",\"pitch\":60,\"velocity\":83},{\"at\":\"3069/256\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n537\",\"pitch\":67,\"velocity\":92},{\"at\":\"6267/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n538\",\"pitch\":70,\"velocity\":77},{\"at\":\"6525/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n539\",\"pitch\":36,\"velocity\":72},{\"at\":\"6525/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n540\",\"pitch\":48,\"velocity\":72},{\"at\":\"6525/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n541\",\"pitch\":60,\"velocity\":68},{\"at\":\"6525/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n542\",\"pitch\":67,\"velocity\":74},{\"at\":\"3327/256\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n543\",\"pitch\":70,\"velocity\":81},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n544\",\"pitch\":34,\"velocity\":61},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n545\",\"pitch\":46,\"velocity\":70},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n546\",\"pitch\":58,\"velocity\":70},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n547\",\"pitch\":65,\"velocity\":77},{\"at\":\"27/2\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n548\",\"pitch\":72,\"velocity\":73},{\"at\":\"3585/256\",\"clip\":\"clip\",\"duration\":\"129/512\",\"id\":\"t1n549\",\"pitch\":65,\"velocity\":75},{\"at\":\"7299/512\",\"clip\":\"clip\",\"duration\":\"43/64\",\"id\":\"t1n550\",\"pitch\":34,\"velocity\":60},{\"at\":\"7299/512\",\"clip\":\"clip\",\"duration\":\"215/128\",\"id\":\"t1n551\",\"pitch\":46,\"velocity\":67},{\"at\":\"7299/512\",\"clip\":\"clip\",\"duration\":\"215/128\",\"id\":\"t1n552\",\"pitch\":58,\"velocity\":69},{\"at\":\"7299/512\",\"clip\":\"clip\",\"duration\":\"301/256\",\"id\":\"t1n553\",\"pitch\":63,\"velocity\":68},{\"at\":\"7299/512\",\"clip\":\"clip\",\"duration\":\"43/64\",\"id\":\"t1n554\",\"pitch\":65,\"velocity\":70},{\"at\":\"7643/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n555\",\"pitch\":34,\"velocity\":65},{\"at\":\"7643/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n556\",\"pitch\":65,\"velocity\":75},{\"at\":\"7901/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n557\",\"pitch\":34,\"velocity\":68},{\"at\":\"7901/512\",\"clip\":\"clip\",\"duration\":\"129/256\",\"id\":\"t1n558\",\"pitch\":63,\"velocity\":75},{\"at\":\"8159/512\",\"clip\":\"clip\",\"duration\":\"387/512\",\"id\":\"t1n559\",\"pitch\":32,\"velocity\":70},{\"at\":\"8159/512\",\"clip\":\"clip\",\"duration\":\"387/256\",\"id\":\"t1n560\",\"pitch\":44,\"velocity\":72},{\"at\":\"8159/512\",\"clip\":\"clip\",\"duration\":\"387/256\",\"id\":\"t1n561\",\"pitch\":56,\"velocity\":76},{\"at\":\"8159/512\",\"clip\":\"clip\",\"duration\":\"387/256\",\"id\":\"t1n562\",\"pitch\":60,\"velocity\":77},{\"at\":\"8159/512\",\"clip\":\"clip\",\"duration\":\"129/128\",\"id\":\"t1n563\",\"pitch\":65,\"velocity\":76}],\"format\":\"ghostnote-document\",\"kind\":\"desired\",\"overlays\":[],\"version\":\"1.0\"}",
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v2",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "outputCeilingRequired": false,
+  "rawFinalUsage": {
+    "input_tokens": 7371,
+    "cached_input_tokens": 1920,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 3722,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "382d0834db1264578cc6ba4b59d221138969696f7335ffcc5af443ea4db80234",
+      "contextBytes": 31255,
+      "localSerializedContextTokens": 8345,
+      "requestSha256": "bead25135dc478fe6238021cdff2c3ca25491c5101e1c82c4baa12ee2d02b462",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "toolPolicy": "r01-codex-no-tool-use-v1",
+  "toolUseObserved": false,
+  "toolUseObservations": [],
+  "transportControl": null,
+  "retryReport": {
+    "policy": "r01-retries-reported-v1",
+    "admissionGate": false,
+    "capturedRequests": 1,
+    "capturedResponses": 1,
+    "inferenceStarts": 1,
+    "inferenceFailures": 0,
+    "clientRetryEvents": 0,
+    "clientFallbackEvents": 0,
+    "recoveredErrorEvents": 0,
+    "httpAttempts": null,
+    "httpAttemptCoverage": "not-measured-per-submission",
+    "usageCoverage": "client-reported; may omit interrupted or retried generation",
+    "elapsedMs": 26324.691417000256
+  },
+  "codexContext": {
+    "policy": "r01-codex-context-policy-v1",
+    "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+    "pass": false,
+    "issues": [
+      "unexpected-codex-context"
+    ],
+    "blocks": [
+      {
+        "kind": "additional_tools",
+        "bytes": 10037,
+        "sha256": "c62d8cc8aa487790a58c508236d14f970a0550e55128ba27bb3e69aa088bc871"
+      },
+      {
+        "kind": "model.base_instructions",
+        "bytes": 396,
+        "sha256": "7c7500dc312bac9391008955ce4b2102865935606676198dc70553e9086a4aaf"
+      },
+      {
+        "kind": "multi_agent.role_instructions",
+        "bytes": 2748,
+        "sha256": "944c6483a991371c7875787624120c82f63003df0d8e397528b973cfa3b273d1"
+      },
+      {
+        "kind": "multi_agent.mode_instructions",
+        "bytes": 583,
+        "sha256": "99d88484b5c41c435c295326cc4586fd32c62f0b9408bd9169d3d71c091c24cf"
+      },
+      {
+        "kind": "environments.environment_context",
+        "bytes": 870,
+        "sha256": "cf822f5b55a9d53bdca7db568a51600f0b6db2c283b8bf685c039480dcc0a058"
+      },
+      {
+        "kind": "user.text",
+        "bytes": 16593,
+        "sha256": "515535d3ae3721c5292994e21d0e535cd8c260721b273cda71577c341e9f638c"
+      }
+    ],
+    "clientAddedContextBytes": 14634,
+    "taskBytes": 13833,
+    "requests": [
+      {
+        "policy": "r01-codex-context-policy-v1",
+        "policySha256": "fa0a72a5156a1ed2c7d731175e797a9caf87181e00b73e0fb1b15ea75cbf350d",
+        "pass": false,
+        "issues": [
+          "unexpected-codex-context"
+        ],
+        "blocks": [
+          {
+            "kind": "additional_tools",
+            "bytes": 10037,
+            "sha256": "c62d8cc8aa487790a58c508236d14f970a0550e55128ba27bb3e69aa088bc871"
+          },
+          {
+            "kind": "model.base_instructions",
+            "bytes": 396,
+            "sha256": "7c7500dc312bac9391008955ce4b2102865935606676198dc70553e9086a4aaf"
+          },
+          {
+            "kind": "multi_agent.role_instructions",
+            "bytes": 2748,
+            "sha256": "944c6483a991371c7875787624120c82f63003df0d8e397528b973cfa3b273d1"
+          },
+          {
+            "kind": "multi_agent.mode_instructions",
+            "bytes": 583,
+            "sha256": "99d88484b5c41c435c295326cc4586fd32c62f0b9408bd9169d3d71c091c24cf"
+          },
+          {
+            "kind": "environments.environment_context",
+            "bytes": 870,
+            "sha256": "cf822f5b55a9d53bdca7db568a51600f0b6db2c283b8bf685c039480dcc0a058"
+          },
+          {
+            "kind": "user.text",
+            "bytes": 16593,
+            "sha256": "515535d3ae3721c5292994e21d0e535cd8c260721b273cda71577c341e9f638c"
+          }
+        ],
+        "clientAddedContextBytes": 14634,
+        "taskBytes": 13833
+      }
+    ]
+  },
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-attempt-j0pYw3/codex-home/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 7371,
+  "finalOutputTokens": 3722,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": false,
+  "issues": [
+    "codex-client-context-policy-violation"
+  ],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/manifest.json",
+      "sha256": "ae9e3f56da3e71b4852055a3b0c7c7006e7c4244f9332c778549fb89fd0943f5"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/trace.jsonl",
+      "sha256": "e8e7baf6b466754146c683320b7bc0eb2e441b33f9fffbd8385467e39565a44d"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/1.json",
+      "sha256": "220d6c261e639565a75c66cba184e1279b98f806288091f56278d45135699c37"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/2.json",
+      "sha256": "4a63264a686d74cfdd99c8ea70c30b3862fa99fd73aae6963cdfac2d208bf701"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/3.json",
+      "sha256": "cdbe6f74967e996e4d8b1609ebdd178848ced222294ab61b0a738ec1b4b7013f"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/4.json",
+      "sha256": "20c1876a3f5565892ab90c70dba2a3b80fe6feb6e53c13eae77ce33121052abf"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/5.json",
+      "sha256": "c8382a3b05191393dba5624bd0ce6f8137bb75a80d51ce4829b26a16442a02b6"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/6.json",
+      "sha256": "430f6874a4cf442b12d7531fe256434e67d084c93b84202bbdbf99135f47673b"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/7.json",
+      "sha256": "7a0a11169637adf8ba1dd51a5e2a593a0aa4e416e6a7be6e841ac73b00d92a4b"
+    },
+    {
+      "path": "codex-traces/trace-a9275f19-700d-4516-9d42-ce31d692e7ff-01a17e65-5f3b-70f3-a02c-108f6cee23fb/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

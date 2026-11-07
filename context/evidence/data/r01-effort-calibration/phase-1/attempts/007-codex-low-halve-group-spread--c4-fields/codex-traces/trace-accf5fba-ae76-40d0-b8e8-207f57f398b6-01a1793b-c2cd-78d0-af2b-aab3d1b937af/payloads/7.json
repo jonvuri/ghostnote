@@ -1,0 +1,10 @@
+{
+  "type": "task_complete",
+  "root_turn_id": "01a1793b-c50e-7cc1-8b6c-f68f706f986e",
+  "turn_id": "01a1793b-c50e-7cc1-8b6c-f68f706f986e",
+  "last_agent_message": "R01-GROUPED-FIELDS 1\nGROUP c7 anchor=8 delay=1/256 label=\"C major seventh\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"},\"performanceOrder\":[\"a\",\"b\",\"c\",\"d\"],\"presentationOrder\":[\"d\",\"c\",\"b\",\"a\"]} {\n  FIELDS id pitch duration velocity spread\n  NOTE a 60 2 90 0\n  NOTE b 64 7/4 84 1/256\n  NOTE c 67 3/2 82 3/256\n  NOTE d 71 1 78 5/256\n}\nGROUP inner label=\"inner voices\" WITH {\"provenance\":{\"kind\":\"declared\",\"source\":\"synthetic-author\"}} {\n  REF b\n  REF c\n}",
+  "started_at": 1793035322,
+  "completed_at": 1793035326,
+  "duration_ms": 3604,
+  "time_to_first_token_ms": 2102
+}

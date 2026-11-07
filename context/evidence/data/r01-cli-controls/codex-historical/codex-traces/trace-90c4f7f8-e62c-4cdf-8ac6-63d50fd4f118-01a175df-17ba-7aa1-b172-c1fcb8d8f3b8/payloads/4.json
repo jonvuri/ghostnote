@@ -1,0 +1,4 @@
+{
+  "type": "warning",
+  "message": "Model metadata for `gpt-5.4-mini-2026-03-17` not found. Defaulting to fallback metadata; this can degrade performance and cause issues."
+}

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * B17: the extension-owned scope policy against an in-memory model of the three one-wide scope banks, and the
- * write lease that keeps a scope operation alone in the write gate. The model behaves as E352 and E353
+ * write lease that keeps a scope operation alone in the write gate. The model behaves as E352 and E394
  * measured: a scroll inside the device count retargets on the next task; a scroll past the count clamps and
  * stays; a hung bank never moves.
  */
@@ -26,7 +26,7 @@ public final class ContainerScopesTest {
         final boolean[] held = {true, true, true};
         /** A scroll records the request but the bank never moves. */
         boolean hung;
-        /** Scrolls of this slot apply only from the second request (E353: the clamped bank). */
+        /** Scrolls of this slot apply only from the second request (E394: the clamped bank). */
         int clampedSlot = -1;
         int clampedRequests;
         final List<int[]> scrolls = new ArrayList<>();
@@ -84,7 +84,7 @@ public final class ContainerScopesTest {
         run("a position past the device count is an empty observation, not a scroll", ContainerScopesTest::empty);
         run("a hung scope is scrolled again every RESCROLL_POLLS polls and refuses at the bound",
             ContainerScopesTest::hung);
-        run("a scope clamped on an earlier track is re-aimed, not waited for (E353)", ContainerScopesTest::clamped);
+        run("a scope clamped on an earlier track is re-aimed, not waited for (E394)", ContainerScopesTest::clamped);
         run("two positions hold two scopes at once; three distinct far positions use all three",
             ContainerScopesTest::twoAtOnce);
         run("independent endpoints at one container hold separate scopes", ContainerScopesTest::independent);

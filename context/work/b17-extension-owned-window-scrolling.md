@@ -20,7 +20,7 @@ limits that exist only because of the window widths. Reads come first;
 writes follow when the read is proved.
 
 Sources: [B08 brief](b08-scrollable-container-scopes.md) and
-[E353](../evidence/experiments/e353-scrollable-container-scopes-product-live.md)
+[E394](../evidence/experiments/e394-scrollable-container-scopes-product-live.md)
 for the shipped top-level mechanism and its guard; E352 §4 for the nested
 window measurements (chain window moved over 5 chains, device window over 4
 devices, `itemCount` total, over-range clamps); `ScopeScrollProbe.java`
@@ -39,7 +39,7 @@ devices, `itemCount` total, over-range clamps); `ScopeScrollProbe.java`
   makes these indices depend on the window position, exactly as the B08 top
   level did; the fix is the same: the request names the window position and
   the extension refuses an unsettled or differently positioned window.
-- E353 found that a scroll issued while the bank has fewer items clamps and
+- E394 found that a scroll issued while the bank has fewer items clamps and
   stays after the bank grows. Nested windows will show the same behaviour
   when a container gains chains or a chain gains devices; the brain must
   re-issue a nested scroll on every unsettled pass, as it now does at the
@@ -87,12 +87,12 @@ operations that name targets by absolute position: for example
 absolute chain and device indices. Each picks a scope, scrolls the
 top-level, chain, and device windows as needed, polls with
 `host.scheduleTask` until `scopeSettled` holds (bounded attempts, re-issuing
-a stuck scroll, E353), performs the read or write, and replies once. A
+a stuck scroll, E394), performs the read or write, and replies once. A
 two-container move is one operation that holds both scopes. The brain's
 `containerScope`, `chooseScope`, `scopeSlots`, and the encoder's scope slot
 go away; `chain.scroll` and the window-relative indices leave the wire
 (check probe consumers first). Expected saving: two to three wire turns per
-far read, about 50 to 75 ms, and one owner for the guard. D55 applies: the
+far read, about 50 to 75 ms, and one owner for the guard. D65 applies: the
 operation trusts the proved route and the tool keeps one readback at the
 end.
 
@@ -131,7 +131,7 @@ together (description version bump).
 ## Work and acceptance
 
 0. Move B08's top-level scope logic into async extension operations with a
-   write lease; prove on the E353 scratch shape that reads and writes at
+   write lease; prove on the E394 scratch shape that reads and writes at
    positions 3 and 5 are unchanged in result and cheaper in turns; retire
    `chain.scroll` and the brain's scope state.
 1. Extension methods and inventory fields, offline host model, goldens,
@@ -169,13 +169,13 @@ and live acceptance in session 7.
 
 | Session | Scope | Status |
 | --- | --- | --- |
-| 1 | Extension-owned scopes; absolute wire positions and indices | Complete, live E354 |
-| 2 | Paged top-level and nested reads | Complete, live E356 |
-| 3 | Write-window foundation and paged chain controls | Complete; integrated live acceptance E357 |
-| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Complete; integrated live acceptance E357 |
-| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Complete; integrated live acceptance E357 |
-| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Complete; integrated live acceptance E357 |
-| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Complete, live E357 |
+| 1 | Extension-owned scopes; absolute wire positions and indices | Complete, live E395 |
+| 2 | Paged top-level and nested reads | Complete, live E397 |
+| 3 | Write-window foundation and paged chain controls | Complete; integrated live acceptance E398 |
+| [4](#session-4--nested-move-and-copy-paging) | Nested move/copy paging | Complete; integrated live acceptance E398 |
+| [5](#session-5--top-level-mutation-paging) | Top-level mutation paging | Complete; integrated live acceptance E398 |
+| [6](#session-6--cap-retirement-and-composition) | Cap retirement and composition | Complete; integrated live acceptance E398 |
+| [7](#session-7--integrated-live-acceptance) | Integrated deployment and live acceptance | Complete, live E398 |
 
 Each fresh session starts with `context/NOW.md`, its section below, and the
 relevant implementation/result sections. Record the completed scope, checks,
@@ -283,7 +283,7 @@ same-container distant transfers and top-level insertion, enabled-state
 changes, deletion, and reordering beyond sixteen devices. Include a
 container beyond the first top-level page.
 
-**Exit:** independently read back each tool's result under D15/D55; inspect
+**Exit:** independently read back each tool's result under D15/D65; inspect
 uncertain effects before further work and never automatically repeat the
 write. Remove owned scratch objects and verify preserved project/selection
 state. Record the acceptance, cleanup, and fixture-specific read/write costs
@@ -295,7 +295,7 @@ failure leaves an explicit remaining task and an accurate state handoff.
 ## Session 1 result
 
 Complete on 2026-10-26, verified live in
-[E354](../evidence/experiments/e354-extension-owned-container-scopes-live.md).
+[E395](../evidence/experiments/e395-extension-owned-container-scopes-live.md).
 The extension route was taken; the brain-side alternative above is not
 needed and is kept only as the record of the choice.
 
@@ -303,7 +303,7 @@ needed and is kept only as the record of the choice.
   B08 scope banks. An aim settles one scope per distinct absolute position:
   it polls every 5 ms with `host.scheduleTask` until cursor track 0 reports
   the expected track and `Rig.scopeSettled` holds, re-issues an unsettled
-  scroll every 10 polls (E353), and refuses after 400 polls with
+  scroll every 10 polls (E394), and refuses after 400 polls with
   `track-not-confirmed`, `scope-not-settled`, or `scopes-unavailable`. Scope
   choice: settled at the position; else asked for it; else the resting scope
   for a position inside the scope count; else a displaced scope, highest
@@ -353,9 +353,9 @@ needed and is kept only as the record of the choice.
 ## Session 2 implementation and live handoff
 
 Implemented on 2026-10-26 and **verified live on 2026-10-27** in
-[E356](../evidence/experiments/e356-paged-device-and-layer-reads-live.md).
+[E397](../evidence/experiments/e397-paged-device-and-layer-reads-live.md).
 The earlier host-state corrections are retained in
-[E355](../evidence/experiments/e355-paged-read-host-state-corrections.md).
+[E396](../evidence/experiments/e396-paged-read-host-state-corrections.md).
 Current normal archive SHA-256:
 `081cdbb46b410bb651f3f01cb3af436b32fb75d1285c3fcff5f03db0624813f7`.
 The v3 replacement, overflow acceptance, and scratch cleanup are complete.
@@ -379,7 +379,7 @@ The v3 replacement, overflow acceptance, and scratch cleanup are complete.
   Beyond the reference bank, scope settlement uses the confirmed track,
   total count, and the scope device's absolute position. Where the reference
   bank covers the position, name/existence agreement remains required.
-  The farther scope guard is proved at position 17 in E356. Layer channel indices
+  The farther scope guard is proved at position 17 in E397. Layer channel indices
   are diagnostic only: `LayerPageWitness` uses within-session channel IDs
   to reject old pages under newly reported positions, conflicting overlap,
   duplicate IDs, and incorrect restoration. It does not assume that
@@ -420,7 +420,7 @@ node --import tsx src/probes/b17-paged-reads-live.ts --out NEW_DIRECTORY
 
 It expects a `gn-b17r` scratch track in `gn-scale-test`: at least
 17 top-level devices, with a six-chain layer container last and five devices
-in at least one chain. `--devices` declares the exact count (default 17; E356
+in at least one chain. `--devices` declares the exact count (default 17; E397
 used `--devices 18`). It records public and raw reads, page
 counts, isolated observe cost, restored window positions, repeated content,
 track list, and selection preservation. Fixture preparation and cleanup are separate from this read-only driver.
@@ -430,7 +430,7 @@ container at position 14; composition needs one extra scratch slot. Append
 one Tool, then move it before the container to reach position 15. Copy from
 a different chain when growing chain A. Product writes cannot yet exceed
 the widths; do not lift their guards for fixture setup. Inspect existing
-fixtures first to avoid redundant setup. E356 records the passing reads and live costs; the ledger now includes them.
+fixtures first to avoid redundant setup. E397 records the passing reads and live costs; the ledger now includes them.
 
 ### First live attempt and corrections
 
@@ -481,19 +481,19 @@ no retry on restoration failure.
 The second actual operator reply was **“Controller replaced”**. The fresh
 v2 handshake, nonlocal layer indices, successful baseline, stale non-layer
 count, fixture writes, and cleanup are recorded once in
-[E355](../evidence/experiments/e355-paged-read-host-state-corrections.md).
+[E396](../evidence/experiments/e396-paged-read-host-state-corrections.md).
 The v3 correction completes a non-layer scope without traversing its stale
 layer bank. It leaves real layer containers and unknown capabilities on the
 guarded path and preserves named-slot completeness. `ContainerPagingTest`
 regresses the captured Tool/five-chain-count shape. `./gradlew check` and
 brain typecheck pass after this correction.
 
-The v3 replacement and live acceptance subsequently passed in E356.
+The v3 replacement and live acceptance subsequently passed in E397.
 
 ## Session 2 result and session 3 handoff
 
 Complete on 2026-10-27, with the read-only acceptance and cleanup recorded in
-[E356](../evidence/experiments/e356-paged-device-and-layer-reads-live.md).
+[E397](../evidence/experiments/e397-paged-device-and-layer-reads-live.md).
 The fixture had eighteen top-level devices, a six-chain FX Layer at position
 17, and five Tools in chain A. This proves all three overflow routes; the
 exact seventeen-device boundary remains covered offline. `read_devices`
@@ -593,7 +593,7 @@ the tool's final independent readback remains required.
 
 Duplication keeps the separate, earlier `chain.select` operation required
 by E17ak. Its restoration witness accepts the original ID order while the
-duplicate has not arrived, or the E353 projection with one new ID immediately
+duplicate has not arrived, or the E394 projection with one new ID immediately
 after the source. It rejects unexpected placement and duplicate identities.
 The handler never repeats duplication, including after a no-op, a thrown
 partial write, or a failed restoration. The acknowledgement alone does not
@@ -651,7 +651,7 @@ observations, alongside the track, chain-name, source-device-name, and
 optional complete top-level fingerprints. Both endpoint identities are
 checked before the one transfer. Reply names are captured before the source
 bank reindexes. The acknowledgement remains insufficient proof of success;
-the tool retains its final independent readback under D15/D55.
+the tool retains its final independent readback under D15/D65.
 
 Restoration unwinds the source device window before either enclosing chain
 window and releases the scope lease before replying. A failed inner restore
@@ -705,7 +705,7 @@ work without claiming new live latency.
   stitch assumes the bank did not change between reads. The existing
   `expectedName` guards and the chain `channelId` witness cover a write; a
   read that changes between pages should be re-read, bounded by attempts.
-- `duplicate_layer_chain` always appends after its source (E353), so a copy
+- `duplicate_layer_chain` always appends after its source (E394), so a copy
   of a chain on page one can land on page two; the create's minted-chain
   diff must run over the stitched reading.
 
@@ -819,7 +819,7 @@ made there. Reversal uses the issued structural checkpoint and checks any
 fingerprints actually recorded. It does not require an unavailable parameter
 read. Modulation that needs an overflow parameter route refuses before container
 insertion. Existing in-window scalar and modulation proofs remain. Retained
-support: E356's live paged structure reading, sessions 3–5 handler tests, and
+support: E397's live paged structure reading, sessions 3–5 handler tests, and
 session-6 composition/parity regressions; host acceptance of these newly admitted
 writes is still owed in session 7.
 
@@ -899,7 +899,7 @@ unrelated process was stopped.
 ### Session 7 result
 
 **Complete**, including sessions 3–6's integrated host acceptance, in
-[E357](../evidence/experiments/e357-integrated-paged-writes-live.md).
+[E398](../evidence/experiments/e398-integrated-paged-writes-live.md).
 The five-device composition at position 17, six-chain seed growth at 18,
 sixth-chain duplication/solo/rename, top-level-to-chain copy, chain-to-track
 move, distant same-container move, cross-container move, and overflow
@@ -918,7 +918,7 @@ snapshot also reached the fixed parameter cursor at position 19: parameter
 acquisition now honors the physical bank, and the ordinary device snapshot
 falls back to paged structure when scalar access is unreachable. D15's claim
 for that snapshot is structure only; it neither reconstructs deleted devices
-nor claims scalar preservation. E357 and full-executor regressions at
+nor claims scalar preservation. E398 and full-executor regressions at
 positions 16 and 19 retain the evidence. Parameter and named-slot bounds stay.
 
 The first stopped fixture was inspected, then removed with preservation checks.
@@ -934,12 +934,12 @@ Descriptions remain v57, 46 tools; no wire change or second deployment was
 needed. Review found one retired cap still in the `duplicate_layer_chain`
 description ("at most 5 layer chains"); the sentence was removed and the v57
 artifact hash above updated, since v57 had not shipped or run live.
-E357 retains all actual replies and raw exchange records.
+E398 retains all actual replies and raw exchange records.
 
 Fixture costs: five-device composition 26.3 s; six-chain composition 44.4 s /
 703 turns; isolated dense six-chain read median 862 ms / six turns. The latter
-fixture has 29 nested devices, so E356's smaller-fixture latency is not directly
+fixture has 29 nested devices, so E397's smaller-fixture latency is not directly
 comparable. The six-chain composition uses D44's under-45-second exception:
 repeated paged inventories, extra seed growth and the existing insert-then-move
-stages account for the cost. P01 owns the D55 rewrite and remeasurement;
+stages account for the cost. P01 owns the D65 rewrite and remeasurement;
 this session makes no new live reversal-latency claim. B17 is done.

@@ -1,0 +1,2297 @@
+{
+  "schema": "r01-pilot-package-v1",
+  "status": "offline-materialized",
+  "stage": "development",
+  "round": 2,
+  "packageVersion": "round2-development-v4-luna",
+  "inputVersion": "round2-4-synthetic",
+  "windows": null,
+  "windowRules": null,
+  "taskRules": {
+    "schema": "r01-round2-task-rules-v4",
+    "ladders": "Ladder v4 (R01-D19, R01-D20): four format-dependent families on C3 and C4 FIELDS, one calibration instance per level and one repeat, the same ladder in both cohort packages.",
+    "synthetic": "Seeded SHA-256 draws from r01-round2-families-v1 under domains [family, level, instance, ...]. Timed groups have positive delays and strictly increasing 1/512 spread cells from 0. Note-array order equals C4 block traversal (each note homed in its timing owner, else its first group, else NOTES) in every input and expected state, so no order cells are needed.",
+    "queryEdit": "G timed groups: G/2 core groups two quarters apart and G/2 near-miss groups planted at the bounds (latest member at X - d, out; at X + d, in; earliest member at Y + d, out; at Y - d, in; d = 1/512 or 0 in the first four, then seeded 0-8 cells). X is the onset of core group floor(G/8)'s second member, Y that of core group floor(3G/8)'s fourth. A timing-free pad (one untimed note inside, one at Y, one timed member) and loose notes before, at X, after Y and at the end. Selection uses input onsets: notes in [X, Y) rise 12 semitones; every timed group with a member in range moves its anchor later by an odd multiple of 1/16.",
+    "overlapEdit": "Four five-member owner groups; L + 1 overlay groups alternating timing-free (one homed untimed note; every second one has a reversed presentationOrder) and timed (three owned notes). Each owner's third member (heavy) belongs to exactly L groups; owner 2 references owner 3's heavy note and the first timed overlay's second note; that overlay references owner 2's heavy note. Four changes: retime owner 2, double the first timed overlay's spreads, set heavy 1's spread, and remove heavy 4 from its first non-owner group.",
+    "largeEdit": "N notes in seeded slots: timed groups of 3-6 (one in four inferred with state current), timing-free phrases of 2-3 untimed notes that reference the latest plain timed group's first note (the first and every third after it present their members reversed), and loose notes. At N/2 an edit block of three declared four-note groups is placed: its first note of the second group moves to the end of the first (spread above its last), and the third group's anchor moves later. Rich fields by final index: channel and expression at i mod 32 = 7, annotation at 19 mod 64, chance at 11 mod 48, mapped nominal timing at 2 mod 5 (declared at 2 mod 15, otherwise inheriting inferred musical provenance) and note-local declared nominal at 23 mod 40; edited notes carry no nominal timing.",
+    "interpMaintain": "E + 1 four-member timed groups (the first inferred, the second declared, others seeded; inferred ones carry state current), three loose notes, and ceil(E/2) + 1 timing-free overlays alternating inferred (state current) and declared, each spanning two edit targets and a note of the last group. Edits cycle onset-spread, velocity, pitch, duration, anchor and loose-onset; edit i targets group i (or the next loose note). Velocity and pitch targets carry inferred nominal timing (mapped inheriting inferred musical provenance, or note-local inferred; state current), alternating in edit order from an instance offset; timing targets rotate mapped-inherited, mapped-declared and note-local inferred in edit order from an instance offset; other notes draw any kind or none. Expected: pitch, onset or duration changes stale every inferred group containing the note; onset or duration changes stale its inferred nominal; velocity changes stale nothing; declared intent stays.",
+    "instances": "Calibration instance 1 per level, one repeat; the development pass uses fresh instances."
+  },
+  "ladders": {
+    "query-edit": {
+      "short": "query",
+      "from": [],
+      "cohort": "source",
+      "family": "selection-edit",
+      "axis": "timed groups scanned, half of them near-miss groups at the range bounds",
+      "levels": [
+        4,
+        8,
+        16,
+        32
+      ],
+      "diagnosticLevel": null,
+      "instances": [
+        1
+      ],
+      "repeats": 1
+    },
+    "overlap-edit": {
+      "short": "overlap",
+      "from": [],
+      "cohort": "source",
+      "family": "membership-edit",
+      "axis": "memberships of each heavy note (owner plus overlay groups)",
+      "levels": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "diagnosticLevel": null,
+      "instances": [
+        1
+      ],
+      "repeats": 1
+    },
+    "large-edit": {
+      "short": "large",
+      "from": [],
+      "cohort": "source",
+      "family": "edit-in-state",
+      "axis": "notes in the surrounding rich document",
+      "levels": [
+        64,
+        128,
+        256,
+        384
+      ],
+      "diagnosticLevel": null,
+      "instances": [
+        1
+      ],
+      "repeats": 1
+    },
+    "interp-maintain": {
+      "short": "interp",
+      "from": [],
+      "cohort": "source",
+      "family": "interpretation",
+      "axis": "edits under mixed provenance",
+      "levels": [
+        2,
+        4,
+        8,
+        12
+      ],
+      "diagnosticLevel": null,
+      "instances": [
+        1
+      ],
+      "repeats": 1
+    }
+  },
+  "instances": {
+    "query-edit": [
+      1
+    ],
+    "overlap-edit": [
+      1
+    ],
+    "large-edit": [
+      1
+    ],
+    "interp-maintain": [
+      1
+    ]
+  },
+  "cohort": "codex-current-high",
+  "decisions": [
+    "R01-D8",
+    "R01-D11",
+    "R01-D12",
+    "R01-D14",
+    "R01-D18",
+    "R01-D19",
+    "R01-D20"
+  ],
+  "selectionVersion": 4,
+  "syntheticSeed": "r01-round2-families-v1",
+  "velocitySeed": null,
+  "promptRevision": 2,
+  "scopeDelivery": "contract prose (no TASK SCOPE block)",
+  "node": "v24.11.1",
+  "upstreamPin": "52a4c219eca338b95e94dbfddcffeeb303ff8dd3",
+  "precisionPatchSha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322",
+  "tokenizer": "js-tiktoken@1.0.21/o200k_base",
+  "counts": {
+    "tasks": 16,
+    "cards": 2,
+    "scheduledCells": 96,
+    "primaryCells": 96,
+    "diagnosticCells": 0,
+    "eligibleCells": 32,
+    "exclusions": 64,
+    "goldenPasses": 32,
+    "wrongResultsRejected": 32,
+    "gratuitousRefusalsRejected": 32
+  },
+  "limits": [
+    "Development stage, round 2 (R01-D8): synthetic material only (seed r01-round2-families-v1); no work is opened and no real window is used. Results support design iteration only and are never pooled with round 1.",
+    "Ladder v4 (R01-D19, R01-D20): four format-dependent families on C3 and C4 FIELDS, uncalibrated levels shared by both cohort packages, one instance per level and one repeat (calibration). The development pass uses fresh instances in a later package.",
+    "Synthetic documents are constructed to exercise structure (derived onsets, overlapping memberships, rich surrounding state, interpretation provenance); they are not musical material and carry no performance intent.",
+    "Source tasks exclude current-document and Producer Pal arms. No source diagnostics run.",
+    "Cards, instructions and contracts are prompt revision 2 (packages v3-v5); scoring follows D59.",
+    "Common performed scoring normalizes once at 1/512; IDs/order are not cross-format scored. Source scoring is exact up to rational spelling.",
+    "Native Producer Pal parsing is tolerant; semantic pass does not establish canonical or strictly valid syntax.",
+    "Cell order is build order; trial order comes from the runner plan. Timeouts are pinned per family level (r01-round2-timeout-v1)."
+  ],
+  "tasks": [
+    {
+      "id": "r2-query-L4-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-query-L8-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-query-L16-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-query-L32-i1",
+      "version": 1,
+      "family": "selection-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-overlap-L2-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-overlap-L4-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-overlap-L6-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-overlap-L8-i1",
+      "version": 1,
+      "family": "membership-edit",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-large-L64-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-large-L128-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-large-L256-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-large-L384-i1",
+      "version": 1,
+      "family": "edit-in-state",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-interp-L2-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-interp-L4-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-interp-L8-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    },
+    {
+      "id": "r2-interp-L12-i1",
+      "version": 1,
+      "family": "interpretation",
+      "cohort": "source",
+      "response": "surface",
+      "source": "synthetic"
+    }
+  ],
+  "cards": {
+    "source--c3-fields": {
+      "arm": "c3-fields",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "9984a40c73ebe37a53c8a7468004e7b007c49e2290ec3844c7f6c428c60bca5a",
+        "bytes": 497,
+        "tokens": 158
+      },
+      "sha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "bytes": 2182,
+      "tokens": 484
+    },
+    "source--c4-fields": {
+      "arm": "c4-fields",
+      "cohort": "source",
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3",
+      "example": {
+        "sha256": "2b85c8c9bea3d444c76170cfe1cdea4b94446b0c039f624145a261b8e80ec359",
+        "bytes": 357,
+        "tokens": 122
+      },
+      "sha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "bytes": 2543,
+      "tokens": 553
+    }
+  },
+  "cells": [
+    {
+      "id": "r2-query-L4-i1--baseline-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--baseline-json",
+      "task": "r2-query-L4-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--c3-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "7478ff6a4c90334d6cee7eb51484e2a9edc4bda9f2859153baae2e4a7250a1df",
+      "decodedFactsSha256": "7478ff6a4c90334d6cee7eb51484e2a9edc4bda9f2859153baae2e4a7250a1df",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30923b1feb3e43558a84f96b2bc863cce4b729651b45ea64f2e50529b0b13726",
+        "bytes": 706,
+        "tokens": 161
+      },
+      "input": {
+        "sha256": "83b8af43ab32a2626b674915453a4f54b481fb0d90d551f819c6f7952646624c",
+        "bytes": 2162,
+        "tokens": 965
+      },
+      "prompt": {
+        "sha256": "94d7f7f875b2b63cd0a513329e68217c5bfdb3a3e7313a8dda4a74c024484f3c",
+        "bytes": 6852,
+        "tokens": 1936
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L4-i1--c4-fields",
+      "task": "r2-query-L4-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "7478ff6a4c90334d6cee7eb51484e2a9edc4bda9f2859153baae2e4a7250a1df",
+      "decodedFactsSha256": "7478ff6a4c90334d6cee7eb51484e2a9edc4bda9f2859153baae2e4a7250a1df",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30923b1feb3e43558a84f96b2bc863cce4b729651b45ea64f2e50529b0b13726",
+        "bytes": 706,
+        "tokens": 161
+      },
+      "input": {
+        "sha256": "573157be791b74ad06fed2d717fcadd5cea4c9896ed9e61954b85e922b6ac861",
+        "bytes": 1770,
+        "tokens": 737
+      },
+      "prompt": {
+        "sha256": "34ca210088b6cc7459517a69eacc22bc6c5889339607e44948c44aa3895540f2",
+        "bytes": 6821,
+        "tokens": 1777
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L4-i1--pp-barbeat",
+      "task": "r2-query-L4-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L4-i1--pp-midi-json",
+      "task": "r2-query-L4-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--baseline-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--baseline-json",
+      "task": "r2-query-L8-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--c3-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "c748ff34d0bdc1198dc8006217ca5d940c7e15c7f795e583445b860c51be2ab4",
+      "decodedFactsSha256": "c748ff34d0bdc1198dc8006217ca5d940c7e15c7f795e583445b860c51be2ab4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1986453186da6504cf7a8856f21cb43a8954e83269c07c067907b3175e99e417",
+        "bytes": 707,
+        "tokens": 161
+      },
+      "input": {
+        "sha256": "4577356a98162d08c3e2c5227d0e2377fbd832f15e5ea55581513a1bfc2406a0",
+        "bytes": 3947,
+        "tokens": 1783
+      },
+      "prompt": {
+        "sha256": "0784d700ee1c0edce490fc339ffae716d432526f15d305cadde9482044545a7d",
+        "bytes": 8638,
+        "tokens": 2754
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L8-i1--c4-fields",
+      "task": "r2-query-L8-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "c748ff34d0bdc1198dc8006217ca5d940c7e15c7f795e583445b860c51be2ab4",
+      "decodedFactsSha256": "c748ff34d0bdc1198dc8006217ca5d940c7e15c7f795e583445b860c51be2ab4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1986453186da6504cf7a8856f21cb43a8954e83269c07c067907b3175e99e417",
+        "bytes": 707,
+        "tokens": 161
+      },
+      "input": {
+        "sha256": "4d8b878692a418fd3a809bae00436cfe9fbc2a38f6e02e055ff9edeb1ef7092c",
+        "bytes": 3152,
+        "tokens": 1311
+      },
+      "prompt": {
+        "sha256": "483f890bc6a64b91bbf19554b2821a78fc8f7ed10c40ba712f13dce6d2f492ac",
+        "bytes": 8204,
+        "tokens": 2351
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L8-i1--pp-barbeat",
+      "task": "r2-query-L8-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L8-i1--pp-midi-json",
+      "task": "r2-query-L8-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--baseline-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--baseline-json",
+      "task": "r2-query-L16-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--c3-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "4c7490a87b654855e90b6fe232f02ca6ecb4ce993dd005ea3ca67289a4cf0d81",
+      "decodedFactsSha256": "4c7490a87b654855e90b6fe232f02ca6ecb4ce993dd005ea3ca67289a4cf0d81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1d4bbcd3ded4d3ba83090be5b764cbfaf40ac0863f86c0366391ea29f7b85ac3",
+        "bytes": 705,
+        "tokens": 160
+      },
+      "input": {
+        "sha256": "2821916a5a5e9d05d9fa15e556782f1a9149f6c80dbffafabb4433b46ac6f81e",
+        "bytes": 7658,
+        "tokens": 3418
+      },
+      "prompt": {
+        "sha256": "d73480520c6b12f4c7e87e9929de6468d6fce75d99ccbe7eae433e53df109d7b",
+        "bytes": 12347,
+        "tokens": 4388
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L16-i1--c4-fields",
+      "task": "r2-query-L16-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "4c7490a87b654855e90b6fe232f02ca6ecb4ce993dd005ea3ca67289a4cf0d81",
+      "decodedFactsSha256": "4c7490a87b654855e90b6fe232f02ca6ecb4ce993dd005ea3ca67289a4cf0d81",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "1d4bbcd3ded4d3ba83090be5b764cbfaf40ac0863f86c0366391ea29f7b85ac3",
+        "bytes": 705,
+        "tokens": 160
+      },
+      "input": {
+        "sha256": "e18fd644757262b7cac2b653c0d4c5d50bf585e1d176a0ba773840fbf4164ad3",
+        "bytes": 5966,
+        "tokens": 2461
+      },
+      "prompt": {
+        "sha256": "4b961d8a3ebced1d48991ea33a437215a7861ddf013d30d3c9d474fa9bd4f78d",
+        "bytes": 11016,
+        "tokens": 3500
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L16-i1--pp-barbeat",
+      "task": "r2-query-L16-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L16-i1--pp-midi-json",
+      "task": "r2-query-L16-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--baseline-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--baseline-json",
+      "task": "r2-query-L32-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--c3-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "1b4b20695b4e62265a010aadbf12e24eaaf474b557aec98a5d709ec7c437274f",
+      "decodedFactsSha256": "1b4b20695b4e62265a010aadbf12e24eaaf474b557aec98a5d709ec7c437274f",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "d3903ebf3f28f751a145d6c1f238ae5d2a86a93f0f1f274797d7da857335e627",
+        "bytes": 704,
+        "tokens": 160
+      },
+      "input": {
+        "sha256": "35ee02d35090237860fd26648f1bd6a0807c29fc56e69ed17a2da90f5ddc681e",
+        "bytes": 15171,
+        "tokens": 6673
+      },
+      "prompt": {
+        "sha256": "b905057cddcde7bf6513e457a880186ef5b5bf140eeb965c5aeabe45aeed4bbd",
+        "bytes": 19859,
+        "tokens": 7643
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L32-i1--c4-fields",
+      "task": "r2-query-L32-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "1b4b20695b4e62265a010aadbf12e24eaaf474b557aec98a5d709ec7c437274f",
+      "decodedFactsSha256": "1b4b20695b4e62265a010aadbf12e24eaaf474b557aec98a5d709ec7c437274f",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "d3903ebf3f28f751a145d6c1f238ae5d2a86a93f0f1f274797d7da857335e627",
+        "bytes": 704,
+        "tokens": 160
+      },
+      "input": {
+        "sha256": "477c394a9d9a429f07828bf409289a021eff4fd8eea4caaa495050911fc07f4e",
+        "bytes": 11656,
+        "tokens": 4755
+      },
+      "prompt": {
+        "sha256": "095135a10ded0e75fb31f29cbc16fbccae7ab3a998d00c16e653321283a0c69b",
+        "bytes": 16705,
+        "tokens": 5794
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-query-L32-i1--pp-barbeat",
+      "task": "r2-query-L32-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-query-L32-i1--pp-midi-json",
+      "task": "r2-query-L32-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "selection-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--baseline-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--baseline-json",
+      "task": "r2-overlap-L2-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--c3-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "aacb51e287f518a2666b4d3f4932bad2562ad7c6d5c1dffd45bf28e6db4895df",
+      "decodedFactsSha256": "aacb51e287f518a2666b4d3f4932bad2562ad7c6d5c1dffd45bf28e6db4895df",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "08a327d621c7d7a8b8e50f9157903c6678294cea3e0948fc72f090659d99f5ff",
+        "bytes": 563,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "4d8b4252ca2728e58847be53dd10c4b24493e0fd12ee7796a4a10bf9e443a6ba",
+        "bytes": 2870,
+        "tokens": 1307
+      },
+      "prompt": {
+        "sha256": "def9f997e2fd766dda8be1e3fe3ddffcad312688eada23fe7db1e3268a06de2b",
+        "bytes": 7417,
+        "tokens": 2255
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L2-i1--c4-fields",
+      "task": "r2-overlap-L2-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "aacb51e287f518a2666b4d3f4932bad2562ad7c6d5c1dffd45bf28e6db4895df",
+      "decodedFactsSha256": "aacb51e287f518a2666b4d3f4932bad2562ad7c6d5c1dffd45bf28e6db4895df",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "08a327d621c7d7a8b8e50f9157903c6678294cea3e0948fc72f090659d99f5ff",
+        "bytes": 563,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "8a327958314f8a307a3bbdb2072a9c54b3511e3a1eda64b5403c6fcdf1edd4f0",
+        "bytes": 2292,
+        "tokens": 960
+      },
+      "prompt": {
+        "sha256": "e1a899483d6a9a57be13c443e4434e603ada0068f4d9e81a8006e79248762cc9",
+        "bytes": 7200,
+        "tokens": 1977
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L2-i1--pp-barbeat",
+      "task": "r2-overlap-L2-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L2-i1--pp-midi-json",
+      "task": "r2-overlap-L2-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--baseline-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--baseline-json",
+      "task": "r2-overlap-L4-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--c3-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "b99d96682688776dc504cf53f0a6e588f475fb995eaba316b4d7e80c45714b3b",
+      "decodedFactsSha256": "b99d96682688776dc504cf53f0a6e588f475fb995eaba316b4d7e80c45714b3b",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "ac546abc11b64eb81424ac2beb616b23891d4448bf1b74412a3792aa28e3dd35",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "664a75f4df5e8dbd98a33cca2e780ec6a15a5c03c16ade1eeebfe83603996f6d",
+        "bytes": 3520,
+        "tokens": 1603
+      },
+      "prompt": {
+        "sha256": "80080179aa3664ee0e3019104a6a149e91ff2d23eed90160d9c95bf3bb9abaa2",
+        "bytes": 8066,
+        "tokens": 2551
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L4-i1--c4-fields",
+      "task": "r2-overlap-L4-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "b99d96682688776dc504cf53f0a6e588f475fb995eaba316b4d7e80c45714b3b",
+      "decodedFactsSha256": "b99d96682688776dc504cf53f0a6e588f475fb995eaba316b4d7e80c45714b3b",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "ac546abc11b64eb81424ac2beb616b23891d4448bf1b74412a3792aa28e3dd35",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "0abeedde2333501dc2e5c532081fdd229474e9dccef340e87e10d12741fc03c0",
+        "bytes": 2889,
+        "tokens": 1207
+      },
+      "prompt": {
+        "sha256": "8f3856f4ab854aff11d8bba5e499f12db1f0246cd68ca1249abfceebe4200c5a",
+        "bytes": 7796,
+        "tokens": 2224
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L4-i1--pp-barbeat",
+      "task": "r2-overlap-L4-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L4-i1--pp-midi-json",
+      "task": "r2-overlap-L4-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--baseline-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--baseline-json",
+      "task": "r2-overlap-L6-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--c3-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "7b1ba1e79f4d8c41aebb1f75748e51232b56e29e4170b143ba31bba694044f53",
+      "decodedFactsSha256": "7b1ba1e79f4d8c41aebb1f75748e51232b56e29e4170b143ba31bba694044f53",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "594678b6b81e60ba4424e1ac8b7fff1e35cb1fd8f7b1e1c28c002515ea7bf19c",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "9f1807d8034722f370ba71907c6270a3e79016c2352b436e7da6eafc5fd7c90d",
+        "bytes": 4210,
+        "tokens": 1919
+      },
+      "prompt": {
+        "sha256": "2ed6c8e5140f2e4b05bdc7c73e4f38b258c66a84ff45d27b4555be17d57bf28a",
+        "bytes": 8756,
+        "tokens": 2867
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L6-i1--c4-fields",
+      "task": "r2-overlap-L6-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "7b1ba1e79f4d8c41aebb1f75748e51232b56e29e4170b143ba31bba694044f53",
+      "decodedFactsSha256": "7b1ba1e79f4d8c41aebb1f75748e51232b56e29e4170b143ba31bba694044f53",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "594678b6b81e60ba4424e1ac8b7fff1e35cb1fd8f7b1e1c28c002515ea7bf19c",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "df0f2bece5e9bc2edd4debdf7b6bf8904ac0dba7a9b26a86a0a69ea9c77aaae5",
+        "bytes": 3531,
+        "tokens": 1476
+      },
+      "prompt": {
+        "sha256": "4da937c10a075e259e12f012cbb210319fa446a59cf8c5e2356ac0e86efc010b",
+        "bytes": 8438,
+        "tokens": 2493
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L6-i1--pp-barbeat",
+      "task": "r2-overlap-L6-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L6-i1--pp-midi-json",
+      "task": "r2-overlap-L6-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--baseline-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--baseline-json",
+      "task": "r2-overlap-L8-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--c3-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "ca03f8765174a061601ad41f24e7d54e73e46619ad8e197d275682b7774d6726",
+      "decodedFactsSha256": "ca03f8765174a061601ad41f24e7d54e73e46619ad8e197d275682b7774d6726",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "8a083a7bfcabc45d0b15a83bc1d1c74e5f29fd54c8a2418b6b37bfd54242a48e",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "e27259b62c1f3ae9223a1cbf3e5963f78a2758dba00150e3c9e049cbb75f4398",
+        "bytes": 4882,
+        "tokens": 2229
+      },
+      "prompt": {
+        "sha256": "301011426801e80390cb2598774d3aa2e4bcb35304f6ab4bbfd9fbb0f338ef2a",
+        "bytes": 9428,
+        "tokens": 3177
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L8-i1--c4-fields",
+      "task": "r2-overlap-L8-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "ca03f8765174a061601ad41f24e7d54e73e46619ad8e197d275682b7774d6726",
+      "decodedFactsSha256": "ca03f8765174a061601ad41f24e7d54e73e46619ad8e197d275682b7774d6726",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "8a083a7bfcabc45d0b15a83bc1d1c74e5f29fd54c8a2418b6b37bfd54242a48e",
+        "bytes": 562,
+        "tokens": 138
+      },
+      "input": {
+        "sha256": "e252ec965e82f91aa557c0ea1fc09034e9f298c2c0b1afce745582c5b3189876",
+        "bytes": 4143,
+        "tokens": 1734
+      },
+      "prompt": {
+        "sha256": "f50dfd8c6abf75def7c44339c99c3093a2ac49de737390baccb3e69a68c0bc4d",
+        "bytes": 9050,
+        "tokens": 2751
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-overlap-L8-i1--pp-barbeat",
+      "task": "r2-overlap-L8-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-overlap-L8-i1--pp-midi-json",
+      "task": "r2-overlap-L8-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "membership-edit",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--baseline-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--baseline-json",
+      "task": "r2-large-L64-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--c3-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "752b684c465b49f74ddcc28871f99e54dec850768837294684967330023adcc4",
+      "decodedFactsSha256": "752b684c465b49f74ddcc28871f99e54dec850768837294684967330023adcc4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30273989038a77b2935478cff907c5a78299215569ad8a26626f04df624ec37e",
+        "bytes": 510,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "d5a49553fe798620a4ea90352072055f71f5ffc451cdc047de3fc8f4b57cb9bd",
+        "bytes": 8524,
+        "tokens": 3709
+      },
+      "prompt": {
+        "sha256": "142c132be4e119e6e2386af3107c11fb8463f3fe2cf865242049ccf164ac6e85",
+        "bytes": 13018,
+        "tokens": 4647
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L64-i1--c4-fields",
+      "task": "r2-large-L64-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "752b684c465b49f74ddcc28871f99e54dec850768837294684967330023adcc4",
+      "decodedFactsSha256": "752b684c465b49f74ddcc28871f99e54dec850768837294684967330023adcc4",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "30273989038a77b2935478cff907c5a78299215569ad8a26626f04df624ec37e",
+        "bytes": 510,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "912d71f1201092ba55ae64518c57454fc40be81df882ed0928d8fa498d8c3982",
+        "bytes": 6773,
+        "tokens": 2595
+      },
+      "prompt": {
+        "sha256": "a8240931b517d96cde161a95a14985a9ea589e905194aea69d2b5efc0c186a4a",
+        "bytes": 11628,
+        "tokens": 3602
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L64-i1--pp-barbeat",
+      "task": "r2-large-L64-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L64-i1--pp-midi-json",
+      "task": "r2-large-L64-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--baseline-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--baseline-json",
+      "task": "r2-large-L128-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--c3-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "d1d76b2ecdc3917b647f0e10839d5afad5fc083842afe1fba561ca9ead992025",
+      "decodedFactsSha256": "d1d76b2ecdc3917b647f0e10839d5afad5fc083842afe1fba561ca9ead992025",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "68e59681120f537541c65b8e732db66761f7e99059abee93cc3c8675d8f4838b",
+        "bytes": 516,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "318cd8fcff36d68a960a923ca321e540586c66dbebdee2029ba488406c3a5b26",
+        "bytes": 16665,
+        "tokens": 7230
+      },
+      "prompt": {
+        "sha256": "3142a1e2a38395029588d69a6476f732b4f9701e3456a1d1198d591a477af876",
+        "bytes": 21165,
+        "tokens": 8168
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L128-i1--c4-fields",
+      "task": "r2-large-L128-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "d1d76b2ecdc3917b647f0e10839d5afad5fc083842afe1fba561ca9ead992025",
+      "decodedFactsSha256": "d1d76b2ecdc3917b647f0e10839d5afad5fc083842afe1fba561ca9ead992025",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "68e59681120f537541c65b8e732db66761f7e99059abee93cc3c8675d8f4838b",
+        "bytes": 516,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "9d7ee92be427e65a36bcd6499936dd1dab5031ddcd713ff6c36cef1cf2ffe17d",
+        "bytes": 13275,
+        "tokens": 5076
+      },
+      "prompt": {
+        "sha256": "1eb7e9463fa3f703991625e848196c833866f7f25c4041dad92d60c817aa2550",
+        "bytes": 18136,
+        "tokens": 6083
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L128-i1--pp-barbeat",
+      "task": "r2-large-L128-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L128-i1--pp-midi-json",
+      "task": "r2-large-L128-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--baseline-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--baseline-json",
+      "task": "r2-large-L256-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--c3-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "82da46068c83313d0f89e23c7c77b88c614b5e56ac62d65ac4c27c2dfde229ae",
+      "decodedFactsSha256": "82da46068c83313d0f89e23c7c77b88c614b5e56ac62d65ac4c27c2dfde229ae",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "84409937666b872829ddbf657d52e17bf3a286fda94e42e8c2e16a3770527db1",
+        "bytes": 517,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "e6e79556b70cfb7a830c0a0cc75671f7e9fb32d39d89aad8a6caab8a9951f3e5",
+        "bytes": 32761,
+        "tokens": 14139
+      },
+      "prompt": {
+        "sha256": "c54422ad232595308905be0ac0979cdba619db7b01373b3f44ca5b70e2f06c67",
+        "bytes": 37262,
+        "tokens": 15077
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L256-i1--c4-fields",
+      "task": "r2-large-L256-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "82da46068c83313d0f89e23c7c77b88c614b5e56ac62d65ac4c27c2dfde229ae",
+      "decodedFactsSha256": "82da46068c83313d0f89e23c7c77b88c614b5e56ac62d65ac4c27c2dfde229ae",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "84409937666b872829ddbf657d52e17bf3a286fda94e42e8c2e16a3770527db1",
+        "bytes": 517,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "d244d758d7dec02f7fad414a2c38f0d5d26fd3b353077d4522e2d0a0b4f1edfa",
+        "bytes": 26412,
+        "tokens": 10065
+      },
+      "prompt": {
+        "sha256": "68d13bfb8f3cca775642b8b619e539f6d2e471fac056c2d709308823c19450c4",
+        "bytes": 31274,
+        "tokens": 11072
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L256-i1--pp-barbeat",
+      "task": "r2-large-L256-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L256-i1--pp-midi-json",
+      "task": "r2-large-L256-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--baseline-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--baseline-json",
+      "task": "r2-large-L384-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--c3-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "ef8fc66ebe4560ddcb4ee545d17842ed18942d6de42fba06f6b263662e91f103",
+      "decodedFactsSha256": "ef8fc66ebe4560ddcb4ee545d17842ed18942d6de42fba06f6b263662e91f103",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "4db876bb0df87574d2c3e404fefe380cddae2e8512d112e907ed017f4db77805",
+        "bytes": 515,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "6e164ee8129bb1873d86d7614456ca6f62587510e1eafae0ff6fe3ee11b7edee",
+        "bytes": 47619,
+        "tokens": 20641
+      },
+      "prompt": {
+        "sha256": "10b8dcf8daa2091fd087e080fcab35669a6971131162489cd9b88d0e01dcc6b3",
+        "bytes": 52118,
+        "tokens": 21579
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L384-i1--c4-fields",
+      "task": "r2-large-L384-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "ef8fc66ebe4560ddcb4ee545d17842ed18942d6de42fba06f6b263662e91f103",
+      "decodedFactsSha256": "ef8fc66ebe4560ddcb4ee545d17842ed18942d6de42fba06f6b263662e91f103",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "4db876bb0df87574d2c3e404fefe380cddae2e8512d112e907ed017f4db77805",
+        "bytes": 515,
+        "tokens": 128
+      },
+      "input": {
+        "sha256": "7c2d7a5b1c3ba504c1245feb7c01c4f7b6a1a30f9e5a610349a34fffd0360481",
+        "bytes": 38139,
+        "tokens": 14660
+      },
+      "prompt": {
+        "sha256": "28454375c67f4885e595e7bb5b817227d367f3da934c04bb1c596652b35bd243",
+        "bytes": 42999,
+        "tokens": 15667
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-large-L384-i1--pp-barbeat",
+      "task": "r2-large-L384-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-large-L384-i1--pp-midi-json",
+      "task": "r2-large-L384-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "edit-in-state",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--baseline-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--baseline-json",
+      "task": "r2-interp-L2-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--c3-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "0f34cc174d8cc71566bdd3dd6128a73889d324dc9fd8e2bf859f6a478b5932d6",
+      "decodedFactsSha256": "0f34cc174d8cc71566bdd3dd6128a73889d324dc9fd8e2bf859f6a478b5932d6",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "4742090e4151161335118a9d0c361bf810bedd7d58ae8fe296abcab73e475bb0",
+        "bytes": 522,
+        "tokens": 111
+      },
+      "input": {
+        "sha256": "cdbea130217ff2d4f2f2633affa82e15a31aac52524884ede79fc5bdd15540c7",
+        "bytes": 2772,
+        "tokens": 1088
+      },
+      "prompt": {
+        "sha256": "afc8b7c1e7e262b476401dc9d1766246046bb94f6db3ec358dcc2ae82cbcda1f",
+        "bytes": 7278,
+        "tokens": 2009
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L2-i1--c4-fields",
+      "task": "r2-interp-L2-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "0f34cc174d8cc71566bdd3dd6128a73889d324dc9fd8e2bf859f6a478b5932d6",
+      "decodedFactsSha256": "0f34cc174d8cc71566bdd3dd6128a73889d324dc9fd8e2bf859f6a478b5932d6",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "4742090e4151161335118a9d0c361bf810bedd7d58ae8fe296abcab73e475bb0",
+        "bytes": 522,
+        "tokens": 111
+      },
+      "input": {
+        "sha256": "31907fc278d66e5e07112f97312a8c739658f837c3e239e38edfb92a24a97eba",
+        "bytes": 2703,
+        "tokens": 952
+      },
+      "prompt": {
+        "sha256": "5dbe399be4d772461bebbada9bff76fe89fa69b93b90b1c6dc54d3f233d9166e",
+        "bytes": 7570,
+        "tokens": 1942
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L2-i1--pp-barbeat",
+      "task": "r2-interp-L2-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L2-i1--pp-midi-json",
+      "task": "r2-interp-L2-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--baseline-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--baseline-json",
+      "task": "r2-interp-L4-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--c3-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "9baa34923e6db4df9f487abc4e53a990456f58baa5c429b360cb49c7de3f50b0",
+      "decodedFactsSha256": "9baa34923e6db4df9f487abc4e53a990456f58baa5c429b360cb49c7de3f50b0",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "c84e7f1c439f32230276d9c86bea4adce10b8df6e1a77db456c4a272414c5b1d",
+        "bytes": 606,
+        "tokens": 143
+      },
+      "input": {
+        "sha256": "2bc82b5fec071e5062683512ffb72a3bae86bac0ec4af418a210bbd65790a3e3",
+        "bytes": 4512,
+        "tokens": 1752
+      },
+      "prompt": {
+        "sha256": "9a0db37286471f65cab7c3324a7584fe8849b025acabfd07cd068e170ff8d0b8",
+        "bytes": 9102,
+        "tokens": 2705
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L4-i1--c4-fields",
+      "task": "r2-interp-L4-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "9baa34923e6db4df9f487abc4e53a990456f58baa5c429b360cb49c7de3f50b0",
+      "decodedFactsSha256": "9baa34923e6db4df9f487abc4e53a990456f58baa5c429b360cb49c7de3f50b0",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "c84e7f1c439f32230276d9c86bea4adce10b8df6e1a77db456c4a272414c5b1d",
+        "bytes": 606,
+        "tokens": 143
+      },
+      "input": {
+        "sha256": "eef38271c41f1db12383daee2ff93894058bdf6a76ec9089a5829932043ebc31",
+        "bytes": 4426,
+        "tokens": 1530
+      },
+      "prompt": {
+        "sha256": "d8e05d9b7f05464ddf6b335306c27073657e3617c0f609b1e52dfeb983f62288",
+        "bytes": 9377,
+        "tokens": 2552
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L4-i1--pp-barbeat",
+      "task": "r2-interp-L4-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L4-i1--pp-midi-json",
+      "task": "r2-interp-L4-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--baseline-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--baseline-json",
+      "task": "r2-interp-L8-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--c3-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "9f402b67c90d3450e65edb85448ff5a6d86b0599ab2cbc8f149dfab6b21a8a67",
+      "decodedFactsSha256": "9f402b67c90d3450e65edb85448ff5a6d86b0599ab2cbc8f149dfab6b21a8a67",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "50b85ebf8b427bec28538de40de32a9739fb991442b1d8959cc700201bac16a2",
+        "bytes": 787,
+        "tokens": 210
+      },
+      "input": {
+        "sha256": "5d39892e36855e5186aa4fdfb4edc9e45e636d17c21bea0372c3a845fa01e803",
+        "bytes": 7155,
+        "tokens": 2856
+      },
+      "prompt": {
+        "sha256": "b0a1dbcfc62d439bea8fc3d2fa2bd31dcbeaa5044741aa4bffbdca7341bf8be6",
+        "bytes": 11926,
+        "tokens": 3876
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L8-i1--c4-fields",
+      "task": "r2-interp-L8-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "9f402b67c90d3450e65edb85448ff5a6d86b0599ab2cbc8f149dfab6b21a8a67",
+      "decodedFactsSha256": "9f402b67c90d3450e65edb85448ff5a6d86b0599ab2cbc8f149dfab6b21a8a67",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "50b85ebf8b427bec28538de40de32a9739fb991442b1d8959cc700201bac16a2",
+        "bytes": 787,
+        "tokens": 210
+      },
+      "input": {
+        "sha256": "fd2bfc7c12fbddee194bc1e4e5afa79f7ced4b654b7e8acccd3b877fe9a10947",
+        "bytes": 6932,
+        "tokens": 2424
+      },
+      "prompt": {
+        "sha256": "3c46a992adb668c9966d0dd77a673c786cff7b22cbf35e45b2c1c11afb5c8e76",
+        "bytes": 12064,
+        "tokens": 3513
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L8-i1--pp-barbeat",
+      "task": "r2-interp-L8-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L8-i1--pp-midi-json",
+      "task": "r2-interp-L8-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--baseline-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "baseline-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--baseline-json",
+      "task": "r2-interp-L12-i1",
+      "arm": "baseline-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--c3-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c3-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c3-fields.txt",
+      "sourceFactsSha256": "50b31a64bd08551fbf3be793eaebb5a9891bc370e1137e51e9522abef5dccdbc",
+      "decodedFactsSha256": "50b31a64bd08551fbf3be793eaebb5a9891bc370e1137e51e9522abef5dccdbc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "e1e3ff04a602ecacf4e148cf5c5586a8a06e42822aabf9e7abbe919ca20717b5",
+        "bytes": 953,
+        "tokens": 273
+      },
+      "input": {
+        "sha256": "47e69312b5ede814b9fcfb421deaa7336b9adc7e88cc56e4039cf83dec998c36",
+        "bytes": 10224,
+        "tokens": 4059
+      },
+      "prompt": {
+        "sha256": "dee058c214da3f564db01447b44a57312970a6c2a1cbc6ab43abf245b8cc6197",
+        "bytes": 15161,
+        "tokens": 5142
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L12-i1--c4-fields",
+      "task": "r2-interp-L12-i1",
+      "arm": "c4-fields",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": true,
+      "card": "cards/source--c4-fields.txt",
+      "sourceFactsSha256": "50b31a64bd08551fbf3be793eaebb5a9891bc370e1137e51e9522abef5dccdbc",
+      "decodedFactsSha256": "50b31a64bd08551fbf3be793eaebb5a9891bc370e1137e51e9522abef5dccdbc",
+      "instructions": {
+        "sha256": "ebac6f76014e5dcee6dad867f6540469180ed2bc429c5f7a65f426edcd3ae3e4",
+        "bytes": 1785,
+        "tokens": 323
+      },
+      "request": {
+        "sha256": "e1e3ff04a602ecacf4e148cf5c5586a8a06e42822aabf9e7abbe919ca20717b5",
+        "bytes": 953,
+        "tokens": 273
+      },
+      "input": {
+        "sha256": "002040d290837a632ddf93ac14a1e7761b55a2f1a228a40d64b03244f3b9eff0",
+        "bytes": 9982,
+        "tokens": 3466
+      },
+      "prompt": {
+        "sha256": "465adf2e09c9fa515db8e6edccd28d132ba0278f43b8d872c23e6b032781c4ed",
+        "bytes": 15280,
+        "tokens": 4618
+      },
+      "exampleFactsSha256": "a0f8e1f9218758f4853fd349cc1b0839b7646eec988529ca67a84c1b76b3b7e3"
+    },
+    {
+      "id": "r2-interp-L12-i1--pp-barbeat",
+      "task": "r2-interp-L12-i1",
+      "arm": "pp-barbeat",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    },
+    {
+      "id": "r2-interp-L12-i1--pp-midi-json",
+      "task": "r2-interp-L12-i1",
+      "arm": "pp-midi-json",
+      "cohort": "source",
+      "family": "interpretation",
+      "role": "primary",
+      "eligible": false,
+      "reason": "exact source/context contract not supplied by this arm; no supplemental annotation adapter in this cohort"
+    }
+  ],
+  "timeouts": {
+    "schema": "r01-round2-timeout-v1",
+    "baseMs": 120000,
+    "perTokenMs": 60,
+    "roundToMs": 10000,
+    "expectedOutput": "the largest golden response, in local o200k_base tokens, over every eligible arm and instance of the family level",
+    "formula": "timeoutMs = ceil((baseMs + perTokenMs x expected output tokens) / roundToMs) x roundToMs",
+    "rationale": "At least the round-1 limit; 60 ms per token allows about 17 answer tokens per second beyond two minutes for reasoning and latency. Elapsed time is reported as a measure.",
+    "byLevel": {
+      "query-edit": {
+        "4": {
+          "expectedOutputTokens": 969,
+          "timeoutMs": 180000
+        },
+        "8": {
+          "expectedOutputTokens": 1793,
+          "timeoutMs": 230000
+        },
+        "16": {
+          "expectedOutputTokens": 3436,
+          "timeoutMs": 330000
+        },
+        "32": {
+          "expectedOutputTokens": 6707,
+          "timeoutMs": 530000
+        }
+      },
+      "overlap-edit": {
+        "2": {
+          "expectedOutputTokens": 1297,
+          "timeoutMs": 200000
+        },
+        "4": {
+          "expectedOutputTokens": 1592,
+          "timeoutMs": 220000
+        },
+        "6": {
+          "expectedOutputTokens": 1908,
+          "timeoutMs": 240000
+        },
+        "8": {
+          "expectedOutputTokens": 2219,
+          "timeoutMs": 260000
+        }
+      },
+      "large-edit": {
+        "64": {
+          "expectedOutputTokens": 3713,
+          "timeoutMs": 350000
+        },
+        "128": {
+          "expectedOutputTokens": 7234,
+          "timeoutMs": 560000
+        },
+        "256": {
+          "expectedOutputTokens": 14143,
+          "timeoutMs": 970000
+        },
+        "384": {
+          "expectedOutputTokens": 20645,
+          "timeoutMs": 1360000
+        }
+      },
+      "interp-maintain": {
+        "2": {
+          "expectedOutputTokens": 1094,
+          "timeoutMs": 190000
+        },
+        "4": {
+          "expectedOutputTokens": 1758,
+          "timeoutMs": 230000
+        },
+        "8": {
+          "expectedOutputTokens": 2870,
+          "timeoutMs": 300000
+        },
+        "12": {
+          "expectedOutputTokens": 4085,
+          "timeoutMs": 370000
+        }
+      }
+    },
+    "byTask": {
+      "r2-query-L4-i1": 180000,
+      "r2-query-L8-i1": 230000,
+      "r2-query-L16-i1": 330000,
+      "r2-query-L32-i1": 530000,
+      "r2-overlap-L2-i1": 200000,
+      "r2-overlap-L4-i1": 220000,
+      "r2-overlap-L6-i1": 240000,
+      "r2-overlap-L8-i1": 260000,
+      "r2-large-L64-i1": 350000,
+      "r2-large-L128-i1": 560000,
+      "r2-large-L256-i1": 970000,
+      "r2-large-L384-i1": 1360000,
+      "r2-interp-L2-i1": 190000,
+      "r2-interp-L4-i1": 230000,
+      "r2-interp-L8-i1": 300000,
+      "r2-interp-L12-i1": 370000
+    }
+  },
+  "repeats": {
+    "schema": "r01-round2-repeats-v1",
+    "rule": "Each family ladder sets its repeats; the planner schedules that many repetitions of each of its tasks.",
+    "byTask": {
+      "r2-query-L4-i1": 1,
+      "r2-query-L8-i1": 1,
+      "r2-query-L16-i1": 1,
+      "r2-query-L32-i1": 1,
+      "r2-overlap-L2-i1": 1,
+      "r2-overlap-L4-i1": 1,
+      "r2-overlap-L6-i1": 1,
+      "r2-overlap-L8-i1": 1,
+      "r2-large-L64-i1": 1,
+      "r2-large-L128-i1": 1,
+      "r2-large-L256-i1": 1,
+      "r2-large-L384-i1": 1,
+      "r2-interp-L2-i1": 1,
+      "r2-interp-L4-i1": 1,
+      "r2-interp-L8-i1": 1,
+      "r2-interp-L12-i1": 1
+    }
+  },
+  "sources": [
+    {
+      "path": "brain/benchmarks/r01-candidates/common.mjs",
+      "sha256": "44fabb980ed32b51317defcddf3ebddbb785362e3f4744100b517702ecf011cf"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/compact-fields.mjs",
+      "sha256": "6843d746c6d64f480a6918ffb6d8584377a95b5091896765b4a51a28defbb6ec"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/detached-fields.mjs",
+      "sha256": "f4783a6a140a2129dffcf46428019048a82598d663370bc9283be7a70cfcb41a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-cards.mjs",
+      "sha256": "db281a3224d3301022c6174925a9d47d847671756c8ad38c1ace806689ebf6dd"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-pairs.mjs",
+      "sha256": "385f60f9fcc2448e412517895b01846bf54d16b1a2f8e5e6565fb8c28423633b"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-pairs.test.mjs",
+      "sha256": "426fd90e301e3b70cbd5cd07fb99088aee7976b41e5a1a7df774284ab8512610"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-surfaces.mjs",
+      "sha256": "73c58a6fd91c69f5a3cfbd2f05c1e95e061dd276a746c56668d329ac725b3d35"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/development-tasks.mjs",
+      "sha256": "8b64b17bf6f9ffedcd147a5ef83e3093937c230a83d60826a22510dcefb16b2a"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/fixtures.mjs",
+      "sha256": "cccc02a3642dab411b1cd54f6e19affde72c96280293cf6f1140b35f4d174291"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/nested-fields.mjs",
+      "sha256": "9390b6d5e177400c30527f3d3b106c8dde449b75370e75ffe1d3e71cdb565597"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/precision.mjs",
+      "sha256": "28ce7f3a5dc4a25af66365cc91f12008589150d1b353a6c79d0e609546aa8deb"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-families.mjs",
+      "sha256": "3163f1a08695ba627b48a4393884f4d72632494284e12fd7a70a867e9393fa15"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-inputs.mjs",
+      "sha256": "7fcbfcb2724799e8df800507fe7fa7c960a2d78df4b9da4dc65fa65a48aeb184"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-package.mjs",
+      "sha256": "dfaab7f9df6e3132b7a8e93cf0fa7a2919af13aa1c19761ade0792cd9db559ed"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/round2-tasks.mjs",
+      "sha256": "9115a557b468f105dfa1cc681543c3f00640a38c4eb85af798e5ad734323e043"
+    },
+    {
+      "path": "brain/benchmarks/r01-candidates/structured.mjs",
+      "sha256": "51a3b5abbb4f42e2b30b10761cf657e202aba8b2126e2d0b76eca2a5c152c4aa"
+    },
+    {
+      "path": "brain/package-lock.json",
+      "sha256": "f244dda9703dbc1072eea87aa95a21c50179475779d233d97582ec626da9fb1a"
+    },
+    {
+      "path": "brain/src/document/cli.test.ts",
+      "sha256": "18714694fe0bf3008b082af65571af88fa287fe5ecfadfb9340eb3e3a7199b99"
+    },
+    {
+      "path": "brain/src/document/cli.ts",
+      "sha256": "2e8c04fd41b8c54700a18611c0f20abf7d991dbfcb972cd1625c60c9d994910a"
+    },
+    {
+      "path": "brain/src/document/codec.test.ts",
+      "sha256": "3cc674fc66874030de9971eb419b8ede437529be570c9461f86e6a29b268e605"
+    },
+    {
+      "path": "brain/src/document/display.ts",
+      "sha256": "17271d2a7dbcc6f3866724f13a2482049d3ed33eca863f594d7fae7755125c1d"
+    },
+    {
+      "path": "brain/src/document/error.ts",
+      "sha256": "269e108bff7f53878b6e4890a57feb25d239052dd9cbd5df1663140e927ddfa9"
+    },
+    {
+      "path": "brain/src/document/fields.ts",
+      "sha256": "d67e5792163cf52b603532ab32e7a546922529e41fdfe89368dd441608c07e4e"
+    },
+    {
+      "path": "brain/src/document/import.ts",
+      "sha256": "dcf6f544b6a3903718afab86196bc69285a7c8b1fa9c914a2f3345514c251d7e"
+    },
+    {
+      "path": "brain/src/document/index.ts",
+      "sha256": "df1d0b03c8e9a47d1770623eef47f70e03edc02a8cddbb60357f0723141ed21e"
+    },
+    {
+      "path": "brain/src/document/json.ts",
+      "sha256": "39da2dd0f5af6bf88b722cb627842d143f936499bad228ded974a75ba89e3bcc"
+    },
+    {
+      "path": "brain/src/document/materialize.ts",
+      "sha256": "0518571b0a0931f0a3dc6dbffcf360a945d7a79c06de1cdcc59d058cea810b29"
+    },
+    {
+      "path": "brain/src/document/model.ts",
+      "sha256": "97e53068fb79bac4e5a38eb20821463caa9c7245b57e2278fc10dfb3e2a728f5"
+    },
+    {
+      "path": "brain/src/document/rational.ts",
+      "sha256": "a41c1e793bf028ccdee4a2e8faf99bc192ef3b1a1f4d0b059b8c134d8b4706d8"
+    },
+    {
+      "path": "brain/src/document/reference.ts",
+      "sha256": "371f8c50bdbaa8707d9c7264e7135492fc90670feedf9670d8bff3c78af26e3c"
+    },
+    {
+      "path": "brain/src/document/schema-data.ts",
+      "sha256": "0625bc561562d2b1b1f4a2f3180ac8801973f8f44bd0e4c2add2cfcd400c66ad"
+    },
+    {
+      "path": "brain/src/document/semantic.ts",
+      "sha256": "a59dcd5c74da6a15e522fdda6ff47677fa691deaddbf2953fa8e41dda3424894"
+    },
+    {
+      "path": "brain/src/document/structure.ts",
+      "sha256": "cf7d545053914e8662ddbb433ac2668b6b4550a014f994d3038f639a3eeb60fd"
+    },
+    {
+      "path": "context/evidence/data/r01-candidates/corpus-excerpts.json",
+      "sha256": "c596d217dc53f57b94413f32d0feb048d7858ec80b524fbec96398773913ac32"
+    },
+    {
+      "path": "context/evidence/data/r01-candidates/precision-upstream.patch",
+      "sha256": "faeff401174e3b8c7fcefd88c36050cd2f1c0d221e9870dcab73db7b26d33322"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "pairs.json",
+      "sha256": "ebc93a8429886580ed6475cda317d2397b985f623fff062e01a6efac0b74eebf",
+      "bytes": 881627
+    },
+    {
+      "path": "private-oracles.json",
+      "sha256": "fc9ba08ced550b72ed2860e2cbc7183c50c71cd8699ac5f4221e446fb17d9809",
+      "bytes": 1408798
+    },
+    {
+      "path": "rehearsal.json",
+      "sha256": "59cd4e6589cddf8035c565021f2ee1692950c456172f94f7db094c42a0a64565",
+      "bytes": 18767
+    },
+    {
+      "path": "cards/source--c3-fields.txt",
+      "sha256": "78e29c9976086d8513a121d88ffe289abda6fefd2f571ab3df52561a0950dc0d",
+      "bytes": 2182
+    },
+    {
+      "path": "cards/source--c4-fields.txt",
+      "sha256": "495c2cc2d390f851d010e6d873e3695db9353d0cb5e2c73663b38a59878bb201",
+      "bytes": 2543
+    }
+  ]
+}

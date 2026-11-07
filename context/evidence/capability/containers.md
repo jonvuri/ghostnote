@@ -322,36 +322,36 @@ it reads a scope, and the brain re-points once on a refusal.
   `chain.inventory` remains the raw read of every scope. A position past the
   device count answers as empty from the reference bank count; only the bank
   edge is `outside-bank-window` in session 1; session 2 extends read reach
-  below. [K, E353; E354]
+  below. [K, E394; E395]
 - **Paged product reads (B17 session 2).** `device.list` stitches the 16-wide
   top-level window; `chain.observe` stitches the five-chain and four-device
   windows, retaining absolute indices and restoring windows before reply.
-  E356 proves eighteen top-level devices, a six-chain FX Layer at position
+  E397 proves eighteen top-level devices, a six-chain FX Layer at position
   17, and five devices in chain A, with complete repeated public reads and
   verified cleanup. The beyond-bank scope uses confirmed track identity,
   total count, and its own absolute device position. Layer channel indices
-  are not local bank positions (E355); channel-ID witnesses reject stale
+  are not local bank positions (E396); channel-ID witnesses reject stale
   pages. Non-layer devices can retain stale layer counts and skip layer
   traversal. This evidence proves reads; named-slot and parameter paging
   remain outside its scope. [K,
-  [E355](../experiments/e355-paged-read-host-state-corrections.md),
-  [E356](../experiments/e356-paged-device-and-layer-reads-live.md)]
+  [E396](../experiments/e396-paged-read-host-state-corrections.md),
+  [E397](../experiments/e397-paged-device-and-layer-reads-live.md)]
 - ⚠ **A scroll clamps and stays.** A scope scrolled while cursor track 0 is
   on a track with fewer devices clamps to 0 and does not move when the track
   later gains devices, although it still reports the requested position. The
   extension re-issues the scroll every 10 polls of an unsettled scope and
   refuses after 400 polls (about 2 s); waiting for such a scope never ends
-  [K, E353].
+  [K, E394].
 
 - **Paged product writes (B17 sessions 3–7, verified live).** Layer controls,
   move/copy, and top-level mutations work past the physical windows. Composition
   supports six chains and five devices per chain, with no replacement structural
-  capacity; named-slot and parameter restrictions and D44 remain. E357 proves
+  capacity; named-slot and parameter restrictions and D44 remain. E398 proves
   containers at 17/18, sixth-chain controls, distant/mixed transfers, overflow
   insertion, enabled-state, reordering and deletion, and cleanup. An overflow
   device snapshot contains structure without claiming unavailable scalar state.
   A discarded population-changing read retries once; no write is replayed.
-  See [E357](../experiments/e357-integrated-paged-writes-live.md) for the two
+  See [E398](../experiments/e398-integrated-paged-writes-live.md) for the two
   integration fixes and the six-chain composition's 44.4 s cost.
 
 ---

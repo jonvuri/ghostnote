@@ -302,7 +302,7 @@ public final class ChainControlHandlers {
             if (layers.count() != before.size()) throw new IllegalStateException("chain population changed before write");
         }
 
-        /** E353: the duplicate is inserted immediately after its source. Allow both not-yet-applied and applied views. */
+        /** E394: the duplicate is inserted immediately after its source. Allow both not-yet-applied and applied views. */
         boolean matchesDuplicate(JsonArray rows) {
             if (layers.count() == before.size()) return witness.matches(rows);
             if (layers.count() != before.size() + 1) return false;

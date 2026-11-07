@@ -1,0 +1,313 @@
+{
+  "schema": "r01-codex-catalog-v1",
+  "kind": "no-inference-catalog",
+  "binary": {
+    "name": "codex",
+    "path": "/Users/jonvuri/.local/bin/codex",
+    "realPath": "/Users/jonvuri/.codex/packages/standalone/releases/0.163.0-aarch64-apple-darwin/bin/codex",
+    "sha256": "8813367285524ac798dd96d1b071aea30d58708c7226fd236cd275cf1cfdee31"
+  },
+  "version": "codex-cli 0.163.0",
+  "authentication": {
+    "method": "chatgpt"
+  },
+  "args": [
+    "debug",
+    "models",
+    "-c",
+    "forced_login_method=\"chatgpt\"",
+    "-c",
+    "model_provider=\"openai\"",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "-c",
+    "model_instructions_file=\"/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-catalog-bDZzs6/system.txt\"",
+    "-c",
+    "skills.include_instructions=false",
+    "-c",
+    "skills.bundled.enabled=false",
+    "-c",
+    "project_doc_max_bytes=0",
+    "-c",
+    "web_search=\"disabled\"",
+    "-c",
+    "analytics.enabled=false",
+    "-c",
+    "otel.metrics_exporter=\"none\"",
+    "--enable",
+    "skip_host_skill_discovery",
+    "--disable",
+    "apps",
+    "--disable",
+    "plugins",
+    "--disable",
+    "remote_plugin",
+    "--disable",
+    "hooks",
+    "--disable",
+    "multi_agent",
+    "--disable",
+    "shell_tool",
+    "--disable",
+    "unified_exec",
+    "--disable",
+    "skill_search",
+    "--disable",
+    "browser_use",
+    "--disable",
+    "browser_use_external",
+    "--disable",
+    "browser_use_full_cdp_access",
+    "--disable",
+    "computer_use",
+    "--disable",
+    "in_app_browser",
+    "--disable",
+    "image_generation",
+    "--disable",
+    "view_image",
+    "--disable",
+    "sleep_tool",
+    "--disable",
+    "goals",
+    "--disable",
+    "shell_snapshot",
+    "--disable",
+    "unbounded_connection_retries",
+    "--disable",
+    "workspace_dependencies",
+    "--disable",
+    "fast_mode",
+    "-c",
+    "features.code_mode.enabled=false",
+    "--disable",
+    "code_mode_only",
+    "-c",
+    "features.multi_agent_v2.enabled=false",
+    "--disable",
+    "default_mode_request_user_input",
+    "--disable",
+    "send_message_to_user_async",
+    "--disable",
+    "tool_suggest",
+    "-c",
+    "features.multi_agent_v2.disable_native_tools=true",
+    "-c",
+    "features.multi_agent_v2.disable_direct_message=true",
+    "-c",
+    "include_permissions_instructions=false",
+    "-c",
+    "include_collaboration_mode_instructions=false",
+    "-c",
+    "include_apps_instructions=false",
+    "-c",
+    "features.code_mode.excluded_tool_namespaces=[\"functions\",\"collaboration\",\"clock\"]",
+    "-c",
+    "model=\"gpt-6-luna\""
+  ],
+  "scratch": "/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-catalog-bDZzs6",
+  "capturedAt": "2026-10-28T13:00:03.720Z",
+  "process": {
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "elapsedMs": 382.85854199999994
+  },
+  "stdoutSha256": "7e2c291af3f9ed6563931344cca3454f5427cb03fb56c9db60be52dba2c2b92a",
+  "sources": [
+    {
+      "path": "codex-catalog.mjs",
+      "sha256": "4af9100daa1e2b956bfaba2d6e48234e0768bbe2272f4647967b6acbf13684d6"
+    },
+    {
+      "path": "cli-controls.mjs",
+      "sha256": "e179af788cddc8e96f95c8392b64e3b6375edbb2712829adcc72b718ce4f1838"
+    },
+    {
+      "path": "codex-isolation.mjs",
+      "sha256": "b12d112dfd8e393286ba23611c43c8f68ab3098e705f4d1871b5cb28dce1a589"
+    },
+    {
+      "path": "cli-attempt.mjs",
+      "sha256": "27e1c7881f707a0f27677a168461a9abc6bd8f261a5878f0d347f4db344ee5de"
+    }
+  ],
+  "summary": [
+    {
+      "slug": "gpt-6.1-sol",
+      "displayName": "GPT-6.1-Sol",
+      "description": "Latest workhorse model for coding and everyday work.",
+      "visibility": "list",
+      "defaultEffort": "low",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "08a24a4f797f4bd4198cea3b710ecbe55b1619231c4dd1d1f20cecb79a546c2e"
+    },
+    {
+      "slug": "gpt-6-astra",
+      "displayName": "GPT-6-Astra",
+      "description": "Frontier intelligence for the most demanding work.",
+      "visibility": "list",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "2008a5c8930aea6f2dcae3e320ce2d52dc0c7f5ac27b6444093f737404ebc31b"
+    },
+    {
+      "slug": "gpt-6.1-terra",
+      "displayName": "GPT-6.1 Terra",
+      "description": "GPT-6.1 Terra Codex model.",
+      "visibility": "list",
+      "defaultEffort": "low",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "9dc8f719a7fb4dc998d460d0c513d9d8df875ed51246413419a57da3bbe81ed2"
+    },
+    {
+      "slug": "gpt-6-sol",
+      "displayName": "GPT-6-Sol",
+      "description": "Previous generation workhorse model.",
+      "visibility": "list",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "ee0136ab1770a21ae8a2b63862e0d23bc6e3725990a2a951111455c307f9aeeb"
+    },
+    {
+      "slug": "gpt-reserve",
+      "displayName": "GPT-Reserve",
+      "description": "Fast and affordable agentic coding model.",
+      "visibility": "hide",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v1",
+      "sha256": "d4f9b2a6c5234e2a5544b6c49b1229e1c5e824318e115f4bf010d72cbae6e1bb"
+    },
+    {
+      "slug": "gpt-6-luna",
+      "displayName": "GPT-6-Luna",
+      "description": "Fast and affordable model for easier tasks.",
+      "visibility": "list",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "b7710aecd62f0569ada4b9a2fb2a42b50a63f588c30d0bfac41508df4b45f1a3"
+    },
+    {
+      "slug": "gpt-5.6-sol",
+      "displayName": "GPT-5.6-Sol",
+      "description": "Older generation workhorse model.",
+      "visibility": "list",
+      "defaultEffort": "low",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "4acc2b7cc59f5f25098db5717c6e80aacbf6ac2a1a30f4b95cd53c892920a2ba"
+    },
+    {
+      "slug": "gpt-5.6-terra",
+      "displayName": "GPT-5.6-Terra",
+      "description": "Older balanced model for straightforward work.",
+      "visibility": "list",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max",
+        "ultra"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v2",
+      "sha256": "4666b446e04871f6775dec16693f9a4a580335dc35d5ba73c8c4c2803def482b"
+    },
+    {
+      "slug": "gpt-5.6-luna",
+      "displayName": "GPT-5.6-Luna",
+      "description": "Older fast and efficient model.",
+      "visibility": "list",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v1",
+      "sha256": "d33951a341f05b3e084607ad1b36e00c057781a5c373310dddfad3563c2f93e0"
+    },
+    {
+      "slug": "codex-auto-review",
+      "displayName": "Codex Auto Review",
+      "description": "Automatic approval review model for Codex.",
+      "visibility": "hide",
+      "defaultEffort": "medium",
+      "efforts": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "toolMode": "code_mode_only",
+      "multiAgentVersion": "v1",
+      "sha256": "0aac1ebff365f697a4c68106b39baa59542fc5256dc74bfaa7b28355cdd33661"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "session_configured",
+  "session_id": "01a17858-b582-7060-af14-053f81911013",
+  "thread_id": "01a17858-b582-7060-af14-053f81911013",
+  "thread_source": "user",
+  "model": "gpt-6-luna",
+  "model_provider_id": "openai",
+  "approval_policy": "never",
+  "approvals_reviewer": "user",
+  "permission_profile": {
+    "type": "managed",
+    "file_system": {
+      "type": "restricted",
+      "entries": [
+        {
+          "path": {
+            "type": "special",
+            "value": {
+              "kind": "root"
+            }
+          },
+          "access": "read"
+        }
+      ]
+    },
+    "network": "restricted"
+  },
+  "cwd": "/private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-cli-control-Z80Rom",
+  "reasoning_effort": "low"
+}

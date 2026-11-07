@@ -1,0 +1,137 @@
+{
+  "probeAnswerMatches": true,
+  "schema": "r01-cli-control-audit-v1",
+  "provider": "codex",
+  "requestedModel": "gpt-6-luna",
+  "servedModels": [],
+  "modelVerified": false,
+  "modelSelectionPolicy": "r01-codex-luna-request-model-v1",
+  "modelSelectionPass": true,
+  "modelEvidenceBasis": "captured-request-success-no-reroute",
+  "oneLogicalInference": true,
+  "settingsMatch": true,
+  "outputCeilingVerified": false,
+  "rawFinalUsage": {
+    "input_tokens": 4743,
+    "cached_input_tokens": 3456,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 55,
+    "reasoning_output_tokens": 0
+  },
+  "usageModelNames": [],
+  "requests": [
+    {
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "low",
+        "context": "all_turns"
+      },
+      "thinking": null,
+      "effort": null,
+      "maxOutputTokens": null,
+      "temperaturePresent": false,
+      "tools": [
+        "functions.exec",
+        "functions.wait",
+        "functions.request_user_input",
+        "functions.request_user_input_async",
+        "collaboration.followup_task",
+        "collaboration.interrupt_agent",
+        "collaboration.list_agents",
+        "collaboration.send_message",
+        "collaboration.spawn_agent",
+        "collaboration.wait_agent"
+      ],
+      "contextKinds": [
+        "model.base_instructions",
+        "permissions.instructions",
+        "collaboration_mode.instructions",
+        "multi_agent.role_instructions",
+        "multi_agent.mode_instructions",
+        "environments.environment_context",
+        "user.text"
+      ],
+      "contextSha256": "f5cf15d4c19f4ecee9aad9b151472c7c6bf017ccfd72466e5468459197237885",
+      "contextBytes": 24627,
+      "localSerializedContextTokens": null,
+      "requestSha256": "8fc387fbbcaecfde26730b6baffa34c9c8d8ec05ee6c7bf989c41e8e6ff2488c",
+      "userProjectInstructionsPresent": false,
+      "skillsPresent": false,
+      "systemBlockCount": null,
+      "reminderBlockCount": 0
+    }
+  ],
+  "requestCount": 1,
+  "responseCount": 1,
+  "inferenceStarts": 1,
+  "inferenceFailures": 0,
+  "reroutes": [],
+  "claudeCaptureValidated": false,
+  "clientRetryEvents": 0,
+  "clientFallbackEvents": 0,
+  "transportControl": null,
+  "claudeContext": null,
+  "apiErrorStatus": null,
+  "rateLimitStatuses": [],
+  "toolEventCount": 0,
+  "unknownItemCount": 0,
+  "notices": [
+    "Under-development features enabled: skip_host_skill_discovery. Under-development features are incomplete and may behave unpredictably. To suppress this warning, set `suppress_unstable_features_warning = true` in /private/var/folders/rg/_mqr5znx2_36yl93zpj03w440000gn/T/r01-codex-home-2wdTCH/config.toml."
+  ],
+  "transportClean": true,
+  "reportedModelAvailable": false,
+  "totalInputTokens": 4743,
+  "finalOutputTokens": 55,
+  "initializedPlugins": null,
+  "advertisedMcpServers": null,
+  "overageUsed": null,
+  "controlPass": false,
+  "issues": [
+    "effective-output-ceiling-unverified-or-mismatched",
+    "advertised-tools-present",
+    "transport-retry-control-unverified",
+    "codex-client-context-policy-pending"
+  ],
+  "rawFiles": [
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/manifest.json",
+      "sha256": "bece817ef7ffe2b1cb945d8943ef67251cf22dcbe96a5fa220be928c14b599dc"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/trace.jsonl",
+      "sha256": "409031b469e5b0634af62b9c6ec8789493660f0bd52d2bc1a367726c7a524c8b"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/1.json",
+      "sha256": "9c615d119958852c09ea100464f44022bff1330e58d4cb3707ed0bbd79c23dd3"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/2.json",
+      "sha256": "2b5a562e89691e20f8a9a7f07c6d6f08e637ceb8cde37877311e7a18f593b965"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/3.json",
+      "sha256": "307866110a38ab7b8b70c330597454ea3ed03d93849a67dd6af1bdc43839dbc9"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/4.json",
+      "sha256": "7a8fbec0b356e3b9857dffcdaa5a16a7e55dbfa106dc01128b66e6536f2bb47d"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/5.json",
+      "sha256": "c3c8c8ea44e0beb24b0ea07cd906183632571b508760635e335963505a302a50"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/6.json",
+      "sha256": "031711ffc8bb2daa4449984fb8b2d8199a01d776adb8a7185a4c82233c0f1845"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/7.json",
+      "sha256": "1f575c62d64c0300251060b7f721faffb7ac842851732885b6b151188504f21c"
+    },
+    {
+      "path": "codex-traces/trace-a0c66984-f462-4a70-825a-7d6a90c4cfd3-01a17858-b582-7060-af14-053f81911013/payloads/8.json",
+      "sha256": "43568e86ce2556ab8da6303a89a2e0359509abc830739979977ac0efe671c432"
+    }
+  ]
+}

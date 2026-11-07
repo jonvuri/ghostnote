@@ -1,0 +1,4 @@
+2026-10-29T23:00:37.635608Z TRACE codex_api::sse::responses: unhandled responses event: codex.response.metadata
+2026-10-29T23:00:37.722285Z TRACE codex_api::sse::responses: unhandled responses event: response.in_progress
+2026-10-29T23:00:37.722395Z TRACE codex_api::sse::responses: unhandled responses event: responsesapi.websocket_timing
+2026-10-30T00:19:30.526412Z TRACE codex_api::sse::responses: unhandled responses event: codex.response.metadata

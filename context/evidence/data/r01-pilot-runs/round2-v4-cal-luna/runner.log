@@ -1,0 +1,83 @@
+1 codex-current-high r0 r2-overlap-L8-i1--c4-fields a0 initial: exit 0 13017 ms
+2 codex-current-high r0 r2-overlap-L8-i1--c4-fields a1 correction: exit 0 11144 ms
+3 codex-current-high r0 r2-overlap-L8-i1--c3-fields a0 initial: exit 0 19836 ms
+4 codex-current-high r0 r2-overlap-L8-i1--c3-fields a1 correction: exit 0 22059 ms
+5 codex-current-high r0 r2-overlap-L8-i1--c3-fields a2 correction: exit 0 20811 ms
+6 codex-current-high r0 r2-overlap-L4-i1--c3-fields a0 initial: exit 0 12959 ms
+7 codex-current-high r0 r2-overlap-L4-i1--c3-fields a1 correction: exit 0 19401 ms
+8 codex-current-high r0 r2-overlap-L4-i1--c3-fields a2 correction: exit 0 17775 ms
+9 codex-current-high r0 r2-overlap-L4-i1--c4-fields a0 initial: exit 0 11389 ms
+10 codex-current-high r0 r2-overlap-L2-i1--c4-fields a0 initial: exit 0 10423 ms
+11 codex-current-high r0 r2-overlap-L2-i1--c4-fields a1 correction: exit 0 8347 ms
+12 codex-current-high r0 r2-overlap-L2-i1--c3-fields a0 initial: exit 0 14578 ms
+13 codex-current-high r0 r2-large-L384-i1--c4-fields a0 initial: exit 0 83427 ms
+14 codex-current-high r0 r2-large-L384-i1--c3-fields a0 initial: exit 0 99351 ms
+15 codex-current-high r0 r2-large-L64-i1--c3-fields a0 initial: exit 0 24911 ms
+16 codex-current-high r0 r2-large-L64-i1--c4-fields a0 initial: exit 0 16170 ms
+17 codex-current-high r0 r2-large-L64-i1--c4-fields a1 correction: exit 0 19549 ms
+18 codex-current-high r0 r2-query-L4-i1--c3-fields a0 initial: exit 0 10592 ms
+19 codex-current-high r0 r2-query-L4-i1--c4-fields a0 initial: exit 0 12775 ms
+20 codex-current-high r0 r2-query-L4-i1--c4-fields a1 correction: exit 0 12731 ms
+21 codex-current-high r0 r2-query-L4-i1--c4-fields a2 correction: exit 0 12152 ms
+22 codex-current-high r0 r2-query-L16-i1--c3-fields a0 initial: exit 0 29130 ms
+23 codex-current-high r0 r2-query-L16-i1--c3-fields a1 correction: exit 0 24662 ms
+24 codex-current-high r0 r2-query-L16-i1--c4-fields a0 initial: exit 0 21182 ms
+25 codex-current-high r0 r2-interp-L12-i1--c3-fields a0 initial: exit 0 39057 ms
+26 codex-current-high r0 r2-interp-L12-i1--c3-fields a1 correction: exit 0 26989 ms
+27 codex-current-high r0 r2-interp-L12-i1--c3-fields a2 correction: exit 0 37847 ms
+28 codex-current-high r0 r2-interp-L12-i1--c4-fields a0 initial: exit 0 29155 ms
+29 codex-current-high r0 r2-interp-L12-i1--c4-fields a1 correction: exit 0 35054 ms
+30 codex-current-high r0 r2-interp-L12-i1--c4-fields a2 correction: exit 0 23428 ms
+31 codex-current-high r0 r2-large-L256-i1--c3-fields a0 initial: exit 0 71929 ms
+32 codex-current-high r0 r2-large-L256-i1--c3-fields a1 correction: exit 0 72811 ms
+33 codex-current-high r0 r2-large-L256-i1--c3-fields a2 correction: exit 0 79739 ms
+34 codex-current-high r0 r2-large-L256-i1--c4-fields a0 initial: exit 0 50957 ms
+35 codex-current-high r0 r2-interp-L8-i1--c3-fields a0 initial: exit 0 22335 ms
+36 codex-current-high r0 r2-interp-L8-i1--c3-fields a1 correction: exit 0 19750 ms
+37 codex-current-high r0 r2-interp-L8-i1--c4-fields a0 initial: exit 0 21451 ms
+38 codex-current-high r0 r2-interp-L8-i1--c4-fields a1 correction: exit 0 17317 ms
+39 codex-current-high r0 r2-interp-L4-i1--c3-fields a0 initial: exit 0 15591 ms
+40 codex-current-high r0 r2-interp-L4-i1--c3-fields a1 correction: exit 0 15987 ms
+41 codex-current-high r0 r2-interp-L4-i1--c4-fields a0 initial: exit 0 13475 ms
+42 codex-current-high r0 r2-interp-L4-i1--c4-fields a1 correction: exit 0 19091 ms
+43 codex-current-high r0 r2-interp-L4-i1--c4-fields a2 correction: exit 0 13702 ms
+44 codex-current-high r0 r2-query-L32-i1--c4-fields a0 initial: exit 0 39343 ms
+45 codex-current-high r0 r2-query-L32-i1--c4-fields a1 correction: exit 0 43106 ms
+46 codex-current-high r0 r2-query-L32-i1--c4-fields a2 correction: exit 0 42691 ms
+47 codex-current-high r0 r2-query-L32-i1--c3-fields a0 initial: exit 0 61752 ms
+48 codex-current-high r0 r2-query-L32-i1--c3-fields a1 correction: exit 0 43183 ms
+49 codex-current-high r0 r2-query-L32-i1--c3-fields a2 correction: exit 0 53430 ms
+50 codex-current-high r0 r2-overlap-L6-i1--c3-fields a0 initial: exit 0 16622 ms
+51 codex-current-high r0 r2-overlap-L6-i1--c4-fields a0 initial: exit 0 13333 ms
+52 codex-current-high r0 r2-overlap-L6-i1--c4-fields a1 correction: exit 0 13360 ms
+53 codex-current-high r0 r2-query-L8-i1--c3-fields a0 initial: exit 0 19950 ms
+54 codex-current-high r0 r2-query-L8-i1--c3-fields a1 correction: exit 0 18487 ms
+55 codex-current-high r0 r2-query-L8-i1--c3-fields a2 correction: exit 0 22703 ms
+56 codex-current-high r0 r2-query-L8-i1--c4-fields a0 initial: exit 0 18908 ms
+57 codex-current-high r0 r2-large-L128-i1--c4-fields a0 initial: exit 0 27939 ms
+58 codex-current-high r0 r2-large-L128-i1--c3-fields a0 initial: exit 0 45737 ms
+59 codex-current-high r0 r2-interp-L2-i1--c3-fields a0 initial: exit 0 10778 ms
+60 codex-current-high r0 r2-interp-L2-i1--c3-fields a1 correction: exit 0 20889 ms
+61 codex-current-high r0 r2-interp-L2-i1--c3-fields a2 correction: exit 0 14231 ms
+62 codex-current-high r0 r2-interp-L2-i1--c4-fields a0 initial: exit 0 10211 ms
+63 codex-current-high r0 r2-interp-L2-i1--c4-fields a1 correction: exit 0 12065 ms
+{
+  "stage": "development",
+  "status": "complete",
+  "counts": {
+    "plannedRuns": 32,
+    "submittedRuns": 32,
+    "finishedRuns": 32,
+    "submissions": 63,
+    "quotaPauses": 0,
+    "resumedSubmissions": 0,
+    "stalls": 0,
+    "stallResubmissions": 0,
+    "firstAttemptPasses": 12,
+    "withinBudgetPasses": 24,
+    "repairsUsed": 31,
+    "totalInputTokens": 631441,
+    "finalOutputTokens": 289067
+  }
+}
+

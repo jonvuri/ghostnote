@@ -1,0 +1,248 @@
+# R01 staged agent comparison protocol, draft 0.4
+
+This protocol is prepared for review. Only unscored subscription transport and
+nested-format development calls have run
+([E355](../../context/evidence/experiments/e355-r01-subscription-cli-smoke.md),
+[E356](../../context/evidence/experiments/e356-r01-nested-fields-prototype.md)). The
+[candidate contracts](README.md) and deterministic screen precede it. The aim
+is to identify useful authoring/editing improvements without conflating syntax,
+commands, musical information, host behavior or differing model capability.
+
+## Questions and sequence
+
+Agent trials run in two labeled stages
+([pilot draft](PILOT-DRAFT.md#trial-stages)).
+The **development** stage may reuse inputs, including extracted reserved
+windows, and may revise formats, cards, tasks and harness between versioned
+runs; it needs cohort admission but no freeze, and its results support design
+iteration only. The **rigorous** stage starts by operator decision: freeze
+design and selection rules, then extract fresh inputs never shown to a model
+in development, pin materialized inputs/oracles/prompts, and apply this
+protocol's freeze, stop and deletion rules. Freeze requirements below apply to
+the rigorous stage. Every plan, result and report states its stage. The
+[pilot draft](PILOT-DRAFT.md) records the operator's review answers and the
+development-stage design.
+
+| Stage | Varied factor | Held fixed | Interpretation |
+|---|---|---|---|
+| A: read and representation | Current FIELDS/JSON, C3 FIELDS, C4 nested FIELDS, adapted bar\|beat and MIDI JSON where admitted | Task, supported state, intent availability, addressing adapter and backend | Does the representation improve comprehension and proposals? |
+| B: commands | Ordinary code versus structured commands/task views | Current Ghostnote state, input information and guarded backend | Does interaction explain benefits without changing storage? |
+| C: practical workflows | Each surviving candidate's bounded read/write workflow | Task outcome requirements and total resource accounting | Which useful package earns its complexity? |
+
+Stark is absent. Original upstream PP is a diagnostic precision control only;
+it is not a forward model arm. No candidate is eliminated merely because it
+does not encode an unrelated capability: report eligible tasks and exclusions.
+An exclusion cannot be counted as success or removed from coverage tables.
+
+Use Stage A on common-state tasks and a separate explicit intent condition.
+For every task the runner must record exactly which facts each arm receives.
+Channel scope, meter, source-to-realized timing, known group membership and
+nominal timing are information, even when supplied through sidecar context.
+If an arm cannot carry required information, either supply the same explicit
+context to every arm for the isolation condition or mark it ineligible. Never
+give C4 inferred chord labels while comparing against an uninformed baseline.
+
+Stage B includes ordinary code with the same data and patch backend. A new
+command API must improve outcomes or total work relative to that control.
+Stage C can exploit native compression and conveniences, but must count every
+adapter, retrieval, instruction and context cost. Avoid a full cross-product:
+run the six representation arms in A, two interaction routes in B, and at most
+three workflows supported by those results in C. Current FIELDS/JSON remains
+a control throughout; selective and timing-rich claims are task-specific
+conditions, not many redundant arms on tasks without musical annotations.
+
+C4 now places note rows inside musical groups using [local FIELDS](NESTED-FIELDS.md).
+The comparable [C3 FIELDS surface](COMPACT-FIELDS.md) is implemented and
+offline-verified in E357. The [matched development package](DEVELOPMENT-PAIRS.md)
+now gives all six primary arms cards, matched examples, paired tasks and local
+whole-prompt accounting. Nine performed-note tasks use common facts; five
+exact source/context tasks admit C3/C4 only until equivalent annotation adapters
+are supplied for the other arms. These conditions do not yet compare current
+selective/timing-rich claims against structured annotations.
+
+Three diagnostics are separately scheduled on the five source tasks: C3 JSON,
+C4 JSON and C4 detached FIELDS. C4 JSON changes both encoding and layout.
+Detached FIELDS preserves exact local row bodies and group headers while
+moving them behind counted references; the no-group task is excluded.
+No model calls were made for this package. Its 14 development tasks and 76
+eligible cells are neither the proposed pilot's task count nor scored results.
+The two successful nested development calls in E356 remain unpaired and
+ineligible as held-out evidence.
+
+## Corpus, tasks and split
+
+Development uses the four retained Ghostworks excerpts and synthetic examples.
+The [corpus split](CORPUS.md#reserved-works-and-contamination-boundary) reserves
+11 MIDI work families; descendants, alternate models, stems and timing exports
+stay with their source family. Inventory metadata was inspected; reserved MIDI
+note passages were not. Before unblinding, audit newly added assets for shared
+source IDs/hashes and select held-out works by a frozen rule, not by candidate
+success or visually appealing passages. Missing lineage means independence is
+unestablished, not assumed. Reserve at least three distinct MIDI work families
+for the pilot; select by a committed seeded shuffle of eligible work IDs.
+Works used in development stay development material; the rigorous stage
+takes the next unused works in that order.
+
+For each selected work choose the first valid nonempty window of 16 encoded
+quarter beats under the same source extraction policy, capped at 128 notes.
+Record refusals (unpaired events, excessive density, invalid metadata) and the
+deterministic next-window rule before opening notes. A new synthetic seed family
+supplies dynamics, known strum decomposition, expression and boundary cases.
+Do not infer intent from a transcription or treat fixed velocity as expressive
+performance. Report mapped and baked-clock tasks separately.
+
+The proposed pilot has 12 task instances, two in each family below. Each has a
+machine-readable initial state, permitted information, exact operation/answer
+requirements, protected fields, permitted normalization, expected refusal when
+applicable, and independent oracle. At least one instance per applicable family
+uses a previously reserved real source; known-intent tasks use synthetic truth.
+
+| Family | Required outcome |
+|---|---|
+| Read/comprehend | Identify exact target, count/multiplicity, or timing relation without rewriting the clip |
+| Constrained authoring | Produce requested rhythm/pitches/dynamics under explicit requirements; assess adherence separately from musical taste |
+| Individual edit | Move, transpose or change velocity of one note, including a small edit in a large clip; preserve unrelated state |
+| Group arithmetic | Halve known spread, move a group, or scale supplied deviations while preserving specified common timing and durations |
+| Count changes | Add/delete notes with explicit identity reports, stale/ambiguous selections and honest refusal cases |
+| Readback/preservation | Preserve irregular timing, wider supported fields, duplicates and context; report codec capability versus backend admission |
+
+Current regression fixtures are development material. Do not call them heldout
+because the exact prompt wording is new. Trial selection must include failures
+and unsupported cases, not only the easiest excerpts. Fixed patterns and exact
+triplets should not dominate realistic irregular material.
+
+## Runs, repairs and artifacts
+
+Use capable models/settings representative of the operator's intended workflow.
+Concrete model IDs, settings, accessible tool execution, prices and a maximum
+cost are a later run-specific decision under
+[D25](../../context/decisions/d25-fields-json-document-format-and-publication.md#evidence-and-gate).
+This document neither approves spending nor presumes small-model optimization.
+
+Proposed pilot budget in task units: 12 instances × three independent repeats
+× six Stage-A arms = 216 initial attempts for one selected model. Stage B adds
+72 attempts at two routes; Stage C is scoped only after reviewing the pilot.
+These counts are a proposal, not authorization or a statistical power claim.
+If cost requires fewer arms/tasks, amend the manifest before any scored run;
+do not quietly stop the weakest arm early.
+
+- Freeze task versions, prompts, format cards, examples, tool schemas, code
+  availability, source hashes, tokenizer/provider accounting, model settings,
+  randomized paired order, and repetition seeds in a run manifest.
+- Give arms equal tuning opportunities on development tasks: the same number
+  of inspected failures and prompt revisions. Record differences required to
+  explain each syntax. Do not charge a rich full manual to one arm and a terse
+  task card to another without reporting the actual delivered instructions.
+- Start each attempt in a fresh context. Allow at most two correction turns
+  after the initial answer; expose the same structured error detail to all
+  arms. A resource or tool failure is distinct from a model musical error.
+- Validate an output against the fixture and oracle independently of its
+  claimed changes. Backend refusals, tool errors, retries and detail retrieval
+  all remain in the transcript. No destructive attempt changes a real project.
+- Stop an individual attempt at the repair or resource limit. Stop the run for
+  a broken harness/oracle or corrupt source; invalidate affected results and
+  rerun all affected paired conditions after a versioned correction. No
+  significance-based early stopping or post hoc task deletion.
+
+The development cards, prompt adapters, eligibility matrix and offline
+scoring/refusal rehearsal are now implemented in E358. A scored run still needs
+a frozen evaluation manifest, the bounded provider/CLI runner, environment and
+model pins, repair/stop rules, and full accounting; API-funded runs also need a
+cost ceiling. Rehearse any new held-out task and runner path before scoring.
+The offline package is not a ready provider benchmark. Paid-run approval should
+name that concrete bounded artifact and estimate.
+
+Current pilot cohorts follow
+[D57](../../context/decisions/d57-r01-natural-token-use.md): no research hard
+output cap; record actual usage and client/provider limits. Calibrate one Haiku
+adaptive effort on matched development tasks toward Luna generated-token
+usage before the rigorous stage. The submission timeout remains in force.
+
+## Subscription CLI route
+
+The operator approved trying subscription-backed CLI runs. The bounded
+[smoke tests](../../context/evidence/experiments/e355-r01-subscription-cli-smoke.md)
+establish successful authentication, output capture and final token reporting
+for one fresh attempt per provider. They do not authorize API billing or
+establish a scored pilot. The proposed 216-attempt scope is still unfrozen.
+Small models are suitable for this transport check; a later comparison must
+state whether its model choices represent the intended capable-agent workflow.
+
+Before scored attempts:
+
+- Pin CLI version, exact model ID, effort and configuration; reject observed
+  fallback/drift. Claude requires a matching served-model identifier.
+  [D55](../../context/decisions/d55-r01-luna-model-selection-evidence.md) admits
+  `gpt-6-luna` on Codex 0.163.0 with one captured matching request, successful
+  completion and no observed reroute or conflicting model evidence. Report
+  missing server attestation explicitly; it does not block that cohort.
+- Use fresh isolated contexts and identical per-arm capabilities within each
+  provider. Exclude user/project instructions, custom plugins, memory, MCP,
+  API credential overrides and tool use. Under
+  [D56](../../context/decisions/d56-r01-codex-reject-tool-use.md), fixed Codex
+  tool declarations may remain as accounted context; any invocation attempt
+  rejects the submission. Claude retains its empty-tool policy. Retain startup metadata and
+  inspect built-in context; safe mode alone did not remove Claude's built-in
+  plugin entries. Do not equate the providers' same-named effort levels.
+- Retain raw terminal usage, cache categories, errors, rate-limit events,
+  tool calls and CLI overhead. Codex cached input is a subset of total input;
+  Claude input, cache-read and cache-creation categories are additive. Ignore
+  interim placeholder counts. Fresh context does not imply a cold prompt cache.
+- Compare candidate arms within each pinned provider first. Randomize paired
+  order and record cache state; unequal client prompts and tokenizers prevent
+  raw cross-provider token totals from isolating format effects.
+- Disable automatic repair/retry/fallback for the first attempt, bound wall
+  time, and separate quota/authentication/transport failures from task failures.
+  Enforce the protocol's repair budget explicitly when repairs are introduced.
+  A subscription limit pauses the run; it must not switch to API billing.
+
+The [smoke driver](../../brain/benchmarks/r01-candidates/cli-smoke.mjs) is a
+transport probe, not the scoring harness. The development package now supplies
+prompt adapters, local instruction accounting and an offline scorer rehearsal.
+The [CLI controls and model guide](CLI-CONTROLS.md) adds pinned invocation
+profiles, raw Codex request auditing, seeded paired order and explicit repair
+accounting. [E359](../../context/evidence/experiments/e359-r01-cli-controls-and-model-selection.md)
+records the initial admission gaps. [E360](../../context/evidence/experiments/e360-r01-historical-haiku-cli-capture.md)
+verifies historical Haiku model/settings and raw capture.
+[E361](../../context/evidence/experiments/e361-r01-claude-controls-and-paired-rehearsal.md)
+adds the Claude context policy, local transport fault evidence and an end-to-end
+paired development rehearsal; Codex still needs its controls. The operator monitors
+subscription usage; disabled-credit confirmation is not a prerequisite, and
+API billing remains outside this route.
+Its offline 152-slot order is not the frozen pilot. Consult the
+[historical inventory](MODEL-HISTORY.md) before claiming model equivalence.
+A frozen evaluation manifest and a rehearsal of the materialized held-out
+tasks remain required before scoring. API-funded runs still need
+their separately scoped cost decision.
+
+## Scoring and decision rules
+
+For each task report first-attempt and within-budget success, unintended note
+or field changes, honest unsupported/refusal outcomes, intent continuity, and
+correspondence. Protected-state violation fails the task even if the requested
+change occurred. Fabricated explanations for unknown intent receive no credit.
+Record exact multiset differences and ambiguous correspondence; do not collapse
+those into one opaque score. Normalization loss allowed by the common contract
+is distinct from subsequent codec loss or invented musical intent.
+
+Count total input/output tokens, actual instructions, retrieved details, code,
+tool calls/results, repairs, provider cost and wall time. Report local parsing,
+validation, expansion and claim carry separately from model latency. A payload
+size reduction alone is not a task win. Unknown peak memory is reported unknown;
+heap deltas from the prototype are not substituted for a memory profile.
+
+Use paired per-task comparisons, grouped by task family and source work.
+Repeated attempts from the same work are not independent compositions. Retain
+raw observations and uncertainty intervals; the small pilot is diagnostic and
+does not establish general superiority. Musical preference or audition, if
+later desired, needs a separately defined blinded evaluation; this protocol
+scores explicit functional requirements.
+
+A candidate can advance when it preserves required supported state in the
+deterministic suite and shows a repeatable task-family advantage in success,
+repair burden or total cost without hiding new failure modes. A full format
+replacement needs benefits beyond commands/views and an explicit accounting of
+coverage, implementation, migration and instruction cost. Narrow adoption,
+further research, or retaining the current baseline are all valid outcomes.
+No numeric product-adoption threshold is claimed from this small pilot; choose
+one before any confirmatory trial, informed by pilot variance and practical cost.
