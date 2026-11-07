@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v60';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v61';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -925,3 +925,9 @@ export const TOOL_DESCRIPTION_V59_SHA256 = 'e30c59a95386b646d2ada5ad5b879818702b
  * container once at the end. The retired per-device timings are removed until remeasurement; limits stay.
  */
 export const TOOL_DESCRIPTION_V60_SHA256 = 'b32fbaf1c42302c2a9c32494f7c9f02ed93ef106d8f0c0cb801a0cc95b2315d9';
+
+/**
+ * v61 (P01, D67): compose_devices admits at most 8 layer chains and 16 device units; an existing source counts two
+ * units. Chain growth is one duplication for each chain beyond the five-chain seed.
+ */
+export const TOOL_DESCRIPTION_V61_SHA256 = '8332613f6160f3a62f74aa251b160e819dc3e8285ceb6e758c25f499c6ce2625';

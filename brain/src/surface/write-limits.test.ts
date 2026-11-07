@@ -69,18 +69,28 @@ test('D44: each bounded write refuses one more than its limit before any read or
     ['set_device_controls', { settings: times(WRITE_LIMITS.deviceControlCohorts + 1, (position) => settings(1, position)[0]) },
       'deviceControlCohorts', WRITE_LIMITS.deviceControlCohorts + 1],
     ['compose_devices', { trackId, containerKind: 'Instrument Layer',
-      layerChains: times(5, (index) => ({ name: `L${index}`, devices: times(index === 0 ? 3 : 1, () => native('Tool')) })) },
-    'stagedCompositionDevices', 7],
+      layerChains: times(8, (index) => ({ name: `L${index}`, devices: times(index === 0 ? 3 : 2, () => native('Tool')) })) },
+    'stagedCompositionDevices', 17],
     ['compose_devices', { trackId, containerKind: 'FX Layer',
-      layerChains: times(5, (index) => ({ name: `L${index}`, devices: [{ source: { kind: 'clap', id: 'com.u-he.Diva' } }] })) },
-    'stagedCompositionDevices', 10],
+      layerChains: times(4, (index) => ({ name: `L${index}`,
+        devices: times(index === 0 ? 3 : 2, () => ({ source: { kind: 'clap', id: 'com.u-he.Diva' } })) })) },
+    'stagedCompositionDevices', 18],
+    // D67 (E407): an existing source is its own relocation stage and counts two units.
+    ['compose_devices', { trackId, containerKind: 'FX Layer',
+      layerChains: times(8, (index) => ({ name: `L${index}`, devices: [
+        { source: { kind: 'existing-move', devicePosition: index } }, ...(index === 0 ? [native('Tool')] : [])] })) },
+    'stagedCompositionDevices', 17],
+    // D67 (E407): each chain beyond the five-chain seed is a host duplication; 16 chains took 38.1 s.
+    ['compose_devices', { trackId, containerKind: 'FX Layer',
+      layerChains: times(WRITE_LIMITS.compositionLayerChains + 1, (index) => ({ name: `L${index}`, devices: [native('Tool')] })) },
+    'compositionLayerChains', WRITE_LIMITS.compositionLayerChains + 1],
     ['compose_devices', { trackId, containerKind: 'Instrument Layer',
       layerChains: [{ name: 'A', devices: [{ ...native('Polysynth'), modulators: times(WRITE_LIMITS.compositionModulators + 1, lfo) }] }] },
     'compositionModulators', WRITE_LIMITS.compositionModulators + 1],
-    // E252: 3 devices with modulators in 6 devices took 45.6 s; each such device counts two more units.
-    ['compose_devices', { trackId, containerKind: 'Instrument Layer', layerChains: times(3, (index) => ({ name: `L${index}`,
-      devices: [{ ...native('Polysynth'), modulators: [lfo(index)] }, native('Tool')] })) },
-    'stagedCompositionDevices', 12],
+    // Each device with modulators counts two more units (E252; E407: 4 modulated devices took 6.6 s).
+    ['compose_devices', { trackId, containerKind: 'Instrument Layer', layerChains: times(4, (index) => ({ name: `L${index}`,
+      devices: [{ ...native('Polysynth'), modulators: [lfo(index)] }, native('Tool'), native('Tool')] })) },
+    'stagedCompositionDevices', 20],
     ['delete_device', { devices: times(WRITE_LIMITS.deviceDeletions + 1, (devicePosition) => ({ trackId, devicePosition })) },
       'deviceDeletions', WRITE_LIMITS.deviceDeletions + 1],
     ['set_device_enabled', { settings: times(WRITE_LIMITS.deviceEnabledSettings + 1, () => ({ ...device, enabled: false })) },
@@ -150,6 +160,8 @@ test('D44: a request at the limit is not refused for its size', async () => {
     ['compose_devices', { trackId, containerKind: 'Instrument Layer', layerChains: [
       { name: 'A', devices: [{ ...native('Polysynth'), modulators: [lfo(0), lfo(1)] }, native('Tool')] },
       { name: 'B', devices: [native('Polysynth'), native('Tool')] }] }],
+    ['compose_devices', { trackId, containerKind: 'FX Layer', layerChains: times(WRITE_LIMITS.compositionLayerChains,
+      (index) => ({ name: `L${index}`, devices: [native('Tool'), native('Tool')] })) }],
   ];
   for (const [name, args] of atLimit) {
     const { result } = await call(name, args);
@@ -161,6 +173,7 @@ test('D44: each bounded input states its limit in its JSON schema text, with no 
   const bounded: [string, string, WriteLimit][] = [
     ['set_device_controls', 'settings', 'deviceControlSettings'],
     ['compose_devices', 'layerChains', 'stagedCompositionDevices'],
+    ['compose_devices', 'layerChains', 'compositionLayerChains'],
     ['delete_device', 'devices', 'deviceDeletions'],
     ['set_device_enabled', 'settings', 'deviceEnabledSettings'],
     ['rename_track', 'tracks', 'trackBatch'],

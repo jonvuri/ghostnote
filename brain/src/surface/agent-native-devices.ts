@@ -916,6 +916,12 @@ async function addDevices(workspace: Workspace, args: AddInput, options: AddDevi
       }
       added.push({ deviceIndex: index, source: item.kind, devicePosition: minted[0]!.chainIndex,
         ...(deviceName === undefined ? {} : { name: deviceName }) });
+      // P01 (D65): a native device's name is known and it arrives enabled at the end, so the next insertion states
+      // the projected chain; the extension refuses it if the live chain differs. A plug-in or preset reports its
+      // own name only once loaded, so the next insertion reads the bank first.
+      if (deviceName !== undefined && minted[0]!.chainIndex === names.length) {
+        expected = [...names.map((name, at) => ({ name, enabled: enabled[at]! })), { name: deviceName, enabled: true }];
+      }
     }
     state.stage = 'readback';
     const revert = { revert: { tool: 'revert_change', changeIds: state.effects.map((item) => item.changeId).reverse() } };
@@ -970,8 +976,9 @@ const composeInput = z.object({
     name: newLayerChainName,
     devices: z.array(composeDevice).min(1),
   }).strict()).min(1).optional().describe('Named layer chains (layer containers only). '
-    + atMost('stagedCompositionDevices', 'device units in all layer chains (a VST3 or CLAP source counts as two, and '
-      + 'a device with modulators or modulator edits counts two more)')),
+    + atMost('compositionLayerChains', 'layer chains') + ' '
+    + atMost('stagedCompositionDevices', 'device units in all layer chains (a VST3, CLAP or existing source counts as '
+      + 'two, and a device with modulators or modulator edits counts two more)')),
   pads: z.array(drumPadAssignment).min(1).max(16).optional().describe('Drum Machine pads only.'),
 }).strict().superRefine((input, context) => {
   if (input.containerKind === 'Drum Machine') {
@@ -1031,12 +1038,13 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
   + 'are only for this path); each layer chain is then renamed. Every other shape runs as host stages: container '
-  + 'insertion, an empty-chain duplication stage for each chain beyond the five-chain seed, one layer-chain naming '
+  + 'insertion, one empty-chain duplication for each chain beyond the five-chain seed, one layer-chain naming '
   + 'stage, one direct insertion of the new devices at each layer chain\'s end, and one move or copy for each '
-  + 'existing device; one structure read at the end is the readback. One composition admits at most 6 device units '
-  + '(a VST3 or CLAP source counts as two, and a device with modulators or modulator edits counts two more) and 4 '
-  + 'modulators and modulator edits; a larger request refuses before any read or write (code outside-limit, the '
-  + 'limit in detail). Add more devices later with add_devices and move_devices. '
+  + 'existing device; one structure read at the end is the readback. One composition admits at most 8 layer '
+  + 'chains, at most 16 device units (a VST3, CLAP or existing source counts as two, and a device with modulators '
+  + 'or modulator edits counts two more) and 4 modulators and modulator edits; a larger request refuses before any '
+  + 'read or write (code outside-limit, the limit in detail). Add more devices later with add_devices and '
+  + 'move_devices. '
   + 'Layer and device windows page automatically. Modulation still requires first-window parameter access. Every '
   + 'request is validated before the first write; a later failure returns the completed effects and the observed '
   + 'structure.\n'
@@ -1047,6 +1055,8 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
 export interface ComposeDevicesOptions {
   /** Benchmarks only (E238): force one backend. A request that the offline backend cannot represent refuses. */
   readonly backend?: Exclude<CompositionBackend, 'drum-machine'>;
+  /** Benchmarks only (P01, D67): admit up to these limits to measure a candidate limit. */
+  readonly measurementLimits?: { readonly layerChains: number; readonly devices: number; readonly modulators: number };
 }
 
 /** Compose one container through the selected backend. Exported for the backend benchmark. */
@@ -1056,14 +1066,20 @@ export async function composeDevices(
   const started = performance.now();
   const target = { trackId: args.trackId, containerKind: args.containerKind };
   return guardedRun(COMPOSE_SCHEMA, target, async (state) => {
-    // D44 (E252): the offline backend has at most four devices, so a larger request is always staged.
+    // D44, D67 (E407): the offline backend has at most four devices, so a larger request is always staged. Each layer
+    // chain beyond the five-chain seed and each existing source is its own host stage.
+    requireWithinLimit('compositionLayerChains', args.layerChains?.length ?? 0, 'layer chains in one composition',
+      options.measurementLimits?.layerChains);
     const composed = (args.layerChains ?? []).flatMap((item) => item.devices);
     requireWithinLimit('stagedCompositionDevices', composed.reduce((sum, item) =>
-      sum + (item.source.kind === 'vst3' || item.source.kind === 'clap' ? 2 : 1)
+      sum + (['vst3', 'clap', 'existing-move', 'existing-copy'].includes(item.source.kind) ? 2 : 1)
         + ((item.modulators?.length ?? 0) + (item.modulatorEdits?.length ?? 0) > 0 ? 2 : 0), 0),
-    'device units in one composition (a VST3 or CLAP source counts as two, and a device with modulators two more)');
+    'device units in one composition (a VST3, CLAP or existing source counts as two, and a device with modulators '
+      + 'two more)',
+    options.measurementLimits?.devices);
     requireWithinLimit('compositionModulators', composed.reduce((sum, item) => sum + (item.modulators?.length ?? 0)
-      + (item.modulatorEdits?.length ?? 0), 0), 'modulators and modulator edits in one composition');
+      + (item.modulatorEdits?.length ?? 0), 0), 'modulators and modulator edits in one composition',
+    options.measurementLimits?.modulators);
     // D46: no behavior witness runs here, so each route must use a suite-proved form. Refuse before any read.
     const unproved = unprovedRouteTargets(composed.flatMap((item) => [
       ...(item.modulators ?? []).map((modulator) => modulator.target),

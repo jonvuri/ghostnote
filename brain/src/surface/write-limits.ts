@@ -18,13 +18,18 @@ export const WRITE_LIMITS = Object.freeze({
    */
   deviceControlCohorts: 4,
   /**
-   * compose_devices: retained E252 weights (native 1, VST3/CLAP 2, modulation +2). D46 removed normal-profile
-   * behavior sampling; route/page checks remain (E254). E398's six native chains at position 18 took 44.4 s / 703
-   * wire calls, dominated by repeated paged reads. P01 replaced those stages with direct chain insertion and one
-   * final read (D65): E406 measured 2.6–13.7 s for admitted shapes and 1.5–2.8 s reverts. The limit stays until a
-   * larger shape is measured.
+   * compose_devices: device units (D67, E407). A new native or preset source is 1; a VST3, CLAP or existing source 2;
+   * a device with modulators 2 more. After P01's direct insertion and adapter reductions (D65), units no longer
+   * drive the cost: 4×4 native took 3.8 s, 16 plug-in units 3.5 s, 4 modulated devices 6.6 s. The worst admitted
+   * case is 8 existing sources into 8 chains at position 18: 25.6 s, revert 13.7 s.
    */
-  stagedCompositionDevices: 6,
+  stagedCompositionDevices: 16,
+  /**
+   * compose_devices: layer chains (D67, E407). Each chain beyond the five-chain seed is a host duplication, slower
+   * as the container grows: 16 one-device chains at position 18 took 38.1 s. At 8 chains and 16 units at position 18:
+   * 13.3–13.7 s, revert 2.8 s.
+   */
+  compositionLayerChains: 8,
   /** compose_devices: outer and preset-local modulators/edits; normal-profile route proof, not sound sampling. */
   compositionModulators: 4,
   /** delete_device: removed devices in one call (E252 final3: 10 native devices 25.2 s, 10 281-ID plug-ins 20.7 s). */
@@ -69,9 +74,14 @@ export function atMost(limit: WriteLimit, what: string): string {
   return `At most ${WRITE_LIMITS[limit]} ${what} in one call; a larger request refuses with code outside-limit.`;
 }
 
-/** Refuse a request above one limit before any project read or write. */
-export function requireWithinLimit(limit: WriteLimit, requested: number, what: string): void {
-  const value = WRITE_LIMITS[limit];
+/**
+ * Refuse a request above one limit before any project read or write. `maximum` is for benchmarks that measure a
+ * candidate limit; no tool input reaches it.
+ */
+export function requireWithinLimit(
+  limit: WriteLimit, requested: number, what: string, maximum: number = WRITE_LIMITS[limit],
+): void {
+  const value = maximum;
   if (requested <= value) return;
   throw new ToolFailure('outside-limit', 'input', `This call admits at most ${value} ${what}; the request has `
     + `${requested}. Nothing was read or written. Split the work into more calls.`,

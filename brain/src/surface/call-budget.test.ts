@@ -427,6 +427,11 @@ test('call budget: the 8h4g rows for the remaining tools', async () => {
   await run('delete-scene', 'delete_scene', { rows: [4] });
   await run('modulator-types', 'list_modulator_types', {});
   await run('add-devices', 'add_devices', { trackId: fx.trackId, devices: [{ kind: 'native', name: 'Polysynth' }] });
+  await run('add-devices-3', 'add_devices', { trackId: fx.trackId, devices: [
+    { kind: 'native', name: 'Polysynth' }, { kind: 'native', name: 'Polysynth' }, { kind: 'native', name: 'Polysynth' }] });
+  // Not a budget row: restore the fixture for the rows below.
+  assert.equal((await fx.call('delete_device', { devices: [4, 3, 2].map((devicePosition) => ({ trackId: fx.trackId,
+    devicePosition })) })).result.failure, undefined);
   await run('duplicate-chain', 'duplicate_layer_chain', { trackId: fx.trackId, containerPosition: 1, layerChain: 'A', name: 'C' });
   await run('copy-devices', 'copy_devices', { trackId: fx.trackId, devices: [{ from: 'layer-chain', containerPosition: 1,
     layerChain: 'A', devicePosition: 0 }], destination: { to: 'layer-chain', containerPosition: 1, layerChain: 'B' } });
@@ -449,6 +454,8 @@ const EXPECTED_8H4G_BUDGETS: Record<string, Counts> = {
   'delete-scene': { mark: 2, resolve: 1, read: 2, apply: 1, delta: 1 },
   'modulator-types': {},
   'add-devices': { devices: 2, read: 2, apply: 1, delta: 1 },
+  // P01: later native devices state the projected chain, so only the first reads the bank before its write.
+  'add-devices-3': { devices: 2, read: 6, apply: 3, delta: 3 },
   'duplicate-chain': { read: 4, apply: 1, delta: 1 },
   'copy-devices': { devices: 2, read: 5, apply: 1, delta: 1 },
   'set-controls': { devices: 1, read: 2, apply: 1, delta: 1 },

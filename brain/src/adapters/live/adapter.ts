@@ -445,6 +445,21 @@ interface WireDirectCompletion {
 /** How long after a mark `tracks()` can use the mark's bank scan: one control-surface turn (8h4g). */
 const MARK_SCAN_REUSE_MS = 50;
 
+/**
+ * P01 (D65): the chain a guarded `device.insert` states. The extension pages the complete live chain and refuses
+ * the insertion unless its track, names and enabled flags match, so after a successful write this is the chain the
+ * insertion started from, and the adapter does not read it first.
+ */
+function guardedInsertChain(op: Op): ChainSnapshot | undefined {
+  if (op.op !== 'device.insert' || op.expectedChain === undefined || op.expectedEnabledChain === undefined) {
+    return undefined;
+  }
+  return {
+    devices: op.expectedChain.map((name, index) => ({ index, name, enabled: op.expectedEnabledChain![index]! })),
+    blind: false,
+  };
+}
+
 function mintedChainIndex(before: ChainSnapshot, after: ChainSnapshot): number | undefined {
   if (before.blind || after.blind) return undefined;
   if (after.devices.length !== before.devices.length + 1) return undefined;
@@ -4901,6 +4916,7 @@ export class LiveAdapter implements BitwigAdapter {
    */
   private async readContainers(
     ops: readonly Op[],
+    scopes?: Map<AddressKey, ContainerScope>,
   ): Promise<Map<AddressKey, ObservedContainer | undefined>> {
     this.chainPositions.clear();
     this.chainIds.clear();
@@ -4919,6 +4935,7 @@ export class LiveAdapter implements BitwigAdapter {
       // is empty" changes nothing: neither is a container we can safely write a
       // chain into and then find again.
       seen.set(key, scope.ok ? scope.container : undefined);
+      scopes?.set(key, scope);
       if (scope.ok) this.recordChainPositions(container, scope.container);
     }
     return seen;
@@ -5229,26 +5246,40 @@ export class LiveAdapter implements BitwigAdapter {
     return { ok: false, why: `solo set was not proved by container readback: ${last}` };
   }
 
-  /** Prove a rename by resolving the new name to the identity observed before it. */
-  private async finishChainRename(
-    op: Extract<Op, { op: 'chain.rename' }>,
-    id: string,
-  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+  /**
+   * P01 (D65): wait until every new name of one rename stage resolves to the identity it was sent to. A later
+   * stage, or the caller's next write, addresses the chain by its new name, so this is a dependency wait: one
+   * read of each container, repeated only while a name has not landed. Returns the stage positions of the
+   * renames that did not resolve within 4 s, each with its reason.
+   */
+  private async finishChainRenames(
+    ops: readonly Extract<Op, { op: 'chain.rename' }>[],
+    ids: readonly string[],
+  ): Promise<Map<number, string>> {
     const started = Date.now();
-    let last = 'the new name did not resolve';
+    const pending = new Map<number, string>(ops.map((_, j) => [j, 'the new name did not resolve']));
     do {
-      const scope = await this.containerScope(
-        op.chain.container.track, op.chain.container.chainIndex, false);
-      if (scope.ok) {
+      const seen = new Map<AddressKey, ContainerScope>();
+      for (const [j] of [...pending]) {
+        const op = ops[j]!;
+        const key = addressKey(op.chain.container);
+        let scope = seen.get(key);
+        if (scope === undefined) {
+          scope = await this.containerScope(op.chain.container.track, op.chain.container.chainIndex, false);
+          seen.set(key, scope);
+        }
+        if (!scope.ok) {
+          pending.set(j, `the container became ${scope.miss}`);
+          continue;
+        }
         const found = lookupChain(scope.container, op.name);
-        if (found.ok && found.chain.id === id) return { ok: true };
-        last = found.ok ? 'the new name resolved to a different identity' : `the new name was ${found.miss}`;
-      } else {
-        last = `the container became ${scope.miss}`;
+        if (found.ok && found.chain.id === ids[j]) pending.delete(j);
+        else pending.set(j, found.ok ? 'the new name resolved to a different identity' : `the new name was ${found.miss}`);
       }
+      if (pending.size === 0) return pending;
       if (Date.now() - started < 4000) await new Promise((resolve) => setTimeout(resolve, 100));
     } while (Date.now() - started < 4000);
-    return { ok: false, why: `rename was not proved by container readback: ${last}` };
+    return new Map([...pending].map(([j, why]) => [j, `rename was not proved by container readback: ${why}`]));
   }
 
   /**
@@ -5495,7 +5526,8 @@ export class LiveAdapter implements BitwigAdapter {
   private async finishChainCreate(
     op: Extract<Op, { op: 'chain.create' }>,
     before: ContainerScope,
-  ): Promise<{ ok: true; address: ChainAddress } | { ok: false; why: string }> {
+    shown?: ContainerScope,
+  ): Promise<{ ok: true; address: ChainAddress; settled: ContainerScope } | { ok: false; why: string }> {
     const container = op.source.container;
     // ⚠ The sentence comes from the contract, so the fake reports the same one.
     // Two hand-written copies is how the offline suite ends up asserting a
@@ -5508,7 +5540,8 @@ export class LiveAdapter implements BitwigAdapter {
     // for one that held no chains — which would make the diff below see the
     // whole container as new.
     if (!before.ok) return unnamed(`the container was not observable before the copy (${before.miss})`);
-    const after = await this.containerScope(container.track, container.chainIndex, false);
+    // P01 (D65): the settle poll's reading already shows the copy; read here only when it did not.
+    const after = shown?.ok === true ? shown : await this.containerScope(container.track, container.chainIndex, false);
     if (!after.ok) return unnamed(`the container became unobservable (${after.miss})`);
     const witness = mintedChain(before.container, after.container);
     if (!witness.ok) return unnamed(`the copy could not be identified: ${witness.why}`);
@@ -5541,7 +5574,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (found.chain.id !== witness.chain.id) {
         return unnamed('the new name resolved to a DIFFERENT chain than the one that was created');
       }
-      return { ok: true, address: chainAt(container, op.name) };
+      return { ok: true, address: chainAt(container, op.name), settled };
     } catch (error) {
       // ⚠ The message is carried verbatim rather than summarised: it is the
       // extension's own refusal, and it is the only thing that says WHY the
@@ -5556,8 +5589,8 @@ export class LiveAdapter implements BitwigAdapter {
    *
    * - A device insert polls the track's device chain until it shows the minted device (with its expected name)
    *   in two equal consecutive complete readings. The post-stage mint check then reads the chain again.
-   * - A chain create polls its container until one new chain is identifiable. `finishChainCreate` then reads
-   *   the container again.
+   * - A chain create polls its container until one new chain is identifiable, and returns that reading to
+   *   `finishChainCreate` (P01).
    * - A device or chain relocation does not wait: `finishDeviceReorder` and `finishRelocation` poll a complete
    *   structural proof for up to 8,000 ms.
    * - A drum pad insert polls the pad bank until the target pad shows exactly the expected device in two equal
@@ -5571,7 +5604,7 @@ export class LiveAdapter implements BitwigAdapter {
     ops: readonly Op[],
     chainBefore: ChainSnapshot | undefined,
     containerBefore: ContainerScope | undefined,
-  ): Promise<void> {
+  ): Promise<{ readonly container?: ContainerScope; readonly chain?: ChainSnapshot }> {
     const deadline = performance.now() + SETTLE_MS.deviceInsert;
     const poll = async (proved: () => Promise<boolean>): Promise<void> => {
       while (performance.now() < deadline) {
@@ -5582,7 +5615,9 @@ export class LiveAdapter implements BitwigAdapter {
     const insert = ops.find((op) => op.op === 'device.insert');
     const create = ops.find((op) => op.op === 'chain.create');
     if (insert?.op === 'device.insert' && chainBefore !== undefined) {
+      // P01 (D65): the second of two equal readings that show the insertion is returned for the mint check.
       let prior: string | undefined;
+      let shown: ChainSnapshot | undefined;
       await poll(async () => {
         const after = await this.deviceChain(insert.track);
         const at = after === undefined ? undefined : mintedChainIndex(chainBefore, after);
@@ -5591,16 +5626,21 @@ export class LiveAdapter implements BitwigAdapter {
           ? undefined : JSON.stringify(after!.devices);
         const stable = reading !== undefined && reading === prior;
         prior = reading;
+        if (stable) shown = after;
         return stable;
       });
-      return;
+      return shown === undefined ? {} : { chain: shown };
     }
     if (create?.op === 'chain.create' && containerBefore?.ok === true) {
+      // P01 (D65): the reading that shows the copy is returned, so `finishChainCreate` does not read again.
+      let shown: ContainerScope | undefined;
       await poll(async () => {
         const after = await this.containerScope(create.source.container.track, create.source.container.chainIndex, false);
-        return after.ok && mintedChain(containerBefore.container, after.container).ok;
+        const minted = after.ok && mintedChain(containerBefore.container, after.container).ok;
+        if (minted) shown = after;
+        return minted;
       });
-      return;
+      return shown === undefined ? {} : { container: shown };
     }
     const pad = ops.length === 1 && ops[0]?.op === 'drumPad.insert' ? ops[0] : undefined;
     if (pad !== undefined && pad.expectedChain !== undefined && pad.expectedEnabledChain !== undefined) {
@@ -5622,12 +5662,13 @@ export class LiveAdapter implements BitwigAdapter {
         prior = reading;
         return stable;
       });
-      return;
+      return {};
     }
     // The chain insertion handler replies after the final device count arrives (E403).
     if (ops.every((op) => op.op === 'device.relocate' || op.op === 'chain.relocate'
-      || op.op === 'chain.insert')) return;
+      || op.op === 'chain.insert')) return {};
     await this.settle('deviceInsert');
+    return {};
   }
 
   async apply(batch: BatchRequest): Promise<BatchReceipt> {
@@ -5674,14 +5715,19 @@ export class LiveAdapter implements BitwigAdapter {
     const occupancy = await this.readOccupancy(batch.ops);
     assertSlotsFree(batch.ops, (s) => occupancy.get(addressKey(s)));
     assertClipSources(batch.ops, (s) => occupancy.get(addressKey(s)));
+    // P01 (D65): container readings that are still current for the first stage.
+    const preflightScopes = new Map<AddressKey, ContainerScope>();
     const preflightSelection = await this.beginSelectionBorrow(batch.ops.some((op) =>
-      op.op === 'device.insert' || op.op === 'device.relocate'));
+      (op.op === 'device.insert' && guardedInsertChain(op) === undefined) || op.op === 'device.relocate'));
     try {
       const insertChains = new Map<string, RelocationSequence>();
       for (const trackRef of new Map(batch.ops
         .filter((op): op is Extract<Op, { op: 'device.insert' }> => op.op === 'device.insert')
         .map((op) => [op.track.channelId, op.track])).values()) {
-        const observed = await this.stableDeviceChain(trackRef);
+        // P01 (D65): an insertion whose complete chain guard the extension checks at the write reads nothing first.
+        const guarded = batch.ops.find((op) => op.op === 'device.insert' && op.track.channelId === trackRef.channelId);
+        const stated = guarded === undefined ? undefined : guardedInsertChain(guarded);
+        const observed = stated ?? await this.stableDeviceChain(trackRef);
         if (observed !== undefined) {
           insertChains.set(trackRef.channelId, {
             devices: observed.devices,
@@ -5701,7 +5747,7 @@ export class LiveAdapter implements BitwigAdapter {
     // position, which is why the observations are recorded rather than
     // discarded: a chain has no position in its address, so the only honest one
     // comes from a reply, and it must come from a reply this batch took.
-      const containers = await this.readContainers(batch.ops);
+      const containers = await this.readContainers(batch.ops, preflightScopes);
       assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
       assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
       assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
@@ -5816,7 +5862,16 @@ export class LiveAdapter implements BitwigAdapter {
       throw error;
     }
 
+    // P01 (D65): a complete container reading that is still current for the next stage — the preflight reading
+    // for the first stage, or the reading a chain create took after its own rename for the stage after it.
+    let carried: { readonly key: AddressKey; readonly scope: ContainerScope } | undefined;
     for (const [i, stage] of stages.entries()) {
+      const carriedIn = carried;
+      carried = undefined;
+      const currentScope = (key: AddressKey): ContainerScope | undefined => {
+        const scope = i === 0 ? preflightScopes.get(key) : carriedIn?.key === key ? carriedIn.scope : undefined;
+        return scope?.ok === true ? scope : undefined;
+      };
       // ⚠ E15-D: waited BEFORE the request goes out, not after it comes back.
       // `cursor.setNoteProps` reads a NoteStep before mutating it, and that read
       // is unusable until the grid change from the preceding stage has landed.
@@ -5835,13 +5890,15 @@ export class LiveAdapter implements BitwigAdapter {
       // stage holds at most one and the two observations bracket exactly one op.
       const insertAt = stage.ops.findIndex((o) => o.op === 'device.insert');
       const insertOp = insertAt === -1 ? undefined : stage.ops[insertAt];
+      // P01 (D65): a guarded insertion states its chain; the extension refuses the write if the chain differs.
+      const statedBefore = insertOp === undefined ? undefined : guardedInsertChain(insertOp);
       const chainBefore = insertOp?.op === 'device.insert'
-        ? await this.deviceChain(insertOp.track)
+        ? statedBefore ?? await this.deviceChain(insertOp.track)
         : undefined;
       if (insertOp?.op === 'device.insert') {
         let names: readonly string[];
         try {
-          names = this.guardedDeviceNames(
+          names = statedBefore !== undefined ? statedBefore.devices.map((item) => item.name) : this.guardedDeviceNames(
             insertOp.track, chainBefore, insertOp.expectedChain,
             insertOp.expectedEnabledChain, insertOp.op,
           );
@@ -5856,16 +5913,17 @@ export class LiveAdapter implements BitwigAdapter {
       }
 
       // ⚠⚠ And a chain create needs the same bracket, one level down and with a
-      // WRITE in the middle of it — see `finishChainCreate`. Taken here, freshly,
-      // rather than reusing the precondition reading above: that one was taken
-      // before the whole batch, and an earlier stage may have moved the world.
+      // WRITE in the middle of it — see `finishChainCreate`. P01 (D65): the
+      // first stage uses the preflight reading, and a create right after another
+      // create on the same container uses that create's post-rename reading.
+      // Any other stage reads again, because an earlier one may have moved the world.
       //
       // ⚠ `OP_SETTLE['chain.create']` is not `instant`, so `planStages` gives it
       // a stage to itself and these two observations bracket exactly one op.
       const createAt = stage.ops.findIndex((o) => o.op === 'chain.create');
       const createOp = createAt === -1 ? undefined : stage.ops[createAt];
       const containerBefore = createOp?.op === 'chain.create'
-        ? await this.containerScope(
+        ? currentScope(addressKey(createOp.source.container)) ?? await this.containerScope(
           createOp.source.container.track, createOp.source.container.chainIndex, false)
         : undefined;
       if (createOp?.op === 'chain.create' && containerBefore?.ok === true) {
@@ -5881,16 +5939,28 @@ export class LiveAdapter implements BitwigAdapter {
         }
       }
 
-      const renameAt = stage.ops.findIndex((o) => o.op === 'chain.rename');
-      const renameOp = renameAt === -1 ? undefined : stage.ops[renameAt];
-      let renameId: string | undefined;
-      if (renameOp?.op === 'chain.rename') {
+      // P01 (D65): a rename stage holds every consecutive rename (`planStages`). Each container is read once:
+      // the batch preflight reading serves the first stage, and a later stage reads again because an earlier one
+      // may have changed the container. Every rename addresses its chain by the identity from that reading.
+      const renameOps = stage.ops.filter((o): o is Extract<Op, { op: 'chain.rename' }> => o.op === 'chain.rename');
+      const renameIds: string[] = [];
+      if (renameOps.length > 0) {
         try {
-          const scope = await this.containerScope(
-            renameOp.chain.container.track, renameOp.chain.container.chainIndex, false);
-          assertChainRenamable([renameOp], () => scope.ok ? scope.container : undefined);
-          if (scope.ok) this.recordChainPositions(renameOp.chain.container, scope.container);
-          renameId = this.chainId(renameOp.chain);
+          const observed = new Map<AddressKey, ObservedContainer | undefined>();
+          for (const op of renameOps) {
+            const key = addressKey(op.chain.container);
+            if (observed.has(key)) continue;
+            const current = currentScope(key);
+            if (current?.ok === true) {
+              observed.set(key, current.container);
+              continue;
+            }
+            const scope = await this.containerScope(op.chain.container.track, op.chain.container.chainIndex, false);
+            observed.set(key, scope.ok ? scope.container : undefined);
+            if (scope.ok) this.recordChainPositions(op.chain.container, scope.container);
+          }
+          assertChainRenamable(renameOps, (container) => observed.get(addressKey(container)));
+          for (const op of renameOps) renameIds.push(this.chainId(op.chain));
         } catch (error) {
           await this.restoreSelection(selection);
           throw error;
@@ -6265,8 +6335,15 @@ export class LiveAdapter implements BitwigAdapter {
       // write between stages is caught for free.
       guard = result.revision;
 
-      if (stage.settle === 'deviceInsert') {
-        await this.settleStructure(stage.ops, chainBefore, containerBefore);
+      let createdShown: ContainerScope | undefined;
+      let insertedShown: ChainSnapshot | undefined;
+      if (stage.settle === 'deviceInsert' && statedBefore !== undefined
+          && !receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+        // P01: the extension refused a guarded insertion before inserting; the mint check below reads once.
+      } else if (stage.settle === 'deviceInsert') {
+        const shown = await this.settleStructure(stage.ops, chainBefore, containerBefore);
+        createdShown = shown.container;
+        insertedShown = shown.chain;
       } else if (stage.settle !== undefined) {
         await this.settle(stage.settle);
       }
@@ -6451,7 +6528,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (insertOp?.op === 'device.insert') {
         const chainAfter = chainBefore === undefined
           ? undefined
-          : await this.deviceChain(insertOp.track);
+          : insertedShown ?? await this.deviceChain(insertOp.track);
         const at = stage.opIndices[insertAt];
         const chainIndex = chainBefore === undefined || chainAfter === undefined
           ? undefined
@@ -6488,9 +6565,10 @@ export class LiveAdapter implements BitwigAdapter {
       // lands, and a diff taken earlier would see the container we already had.
       if (createOp?.op === 'chain.create' && containerBefore !== undefined) {
         const at = stage.opIndices[createAt];
-        const named = await this.finishChainCreate(createOp, containerBefore);
+        const named = await this.finishChainCreate(createOp, containerBefore, createdShown);
         if (named.ok) {
           if (at !== undefined) minted[at] = named.address;
+          carried = { key: addressKey(createOp.source.container), scope: named.settled };
         } else {
           // ⚠⚠ REPORTED AS A FAILED OP, and this is the one place in `apply`
           // where a stage's own `ok` is overruled from outside the wire result.
@@ -6512,14 +6590,18 @@ export class LiveAdapter implements BitwigAdapter {
           receipts[receipts.length - 1] = { ...receipt, ops };
         }
       }
-      if (renameOp?.op === 'chain.rename' && renameId !== undefined
+      if (renameOps.length > 0 && renameIds.length === renameOps.length
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
-        const proved = await this.finishChainRename(renameOp, renameId);
-        if (!proved.ok) {
-          const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
-            (entry.op === WIRE.chainSetName || entry.op === 'chain.rename'
-              ? { ...entry, ok: false, error: proved.why }
-              : entry));
+        const failed = await this.finishChainRenames(renameOps, renameIds);
+        if (failed.size > 0) {
+          const entries = receipts[receipts.length - 1]!.ops;
+          // One wire frame per rename, so a reply entry maps to its op by position.
+          const ops = entries.map((entry, j) => {
+            const why = entries.length === renameOps.length ? failed.get(j)
+              : [...failed.values()][0];
+            return why !== undefined && (entry.op === WIRE.chainSetName || entry.op === 'chain.rename')
+              ? { ...entry, ok: false, error: why } : entry;
+          });
           receipts[receipts.length - 1] = { ...receipts[receipts.length - 1]!, ops };
         }
       }
@@ -6585,10 +6667,18 @@ export class LiveAdapter implements BitwigAdapter {
       // stale after compaction while looking perfectly healthy (E3), so the
       // damage is silent and arbitrarily delayed.
       // P01: a chain insertion re-indexes devices inside one layer chain only. No track row, scene row,
-      // top-level device or pool cursor moves, so only a held device target is dropped.
+      // top-level device or pool cursor moves, so only a held device target is dropped. Cursor 0 keeps its
+      // track, so the next insertion on the same track does not point it again (D65).
       if (stage.ops.some((o) => o.op === 'chain.insert')) {
-        this.structuralRevision += 1;
         this.heldDeviceTarget = undefined;
+        // The extension confirmed the track identity before it inserted, so a successful stage confirms the hold.
+        const inserted = stage.ops.filter((o): o is Extract<Op, { op: 'chain.insert' }> => o.op === 'chain.insert');
+        const trackIds = new Set(inserted.map((o) => o.chain.container.track.channelId));
+        const trackIndex = this.index.get(inserted[0]!.chain.container.track.channelId);
+        if (trackIds.size === 1 && trackIndex !== undefined
+            && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
+          this.rememberCursorTrack('0', { channelId: inserted[0]!.chain.container.track.channelId, index: trackIndex });
+        }
       }
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
         await this.resetWriterViews(writerViews);

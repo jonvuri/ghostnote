@@ -26,6 +26,7 @@
  * that change, which is why they look like this now.
  */
 import type { SettleBudget } from './budgets.js';
+import { addressKey } from './address.js';
 import { OP_SETTLE, OP_SETTLE_BEFORE, type Op } from './ops.js';
 import { orderedNoteProps, type NoteRecord } from './state.js';
 
@@ -53,7 +54,9 @@ export interface Stage {
  *   2. A settling op gets its own stage, followed by its budget. It cannot share
  *      with the instant ops around it, because an op after a device insert must
  *      not run before the device exists (E8's own worked example).
- *   3. Order is never rearranged. Callers express dependencies positionally, and
+ *   3. Exception to rule 2: consecutive `chain.rename` ops share one stage, unless one renames a name that an
+ *      earlier rename in the stage produced in the same container (P01, D65).
+ *   4. Order is never rearranged. Callers express dependencies positionally, and
  *      silently reordering them would be a correctness bug, not an optimization.
  */
 /** The four fields that ride on `setStep` itself; everything else is a property. */
@@ -160,6 +163,20 @@ export function planStages(input: readonly Op[]): Stage[] {
       return;
     }
     flushInstant();
+    // P01 (D65): consecutive renames share one stage and one settle. Each addresses its chain by the identity
+    // read before the stage, so a rename whose source name an earlier rename in the stage produced starts a new
+    // stage; that stage reads the container again.
+    const last = stages.at(-1);
+    if (op.op === 'chain.rename' && last !== undefined
+        && last.ops.every((item) => item.op === 'chain.rename')
+        && !last.ops.some((item) => item.op === 'chain.rename'
+          && addressKey(item.chain.container) === addressKey(op.chain.container)
+          && item.name === op.chain.name)) {
+      stages[stages.length - 1] = {
+        ...last, ops: [...last.ops, op], opIndices: [...last.opIndices, i],
+      };
+      return;
+    }
     const settleBefore = OP_SETTLE_BEFORE[op.op];
     stages.push({
       ops: [op],

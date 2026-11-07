@@ -68,6 +68,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D54 | Requested edits do not require Ghostnote reversal; simplify recovery machinery when useful, while preserving correct effects and truthful results **[SETTLED 2026-10-24]** | [open](d54-recovery-is-not-a-prerequisite-for-requested-edits.md) |
 | D65 | Proved routes run with one readback at the end: no mid-operation proofs, no concurrent-operator guards, rigor in tests and E records **[SETTLED 2026-10-25]** | [open](d65-proved-routes-run-with-one-readback.md) |
 | D66 | Pressure refusal is a verification limit: setter effects are visible in the inspector, but independent API readback remains blind; retain product admission and correct the rationale | [open](d66-pressure-refusal-is-a-verification-limit.md) |
+| D67 | Composition limits follow layer chains and existing sources: `compose_devices` admits 8 layer chains and 16 device units (VST3, CLAP and existing sources 2); replaces D44's `compose_devices` row | [open](d67-composition-limits-follow-chains-and-existing-sources.md) |
 
 ## Phase 4 closeout audit
 

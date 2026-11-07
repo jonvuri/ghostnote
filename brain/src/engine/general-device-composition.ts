@@ -322,16 +322,26 @@ export async function composeGeneralDeviceSources(
     }
     checkpoint = { ...checkpoint, preparedEntryNames: [...initialNames] };
 
-    // Duplicating the last empty chain appends without changing existing entry indices.
+    // Duplicating the last empty chain appends without changing existing entry indices. P01 (D65): every
+    // additional chain is one apply, each copy made from the one before it; each create is its own stage.
     failedStage = 'grow-entries';
-    while (initialNames.length < request.entries.length) {
-      const name = uniqueTemporaryNames([...initialNames, ...request.entries.map((entry) => entry.entryName)], 1)[0]!;
+    if (initialNames.length < request.entries.length) {
+      const names = uniqueTemporaryNames([...initialNames, ...request.entries.map((entry) => entry.entryName)],
+        request.entries.length - initialNames.length);
+      const ops: Op[] = names.map((name, index) => ({
+        op: 'chain.create', source: chain(container, index === 0 ? initialNames.at(-1)! : names[index - 1]!), name,
+      }));
       checkpoint = { ...checkpoint, seedUnchanged: false };
-      const grown = await run([{ op: 'chain.create', source: chain(container, initialNames.at(-1)!), name }]);
+      const grown = await run(ops);
       stages.push(receipt('grow-entries', grown));
-      if (!accepted(grown)) return await finish(failedStage, 'The additional empty chain was not proved.');
-      initialNames.push(name);
+      // A copy whose stage was not proved ends the proved run; the final read reports the rest.
+      for (const [index, name] of names.entries()) {
+        const proof = grown.receipt.stages.find((item) => item.index === index);
+        if (proof?.applied !== true || proof.ops.length === 0 || !proof.ops.every((item) => item.ok)) break;
+        initialNames.push(name);
+      }
       checkpoint = { ...checkpoint, preparedEntryNames: [...initialNames], lastWriteAt: minimalMark(lastAt!) };
+      if (!accepted(grown)) return await finish(failedStage, 'An additional empty chain was not proved.');
     }
 
     const requestedNames = request.entries.map((item) => item.entryName);
@@ -355,13 +365,16 @@ export async function composeGeneralDeviceSources(
         stages.push(receipt(pass.stage, renamed));
         checkpoint = { ...checkpoint, seedUnchanged: false };
         if (!accepted(renamed)) {
-          // Keep only names with a proved receipt; the final read reports the rest.
+          // Keep only names with a proved receipt entry; the final read reports the rest. Renames share a stage,
+          // and each sends one frame, so a stage's reply entries map to its ops by position.
           const preparedEntryNames = [...pass.from];
           for (const [index, stage] of planStages(ops).entries()) {
             const proof = renamed.receipt.stages.find((item) => item.index === index);
-            if (proof?.applied !== true || proof.ops.length === 0 || !proof.ops.every((item) => item.ok)) continue;
-            for (const op of stage.ops) {
-              if (op.op === 'chain.rename') preparedEntryNames[pass.from.indexOf(op.chain.name)] = op.name;
+            if (proof?.applied !== true || proof.ops.length !== stage.ops.length) continue;
+            for (const [position, op] of stage.ops.entries()) {
+              if (op.op === 'chain.rename' && proof.ops[position]!.ok) {
+                preparedEntryNames[pass.from.indexOf(op.chain.name)] = op.name;
+              }
             }
           }
           checkpoint = { ...checkpoint, preparedEntryNames };

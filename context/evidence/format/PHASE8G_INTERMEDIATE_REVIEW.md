@@ -15,7 +15,7 @@ The review used the index at HEAD
 There were no unstaged or untracked dependencies. The index had 133 files,
 17,990 added text lines, 60 deleted text lines, and 46 compressed reports.
 Brain had 48 files and 9,112 added lines. Extension had 25 files and 6,253
-added lines. Context had 60 files and 2,625 added lines.
+added lines. Context had 60 files and 2,624 added lines.
 
 The [inventory](PHASE8G_INTERMEDIATE_REVIEW_INVENTORY.json) assigns every entry
 file to an area below. It records dependencies, roles, index blob IDs, SHA-256,

@@ -274,14 +274,76 @@ measured, so the six-unit limit and weights stay. Raising them needs a
 measurement at the proposed limit (for example 12–16 native devices, and
 plug-ins) and its revert.
 
-**Next.** Cut the adapter's per-operation checks (design below), then measure
-a larger shape and re-derive D44; scalar-cohort and clip-metadata reductions
-follow.
+**Next.** Done in the adapter check result above.
+
+## Adapter check result — live, 2026-11-07
+
+[E407](../evidence/experiments/e407-p01-adapter-checks-and-d44-live.md)
+verifies items 1–4 of the design below; item 5 stays deferred, as planned.
+
+- **Renames (item 1).** `planStages` puts consecutive `chain.rename` ops in
+  one stage, starting a new stage only when an op renames a name an earlier
+  rename in the stage produced (the clash pattern). The live adapter resolves
+  each chain ID from one container reading (the preflight reading on the
+  first stage), sends all renames in one `batch.run`, and then waits once
+  for every new name (`finishChainRenames`; a dependency wait, because the
+  next stage addresses chains by name). Reply entries map to ops by
+  position, so the engine attributes partial rename proofs per op.
+- **Growth (item 2).** The engine sends every growth `chain.create` in one
+  apply, each copied from the previous copy. The adapter reuses the
+  preflight reading for the first copy, the settle poll's reading for the
+  mint diff, and each copy's post-rename reading as the next copy's
+  "before". The post-rename reading stays: the next stage addresses the copy
+  by name. A live multi-copy ordering proof was not needed; E407's 16-chain
+  case read every chain back in order.
+- **Insertions (item 3).** A `chain.insert` stage no longer advances the
+  structural revision, and a successful one records cursor 0's track hold.
+  The extension's one-scope-aim-per-chain change was not made.
+- **Results.** Six chains at position 18: 8.8 s / 105 turns (13.7 s / 133);
+  renames 1.9 s (4.8 s); insertions 2.1 s without re-points. Growth copies
+  still cost about 1.6–1.85 s each.
+- **D44 → D67.** Candidate shapes and their reverts are in E407. Units no
+  longer drive the cost; chain growth and existing sources do. [D67](../decisions/d67-composition-limits-follow-chains-and-existing-sources.md)
+  sets 8 layer chains and 16 units (existing sources 2); worst measured
+  case 25.6 s (8 existing sources at position 18), revert 13.7 s. The
+  benchmark-only `measurementLimits` option of `composeDevices` admits the
+  candidate shapes for [`p01-d44-live.ts`](../../brain/src/probes/p01-d44-live.ts).
+  Descriptions v61.
+- **Container insertion (item 4).** A guarded `device.insert` (both top-level
+  guards present, as every product caller sends) reads nothing before its
+  write: the extension pages the complete live chain and refuses a
+  mismatch, so the stated chain is the mint diff's "before". The mint check
+  reuses the settle poll's second equal reading; a refused guarded insertion
+  skips the settle poll. `add_devices` projects the chain after each native
+  device instead of reading the bank. 16 native devices: 9.1 s (18.7–19.0 s);
+  six chains at 18: 7.8 s. The writer-clip releases stay (about 70 ms per
+  structural stage): physical pin state is not tracked across calls, and a
+  pinned clip ignores later selection changes (E2, E3).
+- **Layer tools.** `rename_layer_chain` 970 ms with 4 container readings
+  (was 5); `duplicate_layer_chain` 1,443 ms; both verified. Their offline
+  budgets are unchanged.
+
+**Next.**
+
+1. **Relocation readings.** In the eight-existing case, 36 container
+   readings took 11.0 s: each `chain.relocate` takes its own preflight and
+   proof readings (`relocationReading`, `finishRelocation`). Under D65, keep
+   input validation and one final read; carry readings between consecutive
+   relocations as growth now does.
+2. **Larger seed.** Authoring an FX/Instrument Layer seed with more than
+   five empty chains offline would remove growth copies (about 1.85 s each)
+   and could raise the D67 chain limit. After it, rerun
+   [`p01-d44-live.ts`](../../brain/src/probes/p01-d44-live.ts) with chain
+   counts above 8 (for example 12 and 16 chains at position 18) and their
+   reverts. If the slowest stays under 30 s, record the new chain limit in a
+   new decision record (D67 stays unchanged) and update the limit, its
+   schema text, the descriptions (version bump) and the ledger together.
+3. Scalar-cohort and clip-metadata capture reductions.
 
 ## Next session — adapter per-operation checks and the D44 measurement
 
-Design note, written before the commit of the D65 composition work. Nothing
-here is implemented yet.
+Design note, written before the commit of the D65 composition work. Items
+1–4 and the D44 measurement are done (result above); item 5 stays deferred.
 
 ### Where the six-chain composition spends 13.7 s
 
@@ -461,5 +523,7 @@ The scope-read policy is verified; scope count/width remain unchanged because
 three handles retain the common three-container working set. Four-container
 cycling is measured in E401 and remains a possible later tradeoff, not an
 unmeasured allocation change. Ordered direct insertion and deletion snapshot narrowing are verified in
-E403/E404. The D65 composition rewrite, scalar cohort consolidation,
-metadata-only clip reads and D44 reweighting remain open in this same P01 item.
+E403/E404. The D65 composition rewrite (E406), the adapter check
+reductions, guarded insertions and the D67 reweighting (E407) are done.
+Relocation readings, a larger offline seed, scalar cohort
+consolidation and metadata-only clip reads remain open in this same P01 item.

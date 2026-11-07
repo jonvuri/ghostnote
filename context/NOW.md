@@ -36,20 +36,31 @@ retargeting, scratch cleanup and preserved inventories/selection passed.
 The comparison suppresses capability flags on the same LRU build; it is not
 an old-build latency comparison. Scope count/width stay three/one.
 
-**P01 D65 composition is implemented and verified live (2026-11-07).** A new
-normal-profile write `chain.insert` places ordered sources directly at a
-named layer chain's end, waiting for each device count as E403 requires.
-Staged `compose_devices` inserts the container, names its chains, sends one
-batch of direct insertions, relocates only existing sources and reads the
-container once; reversal restores moved devices and removes the owned
-container in one removal. [E406](evidence/experiments/e406-d65-direct-composition-live.md):
-six chains at position 18 took 13.7 s (E398: 44.4 s), other admitted shapes
-2.6–5.6 s, reverts 1.5–2.8 s, with cleanup and preservation passing. Normal
-wire 94 / `526cd7e3760580cc`; descriptions v60; D44 unchanged until a larger
-shape is measured. The loaded controller is this worktree's normal build.
-Next: the [adapter-check design](work/p01-edit-path-performance.md#next-session--adapter-per-operation-checks-and-the-d44-measurement)
-(per-rename reads and batches, per-insertion re-points), then a larger D44
-measurement ([result](work/p01-edit-path-performance.md#d65-composition-result--live-2026-11-07)).
+**P01 adapter check reductions and D67 limits are verified live (2026-11-07).**
+Consecutive layer-chain renames now share one stage: one container reading
+before the `batch.run` and one wait after it. Chain growth copies are one
+apply that reuses readings between copies, and `chain.insert` stages no
+longer re-point cursor 0. A guarded `device.insert` reads nothing before its
+write (the extension checks the stated chain), and `add_devices` projects the
+chain between native devices. [E407](evidence/experiments/e407-p01-adapter-checks-and-d44-live.md):
+six chains at position 18 took 7.8 s (E406: 13.7 s), the other E406 cases
+2.1–4.5 s, and reverts 1.5–2.9 s; `add_devices` of 16 native devices took
+9.1 s (18.7–19.0 s). Above the six-unit limit, units no
+longer drive the cost (4×4 native 3.8 s, 16 plug-in units 3.5 s), but
+layer-chain growth and existing sources do: 16 chains at 18 took 38.1 s,
+and 8 existing sources into 8 chains took 25.6 s.
+[D67](decisions/d67-composition-limits-follow-chains-and-existing-sources.md)
+therefore replaces D44's `compose_devices` row: at most 8 layer chains and
+16 device units, with existing sources counting two. Descriptions are v61;
+the wire is unchanged (normal 94 / `526cd7e3760580cc`, already loaded, so no
+controller replacement was needed). All 2,624 brain tests pass. Scratch
+cleanup and preservation passed in every run.
+Writer-clip releases after structural stages stay (about 70 ms; pin state
+is not tracked across calls). Next: the relocation readings of existing
+sources (36 container readings, 11 s, in the eight-existing case) and an
+offline seed larger than five chains; then scalar-cohort and clip-metadata
+reductions
+([brief](work/p01-edit-path-performance.md#adapter-check-result--live-2026-11-07)).
 
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits
@@ -87,7 +98,7 @@ worktree's updated code to use these brain changes.
 
 [E400](evidence/experiments/e400-p01-offline-cost-attribution.md) and the brief
 retain the obligation audit. The D65 composition integration is verified live
-in E406 (above); a larger D44 measurement is next. Scalar cohort
+in E406, and the adapter reductions and D67 limits in E407 (above). Scalar cohort
 and clip-metadata capture reductions remain open.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)

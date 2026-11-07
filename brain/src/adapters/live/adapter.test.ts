@@ -2289,7 +2289,7 @@ test('4g-device-selection: a failed public chain read restores selection', async
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 1);
 });
 
-test('4g-device-selection: direct insert preflight and apply both restore selection', async () => {
+test('4g-device-selection: a guarded direct insert reads nothing first and restores selection once (P01)', async () => {
   const wire = new SelectedDeviceChainTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
 
@@ -2304,7 +2304,41 @@ test('4g-device-selection: direct insert preflight and apply both restore select
   assert.deepEqual(receipt.minted[0], deviceAt(TRACK, 1));
   assert.deepEqual(wire.chains.get(0), ['Polysynth', 'Phaser']);
   assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+  // The extension checks the stated chain at the write, so no preflight borrow precedes the apply's own.
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 1);
+  // Two equal settle readings show the insertion; the mint check reuses the second.
+  const write = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.equal(wire.frames.slice(0, write).filter((frame) => frame.method === WIRE.deviceList).length, 0);
+  assert.equal(wire.frames.slice(write).filter((frame) => frame.method === WIRE.deviceList).length, 2);
+});
+
+test('P01 insertion: a guarded insert the extension refuses skips the settle poll and reads once', async () => {
+  class RefusingTransport extends SelectedDeviceChainTransport {
+    override async send(frame: Frame): Promise<unknown> {
+      const ops = frame.method === WIRE.batchRun
+        ? ((frame.params as { ops?: { method: string }[] }).ops ?? []) : [];
+      if (!ops.some((op) => op.method === WIRE.deviceInsertBitwig)) return super.send(frame);
+      this.frames.push(frame);
+      // As the extension: the complete chain differs from expectedDeviceNames, so nothing is inserted.
+      return { applied: true, revision: 1, results: ops.map((op) => op.method === WIRE.deviceInsertBitwig
+        ? { method: op.method, ok: false, error: 'device chain changed at index 0' } : { method: op.method, ok: true }) };
+    }
+  }
+  const wire = new RefusingTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const started = performance.now();
+
+  const receipt = await adapter.apply({ ops: [{
+    op: 'device.insert', track: TRACK, source: { from: 'bitwig', uuid: PHASER_UUID },
+    expectedChain: ['Stale'], expectedEnabledChain: [true],
+  }] });
+
+  assert.equal(receipt.stages[0]!.ops.some((op) => !op.ok), true);
+  assert.deepEqual(receipt.minted, {});
+  assert.ok(performance.now() - started < 1000, 'no settle poll waits out its budget');
+  const write = wire.frames.findIndex((frame) => frame.method === WIRE.batchRun);
+  assert.equal(wire.frames.slice(write).filter((frame) => frame.method === WIRE.deviceList).length, 1);
+  assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
 });
 
 test('4g-device-selection: a failed direct insert proof restores selection', async () => {
@@ -2321,7 +2355,7 @@ test('4g-device-selection: a failed direct insert proof restores selection', asy
 
   assert.equal(receipt.stages.flatMap((stage) => stage.ops).every((op) => op.ok), false);
   assert.deepEqual(wire.selection, { trackIndex: 0, slotIndex: 2 });
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 2);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.slotSelect).length, 1);
 });
 
 test('4g-device-selection: direct relocation preflight and apply both restore selection', async () => {
@@ -4708,6 +4742,85 @@ test('L-chain-rename: the observed identity is renamed and independently resolve
   const frame = rename.ops?.find((item) => item.method === WIRE.chainSetName);
   assert.equal(frame?.params['channelId'], 'chain-id-1');
   assert.equal(frame?.params['name'], 'gn-source');
+});
+
+const chainObserves = (wire: ChainCreateTransport) => wire.frames.filter((f) => f.method === WIRE.chainObserve).length;
+const batchOps = (wire: ChainCreateTransport) => wire.frames.filter((f) => f.method === WIRE.batchRun)
+  .map((f) => ((f.params as { ops?: { method: string }[] }).ops ?? []).map((o) => o.method));
+
+test('P01 renames: consecutive renames go out in one turn, with one read before and one wait after', async () => {
+  const wire = new ChainCreateTransport();
+  wire.chains.push({ name: 'gn-second', channelId: 'chain-id-9', solo: false });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: [
+    { op: 'chain.rename', chain: SHIPPED(), name: 'gn-a' },
+    { op: 'chain.rename', chain: chainAt(deviceAt(TRACK, 0), 'gn-second'), name: 'gn-b' },
+  ] });
+
+  assert.equal(receipt.stages.length, 1);
+  assert.deepEqual(receipt.stages[0]!.ops.map((item) => item.ok), [true, true]);
+  assert.deepEqual(wire.chains.map((item) => item.name), ['gn-a', 'gn-b']);
+  assert.deepEqual(batchOps(wire), [[WIRE.chainSetName, WIRE.chainSetName]]);
+  // The batch preflight read serves the stage; one read then shows both new names.
+  assert.equal(chainObserves(wire), 2);
+});
+
+test('P01 renames: a rename of a name the stage produced starts a stage that reads again', async () => {
+  const wire = new ChainCreateTransport();
+  wire.chains.push({ name: 'gn-second', channelId: 'chain-id-9', solo: false });
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const at = (name: string) => chainAt(deviceAt(TRACK, 0), name);
+
+  const receipt = await adapter.apply({ ops: [
+    { op: 'chain.rename', chain: at('gn-shipped'), name: 'gn-p0' },
+    { op: 'chain.rename', chain: at('gn-second'), name: 'gn-p1' },
+    { op: 'chain.rename', chain: at('gn-p0'), name: 'gn-second' },
+    { op: 'chain.rename', chain: at('gn-p1'), name: 'gn-shipped' },
+  ] });
+
+  assert.equal(receipt.stages.length, 2);
+  assert.ok(receipt.stages.every((stage) => stage.ops.every((item) => item.ok)));
+  assert.deepEqual(wire.chains.map((item) => [item.name, item.channelId]),
+    [['gn-second', 'chain-id-1'], ['gn-shipped', 'chain-id-9']]);
+  assert.deepEqual(batchOps(wire), [[WIRE.chainSetName, WIRE.chainSetName], [WIRE.chainSetName, WIRE.chainSetName]]);
+  assert.equal(chainObserves(wire), 4);
+});
+
+test('P01 growth: consecutive creates reuse the preflight, mint and post-rename readings', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: [
+    { op: 'chain.create', source: SHIPPED(), name: 'gn-B' },
+    { op: 'chain.create', source: chainAt(deviceAt(TRACK, 0), 'gn-B'), name: 'gn-C' },
+  ] });
+
+  assert.deepEqual(wire.chains.map((item) => item.name), ['gn-shipped', 'gn-B', 'gn-C']);
+  assert.deepEqual(receipt.minted, {
+    0: chainAt(deviceAt(TRACK, 0), 'gn-B'), 1: chainAt(deviceAt(TRACK, 0), 'gn-C'),
+  });
+  // Preflight 1, then for each create one mint reading and one reading of its new name.
+  assert.equal(chainObserves(wire), 5);
+});
+
+test('P01 insertion: consecutive chain insertions on one track point cursor 0 once', async () => {
+  const wire = new ChainCreateTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const insert = (expectedDeviceCount: number): Op => ({
+    op: 'chain.insert', chain: SHIPPED(), expectedDeviceCount, expectedContainerName: 'FX Layer',
+    sources: [{ from: 'bitwig', uuid: '8ea97e45-0255-40fd-bc7e-94419741e9d1' }],
+  });
+
+  await adapter.preserveSelection(async () => {
+    await adapter.apply({ ops: [insert(0)] });
+    await adapter.apply({ ops: [insert(1)] });
+  });
+
+  const points = wire.frames.filter((f) => f.method === WIRE.cursorPointTrack
+    && (f.params as Record<string, unknown>)['cursor'] === '0');
+  assert.equal(points.length, 1);
+  assert.equal(batchOps(wire).filter((ops) => ops.includes(WIRE.chainInsert)).length, 2);
 });
 
 test('L-chain-create: the copy is SELECTED first, then named by the id it was observed with', async () => {

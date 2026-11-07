@@ -815,18 +815,18 @@ for (const disturbance of ['none', 'operator-rename', 'unproved-rename'] as cons
       ...fx.workspace,
       async apply(ops: Parameters<Workspace['apply']>[0], run?: Parameters<Workspace['apply']>[1]) {
         if (!ops.some((op) => op.op === 'chain.rename')) return fx.workspace.apply(ops, run);
-        // The first rename is proved. The second stage fails before its proof.
+        // The renames share one stage. Its first entry is proved; the second is not.
         const first = await fx.workspace.apply(ops.slice(0, 1), run);
         const container = fx.row.devices.find((item) => item.chains?.length)!;
         if (disturbance === 'operator-rename') container.chains![0]!.name = 'Operator edit';
         if (disturbance === 'unproved-rename') container.chains![2]!.name = 'CLAP';
         const failed = { op: 'chain.rename', ok: false, error: 'The rename was not proved.' };
+        const stage = first.take.receipt.stages[0]!;
         return {
           ...first,
           take: {
             ...first.take, ops,
-            receipt: { ...first.take.receipt, stages: [...first.take.receipt.stages,
-              { index: 1, applied: true, ops: [failed], revision: first.take.verify.at.revision }] },
+            receipt: { ...first.take.receipt, stages: [{ ...stage, ops: [...stage.ops, failed] }] },
             report: { ...first.take.report, failed: [failed] },
           },
         };
@@ -1284,11 +1284,11 @@ for (const [chainCount, devicesPerChain, initialCount] of [[6, 1, 2], [1, 5, 2],
   });
 }
 
-test('B17: D44 still refuses seven unmodulated devices before any write', async () => {
+test('D67: compose_devices refuses nine layer chains before any write', async () => {
   const fx = fixture();
   const before = fx.workspace.changes.list().length;
   const result = await callTool(fx.workspace, 'compose_devices', {
-    trackId: fx.trackId, containerKind: 'FX Layer', layerChains: Array.from({ length: 7 }, (_, i) => ({
+    trackId: fx.trackId, containerKind: 'FX Layer', layerChains: Array.from({ length: 9 }, (_, i) => ({
       name: `Chain ${i}`, devices: [{ source: { kind: 'native', name: 'Tool' } }],
     })),
   }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
@@ -1387,4 +1387,8 @@ test('D65 call budget: staged compose_devices and revert_change make a fixed num
   // one final top-level read.
   assert.deepEqual(one.revert, { devices: 2, structureRead: 3, resolve: 1, apply: 1, contentSince: 1 });
   assert.deepEqual(six.revert, one.revert);
+  // P01: chains beyond the five-chain seed are grown in one apply, which adds that apply and its marks.
+  const sixChains = await budget(6, 1);
+  assert.deepEqual(sixChains.compose, { ...one.compose, read: 8, apply: 4, contentSince: 4 });
+  assert.deepEqual(sixChains.revert, one.revert);
 });
