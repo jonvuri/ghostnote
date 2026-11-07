@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v57';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v58';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -910,3 +910,6 @@ export const TOOL_DESCRIPTION_V56_SHA256 = '76cf46f587e86e1c1d7db37b89fed80e20aa
 
 /** v57 (B17 session 6): paged write admission and composition; physical widths are not capacities. */
 export const TOOL_DESCRIPTION_V57_SHA256 = 'bdf8baac6b9a610827c00d6354b543ccca5153eff7a8a810834ffc77c2ddbad2';
+
+/** v58 (R02): pressure refusal reflects unavailable verification, not an inert setter. */
+export const TOOL_DESCRIPTION_V58_SHA256 = '36e7ef9662dfb7abd62bfe6db8fa5bbbd2703bb23362d38d6e6a6c8866748c46';

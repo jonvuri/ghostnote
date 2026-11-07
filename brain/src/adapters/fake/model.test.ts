@@ -131,15 +131,11 @@ test('T-gain: the shared contract encoder applies the measured inverse once (E24
   assert.equal(gainOnReadback(gain?.[1] as number), 0.7);
 });
 
-// --- E15-E: pressure cannot be written at all --------------------------------
+// --- D56: pressure writes require unavailable independent readback -----------
 
 test('T-pressure: pressure is never emitted, whatever order it is asked for in (E15-E)', () => {
-  // ⚠ This test used to assert the OPPOSITE — that writing gain after pressure
-  // "destroys" it (E2/e02e). E15-E measured that the pressure being destroyed
-  // was never in the clip: `setPressure` populates only the writing cursor's own
-  // NoteStep cache, invisible to every other cursor and gone the moment that
-  // cursor is re-pointed. Gain and timbre did not zero it; they forced the cache
-  // to be re-read, which replaced the phantom with the clip's real 0.
+  // E370 corrects the inert-setter inference. D56 retains filtering because
+  // the independent API reader is blind to both human and setter pressure.
   assert.deepEqual(orderedNoteProps(note({ pressure: 0.9 })), []);
   assert.deepEqual(
     orderedNoteProps(note({ gain: 0.7, pressure: 0.9, pan: 0.3 })).map(([k]) => k),
@@ -149,7 +145,8 @@ test('T-pressure: pressure is never emitted, whatever order it is asked for in (
 
 test('T-pressure: 16 of the 17 other properties DO persist — this is pressure-specific (E15-E)', () => {
   // Measured one property at a time: write alone, settle, read, re-point the
-  // writing cursor away and back, read again. Only pressure evaporated.
+  // writing cursor away and back, read again. Only pressure lost API visibility.
+  // E370 shows that this does not establish loss from the clip.
   for (const prop of ['pan', 'timbre', 'transpose', 'chance', 'repeatCount'] as const) {
     assert.ok(
       orderedNoteProps(note({ [prop]: 0.5 })).some(([k]) => k === prop),
@@ -368,7 +365,7 @@ test('T-props: a note carrying ONLY pressure never reaches the plan (E15-E)', ()
   // It is refused up front, so there is no stage to build.
   assert.throws(
     () => assertOpsWritable([{ op: 'note.write', clip: CLIP, notes: [note({ pressure: 0.9 })] }]),
-    /E15-E/,
+    /independent verification.*E370, D56/,
   );
 });
 

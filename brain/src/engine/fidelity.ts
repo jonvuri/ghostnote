@@ -54,9 +54,9 @@ export function notePropCaveats(notes: readonly NoteRecord[]): string[] {
   for (const prop of UNWRITABLE_NOTE_PROPS) {
     if (!present(prop)) continue;
     caveats.push(
-      `${prop}: cannot be written through this API at all (E15-E) — the value lands only in the ` +
-        'writing cursor\'s own NoteStep cache. A human may have authored it, so the stash keeps ' +
-        'it as a record; a revert cannot put it back.',
+      `${prop}: cannot be written by Ghostnote with independent verification (E370, D56). ` +
+        'The stash retains the supplied value as a record; replay is withheld because ' +
+        'the host API cannot independently confirm pressure.',
     );
   }
   if (notes.length > 0 && stepSizeFor(notes) === undefined) {

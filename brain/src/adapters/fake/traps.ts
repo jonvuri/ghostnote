@@ -47,13 +47,10 @@ export function clipColorOnReadback(written: ClipColorBytes): ClipColorBytes {
 /**
  * Apply property writes in the order given.
  *
- * ⚠ This used to also model E2/e02e's "`setGain` and `setTimbre` each RESET
- * `pressure` to 0". E15-E retired that: the pressure being reset was never in
- * the clip, only in the writing cursor's own `NoteStep` cache, and gain/timbre
- * merely forced that cache to be re-read. Modelling a phantom's disappearance
- * would be the fake certifying a mechanism that does not exist — the precise
- * failure PHASE-0 §Risks names. Pressure is now refused at the contract
- * boundary (`assertOpsWritable`) and never reaches here.
+ * Pressure is refused at the contract boundary (D56), so it never reaches
+ * this function. E370 establishes getter blindness and corrects the older
+ * claim that the pressure setter never affects the clip. The fake does not
+ * model the retired gain/timbre-reset theory.
  *
  * The ordering itself is preserved because `orderedNoteProps` is still the
  * shared mitigation both adapters use, and a property list applied out of order
@@ -174,10 +171,8 @@ export function propsReadsTurnStartClip(
  * turn and a `note.props` turn. Modelling the discard here is what stops the
  * fake certifying the single-request path that does not work.
  *
- * ⚠ This docblock used to describe E2/e02e's "gain and timbre zero pressure"
- * and a two-turn write that recovered it. E15-E retracted both: pressure never
- * reaches the clip at all, `assertOpsWritable` now refuses it at the contract
- * boundary, and no pressure value ever arrives here.
+ * Pressure is refused by `assertOpsWritable` (D56). E370 corrects the older
+ * inert-setter inference; no pressure setter result is simulated here.
  */
 export function writeNoteProps(note: NoteRecord): NoteRecord {
   return {

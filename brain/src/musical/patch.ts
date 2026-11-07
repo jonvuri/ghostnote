@@ -544,7 +544,7 @@ export const MUSICAL_PATCH_POLICY = {
   midiRange:
     'Refuse pitches outside 0-127. Never clamp, fold, or wrap them.',
   pressure:
-    'Refuse pressure before materialization because the host does not persist it.',
+    'Refuse pressure before materialization because independent API readback is unavailable.',
   protection:
     'Use direct stash-backed writes unless variations are requested or the fidelity floor requires a clip block.',
   quantize:

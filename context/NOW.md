@@ -1,10 +1,38 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-27
+updated: 2026-11-07
 ---
 
 ## Now
+
+R02's local work is complete. On 2026-11-07, the user confirmed filing the
+upstream report with the [minimal reproduction](../extension/repro/pressure-getter/README.md):
+one script, one Launcher clip, one note, no note observer. The
+[closeout](work/r02-pressure-reproduction.md#closeout--2026-11-07) retains the
+actual confirmation. No ticket reference, submitted text, console output, or
+upstream response was supplied; filing does not add a new measured result to
+E370. Any upstream follow-up is external and does not block other work.
+
+[R02](work/r02-pressure-reproduction.md) has completed the audit and live
+pressure reproduction. [E370](evidence/experiments/e370-pressure-getter-blindness-live.md)
+shows human pressure 51% and API pressure 75% in the inspector, surviving
+reselection and cursor retargeting, while both API readers return zero.
+Velocity controls pass. This corrects the earlier inert-setter inference;
+[D56](decisions/d56-pressure-refusal-is-a-verification-limit.md) retains product
+refusal because independent API verification is unavailable. Current
+explanations and descriptions are v58 (46 tools); write admission is unchanged.
+The [local report draft](work/r02-pressure-upstream-report.md) remains supporting
+material; the user filed using the minimal repro. The planning note wrongly
+assigned filing to the agent and has been corrected. The agent sent nothing;
+no external communication by the agent is authorized.
+
+The owned scratch track was removed; all original track IDs/names and mixer
+selection match. The UI shows no item selected, but the bridge retains the
+deleted Launcher slot's old index. That discrepancy is recorded, not treated
+as exact selection restoration. The normal archive is deployed; operator
+replacement with **ghostnote** and its fresh handshake remain pending.
+R01 and P01 have separate worktrees; this checkout owns R02.
 
 [B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
 is complete and verified live in
@@ -23,7 +51,7 @@ structural snapshot instead of an unsupported parameter cursor. An initial
 composition failure now reports possible effects truthfully. All 2,601 brain
 tests and extension checks pass. Both scratch fixtures were removed; original
 track/device inventories and selection match the baseline. No controller
-replacement is pending. No competing Ghostnote client was present.
+replacement was pending at the B17 closeout. No competing client was present then.
 
 E357's dense six-chain structure read costs six turns / median 862 ms.
 Five-device composition took 26.3 s; six-chain composition took 44.4 s, close
@@ -87,7 +115,7 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) now orders B08, R01, R02, then the P01 offline audit.
+The [backlog](BACKLOG.md) prioritizes R01 and R02, then the P01 offline audit.
 R01 also assesses the first-save annotation-continuity limitation
 recorded in the V01 closeout.
 
@@ -102,13 +130,29 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The integrated B17 normal `ghostnote` archive is deployed, SHA-256
+- R02 live experiment used the verified probe initialization
+  `2026-10-29T13:49:14.427Z`, marker `r02-pressure-v1`, 122 methods,
+  hash `a8455ecb24cf6f8c`. Its
+  [deployment record](evidence/data/r02-pressure/deployment-01.json) and
+  [E370](evidence/experiments/e370-pressure-getter-blindness-live.md) retain
+  build hashes, all attempts, samples, controls and cleanup.
+- R02 scratch track `d9ca38aa-221e-4ae1-b02f-f14fa3a9e644` is removed.
+  All eleven original track IDs/names match; mixer `gn-sel` remains selected.
+  Launcher `selection.status` retains deleted index 9 / slot 0 despite the
+  UI showing no item selected. Do not resolve that index to a new track and
+  treat it as a verified selection. No playback launch or save ran.
+- The normal `ghostnote` archive has been redeployed. Operator replacement
+  was requested but has not been confirmed; no new hello was run.
+  [Restoration record](evidence/data/r02-pressure/normal-restoration.json).
+  After confirmation, run `npm run probe:hello` from `brain/` and verify a
+  fresh normal-v1 initialization, 93 methods and hash `d6decf985f6b1f36`.
+- Previous verified build: integrated B17 normal `ghostnote`, SHA-256
   `ac17f782d2ac4252c8259c06aee242d08f2356ac48072853973ef499c6eee5d8`.
   The operator replied “Controller replaced”. Fresh handshake passed on
   initialization `2026-10-28T02:58:49.135Z`: `normal-v1`, API 25, 93 methods,
   hash `d6decf985f6b1f36`; markers `paged-windows-v3`,
   `paged-chain-controls-v1`, `paged-chain-moves-v2`, and
-  `paged-device-mutations-v1`. No replacement is pending.
+  `paged-device-mutations-v1`. This handshake predates the R02 deployment.
 - Last verified foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
   Both owned `gn-b17w` tracks were removed: first
   `f11d8e43-b4af-4f63-b94a-11f635dfcd38`, then
@@ -130,7 +174,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Current source: 46 normal tools, descriptions v57; running server version unconfirmed.
+  Current source: 46 normal tools, descriptions v58; running server version unconfirmed.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

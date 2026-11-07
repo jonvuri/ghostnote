@@ -1,0 +1,44 @@
+{
+  "capturedAt": "2026-10-29T13:47:55.005674+00:00",
+  "operatorResume": "Bitwig is ready now - proceed.",
+  "applicationVersion": "6.1.4",
+  "applicationBuild": "6.1.4",
+  "files": [
+    {
+      "path": "/Applications/Bitwig Studio.app/Contents/Java/bitwig.jar",
+      "sha256": "5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f",
+      "bytes": 35778607,
+      "mtimeMs": 1790948299000
+    },
+    {
+      "path": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+      "sha256": "2ef9ea73e1db5bed0f088ee3a268b5d96bf7c0f48704910e34a402cb39b79cdd",
+      "bytes": 978001,
+      "mtimeMs": 1793281656472
+    },
+    {
+      "path": "extension/src/main/java/com/ghostnote/extension/PressureProbe.java",
+      "sha256": "b2f5c352975f5f748638be9dd47f17dc71d91093b50a4e1cc449c85f27204339",
+      "bytes": 9082,
+      "mtimeMs": 1793278281240
+    },
+    {
+      "path": "extension/src/main/java/com/ghostnote/extension/handlers/PressureHandlers.java",
+      "sha256": "15050f078580757c06d70d76876c9fe66d9e4bb3f42270b304625552be7a8301",
+      "bytes": 1548,
+      "mtimeMs": 1793277704930
+    },
+    {
+      "path": "brain/src/probes/r02-pressure.ts",
+      "sha256": "0aeb8c521494b88055754231cb8442b72b58fc6dd633f1c4cad2215d38bc5d8e",
+      "bytes": 12441,
+      "mtimeMs": 1793278391234
+    }
+  ],
+  "preflight": "No established TCP 8686 clients or foreground probe drivers observed. Idle editor MCP processes left alone.",
+  "controllerReplacement": "pending",
+  "expectedProfile": "phase-8-probe-v1",
+  "expectedMethodCount": 122,
+  "expectedMethodsHash": "a8455ecb24cf6f8c",
+  "expectedMarker": "r02-pressure-v1"
+}

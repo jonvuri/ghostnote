@@ -457,16 +457,12 @@ export function runConformance(h: AdapterHarness): void {
 
   test(label('C-pressure', 'a write that asks for pressure is REFUSED, never silently lost (E15-E)'), async () => {
     await withClip(async ({ adapter, clipA }) => {
-      // `NoteStep.setPressure` populates only the writing cursor's own NoteStep
-      // cache: no other cursor can see it and it is gone as soon as that cursor
-      // is re-pointed. Since `read` goes through the same pool cursor, a caller
-      // would see it "work" on readback and lose it for real — and a snapshot
-      // would record a value the clip does not contain. 16 of the other 17
-      // properties persist under the identical test, so this is specific.
+      // D56 retains refusal because independent API pressure readback is blind.
+      // The setter can affect the inspector (E370); a writer echo cannot verify it.
       await assert.rejects(
         adapter.apply({ ops: [{ op: 'note.write', clip: clipA, notes: [note({ pressure: 0.9 })] }] }),
         /pressure cannot be written/,
-        'a property the API accepts and discards must be refused, not attempted',
+        'pressure must be refused until independent API verification is available',
       );
       // And the refusal is total: nothing was applied on the way to it.
       assert.equal((await readNotes(adapter, notesAt(clipA))).length, 0);

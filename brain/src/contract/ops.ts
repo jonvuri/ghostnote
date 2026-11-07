@@ -363,19 +363,9 @@ export const OP_SETTLE_BEFORE: Partial<Record<OpKind, SettleBudget>> = {
 export const OP_BUMPS_SCENE_EPOCH: ReadonlySet<OpKind> = new Set<OpKind>(['scene.create', 'scene.delete']);
 
 /**
- * Refuse a batch that asks for something the API accepts and then discards.
- *
- * ⚠ E15-E: `pressure` is the only such property today. Writing it leaves a value
- * in the writing cursor's own `NoteStep` cache that no other cursor can see and
- * that vanishes the moment that cursor is re-pointed — so a caller who set it
- * would see it "work" on readback through the same cursor and lose it for real.
- * That is strictly worse than an error, and worse still than a missing feature,
- * because a snapshot taken through the writing cursor would record a value the
- * clip does not contain.
- *
- * Lives in the CONTRACT rather than the live encoder because it must be the same
- * refusal on both adapters — otherwise the conformance suite could not assert it
- * and the fake would go on certifying a write that does nothing.
+ * Refuse a batch that asks for a property Ghostnote cannot verify independently.
+ * D56 retains pressure refusal: E370 shows inspector effects but zero in the
+ * separate reader. Shared enforcement keeps fake and live behavior consistent.
  */
 export function assertOpsWritable(ops: readonly Op[]): void {
   for (const op of ops) {
@@ -588,10 +578,9 @@ export function assertOpsWritable(ops: readonly Op[]): void {
       if (refused.length === 0) continue;
       throw new InvalidOpError(
         op.op,
-        `${refused.join(', ')} cannot be written through this API: the value lands only in the ` +
-          'writing cursor\'s NoteStep cache, is invisible to every other cursor, and is gone as ' +
-          'soon as that cursor is re-pointed (E15-E). Refusing beats writing a phantom that a ' +
-          'later snapshot would read back as real.',
+        `${refused.join(', ')} cannot be written by Ghostnote with independent verification: ` +
+          'Bitwig reports pressure as zero even when the inspector shows a nonzero value ' +
+          '(E370, D56). The setter can have an effect; its writer echo is not verification.',
       );
     }
   }

@@ -156,11 +156,12 @@ API, extension source, timings, values, and operator observations.
 
 **Output:** either a corrected route with regression coverage and revised
 limits, or a minimal reproduction and upstream bug draft with expected/actual
-results, build details, steps, and raw evidence. The user requested upstream
-filing if the defect is confirmed. Finish this concrete evidence package
-before that filing step; record the destination and result in the later
-session. If the reproduction is inconclusive, retain that limit and name the
-next missing condition; do not file an unconfirmed defect as established.
+results, build details, steps, and raw evidence. The user will file upstream
+if the defect is reconfirmed. Prepare the concrete evidence package for the user; this does not authorize the agent to
+contact support, submit a report, or send anything on the user’s behalf.
+The user clarified this scope on 2026-10-29. If the reproduction is inconclusive,
+retain that limit and name the next missing condition; do not present an
+unconfirmed defect as established.
 Existing pressure refusals and warnings remain until the evidence
 supports a change. Waiting for an upstream response does not block other
 variations. This planning session makes no host request or submission.

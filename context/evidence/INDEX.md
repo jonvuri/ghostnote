@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-10-27
+updated: 2026-10-29
 ---
 
 # Evidence index
@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E370 | R02 on Bitwig 6.1.4: human pressure 51% and API pressure 75% remain in the inspector while independent getters return zero; velocity controls pass. Corrects the inert-setter inference; scratch removed, Launcher selection reporting discrepancy retained (2026-10-29) | [open](experiments/e370-pressure-getter-blindness-live.md) |
 | E357 | B17 integrated paged writes: overflow composition, sixth-chain controls, distant/mixed transfers and top-level mutations pass; discarded-read settlement and overflow deletion snapshots corrected; all originals and selection preserved after cleanup. Six-chain composition 44.4 s; dense container read 862 ms / 6 turns (2026-10-27) | [open](experiments/e357-integrated-paged-writes-live.md) |
 | E356 | B17 session 2: complete paged reads of eighteen top-level devices, six chains and five nested devices; restored windows, selection and cleanup pass (2026-10-27) | [open](experiments/e356-paged-device-and-layer-reads-live.md) |
 | E355 | B17 session 2 host-state corrections before final read acceptance (2026-10-27) | [open](experiments/e355-paged-read-host-state-corrections.md) |

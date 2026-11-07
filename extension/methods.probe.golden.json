@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 121,
-  "methodsHash": "185f44ee3b08bbb7",
+  "count": 122,
+  "methodsHash": "a8455ecb24cf6f8c",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -97,6 +97,7 @@
     "probe.gridModuleFactory",
     "probe.gridRead",
     "probe.gridValue",
+    "probe.pressure",
     "probe.scopeScroll",
     "remote.list",
     "remote.set",

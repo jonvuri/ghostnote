@@ -17,9 +17,8 @@
  *     did not land within 1.5s (E4b). Different API from the above, different
  *     trap, and it is the only path that works for CLAP plugins.
  *   - note properties are emitted in `NOTE_PROP_WRITE_ORDER`, and `pressure` is
- *     NOT AMONG THEM: the write never reaches the clip, it only populates the
- *     writing cursor's own NoteStep cache (E15-E). `assertOpsWritable` refuses it
- *     in the contract, so it cannot arrive here at all.
+ *     not emitted: independent API pressure readback is blind (E370, D56).
+ *     `assertOpsWritable` retains the contract refusal.
  *   - plugin insertion keeps VST3 class UIDs and CLAP IDs distinct. It rejects
  *     malformed identifiers before the silent insertion API runs.
  *   - `device.insert` from a file is REFUSED unless the path is absolute and

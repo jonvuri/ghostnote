@@ -11,7 +11,7 @@
  * Test ids map to the finding each one guards:
  *   E-immediate   E4    param writes must be setImmediately, never set
  *   E-resolution  E4b   DirectParameter writes must carry resolution=1
- *   E-pressure    E15-E pressure is never written — the API discards it
+ *   E-pressure    D56 pressure is never emitted — independent readback is blind
  *   E-insertfile  E4h   insertFile needs an absolute path and a .bwpreset name
  *   E-grid        E2    beats -> steps, and off-grid positions are refused
  *   E-point       E1/E2 track-then-slot pointing, never at an unverified slot
@@ -310,14 +310,9 @@ test('E-immediate: neither param path is caller-selectable', () => {
 // --- E15-E: pressure never reaches the wire ---------------------------------
 
 test('E-pressure: no frame ever carries pressure, whatever the caller asks for (E15-E)', () => {
-  // ⚠ The inverse of what this test used to assert. E2/e02e read "gain and
-  // timbre zero pressure" and the encoder answered by emitting pressure LAST.
-  // E15-E measured that `setPressure` never reaches the clip at all: the value
-  // lives in the writing cursor's own NoteStep cache, is invisible to every
-  // other cursor, and vanishes when that cursor is re-pointed. Emitting it is
-  // worse than useless — a snapshot taken through the writing cursor would read
-  // the phantom back as real. `assertOpsWritable` refuses it before the encoder
-  // is reached; this asserts the encoder could not emit it even if it were not.
+  // D56 retains pressure filtering because independent API readback is blind.
+  // E370 shows inspector effects; this test verifies product refusal, not an
+  // inert host setter. The encoder must also omit it defensively.
   const frames = encodeOp(
     { op: 'note.props', clip: CLIP_A, notes: [note({ gain: 0.7, timbre: 0.3, pressure: 0.9, pan: 0.1 })] },
     ctx,

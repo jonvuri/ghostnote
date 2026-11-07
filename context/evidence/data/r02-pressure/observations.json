@@ -1,0 +1,53 @@
+{
+  "source": "User-supplied image and agent-observed CUA screenshots in the conversation; image bytes are not archived here. Values below are transcriptions, not API data.",
+  "operatorReply": "Done:",
+  "humanImage": {
+    "clip": "gn-r02-notes",
+    "key": "D3",
+    "channel": 2,
+    "start": "1.2.1.00",
+    "length": "0.0.1.00",
+    "velocityPercent": 60,
+    "pressurePercent": 51
+  },
+  "agentInspectorObservations": [
+    {
+      "stage": "after pressure setter, deselect and reselect E3",
+      "key": "E3",
+      "channel": 1,
+      "start": "1.3.1.00",
+      "velocityPercent": 63,
+      "pressurePercent": 75
+    },
+    {
+      "stage": "after velocity setter, deselect and reselect F3",
+      "key": "F3",
+      "channel": 1,
+      "start": "1.4.1.00",
+      "velocityPercent": 50,
+      "pressurePercent": 0
+    },
+    {
+      "stage": "after away/back, deselect and reselect E3",
+      "key": "E3",
+      "channel": 1,
+      "start": "1.3.1.00",
+      "velocityPercent": 63,
+      "pressurePercent": 75
+    },
+    {
+      "stage": "after away/back, deselect and reselect D3",
+      "key": "D3",
+      "channel": 2,
+      "start": "1.2.1.00",
+      "velocityPercent": 60,
+      "pressurePercent": 51
+    }
+  ],
+  "cleanupUI": "Scratch track absent; inspector says No item selected, clip editor empty; gn-sel mixer remains selected.",
+  "limits": [
+    "No saved-fixture reload or playback test.",
+    "Away/back retargeted both clip handles, despite writerOnly request.",
+    "No claim of API pressure verification or exact saved-file restoration."
+  ]
+}

@@ -16,12 +16,9 @@
  *      unbounded, compounding one, and both are wrong until a live probe
  *      measures the inverse. When it does, `NOTE_PROP_FIDELITY['gain']` becomes
  *      `'exact'` and this stops withholding it — one edit, in `state.ts`.
- *   3. **⚠ `pressure` cannot be replayed at all.** A human may have authored it
- *      in a clip we are about to overwrite, so readback captures it — and then
- *      `assertOpsWritable` REFUSES to emit it (E15-E). A revert that throws
- *      because of a property the user authored is a worse failure than one that
- *      reports "restored all but pressure", so the stash→ops path strips it here
- *      and the take says so.
+ *   3. Pressure replay is withheld (D56): independent API readback is blind.
+ *      A supplied nonzero value stays in the stash, but is stripped from the
+ *      replay and reported as unrestored. Live acquisition reads zero (E370).
  *   4. **Some structural ops have no inverse, and fewer than it looks.** D5's
  *      rule is a constraint on REPORTING, not a reason to refuse the whole
  *      operation: apply what can be applied and say the rest loudly
@@ -564,10 +561,9 @@ function restoreValue(target: WriteTarget, value: StateValue, sink: Sink): void 
 function withheldReason(prop: string, count: number): string {
   const notes = count === 1 ? '1 note' : `${count} notes`;
   if (prop === 'pressure') {
-    return `withheld on ${notes}: \`pressure\` cannot be written through this API (E15-E) — the ` +
-      'value reaches only the writing cursor\'s own NoteStep cache. The stash keeps what the ' +
-      'human authored; the revert cannot put it back, and refusing the whole revert over it ' +
-      'would be the worse failure.';
+    return `withheld on ${notes}: \`pressure\` cannot be written by Ghostnote with independent ` +
+      'verification (E370, D56). The setter changes the inspector, but the API reads zero. ' +
+      'The stash retains the supplied value; this revert does not replay pressure.';
   }
   return `withheld on ${notes}: \`${prop}\` has no verified write/read inverse. The stash keeps ` +
     'the observed value, but replay does not guess a correction.';

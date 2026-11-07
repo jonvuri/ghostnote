@@ -1,0 +1,456 @@
+{
+  "at": "2026-10-29T13:59:08.468Z",
+  "state": {
+    "schema": "r02-pressure-v1",
+    "project": "gn-scale-test",
+    "generation": "789767b5-c081-416a-941b-04aed6c563f3",
+    "initEpochMs": 1793281754427,
+    "before": {
+      "hello": {
+        "contractVersion": 0,
+        "extensionVersion": "0.0.1",
+        "runtimeProfile": "phase-8-probe-v1",
+        "hostApiVersion": 25,
+        "methodCount": 122,
+        "methodsHash": "a8455ecb24cf6f8c"
+      },
+      "stats": {
+        "runtimeProfile": "phase-8-probe-v1",
+        "config": {
+          "tracks": 256,
+          "scenes": 128,
+          "gridSteps": 64,
+          "gridKeys": 128,
+          "cursorPool": 8,
+          "sends": 4,
+          "deviceBank": 16,
+          "fineSteps": 4194304,
+          "noteReadSteps": 2048,
+          "paramHandles": 64,
+          "remotePages": 16,
+          "cacheShadowSteps": 131072,
+          "cacheKneeResearch": false,
+          "changeWatchCursors": 0,
+          "contentFilter": "ALL_CHANNELS",
+          "directObservers": true,
+          "stamp": "default",
+          "fromFile": true
+        },
+        "rigConstructMicros": 78576,
+        "initMicros": 116850,
+        "initEpochMs": 1793281754427,
+        "upMs": 56567,
+        "clipReader": {
+          "revision": "clip-reader-v3",
+          "closeRule": "confirm-before-release-v1",
+          "openRule": "subscribe-before-unpin-v1",
+          "groupRule": "expand-collapsed-parent-v1",
+          "limitRule": "sounding-cell-limit-v1",
+          "format": "notes-v1",
+          "width": 4194304,
+          "grid": 0.001953125,
+          "page": 131072,
+          "deadlineMs": 2000,
+          "soundingCells": 2097152,
+          "reads": 0,
+          "refusals": 0,
+          "lastRefusal": "",
+          "lateCallbacks": 0,
+          "strayCallbacks": 0,
+          "releaseCallbacks": 0,
+          "releaseEmpty": 0,
+          "releaseSustain": 0,
+          "releaseOn": 0,
+          "subscribed": false,
+          "open": false,
+          "state": {
+            "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+            "trackChannelId": "",
+            "trackPinned": false,
+            "clipTrackChannelId": "",
+            "clipExists": false,
+            "clipPinned": false,
+            "sceneIndex": 0,
+            "subscribed": false,
+            "atPark": false
+          },
+          "writeGate": {
+            "readOpen": false,
+            "waiting": 0,
+            "leases": 0,
+            "limit": 256,
+            "queuedTotal": 0,
+            "refusedTotal": 0
+          },
+          "groupPoint": {
+            "rule": "expand-collapsed-point-v1",
+            "points": 0,
+            "refusals": 0,
+            "lastRefusal": "",
+            "open": false
+          }
+        },
+        "cursorTrackPins": {
+          "rule": "owned-tracks-pinned-v1",
+          "tracks": 14,
+          "unpinned": [],
+          "repins": 0,
+          "untargeted": 10
+        },
+        "slotObjects": 32768,
+        "markedValues": 207360,
+        "resources": {
+          "cursorDeviceBanks": 8,
+          "cursorDeviceAnchorBanks": 8,
+          "cursorDeviceAnchorSlots": 8,
+          "cursorDeviceAnchorMarkedValues": 48,
+          "siblingDeviceBanks": 1,
+          "layerDeviceBanks": 8,
+          "slotDeviceBanks": 15,
+          "scopeDeviceBanks": 3,
+          "pagingMarkedValues": 229,
+          "namedSlotDeviceBanks": 0,
+          "drumPadDeviceBanks": 16,
+          "deviceBanks": 59,
+          "cursorDeviceSlots": 128,
+          "cursorDeviceEnabledValues": 128,
+          "layerDeviceSlots": 32,
+          "slotDeviceSlots": 60,
+          "scopeDeviceSlots": 3,
+          "drumPadDeviceSlots": 256,
+          "namedSlotDeviceSlots": 0,
+          "deviceSlots": 503,
+          "cursorDevices": 1,
+          "specificDeviceViews": 4,
+          "typedParameterHandles": 75,
+          "remotePageCursors": 16,
+          "remoteParameterHandles": 128,
+          "directParameterObservers": 4,
+          "noteObserverCursors": 1,
+          "noteStepObservers": 1,
+          "stepDataObservers": 1,
+          "trackSendBanks": 0,
+          "trackSendHandles": 0,
+          "trackVuObservers": 0,
+          "historicalActionHandles": 0,
+          "historicalSelectionObservers": 0,
+          "equalsProxies": 32,
+          "transportProxies": 1,
+          "masterRecorderProxies": 0,
+          "cursorTracks": 11,
+          "cursorClips": 13,
+          "layerBanks": 4,
+          "layerHandles": 23,
+          "layerSendBanks": 0,
+          "layerSendHandles": 0,
+          "explicitHostObjects": 33917,
+          "observerCallbacks": 839
+        },
+        "heapUsedMb": 812,
+        "heapMaxMb": 12288
+      },
+      "deployment": {
+        "state": "fresh",
+        "detail": "running build started 2026-10-29T13:49:14.427Z, after the deployed file",
+        "deployedAtMs": 1793281656472.994,
+        "startedAtMs": 1793281754427
+      },
+      "status": {
+        "marker": "r02-pressure-v1",
+        "session": "789767b5-c081-416a-941b-04aed6c563f3:gn-scale-test",
+        "epochMs": 1793281811018,
+        "lastPointEpochMs": 0,
+        "grid": 0.25,
+        "pressureAttempted": false,
+        "velocityAttempted": false
+      },
+      "mark": {
+        "revision": 0,
+        "generation": "789767b5-c081-416a-941b-04aed6c563f3",
+        "project": "gn-scale-test",
+        "projectStatus": "marked",
+        "sceneEpoch": 2,
+        "sceneCount": 10,
+        "contentEpoch": 32793,
+        "unpinnedCursorTracks": [],
+        "contentEvents": [
+          {
+            "seq": 32770,
+            "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+            "trackIndex": 0,
+            "slotIndex": 4,
+            "filled": true
+          },
+          {
+            "seq": 32771,
+            "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+            "trackIndex": 1,
+            "slotIndex": 1,
+            "filled": true
+          },
+          {
+            "seq": 32772,
+            "channelId": "4a6a024a-f213-48f1-9029-532fc077d857",
+            "trackIndex": 1,
+            "slotIndex": 2,
+            "filled": true
+          },
+          {
+            "seq": 32773,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32774,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 1,
+            "filled": true
+          },
+          {
+            "seq": 32775,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 2,
+            "filled": true
+          },
+          {
+            "seq": 32776,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 3,
+            "filled": true
+          },
+          {
+            "seq": 32777,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 4,
+            "filled": true
+          },
+          {
+            "seq": 32778,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 5,
+            "filled": true
+          },
+          {
+            "seq": 32779,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 6,
+            "filled": true
+          },
+          {
+            "seq": 32780,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 7,
+            "filled": true
+          },
+          {
+            "seq": 32781,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 8,
+            "filled": true
+          },
+          {
+            "seq": 32782,
+            "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+            "trackIndex": 2,
+            "slotIndex": 9,
+            "filled": true
+          },
+          {
+            "seq": 32783,
+            "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+            "trackIndex": 3,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32784,
+            "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+            "trackIndex": 3,
+            "slotIndex": 5,
+            "filled": true
+          },
+          {
+            "seq": 32785,
+            "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+            "trackIndex": 4,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32786,
+            "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+            "trackIndex": 4,
+            "slotIndex": 1,
+            "filled": true
+          },
+          {
+            "seq": 32787,
+            "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+            "trackIndex": 4,
+            "slotIndex": 2,
+            "filled": true
+          },
+          {
+            "seq": 32788,
+            "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+            "trackIndex": 5,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32789,
+            "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+            "trackIndex": 5,
+            "slotIndex": 1,
+            "filled": true
+          },
+          {
+            "seq": 32790,
+            "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+            "trackIndex": 5,
+            "slotIndex": 2,
+            "filled": true
+          },
+          {
+            "seq": 32791,
+            "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3",
+            "trackIndex": 6,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32792,
+            "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda",
+            "trackIndex": 7,
+            "slotIndex": 0,
+            "filled": true
+          },
+          {
+            "seq": 32793,
+            "channelId": "6fb96670-abde-4958-9147-f573a4b43918",
+            "trackIndex": 8,
+            "slotIndex": 0,
+            "filled": true
+          }
+        ]
+      },
+      "host": {
+        "hostApiVersion": 25,
+        "hostProduct": "Bitwig Studio",
+        "hostVendor": "Bitwig",
+        "hostVersion": "6.1.4",
+        "javaVersion": "25.0.4.1",
+        "javaVendor": "Azul Systems, Inc."
+      },
+      "selection": {
+        "trackIndex": -1,
+        "slotIndex": -1,
+        "mixerTrackIndex": 8,
+        "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+        "changes": 0,
+        "revision": 1,
+        "slotProject": "",
+        "mixerProject": "gn-scale-test",
+        "project": "gn-scale-test"
+      },
+      "tracks": [
+        {
+          "index": 0,
+          "name": "Instrument Layer",
+          "position": 0,
+          "type": "Hybrid",
+          "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+        },
+        {
+          "index": 1,
+          "name": "Hybrid 2",
+          "position": 1,
+          "type": "Hybrid",
+          "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+        },
+        {
+          "index": 2,
+          "name": "gn-A",
+          "position": 2,
+          "type": "Instrument",
+          "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+        },
+        {
+          "index": 3,
+          "name": "gn-B",
+          "position": 3,
+          "type": "Instrument",
+          "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+        },
+        {
+          "index": 4,
+          "name": "Group 5",
+          "position": 4,
+          "type": "Group",
+          "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+        },
+        {
+          "index": 5,
+          "name": "gn-E16",
+          "position": 5,
+          "type": "Instrument",
+          "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+          "hidden": true
+        },
+        {
+          "index": 6,
+          "name": "gn-lay",
+          "position": 6,
+          "type": "Instrument",
+          "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+        },
+        {
+          "index": 7,
+          "name": "gn-lay4",
+          "position": 7,
+          "type": "Instrument",
+          "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+        },
+        {
+          "index": 8,
+          "name": "gn-sel",
+          "position": 8,
+          "type": "Instrument",
+          "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+        },
+        {
+          "index": 9,
+          "name": "FX 1",
+          "position": 9,
+          "type": "Effect",
+          "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+        },
+        {
+          "index": 10,
+          "name": "Master",
+          "position": 10,
+          "type": "Master",
+          "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+        }
+      ]
+    },
+    "trackId": "d9ca38aa-221e-4ae1-b02f-f14fa3a9e644",
+    "ready": true,
+    "setupSelectionEffect": "Previously no Launcher slot was selected; setup selected the owned test clip. Mixer selection preserved.",
+    "setupReview": {
+      "source": "1793281818849-setup.json",
+      "originalSetupComplete": false,
+      "review": "Both independent readers confirmed the exact four note identities and zero baseline pressures. The selection-only assertion failed; no setup write is replayed."
+    }
+  }
+}

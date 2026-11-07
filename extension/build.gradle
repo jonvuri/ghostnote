@@ -268,6 +268,14 @@ tasks.register('browserDiscoveryTest', JavaExec) {
 
 tasks.named('check') { dependsOn 'browserDiscoveryTest' }
 
+tasks.register('pressureProbeTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.PressureProbeTest'
+}
+
+tasks.named('check') { dependsOn 'pressureProbeTest' }
+
 tasks.register('runtimeProfileTest', JavaExec) {
     dependsOn harnessTestClasses
     classpath = sourceSets.harnessTest.runtimeClasspath
