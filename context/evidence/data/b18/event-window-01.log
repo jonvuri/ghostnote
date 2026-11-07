@@ -1,0 +1,19 @@
+{"step":"entry","project":"gn-scale-test","tracks":11,"scenes":10,"churnRows":9,"contentLog":8192,"epoch":32793,"sceneEpoch":2,"selection":{"trackIndex":-1,"slotIndex":-1,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918","changes":0,"revision":1,"slotProject":"","mixerProject":"gn-scale-test","project":"gn-scale-test"}}
+{"step":"track","trackId":"b7efce64-d8b5-4e62-b60c-b1876ca4845a","trackIndex":9}
+{"step":"read-base","at":32794,"ms":384,"identity":"current","retained":2,"minted":0,"ref":"gnb1.mlFMyET1CV92","ids":["n1","n2"],"warnings":[]}
+{"step":"T24-churn","events":24,"ms":317,"filledRows":6}
+{"step":"T24-reply-cost","label":"T24","window":24,"mark":{"bytes":253,"events":0,"medianMs":24.69,"maxMs":25.2},"delta":{"bytes":2853,"events":24,"medianMs":25.25,"maxMs":25.3}}
+{"step":"T24-read-after-24","at":32818,"ms":416,"identity":"current","retained":2,"minted":0,"ref":"gnb1.mlFMyET1CV92","ids":["n1","n2"],"warnings":[]}
+{"step":"T25-churn","events":25,"ms":316,"filledRows":1}
+{"step":"T25-reply-cost","label":"T25","window":25,"mark":{"bytes":253,"events":0,"medianMs":23.78,"maxMs":25.17},"delta":{"bytes":2967,"events":25,"medianMs":24.49,"maxMs":25.13}}
+{"step":"T25-read-after-25","at":32843,"ms":411,"identity":"current","retained":2,"minted":0,"ref":"gnb1.mlFMyET1CV92","ids":["n1","n2"],"warnings":[]}
+{"step":"T1000-churn","events":1000,"ms":8049,"filledRows":9}
+{"step":"T1000-reply-cost","label":"T1000","window":1000,"mark":{"bytes":254,"events":0,"medianMs":23.86,"maxMs":24.4},"delta":{"bytes":108749,"events":1000,"medianMs":25.82,"maxMs":29.91}}
+{"step":"T1000-read-after-1000","at":33843,"ms":397,"identity":"current","retained":2,"minted":0,"ref":"gnb1.mlFMyET1CV92","ids":["n1","n2"],"warnings":[]}
+{"step":"T8192-churn","events":8192,"ms":60233,"filledRows":7}
+{"step":"T8192-reply-cost","label":"T8192","window":8192,"mark":{"bytes":255,"events":0,"medianMs":22.31,"maxMs":32.51},"delta":{"bytes":889087,"events":8192,"medianMs":51.01,"maxMs":56.72}}
+{"step":"T8192-read-after-8192","at":42035,"ms":416,"identity":"retired-and-new","retained":0,"minted":2,"retiredRefs":[{"ref":"gnb1.9ugZM3Wyg_nF","reason":"identity-changed","why":"delta-incomplete"},{"ref":"gnb1.mlFMyET1CV92","reason":"identity-changed","why":"delta-incomplete"}],"ref":"gnb1.5f_iZZy9fuFf","ids":["e3","e4"],"warnings":[{"code":"delta-incomplete","message":"More than 8192 Launcher slot events happened after the prior read, or the change record is otherwise incomplete, so the clip got new event IDs. Use the IDs in this document."}]}
+{"step":"T8193-churn","events":8193,"ms":65058,"filledRows":4}
+{"step":"T8193-reply-cost","label":"T8193","window":8193,"mark":{"bytes":255,"events":0,"medianMs":22.78,"maxMs":23.18},"delta":{"bytes":255,"events":0,"medianMs":22.18,"maxMs":22.56}}
+{"step":"T8193-read-after-8193","at":50228,"ms":394,"identity":"retired-and-new","retained":0,"minted":2,"retiredRefs":[{"ref":"gnb1.5f_iZZy9fuFf","reason":"identity-changed","why":"delta-incomplete"}],"ref":"gnb1.u54u9HiYzMbb","ids":["e6","e7"],"warnings":[{"code":"delta-incomplete","message":"More than 8192 Launcher slot events happened after the prior read, or the change record is otherwise incomplete, so the clip got new event IDs. Use the IDs in this document."}]}
+{"step":"cleanup","tracks":11,"matchesEntry":true,"selection":{"trackIndex":9,"slotIndex":0,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918","changes":1,"revision":4,"slotProject":"gn-scale-test","mixerProject":"gn-scale-test","project":"gn-scale-test"}}

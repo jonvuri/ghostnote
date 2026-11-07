@@ -6,11 +6,22 @@ updated: 2026-11-07
 
 ## Now
 
-**Next: [B18](work/b18-content-event-window.md)** (note identity survives
-Launcher activity), then [B19](work/b19-real-use-tooling-and-annotations.md)
-in three sessions: quick tool wins; overlays, clip annotations and provenance
-(with a last format evaluation and possible final benchmark); clip operations
-and stateless analysis tools.
+**Next: [B19](work/b19-real-use-tooling-and-annotations.md)** in three
+sessions: quick tool wins; overlays, clip annotations and provenance (with a
+last format evaluation and possible final benchmark); clip operations and
+stateless analysis tools. P01 continues in its worktree after B18.
+
+[B18](work/b18-content-event-window.md) is complete and verified live in
+[E405](evidence/experiments/e405-b18-content-event-window-live.md). The
+content-event ring holds 8,192 events, and `revision.get` returns only the
+events after the caller's `since`; a plain mark carries none. A ref's IDs stay
+current through 8,192 Launcher slot events after its latest read or check.
+One more re-mints fail-closed, with `why: delta-incomplete` and a warning. A
+current read or check now restarts the ref's window; run 1 found that it kept
+the first-read mark. Descriptions are v59 (46 tools); the normal wire is
+unchanged (93 methods, `d6decf985f6b1f36`), with marker `rig.info.contentLog`.
+All 2,607 brain tests and extension checks pass. A full-window delta costs
+889 KB / 45–51 ms; the ledger has the reply rows.
 
 [R01](work/r01-format-comparison.md)'s [candidate package](../spec/r01-research/README.md)
 is ready for review: contracts, bounded offline prototypes for ideas 1–4,
@@ -396,9 +407,9 @@ no external communication by the agent is authorized.
 The owned scratch track was removed; all original track IDs/names and mixer
 selection match. The UI shows no item selected, but the bridge retains the
 deleted Launcher slot's old index. That discrepancy is recorded, not treated
-as exact selection restoration. The normal archive is deployed; operator
-replacement with **ghostnote** and its fresh handshake remain pending.
-R01 and P01 have separate worktrees; this checkout owns R02.
+as exact selection restoration. The normal build was loaded afterwards
+(E393 and E405 handshakes). R01 is merged into `main`; only the P01
+worktree remains open.
 
 [B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
 is complete and verified live in
@@ -481,7 +492,7 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) puts B18 and B19 first; R01 stays open until B19's
+The [backlog](BACKLOG.md) puts B19 first (B18 is done); R01 stays open until B19's
 overlay session. That session also settles the first-save annotation
 continuity limitation recorded in the V01 closeout.
 
@@ -496,7 +507,16 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- **2026-10-31 (E393 probe), the latest live work:** scratch track
+- **2026-11-07 (E405, B18), the latest live work:** the B18 normal archive
+  (SHA-256 `87cb84d1f94317b092e10e15d31129922976f0e51abc979897dcf0fbe94e7c2c`)
+  is loaded. The operator replied "Replaced; run it all". The fresh
+  initialization was `2026-11-07T15:39:12.761Z`: `normal-v1`, 93 methods,
+  `d6decf985f6b1f36`, `contentLog` 8192. Two driver runs created and deleted
+  scratch track `gn-b18-window` in `gn-scale-test`. The 11-track list matches
+  entry, and mixer selection stayed on the entry track. Launcher
+  `selection.status` again reports the stale index 9 / slot 0; it is not a
+  verified selection. No launch or save ran.
+- **2026-10-31 (E393 probe):** scratch track
   `gn-r3-window` in `gn-scale-test` was created and deleted; the track list
   matches its entry state and the mixer selection stayed on `gn-sel`.
   `selection.status` afterwards still reported Launcher index 9 / slot 0, the

@@ -17,7 +17,7 @@ import {
   InvalidOpError, StaleAddressError, UnsupportedOpError, addressKey, addressScene, addressTrack, assertNever,
   assertTopLevelDeviceWriteWindow,
   assertChainActivatable, assertChainCreatable, assertChainRelocatable, assertChainRenamable, assertClipSources, assertDeviceInsertable, assertDeviceRelocatable, assertDrumPadInsertable, assertDevicesRoutable, assertOpsAddressable, assertOpsWritable, assertSceneRoom, assertTrackRoom, assertSlotsFree, budgetTicks,
-  chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, notes as notesAt,
+  chain as chainAt, chainCopyUnnamed, chainPath, clipSourceFingerprint, contentDelta, windowSince, notes as notesAt,
   hasUnverifiedProps, lookupChain, lookupNestedDevice, mintedChain, nestingObservable, orderedNoteProps, stepSizeFor,
   verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter, type SelectionOutcome,
@@ -337,7 +337,10 @@ export class FakeAdapter implements BitwigAdapter {
    * (a reversal) or merely worth surfacing (a finished batch).
    */
   async contentSince(since: RevisionMark): Promise<ContentDelta> {
-    return contentDelta(since, this.mark(), this.model.contentRing);
+    // B18: the extension returns only the caller's window, complete or empty; the fake answers the same way.
+    const now = this.mark();
+    return contentDelta(since, now,
+      windowSince(this.model.contentRing, now.contentEpoch, since.contentEpoch, ProjectModel.CONTENT_RING));
   }
 
   /** 8i8: the outermost selection scope, shared by nested scopes as on the live adapter. */

@@ -12,7 +12,7 @@
 import { z } from 'zod';
 
 import {
-  CLIP_READ_SOUNDING_CELLS, addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
+  CLIP_READ_SOUNDING_CELLS, CONTENT_LOG, addressKey, clipSnapshotFrom, contentTouching, deltaComplete, isGroupTrack, judgeClipSnapshot,
   snapshotAddresses, snapshotClip, track as trackAt, unpinnedCursorTracksOf,
   type ClipSnapshot, type ClipSnapshotVerdict, type RevisionMark, type SelectionOutcome,
 } from '../contract/index.js';
@@ -91,14 +91,14 @@ export function projectionWarnings(projection: LauncherClipProjection): Warning[
   return warnings;
 }
 
-export function identityFacts(acquired: Acquired, projection?: LauncherClipProjection) {
+export function identityFacts(acquired: Acquired, projection?: LauncherClipProjection, why?: string) {
   const carried = projection?.overlays;
   return {
     identity: acquired.outcome,
     retainedIds: acquired.retained,
     mintedIds: acquired.minted,
     ...(acquired.retired === undefined ? {} : {
-      retiredRefs: acquired.retired.map((item) => ({ ref: item.ref, reason: item.reason })),
+      retiredRefs: acquired.retired.map((item) => ({ ref: item.ref, reason: item.reason, ...(why === undefined ? {} : { why }) })),
     }),
     ...(carried === undefined || carried.removed.length + carried.staled.length === 0 ? {} : {
       overlays: {
@@ -107,6 +107,17 @@ export function identityFacts(acquired: Acquired, projection?: LauncherClipProje
       },
     }),
   };
+}
+
+/**
+ * B18: a re-mint because the Launcher change record no longer reaches back to the prior read. The IDs stay
+ * fail-closed; the warning says why they changed.
+ */
+export function deltaIncompleteWarnings(acquired: Acquired, why: string | undefined): Warning[] {
+  if (why !== 'delta-incomplete' || acquired.retired === undefined || acquired.retired.length === 0) return [];
+  return [{ code: 'delta-incomplete', message: `More than ${CONTENT_LOG} Launcher slot events happened after the `
+    + 'prior read, or the change record is otherwise incomplete, so the clip got new event IDs. Use the IDs '
+    + 'in this document.' }];
 }
 
 /**
@@ -261,7 +272,8 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'unchanged clip returns the same ref and the same IDs (identity current). After a human edit, '
   + 'unchanged notes keep their event IDs and a note with a new pitch, channel, or onset gets a new '
   + 'ID (identity stale). A scene insert or delete, a project change, or a missing clip retires the '
-  + 'ref; the next read mints new IDs. Give refs to check_launcher_clips. Refs live in this server '
+  + `ref; the next read mints new IDs. More than ${CONTENT_LOG} Launcher slot fills and empties after the latest `
+  + 'read or check of a ref also retire it, with warning delta-incomplete. Give refs to check_launcher_clips. Refs live in this server '
   + 'process only and a restart retires them.\n'
   + 'reference returns the requested sections in the same result as the complete document and authority.base. '
   + 'For a planned patch edit, request reference ["Patch"] on the first fresh read, and keep data.document, '
@@ -351,11 +363,11 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
     }
     stage = 'project';
     const snapshot = clipSnapshotFrom(read, clip);
-    const verdict = prior === undefined ? undefined
-      : judgeClipSnapshot(prior.snapshot, read, priorDelta!, after).verdict;
+    const judged = prior === undefined ? undefined : judgeClipSnapshot(prior.snapshot, read, priorDelta!, after);
+    const why = judged !== undefined && 'why' in judged ? judged.why : undefined;
     stage = 'registry';
     const { acquired, projection } = bindSnapshot(registry, snapshot,
-      prior === undefined ? undefined : { entry: prior, verdict: verdict! });
+      prior === undefined ? undefined : { entry: prior, verdict: judged!.verdict });
     stage = 'write';
     const output = args.documentOutputPath === undefined ? undefined : await publishDocumentFile(READ_SCHEMA,
       args.documentOutputPath, encodeLauncherClip(projection.document, encoding), encoding);
@@ -367,7 +379,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
       authority: {
         kind: 'fresh-read',
         base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
-        ...identityFacts(acquired, projection),
+        ...identityFacts(acquired, projection, why),
       },
       data: {
         occupancy: 'occupied',
@@ -375,7 +387,8 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
         ...(output === undefined ? { document: encoded(projection.document, encoding) } : { documentFile: output.documentFile }),
         ...lossOf(projection),
       },
-      warnings: [...projectionWarnings(projection), ...(output?.warnings ?? [])],
+      warnings: [...deltaIncompleteWarnings(acquired, why), ...projectionWarnings(projection),
+        ...(output?.warnings ?? [])],
       timing: { readMs, totalMs: performance.now() - started },
       ...(args.reference === undefined ? {} : { reference: selectedReference(args.reference) }),
       ...(args.diagnostic === true ? { diagnostic: exactSource(snapshot) } : {}),
@@ -471,9 +484,12 @@ async function checkLauncherClips(workspace: Workspace, args: CheckInput): Promi
       return { ref, code: 'expired-ref' as const, message: 'This server process holds no such ref. Read the clip again.' };
     });
     const live = items.filter((item): item is BaseEntry => item instanceof Object && 'snapshot' in item);
-    const checked = live.length === 0 ? [] : (await guarded(workspace,
-      () => readWithClipSnapshots(workspace, live.map((entry) => entry.snapshot)))).verdicts;
+    const fresh = live.length === 0 ? undefined : await guarded(workspace,
+      () => readWithClipSnapshots(workspace, live.map((entry) => entry.snapshot)));
+    const checked = fresh?.verdicts ?? [];
     const verdicts = new Map(live.map((entry, index) => [entry.ref, checked[index]!]));
+    // B18: a current ref's change window restarts at this read.
+    for (const [ref, verdict] of verdicts) if (verdict.verdict === 'current') registry.refreshMark(ref, fresh!.read.at);
     const results: CheckItem[] = items.map((item) => {
       if (!('snapshot' in item)) return item as CheckItem;
       const entry = item as BaseEntry;
@@ -513,7 +529,10 @@ async function checkLauncherClips(workspace: Workspace, args: CheckInput): Promi
       coverage: { status: 'complete', checked: live.length, unresolved: args.refs.length - live.length },
       authority: { kind: 'fresh-read' },
       data: { results },
-      warnings: [],
+      warnings: results.some((item) => item.why === 'delta-incomplete')
+        ? [{ code: 'delta-incomplete', message: `More than ${CONTENT_LOG} Launcher slot events happened after a `
+          + 'ref was read, or the change record is otherwise incomplete, so that ref was retired. Read the clip again.' }]
+        : [],
       timing: { totalMs: performance.now() - started },
     };
     return result;

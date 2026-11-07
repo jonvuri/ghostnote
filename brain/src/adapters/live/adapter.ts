@@ -3135,10 +3135,16 @@ export class LiveAdapter implements BitwigAdapter {
    * handshake cannot tell. Absent `sceneCount` reads as `-1`, which every
    * predicate treats as UNCOVERED rather than as covered.
    */
-  private async readMark(): Promise<{ mark: RevisionMark; events: readonly ContentEvent[] }> {
+  private async readMark(since?: number): Promise<{ mark: RevisionMark; events: readonly ContentEvent[] }> {
     // 8h4c2 (E246): both requests go out together. The bridge answers each in its own task, so the pair costs
     // one control-surface turn, not two. The scan is not part of the epoch and event atomicity (see above).
-    const [revision, list] = await Promise.all([this.transport.send({ method: WIRE.revisionGet }), this.scanTracks()]);
+    // B18: a delta sends its `since` and receives only that window (complete or empty); a plain mark receives
+    // no events. An extension before B18 ignores `since` and sends its whole 24-event ring, which
+    // `contentDelta` slices the same way.
+    const [revision, list] = await Promise.all([
+      this.transport.send(since === undefined ? { method: WIRE.revisionGet } : { method: WIRE.revisionGet, params: { since } }),
+      this.scanTracks(),
+    ]);
     this.markScan = { list, sent: this.sent, at: performance.now() };
     const r = revision as {
       revision: number;
@@ -3188,7 +3194,7 @@ export class LiveAdapter implements BitwigAdapter {
    * Making that call here would hard-code one policy into the transport layer.
    */
   async contentSince(since: RevisionMark): Promise<ContentDelta> {
-    const { mark, events } = await this.readMark();
+    const { mark, events } = await this.readMark(since.contentEpoch);
     // ⚠ Assembled by the CONTRACT, not here. Both adapters used to build a delta
     // each from the same parts, which is how a fake drifts into being kinder than
     // Bitwig one forgotten field at a time — and a fourth verdict is exactly the

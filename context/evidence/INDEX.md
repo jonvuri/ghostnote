@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E405 | B18 on Bitwig 6.1.4: the content-event ring holds 8,192 events; IDs stay current after 24, 25, 1,000 and 8,192 slot events following the latest read, and 8,193 re-mint fail-closed with `why: delta-incomplete` and a warning. A plain mark carries no events; a full-window delta is 889 KB / 45–51 ms. Run 1 found that a current read kept the first-read mark (fixed). Scratch removed (2026-11-07) | [open](experiments/e405-b18-content-event-window-live.md) |
 | E399 | R02 on Bitwig 6.1.4: human pressure 51% and API pressure 75% remain in the inspector while independent getters return zero; velocity controls pass. Corrects the inert-setter inference; scratch removed, Launcher selection reporting discrepancy retained (2026-10-29) | [open](experiments/e399-pressure-getter-blindness-live.md) |
 | E398 | B17 integrated paged writes: overflow composition, sixth-chain controls, distant/mixed transfers and top-level mutations pass; discarded-read settlement and overflow deletion snapshots corrected; all originals and selection preserved after cleanup. Six-chain composition 44.4 s; dense container read 862 ms / 6 turns (2026-10-27) | [open](experiments/e398-integrated-paged-writes-live.md) |
 | E397 | B17 session 2: complete paged reads of eighteen top-level devices, six chains and five nested devices; restored windows, selection and cleanup pass (2026-10-27) | [open](experiments/e397-paged-device-and-layer-reads-live.md) |

@@ -4990,6 +4990,39 @@ test('8h4c2 call budget: a mark sends revision.get and track.list together; a sn
     WIRE.slotStatus, WIRE.slotStatus, WIRE.clipRead, WIRE.slotStatus]);
 });
 
+test('B18: a mark asks for no content events; a delta sends its since epoch and slices the reply', async () => {
+  const frames: { method: string; params?: unknown }[] = [];
+  const event = (seq: number) => ({ seq, channelId: CHANNEL_ID, trackIndex: 0, slotIndex: 1, filled: true });
+  const transport: Transport = {
+    send: async (frame) => {
+      frames.push({ method: frame.method, ...(frame.params === undefined ? {} : { params: frame.params }) });
+      if (frame.method === WIRE.trackList) {
+        return { tracks: [{ index: 0, channelId: CHANNEL_ID, name: 'gn-fixture', type: 'Instrument' }],
+          count: 1, bankSize: 8, itemCount: 1 };
+      }
+      if (frame.method === WIRE.revisionGet) {
+        const since = (frame.params as { since?: number } | undefined)?.since;
+        // The extension window: events after `since` (12 then 13 here), or none without one.
+        return { revision: 1, generation: 'g', project: 'p', sceneEpoch: 1, sceneCount: 4, contentEpoch: 13,
+          contentEvents: since === undefined ? [] : [event(12), event(13)].filter((e) => e.seq > since) };
+      }
+      throw new Error(`unexpected ${frame.method}`);
+    },
+    close: async () => undefined,
+  };
+  const adapter = new UntimedAdapter({ transport });
+  const mark = await adapter.revision();
+  assert.deepEqual(frames.filter((f) => f.method === WIRE.revisionGet), [{ method: WIRE.revisionGet }]);
+  frames.length = 0;
+  const delta = await adapter.contentSince({ ...mark, contentEpoch: 11 });
+  assert.deepEqual(frames.filter((f) => f.method === WIRE.revisionGet), [{ method: WIRE.revisionGet, params: { since: 11 } }]);
+  assert.deepEqual(delta.events.map((e) => e.seq), [12, 13]);
+  assert.equal(delta.truncated, false);
+  // A complete-or-empty reply for a window the ring lost reads as truncated, never quiet.
+  const lost = await adapter.contentSince({ ...mark, contentEpoch: 9 });
+  assert.equal(lost.truncated, true);
+});
+
 test('8h4d call budget: an occupancy read of an occupied clip is one slot.status, with no capture and no borrow', async () => {
   const model = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
   const adapter = new UntimedAdapter({ transport: model });

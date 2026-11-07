@@ -1,0 +1,19 @@
+{"step":"entry","project":"gn-scale-test","tracks":11,"scenes":10,"churnRows":9,"contentLog":8192,"epoch":50233,"sceneEpoch":2,"selection":{"trackIndex":9,"slotIndex":0,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918","changes":1,"revision":4,"slotProject":"gn-scale-test","mixerProject":"gn-scale-test","project":"gn-scale-test"}}
+{"step":"track","trackId":"c242b677-7344-4abd-95dd-b86a7689853e","trackIndex":9}
+{"step":"read-base","at":50234,"ms":397,"identity":"current","retained":2,"minted":0,"ref":"gnb1.vpaye2Ei0vPC","ids":["n1","n2"],"warnings":[]}
+{"step":"T24-churn","events":24,"ms":340,"filledRows":6}
+{"step":"T24-reply-cost","label":"T24","window":24,"mark":{"bytes":253,"events":0,"medianMs":22.58,"maxMs":24.1},"delta":{"bytes":2853,"events":24,"medianMs":22.7,"maxMs":24.41}}
+{"step":"T24-read-after-24","at":50258,"ms":370,"identity":"current","retained":2,"minted":0,"ref":"gnb1.vpaye2Ei0vPC","ids":["n1","n2"],"warnings":[]}
+{"step":"T25-churn","events":25,"ms":418,"filledRows":1}
+{"step":"T25-reply-cost","label":"T25","window":25,"mark":{"bytes":253,"events":0,"medianMs":22.53,"maxMs":22.58},"delta":{"bytes":2967,"events":25,"medianMs":22.64,"maxMs":22.79}}
+{"step":"T25-read-after-25","at":50283,"ms":389,"identity":"current","retained":2,"minted":0,"ref":"gnb1.vpaye2Ei0vPC","ids":["n1","n2"],"warnings":[]}
+{"step":"T1000-churn","events":1000,"ms":7503,"filledRows":9}
+{"step":"T1000-reply-cost","label":"T1000","window":1000,"mark":{"bytes":254,"events":0,"medianMs":18.68,"maxMs":23.69},"delta":{"bytes":108749,"events":1000,"medianMs":27.3,"maxMs":29.01}}
+{"step":"T1000-read-after-1000","at":51283,"ms":394,"identity":"current","retained":2,"minted":0,"ref":"gnb1.vpaye2Ei0vPC","ids":["n1","n2"],"warnings":[]}
+{"step":"T8192-churn","events":8192,"ms":65326,"filledRows":7}
+{"step":"T8192-reply-cost","label":"T8192","window":8192,"mark":{"bytes":255,"events":0,"medianMs":23.95,"maxMs":25.01},"delta":{"bytes":889087,"events":8192,"medianMs":44.63,"maxMs":50.52}}
+{"step":"T8192-read-after-8192","at":59475,"ms":440,"identity":"current","retained":2,"minted":0,"ref":"gnb1.vpaye2Ei0vPC","ids":["n1","n2"],"warnings":[]}
+{"step":"T8193-churn","events":8193,"ms":66298,"filledRows":4}
+{"step":"T8193-reply-cost","label":"T8193","window":8193,"mark":{"bytes":255,"events":0,"medianMs":24.01,"maxMs":24.27},"delta":{"bytes":255,"events":0,"medianMs":24.03,"maxMs":24.72}}
+{"step":"T8193-read-after-8193","at":67668,"ms":415,"identity":"retired-and-new","retained":0,"minted":2,"retiredRefs":[{"ref":"gnb1.XMtTTb6RaTgh","reason":"identity-changed","why":"delta-incomplete"},{"ref":"gnb1.vpaye2Ei0vPC","reason":"identity-changed","why":"delta-incomplete"}],"ref":"gnb1._sNOQLWpK2he","ids":["e3","e4"],"warnings":[{"code":"delta-incomplete","message":"More than 8192 Launcher slot events happened after the prior read, or the change record is otherwise incomplete, so the clip got new event IDs. Use the IDs in this document."}]}
+{"step":"cleanup","tracks":11,"matchesEntry":true,"selection":{"trackIndex":9,"slotIndex":0,"mixerTrackIndex":8,"mixerChannelId":"6fb96670-abde-4958-9147-f573a4b43918","changes":2,"revision":7,"slotProject":"gn-scale-test","mixerProject":"gn-scale-test","project":"gn-scale-test"}}

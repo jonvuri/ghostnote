@@ -294,6 +294,15 @@ tasks.register('containerScopesTest', JavaExec) {
 
 tasks.named('check') { dependsOn 'containerScopesTest' }
 
+// B18: the content-event window slicing for revision.get's `since`.
+tasks.register('contentWindowTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.ContentWindowTest'
+}
+
+tasks.named('check') { dependsOn 'contentWindowTest' }
+
 // A source-only golden check cannot detect a failing Java static initializer.
 // Exercise it before replacing any installed runtime profile.
 ['copyExtension', 'copyCaptureExtension', 'copyProbeExtension'].each { name ->

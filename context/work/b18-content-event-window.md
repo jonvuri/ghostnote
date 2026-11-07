@@ -3,9 +3,9 @@
 ## Goal
 
 A read's note IDs should survive any realistic amount of Launcher activity
-within one server session. Today they survive exactly 24 slot fill/empty
-events after a read; the 25th re-mints every ID at that slot and drops its
-overlays, and the result does not say why
+within one server session. Before B18 they survived exactly 24 slot fill/empty
+events after a read; the 25th re-minted every ID at that slot and dropped its
+overlays, and the result did not say why
 ([E393](../evidence/experiments/e393-r01-round3-real-use-followups.md)
 sections 1 and 4). One real session hit this mid-turn after generating 18
 clips (E392). Addressed editing (B2) and any later sustained editing (B3,
@@ -83,4 +83,28 @@ driver's build hash after deployment.
 
 ## Result
 
-Not started.
+Done and verified live on 2026-11-07
+([E405](../evidence/experiments/e405-b18-content-event-window-live.md)).
+
+- **Extension.** `Rig.CONTENT_LOG` is 8,192. `revision.get` accepts an optional
+  `since` and returns every event in `(since, now]` or none when the ring lost
+  any of them (`ContentWindow`, with a harness test). Without `since` it
+  returns no events. `rig.info.contentLog` is the build marker. The method
+  surface is unchanged (93, `d6decf985f6b1f36`). The legacy `slot.epoch` log
+  keeps its 24-line view.
+- **Brain.** `contentSince` sends `since`; a plain mark does not. The fake
+  answers through the same `windowSince` rule over the same `CONTENT_LOG`.
+  `read_launcher_clip` adds `why` to `retiredRefs` and a `delta-incomplete`
+  warning; `check_launcher_clips` adds the warning. A `current` read or check
+  moves the ref's mark forward, so the window counts from the latest read.
+  Run 1 of the driver found the missing refresh. Descriptions are v59.
+- **Bound.** 8,192 was chosen from the measured reply cost. A full-window
+  delta is 889 KB at a median of 45–51 ms, about one extra turn, and only
+  when that much activity follows a read. A plain mark stays at about 255 B.
+  The window is shared by every slot event in the project.
+- **Consumers checked.** Change awareness, stale-base and write guards, the
+  stash boundary, the executor's concurrent report, `check_launcher_clips`
+  and navigation all receive deltas through `contentSince`. No consumer
+  needed the whole ring; the old diagnostic probes that read raw
+  `revision.get` now need `since`.
+- **Not run.** E393's optional group-mirroring question.

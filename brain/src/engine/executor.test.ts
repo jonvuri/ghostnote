@@ -21,6 +21,7 @@ import { FakeAdapter, reportedNote } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
+  CONTENT_LOG,
   AddressUnresolvedError, BlindSpotError, NOTE_PROP_FIDELITY, addressKey, clip, device, deviceEnabled,
   clipMetadata, notes as notesAt, param, remote, scene, slot, track,
   type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
@@ -1183,7 +1184,7 @@ test('X-concurrent: a window that cannot be evaluated is NOT an empty window', a
     ...adapterOf(fx.fake),
     apply: async (batch) => {
       const receipt = await fx.fake.apply(batch);
-      control(fx.fake).floodContentEvents(40);
+      control(fx.fake).floodContentEvents(CONTENT_LOG + 16);
       return receipt;
     },
   };

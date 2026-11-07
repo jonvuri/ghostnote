@@ -63,7 +63,7 @@ export type { MixerField, MixerFieldState, VolumeDb } from './mixer.js';
 export { STEP_SIZES, chooseStepSize, stepSizeFor, noteReadCell, noteReadStart } from './grid.js';
 
 export {
-  contentDelta, contentTouching, deltaComplete, discontinuityBetween, sliceDelta,
+  CONTENT_LOG, contentDelta, contentTouching, deltaComplete, discontinuityBetween, sliceDelta, windowSince,
   uncoveredAt, uncoveredBetween,
 } from './observers.js';
 export type { ContentDelta, ContentEvent, UncoveredIn } from './observers.js';

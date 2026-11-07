@@ -6,7 +6,8 @@
  * boundary, and the event map `(host channel, pitch, cell)` to event ID. The
  * identity table of IDENTITY-AND-OVERLAYS.md decides each transition:
  *
- *   - `current`: keep the entry, its ref, and every ID.
+ *   - `current`: keep the entry, its ref, and every ID; the entry takes the new
+ *     acquisition's mark (B18), so the ref's change window starts at the latest read.
  *   - `stale`: keep the clip ID. Keep the event ID of each cell that is still
  *     occupied. Mint an ID at each new cell. The new acquisition gets a new ref.
  *   - `identity-changed`, `absent`, `incomparable`, `uncovered`: retire every
@@ -176,6 +177,17 @@ export class IdentityRegistry {
     return ref === undefined ? undefined : this.entries.get(ref);
   }
 
+  /**
+   * B18: a check found the ref current at `mark`, so its change window restarts there. The snapshot source and
+   * every ID stay; only the mark moves forward.
+   */
+  refreshMark(ref: string, mark: RevisionMark): void {
+    const entry = this.entries.get(ref);
+    if (entry === undefined) return;
+    const refreshed: BaseEntry = { ...entry, snapshot: { ...entry.snapshot, mark } };
+    this.entries.set(ref, refreshed);
+  }
+
   /** Retire every live ref at the address of `snapshot`, with one reason. */
   retireAddress(snapshot: Pick<ClipSnapshotRef, 'channelId' | 'row'>, reason: RetirementReason): readonly Retirement[] {
     const address = addressOf(snapshot);
@@ -207,8 +219,12 @@ export class IdentityRegistry {
           || keys.length !== prior.entry.events.size || keys.some((key) => !prior.entry.events.has(key))) {
         throw new Error('a current verdict must name the same source and the same cells');
       }
-      this.touch(prior.entry);
-      return { entry: prior.entry, outcome: 'current', retained: keys.length, minted: 0 };
+      // B18: a current verdict proves the ref at this acquisition's mark, so the ref's change window restarts
+      // here. Without this, a ref re-read as current still retires once CONTENT_LOG events follow its FIRST read.
+      const refreshed: BaseEntry = { ...prior.entry, snapshot };
+      this.entries.set(refreshed.ref, refreshed);
+      this.touch(refreshed);
+      return { entry: refreshed, outcome: 'current', retained: keys.length, minted: 0 };
     }
 
     let retired: Retirement[] | undefined;

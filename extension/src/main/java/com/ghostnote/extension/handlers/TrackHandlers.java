@@ -405,7 +405,7 @@ public final class TrackHandlers extends HandlerGroup {
 
     /**
      * ⚠ E16 §3.4f — the detector: how many launcher-content callbacks have fired,
-     * and what the last {@link Rig#CONTENT_LOG} of them said.
+     * and what the last {@link Rig#LEGACY_CONTENT_LOG} of them said.
      *
      * The epoch is meaningless in absolute terms — Bitwig delivers initial values
      * through the same callbacks, so it starts nonzero — and every caller must
@@ -430,7 +430,7 @@ public final class TrackHandlers extends HandlerGroup {
         JsonArray log = new JsonArray();
         // Oldest-first out of the ring, so the reader sees the order events
         // happened rather than the order they happen to sit in the array.
-        int size = Math.min(rig.launcherContentEpoch, Rig.CONTENT_LOG);
+        int size = Math.min(rig.launcherContentEpoch, Rig.LEGACY_CONTENT_LOG);
         for (int k = 0; k < size; k++) {
             int idx = (rig.launcherContentEpoch - size + k) % Rig.CONTENT_LOG;
             Rig.ContentEvent event = rig.contentLog[idx];

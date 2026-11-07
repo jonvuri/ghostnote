@@ -235,6 +235,29 @@ export function contentTouching(
 }
 
 /**
+ * B18: how many content events the extension retains (`Rig.CONTENT_LOG`). A base ref's IDs survive this many
+ * Launcher slot events after its read; one more makes the window incomplete, and the ref re-mints with
+ * `delta-incomplete`. The fake uses the same bound, so neither adapter is kinder than the other.
+ */
+export const CONTENT_LOG = 8192;
+
+/**
+ * B18: the events that `revision.get` returns for a caller's `since` — every event in `(since, now]`, oldest first,
+ * or none when the ring no longer holds all of them. A mark without a window returns none. Mirrors the
+ * extension's `ContentWindow.since`; the fake adapter answers through it so both adapters see the same reply.
+ */
+export function windowSince(
+  ring: readonly ContentEvent[],
+  now: number,
+  since: number,
+  size: number = CONTENT_LOG,
+): readonly ContentEvent[] {
+  if (since < 0 || since >= now || now - since > size) return [];
+  const events = ring.filter((e) => e.seq > since && e.seq <= now);
+  return events.length === now - since ? events : [];
+}
+
+/**
  * ⚠ Slice a raw extension reply into the window a caller actually asked about.
  *
  * Shared by both adapters so the fake cannot drift into being kinder about a

@@ -19,6 +19,8 @@ import assert from 'node:assert/strict';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import {
+  windowSince,
+  CONTENT_LOG,
   clip, contentTouching, deltaComplete, notes as notesAt, scene, slot, track,
   type ClipAddress, type TrackAddress,
 } from './index.js';
@@ -137,15 +139,40 @@ test('O-truncated: a ring that dropped events reports FEWER than happened, and s
   const { fake } = await fixture();
   const before = await fake.revision();
 
-  control(fake).floodContentEvents(40);
+  control(fake).floodContentEvents(CONTENT_LOG + 16);
 
   const delta = await fake.contentSince(before);
-  assert.equal(delta.now - delta.since, 40, 'forty edits happened');
-  assert.equal(delta.events.length, 24, 'and only the ring\'s worth can be named');
+  assert.equal(delta.now - delta.since, CONTENT_LOG + 16, 'more edits happened than the ring holds');
+  // B18: the extension returns a window complete or not at all, so a truncated window costs no reply bytes.
+  assert.equal(delta.events.length, 0, 'and none of them can be named');
   assert.equal(delta.truncated, true);
   // ⚠ The whole point: a caller that only counted `events` would see a shorter
   // list and read the world as calmer than it was.
   assert.equal(deltaComplete(delta), false);
+});
+
+test('O-window: IDs survive exactly CONTENT_LOG events, a plain mark carries no events, and a window is sliced', async () => {
+  // B18 (E393 measured 24 then 25 on the old ring).
+  assert.ok(CONTENT_LOG >= 4096, 'several thousand events');
+  const { fake, trackA } = await fixture();
+  const before = await fake.revision();
+  control(fake).floodContentEvents(CONTENT_LOG - 1);
+  control(fake).dragClip(trackA.channelId, 0, 5);
+  const full = await fake.contentSince(before);
+  assert.equal(full.now - full.since, CONTENT_LOG + 1, 'a drag is two events');
+  assert.equal(full.truncated, true, 'one past the bound');
+
+  const mid = await fake.revision();
+  control(fake).floodContentEvents(CONTENT_LOG);
+  const atBound = await fake.contentSince(mid);
+  assert.equal(atBound.events.length, CONTENT_LOG);
+  assert.equal(deltaComplete(atBound), true, 'exactly the ring size is complete');
+
+  const ring = Array.from({ length: 6 }, (_, k) => ({ seq: k + 5, channelId: 'c', trackIndex: 0, slotIndex: 0, filled: true }));
+  assert.deepEqual(windowSince(ring, 10, 10, 8), [], 'a mark without a window');
+  assert.deepEqual(windowSince(ring, 10, 7, 8).map((e) => e.seq), [8, 9, 10]);
+  assert.deepEqual(windowSince(ring, 10, 3, 8), [], 'the ring lost seq 4');
+  assert.deepEqual(windowSince(ring, 10, 1, 8), [], 'older than the ring');
 });
 
 test('O-restart: a mark from a previous life of the extension is INCOMPARABLE, not old', async () => {
