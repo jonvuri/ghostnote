@@ -51,6 +51,8 @@ export interface ObservedDevice {
   readonly name: string;
   /** Present when the enumerator observed the device enabled flag. */
   readonly enabled?: boolean;
+  /** Present when the enumerator observed layer capability; absence requires a structure read. */
+  readonly hasLayers?: boolean;
 }
 
 /** One independently enumerated device chain, top-level or nested. */

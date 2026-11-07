@@ -26,8 +26,9 @@ import java.util.Arrays;
  * reference bank follow it at a structural pace (0/6 correct at 0 ms, 6/6 from 100 ms, containers.md §6).
  *
  * <p>Scope choice: a scope already settled at the position; else the scope already asked for it; else, for a
- * position inside the scope count, the scope resting there; else a scope already away from its resting
- * position, highest slot first; else the highest free slot. A scope chosen for one position of the aim is not
+ * position inside the scope count, the scope resting there; else the least recently used free scope,
+ * highest slot first on a tie. Far reads rotate through the scopes instead of evicting the previous far
+ * position on every miss. A scope chosen for one position of the aim is not
  * chosen for another, so a two-container move holds two scopes at once (E18 §3.1).
  *
  * <p>The host reads and writes go through {@link Scopes}, so the policy runs offline against an in-memory
@@ -36,6 +37,7 @@ import java.util.Arrays;
 public final class ContainerScopes {
     /** B17 build marker, in {@code rig.info} and in each reply. */
     public static final String RULE = WindowPager.RULE;
+    public static final String POLICY = "container-scope-lru-v1";
     static final int POLL_MS = 5;
     /** Polls between repeated scrolls of an unsettled scope (E353: a clamped bank needs the repeat). */
     static final int RESCROLL_POLLS = 10;
@@ -147,12 +149,15 @@ public final class ContainerScopes {
     private static final int UNCHOSEN = -2;
 
     private final Scopes scopes;
+    private final long[] lastUsed;
+    private long useSequence;
     private Aim current;
     private long aims, refusals;
     private String lastRefusal = "";
 
     public ContainerScopes(Scopes scopes) {
         this.scopes = scopes;
+        lastUsed = new long[scopes.scopeCount()];
     }
 
     /** The rig binding: the B08 scope banks on cursor track 0 and the host task scheduler. */
@@ -230,6 +235,7 @@ public final class ContainerScopes {
     public JsonObject status() {
         JsonObject r = new JsonObject();
         r.addProperty("rule", RULE);
+        r.addProperty("policy", POLICY);
         r.addProperty("open", current != null);
         r.addProperty("aims", aims);
         r.addProperty("refusals", refusals);
@@ -277,6 +283,7 @@ public final class ContainerScopes {
                     return;
                 }
                 a.slots[i] = slot;
+                lastUsed[slot] = ++useSequence;
             }
             int slot = a.slots[i];
             if (settledAt(slot, position)) continue;
@@ -330,12 +337,7 @@ public final class ContainerScopes {
         }
         if (chosen < 0) {
             for (int s = count - 1; s >= 0; s--) {
-                if (!excluded[s] && scopes.held(s) && scopes.requestedPosition(s) != s) { chosen = s; break; }
-            }
-        }
-        if (chosen < 0) {
-            for (int s = count - 1; s >= 0; s--) {
-                if (!excluded[s] && scopes.held(s)) { chosen = s; break; }
+                if (!excluded[s] && scopes.held(s) && (chosen < 0 || lastUsed[s] < lastUsed[chosen])) chosen = s;
             }
         }
         if (chosen < 0) return -1;

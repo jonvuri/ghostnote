@@ -1,0 +1,83 @@
+[
+  {
+    "case": "ordered-native-empty",
+    "chainIndex": 0,
+    "sourceCount": 3,
+    "initialDeviceCount": 0,
+    "receiptMs": 282.8946250000008,
+    "dependencyPolls": 6,
+    "readbackMs": 887.9014580000003,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "Tool",
+      "EQ-5",
+      "Gate"
+    ]
+  },
+  {
+    "case": "ordered-native-append",
+    "chainIndex": 0,
+    "sourceCount": 2,
+    "initialDeviceCount": 3,
+    "receiptMs": 234.91895900000236,
+    "dependencyPolls": 4,
+    "readbackMs": 969.3934999999983,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "Tool",
+      "EQ-5",
+      "Gate",
+      "EQ-5",
+      "Tool"
+    ]
+  },
+  {
+    "case": "ordered-native-repeat-empty",
+    "chainIndex": 4,
+    "sourceCount": 3,
+    "initialDeviceCount": 0,
+    "receiptMs": 282.72820800000045,
+    "dependencyPolls": 6,
+    "readbackMs": 978.9226250000065,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "Tool",
+      "EQ-5",
+      "Gate"
+    ]
+  },
+  {
+    "case": "ordered-mixed-sixth-chain",
+    "chainIndex": 5,
+    "sourceCount": 4,
+    "initialDeviceCount": 0,
+    "receiptMs": 404.030792000005,
+    "dependencyPolls": 8,
+    "readbackMs": 974.677042000003,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "Tool",
+      "TX16Wx",
+      "TX16Wx",
+      "FX Layer"
+    ]
+  },
+  {
+    "case": "ordered-sixth-append",
+    "chainIndex": 5,
+    "sourceCount": 2,
+    "initialDeviceCount": 4,
+    "receiptMs": 307.9398749999964,
+    "dependencyPolls": 4,
+    "readbackMs": 1085.3552080000009,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "Tool",
+      "TX16Wx",
+      "TX16Wx",
+      "FX Layer",
+      "EQ-5",
+      "Gate"
+    ]
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "legacy": true,
+    "trial": 0,
+    "ms": 568.3022920000003,
+    "turns": 20,
+    "bytes": 10377,
+    "positions": [
+      0,
+      1,
+      2
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": true,
+    "trial": 1,
+    "ms": 574.6640000000007,
+    "turns": 20,
+    "bytes": 10374,
+    "positions": [
+      0,
+      1,
+      2
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": true,
+    "trial": 2,
+    "ms": 579.4915419999998,
+    "turns": 20,
+    "bytes": 10374,
+    "positions": [
+      0,
+      1,
+      2
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": true,
+    "trial": 3,
+    "ms": 584.5241250000017,
+    "turns": 20,
+    "bytes": 10375,
+    "positions": [
+      0,
+      1,
+      2
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": true,
+    "trial": 4,
+    "ms": 577.8886249999996,
+    "turns": 20,
+    "bytes": 10377,
+    "positions": [
+      0,
+      1,
+      2
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 0,
+    "ms": 308.28570800000125,
+    "turns": 8,
+    "bytes": 2658,
+    "positions": [],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 1,
+    "ms": 308.8137079999997,
+    "turns": 8,
+    "bytes": 2658,
+    "positions": [],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 2,
+    "ms": 313.00616700000137,
+    "turns": 8,
+    "bytes": 2658,
+    "positions": [],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 3,
+    "ms": 312.2077499999996,
+    "turns": 8,
+    "bytes": 2658,
+    "positions": [],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 4,
+    "ms": 315.34070900000006,
+    "turns": 8,
+    "bytes": 2658,
+    "positions": [],
+    "scrolls": 0
+  }
+]

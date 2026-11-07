@@ -1,0 +1,13 @@
+{
+  "drivers": [],
+  "clients": [
+    {
+      "pid": 58395,
+      "ppid": 58004,
+      "command": "node --import tsx src/mcp-server.ts"
+    }
+  ],
+  "allowedIdle": [
+    "58395"
+  ]
+}

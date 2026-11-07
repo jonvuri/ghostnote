@@ -26,7 +26,7 @@ import {
   type BitwigAdapter, type ClipMetadataState, type NoteRecord, type Op, type TrackAddress,
 } from '../contract/index.js';
 import { Executor, mutationStateDisagreementsOf } from './executor.js';
-import { branchProtected, gateBeforeReading, UnprotectedWriteError } from './floor.js';
+import { branchProtected, directedDestruction, gateBeforeReading, UnprotectedWriteError } from './floor.js';
 
 /** Addresses for the pure cases below — well-formed, and never resolved. */
 const FIXTURE_TRACK = track('b07f6b06-8f4f-4f4f-802d-ddf1a5190515');
@@ -628,6 +628,65 @@ test('4e-device: the fake keeps VST3 and CLAP sources distinct', async () => {
     0: device(trackA, 0),
     1: device(trackA, 1),
   });
+});
+
+test('P01: device deletion retains structure and honest non-reversal without capturing parameters', async () => {
+  class StructureDeleteAdapter extends FakeAdapter {
+    deviceReads = 0;
+    override async read(...args: Parameters<FakeAdapter['read']>) {
+      if (args[0].some(address => address.kind === 'device')) {
+        this.deviceReads++;
+        assert.equal(args[1]?.structure, true, 'deletion must not acquire a parameter cursor');
+      }
+      return super.read(...args);
+    }
+  }
+  const fake = new StructureDeleteAdapter({ tracks: ['P01'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({ name: 'Unsettled plugin', paramsLive: false, params: [{ name: 'Opaque', value: 0.25 }] });
+  const target = device(track(row.channelId), 0);
+  const executor = new Executor(fake);
+  const take = await executor.run([{ op: 'device.delete', device: target,
+    expectedName: 'Unsettled plugin', expectedChain: ['Unsettled plugin'], expectedEnabledChain: [true] }],
+    { clearance: directedDestruction('delete_device') });
+  assert.equal(take.report.applied, true);
+  assert.equal(fake.deviceReads, 2, 'one structural stash and one final snapshot');
+  assert.equal(row.devices.length, 0);
+  const before = take.stash.entries[addressKey(target)];
+  assert.equal(before?.value.of, 'device');
+  if (before?.value.of === 'device') {
+    assert.equal(before.value.device.name, 'Unsettled plugin');
+    assert.equal(before.value.device.params, undefined);
+  }
+  const reversed = await executor.revertUnchecked(take);
+  assert.equal(reversed.plan.ops.length, 0);
+  assert.equal(reversed.unrestored.length, 1, 'no new recreation promise');
+});
+
+test('P01: a mixed device-delete and parameter batch keeps scalar capture and verification', async () => {
+  class MixedAdapter extends FakeAdapter {
+    options: unknown[] = [];
+    override async read(...args: Parameters<FakeAdapter['read']>) {
+      if (args[0].some(address => address.kind === 'param')) this.options.push(args[1]);
+      return super.read(...args);
+    }
+  }
+  const fake = new MixedAdapter({ tracks: ['P01'], scenes: 1 });
+  const row = fake.model.visibleTracks()[0]!;
+  row.devices.push({ name: 'Keep', paramsLive: true, params: [{ name: 'Gain', value: 0.25 }] },
+    { name: 'Delete', paramsLive: true, params: [] });
+  const kept = param(device(track(row.channelId), 0), 0);
+  const take = await new Executor(fake).run([
+    { op: 'param.set', param: kept, value: 0.75 },
+    { op: 'device.delete', device: device(track(row.channelId), 1) },
+  ], { clearance: directedDestruction('delete_device') });
+  assert.equal(take.report.applied, true);
+  assert(fake.options.length >= 2);
+  assert(fake.options.every(option => (option as { structure?: boolean } | undefined)?.structure !== true));
+  const before = take.stash.entries[addressKey(kept)];
+  const after = take.verify.entries[addressKey(kept)];
+  assert.equal(before?.value.of === 'param' ? before.value.param.value : undefined, 0.25);
+  assert.equal(after?.value.of === 'param' ? after.value.param.value : undefined, 0.75);
 });
 
 // --- exit criterion 5 --------------------------------------------------------

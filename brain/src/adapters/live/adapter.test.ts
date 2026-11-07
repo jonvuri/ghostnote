@@ -3526,6 +3526,26 @@ test('8h4e structure read: no DirectParameter frame and no parameter cursor pin'
     && frame.params?.['pinned'] === true), false);
 });
 
+test('P01 device bank: layer capability participates in settlement and reaches the reader', async () => {
+  const wire = new ParameterTransport();
+  const send = wire.send.bind(wire);
+  let inventories = 0;
+  wire.send = async (frame: Frame) => {
+    const reply = await send(frame) as Record<string, any>;
+    if (frame.method !== WIRE.deviceList) return reply;
+    inventories++;
+    return { ...reply, devices: reply['devices'].map((item: Record<string, unknown>) => ({
+      ...item, hasLayers: item['index'] === 0 && inventories > 1,
+    })) };
+  };
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const bank = await adapter.devices(TRACK);
+  assert.equal(bank.devicesComplete, true);
+  assert.equal(inventories, 3, 'a changed capability requires a second agreeing bank reply');
+  assert.equal(bank.devices[0]?.hasLayers, true);
+  assert.equal(bank.devices[1]?.hasLayers, false);
+});
+
 test('5p live inventory: the generation starts after exact device acquisition', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });

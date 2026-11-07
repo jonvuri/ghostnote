@@ -18,15 +18,13 @@ export const WRITE_LIMITS = Object.freeze({
    */
   deviceControlCohorts: 4,
   /**
-   * compose_devices: device units. Each staged device is an insertion, a move, and later a reversal: about 3.5 s
-   * each way for a native device, so a VST3 or CLAP source counts as two units. A device with modulators has its own
-   * page proof and sampling session (about 7 s) and counts two more (E252: 8 native devices took 30 s and their
-   * revert 35 s; 6 devices with modulators on 3 of them 45.6 s). A plug-in stays two units: 3 Diva chains took 13.8 s
-   * and their revert 15.8 s, so 6 at one unit each would take about 28 s and 32 s, and other plug-ins have more
-   * parameters than Diva.
+   * compose_devices: retained E252 weights (native 1, VST3/CLAP 2, modulation +2). D46 removed normal-profile
+   * behavior sampling; route/page checks remain (E254). These weights have not been re-derived under D55.
+   * E357's six native chains at position 18 took 44.4 s / 703 wire calls, dominated by repeated paged reads.
+   * P01 must prove direct chain insertion and measure composition/reversal before changing this bound.
    */
   stagedCompositionDevices: 6,
-  /** compose_devices: outer and preset-local modulators in one composition (each has a behavior proof). */
+  /** compose_devices: outer and preset-local modulators/edits; normal-profile route proof, not sound sampling. */
   compositionModulators: 4,
   /** delete_device: removed devices in one call (E252 final3: 10 native devices 25.2 s, 10 281-ID plug-ins 20.7 s). */
   deviceDeletions: 10,

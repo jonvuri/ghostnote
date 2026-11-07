@@ -1,0 +1,233 @@
+{
+  "success": true,
+  "position": 17,
+  "slot": 2,
+  "deviceCount": 18,
+  "deviceBankSize": 16,
+  "scopeCount": 3,
+  "chainBankSize": 5,
+  "chainDeviceBankSize": 4,
+  "scope": {
+    "slot": 2,
+    "status": "held",
+    "requestedPosition": 17,
+    "position": 17,
+    "settled": true,
+    "canScrollForwards": false,
+    "canScrollBackwards": true,
+    "deviceExists": true,
+    "deviceName": "FX Layer",
+    "devicePosition": 17,
+    "hasLayers": true,
+    "hasSlots": false,
+    "slotNames": [],
+    "chains": [
+      {
+        "index": 0,
+        "name": "P01-0",
+        "channelId": "6bb1ab58-5945-4f46-89a2-72d788e355db",
+        "reportedChannelIndex": 58,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-5",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "EQ-5",
+            "enabled": true
+          },
+          {
+            "index": 3,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 4,
+            "name": "Gate",
+            "enabled": true
+          },
+          {
+            "index": 5,
+            "name": "EQ-5",
+            "enabled": true
+          },
+          {
+            "index": 6,
+            "name": "Tool",
+            "enabled": true
+          }
+        ],
+        "deviceWindowPosition": 0,
+        "deviceCount": 7,
+        "devicePages": 2
+      },
+      {
+        "index": 1,
+        "name": "P01-5",
+        "channelId": "4e9c58ee-1efa-4f6f-8141-871fa1458da8",
+        "reportedChannelIndex": -1,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [],
+        "deviceWindowPosition": 0,
+        "deviceCount": 0,
+        "devicePages": 1
+      },
+      {
+        "index": 2,
+        "name": "P01-4",
+        "channelId": "a823da5f-fc41-4989-8676-db812a8a7e45",
+        "reportedChannelIndex": -1,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [],
+        "deviceWindowPosition": 0,
+        "deviceCount": 0,
+        "devicePages": 1
+      },
+      {
+        "index": 3,
+        "name": "P01-3",
+        "channelId": "2b32e262-c80b-4a11-b033-d2df7c640349",
+        "reportedChannelIndex": -1,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [
+          {
+            "index": 0,
+            "name": "EQ-5",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "Gate",
+            "enabled": true
+          }
+        ],
+        "deviceWindowPosition": 0,
+        "deviceCount": 3,
+        "devicePages": 1
+      },
+      {
+        "index": 4,
+        "name": "P01-2",
+        "channelId": "03b48901-2d60-40b4-a856-805dff73ac6d",
+        "reportedChannelIndex": -1,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [
+          {
+            "index": 0,
+            "name": "Gate",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "EQ-5",
+            "enabled": true
+          }
+        ],
+        "deviceWindowPosition": 0,
+        "deviceCount": 3,
+        "devicePages": 1
+      },
+      {
+        "index": 5,
+        "name": "P01-1",
+        "channelId": "54f6dd83-c7dd-4a06-846b-48c661c51337",
+        "reportedChannelIndex": -1,
+        "solo": false,
+        "mute": false,
+        "volume": 0.7937005259840999,
+        "pan": 0.5,
+        "color": "0.000,0.616,0.267",
+        "devices": [
+          {
+            "index": 0,
+            "name": "Gate",
+            "enabled": true
+          },
+          {
+            "index": 1,
+            "name": "Tool",
+            "enabled": true
+          },
+          {
+            "index": 2,
+            "name": "EQ-5",
+            "enabled": true
+          }
+        ],
+        "deviceWindowPosition": 0,
+        "deviceCount": 3,
+        "devicePages": 1
+      }
+    ],
+    "visibleChainCount": 6,
+    "chainCount": 6,
+    "chainWindowPosition": 0,
+    "chainBankSize": 5,
+    "deviceBankSize": 4,
+    "namedSlotStatus": "held",
+    "namedSlotComplete": true,
+    "paged": true,
+    "chainPages": 2,
+    "devicePages": 7
+  },
+  "cursorScope": {
+    "status": "held",
+    "deviceExists": false,
+    "deviceName": "",
+    "deviceIndex": -1,
+    "isNested": false,
+    "namedSlotComplete": false
+  },
+  "trackName": "gn-p01-insert",
+  "trackChannelId": "2ae3fd55-73cd-43a0-8aa6-b042a5558014",
+  "aim": {
+    "rule": "paged-windows-v3",
+    "scopes": [
+      {
+        "position": 17,
+        "slot": 2
+      }
+    ],
+    "polls": 1,
+    "scrolls": 0,
+    "ms": 329.613791
+  }
+}

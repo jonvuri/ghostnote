@@ -1,0 +1,338 @@
+[
+  {
+    "attempt": "attempt-1",
+    "case": "ordered-native-first-chain",
+    "chainIndex": 0,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      },
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      }
+    ],
+    "receiptMs": 169.84962500000256,
+    "readbackMs": 887.259834000004,
+    "readbackTurns": 14,
+    "observedDevices": [
+      "EQ-5",
+      "Tool"
+    ],
+    "order": null
+  },
+  {
+    "attempt": "attempt-2",
+    "case": "ordered-native-first-chain",
+    "chainIndex": 0,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      },
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      }
+    ],
+    "receiptMs": 170.28412500000013,
+    "readbackMs": 841.6404999999995,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "EQ-5",
+      "Tool",
+      "EQ-5",
+      "Tool"
+    ],
+    "order": null
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "native-populated-forward",
+    "chainIndex": 0,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      },
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      },
+      {
+        "kind": "native",
+        "value": "556300ac-3a6e-4423-966a-5d5dde459a1b"
+      }
+    ],
+    "receiptMs": 165.65791700000045,
+    "readbackMs": 890.3516249999993,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "EQ-5",
+      "Tool",
+      "EQ-5",
+      "Tool",
+      "Gate",
+      "EQ-5",
+      "Tool"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [
+        "EQ-5",
+        "Tool",
+        "EQ-5",
+        "Tool"
+      ],
+      "requested": [
+        "EQ-5",
+        "Tool",
+        "Gate"
+      ],
+      "observed": [
+        "Gate",
+        "EQ-5",
+        "Tool"
+      ],
+      "requestedOrderMatched": false
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "native-empty-forward",
+    "chainIndex": 4,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      },
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      },
+      {
+        "kind": "native",
+        "value": "556300ac-3a6e-4423-966a-5d5dde459a1b"
+      }
+    ],
+    "receiptMs": 163.74504200000047,
+    "readbackMs": 902.9865000000009,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "Gate",
+      "Tool",
+      "EQ-5"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [],
+      "requested": [
+        "EQ-5",
+        "Tool",
+        "Gate"
+      ],
+      "observed": [
+        "Gate",
+        "Tool",
+        "EQ-5"
+      ],
+      "requestedOrderMatched": false
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "native-empty-reverse",
+    "chainIndex": 3,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "556300ac-3a6e-4423-966a-5d5dde459a1b"
+      },
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      },
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      }
+    ],
+    "receiptMs": 160.82695799999965,
+    "readbackMs": 891.1302500000002,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "EQ-5",
+      "Tool",
+      "Gate"
+    ],
+    "order": {
+      "reverse": true,
+      "priorNames": [],
+      "requested": [
+        "EQ-5",
+        "Tool",
+        "Gate"
+      ],
+      "observed": [
+        "EQ-5",
+        "Tool",
+        "Gate"
+      ],
+      "requestedOrderMatched": true
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "native-sixth-forward",
+    "chainIndex": 5,
+    "submitted": [
+      {
+        "kind": "native",
+        "value": "227e2e3c-75d5-46f3-960d-8fb5529fe29f"
+      },
+      {
+        "kind": "native",
+        "value": "e67b9c56-838d-4fba-8e3e-ae4e02cccbcb"
+      },
+      {
+        "kind": "native",
+        "value": "556300ac-3a6e-4423-966a-5d5dde459a1b"
+      }
+    ],
+    "receiptMs": 251.52758299999914,
+    "readbackMs": 858.470833000003,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "Gate",
+      "Tool",
+      "EQ-5"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [],
+      "requested": [
+        "EQ-5",
+        "Tool",
+        "Gate"
+      ],
+      "observed": [
+        "Gate",
+        "Tool",
+        "EQ-5"
+      ],
+      "requestedOrderMatched": false
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "vst3-sixth-chain",
+    "chainIndex": 5,
+    "submitted": [
+      {
+        "kind": "vst3",
+        "value": "C4D8BD1A074B1188285DC2AA09B619A4"
+      }
+    ],
+    "receiptMs": 254.26924999999756,
+    "readbackMs": 916.5250409999971,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "Gate",
+      "Tool",
+      "EQ-5",
+      "TX16Wx"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [
+        "Gate",
+        "Tool",
+        "EQ-5"
+      ],
+      "requested": [
+        "TX16Wx"
+      ],
+      "observed": [
+        "TX16Wx"
+      ],
+      "requestedOrderMatched": true
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "clap-sixth-chain",
+    "chainIndex": 5,
+    "submitted": [
+      {
+        "kind": "clap",
+        "value": "com.cwitec.TX16Wx"
+      }
+    ],
+    "receiptMs": 233.9185839999991,
+    "readbackMs": 983.6894160000011,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "Gate",
+      "Tool",
+      "EQ-5",
+      "TX16Wx",
+      "TX16Wx"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [
+        "Gate",
+        "Tool",
+        "EQ-5",
+        "TX16Wx"
+      ],
+      "requested": [
+        "TX16Wx"
+      ],
+      "observed": [
+        "TX16Wx"
+      ],
+      "requestedOrderMatched": true
+    }
+  },
+  {
+    "attempt": "attempt-3",
+    "case": "preset-sixth-chain",
+    "chainIndex": 5,
+    "submitted": [
+      {
+        "kind": "preset",
+        "value": "/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/fixtures/FXLayer/gn_latebound_fx_layer.bwpreset"
+      }
+    ],
+    "receiptMs": 235.39991700000246,
+    "readbackMs": 1000.9180000000015,
+    "readbackTurns": 12,
+    "observedDevices": [
+      "Gate",
+      "Tool",
+      "EQ-5",
+      "TX16Wx",
+      "TX16Wx",
+      "FX Layer"
+    ],
+    "order": {
+      "reverse": false,
+      "priorNames": [
+        "Gate",
+        "Tool",
+        "EQ-5",
+        "TX16Wx",
+        "TX16Wx"
+      ],
+      "requested": [
+        "FX Layer"
+      ],
+      "observed": [
+        "FX Layer"
+      ],
+      "requestedOrderMatched": true
+    }
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "legacy": true,
+    "trial": 0,
+    "ms": 993.2956249999988,
+    "turns": 29,
+    "bytes": 14840,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "scrolls": 3
+  },
+  {
+    "legacy": true,
+    "trial": 1,
+    "ms": 1059.2607079999943,
+    "turns": 29,
+    "bytes": 14841,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "scrolls": 6
+  },
+  {
+    "legacy": true,
+    "trial": 2,
+    "ms": 1054.2615000000005,
+    "turns": 29,
+    "bytes": 14842,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "scrolls": 6
+  },
+  {
+    "legacy": true,
+    "trial": 3,
+    "ms": 1054.6163339999985,
+    "turns": 29,
+    "bytes": 14839,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "scrolls": 6
+  },
+  {
+    "legacy": true,
+    "trial": 4,
+    "ms": 1056.5461250000008,
+    "turns": 29,
+    "bytes": 14840,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "scrolls": 6
+  },
+  {
+    "legacy": false,
+    "trial": 0,
+    "ms": 666.971332999994,
+    "turns": 17,
+    "bytes": 10591,
+    "positions": [
+      3,
+      5
+    ],
+    "scrolls": 2
+  },
+  {
+    "legacy": false,
+    "trial": 1,
+    "ms": 618.2240420000016,
+    "turns": 17,
+    "bytes": 10591,
+    "positions": [
+      3,
+      5
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 2,
+    "ms": 632.9941670000044,
+    "turns": 17,
+    "bytes": 10588,
+    "positions": [
+      3,
+      5
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 3,
+    "ms": 622.083375000002,
+    "turns": 17,
+    "bytes": 10591,
+    "positions": [
+      3,
+      5
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 4,
+    "ms": 620.6389999999956,
+    "turns": 17,
+    "bytes": 10591,
+    "positions": [
+      3,
+      5
+    ],
+    "scrolls": 0
+  }
+]

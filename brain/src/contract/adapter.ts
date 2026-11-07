@@ -93,9 +93,10 @@ export interface ReadOptions {
   readonly occupancy?: boolean;
   /**
    * 8h4e: a `device` address reports structure only: `{ chainIndex, name, container? }`. The adapter reads no
-   * DirectParameter inventory and acquires no parameter cursor. The live adapter reads a top-level device in the
-   * container scopes through `chain.inventory`, and a device past the scopes through `device.list`, with no
-   * `container`. A nested device uses the container-scope lookup only.
+   * DirectParameter inventory and acquires no parameter cursor. The live adapter uses paged `chain.observe`
+   * for a top-level device, including overflow positions, with a device-bank fallback if no scope is held.
+   * A nested device uses the container-scope lookup only. Pure device-deletion batches use this option for
+   * identity and final structural witnesses; their snapshots cannot recreate the deleted device (D54).
    */
   readonly structure?: boolean;
 }

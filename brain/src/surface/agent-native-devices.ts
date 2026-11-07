@@ -322,11 +322,14 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
   try {
     const track = trackAt(args.trackId);
     const bank = await workspace.devices(track);
-    const scoped = bank.devices.map((item) => item.index);
+    // P01: only a complete bank's explicit observation of no layers can replace the scope read.
+    // Older extensions omit the capability; an incomplete/identity-unconfirmed bank cannot supply it.
+    const scoped = bank.devices.filter((item) => !bank.devicesComplete || item.hasLayers !== false).map((item) => item.index);
     const structure = await structureAt(workspace, track, scoped);
     let containersComplete = true;
     const devices = bank.devices.map((item) => {
       const base = { devicePosition: item.index, name: item.name, enabled: item.enabled ?? null };
+      if (bank.devicesComplete && item.hasLayers === false) return base;
       const read = structure.get(item.index);
       if (read === undefined || typeof read === 'string') {
         containersComplete = false;
@@ -350,7 +353,8 @@ async function readDevices(workspace: Workspace, args: ReadInput): Promise<unkno
         bankSize: bank.bankSize ?? null,
         devicePages: bank.devicesComplete && bank.bankSize
           ? Math.max(1, Math.ceil(bank.devices.length / bank.bankSize)) : null,
-        layerChainPositions: scoped,
+        // Coverage includes positions whose lack of layers was observed in the device bank.
+        layerChainPositions: bank.devices.map((item) => item.index),
       },
       authority: { kind: 'fresh-read' },
       data: { trackId: args.trackId, devices },

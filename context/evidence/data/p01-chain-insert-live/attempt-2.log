@@ -1,0 +1,63 @@
+entry
+connection
+resolve-native-Tool
+resolve-native-EQ-5
+resolve-native-Gate
+resolve-vst3-TX16Wx
+resolve-clap-TX16Wx
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+clients
+write-context
+inspect-retained-effects
+inspected-order-reversal
+clients
+write-context
+name-original-chain
+clients
+write-context
+ordered-native-first-chain-before
+ordered-native-first-chain-attempt
+ordered-native-first-chain-readback
+stopped
+failure-track-list
+failure-selection-status
+failure-rig-info
+failure-chain-inventory
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'EQ-5',
+    'Tool',
++   'EQ-5',
+    'Tool',
+-   'EQ-5'
+  ]
+
+    at insert (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-chain-insert-live.ts:131:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async <anonymous> (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-chain-insert-live.ts:223:3) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [ 'EQ-5', 'Tool', 'EQ-5', 'Tool' ],
+  expected: [ 'EQ-5', 'Tool', 'Tool', 'EQ-5' ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

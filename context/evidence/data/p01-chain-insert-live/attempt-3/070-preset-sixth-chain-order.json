@@ -1,0 +1,17 @@
+{
+  "reverse": false,
+  "priorNames": [
+    "Gate",
+    "Tool",
+    "EQ-5",
+    "TX16Wx",
+    "TX16Wx"
+  ],
+  "requested": [
+    "FX Layer"
+  ],
+  "observed": [
+    "FX Layer"
+  ],
+  "requestedOrderMatched": true
+}

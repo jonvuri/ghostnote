@@ -33,6 +33,7 @@ type Counts = Record<string, number>;
 /** Counts the adapter calls that cost host turns. A sourced read is a `clip.read` capture. */
 class CountingAdapter extends FakeAdapter {
   counts: Counts = {};
+  deviceReadShapes: boolean[] = [];
   private count(name: string): void { this.counts[name] = (this.counts[name] ?? 0) + 1; }
   override async revision(...args: Parameters<FakeAdapter['revision']>) { this.count('mark'); return super.revision(...args); }
   override async contentSince(...args: Parameters<FakeAdapter['contentSince']>) { this.count('delta'); return super.contentSince(...args); }
@@ -42,6 +43,7 @@ class CountingAdapter extends FakeAdapter {
   override async apply(...args: Parameters<FakeAdapter['apply']>) { this.count('apply'); return super.apply(...args); }
   override async read(...args: Parameters<FakeAdapter['read']>) {
     this.count(args[1]?.sources === undefined ? 'read' : 'clipRead');
+    if (args[0].some(address => address.kind === 'device')) this.deviceReadShapes.push(args[1]?.structure === true);
     return super.read(...args);
   }
 }
@@ -75,6 +77,7 @@ async function fixture() {
   fake.model.revision += 1;
   const call = async (name: string, args: Wire): Promise<{ result: Wire; counts: Counts }> => {
     fake.counts = {};
+    fake.deviceReadShapes = [];
     const result = await callTool(workspace, name, args, AGENT_NATIVE_TOOL_PROFILE) as Wire;
     return { result, counts: fake.counts };
   };
@@ -270,6 +273,49 @@ test('call budget: the 8h4e device and layer-chain tools', async () => {
   assert.deepEqual(counts, EXPECTED_DEVICE_BUDGETS);
 });
 
+for (const mode of ['plain', 'mixed', 'legacy', 'incomplete', 'unavailable'] as const) {
+  test(`P01 read_devices scope budget: ${mode}`, async () => {
+    const fx = await fixture();
+    const top = fx.fake.model.visibleTracks()[0]!.devices;
+    top.push(...Array.from({ length: 18 }, (_, index) => ({
+      name: index === 17 && mode !== 'plain' ? 'FX Layer' : `Tool ${index}`,
+      enabled: true, paramsLive: true, params: [],
+      ...(index === 17 && mode !== 'plain' ? { chains: [{ name: 'A', id: 'p01-a', solo: false, devices: [] }] } : {}),
+    })));
+    // Model a modern device.list reply; the unmodified FakeAdapter exercises legacy replies elsewhere.
+    const devices = fx.fake.devices.bind(fx.fake);
+    fx.fake.devices = async (...args) => {
+      const bank = await devices(...args);
+      return { ...bank, devicesComplete: mode !== 'incomplete', devices: bank.devices.map((item) => ({ ...item,
+        ...(mode === 'legacy' ? {} : { hasLayers: item.index === 17 && mode !== 'plain' }),
+      })) };
+    };
+    const read = fx.fake.read.bind(fx.fake);
+    const scoped: number[] = [];
+    fx.fake.read = async (addresses, options) => {
+      if (options?.structure) scoped.push(...addresses.flatMap((a) => a.kind === 'device' ? [a.chainIndex] : []));
+      const snapshot = await read(addresses, options);
+      return mode === 'unavailable' ? { ...snapshot, entries: {}, unreachable: [...addresses] } : snapshot;
+    };
+    const { result, counts } = await fx.call('read_devices', { trackId: fx.trackId });
+    assert.equal(result.failure, undefined);
+    assert.equal(result.coverage.status, mode === 'unavailable' || mode === 'incomplete' ? 'partial' : 'complete');
+    assert.equal(result.data.devices.length, 18);
+    assert.deepEqual(scoped, mode === 'plain' ? [] : mode === 'legacy' || mode === 'incomplete' ? top.map((_, i) => i) : [17]);
+    assert.deepEqual(counts, mode === 'plain' ? { devices: 1 } : { devices: 1, read: 1 });
+    assert.deepEqual(result.coverage.layerChainPositions, top.map((_, i) => i), 'coverage includes observed empty layers');
+    if (mode === 'unavailable') assert.equal(result.data.devices[17].layerChains, 'unavailable');
+    if (mode === 'mixed' || mode === 'legacy') assert.equal(result.data.devices[17].container.layerChains[0].name, 'A');
+    // A fresh call must not reuse a false capability from the preceding call.
+    if (mode === 'plain') {
+      fx.fake.devices = devices;
+      scoped.length = 0;
+      await fx.call('read_devices', { trackId: fx.trackId });
+      assert.equal(scoped.length, 18);
+    }
+  });
+}
+
 // B08/B17: the same tools on a container at position 3, past the three resting scopes, cost the same adapter
 // calls. The scope is scrolled inside the extension's `chain.observe`, which these counts do not see; the ledger
 // `containerScope` row carries the wire cost.
@@ -387,6 +433,8 @@ test('call budget: the 8h4g rows for the remaining tools', async () => {
   await run('set-controls', 'set_device_controls', { settings: [{ kind: 'direct', device: { trackId: fx.trackId,
     devicePosition: 0 }, parameterId: 'P-Polysynth', normalizedValue: 0.25 }] });
   await run('delete-device', 'delete_device', { devices: [{ trackId: fx.trackId, devicePosition: 1 }] });
+  assert.deepEqual(fx.fake.deviceReadShapes, [true, true, true],
+    'P01: public removal summary, executor stash and final snapshot are structural; no parameter capture');
   assert.deepEqual(counts, EXPECTED_8H4G_BUDGETS);
 });
 

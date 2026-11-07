@@ -1,6 +1,9 @@
 package com.ghostnote.extension;
 
 import com.google.gson.JsonArray;
+import com.bitwig.extension.controller.api.Device;
+import com.bitwig.extension.controller.api.DeviceBank;
+import java.lang.reflect.Proxy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,45 @@ public final class WindowPagerTest {
         return capture;
     }
     private static void check(boolean ok, String message) { if (!ok) throw new AssertionError(message); }
+    /** Exercise the actual top-level row encoder, including delayed capability observers. */
+    private static void layerCapability() {
+        boolean[] layers = {false};
+        int[] layerReads = {0};
+        Device device = (Device) Proxy.newProxyInstance(Device.class.getClassLoader(), new Class<?>[] {Device.class},
+            (proxy, method, args) -> Proxy.newProxyInstance(method.getReturnType().getClassLoader(),
+                new Class<?>[] {method.getReturnType()}, (value, accessor, ignored) -> {
+                    if (!accessor.getName().equals("get")) throw new AssertionError(accessor.getName());
+                    return switch (method.getName()) {
+                        case "exists", "isEnabled" -> true;
+                        case "position" -> 0;
+                        case "name" -> "FX Layer";
+                        case "hasLayers" -> { layerReads[0]++; yield layers[0]; }
+                        default -> throw new AssertionError(method.getName());
+                    };
+                }));
+        DeviceBank bank = (DeviceBank) Proxy.newProxyInstance(DeviceBank.class.getClassLoader(),
+            new Class<?>[] {DeviceBank.class}, (proxy, method, args) -> {
+                if (method.getName().equals("getDevice")) return device;
+                return Proxy.newProxyInstance(method.getReturnType().getClassLoader(),
+                    new Class<?>[] {method.getReturnType()}, (value, accessor, ignored) -> {
+                        if (!accessor.getName().equals("get")) throw new AssertionError(accessor.getName());
+                        return method.getName().equals("itemCount") ? 1 : 0;
+                    });
+            });
+        JsonArray nested = new DeviceWindow(bank, 1).snapshot();
+        check(layerReads[0] == 0 && !nested.get(0).getAsJsonObject().has("hasLayers"),
+            "nested windows do not read an unsubscribed capability");
+        Capture capture = new Capture();
+        pager().read(new DeviceWindow(bank, 1, true),
+            (offset, rows, done) -> { capture.rows.addAll(rows); done.accept(null); }, capture::done);
+        layers[0] = true; // The name/position arrived before the capability.
+        drain();
+        check(capture.error == null && capture.replies == 1 && capture.result.polls() == 3,
+            "capability must agree on two tasks before the page is accepted");
+        check(capture.rows.get(0).getAsJsonObject().get("hasLayers").getAsBoolean(), "complete capability row");
+    }
     public static void main(String[] args) {
+        layerCapability();
         for (int[] shape : new int[][] {{5, 6}, {4, 5}, {16, 17}, {4, 11}, {4, 0}, {4, 4}}) {
             Model model = new Model(shape[0], shape[1]);
             Capture capture = read(model);

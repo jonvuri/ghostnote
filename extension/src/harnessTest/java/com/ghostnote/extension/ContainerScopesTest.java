@@ -80,6 +80,7 @@ public final class ContainerScopesTest {
         run("a far position takes the highest resting scope and settles after one scroll", ContainerScopesTest::far);
         run("a position settled by the previous aim is reused; the displaced scope is re-aimed when its rest is asked for",
             ContainerScopesTest::reuse);
+        run("far positions rotate through free scopes and stay settled across repeated reads", ContainerScopesTest::rotate);
         run("a position past the device count is an empty observation, not a scroll", ContainerScopesTest::empty);
         run("a hung scope is scrolled again every RESCROLL_POLLS polls and refuses at the bound",
             ContainerScopesTest::hung);
@@ -143,13 +144,33 @@ public final class ContainerScopesTest {
         drain();
         check(rest.settled != null && rest.settled.slotOf(2) == 2, "settled at 2 again");
         rest.settled.release();
-        // A far position prefers a scope already away from rest over the highest slot.
+        // A far miss takes the least recently used scope; ties favor the highest slot.
         m.requested[1] = 7; m.reported[1] = 3; // scope 1 displaced (unsettled) from a previous track
         Result prefer = aim(scopes, m, "track-a", 3);
-        check(m.scrolls.get(m.scrolls.size() - 1)[0] == 1, "the displaced scope 1 is chosen for a far read: " + m.scrollLog());
+        check(m.scrolls.get(m.scrolls.size() - 1)[0] == 1, "the unused scope 1 is chosen for a far read: " + m.scrollLog());
         drain();
         check(prefer.settled != null && prefer.settled.slotOf(3) == 1, "settled through scope 1");
         prefer.settled.release();
+    }
+
+    private static void rotate() {
+        Model m = new Model("Tool", "Tool", "Tool", "FX Layer", "Tool", "FX Layer", "Tool", "FX Layer", "FX Layer");
+        ContainerScopes scopes = new ContainerScopes(m);
+        for (int position : new int[] {3, 5, 7, 3, 5, 7}) {
+            Result r = aim(scopes, m, "track-a", position);
+            drain();
+            check(r.settled != null, "far read settles");
+            r.settled.release();
+        }
+        check(m.scrollLog().equals("2->3 1->5 0->7"), "three cold scrolls, none on repeat: " + m.scrollLog());
+        Result touch = aim(scopes, m, "track-a", 3);
+        check(touch.settled != null && touch.polls == 1, "cache hit needs no wait");
+        touch.settled.release();
+        Result miss = aim(scopes, m, "track-a", 8);
+        drain();
+        check(miss.settled != null && miss.settled.slotOf(8) == 1, "evicts 5, the least recently used position");
+        miss.settled.release();
+        check(scopes.status().get("policy").getAsString().equals("container-scope-lru-v1"), "build policy marker");
     }
 
     private static void empty() {

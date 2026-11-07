@@ -113,6 +113,8 @@ export interface Golden {
   /** B08 scrollable container scope research. */
   addedInB08?: string[];
   addedInB17?: string[];
+  /** P01 direct layer-chain insertion research. */
+  addedInP01?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

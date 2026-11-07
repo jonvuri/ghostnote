@@ -38,7 +38,7 @@ import {
   CLIP_METADATA_FIELDS, notes as notesAt,
   param as paramAt, noteReadCell, snapshotAddresses,
   type Address, type AdapterInfo, type BitwigAdapter, type ClipAddress, type ContentDelta, type NoteRecord,
-  type ClipMetadataField, type ClipMetadataState, type ClipSnapshotRef, type Op, type RevisionMark, type Snapshot,
+  type ClipMetadataField, type ClipMetadataState, type ClipSnapshotRef, type Op, type ReadOptions, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { readWithClipSnapshots } from './clip-snapshots.js';
 import { labelTarget, worstOf } from './fidelity.js';
@@ -267,6 +267,10 @@ export class Executor {
     const { targets, unrevertable } = writeSetOf(ops);
     const addresses: Address[] = targets.map((t) => t.address);
     const risk = structuralRisk(ops);
+    // P01: deletion cannot replay opaque device state (D54). Its identity and absence witnesses
+    // need structure, not parameters. Mixed batches retain their scalar/reversal captures.
+    const readOptions: ReadOptions = ops.length > 0 && ops.every((op) => op.op === 'device.delete')
+      ? { structure: true } : {};
 
     const supplied = options.parameterPreflight;
     const refs = options.ifSnapshot ?? [];
@@ -291,7 +295,7 @@ export class Executor {
         );
       }
     }
-    const stash = supplied ?? await this.timed('stash', () => this.readStash(addresses, refs, preflight));
+    const stash = supplied ?? await this.timed('stash', () => this.readStash(addresses, refs, preflight, readOptions));
     this.assertVisible(stash);
     this.assertClipsExist(ops, stash);
     this.assertOwnedNotePreconditions(ops, stash);
@@ -345,7 +349,7 @@ export class Executor {
           }))
           : [];
         const unreadRows = new Set(unverifiedRows.map((item) => addressKey(item.address)));
-        const verify = await this.verifyOrUnread(() => this.timed('verification', () => this.adapter.read(rowless)),
+        const verify = await this.verifyOrUnread(() => this.timed('verification', () => this.adapter.read(rowless, readOptions)),
           receipt.at, rowless, unreadRows, unverifiedRows);
         const seen = await this.concurrent(stash.at, targets, true);
         const reconcileStarted = performance.now();
@@ -400,7 +404,7 @@ export class Executor {
     const integrityDevices = supplied === undefined ? [] : uniqueParameterDevices(ops);
     const sources = staled ? [] : options.verifySources ?? [];
     const readable = uniqueAddresses([...scalarReadable, ...integrityDevices, ...sources.flatMap(snapshotAddresses)]);
-    const verifyOptions = sources.length === 0 ? {} : { sources };
+    const verifyOptions = sources.length === 0 ? readOptions : { ...readOptions, sources };
     const unverified: Unverified[] = staled
       ? addresses.filter((a) => addressScene(a) !== undefined).map((address) => ({
         address,
@@ -476,12 +480,13 @@ export class Executor {
     addresses: readonly Address[],
     refs: readonly ClipSnapshotRef[],
     preflight?: Snapshot,
+    readOptions: ReadOptions = {},
   ): Promise<Snapshot> {
-    if (refs.length === 0) return this.adapter.read(addresses);
+    if (refs.length === 0) return this.adapter.read(addresses, readOptions);
     const adapter = this.adapter;
     const { read, verdicts } = await readWithClipSnapshots({
       mark: () => adapter.revision(),
-      read: (selection, options) => adapter.read(selection, options),
+      read: (selection, options) => adapter.read(selection, { ...options, ...readOptions }),
       contentSince: (since) => adapter.contentSince(since),
     }, refs, addresses, preflight);
     if (verdicts.some((item) => item.verdict !== 'current')) throw new ClipSnapshotRefusedError(verdicts);

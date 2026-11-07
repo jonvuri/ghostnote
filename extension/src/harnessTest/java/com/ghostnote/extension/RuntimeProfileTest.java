@@ -33,10 +33,14 @@ public final class RuntimeProfileTest {
             profile.verifyRegistrations(declarations);
             require(profile.includes("probe.browserDiscovery") == (profile == RuntimeProfile.PROBE),
                 "browser discovery escaped the probe profile");
+            require(profile.includes("probe.chainInsert") == (profile == RuntimeProfile.PROBE),
+                "direct chain insertion escaped the probe profile");
             System.out.println(profile.identity() + ": " + actual.size() + " methods, " + hash);
         }
         require(RuntimeProfile.kind("probe.browserDiscovery") == WriteGate.Kind.WRITE,
             "browser writes bypass the write gate");
+        require(RuntimeProfile.kind("probe.chainInsert") == WriteGate.Kind.WRITE,
+            "direct chain insertion bypasses the write gate");
         Set<String> missing = new TreeSet<>(declarations);
         missing.remove("probe.browserDiscovery");
         refuses(missing);

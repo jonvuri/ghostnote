@@ -375,3 +375,10 @@ tasks.register('deviceMutationHandlersTest', JavaExec) {
     mainClass = 'com.ghostnote.extension.handlers.DeviceMutationHandlersTest'
 }
 tasks.named('check') { dependsOn 'deviceMutationHandlersTest' }
+
+tasks.register('chainInsertProbeHandlersTest', JavaExec) {
+    dependsOn harnessTestClasses
+    classpath = sourceSets.harnessTest.runtimeClasspath
+    mainClass = 'com.ghostnote.extension.handlers.ChainInsertProbeHandlersTest'
+}
+tasks.named('check') { dependsOn 'chainInsertProbeHandlersTest' }

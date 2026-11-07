@@ -1,0 +1,15 @@
+{
+  "reverse": false,
+  "priorNames": [
+    "Gate",
+    "Tool",
+    "EQ-5"
+  ],
+  "requested": [
+    "TX16Wx"
+  ],
+  "observed": [
+    "TX16Wx"
+  ],
+  "requestedOrderMatched": true
+}

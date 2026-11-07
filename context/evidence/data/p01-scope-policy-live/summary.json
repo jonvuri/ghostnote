@@ -1,0 +1,162 @@
+{
+  "031-plain-measurements.json": {
+    "suppressed": {
+      "coldMs": 568.3022920000003,
+      "warmMedianMs": 578.6900834999997,
+      "turns": [
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "scrolls": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warmMedianBytes": 10374.5
+    },
+    "modern": {
+      "coldMs": 308.28570800000125,
+      "warmMedianMs": 312.6069585000005,
+      "turns": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "scrolls": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warmMedianBytes": 2658.0
+    }
+  },
+  "052-six-device-measurements.json": {
+    "suppressed": {
+      "coldMs": 993.2956249999988,
+      "warmMedianMs": 1055.5812294999996,
+      "turns": [
+        29,
+        29,
+        29,
+        29,
+        29
+      ],
+      "scrolls": [
+        3,
+        6,
+        6,
+        6,
+        6
+      ],
+      "warmMedianBytes": 14840.5
+    },
+    "modern": {
+      "coldMs": 666.971332999994,
+      "warmMedianMs": 621.3611874999988,
+      "turns": [
+        17,
+        17,
+        17,
+        17,
+        17
+      ],
+      "scrolls": [
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warmMedianBytes": 10591.0
+    }
+  },
+  "068-three-far-measurements.json": {
+    "suppressed": {
+      "coldMs": 1205.451291999998,
+      "warmMedianMs": 1293.1552080000001,
+      "turns": [
+        35,
+        35,
+        35,
+        35,
+        35
+      ],
+      "scrolls": [
+        5,
+        8,
+        8,
+        8,
+        8
+      ],
+      "warmMedianBytes": 17456.5
+    },
+    "modern": {
+      "coldMs": 810.781167000001,
+      "warmMedianMs": 733.0722290000012,
+      "turns": [
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "scrolls": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "warmMedianBytes": 12154.0
+    }
+  },
+  "086-four-far-overflow-measurements.json": {
+    "suppressed": {
+      "coldMs": 2425.733124999999,
+      "warmMedianMs": 2483.9011459999965,
+      "turns": [
+        65,
+        65,
+        65,
+        65,
+        65
+      ],
+      "scrolls": [
+        15,
+        18,
+        18,
+        18,
+        18
+      ],
+      "warmMedianBytes": 29495.5
+    },
+    "modern": {
+      "coldMs": 1140.5469589999993,
+      "warmMedianMs": 1153.759083500001,
+      "turns": [
+        23,
+        23,
+        23,
+        23,
+        23
+      ],
+      "scrolls": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "warmMedianBytes": 14689.0
+    }
+  }
+}

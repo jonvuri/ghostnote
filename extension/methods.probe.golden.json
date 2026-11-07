@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 121,
-  "methodsHash": "185f44ee3b08bbb7",
+  "count": 122,
+  "methodsHash": "d7fb35cd5e6566ba",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -90,6 +90,7 @@
     "param.set",
     "ping",
     "probe.browserDiscovery",
+    "probe.chainInsert",
     "probe.gridCable",
     "probe.gridEngine",
     "probe.gridModuleAttach",

@@ -1137,6 +1137,7 @@ public class Rig {
                 device.exists().markInterested();
                 device.name().markInterested();
                 device.isEnabled().markInterested();
+                device.hasLayers().markInterested();
                 if (i == 0) {
                     // D03 reads preset proof only from its one owned cursor.
                     device.presetName().markInterested();

@@ -1,0 +1,144 @@
+[
+  {
+    "source": "context/evidence/data/b17-integrated-live/attempt-3/019-compose-five-devices.json.gz",
+    "sourceSha256": "e0bc896c1579b7a278218c9c214dfe64989f48858152c1b800b29742362d517c",
+    "toolMs": 26321.083,
+    "wireCalls": 565,
+    "replyBytes": 582169,
+    "wireIntervalUnionMs": 23181.986,
+    "outsideWireIntervalsMs": 3139.097,
+    "methods": {
+      "batch.run": {
+        "calls": 12,
+        "summedRequestMs": 2569.485,
+        "replyBytes": 2409,
+        "errors": 0
+      },
+      "chain.observe": {
+        "calls": 26,
+        "summedRequestMs": 2174.702,
+        "replyBytes": 33542,
+        "errors": 0
+      },
+      "cursor.pin": {
+        "calls": 88,
+        "summedRequestMs": 2096.618,
+        "replyBytes": 4912,
+        "errors": 0
+      },
+      "cursor.pointTrack": {
+        "calls": 50,
+        "summedRequestMs": 1183.853,
+        "replyBytes": 2783,
+        "errors": 0
+      },
+      "devcursor.pin": {
+        "calls": 50,
+        "summedRequestMs": 1134.549,
+        "replyBytes": 2783,
+        "errors": 0
+      },
+      "device.list": {
+        "calls": 86,
+        "summedRequestMs": 12111.904,
+        "replyBytes": 77900,
+        "errors": 5
+      },
+      "revision.get": {
+        "calls": 96,
+        "summedRequestMs": 2277.126,
+        "replyBytes": 273192,
+        "errors": 0
+      },
+      "selection.status": {
+        "calls": 35,
+        "summedRequestMs": 857.284,
+        "replyBytes": 8634,
+        "errors": 0
+      },
+      "track.list": {
+        "calls": 122,
+        "summedRequestMs": 2884.388,
+        "replyBytes": 176014,
+        "errors": 0
+      }
+    }
+  },
+  {
+    "source": "context/evidence/data/b17-integrated-live/attempt-3/025-compose-six-chains.json.gz",
+    "sourceSha256": "1e6da7ed9bd96af617c7bed23c4553d4ff63363a0a82f7123c30624dc858a73e",
+    "toolMs": 44410.786,
+    "wireCalls": 703,
+    "replyBytes": 791977,
+    "wireIntervalUnionMs": 39673.587,
+    "outsideWireIntervalsMs": 4737.199,
+    "methods": {
+      "batch.run": {
+        "calls": 20,
+        "summedRequestMs": 4762.058,
+        "replyBytes": 3890,
+        "errors": 0
+      },
+      "chain.observe": {
+        "calls": 45,
+        "summedRequestMs": 12508.131,
+        "replyBytes": 116470,
+        "errors": 0
+      },
+      "chain.select": {
+        "calls": 1,
+        "summedRequestMs": 73.61,
+        "replyBytes": 419,
+        "errors": 0
+      },
+      "chain.setName": {
+        "calls": 1,
+        "summedRequestMs": 233.73,
+        "replyBytes": 493,
+        "errors": 0
+      },
+      "cursor.pin": {
+        "calls": 104,
+        "summedRequestMs": 2476.773,
+        "replyBytes": 5824,
+        "errors": 0
+      },
+      "cursor.pointTrack": {
+        "calls": 60,
+        "summedRequestMs": 1423.067,
+        "replyBytes": 3360,
+        "errors": 0
+      },
+      "devcursor.pin": {
+        "calls": 60,
+        "summedRequestMs": 1391.026,
+        "replyBytes": 3360,
+        "errors": 0
+      },
+      "device.list": {
+        "calls": 103,
+        "summedRequestMs": 14431.317,
+        "replyBytes": 96952,
+        "errors": 7
+      },
+      "revision.get": {
+        "calls": 118,
+        "summedRequestMs": 2765.52,
+        "replyBytes": 335828,
+        "errors": 0
+      },
+      "selection.status": {
+        "calls": 42,
+        "summedRequestMs": 1026.446,
+        "replyBytes": 10374,
+        "errors": 0
+      },
+      "track.list": {
+        "calls": 149,
+        "summedRequestMs": 3510.04,
+        "replyBytes": 215007,
+        "errors": 0
+      }
+    }
+  }
+]

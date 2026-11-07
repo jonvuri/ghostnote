@@ -5,7 +5,9 @@ import com.bitwig.extension.controller.api.DeviceBank;
 import com.google.gson.JsonArray;
 
 /** Existing device handles, with absolute-position witnesses for page settlement. */
-public record DeviceWindow(DeviceBank bank, int width) implements WindowPager.Window {
+public record DeviceWindow(DeviceBank bank, int width, boolean includeLayers) implements WindowPager.Window {
+    /** Nested banks need not subscribe to layer capabilities. */
+    public DeviceWindow(DeviceBank bank, int width) { this(bank, width, false); }
     @Override public int count() { return bank.itemCount().get(); }
     @Override public int position() { return bank.scrollPosition().get(); }
     @Override public void scroll(int position) { bank.scrollPosition().set(position); }
@@ -22,7 +24,9 @@ public record DeviceWindow(DeviceBank bank, int width) implements WindowPager.Wi
             Device device = bank.getDevice(i);
             int absolute = position() + i;
             if (!device.exists().get() || device.position().get() != absolute) return null;
-            rows.add(WindowPager.device(absolute, device.name().get(), device.isEnabled().get()));
+            var row = WindowPager.device(absolute, device.name().get(), device.isEnabled().get());
+            if (includeLayers) row.addProperty("hasLayers", device.hasLayers().get());
+            rows.add(row);
         }
         return rows;
     }

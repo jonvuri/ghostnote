@@ -1,10 +1,59 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-27
+updated: 2026-11-07
 ---
 
 ## Now
+
+[P01](work/p01-edit-path-performance.md) is in progress. The normal controller
+replacement and focused scope-read check passed in
+[E371](evidence/experiments/e371-p01-scope-read-policy-live.md): the six-device
+fixture improved from 1,056 to 621 ms warm median (29 to 17 wire turns), and
+three far containers remain settled across repeated reads. The eighteen-device
+fixture improved from 2,484 to 1,154 ms (65 to 23 turns). Both acquisition
+policies returned identical complete structures; cross-container transfer,
+retargeting, scratch cleanup and preserved inventories/selection passed.
+The comparison suppresses capability flags on the same LRU build; it is not
+an old-build latency comparison. Scope count/width stay three/one.
+
+Ordered direct insertion is now proved in
+[E373](evidence/experiments/e373-ordered-direct-chain-insertion.md). V2 waits
+for the preceding source's device count before the next end insertion. Native
+triples, appends to populated chains, mixed native/VST3/CLAP/preset sources,
+and top-level/layer/device page boundaries all passed with final independent
+readback. E372's immediate-loop ordering failures remain historical evidence;
+call reversal is not a general fix. Scratch was removed and original
+inventories/selection matched. The D55 composition rewrite and D44 reweighting
+are still open; the research method is not a product tool.
+
+[E374](evidence/experiments/e374-structural-device-deletion.md) implements and
+verifies the next P01 reduction: pure `device.delete` batches take structural
+stash/final snapshots, preserving mixed-batch scalar captures and the honest
+non-recreation result. On the comparison fixture, parameter-inventory calls
+fell from 8 to 0 and wire calls from 84 to 61. The two diagnostic time samples
+ran under concurrent offline-test load and are not stable latency bounds.
+Both scratch tracks were removed and preservation checks passed.
+
+**Session cleanup is closed by operator report (2026-11-07).** The operator
+reports replacing the controller with normal `ghostnote`, but it may be a build
+from intervening work in another worktree, and explicitly requests no cleanup
+verification. No handshake was run; the loaded build is unknown. The earlier
+restoration deployment remains historical evidence, not a claim about the
+current controller. Establish the intended build and fresh live context before
+future P01 host work; no controller replacement is pending for this session.
+
+Typecheck, 81 focused executor/call-budget tests and extension checks pass.
+The full brain suite passed 2,608/2,609 tests; the one planner timing test
+exceeded its 4-second bound under concurrent load, then its three-test file
+passed alone. Public schemas/descriptions stay v57 / 46 tools. The running
+idle MCP server was from the shared checkout; a brain server must load this
+worktree's updated code to use these brain changes.
+
+[E358](evidence/experiments/e358-p01-offline-cost-attribution.md) and the brief
+retain the obligation audit. Next: integrate the proved arrival-dependent
+route into D55 composition, preserve truthful partial/reversal receipts and
+remeasure D44. Scalar cohort and clip-metadata capture reductions remain open.
 
 [B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
 is complete and verified live in
@@ -28,8 +77,7 @@ replacement is pending. No competing Ghostnote client was present.
 E357's dense six-chain structure read costs six turns / median 862 ms.
 Five-device composition took 26.3 s; six-chain composition took 44.4 s, close
 to D44's exceptional 45 s ceiling. These are fixture-specific costs. P01 owns
-the repeated proof work and the six-unit budget review; the backlog remains
-ordered R01, R02, then P01. New clients load the current brain; an already
+the repeated proof work and the six-unit budget review. New clients load the current brain; an already
 running MCP server must restart to pick up these fixes.
 
 Earlier checkpoints remain in [E354](evidence/experiments/e354-extension-owned-container-scopes-live.md)
@@ -87,7 +135,7 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) now orders B08, R01, R02, then the P01 offline audit.
+The [backlog](BACKLOG.md) retains R01/R02 while P01 proceeds through its live checks.
 R01 also assesses the first-save annotation-continuity limitation
 recorded in the V01 closeout.
 
@@ -99,16 +147,29 @@ identifies proposed mechanisms for assessment during implementation.
 
 ## Live state
 
+- On 2026-11-07 the operator reported normal `ghostnote` replacement after
+  intervening work in other worktrees. Cleanup is closed without a handshake
+  at their request; the loaded archive/version is unverified. Prior controller,
+  project and client observations below are historical, not current claims.
+- E373/E374 cleanup left `gn-scale-test` with its original eleven tracks,
+  complete observed device inventories and selected identities: mixer
+  `gn-sel`, index 8, channel `6fb96670-abde-4958-9147-f573a4b43918`, no
+  Launcher slot selected. The insertion scratch and both deletion scratch
+  tracks were removed. No launch or save ran. Latest exit scopes were closed
+  with 146 aims, zero refusals and no write block. No insertion receipt
+  remained pending. The inspected idle client was PID 58395, this session's
+  MCP server. Refresh live claims and clients before further writes.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- The integrated B17 normal `ghostnote` archive is deployed, SHA-256
+- At the B17 closeout, the normal `ghostnote` archive was deployed, SHA-256
   `ac17f782d2ac4252c8259c06aee242d08f2356ac48072853973ef499c6eee5d8`.
   The operator replied “Controller replaced”. Fresh handshake passed on
   initialization `2026-10-28T02:58:49.135Z`: `normal-v1`, API 25, 93 methods,
   hash `d6decf985f6b1f36`; markers `paged-windows-v3`,
   `paged-chain-controls-v1`, `paged-chain-moves-v2`, and
-  `paged-device-mutations-v1`. No replacement is pending.
+  `paged-device-mutations-v1`. That historical replacement is complete;
+  P01 cleanup is now closed by the later operator report above.
 - Last verified foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
   Both owned `gn-b17w` tracks were removed: first
   `f11d8e43-b4af-4f63-b94a-11f635dfcd38`, then

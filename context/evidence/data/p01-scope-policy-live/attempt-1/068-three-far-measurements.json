@@ -1,0 +1,157 @@
+[
+  {
+    "legacy": true,
+    "trial": 0,
+    "ms": 1205.451291999998,
+    "turns": 35,
+    "bytes": 17453,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "scrolls": 5
+  },
+  {
+    "legacy": true,
+    "trial": 1,
+    "ms": 1297.812082999997,
+    "turns": 35,
+    "bytes": 17457,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "scrolls": 8
+  },
+  {
+    "legacy": true,
+    "trial": 2,
+    "ms": 1285.3946250000008,
+    "turns": 35,
+    "bytes": 17453,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "scrolls": 8
+  },
+  {
+    "legacy": true,
+    "trial": 3,
+    "ms": 1290.0140830000018,
+    "turns": 35,
+    "bytes": 17457,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "scrolls": 8
+  },
+  {
+    "legacy": true,
+    "trial": 4,
+    "ms": 1296.2963329999984,
+    "turns": 35,
+    "bytes": 17456,
+    "positions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "scrolls": 8
+  },
+  {
+    "legacy": false,
+    "trial": 0,
+    "ms": 810.781167000001,
+    "turns": 20,
+    "bytes": 12151,
+    "positions": [
+      3,
+      5,
+      7
+    ],
+    "scrolls": 3
+  },
+  {
+    "legacy": false,
+    "trial": 1,
+    "ms": 734.4985410000008,
+    "turns": 20,
+    "bytes": 12154,
+    "positions": [
+      3,
+      5,
+      7
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 2,
+    "ms": 731.6459170000016,
+    "turns": 20,
+    "bytes": 12150,
+    "positions": [
+      3,
+      5,
+      7
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 3,
+    "ms": 727.2982919999995,
+    "turns": 20,
+    "bytes": 12154,
+    "positions": [
+      3,
+      5,
+      7
+    ],
+    "scrolls": 0
+  },
+  {
+    "legacy": false,
+    "trial": 4,
+    "ms": 741.229124999998,
+    "turns": 20,
+    "bytes": 12154,
+    "positions": [
+      3,
+      5,
+      7
+    ],
+    "scrolls": 0
+  }
+]

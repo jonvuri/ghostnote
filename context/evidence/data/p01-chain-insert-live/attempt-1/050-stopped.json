@@ -1,0 +1,6 @@
+{
+  "scratchId": "2ae3fd55-73cd-43a0-8aa6-b042a5558014",
+  "scratchName": "gn-p01-insert",
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   'EQ-5',\n    'Tool',\n-   'EQ-5'\n  ]\n",
+  "next": "Inspect actual effects before further writes; do not repeat the driver or auto-delete scratch."
+}

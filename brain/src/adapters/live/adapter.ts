@@ -107,6 +107,7 @@ interface WireDevice {
   index: number;
   name: string;
   enabled?: boolean;
+  hasLayers?: boolean;
 }
 
 /**

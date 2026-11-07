@@ -62,7 +62,7 @@ public final class DeviceHandlers extends HandlerGroup {
         String track = rig.cursorTracks[cursor].channelId().get();
         JsonArray devices = new JsonArray();
         new WindowPager(host::scheduleTask).read(
-            new DeviceWindow(rig.cursorDeviceBanks[cursor], rig.config.deviceBank),
+            new DeviceWindow(rig.cursorDeviceBanks[cursor], rig.config.deviceBank, true),
             (offset, page, next) -> { devices.addAll(page); next.accept(null); },
             (report, error) -> {
                 if (error instanceof WindowPager.RestoreFailure) rig.writeGate.blockWrites(error.getMessage());

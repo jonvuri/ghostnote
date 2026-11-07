@@ -1,7 +1,7 @@
 ---
 title: Ghostnote performance ledger
 kind: reference
-updated: 2026-10-27
+updated: 2026-10-29
 ---
 
 # Ghostnote performance ledger
@@ -60,6 +60,10 @@ the result; create a separate E record when it will be useful to cite later.
 | Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s. A drum pad insertion polls its pad (was the fixed 4,000 ms) | E247, E252 |
 | Device or chain relocation | No fixed wait; its proof poll (deadline 8,000 ms) | E247 |
 | One container read (`containerScope`, layer container, track not held; B17 session 1) | About 6 turns: 120 ms at a position where a scope rests (0 through 2), 140 ms at a later position, where the extension's `chain.observe` scrolls a scope and settles it in about 24 ms (B17). Before B17: 8 turns (190 ms) resting, 11 turns (305 ms) far, with a `chain.scroll` frame and a second select-and-inventory pass | E238 trace; E353; E354 |
+| `containerScope` acquisition policy (P01, Bitwig 6.1.4) | `read_devices` scopes only true/unknown `hasLayers` positions in a complete bank; incomplete/legacy banks retain the full fallback. Same LRU build, capability-suppressed → modern warm medians: three plain devices 579 → 313 ms / 20 → 8 turns; six devices with containers at 3/5: 1,056 → 621 ms / 29 → 17 turns; three far containers: 1,293 → 733 ms / 35 → 20 turns, zero modern warm scrolls; four containers through 17: 2,484 → 1,154 ms / 65 → 23 turns, four modern scrolls per pass. Three scopes of width one; one cold plus four warm samples per arm, suppressed arm first. Not an old-build timing comparison | [E371](../evidence/experiments/e371-p01-scope-read-policy-live.md); `call-budget.test.ts` P01 rows; `ContainerScopesTest`; `WindowPagerTest` |
+| Direct-chain insertion research (P01 v2) | Ordered native triples, nonempty appends and mixed native/VST3/CLAP/preset requests passed at container 17, including layer 5 and six child devices. Each next setter waits for preceding device-count arrival; no intermediate content read. Five diagnostic receipts: 235–404 ms, excluding independent final readback and preflight. E372 immediate multi-source calls are not order-safe. Product integration and D44 remeasurement remain open | [E373](../evidence/experiments/e373-ordered-direct-chain-insertion.md); [E372](../evidence/experiments/e372-direct-chain-insertion-ordering.md) |
+| Pure device deletion snapshots (P01) | Summary, stash and final snapshot are structural; mixed batches retain scalar captures. Same-fixture full-capture shape → structural: parameter-inventory calls 8 → 0, wire calls 84 → 61, reply bytes 56,795 → 44,418. Diagnostic tool samples 3,004 → 1,849 ms ran under concurrent offline-test load, one per arm; not stable bounds. Adapter budget stays read 3 / devices 3 / resolve 1 / apply 1 / delta 1; full capture count changes, not read count. Public order/readback and non-recreation results retained | [E374](../evidence/experiments/e374-structural-device-deletion.md); P01 executor regressions; `call-budget.test.ts` deletion read shapes |
+| Staged composition attribution (P01 reanalysis of E357, no new live run) | Five devices at 17: 86 `device.list`, 26 `chain.observe`, 582,169 reply bytes. Six chains at 18: 103 `device.list`, 45 `chain.observe`, 791,977 reply bytes. Neither trace calls DirectParameter methods. Repeated full structural reads dominate this overflow case; D44 remains six units pending product integration and remeasurement | [E358](../evidence/experiments/e358-p01-offline-cost-attribution.md) |
 | Paged container reads: six chains or five devices in one chain (B17 session 2) | One `chain.observe` wire operation per container; paging and restoration run inside the extension. Public `read_devices` remains one `devices` + one `read` adapter call. E356 combined six-chain/five-device fixture at position 17: isolated adapter structure read 6 turns, median 505 ms (500–511 ms, five trials); one already-aimed `chain.observe` 383 ms (one sample). Full eighteen-device `read_devices`: 65 turns, 2.58–2.61 s. Do not apply E354 single-page timings to overflow | E356; `call-budget.test.ts` paged-read rows; `WindowPagerTest` |
 | Paged top-level read: beyond sixteen devices (B17 session 2) | One `device.list` operation stitches two overlapping pages and restores zero. The existing stable-device read still uses two equal replies. Public `read_devices` remains one `devices` + one `read` adapter call and observes every position. E356 eighteen-device fixture: one `device.list` median 144 ms (141–145 ms, five trials); exact seventeen boundary remains covered offline | E356; paged live/fake conformance and call-budget rows |
 | Dense paged container read (B17 session 7) | E357 container at 17: six chains, 29 nested devices, isolated adapter structure read 6 turns, median 862 ms (845–884 ms, five consecutive trials). Full nineteen-device track with this and a second six-chain container: 68 turns / 3,319 ms. Fixture differs from E356; no deliberate displacement between timing trials | [E357](../evidence/experiments/e357-integrated-paged-writes-live.md); paged call-budget rows |
@@ -359,13 +363,20 @@ requirements to retain them.
   insertion (about 100 turns); the staged backend pays one insertion and one
   relocation for each device, about 3.5 s each way, and its revert as much
   (D44 bounds it at 6 units).
-- `delete_device` of one container is about 100 wire calls (bank reads and
-  two parameter inventories for the change record).
+- P01 removed parameter inventories from pure `delete_device` captures.
+  E374's same-fixture comparison falls from 84 to 61 wire calls, with final
+  order/structure reads retained. Historical E247's roughly 100-call path
+  included parameter capture; it is no longer the current deletion cost.
 - `read_device_controls` on a 281-ID plug-in takes about 1.3 s for each read,
-  also for the same target. The cost of a plug-in route or removal grows with
-  its DirectParameter count, which Ghostnote cannot know before it reads.
-- `set_launcher_clip_properties` captures each clip twice; at the reader limit
-  8 clips take 33.5 s.
+  also for the same target. The cost of a plug-in control route grows with
+  its DirectParameter count, which Ghostnote cannot know before it reads;
+  pure deletion no longer captures that inventory.
+- E252 measured `set_launcher_clip_properties` at 33.5 s for eight reader-limit
+  clips and attributed two captures per clip. The P01 source audit finds three
+  in the current changed-target path: surface metadata planning, executor stash,
+  executor verification. Each metadata snapshot currently captures notes too.
+  The result normally reuses verification. See the [audit](../work/p01-edit-path-performance.md#call-and-obligation-audit);
+  current-host capture timing remains to be measured.
 - `read_launcher_clip` returns all 16 channels (about 12 KB for the typical
   clip); an edit needs a read for its base.
 - `wrap_existing_device_modulation` takes about 10 s: five structural stages,

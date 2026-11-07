@@ -1,0 +1,10 @@
+{
+  "archive": "/Users/jonvuri/Documents/Bitwig Studio/Extensions/ghostnote-0.0.1.bwextension",
+  "sha256": "78f27e5a1442eb8ff468d038025d065277468d06678e72a4ddde866e0a1d3318",
+  "deployedAt": "2026-10-29T19:26:17.823155+00:00",
+  "profile": "normal-v1",
+  "methodCount": 93,
+  "methodsHash": "d6decf985f6b1f36",
+  "policy": "container-scope-lru-v1",
+  "operatorReply": null
+}
