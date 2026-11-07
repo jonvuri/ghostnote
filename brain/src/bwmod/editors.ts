@@ -25,7 +25,7 @@ import {
   findModulatorList, instanceGroupOffset, instanceIdOffset, modulatorBounds, modulatorListOffsets, nameFieldOffset,
   routeSlots,
 } from './stream.js';
-import { listModulators, nextFreeInstanceId } from './readers.js';
+import { chainDisplayNameOffset, listModulators, nextFreeInstanceId } from './readers.js';
 import { hasCountStubs, relocateStubs } from './stubs.js';
 
 const MODULATOR_GRID_ROWS = 3;
@@ -298,4 +298,13 @@ function removedFootprint(
       `${asset ? `curated donor ${asset.id} has no measured footprint` : 'it matches no curated donor'}. ` +
       'Pass removedFootprint explicitly — a guessed footprint rejects the whole preset silently (E12a).',
   );
+}
+
+/**
+ * Set the displayed name of top-level layer chain `chainIndex` (P01, E409). Only the displayed name changes;
+ * Bitwig still normalizes route names (`CHAIN<n>`) to their positions when it loads.
+ */
+export function setChainDisplayName(buf: Buffer, chainIndex: number, name: string): Buffer {
+  if (name.length === 0) fail('refusing to write an empty chain name');
+  return repointF6(patchString(buf, chainDisplayNameOffset(buf, chainIndex), name));
 }

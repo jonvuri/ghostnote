@@ -66,9 +66,22 @@ relocation ends the batch.
 8 existing sources at position 18 took 17.0 s / 219 turns (E407: 25.6 s /
 331), revert 12.0 s; the E406 cases are unchanged. Only brain code changed
 (wire 94 / `526cd7e3760580cc`, already loaded); D67 limits and descriptions
-v61 are unchanged. All 2,627 brain tests pass. Next: an offline seed larger
-than five chains, then scalar-cohort and clip-metadata reductions
-([brief](work/p01-edit-path-performance.md#relocation-result--live-2026-11-07)).
+v61 are unchanged. All 2,627 brain tests pass.
+
+**P01 named 16-chain seed is verified live (2026-11-07).** Staged
+`compose_devices` now inserts its container from a human-saved 16-chain
+seed, trimmed to the request's width with the requested chain names written
+into the preset, as UTF-16 when not ASCII
+([E410](evidence/experiments/e410-p01-unicode-chain-names-in-the-seed.md));
+no chain is grown or renamed live.
+[E409](evidence/experiments/e409-p01-named-sixteen-chain-seed-live.md):
+16 one-device chains at position 18 took 10.9 s (E407: 38.1 s), 8×2 5.8 s
+(13.2 s), reverts 1.6–3.5 s.
+[D68](decisions/d68-composition-chain-limit-is-the-seed-width.md) raises the
+layer-chain limit from 8 to 16; descriptions are v62. Only brain code
+changed (wire 94 / `526cd7e3760580cc`, already loaded). All 2,652 brain tests
+pass; cleanup and preservation passed. Next: scalar-cohort and clip-metadata
+reductions ([brief](work/p01-edit-path-performance.md#named-seed-result--live-2026-11-07)).
 
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits

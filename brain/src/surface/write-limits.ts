@@ -26,11 +26,11 @@ export const WRITE_LIMITS = Object.freeze({
    */
   stagedCompositionDevices: 16,
   /**
-   * compose_devices: layer chains (D67, E407). Each chain beyond the five-chain seed is a host duplication, slower
-   * as the container grows: 16 one-device chains at position 18 took 38.1 s. At 8 chains and 16 units at position 18:
-   * 13.3–13.7 s, revert 2.8 s.
+   * compose_devices: layer chains (D68, E409). The container arrives from a 16-chain seed with its chains named, so
+   * no chain is grown or renamed live: 16 one-device chains at position 18 took 10.9 s, revert 3.5 s (E407 with
+   * host duplications: 38.1 s). The seed width is the limit.
    */
-  compositionLayerChains: 8,
+  compositionLayerChains: 16,
   /** compose_devices: outer and preset-local modulators/edits; normal-profile route proof, not sound sampling. */
   compositionModulators: 4,
   /** delete_device: removed devices in one call (E252 final3: 10 native devices 25.2 s, 10 281-ID plug-ins 20.7 s). */

@@ -4,19 +4,30 @@ import { readFile } from 'node:fs/promises';
 
 import {
   addModulator, donorType, listChains, listModulators, loadDonor,
-  modulatorListOffsets, stubValues, validate,
+  modulatorListOffsets, setChainDisplayName, stubValues, validate,
 } from '../bwmod/index.js';
 import { modulationRoute, type ModulationTarget } from '../engine/modulation-target.js';
 import {
   OWNED_FX_LAYER_MANIFEST_PATH, OWNED_FX_LAYER_TEMPLATE_PATH,
   GENERAL_CONTAINER_SEED_MANIFEST_PATH,
 } from './assets.js';
-import { fiveEntryLayerSeedPreset } from './layer-seeds.js';
+import { layerSeedPreset } from './layer-seeds.js';
 
 export const EXISTING_DEVICE_WRAPPER_KIND = 'FX Layer' as const;
 export const EXISTING_DEVICE_WRAPPER_ENTRY = 'Layer 1' as const;
 export const GENERAL_DEVICE_CONTAINER_KINDS = ['Instrument Layer', 'FX Layer'] as const;
 export type GeneralDeviceContainerKind = typeof GENERAL_DEVICE_CONTAINER_KINDS[number];
+/** Empty chains in each human-saved layer seed (P01, E409); a composition trims the seed to its own width. */
+export const GENERAL_CONTAINER_SEED_ENTRIES = 16;
+
+/**
+ * Whether a requested entry name can be written into the seed: any non-empty well-formed Unicode string, encoded
+ * as Bitwig saves it (ASCII E409, UTF-16 E410). A lone surrogate is set by a live rename instead.
+ */
+export function isPresetEntryName(name: string): boolean {
+  return name.length > 0 && !/\p{Cs}/u.test(name);
+}
+
 export const GENERAL_DEVICE_COMPOSITION_CAPACITIES = Object.freeze({
   // Structural windows page; only parameter routes retain fixed limits.
   parameterTopLevelPositions: 16,
@@ -156,6 +167,8 @@ export async function composeGeneralDeviceContainerPreset(
   options: {
     readonly templatePath?: string;
     readonly entryCount?: number;
+    /** Displayed names for the retained entries, in order; each must satisfy `isPresetEntryName`. */
+    readonly entryNames?: readonly string[];
   } = {},
 ): Promise<ExistingDeviceWrapperPreset> {
   if (requests.some((item) => !Number.isInteger(item.entryIndex)
@@ -170,17 +183,29 @@ export async function composeGeneralDeviceContainerPreset(
     1, ...requests.map((item) => item.entryIndex + 1),
   );
   if (!Number.isInteger(entryCount) || entryCount < 1
-      || entryCount > 5) {
-    throw new ExistingDeviceWrapperPresetError('the seed supplies one through five entries; grow additional empty chains through the host');
+      || entryCount > GENERAL_CONTAINER_SEED_ENTRIES) {
+    throw new ExistingDeviceWrapperPresetError(
+      `the seed supplies one through ${GENERAL_CONTAINER_SEED_ENTRIES} entries`,
+    );
+  }
+  if (options.entryNames !== undefined && (options.entryNames.length !== entryCount
+      || !options.entryNames.every(isPresetEntryName)
+      || new Set(options.entryNames).size !== entryCount)) {
+    throw new ExistingDeviceWrapperPresetError(
+      'entry names must be one unique, non-empty, well-formed name for each retained entry',
+    );
   }
   if (requests.some((item) => item.entryIndex >= entryCount)) {
     throw new ExistingDeviceWrapperPresetError('a route names an entry outside the requested container shape');
   }
   const rawSource = options.templatePath === undefined
-    ? fiveEntryLayerSeedPreset(containerKind)
+    ? layerSeedPreset(containerKind)
     : await readFile(options.templatePath);
   if (options.templatePath === undefined) await assertGeneralSeed(rawSource, containerKind);
-  const source = trimLayerSeed(rawSource, entryCount);
+  const trimmed = trimLayerSeed(rawSource, entryCount);
+  const source = (options.entryNames ?? []).reduce(
+    (preset, name, index) => setChainDisplayName(preset, index, name), trimmed,
+  );
 
   let preset: Buffer = Buffer.from(source);
   const routes: ExistingDeviceWrapperPreset['routes'][number][] = [];
@@ -225,8 +250,8 @@ export async function composeGeneralDeviceContainerPreset(
 
 function trimLayerSeed(source: Buffer, entryCount: number): Buffer {
   const chains = listChains(source);
-  if (chains.length !== 5) {
-    throw new ExistingDeviceWrapperPresetError('the layer seed does not have five complete entries');
+  if (chains.length < entryCount) {
+    throw new ExistingDeviceWrapperPresetError(`the layer seed has only ${chains.length} entries`);
   }
   let preset = Buffer.from(source);
   for (const entry of chains.slice(0, chains.length - entryCount).reverse()) {

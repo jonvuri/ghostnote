@@ -32,7 +32,9 @@ export { findModulatorList, modulatorBounds, modulatorListOffsets, routeSlots } 
 export type { ModulatorList, RouteSlot } from './stream.js';
 export { findCountStubs, hasCountStubs, relocateStubs, stubValues } from './stubs.js';
 export type { CountStub } from './stubs.js';
-export { instanceIds, listChains, listModulators, nextFreeInstanceId, readRoutes } from './readers.js';
+export {
+  chainDisplayName, chainDisplayNameOffset, instanceIds, listChains, listModulators, nextFreeInstanceId, readRoutes,
+} from './readers.js';
 export {
   ASSET_DIR, DONOR_MANIFEST_PATH, donorHost, donorType, extractModulator,
   identifyCuratedDonor, listDonorAssets, listDonorTypes, listHostModulatorInventory,
@@ -42,7 +44,9 @@ export type {
   DonorAsset, DonorCapability, DonorManifest, DonorType, DonorWitnessMode,
   HostModulatorInventoryEntry,
 } from './donors.js';
-export { addModulator, deleteModulator, replaceModulator, retarget, setAmount } from './editors.js';
+export {
+  addModulator, deleteModulator, replaceModulator, retarget, setAmount, setChainDisplayName,
+} from './editors.js';
 export type { AddOptions, FootprintOptions } from './editors.js';
 export { validate } from './validate.js';
 export type { ValidateOptions } from './validate.js';

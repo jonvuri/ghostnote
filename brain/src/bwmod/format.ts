@@ -39,6 +39,9 @@ export const FID = {
   INSTANCE_ID: 0x1a1b,
   MODULATOR_LIST: 0x1a46,
   CHAIN_LIST: 0x08e0,
+  /** A layer chain's displayed name; empty when Bitwig shows its default (P01, E409). */
+  CHAIN_DISPLAY_NAME: 0x08df,
+  CHAIN_GUID: 0x2ab8,
 } as const;
 
 /** Value types — BWFORMAT_SPEC §3.1. `0x02`/`0x06`/`0x1a` are retired (E11h). */
@@ -89,11 +92,11 @@ export function valueSize(buf: Buffer, at: number, type: number): number | null 
     case TYPE.GUID:
       return 16;
     case TYPE.STR:
-      return 4 + buf.readUInt32BE(at);
+      return strSize(buf, at);
     case TYPE.STR_ARRAY: {
       const count = buf.readUInt32BE(at);
       let p = at + 4;
-      for (let i = 0; i < count; i++) p += 4 + buf.readUInt32BE(p);
+      for (let i = 0; i < count; i++) p += strSize(buf, p);
       return p - at;
     }
     case TYPE.OBJECT:
@@ -123,10 +126,36 @@ export function spliceBuffer(buf: Buffer, start: number, end: number, replacemen
   return Buffer.concat([buf.subarray(0, start), replacement, buf.subarray(end)]);
 }
 
-/** Read a length-prefixed (`u32` + UTF-8, not nul-terminated) string at `at`. */
+/**
+ * A string's `u32` prefix counts characters. With its high bit clear the string is
+ * one byte per character (Bitwig writes only ASCII this way); with it set the low 31
+ * bits count UTF-16BE code units, which Bitwig writes for any non-ASCII string,
+ * Latin-1 included (E410).
+ */
+const UTF16_FLAG = 0x80000000;
+
+/** Byte size of the length-prefixed string at `at`, prefix included. */
+export function strSize(buf: Buffer, at: number): number {
+  const prefix = buf.readUInt32BE(at);
+  return 4 + (prefix & UTF16_FLAG ? (prefix & ~UTF16_FLAG) * 2 : prefix);
+}
+
+/** Read the length-prefixed string at `at` (see `UTF16_FLAG`). */
 export function readStr(buf: Buffer, at: number): string {
-  const len = buf.readUInt32BE(at);
-  return buf.toString('utf8', at + 4, at + 4 + len);
+  const prefix = buf.readUInt32BE(at);
+  if (!(prefix & UTF16_FLAG)) return buf.toString('utf8', at + 4, at + 4 + prefix);
+  return Buffer.from(buf.subarray(at + 4, at + strSize(buf, at))).swap16().toString('utf16le');
+}
+
+/** Encode `value` as Bitwig writes it: one byte per character when ASCII, otherwise flagged UTF-16BE. */
+export function encodeStr(value: string): Buffer {
+  const head = Buffer.allocUnsafe(4);
+  if (/^[\x00-\x7f]*$/.test(value)) {
+    head.writeUInt32BE(value.length, 0);
+    return Buffer.concat([head, Buffer.from(value, 'latin1')]);
+  }
+  head.writeUInt32BE((UTF16_FLAG | value.length) >>> 0, 0);
+  return Buffer.concat([head, Buffer.from(value, 'utf16le').swap16()]);
 }
 
 /**
@@ -135,11 +164,7 @@ export function readStr(buf: Buffer, at: number): string {
  * needs no enclosing fixup (E10b) beyond the header `f4` when META moved.
  */
 export function patchString(buf: Buffer, at: number, value: string): Buffer {
-  const bytes = Buffer.from(value, 'utf8');
-  const oldLen = buf.readUInt32BE(at);
-  const head = Buffer.allocUnsafe(4);
-  head.writeUInt32BE(bytes.length, 0);
-  return spliceBuffer(buf, at, at + 4 + oldLen, Buffer.concat([head, bytes]));
+  return spliceBuffer(buf, at, at + strSize(buf, at), encodeStr(value));
 }
 
 /** Format 16 raw GUID bytes as canonical 8-4-4-4-12. */

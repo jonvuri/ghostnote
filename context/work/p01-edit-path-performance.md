@@ -326,14 +326,7 @@ verifies items 1–4 of the design below; item 5 stays deferred, as planned.
 **Next.**
 
 1. **Relocation readings.** Done; see the relocation result below.
-2. **Larger seed.** Authoring an FX/Instrument Layer seed with more than
-   five empty chains offline would remove growth copies (about 1.85 s each)
-   and could raise the D67 chain limit. After it, rerun
-   [`p01-d44-live.ts`](../../brain/src/probes/p01-d44-live.ts) with chain
-   counts above 8 (for example 12 and 16 chains at position 18) and their
-   reverts. If the slowest stays under 30 s, record the new chain limit in a
-   new decision record (D67 stays unchanged) and update the limit, its
-   schema text, the descriptions (version bump) and the ledger together.
+2. **Larger seed.** Done; see the named-seed result below (E409, D68).
 3. Scalar-cohort and clip-metadata capture reductions.
 
 ## Relocation result — live, 2026-11-07
@@ -361,6 +354,36 @@ verifies item 1 above.
 
 Next: item 2 (larger seed), then item 3. Batching reversal's
 extract/restore pairs is a possible later reduction.
+
+## Named-seed result — live, 2026-11-07
+
+[E409](../evidence/experiments/e409-p01-named-sixteen-chain-seed-live.md)
+completes item 2 above, with the operator's addition: the preset also carries
+the requested chain names.
+
+- **Seed.** The operator saved 16-chain empty Instrument Layer and FX Layer
+  presets and a three-chain named control in Bitwig 6.1.4. The 16-chain
+  seeds replace the five-chain seeds (constants and manifest); the control
+  locates the displayed-name field (`0x08df`) and is a byte-comparison
+  fixture.
+- **Composition.** The seed is trimmed to the request's width and carries
+  the requested names. No chain is grown or renamed live; the rename stages
+  run only for a name with a lone surrogate. The growth stage is removed.
+- **Results.** 16×1 at position 18: 10.9 s / 74 turns (E407: 38.1 s); 8×2 at
+  18: 5.8 s (13.2 s); reverts 1.6–3.5 s. Bitwig shows preset-written names
+  exactly. [E410](../evidence/experiments/e410-p01-unicode-chain-names-in-the-seed.md):
+  Bitwig stores non-ASCII names as UTF-16, which bwmod now reads and writes;
+  four Unicode names, a surrogate pair included, composed in 2.1 s without a
+  rename and read back exactly.
+- **D68.** The layer-chain limit is 16, the seed width; descriptions v62.
+  All 2,654 brain tests pass; wire unchanged.
+
+**Next.**
+
+1. Scalar-cohort and clip-metadata capture reductions (item 3 above).
+2. Possible later reductions: one extension call for the insertions of
+   several chains (each chain is now one 0.4–0.5 s `chain.insert` turn at
+   position 18), and batching reversal's extract/restore pairs.
 
 ## Next session — adapter per-operation checks and the D44 measurement
 
@@ -547,6 +570,6 @@ cycling is measured in E401 and remains a possible later tradeoff, not an
 unmeasured allocation change. Ordered direct insertion and deletion snapshot narrowing are verified in
 E403/E404. The D65 composition rewrite (E406), the adapter check
 reductions, guarded insertions and the D67 reweighting (E407) are done.
-Shared relocation readings are verified in E408. A larger offline seed,
-scalar cohort consolidation and metadata-only clip reads remain open in this
-same P01 item.
+Shared relocation readings are verified in E408, and the named 16-chain
+seed with the D68 chain limit in E409. Scalar cohort consolidation and
+metadata-only clip reads remain open in this same P01 item.

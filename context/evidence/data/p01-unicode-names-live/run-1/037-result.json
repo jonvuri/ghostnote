@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "cleanup": true,
+  "results": [
+    {
+      "label": "unicode-names",
+      "compose": {
+        "ms": 2127,
+        "turns": 62,
+        "bytes": 33521,
+        "methods": {
+          "selection.status": 5,
+          "track.list": 14,
+          "devcursor.pin": 6,
+          "cursor.pointTrack": 6,
+          "device.list": 4,
+          "revision.get": 12,
+          "batch.run": 5,
+          "cursor.pin": 8,
+          "chain.observe": 2
+        }
+      },
+      "revert": {
+        "ms": 1714,
+        "turns": 53,
+        "bytes": 26221,
+        "methods": {
+          "selection.status": 4,
+          "track.list": 10,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 7,
+          "device.list": 6,
+          "revision.get": 7,
+          "chain.observe": 3,
+          "batch.run": 1,
+          "cursor.pin": 8
+        }
+      },
+      "observed": [
+        {
+          "name": "Später",
+          "devices": [
+            "Tool"
+          ]
+        },
+        {
+          "name": "Später € 音",
+          "devices": [
+            "Tool"
+          ]
+        },
+        {
+          "name": "𝄞 Keys",
+          "devices": [
+            "Tool"
+          ]
+        },
+        {
+          "name": "ASCII",
+          "devices": [
+            "Tool"
+          ]
+        }
+      ]
+    }
+  ],
+  "afterTracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Instrument Layer",
+        "position": 0,
+        "type": "Hybrid",
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      {
+        "index": 1,
+        "name": "Hybrid 2",
+        "position": 1,
+        "type": "Hybrid",
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+      },
+      {
+        "index": 2,
+        "name": "gn-A",
+        "position": 2,
+        "type": "Instrument",
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+      },
+      {
+        "index": 3,
+        "name": "gn-B",
+        "position": 3,
+        "type": "Instrument",
+        "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+      },
+      {
+        "index": 4,
+        "name": "Group 5",
+        "position": 4,
+        "type": "Group",
+        "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+      },
+      {
+        "index": 5,
+        "name": "gn-E16",
+        "position": 5,
+        "type": "Instrument",
+        "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+        "hidden": true
+      },
+      {
+        "index": 6,
+        "name": "gn-lay",
+        "position": 6,
+        "type": "Instrument",
+        "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      {
+        "index": 7,
+        "name": "gn-lay4",
+        "position": 7,
+        "type": "Instrument",
+        "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      {
+        "index": 8,
+        "name": "gn-sel",
+        "position": 8,
+        "type": "Instrument",
+        "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+      },
+      {
+        "index": 9,
+        "name": "gn_instr_named_utf8_control",
+        "position": 9,
+        "type": "Instrument",
+        "channelId": "f6981813-2066-4b3a-b282-9ee15ac2314c"
+      },
+      {
+        "index": 10,
+        "name": "FX 1",
+        "position": 10,
+        "type": "Effect",
+        "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+      },
+      {
+        "index": 11,
+        "name": "Master",
+        "position": 11,
+        "type": "Master",
+        "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+      }
+    ],
+    "count": 12,
+    "itemCount": 12,
+    "bankSize": 256
+  },
+  "afterSelection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 9,
+    "mixerChannelId": "f6981813-2066-4b3a-b282-9ee15ac2314c",
+    "changes": 0,
+    "revision": 34,
+    "slotProject": "",
+    "mixerProject": "gn-scale-test",
+    "project": "gn-scale-test"
+  },
+  "rig": {
+    "runtimeProfile": "normal-v1",
+    "tracks": 256,
+    "scenes": 128,
+    "gridSteps": 64,
+    "fineSteps": 4194304,
+    "noteReadSteps": 2048,
+    "gridKeys": 128,
+    "stepSize": 0.25,
+    "cursorPool": 8,
+    "deviceBank": 16,
+    "remotePages": 16,
+    "containerScopes": 3,
+    "containerScopePositions": 16,
+    "containerEntryBank": 5,
+    "containerEntryDeviceBank": 4,
+    "parameterRouteDepth": 2,
+    "sceneCount": 10,
+    "clipReader": {
+      "revision": "clip-reader-v3",
+      "closeRule": "confirm-before-release-v1",
+      "openRule": "subscribe-before-unpin-v1",
+      "groupRule": "expand-collapsed-parent-v1",
+      "limitRule": "sounding-cell-limit-v1",
+      "format": "notes-v1",
+      "width": 4194304,
+      "grid": 0.001953125,
+      "page": 131072,
+      "deadlineMs": 2000,
+      "soundingCells": 2097152,
+      "reads": 0,
+      "refusals": 0,
+      "lastRefusal": "",
+      "lateCallbacks": 0,
+      "strayCallbacks": 12288,
+      "releaseCallbacks": 0,
+      "releaseEmpty": 0,
+      "releaseSustain": 0,
+      "releaseOn": 0,
+      "subscribed": false,
+      "open": false,
+      "state": {
+        "parkChannelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e",
+        "trackChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+        "trackPinned": true,
+        "clipTrackChannelId": "",
+        "clipExists": false,
+        "clipPinned": false,
+        "sceneIndex": 0,
+        "subscribed": false,
+        "atPark": false
+      },
+      "writeGate": {
+        "readOpen": false,
+        "waiting": 0,
+        "leases": 0,
+        "limit": 256,
+        "queuedTotal": 0,
+        "refusedTotal": 0
+      },
+      "groupPoint": {
+        "rule": "expand-collapsed-point-v1",
+        "points": 0,
+        "refusals": 0,
+        "lastRefusal": "",
+        "open": false
+      }
+    },
+    "writeGuard": "batch-scene-guard-v1",
+    "selectionRule": "selection-project-v1",
+    "cursorIdentity": "cursor-channel-id-v1",
+    "groupPoint": "expand-collapsed-point-v1",
+    "containerScopeRoute": "paged-windows-v3",
+    "layerControlRoute": "paged-chain-controls-v1",
+    "chainMoveRoute": "paged-chain-moves-v2",
+    "chainInsertRoute": "chain-insert-v1",
+    "deviceMutationRoute": "paged-device-mutations-v1",
+    "containerScopeStatus": {
+      "rule": "paged-windows-v3",
+      "policy": "container-scope-lru-v1",
+      "open": false,
+      "aims": 1372,
+      "refusals": 0,
+      "lastRefusal": "",
+      "pollMs": 5,
+      "maxPolls": 400
+    },
+    "parameterSettle": "same-ids-switch-v1",
+    "trackCreateKinds": [
+      "instrument",
+      "audio"
+    ],
+    "clipMetadataWrite": "owned-fields-v1",
+    "cursorTrackPins": {
+      "rule": "owned-tracks-pinned-v1",
+      "tracks": 14,
+      "unpinned": [],
+      "repins": 5,
+      "untargeted": 3
+    },
+    "trackMixer": "track-mixer-raw-v1",
+    "selectionEffects": "mixer-restore-v1",
+    "clipCopy": "copy-to-slot-v1",
+    "contentLog": 8192,
+    "contentFilter": "ALL_CHANNELS"
+  }
+}

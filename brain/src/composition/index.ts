@@ -10,7 +10,8 @@ export type {
 } from './targets.js';
 export {
   composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset,
-  GENERAL_DEVICE_COMPOSITION_CAPACITIES, GENERAL_DEVICE_CONTAINER_KINDS,
+  GENERAL_CONTAINER_SEED_ENTRIES, GENERAL_DEVICE_COMPOSITION_CAPACITIES, GENERAL_DEVICE_CONTAINER_KINDS,
+  isPresetEntryName,
   EXISTING_DEVICE_WRAPPER_ENTRY,
   EXISTING_DEVICE_WRAPPER_KIND, ExistingDeviceWrapperPresetError,
 } from './existing-device-wrapper.js';

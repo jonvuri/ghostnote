@@ -10,8 +10,8 @@ import { basename, join } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import {
-  composeGeneralDeviceContainerPreset, GENERAL_DEVICE_COMPOSITION_CAPACITIES,
-  type GeneralDeviceContainerKind, type GeneralDeviceContainerModulation,
+  composeGeneralDeviceContainerPreset, GENERAL_CONTAINER_SEED_ENTRIES, GENERAL_DEVICE_COMPOSITION_CAPACITIES,
+  isPresetEntryName, type GeneralDeviceContainerKind, type GeneralDeviceContainerModulation,
 } from '../composition/index.js';
 import {
   addressKey, chain, CHAIN_INSERT_MAX_SOURCES, device, deviceIn, planStages,
@@ -94,7 +94,7 @@ export interface GeneralDeviceFingerprint {
 }
 
 export interface GeneralDeviceStageReceipt {
-  readonly stage: 'insert-container' | 'position-container' | 'grow-entries' | 'prepare-entry-name'
+  readonly stage: 'insert-container' | 'position-container' | 'prepare-entry-name'
     | 'confirm-entry-name' | 'insert-sources' | 'relocate-source'
     | 'extract-source' | 'restore-position' | 'remove-container';
   readonly entryIndex?: number;
@@ -255,9 +255,14 @@ export async function composeGeneralDeviceSources(
             modulator: item.modulator, target: item.target, amount: item.amount,
           }))),
     );
+    // P01 (E409, E410): the seed is trimmed to the request's width and carries the requested names, so no chain
+    // is grown or renamed live. Only a name with a lone UTF-16 surrogate, which is not well-formed Unicode,
+    // leaves the names to the live rename stages below.
+    const requestedNames = request.entries.map((item) => item.entryName);
     const containerPreset = await composeGeneralDeviceContainerPreset(request.containerKind, outerRequests, {
       ...(options.templatePath === undefined ? {} : { templatePath: options.templatePath }),
-      entryCount: Math.min(5, request.entries.length),
+      entryCount: request.entries.length,
+      ...(requestedNames.every(isPresetEntryName) ? { entryNames: requestedNames } : {}),
     });
     const containerPath = join(directory, 'general-device-container.bwpreset');
     await writeFile(containerPath, containerPreset.preset);
@@ -308,13 +313,13 @@ export async function composeGeneralDeviceSources(
       currentContainerPosition: request.containerPosition, lastWriteAt: minimalMark(lastAt!),
     };
 
-    // The seed names come from the preset and must be known before naming; this read also waits for the container.
+    // The live names must be known before any rename; this read also waits for the container.
     failedStage = 'container-witness';
     const container = device(request.track, request.containerPosition);
     const initialStructure = await observedContainer(host, container, request.containerKind);
     const initialEntries = initialStructure === undefined ? undefined : observedEntries(initialStructure);
     const initialNames = initialEntries?.map((entry) => entry.name) ?? [];
-    if (initialEntries === undefined || initialEntries.length !== Math.min(5, request.entries.length)
+    if (initialEntries === undefined || initialEntries.length !== request.entries.length
         || new Set(initialNames).size !== initialNames.length
         || initialEntries.some((entry) =>
           !entry.sequence.devicesComplete || entry.sequence.devices.length !== 0)) {
@@ -322,29 +327,6 @@ export async function composeGeneralDeviceSources(
     }
     checkpoint = { ...checkpoint, preparedEntryNames: [...initialNames] };
 
-    // Duplicating the last empty chain appends without changing existing entry indices. P01 (D65): every
-    // additional chain is one apply, each copy made from the one before it; each create is its own stage.
-    failedStage = 'grow-entries';
-    if (initialNames.length < request.entries.length) {
-      const names = uniqueTemporaryNames([...initialNames, ...request.entries.map((entry) => entry.entryName)],
-        request.entries.length - initialNames.length);
-      const ops: Op[] = names.map((name, index) => ({
-        op: 'chain.create', source: chain(container, index === 0 ? initialNames.at(-1)! : names[index - 1]!), name,
-      }));
-      checkpoint = { ...checkpoint, seedUnchanged: false };
-      const grown = await run(ops);
-      stages.push(receipt('grow-entries', grown));
-      // A copy whose stage was not proved ends the proved run; the final read reports the rest.
-      for (const [index, name] of names.entries()) {
-        const proof = grown.receipt.stages.find((item) => item.index === index);
-        if (proof?.applied !== true || proof.ops.length === 0 || !proof.ops.every((item) => item.ok)) break;
-        initialNames.push(name);
-      }
-      checkpoint = { ...checkpoint, preparedEntryNames: [...initialNames], lastWriteAt: minimalMark(lastAt!) };
-      if (!accepted(grown)) return await finish(failedStage, 'An additional empty chain was not proved.');
-    }
-
-    const requestedNames = request.entries.map((item) => item.entryName);
     if (JSON.stringify(initialNames) !== JSON.stringify(requestedNames)) {
       // 8i3 (E252): all entry names in one stage. A requested name that is another seed entry's name needs unique
       // temporary names first, in a stage of its own.
@@ -1010,6 +992,9 @@ function assertRequest(request: GeneralDeviceCompositionRequest): void {
     throw new Error('containerPosition is outside the complete top-level container scope');
   }
   if (request.entries.length < 1) throw new Error('the container needs at least one entry');
+  if (request.entries.length > GENERAL_CONTAINER_SEED_ENTRIES) {
+    throw new Error(`the container supports at most ${GENERAL_CONTAINER_SEED_ENTRIES} entries`);
+  }
   const entryNames = request.entries.map((item) => item.entryName);
   if (new Set(entryNames).size !== entryNames.length) throw new Error('each entry name must be unique');
   // Refuse unsupported modulation before inserting the container, even if moving

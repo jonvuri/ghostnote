@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import type { FakeDevice } from '../adapters/fake/model.js';
 import type { DeviceSource } from '../contract/index.js';
-import { listChains, listModulators } from '../bwmod/index.js';
+import { chainDisplayName, listChains, listModulators } from '../bwmod/index.js';
 import { Executor, fingerprintPreset, inspectPresetModulation } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
@@ -142,8 +142,9 @@ function fixture() {
             inserted.name = op.expectedDeviceName;
             inserted.paramsLive = true;
             inserted.params = [];
+            // As Bitwig does, a chain shows its preset name, or a default when the preset leaves it empty.
             inserted.chains = listChains(preset).map((_, index) => ({
-              name: `Observed seed ${index + 1}`,
+              name: chainDisplayName(preset!, index) || `Observed seed ${index + 1}`,
               id: fake.model.mintChannelId(), solo: false, devices: [],
             }));
             inserted.remotePages = listModulators(preset, 0).map((item) => ({
@@ -225,6 +226,14 @@ function fourSourceRequest(trackId: string) {
       { entryName: 'Sampled preset', source: { kind: 'preset', path: PRESET }, modulators: [] },
     ],
   };
+}
+
+/** P01 (E410): a lone surrogate is the one name the preset is not given; it sends every name through live renames. */
+function liveNamedRequest(trackId: string, count: number) {
+  const request = fourSourceRequest(trackId);
+  const entries = request.entries.slice(0, count);
+  entries[count - 1] = { ...entries[count - 1]!, entryName: `${entries[count - 1]!.entryName} \uD800` };
+  return { ...request, entries };
 }
 
 test('5q-schema: all explicit source kinds are public and asset mechanics stay hidden', () => {
@@ -712,12 +721,12 @@ test('8i3 names: all entry names are one guarded stage', async () => {
       return fx.workspace.apply(ops, run);
     },
   });
-  const request = fourSourceRequest(fx.trackId);
-  const result = await callTool(workspace, 'compose_device_sources', {
-    ...request, entries: request.entries.slice(0, 3),
-  }) as Record<string, unknown>;
+  const result = await callTool(workspace, 'compose_device_sources', liveNamedRequest(fx.trackId, 3)) as
+    Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   assert.deepEqual(renames, [3]);
+  assert.deepEqual(fx.row.devices.find((item) => item.chains !== undefined)!.chains!.map((item) => item.name),
+    ['Native', 'VST3', 'CLAP \uD800']);
   assert.deepEqual((result['stages'] as { stage: string }[]).filter((item) => item.stage.endsWith('entry-name'))
     .map((item) => item.stage), ['confirm-entry-name']);
 });
@@ -768,14 +777,14 @@ test('8i3 names: a requested name that is another seed name takes temporary name
   const request = fourSourceRequest(fx.trackId);
   const entries = request.entries.slice(0, 2);
   const result = await callTool(workspace, 'compose_device_sources', {
-    ...request, entries: [{ ...entries[0]!, entryName: 'Observed seed 2' }, { ...entries[1]!, entryName: 'Observed seed 1' }],
+    ...request, entries: [{ ...entries[0]!, entryName: 'Observed seed 2' }, { ...entries[1]!, entryName: 'Sp\uD800ter' }],
   }) as Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   assert.equal(renames.length, 2);
   assert.match(renames[0]![0]!, /^ghostnote pending general entry 1/);
-  assert.deepEqual(renames[1], ['Observed seed 2', 'Observed seed 1']);
+  assert.deepEqual(renames[1], ['Observed seed 2', 'Sp\uD800ter']);
   assert.deepEqual((result['structure'] as { entryName: string }[]).map((item) => item.entryName),
-    ['Observed seed 2', 'Observed seed 1']);
+    ['Observed seed 2', 'Sp\uD800ter']);
 });
 
 test('8i3 names: a refused name stage keeps the seed names, and the untouched seed reverses', async () => {
@@ -792,10 +801,8 @@ test('8i3 names: a refused name stage keeps the seed names, and the untouched se
       return fx.workspace.apply(ops, run);
     },
   });
-  const request = fourSourceRequest(fx.trackId);
-  const result = await callTool(workspace, 'compose_device_sources', {
-    ...request, entries: request.entries.slice(0, 3),
-  }) as Record<string, unknown>;
+  const result = await callTool(workspace, 'compose_device_sources', liveNamedRequest(fx.trackId, 3)) as
+    Record<string, unknown>;
   assert.equal(result['complete'], false);
   const checkpoint = result['reversalCheckpoint'] as { preparedEntryNames: string[]; seedUnchanged: boolean };
   assert.equal(checkpoint.seedUnchanged, true);
@@ -819,7 +826,7 @@ for (const disturbance of ['none', 'operator-rename', 'unproved-rename'] as cons
         const first = await fx.workspace.apply(ops.slice(0, 1), run);
         const container = fx.row.devices.find((item) => item.chains?.length)!;
         if (disturbance === 'operator-rename') container.chains![0]!.name = 'Operator edit';
-        if (disturbance === 'unproved-rename') container.chains![2]!.name = 'CLAP';
+        if (disturbance === 'unproved-rename') container.chains![2]!.name = 'CLAP \uD800';
         const failed = { op: 'chain.rename', ok: false, error: 'The rename was not proved.' };
         const stage = first.take.receipt.stages[0]!;
         return {
@@ -832,8 +839,8 @@ for (const disturbance of ['none', 'operator-rename', 'unproved-rename'] as cons
         };
       },
     });
-    const request = fourSourceRequest(fx.trackId);
-    const entries = request.entries.slice(0, 3);
+    const request = liveNamedRequest(fx.trackId, 3);
+    const entries = [...request.entries];
     // The unchanged first entry has no op. Receipt indices refer to the remaining rename ops.
     entries[0] = { ...entries[0]!, entryName: 'Observed seed 1' };
     const result = await callTool(workspace, 'compose_device_sources', { ...request, entries }) as Record<string, unknown>;
@@ -1255,6 +1262,9 @@ test('8i5 review: agent-native compose_devices keeps the exact target identity c
   assert.equal(valid['readback'].modulationClaim.behaviorWitness, 'not-run');
 });
 
+/** B17 chain names; the first two are UTF-16 in the preset (E410). */
+const b17ChainName = (index: number): string => ['Später € 音', '𝄞 Keys'][index] ?? `Chain ${index}`;
+
 for (const [chainCount, devicesPerChain, initialCount] of [[6, 1, 2], [1, 5, 2], [6, 1, 18], [1, 5, 18]]) {
   test(`B17 composition: ${chainCount}x${devicesPerChain} at position ${initialCount}, and reversal`, async () => {
     const fx = fixture();
@@ -1264,16 +1274,17 @@ for (const [chainCount, devicesPerChain, initialCount] of [[6, 1, 2], [1, 5, 2],
     const before = structuredClone(fx.row.devices);
     const result = await callTool(fx.workspace, 'compose_devices', {
       trackId: fx.trackId, containerKind: 'FX Layer',
-      layerChains: Array.from({ length: chainCount! }, (_, index) => ({ name: `Chain ${index}`,
+      layerChains: Array.from({ length: chainCount! }, (_, index) => ({ name: b17ChainName(index),
         devices: Array.from({ length: devicesPerChain! }, () => ({ source: { kind: 'native', name: 'Tool' } })),
       })),
     }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
     assert.equal(result.applied, true, JSON.stringify(result));
     assert.equal(result.readback.status, 'verified');
-    assert.equal(result.effects.filter((effect: { summary: string }) =>
-      effect.summary === 'Composition stage grow-entries.').length, Math.max(0, chainCount! - 5));
+    // P01 (E409, E410): the seed supplies every chain with its requested name; none is grown or renamed live.
+    assert.deepEqual(result.effects.filter((effect: { summary: string }) =>
+      /grow-entries|entry-name/.test(effect.summary)), []);
     const container = fx.row.devices[initialCount!]!;
-    assert.equal(container.chains!.length, chainCount);
+    assert.deepEqual(container.chains!.map(c => c.name), Array.from({ length: chainCount! }, (_, i) => b17ChainName(i)));
     assert.deepEqual(container.chains!.map(c => c.devices.length), Array(chainCount).fill(devicesPerChain));
     assert.deepEqual(fx.row.devices.slice(0, initialCount), before);
     const reversed = await callTool(fx.workspace, 'revert_change', {
@@ -1284,11 +1295,11 @@ for (const [chainCount, devicesPerChain, initialCount] of [[6, 1, 2], [1, 5, 2],
   });
 }
 
-test('D67: compose_devices refuses nine layer chains before any write', async () => {
+test('D68: compose_devices refuses seventeen layer chains before any write', async () => {
   const fx = fixture();
   const before = fx.workspace.changes.list().length;
   const result = await callTool(fx.workspace, 'compose_devices', {
-    trackId: fx.trackId, containerKind: 'FX Layer', layerChains: Array.from({ length: 9 }, (_, i) => ({
+    trackId: fx.trackId, containerKind: 'FX Layer', layerChains: Array.from({ length: 17 }, (_, i) => ({
       name: `Chain ${i}`, devices: [{ source: { kind: 'native', name: 'Tool' } }],
     })),
   }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
@@ -1296,31 +1307,31 @@ test('D67: compose_devices refuses nine layer chains before any write', async ()
   assert.equal(fx.workspace.changes.list().length, before);
 });
 
-test('B17: an uncertain seed-growth result preserves the effect and stops before source insertion', async () => {
+test('P01: sixteen entries compose from the named seed alone, and seventeen refuse before a write', async () => {
   const fx = fixture();
-  let attempts = 0;
-  const workspace: Workspace = { ...fx.workspace, async apply(ops, run) {
-    const result = await fx.workspace.apply(ops, run);
-    if (ops.some(op => op.op === 'chain.create')) {
-      attempts++;
-      throw new Error('growth acknowledgement lost');
-    }
-    return result;
+  const ops: string[] = [];
+  const workspace: Workspace = { ...fx.workspace, async apply(batch, run) {
+    ops.push(...batch.map((op) => op.op));
+    return fx.workspace.apply(batch, run);
   } };
-  const result = await callTool(workspace, 'compose_device_sources', {
+  const request = (count: number) => ({
     trackId: fx.trackId, expectedDeviceOrder: [{ name: 'Existing Twin', enabled: true }, { name: 'Tool', enabled: false }],
     containerKind: 'FX Layer', containerPosition: 2,
-    entries: Array.from({ length: 6 }, (_, i) => ({ entryName: `Chain ${i}`,
+    entries: Array.from({ length: count }, (_, i) => ({ entryName: `Chain ${i}`,
       source: { kind: 'native', name: 'Tool' }, modulators: [] })),
-  }) as Record<string, any>;
-  assert.equal(result.complete, false);
-  assert.equal(result.partialCompletion, true);
-  assert.equal(result.failedStage, 'grow-entries');
-  assert.equal(result.reversalCheckpoint.seedUnchanged, false);
-  assert.equal(attempts, 1);
-  assert.equal(fx.row.devices.length, 3);
-  assert.equal(fx.row.devices[2]!.chains!.length, 6);
-  assert(fx.row.devices[2]!.chains!.every(c => c.devices.length === 0));
+  });
+  const refused = await callTool(workspace, 'compose_device_sources', request(17)) as Record<string, any>;
+  assert.equal(refused.refused, true, JSON.stringify(refused).slice(0, 400));
+  assert.equal(refused.nothingWasWritten, true);
+  assert.equal(ops.length, 0, 'a seventeenth entry refuses before any write');
+  assert.equal(fx.row.devices.length, 2);
+
+  const result = await callTool(workspace, 'compose_device_sources', request(16)) as Record<string, any>;
+  assert.equal(result.complete, true, JSON.stringify(result).slice(0, 800));
+  assert.equal(ops.includes('chain.create'), false);
+  assert.equal(ops.includes('chain.rename'), false);
+  assert.deepEqual(fx.row.devices[2]!.chains!.map((c) => c.name), Array.from({ length: 16 }, (_, i) => `Chain ${i}`));
+  assert(fx.row.devices[2]!.chains!.every((c) => c.devices.length === 1));
 });
 
 test('B17: lost first-insertion readback reports possible effects without replay or an invented reversal', async () => {
@@ -1377,9 +1388,10 @@ test('D65 call budget: staged compose_devices and revert_change make a fixed num
   };
   const one = await budget(1, 1);
   const six = await budget(3, 2);
-  // Container insertion at the track end, naming, and one batch of direct chain insertions. Each executor run
-  // reads its stash and verify marks and one delta; the surface makes the one initial bank read.
-  assert.deepEqual(one.compose, { devices: 1, read: 6, apply: 3, contentSince: 3, structureRead: 2 },
+  // Container insertion at the track end and one batch of direct chain insertions; the seed carries the names
+  // (P01, E409). Each executor run reads its stash and verify marks and one delta; the surface makes the one
+  // initial bank read.
+  assert.deepEqual(one.compose, { devices: 1, read: 4, apply: 2, contentSince: 2, structureRead: 2 },
     'structure reads: the seed names and the final result');
   // Six devices in three chains cost the same calls as one device: no per-device stage, proof or inventory.
   assert.deepEqual(six.compose, one.compose);
@@ -1387,10 +1399,11 @@ test('D65 call budget: staged compose_devices and revert_change make a fixed num
   // one final top-level read.
   assert.deepEqual(one.revert, { devices: 2, structureRead: 3, resolve: 1, apply: 1, contentSince: 1 });
   assert.deepEqual(six.revert, one.revert);
-  // P01: chains beyond the five-chain seed are grown in one apply, which adds that apply and its marks.
-  const sixChains = await budget(6, 1);
-  assert.deepEqual(sixChains.compose, { ...one.compose, read: 8, apply: 4, contentSince: 4 });
-  assert.deepEqual(sixChains.revert, one.revert);
+  // P01 (E409): the seed supplies every chain with its requested name, so eight chains cost the same calls as
+  // one, without the naming apply that the one-chain request above also skips.
+  const eightChains = await budget(8, 1);
+  assert.deepEqual(eightChains.compose, one.compose);
+  assert.deepEqual(eightChains.revert, one.revert);
 });
 
 test('P01 call budget: consecutive existing sources share one relocation apply and reverse exactly', async () => {

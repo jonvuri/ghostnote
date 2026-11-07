@@ -160,8 +160,9 @@ test('D44: a request at the limit is not refused for its size', async () => {
     ['compose_devices', { trackId, containerKind: 'Instrument Layer', layerChains: [
       { name: 'A', devices: [{ ...native('Polysynth'), modulators: [lfo(0), lfo(1)] }, native('Tool')] },
       { name: 'B', devices: [native('Polysynth'), native('Tool')] }] }],
+    // D68: 16 one-device chains reach both the chain and the unit limit.
     ['compose_devices', { trackId, containerKind: 'FX Layer', layerChains: times(WRITE_LIMITS.compositionLayerChains,
-      (index) => ({ name: `L${index}`, devices: [native('Tool'), native('Tool')] })) }],
+      (index) => ({ name: `L${index}`, devices: [native('Tool')] })) }],
   ];
   for (const [name, args] of atLimit) {
     const { result } = await call(name, args);

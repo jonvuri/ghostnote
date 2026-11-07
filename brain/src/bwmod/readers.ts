@@ -2,7 +2,7 @@
  * Pure, read-only views over a preset — BWMOD_DESIGN §2.
  */
 import type { Chain, Modulator, Routing } from './types.js';
-import { CLASS_CHAIN, FID, TYPE, fieldSig, formatGuid, readStr } from './format.js';
+import { CLASS_CHAIN, FID, TYPE, fail, fieldSig, formatGuid, readStr, strSize } from './format.js';
 import {
   findField, findModulatorList, instanceGroupOffset, instanceIdOffset, modulatorBounds, nameFieldOffset, readStrField,
   routeSlots,
@@ -72,8 +72,8 @@ export function nextFreeInstanceId(buf: Buffer, listIndex?: number, instanceGrou
  * ⚠ Only the STARTS are resolved. Chains nest (a 4-chain template holds 14
  * `0x018f` objects), and E10d never established an exact end for the LAST chain
  * because its tail belongs to the parent. Each chain's `end` is therefore the
- * next chain's start, and the last chain's is `null`. There are deliberately no
- * chain editors: trimming is done by dropping earlier chains.
+ * next chain's start, and the last chain's is `null`. Trimming drops earlier
+ * chains; `setChainDisplayName` is the only chain editor.
  */
 export function listChains(buf: Buffer): Chain[] {
   const ss = streamOffset(buf);
@@ -106,4 +106,31 @@ export function listChains(buf: Buffer): Chain[] {
     start,
     end: index + 1 < starts.length ? starts[index + 1] : null,
   }));
+}
+
+/**
+ * Offset of top-level layer chain `chainIndex`'s displayed-name string (P01, E409). A chain record opens with
+ * its route name (`CHAIN<n>`), its GUID and then its displayed name, which is empty in an unnamed chain.
+ */
+export function chainDisplayNameOffset(buf: Buffer, chainIndex: number): number {
+  const chain = listChains(buf)[chainIndex];
+  if (chain === undefined) fail(`there is no top-level layer chain ${chainIndex}`);
+  let at = chain.start + 4;
+  const expect = (fid: number, type: number): void => {
+    if (buf.readUInt32BE(at) !== fid || buf.readUInt8(at + 4) !== type) {
+      fail(`chain ${chainIndex} has no field 0x${fid.toString(16)} at 0x${at.toString(16)}`);
+    }
+    at += 5;
+  };
+  expect(FID.NAME, TYPE.STR);
+  at += strSize(buf, at);
+  expect(FID.CHAIN_GUID, TYPE.GUID);
+  at += 16;
+  expect(FID.CHAIN_DISPLAY_NAME, TYPE.STR);
+  return at;
+}
+
+/** The displayed name of top-level layer chain `chainIndex`; empty when Bitwig shows its default. */
+export function chainDisplayName(buf: Buffer, chainIndex: number): string {
+  return readStr(buf, chainDisplayNameOffset(buf, chainIndex));
 }

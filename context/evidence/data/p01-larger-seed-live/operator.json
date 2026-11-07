@@ -1,0 +1,6 @@
+{
+  "reply": "Presets saved - proceed.",
+  "projectReply": "Switch to gn-scale-test (Recommended)",
+  "date": "2026-11-07",
+  "note": "No controller replacement was needed: probe:hello showed the normal build already loaded (normal-v1, 94 methods, 526cd7e3760580cc, fresh initialization). Only brain code changed. The operator saved the 16-chain seeds and the named control in Bitwig 6.1.4 and then opened gn-scale-test for the measurement."
+}

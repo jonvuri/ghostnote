@@ -4,17 +4,17 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-  listChains, listModulators, modulatorListOffsets, readMeta, stubValues, validate,
+  chainDisplayName, listChains, listModulators, modulatorListOffsets, readMeta, stubValues, validate,
 } from '../bwmod/index.js';
 import {
   GENERAL_CONTAINER_SEED_MANIFEST_PATH,
   OWNED_FX_LAYER_MANIFEST_PATH, OWNED_FX_LAYER_TEMPLATE_PATH,
 } from './assets.js';
 import {
-  composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset,
-  type GeneralDeviceContainerKind,
+  composeExistingDeviceWrapperPreset, composeGeneralDeviceContainerPreset, ExistingDeviceWrapperPresetError,
+  GENERAL_CONTAINER_SEED_ENTRIES, type GeneralDeviceContainerKind,
 } from './existing-device-wrapper.js';
-import { fiveEntryLayerSeedPreset } from './layer-seeds.js';
+import { layerSeedPreset } from './layer-seeds.js';
 
 interface LateBoundManifest {
   readonly schemaVersion: number;
@@ -110,19 +110,19 @@ test('5o-asset: the human-authored empty FX Layer seed matches its manifest', ()
   assert.equal(validate(preset, { listIndex: 0 }).ok, true);
 });
 
-test('5r-assets: both supported human-saved seeds match their exact manifest facts', () => {
+test('P01 assets: both supported human-saved seeds match their exact manifest facts', () => {
   const manifest = JSON.parse(
     readFileSync(GENERAL_CONTAINER_SEED_MANIFEST_PATH, 'utf8'),
   ) as GeneralContainerSeedManifest;
   assert.equal(manifest.schemaVersion, 1);
   assert.deepEqual(manifest.authoring, {
-    bitwigVersion: '6.0.6', creator: 'jrajav', origin: 'human-authored',
-    sourceEvidence: 'phase-5-session-5r',
+    bitwigVersion: '6.1.4', creator: 'jrajav', origin: 'human-authored',
+    sourceEvidence: 'p01-e409',
   });
 
   const sources = new Map<GeneralDeviceContainerKind, Buffer>([
-    ['Instrument Layer', fiveEntryLayerSeedPreset('Instrument Layer')],
-    ['FX Layer', fiveEntryLayerSeedPreset('FX Layer')],
+    ['Instrument Layer', layerSeedPreset('Instrument Layer')],
+    ['FX Layer', layerSeedPreset('FX Layer')],
   ]);
   assert.deepEqual(manifest.assets.map((asset) => asset.containerName), [...sources.keys()]);
   for (const asset of manifest.assets) {
@@ -143,17 +143,19 @@ test('5r-assets: both supported human-saved seeds match their exact manifest fac
     assert.deepEqual(modulatorListOffsets(preset), [asset.outerModulatorListOffset], asset.id);
     assert.deepEqual(listModulators(preset, 0), [], asset.id);
     assert.deepEqual(listChains(preset), asset.chains, asset.id);
-    assert.equal(asset.maximumEntries, 5, asset.id);
+    assert.equal(asset.maximumEntries, GENERAL_CONTAINER_SEED_ENTRIES, asset.id);
+    assert.deepEqual(asset.chains.map((_, index) => chainDisplayName(preset, index)),
+      Array(GENERAL_CONTAINER_SEED_ENTRIES).fill(''), `${asset.id}: every seed chain is unnamed`);
     assert.equal(stubValues(preset).length, asset.sampleReferenceStubs, asset.id);
     assert.equal(validate(preset, { listIndex: 0 }).ok, true, asset.id);
   }
 });
 
 for (const kind of ['Instrument Layer', 'FX Layer'] as const) {
-  for (let width = 1; width <= 5; width++) {
-    test(`5r-${kind}-width-${width}: retains one exact complete layer suffix`, async () => {
+  for (let width = 1; width <= GENERAL_CONTAINER_SEED_ENTRIES; width++) {
+    test(`P01-${kind}-width-${width}: retains one exact complete layer suffix`, async () => {
       const result = await composeGeneralDeviceContainerPreset(kind, [], { entryCount: width });
-      const first = 5 - width;
+      const first = GENERAL_CONTAINER_SEED_ENTRIES - width;
       assert.deepEqual(
         listChains(result.preset).map((entry) => entry.name),
         Array.from({ length: width }, (_, index) => `CHAIN${first + index}`),
@@ -163,6 +165,51 @@ for (const kind of ['Instrument Layer', 'FX Layer'] as const) {
     });
   }
 }
+
+/**
+ * The comparable bytes of each chain record. Chain GUIDs, project send IDs and route names (CHAIN<n>, normalized
+ * on load) differ by construction from a human-saved control; everything else, the displayed name included, must
+ * match.
+ */
+function comparableChains(preset: Buffer): string[] {
+  return listChains(preset).map((chain) => {
+    const record = preset.subarray(chain.start, chain.end ?? undefined);
+    const routeName = record.readUInt32BE(9);
+    return Buffer.concat([record.subarray(13 + routeName, 13 + routeName + 5), record.subarray(13 + routeName + 21)])
+      .toString('latin1')
+      .replace(/TRACK_SEND\([0-9a-f-]{36}\)/g, 'TRACK_SEND()')
+      .replace(/\x00\x00\x2a\xb8\x15[\s\S]{16}/g, 'GUID');
+  });
+}
+
+for (const [label, control, names] of [
+  // E409: ASCII names are one byte per character.
+  ['ASCII', 'gn_instr_named_control', ['A', 'Bass Pad', 'Chain With A Longer Name']],
+  // E410: any other name is flagged UTF-16BE, Latin-1 included; the clef is a surrogate pair.
+  ['UTF-16', 'gn_instr_named_utf16_control', ['Später', 'Später € 音', '𝄞 Keys']],
+] as const) {
+  test(`P01 names: written ${label} chain names match a human-saved named control byte for byte`, async () => {
+    const saved = readFileSync(new URL(`../../fixtures/InstrumentLayer/${control}.bwpreset`, import.meta.url));
+    const result = await composeGeneralDeviceContainerPreset('Instrument Layer', [], {
+      entryCount: 3, entryNames: [...names],
+    });
+    assert.deepEqual(names.map((_, index) => chainDisplayName(result.preset, index)), names);
+    assert.deepEqual(names.map((_, index) => chainDisplayName(saved, index)), names);
+    assert.deepEqual(comparableChains(result.preset), comparableChains(saved));
+    assert.equal(validate(result.preset, { listIndex: 0 }).ok, true);
+  });
+}
+
+test('P01 names: a lone surrogate, a duplicate, an empty name or a count mismatch refuses', async () => {
+  for (const entryNames of [['\uD800', 'B'], ['A', 'A'], ['A'], ['', 'B']]) {
+    await assert.rejects(
+      composeGeneralDeviceContainerPreset('FX Layer', [], { entryCount: 2, entryNames }),
+      ExistingDeviceWrapperPresetError, JSON.stringify(entryNames),
+    );
+  }
+  await assert.rejects(composeGeneralDeviceContainerPreset('FX Layer', [], { entryCount: 17 }),
+    ExistingDeviceWrapperPresetError);
+});
 
 test('5r-layer-routes: retained suffixes use normalized live route positions', async () => {
   const target = { parameterId: 'CONTENTS/F1FREQ', parameterName: 'Filter Frequency' };

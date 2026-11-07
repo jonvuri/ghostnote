@@ -11,7 +11,7 @@
  * Growing or shrinking META shifts the object stream, so every edit here
  * finishes by patching the header `f4` — and only `f4`.
  */
-import { TYPE, fail, readStr, spliceBuffer } from './format.js';
+import { TYPE, fail, encodeStr, readStr, spliceBuffer, strSize } from './format.js';
 import { parseHeader, shiftF4 } from './header.js';
 
 export const META_START = 42;
@@ -77,7 +77,7 @@ export function parseMetaRecords(buf: Buffer): MetaRecord[] {
         break;
       case TYPE.STR:
         value = readStr(buf, valueStart);
-        valueEnd = valueStart + 4 + buf.readUInt32BE(valueStart);
+        valueEnd = valueStart + strSize(buf, valueStart);
         break;
       case TYPE.STR_ARRAY: {
         const count = buf.readUInt32BE(valueStart);
@@ -85,7 +85,7 @@ export function parseMetaRecords(buf: Buffer): MetaRecord[] {
         let q = valueStart + 4;
         for (let i = 0; i < count; i++) {
           items.push(readStr(buf, q));
-          q += 4 + buf.readUInt32BE(q);
+          q += strSize(buf, q);
         }
         value = items;
         valueEnd = q;
@@ -128,12 +128,7 @@ export function writeModulatorRefs(buf: Buffer, refs: string[]): Buffer {
   const count = Buffer.allocUnsafe(4);
   count.writeUInt32BE(refs.length, 0);
   parts.push(count);
-  for (const ref of refs) {
-    const bytes = Buffer.from(ref, 'utf8');
-    const len = Buffer.allocUnsafe(4);
-    len.writeUInt32BE(bytes.length, 0);
-    parts.push(len, bytes);
-  }
+  for (const ref of refs) parts.push(encodeStr(ref));
   const replacement = Buffer.concat(parts);
   const spliced = spliceBuffer(buf, rec.valueStart as number, rec.end, replacement);
   return shiftF4(spliced, spliced.length - buf.length);

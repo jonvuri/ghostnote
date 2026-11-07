@@ -1037,11 +1037,10 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + `read_device_controls and types from list_modulator_types. ${ROUTE_TEXT}\n'`
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
-  + 'are only for this path); each layer chain is then renamed. Every other shape runs as host stages: container '
-  + 'insertion, one empty-chain duplication for each chain beyond the five-chain seed, one layer-chain naming '
-  + 'stage, one direct insertion of the new devices at each layer chain\'s end, and one move or copy for each '
-  + 'existing device; one structure read at the end is the readback. One composition admits at most 8 layer '
-  + 'chains, at most 16 device units (a VST3, CLAP or existing source counts as two, and a device with modulators '
+  + 'are only for this path); each layer chain is then renamed. Every other shape runs as host stages: insertion '
+  + 'of the container with its layer chains already named, one direct insertion of the new devices at each layer '
+  + 'chain\'s end, and one move or copy for each existing device. One structure read at the end is the readback. One composition admits at most '
+  + '16 layer chains, at most 16 device units (a VST3, CLAP or existing source counts as two, and a device with modulators '
   + 'or modulator edits counts two more) and 4 modulators and modulator edits; a larger request refuses before any '
   + 'read or write (code outside-limit, the limit in detail). Add more devices later with add_devices and '
   + 'move_devices. '
@@ -1066,9 +1065,9 @@ export async function composeDevices(
   const started = performance.now();
   const target = { trackId: args.trackId, containerKind: args.containerKind };
   return guardedRun(COMPOSE_SCHEMA, target, async (state) => {
-    // D44, D67 (E407): the offline backend has at most four devices, so a larger request is always staged. Each layer
-    // chain beyond the five-chain seed and each existing source is its own host stage (E408: consecutive existing
-    // sources share one apply).
+    // D44, D67 (E407): the offline backend has at most four devices, so a larger request is always staged. The
+    // container arrives with every named layer chain (E409); each existing source is its own host stage (E408:
+    // consecutive existing sources share one apply).
     requireWithinLimit('compositionLayerChains', args.layerChains?.length ?? 0, 'layer chains in one composition',
       options.measurementLimits?.layerChains);
     const composed = (args.layerChains ?? []).flatMap((item) => item.devices);

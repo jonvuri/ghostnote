@@ -31,12 +31,15 @@ const { values } = parseArgs({ options: {
    * candidates: shapes above the six-unit limit; limit: the worst new-source shapes at 16 units and 8 layer chains;
    * existing: 8 existing sources (4 moves, 4 copies) into 8 chains at the end of an 18-device track;
    * layer-tools: duplicate_layer_chain and rename_layer_chain on a composed container, read back independently;
-   * add-devices: add_devices of native, VST3 and native devices (projected and read chains), read back independently.
+   * add-devices: add_devices of native, VST3 and native devices (projected and read chains), read back independently;
+   * chains (E409): names carried by the 16-chain seed (ASCII punctuation; a non-ASCII name falls back to a live
+   * rename), then 8x2, 12x1 and 16x1 at the end of an 18-device track;
+   * unicode-names (E410): non-ASCII names, a surrogate pair included, written into the seed as UTF-16.
    */
   set: { type: 'string', default: 'candidates' },
 } });
-assert(['candidates', 'limit', 'existing', 'layer-tools', 'add-devices'].includes(values.set!),
-  '--set candidates|limit|existing|layer-tools|add-devices');
+assert(['candidates', 'limit', 'existing', 'layer-tools', 'add-devices', 'chains', 'unicode-names'].includes(values.set!),
+  '--set candidates|limit|existing|layer-tools|add-devices|chains');
 assert(values.out && values['operator-file'], 'required: --out NEW_DIRECTORY --operator-file FILE');
 const operator = JSON.parse(readFileSync(values['operator-file'], 'utf8')) as Wire;
 assert(typeof operator.reply === 'string' && operator.reply.trim(), 'record the actual operator confirmation');
@@ -129,6 +132,8 @@ interface Case {
   readonly chains: readonly { readonly name: string; readonly devices: readonly Wire[] }[];
   /** Expected device names per chain; undefined entries are plug-in names that are only counted. */
   readonly names: readonly (readonly (string | undefined)[])[];
+  /** E409: whether a live layer-chain naming stage is expected; checked only when stated. */
+  readonly liveNaming?: boolean;
 }
 
 /** Compose, read back independently, revert, and read the exact original structure back. */
@@ -139,6 +144,11 @@ async function measure(test: Case): Promise<Wire> {
     ...(test.position === undefined ? {} : { containerPosition: test.position }),
   });
   const position = test.at ?? test.position ?? before.devices.length;
+  if (test.liveNaming !== undefined) {
+    const stages: string[] = JSON.stringify(composed.result.effects ?? []).match(/grow-entries|entry-name/g) ?? [];
+    assert.equal(stages.some(stage => stage === 'entry-name'), test.liveNaming, `naming stages: ${stages.join(',')}`);
+    assert.equal(stages.includes('grow-entries'), false, 'no chain is grown live');
+  }
   const after = await read(`${test.label}-after`);
   const container = after.devices[position];
   assert.equal(container?.name, 'FX Layer', 'the container is at its requested position');
@@ -205,6 +215,22 @@ try {
   })), names: Array.from({ length: 4 }, () => ['Polysynth']) }));
   }
 
+  if (values.set === 'chains') {
+    results.push(await measure({ label: 'preset-names', liveNaming: false, chains: [
+      { name: 'Bass (sub) #1', devices: [native('Tool')] }, { name: 'Pad\'s "wide" - L/R', devices: [native('Tool')] },
+      { name: 'x', devices: [native('Tool')] }], names: [['Tool'], ['Tool'], ['Tool']] }));
+    results.push(await measure({ label: 'live-rename-fallback', liveNaming: true, chains: [
+      { name: 'Später', devices: [native('Tool')] }, { name: 'Chain 1', devices: [native('Tool')] }],
+    names: [['Tool'], ['Tool']] }));
+  }
+
+  if (values.set === 'unicode-names') {
+    results.push(await measure({ label: 'unicode-names', liveNaming: false, chains: [
+      { name: 'Später', devices: [native('Tool')] }, { name: 'Später € 音', devices: [native('Tool')] },
+      { name: '𝄞 Keys', devices: [native('Tool')] }, { name: 'ASCII', devices: [native('Tool')] }],
+    names: [['Tool'], ['Tool'], ['Tool'], ['Tool']] }));
+  }
+
   if (values.set === 'add-devices') {
     const added = await write('add-mixed', 'add_devices', { devices: [{ kind: 'native', name: 'Tool' },
       { kind: 'native', name: 'EQ-5' }, { kind: 'vst3', id: vst3.id }, { kind: 'native', name: 'Gate' }] });
@@ -222,11 +248,18 @@ try {
     const chains = (await read('layer-after')).devices[0].container.layerChains as Wire[];
     assert.deepEqual(chains.map(c => [c.name, c.devices.map((d: Wire) => d.name)]), [['One', ['Tool']], ['Renamed', ['Tool']]]);
     results.push({ label: 'layer-tools', duplicate: duplicated.measurement, rename: renamed.measurement });
-  } else {
+  } else if (values.set !== 'unicode-names') {
   await write('anchors-16', 'add_devices', { devices: Array.from({ length: 16 }, () => ({ kind: 'native', name: 'Tool' })) });
   await write('anchors-18', 'add_devices', { devices: Array.from({ length: 2 }, () => ({ kind: 'native', name: 'Tool' })) });
   assert.equal((await read('anchors')).devices.length, 18);
-  if (values.set === 'candidates') {
+  if (values.set === 'chains') {
+    results.push(await measure({ label: 'eight-by-two-at-18', liveNaming: false, position: 18,
+      chains: chainsOf(8, ['Tool', 'EQ-5']), names: Array.from({ length: 8 }, () => ['Tool', 'EQ-5']) }));
+    results.push(await measure({ label: 'twelve-at-18', liveNaming: false, position: 18, chains: chainsOf(12, ['Tool']),
+      names: Array.from({ length: 12 }, () => ['Tool']) }));
+    results.push(await measure({ label: 'sixteen-at-18', liveNaming: false, position: 18, chains: chainsOf(16, ['Tool']),
+      names: Array.from({ length: 16 }, () => ['Tool']) }));
+  } else if (values.set === 'candidates') {
     results.push(await measure({ label: 'sixteen-at-18', position: 18, chains: chainsOf(16, ['Tool']),
       names: Array.from({ length: 16 }, () => ['Tool']) }));
   } else if (values.set === 'existing') {

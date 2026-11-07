@@ -14,13 +14,14 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import {
-  ASSET_DIR, SENTINEL, addModulator, deleteModulator, extractModulator, findModulatorList,
+  ASSET_DIR, SENTINEL, addModulator, chainDisplayNameOffset, deleteModulator, extractModulator, findModulatorList,
   identifyCuratedDonor, instanceIds, listChains, listDonorAssets, listModulators, loadDonor,
   modulatorBounds, modulatorListOffsets, nextFreeInstanceId, parseHeader, readMeta,
   readModulatorRefs, relocateStubs, repointF6, replaceModulator, retarget, setAmount, setF4,
   streamOffset, stubValues, validate, writeModulatorRefs,
 } from './index.js';
 import { allFixtures, fixture, normalizeVolatiles } from './fixtures.js';
+import { encodeStr, patchString, readStr, strSize } from './format.js';
 import { INSTRUMENT_LAYER_SEED_PATH } from '../device-alternates/assets.js';
 
 const ZIP_MAGIC = Buffer.from('PK\x03\x04', 'latin1');
@@ -750,4 +751,23 @@ test('readMeta exposes the keys the recipe depends on', () => {
   assert.equal(meta.get('device_name'), 'Polysynth');
   assert.deepEqual(meta.get('referenced_modulator_ids'), readModulatorRefs(fixture('Polysynth/modtest')));
   assert.equal(typeof meta.get('revision_id'), 'string');
+});
+
+test('E410 strings: ASCII is one byte per character; any other string is flagged UTF-16BE, as Bitwig saves it', () => {
+  const control = readFileSync(join(import.meta.dirname, '../../fixtures/InstrumentLayer/gn_instr_named_utf16_control.bwpreset'));
+  const names = ['Später', 'Später € 音', '𝄞 Keys'];
+  for (const [index, name] of names.entries()) {
+    const at = chainDisplayNameOffset(control, index);
+    const saved = control.subarray(at, at + strSize(control, at));
+    assert.deepEqual(encodeStr(name), saved, name);
+    assert.equal(readStr(control, at), name);
+  }
+  assert.equal(control.readUInt32BE(chainDisplayNameOffset(control, 2)), 0x80000007, 'the clef is two UTF-16 units');
+  assert.deepEqual(encodeStr('Bass Pad'), Buffer.concat([Buffer.from([0, 0, 0, 8]), Buffer.from('Bass Pad', 'latin1')]));
+  for (const value of ['', 'A', 'Später', '𝄞 Keys']) {
+    const patched = patchString(Buffer.concat([Buffer.from('ff', 'hex'), encodeStr('old'), Buffer.from('ee', 'hex')]), 1, value);
+    assert.equal(readStr(patched, 1), value);
+    assert.equal(patched.length, 2 + strSize(patched, 1));
+    assert.equal(patched.at(-1), 0xee);
+  }
 });

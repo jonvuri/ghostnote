@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v61';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v62';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -931,3 +931,9 @@ export const TOOL_DESCRIPTION_V60_SHA256 = 'b32fbaf1c42302c2a9c32494f7c9f02ed93e
  * units. Chain growth is one duplication for each chain beyond the five-chain seed.
  */
 export const TOOL_DESCRIPTION_V61_SHA256 = '8332613f6160f3a62f74aa251b160e819dc3e8285ceb6e758c25f499c6ce2625';
+
+/**
+ * v62 (P01, D68): compose_devices inserts the container with its layer chains already named, so no chain is grown
+ * or renamed live, and admits at most 16 layer chains.
+ */
+export const TOOL_DESCRIPTION_V62_SHA256 = 'cbd34075f71a4cb1bf2dfad1e862e8c68360b6c65c3510ac17b7d7e372f3ae62';
