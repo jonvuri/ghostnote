@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E405 | B18 on Bitwig 6.1.4: the content-event ring holds 8,192 events; IDs stay current after 24, 25, 1,000 and 8,192 slot events following the latest read, and 8,193 re-mint fail-closed with `why: delta-incomplete` and a warning. A plain mark carries no events; a full-window delta is 889 KB / 45–51 ms. Run 1 found that a current read kept the first-read mark (fixed). Scratch removed (2026-11-07) | [open](experiments/e405-b18-content-event-window-live.md) |
 | E404 | P01 pure device deletion uses structural snapshots: 8 → 0 parameter-inventory calls, 84 → 61 wire calls on the comparison fixture; guarded removal, mixed scalar capture, non-recreation result and cleanup preserved (2026-10-29) | [open](experiments/e404-structural-device-deletion.md) |
 | E403 | P01 count-dependent direct insertion preserves native and mixed-source order on empty/populated chains across all three window boundaries; cleanup and preservation pass; product composition integration remains open (2026-10-29) | [open](experiments/e403-ordered-direct-chain-insertion.md) |
 | E402 | P01 direct layer insertion: all four source kinds land at container 17 / sixth chain; immediate multi-source ordering fails and reversed calls do not generally repair it. Effects inspected, scratch removed, inventories/selection preserved; v2 count-dependent sequencing awaits live proof (2026-10-29) | [open](experiments/e402-direct-chain-insertion-ordering.md) |

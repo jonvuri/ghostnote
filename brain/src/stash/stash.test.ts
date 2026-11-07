@@ -26,6 +26,7 @@ import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import { noteKey } from '../adapters/fake/model.js';
 import {
+  CONTENT_LOG,
   addressKey, clip, notes as notesAt, scene, slot, track,
   type BitwigAdapter, type ClipAddress, type NoteRecord, type Op, type SlotAddress,
   type TrackAddress,
@@ -871,7 +872,7 @@ test('B-undecidable: an unusable window downgrades `ours`, and only `ours`', asy
     { op: 'track.rename', track: fx.trackA, name: 'gn-A2' },
   ]);
 
-  control(fx.fake).floodContentEvents(40);
+  control(fx.fake).floodContentEvents(CONTENT_LOG + 16);
 
   const current = await fx.fake.read(fx.stash.log.readSetFor(take.id));
   const launcher = await fx.fake.contentSince(take.at);

@@ -16,7 +16,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { CLIP_READ_SOUNDING_CELLS } from '../contract/index.js';
+import { CLIP_READ_SOUNDING_CELLS, CONTENT_LOG } from '../contract/index.js';
 import { compareDeployment, deployedAtMs } from '../deploy.js';
 import { client, check, note, failureCount } from './lib.js';
 
@@ -67,6 +67,12 @@ check('the 8i8 build marker: the guarded mixer-selection restore and the clip-cr
   rig['selectionEffects'] === 'mixer-restore-v1', { selectionEffects: rig['selectionEffects'] });
 check('the 8i14 build marker: slot.copyTo copies one clip to a named slot',
   rig['clipCopy'] === 'copy-to-slot-v1', { clipCopy: rig['clipCopy'] });
+check('the B18 build marker: the content-event ring holds CONTENT_LOG events',
+  rig['contentLog'] === CONTENT_LOG, { contentLog: rig['contentLog'] });
+const plainMark = (await client.request('revision.get')) as { contentEpoch: number; contentEvents: unknown[] };
+check('B18: a mark without since carries no content events',
+  Array.isArray(plainMark.contentEvents) && plainMark.contentEvents.length === 0,
+  { contentEvents: plainMark.contentEvents?.length });
 check('the track bank lists collapsed group children (ALL_CHANNELS, D33)',
   rig['contentFilter'] === 'ALL_CHANNELS', { contentFilter: rig['contentFilter'] });
 

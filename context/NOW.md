@@ -6,14 +6,25 @@ updated: 2026-11-07
 
 ## Now
 
-**Main queue: [B18](work/b18-content-event-window.md)** (note identity survives
-Launcher activity), then [B19](work/b19-real-use-tooling-and-annotations.md)
-in three sessions: quick tool wins; overlays, clip annotations and provenance
-(with a last format evaluation and possible final benchmark); clip operations
-and stateless analysis tools.
+**Main queue: [B19](work/b19-real-use-tooling-and-annotations.md)** in three
+sessions: quick tool wins; overlays, clip annotations and provenance (with a
+last format evaluation and possible final benchmark); clip operations and
+stateless analysis tools. P01 continues in its worktree after B18.
+
+[B18](work/b18-content-event-window.md) is complete and verified live in
+[E405](evidence/experiments/e405-b18-content-event-window-live.md). The
+content-event ring holds 8,192 events, and `revision.get` returns only the
+events after the caller's `since`; a plain mark carries none. A ref's IDs stay
+current through 8,192 Launcher slot events after its latest read or check.
+One more re-mints fail-closed, with `why: delta-incomplete` and a warning. A
+current read or check now restarts the ref's window; run 1 found that it kept
+the first-read mark. Descriptions are v59 (46 tools); the normal wire is
+unchanged (93 methods, `d6decf985f6b1f36`), with marker `rig.info.contentLog`.
+All 2,607 brain tests and extension checks pass. A full-window delta costs
+889 KB / 45–51 ms; the ledger has the reply rows.
 
 [P01](work/p01-edit-path-performance.md) continues in parallel in the
-`mossy-larch` worktree after this merge; main proceeds with B18, then B19.
+`mossy-larch` worktree after integrating completed B18; main proceeds with B19.
 The operator confirmed this split on 2026-11-07. The normal controller
 replacement and focused scope-read check passed in
 [E401](evidence/experiments/e401-p01-scope-read-policy-live.md): the six-device
@@ -46,17 +57,17 @@ Both scratch tracks were removed and preservation checks passed.
 **Session cleanup is closed by operator report (2026-11-07).** The operator
 reports replacing the controller with normal `ghostnote`, but it may be a build
 from intervening work in another worktree, and explicitly requests no cleanup
-verification. No handshake was run; the loaded build is unknown. The earlier
-restoration deployment remains historical evidence, not a claim about the
-current controller. Establish the intended build and fresh live context before
+verification. No cleanup handshake was run in this worktree. B18 subsequently verified its
+own normal build in E405; that is not verification of this combined worktree.
+The earlier restoration deployment remains historical evidence. Establish the intended build and fresh live context before
 future P01 host work; no controller replacement is pending for this session.
 
 Before reconciliation, typecheck, 81 focused executor/call-budget tests
 and extension checks passed.
 The full brain suite passed 2,608/2,609 tests; the one planner timing test
 exceeded its 4-second bound under concurrent load, then its three-test file
-passed alone. That P01 checkpoint used descriptions v57 / 46 tools; the merged source
-retains R02 descriptions v58 / 46 tools. At that checkpoint, the idle MCP server was from the shared checkout; a brain server must load this
+passed alone. That P01 checkpoint used descriptions v57 / 46 tools; B18 now
+brings the combined source to descriptions v59 / 46 tools. At that checkpoint, the idle MCP server was from the shared checkout; a brain server must load this
 worktree's updated code to use these brain changes.
 
 [E400](evidence/experiments/e400-p01-offline-cost-attribution.md) and the brief
@@ -66,10 +77,14 @@ remeasure D44. Scalar cohort and clip-metadata capture reductions remain open.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)
 records P01's evidence renumbering to E400–E404, both retained probes, and
-parallel-work coordination. The merged working tree passes typecheck, all 2,610
-brain tests and the offline extension check. Normal wire remains 93 methods;
-probe wire is now 123 / `f8f2b5ec8531c93d`. Resolution edits await operator
-staging and the merge commit; no merged build has been deployed.
+parallel-work coordination. The operator committed that first reconciliation
+after typecheck, all 2,610 brain tests and the offline extension check passed.
+The new B18 reconciliation is recorded in the
+[B18 integration checkpoint](work/p01-edit-path-performance.md#b18-integration--2026-11-07).
+The combined tree passes typecheck, all 2,615 brain tests and the offline
+extension check. Normal wire remains 93 methods; probe wire remains
+123 / `f8f2b5ec8531c93d`. B18 resolution edits await operator staging and the
+merge commit. No combined P01/B18 build has been deployed from this worktree.
 
 [R01](work/r01-format-comparison.md)'s [candidate package](../spec/r01-research/README.md)
 is ready for review: contracts, bounded offline prototypes for ideas 1–4,
@@ -455,9 +470,9 @@ no external communication by the agent is authorized.
 The owned scratch track was removed; all original track IDs/names and mixer
 selection match. The UI shows no item selected, but the bridge retains the
 deleted Launcher slot's old index. That discrepancy is recorded, not treated
-as exact selection restoration. The subsequent E393 handshake confirmed a
-normal build on 2026-10-31; the current loaded build remains unverified after
-the operator-reported replacement above. R02 local work is closed.
+as exact selection restoration. The normal build was loaded afterwards
+(E393 and E405 handshakes). R01 is merged into `main`; only the P01
+worktree remains open.
 
 [B17 session 7](work/b17-extension-owned-window-scrolling.md#session-7-result)
 is complete and verified live in
@@ -482,7 +497,7 @@ E398's dense six-chain structure read costs six turns / median 862 ms.
 Five-device composition took 26.3 s; six-chain composition took 44.4 s, close
 to D44's exceptional 45 s ceiling. These are fixture-specific costs. P01 owns
 the repeated proof work and the six-unit budget review. Main proceeds with
-B18 and B19 while P01 continues in its parallel worktree. New clients load the current brain; an already
+B19 after completing B18 while P01 continues in its parallel worktree. New clients load the current brain; an already
 running MCP server must restart to pick up these fixes.
 
 Earlier checkpoints remain in [E395](evidence/experiments/e395-extension-owned-container-scopes-live.md)
@@ -540,7 +555,8 @@ detected on disk after addition and removal while Bitwig remained running.
 Original location settings and project/selection context were verified afterward.
 V14 turned these results into the public resolver.
 
-The [backlog](BACKLOG.md) keeps B18 and B19 first on main, with P01 in parallel; R01 stays open until B19's
+The [backlog](BACKLOG.md) puts B19 first on main (B18 is done), with P01
+in parallel here; R01 stays open until B19's
 overlay session. That session also settles the first-save annotation
 continuity limitation recorded in the V01 closeout.
 
@@ -554,8 +570,8 @@ identifies proposed mechanisms for assessment during implementation.
 
 - On 2026-11-07 the operator reported normal `ghostnote` replacement after
   intervening work in other worktrees. Cleanup is closed without a handshake
-  at their request; the loaded archive/version is unverified. Prior controller,
-  project and client observations below are historical, not current claims.
+  at their request. E405 later recorded a verified B18 build. All controller,
+  project and client observations below require refresh before new live work.
 - E403/E404 cleanup left `gn-scale-test` with its original eleven tracks,
   complete observed device inventories and selected identities: mixer
   `gn-sel`, index 8, channel `6fb96670-abde-4958-9147-f573a4b43918`, no
@@ -567,7 +583,16 @@ identifies proposed mechanisms for assessment during implementation.
 - Bitwig **6.1.4**, API 25, `/Applications/Bitwig Studio.app`. Jar SHA-256
   `5c2b1895bbb9e7d08d9216de421985bb1f24b2ee62762c9451b4fe847df2469f`,
   35,778,607 bytes, mtime `1790948299000000000`.
-- **2026-10-31 (E393 probe), the latest recorded live work:** scratch track
+- **2026-11-07 (E405, B18), the latest recorded live work:** the B18 normal archive
+  (SHA-256 `87cb84d1f94317b092e10e15d31129922976f0e51abc979897dcf0fbe94e7c2c`)
+  was loaded in that session. The operator replied "Replaced; run it all". The fresh
+  initialization was `2026-11-07T15:39:12.761Z`: `normal-v1`, 93 methods,
+  `d6decf985f6b1f36`, `contentLog` 8192. Two driver runs created and deleted
+  scratch track `gn-b18-window` in `gn-scale-test`. The 11-track list matches
+  entry, and mixer selection stayed on the entry track. Launcher
+  `selection.status` again reports the stale index 9 / slot 0; it is not a
+  verified selection. No launch or save ran.
+- **2026-10-31 (E393 probe):** scratch track
   `gn-r3-window` in `gn-scale-test` was created and deleted; the track list
   matches its entry state and the mixer selection stayed on `gn-sel`.
   `selection.status` afterwards still reported Launcher index 9 / slot 0, the
@@ -617,7 +642,7 @@ identifies proposed mechanisms for assessment during implementation.
   Source contributions are confirmed; the saved-project path and verification
   summary are in the V01 brief. Its temporary working files were removed.
   Re-read project, target, and selection before further writes.
-  Current source: 46 normal tools, descriptions v58; running server version unconfirmed.
+  Current source: 46 normal tools, descriptions v59; running server version unconfirmed.
 - `.tmp/grid-doctor/` holds the local accepted 6.0.6 and 6.1.4 records and
   attempt records; the admission reader and doctor drivers now use this path.
   The whole `.tmp/` directory is ignored. Experimental evidence remains under

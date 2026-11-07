@@ -40,7 +40,7 @@ public final class BatchHandlers extends HandlerGroup {
         // B17: a batch replies later when one of its ops does (the chain writes settle their container
         // scope in later tasks); every op still runs in order, one continuation per deferred op.
         r.onAsync("batch.run", this::batchRun);
-        r.on("revision.get", params -> revisionGet());
+        r.on("revision.get", params -> revisionGet(params));
         r.on("revision.bump", params -> revisionBump());
     }
 
@@ -291,7 +291,9 @@ public final class BatchHandlers extends HandlerGroup {
      * {@link Rig#CONTENT_LOG}, so a reader that learns the epoch here and fetches
      * the names afterwards can have the names it needed pushed out in between —
      * and would read the resulting short window as a quiet one. Delivered together
-     * they are one observation. The cost is ≤24 small objects on a local socket.
+     * they are one observation. B18: the reply carries only the events after the
+     * caller's `since` (none without one), so its cost follows the window the
+     * caller asks about rather than the ring size.
      *
      * ⚠ Absolute values mean NOTHING (§3.2.3): Bitwig delivers initial values
      * through the same callbacks, so both epochs are already nonzero at rest and
@@ -299,7 +301,7 @@ public final class BatchHandlers extends HandlerGroup {
      * is what stops that difference being computed across two lives of the
      * extension, where the counters restart lower than the mark being compared.
      */
-    private JsonElement revisionGet() {
+    private JsonElement revisionGet(JsonObject params) {
         JsonObject r = new JsonObject();
         r.addProperty("revision", state.revision);
         r.addProperty("generation", rig.epochGeneration);
@@ -322,22 +324,11 @@ public final class BatchHandlers extends HandlerGroup {
         // D43 (E250): the owned cursor tracks that the host reports unpinned. The brain refuses when one is listed.
         r.add("unpinnedCursorTracks", rig.unpinnedCursorTracks());
 
-        // Oldest-first, each event carrying the epoch it produced, so the reader
-        // slices `(since, now]` itself and can tell a dropped event from no event.
-        JsonArray events = new JsonArray();
-        int size = Math.min(rig.launcherContentEpoch, Rig.CONTENT_LOG);
-        for (int k = 0; k < size; k++) {
-            int idx = (rig.launcherContentEpoch - size + k) % Rig.CONTENT_LOG;
-            Rig.ContentEvent event = rig.contentLog[idx];
-            if (event == null) continue;
-            JsonObject e = new JsonObject();
-            e.addProperty("seq", event.seq);
-            e.addProperty("channelId", event.channelId);
-            e.addProperty("trackIndex", event.trackIndex);
-            e.addProperty("slotIndex", event.slotIndex);
-            e.addProperty("filled", event.filled);
-            events.add(e);
-        }
+        // B18: only the events after the caller's `since`, so a mark costs no event
+        // bytes and a delta carries its own window. Each event keeps the epoch it
+        // produced, so the reader can tell a dropped event from no event.
+        int since = params != null && params.has("since") ? params.get("since").getAsInt() : rig.launcherContentEpoch;
+        JsonArray events = rig.contentEventsSince(since);
         r.add("contentEvents", events);
         return r;
     }

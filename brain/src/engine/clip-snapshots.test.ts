@@ -9,6 +9,7 @@ import assert from 'node:assert/strict';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { control } from '../adapters/fake/control.js';
 import {
+  CONTENT_LOG,
   CLIP_SOURCE_DOMAIN, ClipSnapshotRefusedError, addressKey, clip, clipSourceFingerprint,
   decodeClipSnapshotRef, encodeClipSnapshotRef, notes as notesAt, scene, slot, track,
   type ClipAddress, type ClipSnapshot, type ClipSnapshotRef, type NoteRecord,
@@ -180,7 +181,7 @@ test('S-identity: scene layout, clip replacement, and a moved clip refuse withou
 test('S-identity: a truncated ring and an unattributable event refuse', async () => {
   const flood = await fixture();
   const flooded = await acquire(flood, flood.channelA);
-  control(flood.fake).floodContentEvents(40);
+  control(flood.fake).floodContentEvents(CONTENT_LOG + 16);
   const truncated = await verdictOf(flood, flooded.ref);
   assert.equal(truncated.verdict, 'identity-changed');
   assert.equal((truncated as { why: string }).why, 'delta-incomplete');

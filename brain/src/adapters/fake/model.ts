@@ -14,6 +14,7 @@
 import type {
   ContentEvent, LaunchMode, LaunchQuantization, NoteRecord, ObservedContainer,
 } from '../../contract/index.js';
+import { CONTENT_LOG } from '../../contract/observers.js';
 
 export type TrackType = 'Instrument' | 'Audio' | 'Effect' | 'Master' | 'Group';
 
@@ -251,11 +252,10 @@ export class ProjectModel {
    * produced on demand against a live DAW: a ring that has dropped the names we
    * needed, and a mark from a previous life of the extension.
    *
-   * ⚠ Same ring size as the extension. Deliberately the same wrong-by-being-small
-   * number rather than a generous one — a fake with a bigger buffer would pass
-   * the truncation cases the live adapter fails.
+   * ⚠ Same ring size as the extension (`CONTENT_LOG`, B18). A fake with a bigger
+   * buffer would pass the truncation cases the live adapter fails.
    */
-  static readonly CONTENT_RING = 24;
+  static readonly CONTENT_RING = CONTENT_LOG;
   contentEpoch = 0;
   contentRing: ContentEvent[] = [];
 

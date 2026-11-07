@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v58';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v59';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -913,3 +913,9 @@ export const TOOL_DESCRIPTION_V57_SHA256 = 'bdf8baac6b9a610827c00d6354b543ccca51
 
 /** v58 (R02): pressure refusal reflects unavailable verification, not an inert setter. */
 export const TOOL_DESCRIPTION_V58_SHA256 = '36e7ef9662dfb7abd62bfe6db8fa5bbbd2703bb23362d38d6e6a6c8866748c46';
+
+/**
+ * v59 (B18): IDs survive 8192 Launcher slot events after the latest read or check of a ref; more retire it with warning delta-incomplete,
+ * and retiredRefs carries the why.
+ */
+export const TOOL_DESCRIPTION_V59_SHA256 = 'e30c59a95386b646d2ada5ad5b879818702b5108ba59b7dc4a4c2b3a40de8477';

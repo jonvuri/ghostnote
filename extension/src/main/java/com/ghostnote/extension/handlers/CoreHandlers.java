@@ -119,6 +119,8 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("selectionEffects", CursorHandlers.SELECTION_EFFECTS);
         // 8i14 deliberate build marker: the clip copy to a named slot (E263).
         result.addProperty("clipCopy", TrackHandlers.CLIP_COPY);
+        // B18 deliberate build marker: the content-event ring size; revision.get slices it by `since`.
+        result.addProperty("contentLog", Rig.CONTENT_LOG);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;

@@ -46,7 +46,12 @@ test('identity: a current verdict keeps the ref and every ID, and does not proje
     prior: { entry: prior, verdict: 'current' }, project: (ids) => { projected += 1; return project('1')(ids); },
   });
   assert.equal(again.outcome, 'current');
-  assert.equal(again.entry, prior);
+  assert.equal(again.entry.ref, prior.ref);
+  assert.equal(again.entry.events, prior.events);
+  assert.equal(again.entry.contentHash, prior.contentHash);
+  // B18: the ref's change window restarts at the current acquisition.
+  assert.equal(again.entry.snapshot.mark.revision, 9);
+  assert.equal(registry.latestAt(prior.snapshot.channelId, prior.snapshot.row), again.entry);
   assert.equal(projected, 0);
   assert.throws(() => registry.acquire({ snapshot: ref('b'), cells: [cell(60)],
     prior: { entry: prior, verdict: 'current' }, project: project('2') }), /same source and the same cells/);

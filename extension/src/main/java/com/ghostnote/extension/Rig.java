@@ -663,10 +663,23 @@ public class Rig {
      * ⚠ Bitwig delivers INITIAL values through these callbacks too, so the epoch
      * is nonzero and meaningless in absolute terms. Only a DIFFERENCE across a
      * known event means anything, and every reader must baseline it first.
+     *
+     * B18: the ring holds {@link #CONTENT_LOG} events, so a read's note IDs survive
+     * that many slot events. It was 24, an unsized diagnostic constant, and a real
+     * session overran it after 18 generated clips (E392, E393). A reader asks for
+     * the events after its own epoch ({@link #contentEventsSince}), so a reply
+     * carries only the window the reader needs, never the whole ring.
      */
-    public static final int CONTENT_LOG = 24;
+    public static final int CONTENT_LOG = 8192;
+    /** The legacy `slot.epoch` log keeps the spike's 24-line view, whatever the ring holds. */
+    public static final int LEGACY_CONTENT_LOG = 24;
     public int launcherContentEpoch = 0;
     public final ContentEvent[] contentLog = new ContentEvent[CONTENT_LOG];
+
+    /** B18: the events in `(since, now]`, or none when the ring lost any of them. See {@link ContentWindow}. */
+    public com.google.gson.JsonArray contentEventsSince(int since) {
+        return ContentWindow.since(contentLog, launcherContentEpoch, since);
+    }
 
     /**
      * One launcher-content callback, kept by DURABLE IDENTITY.

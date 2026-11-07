@@ -10,7 +10,7 @@ import { control } from '../adapters/fake/control.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
 import { LauncherClipReadError, launcherClipCells } from '../bindings/launcher-clip-document.js';
 import {
-  CollapsedGroupRowError, GroupSlotError, StaleAddressError, addressKey, clip, notes, scene, slot, track,
+  CONTENT_LOG, CollapsedGroupRowError, GroupSlotError, StaleAddressError, addressKey, clip, notes, scene, slot, track,
   type ClipSnapshot, type NoteRecord, WriterWidthError,
 } from '../contract/index.js';
 import { contentHash, convert, parse, type StateDocument } from '../document/index.js';
@@ -445,6 +445,57 @@ test('8h4b identity: a scene insert retires the ref; the next read mints new IDs
   assert.equal(again.authority.identity, 'new');
   assert.notEqual(documentOf(again).events[0]!.id, documentOf(first).events[0]!.id);
   assert.notEqual(documentOf(again).clips[0]!.id, documentOf(first).clips[0]!.id);
+});
+
+test('B18 identity: IDs survive CONTENT_LOG Launcher events; one more re-mints with a visible delta-incomplete', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 }), note({ pitch: 64, startBeats: 1 })] });
+  const first = await fx.read({});
+  // Other slots' events, up to the bound: the IDs survive (E393 measured 24 on the old ring).
+  control(fx.fake).floodContentEvents(CONTENT_LOG);
+  const kept = await fx.read({});
+  assert.equal(kept.authority.identity, 'current');
+  assert.equal(kept.authority.base!.ref, first.authority.base!.ref);
+  assert.deepEqual(documentOf(kept).events.map((e) => e.id), documentOf(first).events.map((e) => e.id));
+  assert.deepEqual(kept.warnings, []);
+
+  // One past the bound: fail closed, and say why.
+  control(fx.fake).floodContentEvents(CONTENT_LOG + 1);
+  const checked = await fx.check([first.authority.base!.ref]);
+  assert.deepEqual(checked.data.results.map((item) => [item.verdict, (item as { why?: string }).why]),
+    [['identity-changed', 'delta-incomplete']]);
+  assert.deepEqual((checked as unknown as Read).warnings.map((w) => w.code), ['delta-incomplete']);
+
+  // The check retired the ref, so this read is new; a second overflow then re-mints it during a read.
+  const second = await fx.read({});
+  assert.equal(second.authority.identity, 'new');
+  control(fx.fake).floodContentEvents(CONTENT_LOG + 1);
+  const reminted = await fx.read({});
+  assert.equal(reminted.authority.identity, 'retired-and-new');
+  assert.deepEqual(reminted.authority.retiredRefs,
+    [{ ref: second.authority.base!.ref, reason: 'identity-changed', why: 'delta-incomplete' }]);
+  assert.deepEqual(reminted.warnings.map((w) => w.code), ['delta-incomplete']);
+  assert.notEqual(documentOf(reminted).events[0]!.id, documentOf(second).events[0]!.id);
+});
+
+test('B18 identity: a current read or check restarts the window, so a re-read ref outlives CONTENT_LOG in total', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: [note({ pitch: 60 })] });
+  const first = await fx.read({});
+  const ref = first.authority.base!.ref;
+  // Live run 1 of the B18 driver: 24 + 25 + 1,000 + 8,192 events after the first read retired the ref, because a
+  // current read kept the first read's mark.
+  control(fx.fake).floodContentEvents(CONTENT_LOG - 8);
+  assert.equal((await fx.read({})).authority.identity, 'current');
+  control(fx.fake).floodContentEvents(CONTENT_LOG - 8);
+  const viaRead = await fx.read({});
+  assert.equal(viaRead.authority.identity, 'current');
+  assert.equal(viaRead.authority.base!.ref, ref);
+  control(fx.fake).floodContentEvents(CONTENT_LOG - 8);
+  assert.deepEqual((await fx.check([ref])).data.results.map((item) => item.verdict), ['current']);
+  control(fx.fake).floodContentEvents(CONTENT_LOG - 8);
+  assert.deepEqual((await fx.check([ref])).data.results.map((item) => item.verdict), ['current'],
+    'the check restarted the window too');
 });
 
 test('8h4b identity: a project change, a deleted clip, and an evicted ref each retire with their own result', async () => {

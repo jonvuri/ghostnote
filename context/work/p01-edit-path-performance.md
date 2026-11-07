@@ -43,8 +43,8 @@ not stable bounds. Both scratch tracks were removed and preserved state passed.
 The operator approved renumbering P01 evidence and continuing P01 in this
 `mossy-larch` worktree while main proceeds with [B18](b18-content-event-window.md),
 then [B19](b19-real-use-tooling-and-annotations.md). Main's queue is unchanged.
-Conflict resolutions are present in the working tree; the operator retains
-staging and merge-commit control.
+The operator committed this first reconciliation before completing B18 on
+main. The B18 integration checkpoint below supersedes its queue status.
 
 P01 evidence IDs changed only to avoid collisions with R01:
 
@@ -85,6 +85,44 @@ Parallel work has three coordination points:
   E/D identifiers are shared. Coordinate new identifiers and regenerate combined
   inventories on integration rather than choosing either branch's totals.
 
+## B18 integration — 2026-11-07
+
+The operator completed the first merge, completed B18 on main, and initiated
+this second merge. Its three conflicts are documentation-only: retain E405
+alongside P01's E400–E404, keep both ledger contributions, and advance the main
+queue to B19 while P01 continues here. Source changes merged without conflicts.
+The operator retains staging and merge-commit control.
+
+[B18](b18-content-event-window.md#result) is implemented and verified live in
+[E405](../evidence/experiments/e405-b18-content-event-window-live.md). It removes
+the earlier prerequisite for P01 read consolidation. The combined source uses
+descriptions v59, normal wire 93 / `d6decf985f6b1f36` and probe wire
+123 / `f8f2b5ec8531c93d`. E405 verifies main's B18 build; this worktree has not
+deployed or live-verified the combined P01/B18 build.
+
+The implemented contract to preserve during P01 is:
+
+- `mark()` requests no event history. `contentSince(base)` sends
+  `base.contentEpoch` and receives every event in `(since, now]`, or none if
+  the 8,192-event ring cannot cover that interval.
+- An empty event array alone does not mean no changes. The brain compares its
+  length with the epoch difference, so missing history yields `truncated` and
+  the existing `delta-incomplete` identity retirement/warning. Retain project and
+  extension discontinuity handling as well.
+- A successfully verified current read or check advances the ref's mark,
+  restarting its window. Preserve this update when sharing snapshots; never
+  refresh a ref just because a write was attempted or a plain mark was read.
+- Redundant composition content proofs can still be removed under D65. Keep
+  the needed base-to-final delta and final independent content receipt rather
+  than treating a plain mark as a delta.
+
+The combined tree passes typecheck, all 2,615 brain tests and the full offline
+extension check. All 717 local link targets in the five reconciliation
+documents resolve, and the working-tree diff has no whitespace errors or
+remaining conflict markers. The full context checker still reports 80 inherited
+broken links in 12 documents unchanged from a merge parent. No new live check
+was run; E405 remains the evidence for B18 host behavior.
+
 ## Resume — product composition
 
 Session cleanup is closed by the operator's 2026-11-07 report: “I replaced with
@@ -96,7 +134,7 @@ is made that the loaded controller contains this worktree's changes. The
 remains historical deployment evidence. No replacement is pending for this
 session; P01 itself remains in progress.
 
-1. Have the operator finish staging and committing this reconciliation.
+1. Have the operator finish staging and committing the B18 reconciliation.
    Offline composition work can then proceed without Bitwig. Before new live work,
    establish the intended extension and brain builds, run a fresh handshake,
    and refresh project, selection, target and client observations.
@@ -201,7 +239,7 @@ Source entry points: [composition engine](../../brain/src/engine/general-device-
 - Corrected the D44 source comments: normal-profile modulation sampling was
   already removed by D46. Limits and weights remain unchanged. Tool count,
   public descriptions and schemas stayed at 46 / v57 for the scope-only change;
-  the merged R02 descriptions are v58. The normal method inventory remains
+  R02 advanced descriptions to v58 and B18 to v59. The normal method inventory remains
   93 / `d6decf985f6b1f36`.
 
 Offline budgets: a modern all-plain track now needs `devices=1, read=0`;

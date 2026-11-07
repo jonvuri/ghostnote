@@ -1,7 +1,7 @@
 ---
 title: Ghostnote performance ledger
 kind: reference
-updated: 2026-10-29
+updated: 2026-11-07
 ---
 
 # Ghostnote performance ledger
@@ -41,6 +41,8 @@ the result; create a separate E record when it will be useful to cite later.
 |---|---|---|
 | One sequential wire call | About 24 ms (one control-surface turn) | E246 trace |
 | Calls sent together | One turn: a mark (`revision.get` and `track.list`); the 8 clip-release frames after a structural stage (16 before D43) | E246, E247, E250 |
+| `revision.get` reply, plain mark (B18) | 253–255 B, no content events; median 22–25 ms (one turn) | E405 |
+| `revision.get` reply, delta with `since` (B18) | About 109 B per event in the window: 24 events 2.9 KB / 25 ms; 1,000 events 109 KB / 26 ms; 8,192 (the bound) 889 KB / 45–51 ms median. A window past the bound returns no events (255 B) | E405 |
 | Cursor track pins (D43) | No frame: the extension keeps every owned cursor track pinned. A clip point sends no track unpin or pin (2 sequential calls fewer for each attempt); a device route sends up to 2 fewer | E250 |
 | A bank scan (`tracks()`) within 50 ms of a mark, with no request after it | No call: the mark's scan | E247 |
 | One `clip.read` capture, typical clip | About 190 ms | E246 trace |
@@ -328,7 +330,7 @@ revise recovery-related limits with the affected behavior and tests.
 | Longest admitted direct call | `set_launcher_clip_properties` of 8 clips of 16,384 notes, 33.5 s (its revert 32.8 s); E247 stated the staged composition of 4 layer chains (30.6 s), but 5×4 took 102 s | E252, D44 |
 | Track mixer tracks in one call (`read_track_mixer`, `set_track_mixer`) | 8 (a plan bound: 8 tracks cost the same turns as 1) | E257, D48 |
 | D44 write limits | `compose_devices` 6 device units (plug-in 2, a device with modulators 2 more) and 4 modulators; `set_device_controls` 64 settings on 4 routes; `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
-| Launcher content events (`Rig.CONTENT_LOG`) | 24; a revert compares across them | E252 |
+| Launcher content events (`Rig.CONTENT_LOG`) | 8,192 after the latest read or check of a ref (was 24); one more retires the ref with `delta-incomplete`. A revert compares across them | E252, E405 |
 | Remote-page window (`remotePages`) | 16 pages | E252 |
 
 ## Known costs for later sessions
