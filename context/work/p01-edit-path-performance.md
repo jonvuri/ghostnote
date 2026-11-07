@@ -325,11 +325,7 @@ verifies items 1–4 of the design below; item 5 stays deferred, as planned.
 
 **Next.**
 
-1. **Relocation readings.** In the eight-existing case, 36 container
-   readings took 11.0 s: each `chain.relocate` takes its own preflight and
-   proof readings (`relocationReading`, `finishRelocation`). Under D65, keep
-   input validation and one final read; carry readings between consecutive
-   relocations as growth now does.
+1. **Relocation readings.** Done; see the relocation result below.
 2. **Larger seed.** Authoring an FX/Instrument Layer seed with more than
    five empty chains offline would remove growth copies (about 1.85 s each)
    and could raise the D67 chain limit. After it, rerun
@@ -339,6 +335,32 @@ verifies items 1–4 of the design below; item 5 stays deferred, as planned.
    new decision record (D67 stays unchanged) and update the limit, its
    schema text, the descriptions (version bump) and the ledger together.
 3. Scalar-cohort and clip-metadata capture reductions.
+
+## Relocation result — live, 2026-11-07
+
+[E408](../evidence/experiments/e408-p01-shared-relocation-readings-live.md)
+verifies item 1 above.
+
+- **Adapter.** `assertRelocationsPreflight` returns its readings, which
+  serve the first relocation stage; `finishRelocation` returns its proving
+  readings, which serve the next stage's "before" reading. Readings are kept
+  by track identity and container address (`RelocationReadings`); only an
+  endpoint they lack is read. A refused or unproved relocation ends the
+  batch, because later relocations were projected from it; this also
+  affects multi-device `move_devices` and `copy_devices`.
+- **Engine.** Consecutive existing sources share one apply, projected from
+  the stages before each; the first unproved stage ends the proved run.
+- **Results.** 8 existing sources at 18: 17.0 s / 219 turns (25.6 s / 331),
+  24 container readings (36); revert 12.0 s (13.7 s). The E406 cases are
+  unchanged within 0.15 s. D67's limits are unchanged; an existing-source
+  weight of 1 would need a 16-existing measurement.
+- **Not changed.** Reversal still extracts and restores each moved device in
+  its own apply (about 1.4 s each in the eight-existing revert). A thrown
+  error mid-batch loses attribution of the batch's earlier transfers, as for
+  new-source batches; reversal then refuses rather than removing them.
+
+Next: item 2 (larger seed), then item 3. Batching reversal's
+extract/restore pairs is a possible later reduction.
 
 ## Next session — adapter per-operation checks and the D44 measurement
 
@@ -525,5 +547,6 @@ cycling is measured in E401 and remains a possible later tradeoff, not an
 unmeasured allocation change. Ordered direct insertion and deletion snapshot narrowing are verified in
 E403/E404. The D65 composition rewrite (E406), the adapter check
 reductions, guarded insertions and the D67 reweighting (E407) are done.
-Relocation readings, a larger offline seed, scalar cohort
-consolidation and metadata-only clip reads remain open in this same P01 item.
+Shared relocation readings are verified in E408. A larger offline seed,
+scalar cohort consolidation and metadata-only clip reads remain open in this
+same P01 item.

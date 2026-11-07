@@ -1067,7 +1067,8 @@ export async function composeDevices(
   const target = { trackId: args.trackId, containerKind: args.containerKind };
   return guardedRun(COMPOSE_SCHEMA, target, async (state) => {
     // D44, D67 (E407): the offline backend has at most four devices, so a larger request is always staged. Each layer
-    // chain beyond the five-chain seed and each existing source is its own host stage.
+    // chain beyond the five-chain seed and each existing source is its own host stage (E408: consecutive existing
+    // sources share one apply).
     requireWithinLimit('compositionLayerChains', args.layerChains?.length ?? 0, 'layer chains in one composition',
       options.measurementLimits?.layerChains);
     const composed = (args.layerChains ?? []).flatMap((item) => item.devices);

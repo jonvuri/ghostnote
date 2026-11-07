@@ -56,11 +56,19 @@ the wire is unchanged (normal 94 / `526cd7e3760580cc`, already loaded, so no
 controller replacement was needed). All 2,624 brain tests pass. Scratch
 cleanup and preservation passed in every run.
 Writer-clip releases after structural stages stay (about 70 ms; pin state
-is not tracked across calls). Next: the relocation readings of existing
-sources (36 container readings, 11 s, in the eight-existing case) and an
-offline seed larger than five chains; then scalar-cohort and clip-metadata
-reductions
-([brief](work/p01-edit-path-performance.md#adapter-check-result--live-2026-11-07)).
+is not tracked across calls).
+
+**P01 shared relocation readings are verified live (2026-11-07).**
+Consecutive existing sources now share one apply, and each relocation reuses
+the batch preflight or the previous relocation's proof reading; an unproved
+relocation ends the batch.
+[E408](evidence/experiments/e408-p01-shared-relocation-readings-live.md):
+8 existing sources at position 18 took 17.0 s / 219 turns (E407: 25.6 s /
+331), revert 12.0 s; the E406 cases are unchanged. Only brain code changed
+(wire 94 / `526cd7e3760580cc`, already loaded); D67 limits and descriptions
+v61 are unchanged. All 2,627 brain tests pass. Next: an offline seed larger
+than five chains, then scalar-cohort and clip-metadata reductions
+([brief](work/p01-edit-path-performance.md#relocation-result--live-2026-11-07)).
 
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits
@@ -98,7 +106,8 @@ worktree's updated code to use these brain changes.
 
 [E400](evidence/experiments/e400-p01-offline-cost-attribution.md) and the brief
 retain the obligation audit. The D65 composition integration is verified live
-in E406, and the adapter reductions and D67 limits in E407 (above). Scalar cohort
+in E406, the adapter reductions and D67 limits in E407, and shared relocation
+readings in E408 (above). Scalar cohort
 and clip-metadata capture reductions remain open.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)

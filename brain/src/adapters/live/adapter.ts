@@ -492,6 +492,21 @@ interface RelocationReading {
   readonly destination: RelocationSequence;
 }
 
+/**
+ * P01 (D65): relocation endpoint readings that are still current. Each holds the top-level device sequence by
+ * track identity and the complete container reading by container address. `relocationSequence` reuses an entry
+ * and records each fresh reading, so the batch preflight serves the first relocation stage and one stage's proof
+ * reading serves the next stage's "before".
+ */
+interface RelocationReadings {
+  readonly tracks: Map<string, RelocationSequence>;
+  readonly containers: Map<AddressKey, ObservedContainer>;
+}
+
+function relocationReadings(): RelocationReadings {
+  return { tracks: new Map(), containers: new Map() };
+}
+
 /** Where the user's own clip selection was before we borrowed it (E1, D6). */
 interface SelectionState {
   readonly trackIndex: number;
@@ -4958,25 +4973,38 @@ export class LiveAdapter implements BitwigAdapter {
     }
   }
 
-  /** Enumerate one relocation endpoint through a handle other than the writer. */
+  /**
+   * Enumerate one relocation endpoint through a handle other than the writer. P01 (D65): `readings` supplies a
+   * current reading of the endpoint when it has one, and records each fresh reading.
+   */
   private async relocationSequence(
     endpoint: TrackAddress | ChainAddress | DeviceSlotAddress,
+    readings?: RelocationReadings,
   ): Promise<RelocationSequence> {
     if (endpoint.kind === 'track') {
+      const known = readings?.tracks.get(endpoint.channelId);
+      if (known !== undefined) return known;
       const observed = await this.deviceChain(endpoint);
       if (observed === undefined) throw new AddressUnresolvedError(endpoint, 'track device chain is absent');
-      return {
+      const sequence: RelocationSequence = {
         devices: observed.devices,
         devicesComplete: !observed.blind,
         ...(observed.bankSize === undefined ? {} : { bankSize: observed.bankSize }),
       };
+      readings?.tracks.set(endpoint.channelId, sequence);
+      return sequence;
     }
 
-    const scope = await this.containerScope(
-      endpoint.container.track, endpoint.container.chainIndex, true);
+    const containerKey = addressKey(endpoint.container);
+    const known = readings?.containers.get(containerKey);
+    // A reading taken without the named-slot descent cannot serve a slot endpoint.
+    const scope: ContainerScope = known !== undefined && (endpoint.kind === 'chain' || known.slotsComplete === true)
+      ? { ok: true, container: known, deviceName: undefined }
+      : await this.containerScope(endpoint.container.track, endpoint.container.chainIndex, true);
     if (!scope.ok) {
       throw new AddressUnresolvedError(endpoint, `container structure is ${scope.miss}`);
     }
+    readings?.containers.set(containerKey, scope.container);
     this.recordChainPositions(endpoint.container, scope.container);
     let devices: ObservedDeviceSequence;
     if (endpoint.kind === 'chain') {
@@ -5004,16 +5032,20 @@ export class LiveAdapter implements BitwigAdapter {
     };
   }
 
-  /** Fresh source/destination reading, used both before and after the wire call. */
+  /**
+   * Source/destination reading, used both before and after the wire call. `readings` supplies current readings
+   * and collects fresh ones; without it every endpoint is read.
+   */
   private async relocationReading(
     op: Extract<Op, { op: 'chain.relocate' }>,
     preflight: boolean,
+    readings?: RelocationReadings,
   ): Promise<RelocationReading> {
     if (op.source.chain?.kind === 'drumPad') {
       throw new InvalidOpError(op.op, 'a chain relocation cannot use a drum-pad parent');
     }
     const sourceEndpoint = op.source.chain ?? op.source.track;
-    const source = await this.relocationSequence(sourceEndpoint);
+    const source = await this.relocationSequence(sourceEndpoint, readings);
     // A top-level MOVE from before the destination container compacts the top
     // device list. The wire correctly addresses the container at its pre-write
     // position; independent readback must address where that same container
@@ -5035,6 +5067,7 @@ export class LiveAdapter implements BitwigAdapter {
             op.destination.name,
           )
         : op.destination,
+      readings,
     );
     if (preflight) {
       if (!source.devicesComplete || !destination.devicesComplete) {
@@ -5059,11 +5092,14 @@ export class LiveAdapter implements BitwigAdapter {
     return { source, destination };
   }
 
-  /** Validate every projected relocation before the first settling stage writes. */
-  private async assertRelocationsPreflight(ops: readonly Op[]): Promise<void> {
+  /**
+   * Validate every projected relocation before the first settling stage writes. Returns the readings, which are
+   * still current for the first stage.
+   */
+  private async assertRelocationsPreflight(ops: readonly Op[]): Promise<RelocationReadings | undefined> {
     const relocations = ops.filter((op): op is Extract<Op, { op: 'chain.relocate' }> =>
       op.op === 'chain.relocate');
-    if (relocations.length === 0) return;
+    if (relocations.length === 0) return undefined;
 
     const tracks = new Map<string, RelocationSequence>();
     const containers = new Map<string, ObservedContainer | undefined>();
@@ -5096,18 +5132,28 @@ export class LiveAdapter implements BitwigAdapter {
       (trackRef) => tracks.get(trackRef.channelId),
       (container) => containers.get(addressKey(container)),
     );
+    const readings = relocationReadings();
+    for (const [channelId, sequence] of tracks) readings.tracks.set(channelId, sequence);
+    for (const [key, container] of containers) if (container !== undefined) readings.containers.set(key, container);
+    return readings;
   }
 
-  /** Poll structural readback until relocation is proved or the bounded window closes. */
+  /**
+   * Poll structural readback until relocation is proved or the bounded window closes. The proving readings are
+   * returned: they are current for the next stage.
+   */
   private async finishRelocation(
     op: Extract<Op, { op: 'chain.relocate' }>,
     before: RelocationReading,
-  ): Promise<{ readonly ok: true } | { readonly ok: false; readonly why: string }> {
+  ): Promise<
+    { readonly ok: true; readonly readings: RelocationReadings } | { readonly ok: false; readonly why: string }
+  > {
     const started = Date.now();
     let last = 'structural readback did not change';
     do {
       try {
-        const after = await this.relocationReading(op, false);
+        const readings = relocationReadings();
+        const after = await this.relocationReading(op, false, readings);
         const proof = verifyDeviceRelocation(
           op.source.chainIndex,
           op.mode,
@@ -5116,7 +5162,7 @@ export class LiveAdapter implements BitwigAdapter {
           after.source,
           after.destination,
         );
-        if (proof.ok) return { ok: true };
+        if (proof.ok) return { ok: true, readings };
         last = proof.why;
       } catch (error) {
         last = error instanceof Error ? error.message : String(error);
@@ -5717,6 +5763,7 @@ export class LiveAdapter implements BitwigAdapter {
     assertClipSources(batch.ops, (s) => occupancy.get(addressKey(s)));
     // P01 (D65): container readings that are still current for the first stage.
     const preflightScopes = new Map<AddressKey, ContainerScope>();
+    let relocationPreflight: RelocationReadings | undefined;
     const preflightSelection = await this.beginSelectionBorrow(batch.ops.some((op) =>
       (op.op === 'device.insert' && guardedInsertChain(op) === undefined) || op.op === 'device.relocate'));
     try {
@@ -5751,7 +5798,7 @@ export class LiveAdapter implements BitwigAdapter {
       assertChainCreatable(batch.ops, (container) => containers.get(addressKey(container)));
       assertChainRenamable(batch.ops, (container) => containers.get(addressKey(container)));
       assertChainActivatable(batch.ops, (container) => containers.get(addressKey(container)));
-      await this.assertRelocationsPreflight(batch.ops);
+      relocationPreflight = await this.assertRelocationsPreflight(batch.ops);
       await this.assertDeviceReordersPreflight(batch.ops);
     } finally {
       await this.restoreSelection(preflightSelection);
@@ -5865,9 +5912,14 @@ export class LiveAdapter implements BitwigAdapter {
     // P01 (D65): a complete container reading that is still current for the next stage — the preflight reading
     // for the first stage, or the reading a chain create took after its own rename for the stage after it.
     let carried: { readonly key: AddressKey; readonly scope: ContainerScope } | undefined;
+    // P01 (D65): relocation readings that are current for the next stage — the preflight readings for the first
+    // stage, or a relocation's proving readings for the stage after it.
+    let carriedRelocation = relocationPreflight;
     for (const [i, stage] of stages.entries()) {
       const carriedIn = carried;
       carried = undefined;
+      const relocationIn = carriedRelocation;
+      carriedRelocation = undefined;
       const currentScope = (key: AddressKey): ContainerScope | undefined => {
         const scope = i === 0 ? preflightScopes.get(key) : carriedIn?.key === key ? carriedIn.scope : undefined;
         return scope?.ok === true ? scope : undefined;
@@ -5969,13 +6021,14 @@ export class LiveAdapter implements BitwigAdapter {
 
       // Relocation is one settling op per stage, so this reading brackets
       // exactly one device transfer. It also refreshes both chain positions and
-      // the source-name identity guard used by the encoder.
+      // the source-name identity guard used by the encoder. P01 (D65): it reuses
+      // the readings that are still current and reads only the endpoints they lack.
       const relocateAt = stage.ops.findIndex((o) => o.op === 'chain.relocate');
       const relocateOp = relocateAt === -1 ? undefined : stage.ops[relocateAt];
       let relocationBefore: RelocationReading | undefined;
       try {
         relocationBefore = relocateOp?.op === 'chain.relocate'
-          ? await this.relocationReading(relocateOp, true)
+          ? await this.relocationReading(relocateOp, true, relocationIn ?? relocationReadings())
           : undefined;
       } catch (error) {
         this.pendingNoteWake = undefined;
@@ -6608,6 +6661,7 @@ export class LiveAdapter implements BitwigAdapter {
       if (relocateOp?.op === 'chain.relocate' && relocationBefore !== undefined
           && receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) {
         const proved = await this.finishRelocation(relocateOp, relocationBefore);
+        if (proved.ok) carriedRelocation = proved.readings;
         if (!proved.ok) {
           const ops = receipts[receipts.length - 1]!.ops.map((entry) =>
             (entry.op === WIRE.chainMove || entry.op === 'chain.relocate'
@@ -6721,6 +6775,9 @@ export class LiveAdapter implements BitwigAdapter {
       // cohort members. Keep the completed receipts and stop in caller order.
       if (parameterCohort !== undefined
           && !receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) break;
+      // P01 (D65): each later relocation was projected from this one's result. An unproved relocation ends the
+      // batch; the caller's final read reports what landed.
+      if (relocateOp !== undefined && !receipts[receipts.length - 1]!.ops.every((entry) => entry.ok)) break;
     }
 
     if (parameterCohort?.kind === 'remote' && batch.parameterPreflight === undefined

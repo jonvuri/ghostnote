@@ -21,7 +21,8 @@ export const WRITE_LIMITS = Object.freeze({
    * compose_devices: device units (D67, E407). A new native or preset source is 1; a VST3, CLAP or existing source 2;
    * a device with modulators 2 more. After P01's direct insertion and adapter reductions (D65), units no longer
    * drive the cost: 4×4 native took 3.8 s, 16 plug-in units 3.5 s, 4 modulated devices 6.6 s. The worst admitted
-   * case is 8 existing sources into 8 chains at position 18: 25.6 s, revert 13.7 s.
+   * case is 8 existing sources into 8 chains at position 18: 25.6 s, revert 13.7 s (E408, with shared relocation
+   * readings: 17.0 s, revert 12.0 s).
    */
   stagedCompositionDevices: 16,
   /**

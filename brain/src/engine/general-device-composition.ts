@@ -386,9 +386,33 @@ export async function composeGeneralDeviceSources(
     checkpoint = { ...checkpoint, state: 'entries-prepared' };
 
     // Process each entry in order. Consecutive new sources across entries share one batch, with one
-    // `chain.insert` for each chain. An existing source ends the batch: its relocation projects the top level.
+    // `chain.insert` for each chain. Consecutive existing sources share another, with one `chain.relocate` stage
+    // each, projected from the stages before it (P01, D65). A change of source kind ends the batch.
     let pending: { op: Extract<Op, { op: 'chain.insert' }>; sources: readonly PreparedSource[] }[] = [];
+    let relocations: { op: Op; placement: Placed }[] = [];
     const counts = request.entries.map(() => 0);
+    const flushRelocations = async (): Promise<string | undefined> => {
+      if (relocations.length === 0) return undefined;
+      const batch = relocations;
+      relocations = [];
+      const first = batch[0]!.placement;
+      failedStage = `source-${first.entryIndex}-${first.deviceIndex}`;
+      effectsPossible = true;
+      const relocation = await run(batch.map((item) => item.op));
+      stages.push(receipt('relocate-source', relocation, first.entryIndex));
+      checkpoint = { ...checkpoint!, state: 'composing', seedUnchanged: false, lastWriteAt: minimalMark(lastAt!) };
+      // Each stage was projected from the ones before it, so the first unproved stage ends the proved run.
+      for (const [index, item] of batch.entries()) {
+        const proof = relocation.receipt.stages.find((stage) => stage.index === index);
+        if (proof?.applied !== true || proof.ops.length === 0 || !proof.ops.every((entry) => entry.ok)) {
+          failedStage = `source-${item.placement.entryIndex}-${item.placement.deviceIndex}`;
+          break;
+        }
+        placed.push(item.placement.sourceKind === 'existing-copy'
+          ? { ...item.placement, ownedChangeId: relocation.id } : item.placement);
+      }
+      return accepted(relocation) ? undefined : 'The source relocation was not proved.';
+    };
     const flush = async (): Promise<string | undefined> => {
       if (pending.length === 0) return undefined;
       const batch = pending;
@@ -419,6 +443,8 @@ export async function composeGeneralDeviceSources(
         const preparedSource = prepared.find((item) =>
           item.entryIndex === entryIndex && item.deviceIndex === deviceIndex)!;
         if (source.kind !== 'existing-move' && source.kind !== 'existing-copy') {
+          const relocated = await flushRelocations();
+          if (relocated !== undefined) return await finish(failedStage, relocated);
           const last = pending.at(-1);
           const sameChain = last !== undefined && last.sources[0]!.entryIndex === entryIndex;
           if (sameChain && last.op.sources.length < CHAIN_INSERT_MAX_SOURCES) {
@@ -442,26 +468,24 @@ export async function composeGeneralDeviceSources(
         }
         const why = await flush();
         if (why !== undefined) return await finish(failedStage, why);
-        failedStage = `source-${entryIndex}-${deviceIndex}`;
-        const top = projectedTop(request, placed);
-        effectsPossible = true;
-        const relocation = await run([{
-          op: 'chain.relocate',
-          source: device(request.track, currentExistingPosition(request, source.devicePosition, placed)),
-          destination: chain(device(request.track, containerPosition(request, placed)), entry.entryName),
-          mode: source.kind === 'existing-copy' ? 'copy' : 'move',
-          expectedChain: top.map((item) => item.name), expectedEnabledChain: top.map((item) => item.enabled),
-        }]);
-        stages.push(receipt('relocate-source', relocation, entryIndex));
-        checkpoint = { ...checkpoint, state: 'composing', seedUnchanged: false, lastWriteAt: minimalMark(lastAt!) };
-        if (!accepted(relocation)) return await finish(failedStage, 'The source relocation was not proved.');
-        placed.push({
-          entryIndex, deviceIndex, sourceKind: source.kind, originalPosition: source.devicePosition,
-          ...(source.kind === 'existing-copy' ? { ownedChangeId: relocation.id } : {}),
+        // Project from the proved placements and the earlier relocations in this batch.
+        const projected = [...placed, ...relocations.map((item) => item.placement)];
+        const top = projectedTop(request, projected);
+        relocations.push({
+          op: {
+            op: 'chain.relocate',
+            source: device(request.track, currentExistingPosition(request, source.devicePosition, projected)),
+            destination: chain(device(request.track, containerPosition(request, projected)), entry.entryName),
+            mode: source.kind === 'existing-copy' ? 'copy' : 'move',
+            expectedChain: top.map((item) => item.name), expectedEnabledChain: top.map((item) => item.enabled),
+          },
+          placement: { entryIndex, deviceIndex, sourceKind: source.kind, originalPosition: source.devicePosition },
         });
         counts[entryIndex]! += 1;
       }
     }
+    const relocated = await flushRelocations();
+    if (relocated !== undefined) return await finish(failedStage, relocated);
     const why = await flush();
     if (why !== undefined) return await finish(failedStage, why);
     return await finish(undefined, undefined, prepared);

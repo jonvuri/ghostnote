@@ -1392,3 +1392,40 @@ test('D65 call budget: staged compose_devices and revert_change make a fixed num
   assert.deepEqual(sixChains.compose, { ...one.compose, read: 8, apply: 4, contentSince: 4 });
   assert.deepEqual(sixChains.revert, one.revert);
 });
+
+test('P01 call budget: consecutive existing sources share one relocation apply and reverse exactly', async () => {
+  const compose = async (entries: readonly Record<string, unknown>[]) => {
+    const fx = fixture();
+    let applies = 0;
+    const apply = fx.fake.apply.bind(fx.fake);
+    fx.fake.apply = async (...args: Parameters<typeof apply>) => { applies += 1; return apply(...args); };
+    const result = await callTool(fx.workspace, 'compose_device_sources', {
+      trackId: fx.trackId,
+      expectedDeviceOrder: [{ name: 'Existing Twin', enabled: true }, { name: 'Tool', enabled: false }],
+      containerKind: 'FX Layer', containerPosition: 2, entries,
+    }) as Record<string, any>;
+    assert.equal(result['complete'], true, JSON.stringify(result));
+    return { fx, result, applies };
+  };
+  const one = await compose([
+    { entryName: 'Moved', source: { kind: 'existing-move', devicePosition: 0 }, modulators: [] },
+  ]);
+  const three = await compose([
+    { entryName: 'Moved', source: { kind: 'existing-move', devicePosition: 0 }, modulators: [] },
+    { entryName: 'Copied', source: { kind: 'existing-copy', devicePosition: 1 }, modulators: [] },
+    { entryName: 'Moved too', source: { kind: 'existing-move', devicePosition: 1 }, modulators: [] },
+  ]);
+  // Each later relocation is projected from the earlier ones, so all three go out in the one apply.
+  assert.equal(three.applies, one.applies);
+  const layer = three.fx.row.devices.find((item) => item.name === 'FX Layer')!;
+  assert.deepEqual(three.fx.row.devices.map((item) => item.name), ['FX Layer']);
+  assert.deepEqual(layer.chains!.map((item) => [item.name, item.devices.map((d) => d.name)]),
+    [['Moved', ['Existing Twin']], ['Copied', ['Tool']], ['Moved too', ['Tool']]]);
+
+  const reversed = await callTool(three.fx.workspace, 'reverse_device_source_composition', {
+    checkpoint: three.result['reversalCheckpoint'],
+  }) as Record<string, unknown>;
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.deepEqual(three.fx.row.devices.map((item) => [item.name, item.enabled]),
+    [['Existing Twin', true], ['Tool', false]]);
+});

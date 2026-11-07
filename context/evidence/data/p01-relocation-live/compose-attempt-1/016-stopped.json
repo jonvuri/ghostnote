@@ -1,0 +1,5 @@
+{
+  "scratchName": "gn-p01-compose",
+  "error": "AssertionError [ERR_ASSERTION]: competing probe driver: [{\"pid\":73606,\"ppid\":73603,\"command\":\"/bin/zsh -c source /Users/jonvuri/.claude/shell-snapshots/snapshot-zsh-1794077319596-6irg4q.sh 2>/dev/null || true && setopt NO_EXTENDED_GLOB NO_BARE_GLOB_QUAL 2>/dev/null || true && { \\\\builtin unalias -- 'which'; \\\\builtin unset -f -- 'which'; } >/dev/null 2>&1 || true && { \\\\builtin unalias -- 'unsetenv'; \\\\builtin unset -f -- 'unsetenv'; } >/dev/null 2>&1 || true && eval 'cd /Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain; sed -n 1,8p src/probes/p01-compose-live.ts; node --import tsx src/probes/p01-compose-live.ts --out ../context/evidence/data/p01-relocation-live/compose-attempt-1 --operator-file ../context/evidence/data/p01-relocation-live/operator.json 2>&1 | grep -v \\\"^preserved\\\\|^anchors\\\\|^resolve\\\" | tail -25' < /dev/null && pwd -P >| /tmp/claude-8001-cwd\"}]\n\n1 !== 0\n",
+  "next": "Inspect effects before any further write; never repeat automatically."
+}

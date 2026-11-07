@@ -5903,3 +5903,82 @@ for (const count of [17, 20]) {
     assert.equal(wire.frames.filter(f => f.method === WIRE.batchRun).length, 1, 'one delete only');
   });
 }
+
+/** Top-level devices and one paged FX Layer at position 1, for relocation reading counts (P01). */
+class RelocationReadingTransport extends DeviceChainTransport {
+  layers = Array.from({ length: 3 }, (_, i) => ({ name: `Chain ${i}`, channelId: `id-${i}`, devices: [] as string[] }));
+  refuseMoves = 0;
+  override dispatch(method: string, p: Record<string, any>): unknown {
+    if (method === WIRE.chainObserve) return {
+      trackChannelId: CHANNEL_ID, position: p.position, slot: 2, deviceCount: this.chains.get(0)!.length,
+      scope: { slot: 2, status: 'held', deviceExists: true, deviceName: 'FX Layer', hasLayers: true,
+        paged: true, chainBankSize: 5, deviceBankSize: 4, chainCount: this.layers.length,
+        namedSlotComplete: true, slotNames: [],
+        chains: this.layers.map((c, index) => ({ ...c, index, solo: false, deviceCount: c.devices.length,
+          devices: c.devices.map((name, index) => ({ name, index, enabled: true })) })) },
+    };
+    if (method === WIRE.chainMove) {
+      const source = this.chains.get(0)!;
+      assert.equal(source[p.srcDevice], p.expectedSourceName);
+      const name = source[p.srcDevice]!;
+      if (p.verb === 'move') source.splice(p.srcDevice, 1);
+      this.layers[p.dstChain]!.devices.push(name);
+      this.revision++;
+      return {};
+    }
+    const reply = super.dispatch(method, p) as object;
+    return method === WIRE.deviceList ? { ...reply, paged: true, bankSize: 16 } : reply;
+  }
+  override async send(frame: Frame): Promise<unknown> {
+    const ops = (frame.params as { ops?: { method: string }[] } | undefined)?.ops ?? [];
+    if (frame.method === WIRE.batchRun && this.refuseMoves > 0 && ops.some((o) => o.method === WIRE.chainMove)) {
+      this.refuseMoves -= 1;
+      this.frames.push(frame);
+      return { applied: true, revision: this.revision,
+        results: ops.map((o) => ({ method: o.method, ok: false, error: 'refused' })) };
+    }
+    return super.send(frame);
+  }
+}
+
+const relocationOps = (): Op[] => {
+  // Top level: Tool A, FX Layer, Tool B, Tool C. Each move projects the stages before it.
+  const container = (at: number) => deviceAt(TRACK, at);
+  return [
+    { op: 'chain.relocate', source: deviceAt(TRACK, 0), destination: chainAt(container(1), 'Chain 0'), mode: 'move' },
+    { op: 'chain.relocate', source: deviceAt(TRACK, 1), destination: chainAt(container(0), 'Chain 1'), mode: 'copy' },
+    { op: 'chain.relocate', source: deviceAt(TRACK, 2), destination: chainAt(container(0), 'Chain 2'), mode: 'move' },
+  ];
+};
+
+test('P01 relocation: consecutive relocations reuse the preflight and each proof reading', async () => {
+  const wire = new RelocationReadingTransport();
+  wire.chains.set(0, ['Tool A', 'FX Layer', 'Tool B', 'Tool C']);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: relocationOps() });
+
+  assert.equal(receipt.stages.length, 3);
+  assert(receipt.stages.every((stage) => stage.ops.every((item) => item.ok)), JSON.stringify(receipt));
+  assert.deepEqual(wire.chains.get(0), ['FX Layer', 'Tool B']);
+  assert.deepEqual(wire.layers.map((c) => c.devices), [['Tool A'], ['Tool B'], ['Tool C']]);
+  // The preflight reads each projected container address (positions 1 and 0), then each relocation takes one
+  // proof reading, which the next relocation uses as its "before" reading (previously 2 + 3 × 2).
+  assert.equal(wire.frames.filter((f) => f.method === WIRE.chainObserve).length, 5);
+});
+
+test('P01 relocation: an unproved relocation ends the batch before the next one is sent', async () => {
+  const wire = new RelocationReadingTransport();
+  wire.chains.set(0, ['Tool A', 'FX Layer', 'Tool B', 'Tool C']);
+  wire.refuseMoves = 1;
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+
+  const receipt = await adapter.apply({ ops: relocationOps() });
+
+  assert.equal(receipt.stages.length, 1);
+  assert.equal(receipt.stages[0]!.ops.every((item) => item.ok), false);
+  const moves = wire.frames.filter((f) => f.method === WIRE.batchRun
+    && ((f.params as { ops?: { method: string }[] }).ops ?? []).some((o) => o.method === WIRE.chainMove));
+  assert.equal(moves.length, 1);
+  assert.deepEqual(wire.chains.get(0), ['Tool A', 'FX Layer', 'Tool B', 'Tool C']);
+});
