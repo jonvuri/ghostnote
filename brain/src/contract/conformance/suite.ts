@@ -36,7 +36,7 @@ import {
   SlotOccupiedError, addressKey, chain, clip, clipLaunch, clipMetadata, contentTouching, deltaComplete, device, deviceIn,
   deviceSlot,
   notes as notesAt, param, scene, slot, track,
-  type Address, type BitwigAdapter, type DeviceAddress, type NoteRecord, type ObservedContainer,
+  type Address, type BitwigAdapter, type DeviceAddress, type DeviceSource, type NoteRecord, type ObservedContainer,
   type Op, type Snapshot, type TrackAddress,
 } from '../index.js';
 import { Executor, branchProtected, UnprotectedWriteError } from '../../engine/index.js';
@@ -982,6 +982,75 @@ export function runConformance(h: AdapterHarness): void {
         if (inserted?.kind === 'device') {
           await adapter.apply({ ops: [{ op: 'device.delete', device: inserted }] });
           await adapter.settle('trackStruct');
+        }
+        await h.dispose(adapter);
+      }
+    },
+  );
+
+  test(
+    label('C-chain-insert', 'ordered sources land directly at a named chain end (P01, E403)'),
+    { skip: !h.capabilities.hasDeviceModel },
+    async () => {
+      const { adapter, trackA } = await h.create();
+      const executor = new Executor(adapter);
+      const FX_LAYER = { from: 'bitwig', uuid: 'a0913b7f-096b-4ac9-bddd-33c775314b42' } as const;
+      const A = { from: 'bitwig', uuid: 'a9ffacb5-33e9-4fc7-8621-b1af31e410ef' } as const;
+      const B = { from: 'bitwig', uuid: 'f2dcfe9a-7b66-4c84-984a-b25685a1c21a' } as const;
+      const C = { from: 'bitwig', uuid: '8f58138b-03aa-4e9d-83bd-a038c99a4ed5' } as const;
+      let container: Address | undefined;
+      const chainDevices = async (name: string): Promise<string[] | undefined> => {
+        assert.ok(container?.kind === 'device');
+        const entry = (await adapter.read([container], { structure: true })).entries[addressKey(container)];
+        const observed = entry?.value.of === 'device' ? entry.value.device.container : undefined;
+        return observed?.chains.find((item) => item.name === name)?.devices.map((item) => item.name);
+      };
+      try {
+        const inserted = await executor.run([{ op: 'device.insert', track: trackA, source: FX_LAYER }]);
+        container = inserted.receipt.minted[0];
+        assert.ok(container?.kind === 'device');
+        const initial = (await adapter.read([container], { structure: true })).entries[addressKey(container)];
+        const containerName = initial?.value.of === 'device' ? initial.value.device.name : '';
+        const shipped = initial?.value.of === 'device' ? initial.value.device.container?.chains[0] : undefined;
+        assert.ok(shipped);
+        for (const name of ['gn-ins-whole', 'gn-ins-split']) {
+          const made = await adapter.apply({ ops: [{ op: 'chain.create', source: chain(container, shipped.name), name }] });
+          assert.equal(made.stages[0]?.ops[0]?.ok, true);
+        }
+        const insert = (name: string, sources: readonly DeviceSource[], expectedDeviceCount: number): Op => ({
+          op: 'chain.insert', chain: chain(container as DeviceAddress, name), sources,
+          expectedDeviceCount, expectedContainerName: containerName,
+        });
+
+        // Whole-request validation refuses before any stage.
+        const beforeInvalid = (await adapter.revision()).revision;
+        await assert.rejects(adapter.apply({ ops: [{
+          ...insert('gn-ins-whole', [A], 0), sources: [A, { from: 'bitwig', uuid: 'not-a-uuid' }],
+        } as Op] }), /invalid bitwig source/);
+        assert.equal((await adapter.revision()).revision, beforeInvalid, 'an invalid later source emitted no stage');
+
+        // One request in one chain, and the same order built as a first insertion plus an append.
+        const whole = await adapter.apply({ ops: [insert('gn-ins-whole', [A, B, C], 0)] });
+        assert.equal(whole.stages[0]?.ops.every((item) => item.ok), true);
+        const split = await adapter.apply({ ops: [
+          insert('gn-ins-split', [A], 0),
+          insert('gn-ins-split', [B, C], 1),
+        ] });
+        assert.equal(split.stages.every((stage) => stage.ops.every((item) => item.ok)), true);
+        const wholeNames = await chainDevices('gn-ins-whole');
+        assert.equal(wholeNames?.length, 3);
+        assert.equal(new Set(wholeNames).size, 3, 'three distinct sources');
+        assert.deepEqual(await chainDevices('gn-ins-split'), wholeNames, 'append preserves the same order');
+
+        // A stale starting count and an absent chain write nothing.
+        const stale = await adapter.apply({ ops: [insert('gn-ins-whole', [A], 0)] });
+        assert.equal(stale.stages.at(-1)?.ops.some((item) => !item.ok), true);
+        const absent = await adapter.apply({ ops: [insert('gn-ins-absent', [A], 0)] });
+        assert.equal(absent.stages.at(-1)?.ops.some((item) => !item.ok), true);
+        assert.deepEqual(await chainDevices('gn-ins-whole'), wholeNames, 'refusals left the chain unchanged');
+      } finally {
+        if (container?.kind === 'device') {
+          await adapter.apply({ ops: [{ op: 'device.delete', device: container }] }).catch(() => undefined);
         }
         await h.dispose(adapter);
       }

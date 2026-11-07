@@ -100,9 +100,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 93);
-  assert.equal(captureGolden.count, 98);
-  assert.equal(probeGolden.count, 123);
+  assert.equal(normalGolden.count, 94);
+  assert.equal(captureGolden.count, 99);
+  assert.equal(probeGolden.count, 124);
 });
 
 test('9b: hello and the doctor driver require the delegated Grid marker', () => {

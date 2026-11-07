@@ -854,6 +854,8 @@ const borrowsSelection = (op: Op): boolean =>
   // here so the gap is on the record rather than discovered as a complaint.
   || op.op === 'chain.create'
   || op.op === 'chain.relocate'
+  // P01: the container scope belongs to cursor 0, which the stage points at the track.
+  || op.op === 'chain.insert'
   || op.op === 'chain.activate'
   || op.op === 'chain.solo'
   || op.op === 'drumPad.insert'
@@ -1441,6 +1443,19 @@ export class LiveAdapter implements BitwigAdapter {
       && held.trackIndex === row.index
       && held.structuralRevision === this.structuralRevision
       && held.extensionGeneration === this.lastMark?.generation;
+  }
+
+  /** Point cursor 0, which owns the container scopes, at one track unless it already holds it. */
+  private async holdScopeTrack(trackRef: TrackAddress): Promise<void> {
+    const trackIndex = this.index.get(trackRef.channelId);
+    if (trackIndex === undefined) throw new AddressUnresolvedError(trackRef, 'the track is not visible');
+    this.heldClips.delete('0');
+    if (this.cursorTrackHeld('0', { channelId: trackRef.channelId, index: trackIndex })) {
+      this.onTrace?.({ action: 'track-reuse', target: `0:${trackIndex}` });
+      return;
+    }
+    await this.transport.send({ method: WIRE.deviceCursorPin, params: { pinned: false } });
+    await this.pointCursorTrack('0', trackIndex);
   }
 
   /** Invalidate every target whose positional proof a structural edit can stale. */
@@ -5609,7 +5624,9 @@ export class LiveAdapter implements BitwigAdapter {
       });
       return;
     }
-    if (ops.every((op) => op.op === 'device.relocate' || op.op === 'chain.relocate')) return;
+    // The chain insertion handler replies after the final device count arrives (E403).
+    if (ops.every((op) => op.op === 'device.relocate' || op.op === 'chain.relocate'
+      || op.op === 'chain.insert')) return;
     await this.settle('deviceInsert');
   }
 
@@ -5925,6 +5942,18 @@ export class LiveAdapter implements BitwigAdapter {
             this.recordChainPositions(activateOp.chain.container, scope.container);
             if (activateOp.op === 'chain.solo') soloBefore = scope.container;
           }
+        } catch (error) {
+          await this.restoreSelection(selection);
+          throw error;
+        }
+      }
+
+      // P01 (D65): the extension validates the track, container, chain and count itself and reads no content.
+      // The adapter only points cursor 0, which owns the container scopes, at the track.
+      for (const op of stage.ops) {
+        if (op.op !== 'chain.insert') continue;
+        try {
+          await this.holdScopeTrack(op.chain.container.track);
         } catch (error) {
           await this.restoreSelection(selection);
           throw error;
@@ -6555,6 +6584,12 @@ export class LiveAdapter implements BitwigAdapter {
       // and stale cursor assignments. A held pin's `sceneIndex` goes permanently
       // stale after compaction while looking perfectly healthy (E3), so the
       // damage is silent and arbitrarily delayed.
+      // P01: a chain insertion re-indexes devices inside one layer chain only. No track row, scene row,
+      // top-level device or pool cursor moves, so only a held device target is dropped.
+      if (stage.ops.some((o) => o.op === 'chain.insert')) {
+        this.structuralRevision += 1;
+        this.heldDeviceTarget = undefined;
+      }
       if (stage.ops.some((o) => STRUCTURAL.has(o.op))) {
         await this.resetWriterViews(writerViews);
         writerViews.clear();

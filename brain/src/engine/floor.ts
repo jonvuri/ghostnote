@@ -244,6 +244,8 @@ function damagePrecedesTheStash(op: Op): string | undefined {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    // It adds devices and destroys nothing.
+    case 'chain.insert':
     case 'device.relocate':
     case 'chain.activate':
     case 'chain.solo':

@@ -130,6 +130,12 @@ export const WIRE = {
    */
   chainMove: 'chain.move',
   /**
+   * P01 (E403, D65): ordered insertion at the end of one named layer chain, promoted only for `chain.insert`.
+   * The extension finds the chain by its unique name in the scoped container, checks the starting count, waits
+   * for each preceding device to arrive, and replies after the final count. It reads no device content.
+   */
+  chainInsert: 'chain.insert',
+  /**
    * B17: observe one container by its absolute top-level position. The extension owns the scopes (B08's
    * one-wide scrollable banks on cursor track 0): it aims one at the position, polls until the scope and the
    * named track settle, re-issuing a clamped scroll (E394), and replies once with the settled scope, its

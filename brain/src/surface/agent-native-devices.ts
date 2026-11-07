@@ -1030,18 +1030,19 @@ const COMPOSE_DESCRIPTION = `${PROFILE} Create one complete container with expli
   + `read_device_controls and types from list_modulator_types. ${ROUTE_TEXT}\n'`
   + 'Ghostnote selects a private backend. An Instrument Layer of one through four layer chains with one native '
   + 'device each, appended at the end, is built offline from a validated preset in one insertion (modulatorEdits '
-  + 'are only for this path); each layer chain is then renamed. Every other shape runs as guarded host stages: '
-  + 'container insertion, an empty-chain duplication stage for each chain beyond the five-chain seed, one layer-chain naming stage, and one insertion and one move for each device: about 3.5 '
-  + 's for each native device and 6.5 s for each plug-in, and revert_change takes about as long. One composition '
-  + 'admits at most 6 device units (a VST3 or CLAP source counts as two, and a device with modulators or modulator '
-  + 'edits counts two more: its checks add about 2 s) and 4 modulators and modulator edits; a '
-  + 'larger request refuses before any read or write (code outside-limit, the limit in detail). Add more devices '
-  + 'later with add_devices and move_devices. '
-  + 'Layer and device windows page automatically. Composition without modulation can exceed those windows; scalar fingerprints are omitted where parameter reads are unsupported. Modulation still requires first-window parameter access. Every request is '
-  + 'validated before the first write; a later failure returns the completed effects.\n'
+  + 'are only for this path); each layer chain is then renamed. Every other shape runs as host stages: container '
+  + 'insertion, an empty-chain duplication stage for each chain beyond the five-chain seed, one layer-chain naming '
+  + 'stage, one direct insertion of the new devices at each layer chain\'s end, and one move or copy for each '
+  + 'existing device; one structure read at the end is the readback. One composition admits at most 6 device units '
+  + '(a VST3 or CLAP source counts as two, and a device with modulators or modulator edits counts two more) and 4 '
+  + 'modulators and modulator edits; a larger request refuses before any read or write (code outside-limit, the '
+  + 'limit in detail). Add more devices later with add_devices and move_devices. '
+  + 'Layer and device windows page automatically. Modulation still requires first-window parameter access. Every '
+  + 'request is validated before the first write; a later failure returns the completed effects and the observed '
+  + 'structure.\n'
   + 'Result: effects with change IDs, readback with the complete structure, and next.revert. revert_change with '
   + 'that change ID reverses the whole composition: it restores moved existing devices and removes only the owned '
-  + 'container and owned sources while every guard holds.';
+  + 'container with its owned sources while the top-level order and container structure match.';
 
 export interface ComposeDevicesOptions {
   /** Benchmarks only (E238): force one backend. A request that the offline backend cannot represent refuses. */
@@ -1249,7 +1250,7 @@ async function composeStaged(
       entryName: item.name,
       devices: item.devices.map((device) => ({ source: device.source, modulators: device.modulators ?? [] })),
     })),
-  }), { behaviorWitness: 'identity' });
+  }), { behaviorWitness: 'identity', orderValidated: true });
   if (result['refused'] === true) refusedComposition(result);
   const stages = (result['stages'] as { stage: string; entryIndex?: number; change: ReturnType<typeof receiptOf> }[]);
   for (const stage of stages) {

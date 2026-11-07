@@ -7,6 +7,7 @@ import com.ghostnote.extension.handlers.ApiInventoryHandlers;
 import com.ghostnote.extension.handlers.BatchHandlers;
 import com.ghostnote.extension.handlers.BrowserDiscoveryHandlers;
 import com.ghostnote.extension.handlers.ScopeScrollHandlers;
+import com.ghostnote.extension.handlers.ChainInsertHandlers;
 import com.ghostnote.extension.handlers.ChainInsertProbeHandlers;
 import com.ghostnote.extension.handlers.MixerHandlers;
 import com.ghostnote.extension.handlers.BranchHandlers;
@@ -70,6 +71,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new CoreHandlers(host, rig, state, registry),
             new BrowserDiscoveryHandlers(host, rig, state),
             new ScopeScrollHandlers(host, rig, state),
+            new ChainInsertHandlers(host, rig, state),
             new ChainInsertProbeHandlers(host, rig, state),
             new PressureHandlers(host, rig, state),
             new TrackHandlers(host, rig, state),

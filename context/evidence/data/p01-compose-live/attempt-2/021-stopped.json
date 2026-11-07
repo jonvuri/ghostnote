@@ -1,0 +1,6 @@
+{
+  "scratchId": "f6acfe1a-b429-4b32-9006-4e73ad2132b6",
+  "scratchName": "gn-p01-compose",
+  "error": "[\n  {\n    \"code\": \"unrecognized_keys\",\n    \"keys\": [\n      \"trackId\"\n    ],\n    \"path\": [],\n    \"message\": \"Unrecognized key: \\\"trackId\\\"\"\n  }\n]",
+  "next": "Inspect effects before any further write; never repeat automatically."
+}

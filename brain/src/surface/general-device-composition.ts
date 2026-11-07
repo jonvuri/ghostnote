@@ -348,10 +348,6 @@ function externalCheckpoint(checkpoint: GeneralDeviceCompositionCheckpoint) {
     originalDeviceOrder: checkpoint.originalDeviceOrder,
     entryNames: checkpoint.entryNames, preparedEntryNames: checkpoint.preparedEntryNames,
     completedEntries: checkpoint.completedEntries,
-    ...(checkpoint.pendingUnwitnessedSource === undefined ? {} : {
-      pendingUnwitnessedSource: checkpoint.pendingUnwitnessedSource,
-    }),
-    ...(checkpoint.pendingEntry === undefined ? {} : { pendingEntry: checkpoint.pendingEntry }),
     ...(checkpoint.reversalRemainingEntries === undefined ? {} : {
       reversalRemainingEntries: checkpoint.reversalRemainingEntries,
     }),
@@ -378,10 +374,6 @@ function internalCheckpoint(
     originalDeviceOrder: checkpoint.originalDeviceOrder,
     entryNames: checkpoint.entryNames, preparedEntryNames: checkpoint.preparedEntryNames,
     completedEntries: checkpoint.completedEntries,
-    ...(checkpoint.pendingUnwitnessedSource === undefined ? {} : {
-      pendingUnwitnessedSource: checkpoint.pendingUnwitnessedSource,
-    }),
-    ...(checkpoint.pendingEntry === undefined ? {} : { pendingEntry: checkpoint.pendingEntry }),
     ...(checkpoint.reversalRemainingEntries === undefined ? {} : {
       reversalRemainingEntries: checkpoint.reversalRemainingEntries,
     }),

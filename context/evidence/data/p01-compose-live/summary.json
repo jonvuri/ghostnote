@@ -1,0 +1,339 @@
+[
+  {
+    "case": "1x1",
+    "compose": {
+      "ms": 2601,
+      "turns": 81,
+      "bytes": 43062
+    },
+    "revert": {
+      "ms": 1543,
+      "turns": 53
+    },
+    "composeTop": [
+      [
+        "track.list",
+        19,
+        450
+      ],
+      [
+        "device.list",
+        9,
+        413
+      ],
+      [
+        "revision.get",
+        17,
+        397
+      ],
+      [
+        "chain.observe",
+        5,
+        365
+      ],
+      [
+        "cursor.pin",
+        8,
+        188
+      ]
+    ],
+    "observed": [
+      {
+        "name": "One",
+        "devices": [
+          "Tool"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "3x2",
+    "compose": {
+      "ms": 4294,
+      "turns": 93,
+      "bytes": 53806
+    },
+    "revert": {
+      "ms": 1682,
+      "turns": 53
+    },
+    "composeTop": [
+      [
+        "chain.observe",
+        9,
+        1077
+      ],
+      [
+        "batch:chain.insert",
+        3,
+        608
+      ],
+      [
+        "track.list",
+        19,
+        451
+      ],
+      [
+        "device.list",
+        9,
+        408
+      ],
+      [
+        "revision.get",
+        17,
+        399
+      ]
+    ],
+    "observed": [
+      {
+        "name": "A",
+        "devices": [
+          "Tool",
+          "EQ-5"
+        ]
+      },
+      {
+        "name": "B",
+        "devices": [
+          "Tool",
+          "EQ-5"
+        ]
+      },
+      {
+        "name": "C",
+        "devices": [
+          "Tool",
+          "EQ-5"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "mixed",
+    "compose": {
+      "ms": 2753,
+      "turns": 81,
+      "bytes": 43205
+    },
+    "revert": {
+      "ms": 1605,
+      "turns": 53
+    },
+    "composeTop": [
+      [
+        "track.list",
+        19,
+        448
+      ],
+      [
+        "device.list",
+        9,
+        412
+      ],
+      [
+        "revision.get",
+        17,
+        392
+      ],
+      [
+        "chain.observe",
+        5,
+        360
+      ],
+      [
+        "batch:chain.insert",
+        1,
+        316
+      ]
+    ],
+    "observed": [
+      {
+        "name": "Mixed",
+        "devices": [
+          "Tool",
+          "TX16Wx",
+          "TX16Wx",
+          "FX Layer"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "modulated",
+    "compose": {
+      "ms": 3915,
+      "turns": 110,
+      "bytes": 86183
+    },
+    "revert": {
+      "ms": 1607,
+      "turns": 53
+    },
+    "composeTop": [
+      [
+        "device.list",
+        11,
+        508
+      ],
+      [
+        "track.list",
+        21,
+        495
+      ],
+      [
+        "revision.get",
+        19,
+        443
+      ],
+      [
+        "chain.observe",
+        5,
+        365
+      ],
+      [
+        "devcursor.pin",
+        11,
+        256
+      ]
+    ],
+    "observed": [
+      {
+        "name": "Mod",
+        "devices": [
+          "Polysynth"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "existing",
+    "compose": {
+      "ms": 5625,
+      "turns": 169,
+      "bytes": 94289
+    },
+    "revert": {
+      "ms": 2519,
+      "turns": 82
+    },
+    "composeTop": [
+      [
+        "chain.observe",
+        13,
+        1290
+      ],
+      [
+        "device.list",
+        19,
+        896
+      ],
+      [
+        "track.list",
+        37,
+        880
+      ],
+      [
+        "revision.get",
+        32,
+        751
+      ],
+      [
+        "cursor.pin",
+        32,
+        735
+      ]
+    ],
+    "observed": [
+      {
+        "name": "Moved",
+        "devices": [
+          "Gate",
+          "Tool"
+        ]
+      },
+      {
+        "name": "Copied",
+        "devices": [
+          "EQ-5"
+        ]
+      }
+    ]
+  },
+  {
+    "case": "six-at-18",
+    "compose": {
+      "ms": 13742,
+      "turns": 133,
+      "bytes": 111109
+    },
+    "revert": {
+      "ms": 2840,
+      "turns": 53
+    },
+    "composeTop": [
+      [
+        "chain.observe",
+        21,
+        5584
+      ],
+      [
+        "batch:chain.insert",
+        6,
+        2200
+      ],
+      [
+        "device.list",
+        9,
+        1288
+      ],
+      [
+        "batch:chain.setName",
+        6,
+        1087
+      ],
+      [
+        "track.list",
+        24,
+        567
+      ]
+    ],
+    "observed": [
+      {
+        "name": "Chain 0",
+        "devices": [
+          "Tool"
+        ]
+      },
+      {
+        "name": "Chain 1",
+        "devices": [
+          "Tool"
+        ]
+      },
+      {
+        "name": "Chain 2",
+        "devices": [
+          "Tool"
+        ]
+      },
+      {
+        "name": "Chain 3",
+        "devices": [
+          "Tool"
+        ]
+      },
+      {
+        "name": "Chain 4",
+        "devices": [
+          "Tool"
+        ]
+      },
+      {
+        "name": "Chain 5",
+        "devices": [
+          "Tool"
+        ]
+      }
+    ]
+  }
+]

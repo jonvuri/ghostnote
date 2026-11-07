@@ -19,9 +19,10 @@ export const WRITE_LIMITS = Object.freeze({
   deviceControlCohorts: 4,
   /**
    * compose_devices: retained E252 weights (native 1, VST3/CLAP 2, modulation +2). D46 removed normal-profile
-   * behavior sampling; route/page checks remain (E254). These weights have not been re-derived under D55.
-   * E357's six native chains at position 18 took 44.4 s / 703 wire calls, dominated by repeated paged reads.
-   * P01 must prove direct chain insertion and measure composition/reversal before changing this bound.
+   * behavior sampling; route/page checks remain (E254). E398's six native chains at position 18 took 44.4 s / 703
+   * wire calls, dominated by repeated paged reads. P01 replaced those stages with direct chain insertion and one
+   * final read (D65): E406 measured 2.6–13.7 s for admitted shapes and 1.5–2.8 s reverts. The limit stays until a
+   * larger shape is measured.
    */
   stagedCompositionDevices: 6,
   /** compose_devices: outer and preset-local modulators/edits; normal-profile route proof, not sound sampling. */

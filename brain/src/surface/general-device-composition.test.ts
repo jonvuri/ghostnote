@@ -6,6 +6,8 @@ import assert from 'node:assert/strict';
 import { z } from 'zod';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
+import type { FakeDevice } from '../adapters/fake/model.js';
+import type { DeviceSource } from '../contract/index.js';
 import { listChains, listModulators } from '../bwmod/index.js';
 import { Executor, fingerprintPreset, inspectPresetModulation } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
@@ -41,6 +43,66 @@ function fixture() {
       modulatedValue: 0.4, hasAutomation: false,
     }],
   });
+  // Model the host device that one leaf source creates: names, parameters, nested chains and modulator pages.
+  function decorate(inserted: FakeDevice, source: DeviceSource, preset: Buffer | undefined): void {
+    if (source.from === 'vst3' || source.from === 'clap') inserted.name = 'Repeated Twin';
+    inserted.paramsLive = true;
+    const sampler = source.from === 'file' && source.path.includes('gn_sampler');
+    const inspection = preset === undefined ? undefined : inspectPresetModulation(preset);
+    if (preset !== undefined && inspection?.supported && inspection.containerKind !== null) {
+      const containerPreset = preset;
+      inserted.name = inspection.host.name;
+      inserted.params = [];
+      inserted.chains = inspection.entries.map((entry, entryIndex) => ({
+        name: entry.devices[0]?.name ?? entry.name,
+        id: fake.model.mintChannelId(), solo: false,
+        devices: entry.devices.map((entryDevice) => {
+          const modulators = listModulators(containerPreset, entryIndex + 1);
+          const targetId = entryDevice.name === 'Phase-4'
+            ? 'CONTENTS/PITCH' : 'CONTENTS/F1FREQ';
+          const targetName = entryDevice.name === 'Phase-4'
+            ? 'Pitch' : 'Filter Frequency';
+          const active = modulators.some((modulator) =>
+            modulator.routes.some((route) => route.target === targetId));
+          return {
+            name: entryDevice.name, enabled: true, paramsLive: true,
+            params: [{
+              id: targetId, name: targetName, value: 0.31,
+              modulatedValue: active ? 0.72 : 0.31, hasAutomation: false,
+            }],
+            remotePages: [{
+              name: 'FILTER',
+              controls: [{
+                name: 'Filt Freq', value: 0.31,
+                modulatedValue: active ? 0.72 : 0.31, hasAutomation: false,
+              }],
+            }, ...modulators.map((modulator) => ({
+              name: modulator.deviceName,
+              controls: [{
+                name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false,
+              }],
+            }))],
+          };
+        }),
+      }));
+      inserted.remotePages = listModulators(containerPreset, 0).map((item) => ({
+        name: item.deviceName,
+        controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
+      }));
+    } else {
+      inserted.params = [{
+        id: sampler ? 'CONTENTS/AMP_ATTACK_TIME' : 'CONTENTS/F1FREQ',
+        name: sampler ? 'AEG Attack Time' : 'Filter Frequency', value: 0.31,
+        modulatedValue: 0.31, hasAutomation: false,
+      }];
+    }
+    if (preset !== undefined && inserted.remotePages === undefined) {
+      inserted.remotePages = listModulators(preset).map((item) => ({
+        name: item.deviceName,
+        controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
+      }));
+    }
+  }
   const stash = new Stash({ now: () => 1 });
   const base = workspaceOf({
     ready: async () => undefined,
@@ -62,6 +124,13 @@ function fixture() {
       let preset: Buffer | undefined;
       if (op?.op === 'device.insert' && op.source.from === 'file') {
         preset = await readFile(op.source.path);
+      }
+      const chainPresets = new Map<string, Buffer>();
+      for (const [index, item] of ops.entries()) {
+        if (item.op !== 'chain.insert') continue;
+        for (const [at, source] of item.sources.entries()) {
+          if (source.from === 'file') chainPresets.set(`${index}:${at}`, await readFile(source.path));
+        }
       }
       const change = await base.apply(ops, run);
       if (op?.op === 'device.insert') {
@@ -91,64 +160,20 @@ function fixture() {
               controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
             }));
           } else {
-            if (op.source.from === 'vst3' || op.source.from === 'clap') inserted.name = 'Repeated Twin';
-            inserted.paramsLive = true;
-            const sampler = op.source.from === 'file' && op.source.path.includes('gn_sampler');
-            const inspection = preset === undefined ? undefined : inspectPresetModulation(preset);
-            if (preset !== undefined && inspection?.supported && inspection.containerKind !== null) {
-              const containerPreset = preset;
-              inserted.name = inspection.host.name;
-              inserted.params = [];
-              inserted.chains = inspection.entries.map((entry, entryIndex) => ({
-                name: entry.devices[0]?.name ?? entry.name,
-                id: fake.model.mintChannelId(), solo: false,
-                devices: entry.devices.map((entryDevice) => {
-                  const modulators = listModulators(containerPreset, entryIndex + 1);
-                  const targetId = entryDevice.name === 'Phase-4'
-                    ? 'CONTENTS/PITCH' : 'CONTENTS/F1FREQ';
-                  const targetName = entryDevice.name === 'Phase-4'
-                    ? 'Pitch' : 'Filter Frequency';
-                  const active = modulators.some((modulator) =>
-                    modulator.routes.some((route) => route.target === targetId));
-                  return {
-                    name: entryDevice.name, enabled: true, paramsLive: true,
-                    params: [{
-                      id: targetId, name: targetName, value: 0.31,
-                      modulatedValue: active ? 0.72 : 0.31, hasAutomation: false,
-                    }],
-                    remotePages: [{
-                      name: 'FILTER',
-                      controls: [{
-                        name: 'Filt Freq', value: 0.31,
-                        modulatedValue: active ? 0.72 : 0.31, hasAutomation: false,
-                      }],
-                    }, ...modulators.map((modulator) => ({
-                      name: modulator.deviceName,
-                      controls: [{
-                        name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false,
-                      }],
-                    }))],
-                  };
-                }),
-              }));
-              inserted.remotePages = listModulators(containerPreset, 0).map((item) => ({
-                name: item.deviceName,
-                controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
-              }));
-            } else {
-              inserted.params = [{
-                id: sampler ? 'CONTENTS/AMP_ATTACK_TIME' : 'CONTENTS/F1FREQ',
-                name: sampler ? 'AEG Attack Time' : 'Filter Frequency', value: 0.31,
-                modulatedValue: 0.31, hasAutomation: false,
-              }];
-            }
-            if (preset !== undefined && inserted.remotePages === undefined) {
-              inserted.remotePages = listModulators(preset).map((item) => ({
-                name: item.deviceName,
-                controls: [{ name: 'Rate', value: 0.5, modulatedValue: 0.5, hasAutomation: false }],
-              }));
-            }
+            decorate(inserted, op.source, preset);
           }
+        }
+      }
+      for (const [index, item] of ops.entries()) {
+        if (item.op !== 'chain.insert') continue;
+        const container = row.devices[item.chain.container.chainIndex]!;
+        const entry = container.chains!.find((candidate) => candidate.name === item.chain.name)!;
+        const added = entry.devices.slice(item.expectedDeviceCount, item.expectedDeviceCount + item.sources.length);
+        for (const [at, inserted] of added.entries()) {
+          decorate(inserted, item.sources[at]!, chainPresets.get(`${index}:${at}`));
+          // As a relocation does, a device that arrives in its chain shows the outer route as active.
+          const target = inserted.chains?.[0]?.devices[0] ?? inserted;
+          if (target.params[0] !== undefined) target.params[0].modulatedValue = 0.72;
         }
       }
       if (op?.op === 'chain.relocate' && op.destination.kind === 'chain') {
@@ -274,7 +299,7 @@ test('5q-copy: a copied existing source is a new instance and reversal keeps the
   assert.equal(fx.row.devices[0], fx.existing);
 });
 
-test('5q-move: an existing move preserves the exact instance and scalar fingerprint', async () => {
+test('5q-move: an existing move preserves the exact instance', async () => {
   const fx = fixture();
   const result = await callTool(fx.workspace, 'compose_device_sources', {
     trackId: fx.trackId,
@@ -288,10 +313,11 @@ test('5q-move: an existing move preserves the exact instance and scalar fingerpr
   }) as Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   const entry = (result['entries'] as {
-    instance: string; stateClaim: string; scalarFingerprint: { preserved: boolean };
+    instance: string; stateClaim: string; scalarFingerprint?: unknown;
   }[])[0]!;
   assert.equal(entry.instance, 'preserved');
-  assert.equal(entry.scalarFingerprint.preserved, true);
+  // D65: no per-stage scalar fingerprint; the instance identity below is the fixture's proof.
+  assert.equal(entry.scalarFingerprint, undefined);
   assert.match(entry.stateClaim, /same device instance/);
   assert.equal(fx.row.devices[0]!.chains![0]!.devices[0], fx.existing);
 
@@ -433,18 +459,10 @@ test('5r-route-depth: total depth 2 completes and total depth 3 refuses before a
   const acceptedEntry = (accepted['entries'] as {
     pages: { verified: boolean };
     behaviors: { verified: boolean }[];
-    scalarFingerprint: { after: { parameterCount: number } };
   }[])[0]!;
+  // The nested host at depth 2 matched its semantic name before the page and route witnesses.
   assert.equal(acceptedEntry.pages.verified, true);
   assert.equal(acceptedEntry.behaviors[0]?.verified, true);
-  assert.equal(acceptedEntry.scalarFingerprint.after.parameterCount, 1);
-  const acceptedCheckpoint = accepted['reversalCheckpoint'] as {
-    completedEntries: { fingerprintLocation?: unknown }[];
-  };
-  assert.deepEqual(
-    acceptedCheckpoint.completedEntries[0]?.fingerprintLocation,
-    entry.source.modulatorLocation,
-  );
   assert.deepEqual(accepted['capacities'], {
     parameterTopLevelPositions: 16, parameterEntriesPerLayer: 5,
     parameterDevicesPerEntry: 4, parameterRouteDepth: 2,
@@ -647,16 +665,17 @@ test('5q-order: a later source cannot reuse an existing device after it moves', 
   assert.equal(fx.workspace.changes.list().length, 0);
 });
 
-test('5q-partial: a bad later plug-in keeps earlier completed stages reversible', async () => {
+test('5q-partial: a later chain insertion that throws keeps the landed source reversible', async () => {
   const fx = fixture();
-  let inserts = 0;
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
     async apply(
       ops: Parameters<Workspace['apply']>[0],
       run?: Parameters<Workspace['apply']>[1],
     ) {
-      if (ops[0]?.op === 'device.insert' && ++inserts === 3) {
+      // The first chain's insertion lands; the second throws after possible effects.
+      if (ops.length > 1 && ops.every((op) => op.op === 'chain.insert')) {
+        await fx.workspace.apply(ops.slice(0, 1), run);
         throw new Error('the later plug-in source did not resolve');
       }
       return fx.workspace.apply(ops, run);
@@ -668,8 +687,10 @@ test('5q-partial: a bad later plug-in keeps earlier completed stages reversible'
   }) as Record<string, unknown>;
   assert.equal(result['complete'], false);
   assert.equal(result['partialCompletion'], true);
-  assert.equal((result['entries'] as unknown[]).length, 1);
+  assert.equal(result['effectsPossible'], true);
   assert.match(String(result['why']), /later plug-in source/);
+  // The one final read reports what landed; the batch is never repeated.
+  assert.deepEqual((result['structure'] as { devices: unknown[] }[]).map((item) => item.devices.length), [1, 0]);
 
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint: result['reversalCheckpoint'],
@@ -701,7 +722,7 @@ test('8i3 names: all entry names are one guarded stage', async () => {
     .map((item) => item.stage), ['confirm-entry-name']);
 });
 
-test('8i3 proofs: each container proof is a structure read with no parameter inventory', async () => {
+test('D65 proofs: the seed read and one final structure read, with no nested inventory', async () => {
   const fx = fixture();
   const reads: { readonly topLevel: boolean; readonly structure: boolean }[] = [];
   const workspace: Workspace = Object.freeze({
@@ -724,9 +745,9 @@ test('8i3 proofs: each container proof is a structure read with no parameter inv
   }) as Record<string, unknown>;
   assert.equal(result['complete'], true, JSON.stringify(result));
   const containerReads = reads.filter((item) => item.topLevel);
-  assert.ok(containerReads.length >= 4);
+  assert.equal(containerReads.length, 2, 'the seed names and the final result');
   assert.equal(containerReads.every((item) => item.structure), true);
-  assert.ok(reads.some((item) => !item.topLevel && !item.structure), 'each nested source keeps its inventory');
+  assert.equal(reads.some((item) => !item.topLevel), false, 'no per-source inventory or fingerprint');
 });
 
 test('8i3 names: a requested name that is another seed name takes temporary names first', async () => {
@@ -832,62 +853,53 @@ for (const disturbance of ['none', 'operator-rename', 'unproved-rename'] as cons
   });
 }
 
-test('5q-partial: an inserted source is checkpointed before relocation', async () => {
+test('5q-partial: a thrown existing move reports possible effects and reverses the owned container', async () => {
   const fx = fixture();
-  let refusedRelocation = false;
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
     async apply(
       ops: Parameters<Workspace['apply']>[0],
       run?: Parameters<Workspace['apply']>[1],
     ) {
-      if (ops[0]?.op === 'chain.relocate' && ops[0].destination.kind === 'chain'
-          && !refusedRelocation) {
-        refusedRelocation = true;
+      if (ops[0]?.op === 'chain.relocate' && ops[0].destination.kind === 'chain') {
         throw new Error('the destination stopped resolving');
       }
       return fx.workspace.apply(ops, run);
     },
   });
-  const request = fourSourceRequest(fx.trackId);
   const result = await callTool(workspace, 'compose_device_sources', {
-    ...request, entries: request.entries.slice(0, 1),
+    trackId: fx.trackId,
+    expectedDeviceOrder: [{ name: 'Existing Twin', enabled: true }, { name: 'Tool', enabled: false }],
+    containerKind: 'FX Layer',
+    entries: [{ entryName: 'Moved', source: { kind: 'existing-move', devicePosition: 0 }, modulators: [] }],
   }) as Record<string, unknown>;
   assert.equal(result['complete'], false);
-  const checkpoint = result['reversalCheckpoint'] as {
-    pendingEntry: { location: string; sourceKind: string };
-  };
-  assert.equal(checkpoint.pendingEntry.location, 'top-level');
-  assert.equal(checkpoint.pendingEntry.sourceKind, 'native');
+  assert.equal(result['effectsPossible'], true);
+  const checkpoint = result['reversalCheckpoint'] as { completedEntries: unknown[] };
+  assert.deepEqual(checkpoint.completedEntries, [], 'the final read observed the move did not land');
 
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint,
   }) as Record<string, unknown>;
   assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.equal(fx.row.devices[0], fx.existing);
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
 });
 
-test('5r-partial: an inserted source is reversible before its first stable name read', async () => {
+test('5r-partial: a lost final read reports possible effects, and reversal refuses without a write', async () => {
   const fx = fixture();
-  let sourceInserted = false;
-  let refusedRead = false;
-  let inserts = 0;
+  let containerReads = 0;
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
-    async apply(
-      ops: Parameters<Workspace['apply']>[0],
-      run?: Parameters<Workspace['apply']>[1],
+    async read(
+      addresses: Parameters<Workspace['read']>[0],
+      options?: Parameters<Workspace['read']>[1],
     ) {
-      const change = await fx.workspace.apply(ops, run);
-      if (ops[0]?.op === 'device.insert' && ++inserts === 2) sourceInserted = true;
-      return change;
-    },
-    async devices(track: Parameters<Workspace['devices']>[0]) {
-      if (sourceInserted && !refusedRead) {
-        refusedRead = true;
-        throw new Error('the first source name read failed');
+      if (addresses[0]?.kind === 'device' && addresses[0].chain === undefined && options?.structure === true
+          && ++containerReads === 2) {
+        throw new Error('the final container read failed');
       }
-      return fx.workspace.devices(track);
+      return fx.workspace.read(addresses, options);
     },
   });
   const request = fourSourceRequest(fx.trackId);
@@ -895,32 +907,42 @@ test('5r-partial: an inserted source is reversible before its first stable name 
     ...request, entries: request.entries.slice(0, 1),
   }) as Record<string, unknown>;
   assert.equal(result['complete'], false);
-  const checkpoint = result['reversalCheckpoint'] as { pendingUnwitnessedSource?: unknown };
-  assert.ok(checkpoint.pendingUnwitnessedSource);
+  assert.equal(result['failedStage'], 'final-witness');
+  const checkpoint = result['reversalCheckpoint'] as { completedEntries: unknown[] };
+  assert.deepEqual(checkpoint.completedEntries, [], 'nothing unobserved is claimed');
 
+  const changes = fx.workspace.changes.list().length;
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint,
   }) as Record<string, unknown>;
-  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
-  assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
+  assert.equal(reversed['complete'], false);
+  assert.match(String(reversed['why']), /structure changed/);
+  assert.equal(fx.workspace.changes.list().length, changes, 'the unverified container is left for inspection');
 });
 
 test('5r-reversal: an untouched inserted seed reverses exactly', async () => {
   const fx = fixture();
-  let deviceReads = 0;
+  let containerReads = 0;
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
-    async devices(track: Parameters<Workspace['devices']>[0]) {
-      if (++deviceReads === 2) throw new Error('the inserted container did not settle');
-      return fx.workspace.devices(track);
+    async read(
+      addresses: Parameters<Workspace['read']>[0],
+      options?: Parameters<Workspace['read']>[1],
+    ) {
+      if (addresses[0]?.kind === 'device' && addresses[0].chain === undefined && options?.structure === true
+          && ++containerReads === 1) {
+        throw new Error('the inserted container did not settle');
+      }
+      return fx.workspace.read(addresses, options);
     },
   });
   const request = fourSourceRequest(fx.trackId);
   const result = await callTool(workspace, 'compose_device_sources', {
     ...request, entries: request.entries.slice(0, 1),
   }) as Record<string, unknown>;
-  const checkpoint = result['reversalCheckpoint'] as { state: string };
-  assert.equal(checkpoint.state, 'container-inserted');
+  const checkpoint = result['reversalCheckpoint'] as { state: string; preparedEntryNames: string[] };
+  assert.equal(checkpoint.state, 'container-positioned');
+  assert.equal(checkpoint.preparedEntryNames.length, 1, 'the final read adopted the untouched seed');
 
   const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint,
@@ -931,12 +953,18 @@ test('5r-reversal: an untouched inserted seed reverses exactly', async () => {
 
 test('5q-reversal: an unproved inserted container must be empty before removal', async () => {
   const fx = fixture();
-  let deviceReads = 0;
+  let containerReads = 0;
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
-    async devices(track: Parameters<Workspace['devices']>[0]) {
-      if (++deviceReads === 2) throw new Error('the inserted container did not settle');
-      return fx.workspace.devices(track);
+    async read(
+      addresses: Parameters<Workspace['read']>[0],
+      options?: Parameters<Workspace['read']>[1],
+    ) {
+      if (addresses[0]?.kind === 'device' && addresses[0].chain === undefined && options?.structure === true
+          && ++containerReads === 1) {
+        throw new Error('the inserted container did not settle');
+      }
+      return fx.workspace.read(addresses, options);
     },
   });
   const request = fourSourceRequest(fx.trackId);
@@ -944,7 +972,7 @@ test('5q-reversal: an unproved inserted container must be empty before removal',
     ...request, entries: request.entries.slice(0, 1),
   }) as Record<string, unknown>;
   const checkpoint = result['reversalCheckpoint'] as { state: string };
-  assert.equal(checkpoint.state, 'container-inserted');
+  assert.equal(checkpoint.state, 'container-positioned');
 
   const container = fx.row.devices.find((item) => item.name === 'FX Layer')!;
   const unexpected = {
@@ -961,17 +989,16 @@ test('5q-reversal: an unproved inserted container must be empty before removal',
     checkpoint,
   }) as Record<string, unknown>;
   assert.equal(reversed['complete'], false);
-  assert.match(String(reversed['why']), /boundary changed|structure changed|not empty/);
+  assert.match(String(reversed['why']), /structure changed/);
   assert.equal(container.chains![0]!.devices[0], unexpected);
-  assert.ok(fx.row.devices.includes(container));
   assert.deepEqual(
     fx.row.devices.map((item) => item.name),
-    ['Existing Twin', 'Tool', 'FX Layer'],
-    'a changed untouched seed refuses before top-level relocation',
+    ['FX Layer', 'Existing Twin', 'Tool'],
+    'a changed seed refuses before any write',
   );
 });
 
-test('5q-reversal: an edit after extraction stops before a tail deletion', async () => {
+test('5q-reversal: a copied source leaves with the owned container in one removal', async () => {
   const fx = fixture();
   const composed = await callTool(fx.workspace, 'compose_device_sources', {
     trackId: fx.trackId,
@@ -985,61 +1012,18 @@ test('5q-reversal: an edit after extraction stops before a tail deletion', async
   }) as Record<string, unknown>;
   assert.equal(composed['complete'], true, JSON.stringify(composed));
 
-  const intervening = {
-    name: 'Existing Twin', enabled: true, paramsLive: true,
-    params: [{
-      id: 'CONTENTS/F1FREQ', name: 'Filter Frequency', value: 0.91,
-      modulatedValue: 0.91, hasAutomation: false,
-    }],
-  };
-  let injected = false;
-  const workspace: Workspace = Object.freeze({
-    ...fx.workspace,
-    async apply(
-      ops: Parameters<Workspace['apply']>[0],
-      run?: Parameters<Workspace['apply']>[1],
-    ) {
-      const change = await fx.workspace.apply(ops, run);
-      if (ops[0]?.op === 'chain.relocate' && ops[0].destination.kind === 'track' && !injected) {
-        injected = true;
-        fx.row.devices.push(intervening);
-        fx.fake.model.revision++;
-      }
-      return change;
-    },
-  });
-
-  const reversed = await callTool(workspace, 'reverse_device_source_composition', {
+  const reversed = await callTool(fx.workspace, 'reverse_device_source_composition', {
     checkpoint: composed['reversalCheckpoint'],
   }) as Record<string, unknown>;
-  assert.equal(injected, true);
-  assert.equal(reversed['complete'], false);
-  assert.equal(reversed['partialReversal'], true);
-  assert.match(String(reversed['why']), /project changed|device order/);
-  assert.ok(fx.row.devices.includes(intervening));
-  const continuation = reversed['reversalCheckpoint'] as {
-    schemaVersion: number;
-    reversalRemainingEntries: unknown[];
-    reversalPendingTopLevel: { position: number; observedName: string };
-  };
-  assert.equal(continuation.schemaVersion, 5);
-  assert.deepEqual(continuation.reversalRemainingEntries, []);
-  assert.equal(continuation.reversalPendingTopLevel.observedName, 'Existing Twin');
-  assert.equal(continuation.reversalPendingTopLevel.position, 3);
-
-  const stale = await callTool(workspace, 'reverse_device_source_composition', {
-    checkpoint: composed['reversalCheckpoint'],
-  }) as Record<string, unknown>;
-  assert.equal(stale['refused'], true);
-  assert.equal(stale['nothingWasWritten'], true);
-
-  assert.equal(fx.row.devices.pop(), intervening);
-  fx.fake.model.revision++;
-  const resumed = await callTool(workspace, 'reverse_device_source_composition', {
-    checkpoint: continuation,
-  }) as Record<string, unknown>;
-  assert.equal(resumed['complete'], true, JSON.stringify(resumed));
+  assert.equal(reversed['complete'], true, JSON.stringify(reversed));
+  assert.deepEqual((reversed['stages'] as { stage: string }[]).map((item) => item.stage), ['remove-container']);
+  assert.equal(fx.row.devices[0], fx.existing);
   assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
+
+  const stale = await callTool(fx.workspace, 'reverse_device_source_composition', {
+    checkpoint: composed['reversalCheckpoint'],
+  }) as Record<string, unknown>;
+  assert.equal(stale['refused'], true, 'a completed reversal checkpoint is no longer issued');
 });
 
 test('5r-reversal: an interrupted existing move resumes to its original position', async () => {
@@ -1145,7 +1129,6 @@ test('5r-reversal: accepted container removal can resume final proof without del
 
 test('5q-final: unexpected nested state cannot pass the complete witness', async () => {
   const fx = fixture();
-  let containerReads = 0;
   const unexpected = {
     name: 'Unexpected nested device', enabled: false, paramsLive: true,
     params: [{
@@ -1155,15 +1138,13 @@ test('5q-final: unexpected nested state cannot pass the complete witness', async
   };
   const workspace: Workspace = Object.freeze({
     ...fx.workspace,
-    async read(addresses: Parameters<Workspace['read']>[0]) {
-      const snapshot = await fx.workspace.read(addresses);
-      const target = addresses[0];
-      if (target?.kind === 'device' && target.chain === undefined && target.chainIndex === 0
-          && ++containerReads === 3) {
+    async apply(ops: Parameters<Workspace['apply']>[0], run?: Parameters<Workspace['apply']>[1]) {
+      const change = await fx.workspace.apply(ops, run);
+      if (ops[0]?.op === 'chain.insert') {
         fx.row.devices[0]!.chains![0]!.devices.push(unexpected);
         fx.fake.model.revision++;
       }
-      return snapshot;
+      return change;
     },
   });
   const result = await callTool(workspace, 'compose_device_sources', {
@@ -1176,7 +1157,8 @@ test('5q-final: unexpected nested state cannot pass the complete witness', async
   }) as Record<string, unknown>;
   assert.equal(result['complete'], false, JSON.stringify(result));
   assert.equal(result['failedStage'], 'final-witness');
-  assert.equal(result['structure'], undefined);
+  assert.deepEqual((result['structure'] as { devices: { name: string }[] }[])[0]!.devices.map((item) => item.name)
+    .at(-1), 'Unexpected nested device', 'the result reports the observed structure');
 });
 
 test('8h4e compose_devices: the staged backend composes and revert_change reverses it by change ID', async () => {
@@ -1362,4 +1344,47 @@ test('B17: lost first-insertion readback reports possible effects without replay
   assert.equal(result.detail.compositionChangeId, null);
   assert.match(result.message, /insertion may have applied/);
   assert.doesNotMatch(result.message, /Nothing was written|revert_change/);
+});
+
+test('D65 call budget: staged compose_devices and revert_change make a fixed number of adapter calls', async () => {
+  const budget = async (chains: number, devices: number) => {
+    const fx = fixture();
+    const counts: Record<string, number> = {};
+    const fake = fx.fake as unknown as Record<string, (...args: unknown[]) => Promise<unknown>>;
+    for (const name of ['revision', 'contentSince', 'tracks', 'devices', 'resolve', 'apply', 'read']) {
+      const original = fake[name]!.bind(fx.fake);
+      fake[name] = async (...args: unknown[]) => {
+        const key = name === 'read' && (args[1] as { structure?: boolean } | undefined)?.structure === true
+          ? 'structureRead' : name;
+        counts[key] = (counts[key] ?? 0) + 1;
+        return original(...args);
+      };
+    }
+    const composed = await callTool(fx.workspace, 'compose_devices', {
+      trackId: fx.trackId, containerKind: 'FX Layer',
+      layerChains: Array.from({ length: chains }, (_, index) => ({ name: `Budget ${index}`,
+        devices: Array.from({ length: devices }, () => ({ source: { kind: 'native', name: 'Tool' } })) })),
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    assert.equal(composed['readback']?.status, 'verified', JSON.stringify(composed));
+    const composeCounts = { ...counts };
+    for (const key of Object.keys(counts)) delete counts[key];
+    const reversed = await callTool(fx.workspace, 'revert_change', {
+      changeId: composed['next'].revert.changeId,
+    }, AGENT_NATIVE_TOOL_PROFILE) as Record<string, any>;
+    assert.equal(reversed['failure'], undefined, JSON.stringify(reversed));
+    assert.deepEqual(fx.row.devices.map((item) => item.name), ['Existing Twin', 'Tool']);
+    return { compose: composeCounts, revert: { ...counts } };
+  };
+  const one = await budget(1, 1);
+  const six = await budget(3, 2);
+  // Container insertion at the track end, naming, and one batch of direct chain insertions. Each executor run
+  // reads its stash and verify marks and one delta; the surface makes the one initial bank read.
+  assert.deepEqual(one.compose, { devices: 1, read: 6, apply: 3, contentSince: 3, structureRead: 2 },
+    'structure reads: the seed names and the final result');
+  // Six devices in three chains cost the same calls as one device: no per-device stage, proof or inventory.
+  assert.deepEqual(six.compose, one.compose);
+  // Reversal: a top-level and a container guard read, one owned removal (structural stash and verify, E404) and
+  // one final top-level read.
+  assert.deepEqual(one.revert, { devices: 2, structureRead: 3, resolve: 1, apply: 1, contentSince: 1 });
+  assert.deepEqual(six.revert, one.revert);
 });

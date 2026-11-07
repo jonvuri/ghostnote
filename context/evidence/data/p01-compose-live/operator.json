@@ -1,0 +1,5 @@
+{
+  "reply": "Controller replaced",
+  "context": "Second replacement on 2026-11-07, after this worktree's normal build was deployed. The first reply (also \"Controller replaced\") loaded the earlier 93-method build, because the deployment had not yet run; that handshake failed on chain.insert and no write followed.",
+  "product": "ghostnote (normal)"
+}

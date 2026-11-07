@@ -1,0 +1,46 @@
+entry
+connection
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+resolve-vst3
+resolve-clap
+scratch
+owned
+1x1-before
+1x1-compose
+1x1-after
+stopped
+track-list
+selection-status
+rig-info
+/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/surface/tools.ts:4110
+  const parsed = (spec.inputValidator ?? z.object(spec.inputSchema)).parse(args);
+                                                                     ^
+
+ZodError: [
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "trackId"
+    ],
+    "path": [],
+    "message": "Unrecognized key: \"trackId\""
+  }
+]
+    at callTool (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/surface/tools.ts:4110:70)
+    at tool (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-compose-live.ts:87:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async measure (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-compose-live.ts:133:20)
+    at async <anonymous> (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-compose-live.ts:172:16)
+
+Node.js v24.11.1

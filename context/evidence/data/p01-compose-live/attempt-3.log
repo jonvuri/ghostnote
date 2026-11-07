@@ -1,0 +1,73 @@
+entry
+connection
+baseline
+preserved-0
+preserved-1
+preserved-2
+preserved-3
+preserved-4
+preserved-5
+preserved-6
+preserved-7
+preserved-8
+preserved-9
+preserved-10
+resolve-vst3
+resolve-clap
+scratch
+owned
+1x1-before
+1x1-compose
+1x1-after
+1x1-revert
+1x1-restored
+3x2-before
+3x2-compose
+3x2-after
+3x2-revert
+3x2-restored
+mixed-before
+mixed-compose
+mixed-after
+mixed-revert
+mixed-restored
+modulated-before
+modulated-compose
+modulated-after
+modulated-revert
+modulated-restored
+existing-fixture
+existing-before
+existing-compose
+existing-after
+existing-revert
+existing-restored
+existing-cleanup
+existing-cleaned
+anchors-16
+anchors-18
+anchors
+six-at-18-before
+six-at-18-compose
+six-at-18-after
+six-at-18-revert
+six-at-18-restored
+cleanup
+preserved-after-0
+preserved-after-1
+preserved-after-2
+preserved-after-3
+preserved-after-4
+preserved-after-5
+preserved-after-6
+preserved-after-7
+preserved-after-8
+preserved-after-9
+preserved-after-10
+result
+1x1: compose 2601 ms / 81 turns; revert 1543 ms / 53 turns
+3x2: compose 4294 ms / 93 turns; revert 1682 ms / 53 turns
+mixed: compose 2753 ms / 81 turns; revert 1605 ms / 53 turns
+modulated: compose 3915 ms / 110 turns; revert 1607 ms / 53 turns
+existing: compose 5625 ms / 169 turns; revert 2519 ms / 82 turns
+six-at-18: compose 13742 ms / 133 turns; revert 2840 ms / 53 turns

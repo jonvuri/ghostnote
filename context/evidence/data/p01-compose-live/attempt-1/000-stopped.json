@@ -1,0 +1,5 @@
+{
+  "scratchName": "gn-p01-compose",
+  "error": "AssertionError [ERR_ASSERTION]: deliberate build marker\n+ actual - expected\n\n+ undefined\n- 'chain-insert-v1'\n",
+  "next": "Inspect effects before any further write; never repeat automatically."
+}

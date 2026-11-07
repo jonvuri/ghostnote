@@ -174,6 +174,200 @@ snapshots remaining structural. That checkpoint used descriptions v57 / 46 tools
 D44 limits are unchanged. A running brain server must load this worktree's
 updated code to use the executor change.
 
+## D65 composition design — 2026-11-07
+
+The operator committed the B18 reconciliation (`76120985`), so step 1 above is
+done. This session implements steps 2–4 offline.
+
+**Product route.** A new normal-profile write `chain.insert` replaces the
+research `probe.chainInsert` for product use. It addresses one top-level
+container by absolute position, finds one layer chain by its exact unique
+name, checks the chain's current device count, and inserts 1–8 ordered
+native/VST3/CLAP/preset sources at the chain end. Before each later source it
+waits for the preceding device count (E403); after the last source it waits
+for the final count, so the next stage can address the chain. Waiting is not
+a content proof. It validates the whole request, track, container name and an
+optional complete top-level order guard before the first setter. A failure
+after a setter reports possible effects; the brain does not repeat it. The
+probe's scratch gate and acknowledge latch do not carry over; restore failure
+still blocks writes. The contract op is `chain.insert` with the same fields;
+both adapters implement it, and the conformance suite covers it.
+
+**Composition stages.** Validate the request (pure), insert the container,
+position it if needed, read the seed structure once (its names come from the
+preset and must be known before renaming), grow and rename chains, then
+process each entry's devices in order. Consecutive new sources become one
+`chain.insert`; existing move/copy sources keep `chain.relocate` with a
+projected top-level guard. No stage re-reads the top level, inventories,
+fingerprints or container structure. One final container structure read
+supplies observed names, the checkpoint and the result; modulation page and
+route witnesses run once after it. The engine no longer repeats the
+surface's initial bank read: the container insertion's own adapter guard
+validates `expectedDeviceOrder`.
+
+**Reversal.** The advertised promise is unchanged: `revert_change` restores
+moved existing devices and removes only the owned container and owned
+sources. The implementation reads the top level and container once, checks
+them against the checkpoint, extracts moved existing devices and restores
+their positions, then deletes the owned container with its new and copied
+sources in one owned removal. Checkpoints are session-local, but the frozen
+`stable-v1` reversal tool validates the schema 5 shape, so schema 5 is kept:
+`completedEntries` now lists every device the final read observed, and with
+`preparedEntryNames` it is the structure that reversal checks.
+
+## D65 composition result — offline, 2026-11-07
+
+Implemented offline; the live result below verifies it (E406).
+
+- **Wire.** Normal-profile write `chain.insert` (`ChainInsertHandlers`,
+  marker `chain-insert-v1`, hello field `chainInsertRoute`). Each count wait,
+  including the final one, has a 10 s budget at 5 ms polls; a count above
+  the expected one refuses at once, a lower one waits out the budget. Each
+  poll also re-checks the held chain row's identity, which the probe did
+  not. Inventories: normal 94 / `526cd7e3760580cc`, capture
+  99 / `4e3c20f1c3db8cba`, probe 124 / `a8dfbfce3d47f16f`, historical 183.
+- **Contract and adapters.** Op `chain.insert` (1–8 sources, validated
+  before any host call; top-level container only; paged like
+  `chain.relocate`). It is unrevertable as a lone take; composition reversal
+  owns its removal. The live adapter points cursor 0 at the track, adds no
+  settle wait or track rescan, and drops only a held device target. The fake
+  names native devices from the bundled catalog, as the host does.
+  Conformance `C-chain-insert` covers order, append, stale count, absent
+  chain and whole-request refusal.
+- **Engine.** As designed above. Consecutive new sources share one batch
+  (one `chain.insert` per chain); a thrown write is never repeated, and the
+  final read reports what landed with `effectsPossible`. A device the final
+  read cannot attribute to the request is not claimed, so reversal refuses
+  instead of removing it. An untouched seed is adopted if the composition
+  stopped before reading its names. The agent-native surface passes
+  `orderValidated` because it has just read the bank; `stable-v1` callers keep
+  one engine read, so a stale order still refuses before any write.
+- **Budgets** (offline, `D65 call budget`): compose 1×1 and 3×2 both make
+  devices 1, read 6, apply 3, delta 3 and two container structure reads.
+  Reversal of new sources: devices 2, structure read 3, resolve 1, apply 1,
+  delta 1. The per-stage top-level reads, inventories and fingerprints are
+  gone; the result no longer has `scalarFingerprint`.
+- **Public text.** Descriptions v60 describe the route and drop the retired
+  per-device timings. D44 weights and limits are unchanged until live
+  measurement.
+
+Verification: typecheck; all brain tests (2,618 after the budget test) and
+`./gradlew check` pass. Tests that pinned retired mechanisms (pending
+checkpoints, per-stage fingerprints, copy extraction, ≥4 container proofs)
+were rewritten to the new behavior.
+
+## D65 composition result — live, 2026-11-07
+
+[E406](../evidence/experiments/e406-d65-direct-composition-live.md) verifies
+the normal build (94 / `526cd7e3760580cc`) after the operator's second
+“Controller replaced”; the first replacement loaded the older build because
+deployment had not yet run, and its handshake stopped before any write. All
+six cases composed, read back independently and reverted exactly: 1×1
+2.6 s, 3×2 4.3 s, mixed six-unit plug-in/preset 2.8 s, modulated 3.9 s,
+existing move + copy 5.6 s, six chains at position 18 13.7 s (E398:
+44.4 s). Reverts took 1.5–2.8 s. Cleanup and preservation passed. Two
+driver-input stops are recorded in E406; the second left one verified
+composition, which was inspected and removed with its owned scratch track.
+
+**D44.** Every admitted shape is far under 30 s, but no larger shape was
+measured, so the six-unit limit and weights stay. Raising them needs a
+measurement at the proposed limit (for example 12–16 native devices, and
+plug-ins) and its revert.
+
+**Next.** Cut the adapter's per-operation checks (design below), then measure
+a larger shape and re-derive D44; scalar-cohort and clip-metadata reductions
+follow.
+
+## Next session — adapter per-operation checks and the D44 measurement
+
+Design note, written before the commit of the D65 composition work. Nothing
+here is implemented yet.
+
+### Where the six-chain composition spends 13.7 s
+
+From the E406 attempt 3 call sequence (`six-at-18-compose`), approximately:
+
+| Part | Time | Calls |
+|---|---:|---|
+| Container insertion | 1.6 s | 5 `device.list` before the write (surface bank read, adapter preflight, stage bracket) and 4 after it (`settleStructure` polls); 8 writer-clip `cursor.pin` releases and track rescans, because `device.insert` is in `STRUCTURAL` |
+| Seed read | 0.2 s | 1 `chain.observe` (engine; needed for the seed names) |
+| Sixth-chain growth | 1.8 s | 2 `chain.observe` preflight, `chain.select`, `chain.duplicate`, 3 `chain.observe` polls for the new chain, the copy's `chain.setName`, 1 proof `chain.observe` |
+| Six renames | 4.8 s | per rename: 2 `chain.observe` (≈ 0.57 s) and one `batch.run` of one `chain.setName` (≈ 0.17 s); one final proof read |
+| Six chain insertions | 2.5 s | one `batch.run` per chain (≈ 0.36 s, mostly the extension's scope aim at 18) plus a cursor re-point each |
+| Final read | 0.3 s | 1 `chain.observe` (engine; the result and checkpoint) |
+| Executor and brain overhead | ≈ 2.9 s | stash/verify marks and deltas for 5 applies (`revision.get` + `track.list` pairs, ≈ 1.2 s) and brain-side gaps (1.7 s) |
+
+### Classification under D65
+
+Keep (input validation and target identity, D65 rule 6): the top-level order
+guards, the extension's container/chain identity checks at the write, the
+rename's free-name and unique-source preconditions, D52, selection
+protection, and one independent readback at the end of each tool.
+
+Remove or share (mid-operation proofs and repeated reads, D65 rules 1–2):
+
+1. **Renames.** The live rename stage reads the container before each
+   `chain.setName` and again afterwards as proof (`chain.rename` handling in
+   `LiveAdapter.applyInside` and its post-stage `named` check). Plan: read the
+   container once in the batch preflight (`readContainers` already does),
+   resolve every chain ID from that read, and send all renames of one
+   container in one `batch.run`. Channel IDs survive renames, so one read also
+   serves the clash case's two passes. `chain.rename` is a `trackStruct`
+   stage today; sending several `chain.setName` frames in one turn needs a
+   short live proof (each name lands, no ID drift) before it ships.
+   Expected: about 4 s of the six-chain case.
+2. **Chain growth.** Keep a wait for the new chain, because the rename after
+   it addresses that chain (D65 rule 2 permits a dependency wait). Drop the
+   separate proof read after the copy's rename. Consider growing several
+   chains in one stage only with a live ordering proof.
+3. **Chain insertions.** Stop bumping `structuralRevision` after a
+   `chain.insert` stage: it invalidates cursor 0's held track, so every
+   insertion re-points the cursor (about 50 ms each); dropping
+   `heldDeviceTarget` is enough. Optionally let one `chain.insert` address
+   several chains of one container in a single scope aim (about 0.3 s per
+   chain), which needs an extension change and a multi-target live proof;
+   E403 proved one chain per request only.
+4. **Container insertion.** The pre-write `device.list` reads repeat the
+   surface's bank read; the post-write polls wait for the container (a
+   permitted dependency wait, but the engine's seed read already waits for
+   it). The writer-clip release applies to every `STRUCTURAL` op; a device
+   insertion holds no writer clip, so releasing only held clips is a
+   candidate. This is shared by `add_devices` and other device writes, so
+   measure those tools before and after.
+5. **Executor overhead.** Each apply pays its stash mark, verify mark and
+   delta. Merging the rename and insertion applies would save about 0.5 s
+   but couples their failure reporting; defer unless the above leaves it
+   significant.
+
+### Shared-code impact
+
+The rename and growth paths are also `rename_layer_chain` and
+`duplicate_layer_chain` (offline budgets: read 4, apply 1, delta 1). Those
+tools must keep one final independent readback (D65 rule 2) after the
+adapter proof goes; check that their executor verify read or surface
+readback already provides it, and update their call budgets, the ledger and,
+if public behavior or timing text changes, the descriptions together.
+Conformance cases `C-chain-create` and `C-chain-rename` keep their
+semantics.
+
+### Verification
+
+Offline: call-budget updates for `compose_devices`, `rename_layer_chain`,
+`duplicate_layer_chain` and `add_devices`; all brain tests and
+`./gradlew check`. Live, after deployment and controller replacement: rerun
+`p01-compose-live.ts` against E406 and the affected layer-chain tools, with
+the usual cleanup and preservation checks.
+
+### D44 measurement
+
+After the adapter changes, measure each candidate shape and its revert with
+the same driver: 12 and 16 native devices (for example 4×3 and 4×4, and 16
+chains of one at a far position), a plug-in-heavy request at the candidate
+unit count, and the modulator limit (4 modulators). Set the unit limit and
+weights from the slowest admitted case and its revert against the 30 s plan
+budget, record the measurements in an E record, and change the limit, its
+schema text, the ledger and the descriptions together.
+
 ## Scope and evidence
 
 The [P01 assignment](../plan/overlap/wave-4/work-sessions.md#p01--edit-path-performance-and-recovery-cost)

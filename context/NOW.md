@@ -36,6 +36,21 @@ retargeting, scratch cleanup and preserved inventories/selection passed.
 The comparison suppresses capability flags on the same LRU build; it is not
 an old-build latency comparison. Scope count/width stay three/one.
 
+**P01 D65 composition is implemented and verified live (2026-11-07).** A new
+normal-profile write `chain.insert` places ordered sources directly at a
+named layer chain's end, waiting for each device count as E403 requires.
+Staged `compose_devices` inserts the container, names its chains, sends one
+batch of direct insertions, relocates only existing sources and reads the
+container once; reversal restores moved devices and removes the owned
+container in one removal. [E406](evidence/experiments/e406-d65-direct-composition-live.md):
+six chains at position 18 took 13.7 s (E398: 44.4 s), other admitted shapes
+2.6–5.6 s, reverts 1.5–2.8 s, with cleanup and preservation passing. Normal
+wire 94 / `526cd7e3760580cc`; descriptions v60; D44 unchanged until a larger
+shape is measured. The loaded controller is this worktree's normal build.
+Next: the [adapter-check design](work/p01-edit-path-performance.md#next-session--adapter-per-operation-checks-and-the-d44-measurement)
+(per-rename reads and batches, per-insertion re-points), then a larger D44
+measurement ([result](work/p01-edit-path-performance.md#d65-composition-result--live-2026-11-07)).
+
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits
 for the preceding source's device count before the next end insertion. Native
@@ -71,9 +86,9 @@ brings the combined source to descriptions v59 / 46 tools. At that checkpoint, t
 worktree's updated code to use these brain changes.
 
 [E400](evidence/experiments/e400-p01-offline-cost-attribution.md) and the brief
-retain the obligation audit. Next in the P01 queue: integrate the proved arrival-dependent
-route into D65 composition, preserve truthful partial/reversal receipts and
-remeasure D44. Scalar cohort and clip-metadata capture reductions remain open.
+retain the obligation audit. The D65 composition integration is verified live
+in E406 (above); a larger D44 measurement is next. Scalar cohort
+and clip-metadata capture reductions remain open.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)
 records P01's evidence renumbering to E400–E404, both retained probes, and

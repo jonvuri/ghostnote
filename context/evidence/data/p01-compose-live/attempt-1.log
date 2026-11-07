@@ -1,0 +1,25 @@
+stopped
+track-list
+selection-status
+rig-info
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: deliberate build marker
++ actual - expected
+
++ undefined
+- 'chain-insert-v1'
+
+    at <anonymous> (/Users/jonvuri/Development/worktrees/ghostnote/mossy-larch/ghostnote/brain/src/probes/p01-compose-live.ts:146:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'chain-insert-v1',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

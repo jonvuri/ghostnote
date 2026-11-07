@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v59';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v60';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -919,3 +919,9 @@ export const TOOL_DESCRIPTION_V58_SHA256 = '36e7ef9662dfb7abd62bfe6db8fa5bbbd270
  * and retiredRefs carries the why.
  */
 export const TOOL_DESCRIPTION_V59_SHA256 = 'e30c59a95386b646d2ada5ad5b879818702b5108ba59b7dc4a4c2b3a40de8477';
+
+/**
+ * v60 (P01, D65): staged compose_devices inserts new devices directly at each layer chain's end and reads the
+ * container once at the end. The retired per-device timings are removed until remeasurement; limits stay.
+ */
+export const TOOL_DESCRIPTION_V60_SHA256 = 'b32fbaf1c42302c2a9c32494f7c9f02ed93ef106d8f0c0cb801a0cc95b2315d9';

@@ -103,6 +103,7 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("containerScopeRoute", ContainerScopes.RULE);
         result.addProperty("layerControlRoute", ChainControlHandlers.RULE);
         result.addProperty("chainMoveRoute", ChainMoveHandlers.RULE);
+        result.addProperty("chainInsertRoute", ChainInsertHandlers.RULE);
         result.addProperty("deviceMutationRoute", DeviceMutationHandlers.RULE);
         result.addProperty("windowWriteBlock", rig.writeGate.blockedReason());
         result.add("containerScopeStatus", rig.containerScopes.status());

@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-29",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 182,
-  "methodsHash": "ca399f46bf4e3229",
+  "count": 183,
+  "methodsHash": "725dc5fce7ee9e7f",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -31,6 +31,7 @@
     "cache.shadow",
     "chain.activate",
     "chain.duplicate",
+    "chain.insert",
     "chain.inventory",
     "chain.move",
     "chain.observe",
@@ -161,6 +162,7 @@
     "cache.shadow",
     "chain.activate",
     "chain.duplicate",
+    "chain.insert",
     "chain.inventory",
     "chain.move",
     "chain.observe",
@@ -590,6 +592,7 @@
     "chain.observe"
   ],
   "addedInP01": [
+    "chain.insert",
     "probe.chainInsert"
   ],
   "addedInR02": [

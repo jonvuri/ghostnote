@@ -45,6 +45,12 @@ export type DeviceSource =
   /** ⚠ MUST be absolute and MUST end `.bwpreset` — both fail silently otherwise (E4h). */
   | { readonly from: 'file'; readonly path: string };
 
+/** A source that `chain.insert` places directly at a layer chain's end. */
+export type ChainInsertSource = DeviceSource;
+
+/** The most sources that one `chain.insert` places in one chain. */
+export const CHAIN_INSERT_MAX_SOURCES = 8;
+
 /** The track kinds that `track.create` can make (8h4f, E239). Bitwig has no API route for a Hybrid track. */
 export const CREATABLE_TRACK_KINDS = ['instrument', 'audio'] as const;
 export type CreatableTrackKind = typeof CREATABLE_TRACK_KINDS[number];
@@ -241,6 +247,25 @@ export type Op =
     /** Aligned top-level enabled flags from the same observation. */
     readonly expectedEnabledChain?: readonly boolean[];
   }
+  /**
+   * P01 (E403, D65): insert ordered sources at the end of one named layer chain
+   * of a top-level container, without a top-level insertion or a move. The
+   * extension waits for each preceding device to arrive before the next
+   * insertion and for the final count before it replies; the wait is not a
+   * content proof. The caller makes the one independent readback.
+   */
+  | {
+    readonly op: 'chain.insert';
+    readonly chain: ChainAddress;
+    readonly sources: readonly ChainInsertSource[];
+    /** The chain's device count before the first insertion. */
+    readonly expectedDeviceCount: number;
+    readonly expectedContainerName: string;
+    /** Complete top-level names from the caller's last accepted observation. */
+    readonly expectedChain?: readonly string[];
+    /** Aligned top-level enabled flags from the same observation. */
+    readonly expectedEnabledChain?: readonly boolean[];
+  }
   /** Make one named chain the sole soloed chain in its container. */
   | { readonly op: 'chain.activate'; readonly chain: ChainAddress }
   /**
@@ -324,6 +349,8 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   'chain.create': 'deviceInsert',
   'chain.rename': 'trackStruct',
   'chain.relocate': 'deviceInsert',
+  // The extension replies after the final device count arrives; the adapter adds no settle wait.
+  'chain.insert': 'deviceInsert',
   'chain.activate': 'tick',
   'chain.solo': 'tick',
   'drumPad.insert': 'deviceInsert',
@@ -403,6 +430,7 @@ export function assertOpsWritable(ops: readonly Op[]): void {
         throw new InvalidOpError(op.op, 'the complete chain guard must identify the Drum Machine');
       }
     }
+    if (op.op === 'chain.insert') assertChainInsertWritable(op);
     if (op.op === 'device.insert'
         && op.expectedDeviceName !== undefined
         && op.expectedDeviceName.trim() === '') {
@@ -633,6 +661,7 @@ export function sceneRowsOf(op: Op): readonly SceneAddress[] {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    case 'chain.insert':
     case 'chain.activate':
     case 'chain.solo':
     case 'drumPad.insert':
@@ -683,6 +712,7 @@ export function launcherSlotsOf(op: Op): readonly SlotAddress[] {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    case 'chain.insert':
     case 'chain.activate':
     case 'chain.solo':
     case 'drumPad.insert':
@@ -734,6 +764,9 @@ function deviceRefsOf(op: Op): readonly DeviceAddress[] {
       return [];
     case 'chain.activate':
     case 'chain.solo':
+      return [op.chain.container];
+    // The container must be top-level: its scope hangs off a top-level device slot.
+    case 'chain.insert':
       return [op.chain.container];
     case 'drumPad.insert':
       // This route owns the top-level container and pad checks.
@@ -812,7 +845,8 @@ export function assertDevicesRoutable(ops: readonly Op[]): void {
 
 /** Parameter and other legacy routes still require the first top-level window. */
 export function assertTopLevelDeviceWriteWindow(op: string, count: number, bankSize: number | undefined): void {
-  if (['device.insert', 'device.delete', 'device.setEnabled', 'device.relocate', 'chain.relocate'].includes(op)) return;
+  if (['device.insert', 'device.delete', 'device.setEnabled', 'device.relocate', 'chain.relocate', 'chain.insert']
+    .includes(op)) return;
   if (bankSize === undefined || count > bankSize) {
     throw new InvalidOpError(op, 'this legacy route requires the entire chain to fit in the first window');
   }
@@ -1439,4 +1473,38 @@ export function assertClipSources(
 /** Exhaustiveness guard: an unhandled variant fails to compile, not at runtime. */
 export function assertNever(x: never, context: string): never {
   throw new Error(`${context}: unhandled variant ${JSON.stringify(x)}`);
+}
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Validate one direct chain insertion completely before any host call (D15 rule 3). */
+function assertChainInsertWritable(op: Extract<Op, { op: 'chain.insert' }>): void {
+  if (op.chain.kind !== 'chain' || op.chain.container.chain !== undefined) {
+    throw new InvalidOpError(op.op, 'the target must be a named layer chain of one top-level container');
+  }
+  if (op.chain.name.trim() === '' || op.expectedContainerName.trim() === '') {
+    throw new InvalidOpError(op.op, 'the chain and container names must not be empty');
+  }
+  if (!Number.isInteger(op.expectedDeviceCount) || op.expectedDeviceCount < 0) {
+    throw new InvalidOpError(op.op, 'the expected device count must be a nonnegative integer');
+  }
+  if (op.sources.length < 1 || op.sources.length > CHAIN_INSERT_MAX_SOURCES) {
+    throw new InvalidOpError(op.op, `one insertion places 1 through ${CHAIN_INSERT_MAX_SOURCES} sources`);
+  }
+  for (const source of op.sources) {
+    const valid = source.from === 'bitwig' ? UUID_PATTERN.test(source.uuid)
+      : source.from === 'vst3' ? /^[0-9A-Fa-f]{32}$/.test(source.classUid)
+        : source.from === 'clap' ? source.id !== '' && source.id === source.id.trim()
+          && !/[\u0000-\u001f\u007f]/.test(source.id)
+          : source.path.startsWith('/') && source.path.toLowerCase().endsWith('.bwpreset');
+    if (!valid) throw new InvalidOpError(op.op, `invalid ${source.from} source`);
+  }
+  if ((op.expectedChain === undefined) !== (op.expectedEnabledChain === undefined)
+      || (op.expectedChain !== undefined && op.expectedChain.length !== op.expectedEnabledChain!.length)) {
+    throw new InvalidOpError(op.op, 'the top-level guard needs aligned names and enabled flags');
+  }
+  if (op.expectedChain !== undefined
+      && op.expectedChain[op.chain.container.chainIndex] !== op.expectedContainerName) {
+    throw new InvalidOpError(op.op, 'the top-level guard must identify the container');
+  }
 }

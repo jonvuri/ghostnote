@@ -218,6 +218,7 @@ function targetsOf(op: Op): {
     case 'chain.create':
     case 'chain.rename':
     case 'chain.relocate':
+    case 'chain.insert':
     case 'device.relocate':
     case 'chain.activate':
     case 'chain.solo':
@@ -316,6 +317,14 @@ function unrevertableOf(op: Op, opIndex: number): UnrevertableOp | undefined {
           'the static write record does not hold the earlier solo flag, and a chain is addressed by a '
           + 'name that can change later. Complete container readback proves the new flag and the '
           + 'unchanged siblings, but automatic reversal does not guess the earlier flag.',
+      };
+    case 'chain.insert':
+      return {
+        opIndex, op: op.op, unrestoredAs: 'inserted chain device',
+        why:
+          'device addresses inside a layer chain are positional, so a later occupant cannot be proved to '
+          + 'be the device this operation inserted. A composition that owns the container removes it with '
+          + 'its own reversal; automatic reversal of this operation declines.',
       };
     case 'drumPad.insert':
       // The owned top-level insertion is the inverse for all of its pad writes.
@@ -426,7 +435,7 @@ export function structuralRisk(ops: readonly Op[]): StructuralRisk {
     scenes: ops.some((o) => OP_BUMPS_SCENE_EPOCH.has(o.op)),
     deviceChains: ops.some((o) =>
       o.op === 'device.insert' || o.op === 'device.delete' || o.op === 'drumPad.insert'
-      || o.op === 'device.relocate' || o.op === 'chain.relocate'),
+      || o.op === 'device.relocate' || o.op === 'chain.relocate' || o.op === 'chain.insert'),
   };
 }
 

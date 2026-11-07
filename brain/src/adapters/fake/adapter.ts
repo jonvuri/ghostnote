@@ -22,13 +22,15 @@ import {
   verifyChainSolo, verifyDeviceRelocation, verifyDeviceReorder, verifyExclusiveChain,
   type Address, type AdapterInfo, type BatchReceipt, type BatchRequest, type BitwigAdapter, type SelectionOutcome,
   type ClipAddress, type ClipMetadataState, type ClipSourceDigest, type RawSourceRecord, type ClipNavigationResult, type ContentDelta, type DeviceAddress, type Fidelity, type NoteRecord, type ObservedContainer,
-  type Op, type OpReceipt, type ReadOptions, type ResolveResult,
+  type DeviceSource, type Op, type OpReceipt, type ReadOptions, type ResolveResult,
   type ParamState, type RemoteControlState, type RemoteControlsState, type ResolvedAddress,
   type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
   type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
+import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
+import { NATIVE_CATALOG_PATH } from '../../composition/assets.js';
 import { planStages, resolveRemoteSelector } from '../../contract/index.js';
 import { VirtualClock } from './clock.js';
 import { ProjectModel, fakeMixerOf, noteKey, type FakeDevice, type FakeTrack } from './model.js';
@@ -1536,52 +1538,7 @@ export class FakeAdapter implements BitwigAdapter {
       case 'device.insert': {
         const track = this.requireTrack(op.track, op.op);
         this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
-        const isInstrumentSeed = op.source.from === 'file'
-          && basename(op.source.path) === INSTRUMENT_LAYER_SEED_BASENAME;
-        const sourceId = op.source.from === 'bitwig' ? op.source.uuid
-          : op.source.from === 'vst3' ? op.source.classUid
-          : op.source.from === 'clap' ? op.source.id
-          : undefined;
-        const name = op.expectedDeviceName ?? (sourceId === undefined
-          ? undefined
-          : this.nativeDeviceNames.get(sourceId)) ?? (isInstrumentSeed
-          ? 'Instrument Layer'
-          : sourceId === ProjectModel.DRUM_MACHINE_UUID ? 'Drum Machine'
-            : op.source.from === 'file' ? op.source.path.split('/').pop()! : sourceId!);
-        // ⚠ A container inserted by uuid arrives with the chains its type ships
-        // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
-        // E18a at three destinations). That asymmetry is the bootstrap fact the
-        // whole lifecycle turns on, so the fake models it rather than treating
-        // every inserted device as an opaque box.
-        const shipped = isInstrumentSeed
-          ? [{
-            name: 'fake-seed-alternate',
-            mute: false,
-            solo: false,
-            volume: 1,
-            pan: 0.5,
-            color: { red: 0.341, green: 0.38, blue: 0.776 },
-            id: this.model.mintChannelId(),
-            devices: [],
-          }]
-          : sourceId === undefined ? undefined : this.model.shippedChains(sourceId);
-        const device: FakeDevice = {
-          name,
-          enabled: true,
-          paramsLive: false,
-          params: Array.from({ length: 12 }, (_, index) => ({
-            id: `P${index + 1}`,
-            name: `Param ${index + 1}`,
-            value: 0.5,
-          })),
-          ...(shipped === undefined ? {} : { chains: shipped }),
-          ...(op.expectedDeviceName === 'Chain' ? {
-            deviceSlots: { CHAIN: [] },
-          } : {}),
-          ...(sourceId === ProjectModel.DRUM_MACHINE_UUID
-            ? { drumPads: Array.from({ length: this.model.drumPadBankSize }, () => []) }
-            : {}),
-        };
+        const device = this.insertedDevice(op.source, op.expectedDeviceName);
         track.devices.push(device);
         // ⚠ The chain index the insert PRODUCED, read off the chain rather than
         // predicted — the same discipline `track.create` follows (E2c). It is
@@ -1589,9 +1546,30 @@ export class FakeAdapter implements BitwigAdapter {
         // emitting it from anything but an observation is how a revert deletes a
         // device nobody addressed.
         minted[opIndex] = { kind: 'device', track: op.track, chainIndex: track.devices.length - 1 };
-        // ⚠ E4: the device exists immediately but its parameters are not readable
-        // for another ~194ms. A timer, not a tick counter, is what expresses that.
-        this.clock.after('paramsLive', `paramsLive:${name}`, () => { device.paramsLive = true; });
+        return;
+      }
+
+      case 'chain.insert': {
+        // The live handler validates the track, container, unique chain and count before its first setter.
+        const track = this.requireTrack(op.chain.container.track, op.op);
+        if (op.expectedChain !== undefined) {
+          this.assertExpectedDeviceChain(op.op, track, op.expectedChain, op.expectedEnabledChain);
+        }
+        const container = track.devices[op.chain.container.chainIndex];
+        if (container?.name !== op.expectedContainerName || container.chains === undefined) {
+          throw new UnsupportedOpError(`${op.op}: the container identity changed`, 'fake');
+        }
+        const matches = container.chains.filter((chain) => chain.name === op.chain.name);
+        if (matches.length !== 1) {
+          throw new UnsupportedOpError(
+            `${op.op}: chain "${op.chain.name}" ${matches.length === 0 ? 'is absent' : 'is ambiguous'}`, 'fake');
+        }
+        const target = matches[0]!;
+        if (target.devices.length !== op.expectedDeviceCount) {
+          throw new UnsupportedOpError(
+            `${op.op}: expected ${op.expectedDeviceCount} devices, found ${target.devices.length}`, 'fake');
+        }
+        for (const source of op.sources) target.devices.push(this.insertedDevice(source));
         return;
       }
 
@@ -1975,6 +1953,61 @@ export class FakeAdapter implements BitwigAdapter {
     }
   }
 
+  /** One device as an insertion from `source` creates it, with the shipped chains of its type. */
+  private insertedDevice(source: DeviceSource, expectedDeviceName?: string): FakeDevice {
+    const isInstrumentSeed = source.from === 'file'
+      && basename(source.path) === INSTRUMENT_LAYER_SEED_BASENAME;
+    const sourceId = source.from === 'bitwig' ? source.uuid
+      : source.from === 'vst3' ? source.classUid
+      : source.from === 'clap' ? source.id
+      : undefined;
+    const name = expectedDeviceName ?? (sourceId === undefined
+      ? undefined
+      : this.nativeDeviceNames.get(sourceId)
+        ?? (source.from === 'bitwig' ? nativeCatalogName(sourceId) : undefined)) ?? (isInstrumentSeed
+      ? 'Instrument Layer'
+      : sourceId === ProjectModel.DRUM_MACHINE_UUID ? 'Drum Machine'
+        : source.from === 'file' ? source.path.split('/').pop()! : sourceId!);
+    // ⚠ A container inserted by uuid arrives with the chains its type ships
+    // with — one for an FX Layer, none for an Instrument Layer (`e17ai`,
+    // E18a at three destinations). That asymmetry is the bootstrap fact the
+    // whole lifecycle turns on, so the fake models it rather than treating
+    // every inserted device as an opaque box.
+    const shipped = isInstrumentSeed
+      ? [{
+        name: 'fake-seed-alternate',
+        mute: false,
+        solo: false,
+        volume: 1,
+        pan: 0.5,
+        color: { red: 0.341, green: 0.38, blue: 0.776 },
+        id: this.model.mintChannelId(),
+        devices: [],
+      }]
+      : sourceId === undefined ? undefined : this.model.shippedChains(sourceId);
+    const device: FakeDevice = {
+      name,
+      enabled: true,
+      paramsLive: false,
+      params: Array.from({ length: 12 }, (_, index) => ({
+        id: `P${index + 1}`,
+        name: `Param ${index + 1}`,
+        value: 0.5,
+      })),
+      ...(shipped === undefined ? {} : { chains: shipped }),
+      ...(expectedDeviceName === 'Chain' ? {
+        deviceSlots: { CHAIN: [] },
+      } : {}),
+      ...(sourceId === ProjectModel.DRUM_MACHINE_UUID
+        ? { drumPads: Array.from({ length: this.model.drumPadBankSize }, () => []) }
+        : {}),
+    };
+    // ⚠ E4: the device exists immediately but its parameters are not readable
+    // for another ~194ms. A timer, not a tick counter, is what expresses that.
+    this.clock.after('paramsLive', `paramsLive:${name}`, () => { device.paramsLive = true; });
+    return device;
+  }
+
   async settle(budget: SettleBudget): Promise<void> {
     this.clock.settle(budget);
   }
@@ -2076,4 +2109,14 @@ function rawNoteFields(note: NoteRecord, channel: number): RawSourceRecord {
     isRecurrenceEnabled: note.isRecurrenceEnabled ?? true,
     isRepeatEnabled: note.isRepeatEnabled ?? true,
   };
+}
+
+let nativeCatalogNames: ReadonlyMap<string, string> | undefined;
+
+/** The host names a native device by its catalog name; the fake reads the bundled catalog once. */
+function nativeCatalogName(uuid: string): string | undefined {
+  nativeCatalogNames ??= new Map((JSON.parse(readFileSync(NATIVE_CATALOG_PATH, 'utf8')) as {
+    readonly devices: readonly { readonly uuid: string; readonly name: string }[];
+  }).devices.map((item) => [item.uuid, item.name]));
+  return nativeCatalogNames.get(uuid);
 }

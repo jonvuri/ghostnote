@@ -819,6 +819,21 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
       })];
     }
 
+    case 'chain.insert':
+      return [frame(WIRE.chainInsert, {
+        position: op.chain.container.chainIndex,
+        expectedTrackChannelId: op.chain.container.track.channelId,
+        expectedContainerName: op.expectedContainerName,
+        expectedChainName: op.chain.name,
+        expectedDeviceCount: op.expectedDeviceCount,
+        sources: op.sources.map((source) => source.from === 'bitwig' ? { kind: 'native', value: source.uuid }
+          : source.from === 'vst3' ? { kind: 'vst3', value: source.classUid }
+            : source.from === 'clap' ? { kind: 'clap', value: source.id }
+              : { kind: 'preset', value: source.path }),
+        ...(op.expectedChain === undefined ? {} : { expectedDeviceNames: op.expectedChain }),
+        ...(op.expectedEnabledChain === undefined ? {} : { expectedDeviceEnabled: op.expectedEnabledChain }),
+      })];
+
     case 'chain.activate':
       return [frame(WIRE.chainActivate, {
         position: op.chain.container.chainIndex,

@@ -2746,7 +2746,7 @@ test('T-fill projection: non-sorted caller order preserves requested order throu
   );
   assert.deepEqual(
     fx.fake.model.findByChannelId(fx.trackA)!.track.devices.map((item) => item.name),
-    [ProjectModel.FX_LAYER_UUID, 'source-b'],
+    ['FX Layer', 'source-b'],
   );
 });
 
@@ -2826,7 +2826,7 @@ test('T-selective-reduction: survivor names, multi-device order and signal posit
   assert.equal(result.applied, true, JSON.stringify(result));
   assert.equal(result.originalContainerRemoved, true);
   assert.equal(result.replacementPositionConfirmed, true);
-  assert.deepEqual(result.finalDeviceOrder, [ProjectModel.FX_LAYER_UUID, 'gn-anchor']);
+  assert.deepEqual(result.finalDeviceOrder, ['FX Layer', 'gn-anchor']);
   assert.notEqual(track.devices[position], oldContainer, 'the old container object is gone');
   assert.deepEqual(
     result.finalStructure.alternates.map((item) => ({
