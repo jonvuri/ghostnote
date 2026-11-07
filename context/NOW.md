@@ -1,7 +1,7 @@
 ---
 title: Current state
 kind: status
-updated: 2026-10-30
+updated: 2026-11-07
 ---
 
 ## Now
@@ -332,14 +332,40 @@ The operator then made a **capability grid** R01's focus
 - **Evidence:** R01 and Phase 8 have measured only B1 and single-turn B2.
   B3 is unmeasured for every format.
 
-**Next (fresh session):**
-1. Classify the operator's local Codex sessions that used Ghostnote into
-   grid cells.
-2. Assess how the live format (Ghostnote document 1.0, compact-bar FIELDS)
-   performed in those cells.
-3. Reassess R01 holistically and propose next steps. Round 2's step 4 waits
-   for this.
-R01's outcome (adoption, claims, naming) waits for round 2.
+[E392](evidence/experiments/e392-r01-real-usage-by-capability-cell.md)
+classified real use: 11 product sessions (9 Codex, 2 Claude Code), 564
+Ghostnote calls.
+- **Cells:** 17 of 20 note-write interactions were A1/B1 generation by
+  script; three were single-turn B2 patches that were really range or
+  transform edits; B3 never occurred.
+- **Live format:** every applied write verified exact, and no failure was
+  caused by the notation. Agents used FIELDS as a script target through file
+  paths. Unrequested per-note overlays were about 95% of written bytes, were
+  never used, and never survived a save, move or copy.
+- **Costs:** mostly tool design, guidance and host identity: slot probing by
+  full reads, re-reading verified writes, and missing slice, duplicate and
+  selector operations.
+
+The operator paused the format comparison at the development stage and
+opened round 3 ([R01-D23](../spec/r01-research/decisions/r01-d23-pause-format-comparison-and-open-round-3.md));
+results are packaged in [FINDINGS.md](../spec/r01-research/FINDINGS.md).
+[E393](evidence/experiments/e393-r01-round3-real-use-followups.md) answers
+round 3 offline:
+- **ID re-mint:** Ghostnote's fail-closed 24-event slot window, not the
+  agent or Bitwig; the result hides the `delta-incomplete` reason. A live
+  probe confirmed it: IDs survive 24 events after a read and re-mint at 25,
+  with or without concurrent reads.
+- **Timing overlays:** description routing put per-note claims on every note
+  whenever timing was made or kept. Declared ones matched requested feel, but
+  nothing read them; timing questions were answered against source MIDI.
+- **Tool costs:** nine ranked proposals, three of them description-only.
+
+**Next: [B18](work/b18-content-event-window.md)** (note identity survives
+Launcher activity), then [B19](work/b19-real-use-tooling-and-annotations.md)
+in three sessions: quick tool wins; overlays, clip annotations and provenance
+(with a last format evaluation and possible final benchmark); clip operations
+and stateless analysis tools. The operator merges this branch into `main`
+first.
 Works A–C are development material (E366); only development runs have occurred. E353 remains the
 initial source/codec/claim-cost evidence. Stark is excluded; no format adoption,
 product runtime change or scored model comparison occurred. Annotation persistence,
@@ -415,6 +441,14 @@ identifies proposed mechanisms for assessment during implementation.
   initialization at `2026-10-25T20:05:43.639Z`. The Ghostnote MCP server
   answered product tools again after that replacement; it had stopped
   answering after the earlier replacement to the probe build (E352).
+- **2026-10-31 (E393 probe):** the loaded `ghostnote` archive is `main`'s B17
+  normal build (`normal-v1`, API 25, 93 methods, hash `d6decf985f6b1f36`,
+  fresh initialization `2026-10-31T21:04:25Z`), newer than this checkout's
+  92-method golden; this checkout's `probe:hello` fails its golden check
+  against it. E393 created and deleted scratch track `gn-r3-window` in
+  `gn-scale-test`; the track list matches its entry state and the mixer
+  selection stayed on `gn-sel`. The Launcher slot cursor was left at track
+  index 9, row 0 (entry slot selection not recorded).
 - Current foreground project: `gn-scale-test`, 11 tracks and 10 scenes.
   E352 deleted its scratch track `gn-b08`; `list_tracks` then listed the
   original 11 tracks with unchanged IDs, the four-chain `gn-lay4` structure

@@ -16,9 +16,10 @@ is accepted. The calibration is
 recalibration is [E390](../evidence/experiments/e390-r01-round2-haiku-recalibration.md)
 ([R01-D21](../../spec/r01-research/decisions/r01-d21-round-2-haiku-recalibration-and-shared-development-ladder.md)),
 and the development pass is
-[E391](../evidence/experiments/e391-r01-round2-v6-development-pass.md). Step 4,
-the operator's decision, now waits for R01's holistic reassessment under the
-capability grid ([R01-D22](../../spec/r01-research/decisions/r01-d22-capability-grid-focus.md)).** Parent brief:
+[E391](../evidence/experiments/e391-r01-round2-v6-development-pass.md). Step 4 is
+resolved by [R01-D23](../../spec/r01-research/decisions/r01-d23-pause-format-comparison-and-open-round-3.md):
+the comparison is paused at the development stage, with results in
+[FINDINGS.md](../../spec/r01-research/FINDINGS.md).** Parent brief:
 [R01](r01-format-comparison.md). Round 2 is a version reset
 ([R01-D8](../../spec/r01-research/decisions/r01-d8-round-2-version-reset-and-work-reuse.md)).
 

@@ -102,13 +102,101 @@ An overlay is A3 content whose attachment depends on B3 identity.
 
 | Cells | Evidence |
 |---|---|
-| A1/B1 | All performed comparisons. C4 and baseline FIELDS hold up against MIDI JSON and beat it for Luna on larger range edits; bar\|beat is weakest |
+| A1/B1 | All performed comparisons. FIELDS arms hold up against MIDI JSON; only C4 over MIDI JSON for Luna on 512-note range edits is significant (E386); bar\|beat is weakest |
 | A2/B1 | Preserve-exact and large-edit rich fields |
-| A3/B1 | C3 against C4 FIELDS only. C4 is better for Luna and cheaper for Haiku |
+| A3/B1 | C3 against C4 FIELDS only. C4 is better for Luna's edits (reads lean C3) and for Haiku's derived reads and regrouping, and cheaper for Haiku |
 | A1–A2/B2 | Phase 8's single-turn ID patches, with preservation and stale checks supplied by the compiler (E115, E137, E121) |
 | B3 (all) and A3/B2 | Unmeasured for every format |
 
-### Next session (queued)
+### Real usage and holistic reassessment (2026-10-31)
+
+Steps 1–2 below are done in
+[E392](../evidence/experiments/e392-r01-real-usage-by-capability-cell.md):
+11 product sessions (9 Codex, 2 Claude Code), 564 Ghostnote calls.
+- **Where use falls:** 17 of 20 note-write interactions were A1/B1 scripted
+  generation. Three were single-turn A1/B2 patches whose natural form was a
+  range, selector or transform. B3 never occurred: the operator curated in
+  Bitwig between turns, and each turn started from fresh reads.
+- **Live format:** every applied write verified exact; two same-turn refusals,
+  neither caused by the notation. Agents used FIELDS as a script target through
+  `documentPath`, rarely as text. A3 appeared only as unrequested per-note
+  overlays (about 95% of written bytes), which no turn used and which never
+  survived a save, move, copy or hand edit.
+- **Largest costs are outside the notation:** empty-slot probing by full
+  reads, re-reading verified writes, hand-copied reads, overlay guidance and
+  missing structural operations (slice, duplicate-and-patch, range and selector
+  transforms).
+
+**Reassessment of R01 (E353–E391 under E392).**
+- *What stands:* C4 and baseline FIELDS hold up against MIDI JSON for A1/B1,
+  bar|beat is weakest, and on inline A3 group structure C4 beats C3 FIELDS
+  for Luna's onset-changing edits and for Haiku's derived reads and
+  regrouping, while Luna's reads lean C3 (E375–E391). These are sound
+  development results, summarised in
+  [FINDINGS.md](../../spec/r01-research/FINDINGS.md).
+- *What real use says:* that inline A3 condition did not occur. Real cost and
+  risk sit in tool design, guidance and host identity, which R01's notation
+  comparison cannot move. A rigorous round or a stronger cohort would sharpen
+  an answer whose product consequence is small today.
+- *B2/B3:* B3 is not the priority. It needs identity and A3 that survive save,
+  move and copy first; that is persistence and host work, not notation. B2
+  demand is for range, selector and transform operations, a tool-surface
+  question rather than an ID-patch format question.
+- *Outcome:* no evidence supports changing the live format; C4's advantage
+  applies only if inline group authoring becomes common. Overlay claims should
+  become opt-in. Naming has no new input.
+
+**Proposed next steps (operator decision; R01-D23 records it).**
+1. *Recommended:* conclude R01's format comparison at the development stage.
+   Record standing conclusions, keep the live format, do not run round 2's
+   rigorous round or a stronger cohort, and leave C4 as a documented candidate
+   for inline group authoring.
+2. Open a product item for E392's tool-design costs: clip occupancy in the
+   track listing, descriptions that treat a verified write result as
+   sufficient and prefer `documentOutputPath`, overlay guidance limited to
+   requests, and slice, duplicate-and-patch and range or selector operations.
+3. Check the unexplained mid-turn ID re-mint (E392) in a focused live probe,
+   because it would break even same-session B2.
+4. Revisit B2/B3 evaluation after a revision-heavy real session or once
+   identity persistence exists.
+
+Alternatives: freeze round 2 for the rigorous round as planned (its
+format-dependent families still separate formats for Luna), or pivot R01's
+remaining effort to an offline evaluation of selector and range operations.
+
+### Round 3: real-use follow-ups (R01-D23, 2026-10-31)
+
+The operator paused the format comparison at the development stage, kept R01
+open and opened round 3
+([R01-D23](../../spec/r01-research/decisions/r01-d23-pause-format-comparison-and-open-round-3.md)).
+The comparison's results are packaged in
+[FINDINGS.md](../../spec/r01-research/FINDINGS.md).
+[E393](../evidence/experiments/e393-r01-round3-real-use-followups.md) records
+the three offline investigations.
+- **ID re-mint:** a Ghostnote design limit, not an agent or Bitwig mistake;
+  confirmed live.
+  More than 24 slot fill/empty events after a read exceed the extension's
+  event window, so the brain fails closed (`delta-incomplete`) and re-mints
+  IDs, while the result shows only `identity-changed`.
+- **Timing overlays:** reference guidance placed per-note `nominal` and
+  `groove` claims on every note whenever timing was to be made or *kept*.
+  Declared overlays did represent requested feel; inferred ones only restated
+  the notes. Nothing read either kind, and the operator's timing questions
+  were answered against source MIDI. Clip-level intent and provenance were the
+  information that mattered.
+- **Tool costs:** nine ranked proposals; the cheapest three are description
+  changes (trust verified writes, read to file, route overlay guidance only on
+  request).
+
+**Next.** The operator accepted a session order (2026-11-07):
+[B18](b18-content-event-window.md) fixes the event window, then
+[B19](b19-real-use-tooling-and-annotations.md) runs quick tool wins,
+then overlays, clip annotations and provenance (R01's format evaluation
+resumes there, possibly with a final benchmark), then clip operations and
+analysis tools. R01 stays open until B19 session 2 settles the format and
+claims questions.
+
+### Former next-session checklist (done in E392 and above)
 
 1. **Real-world usage by cell.** Investigate every local Codex session that
    used Ghostnote so far. Sessions are under `~/.codex/sessions/` (with

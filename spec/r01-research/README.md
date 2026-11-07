@@ -16,6 +16,7 @@ supply known intent and edge cases that transcriptions cannot establish.
 
 | Component | Contract and implementation |
 |---|---|
+| Findings at the pause (2026-10-31) | [Citable summary of the format comparison, by capability cell](FINDINGS.md) |
 | Shared equality, commands and views | This document; [pure oracle/backend](../../brain/benchmarks/r01-candidates/common.mjs) |
 | Candidate 2 | [Producer Pal adaptation](PRODUCER-PAL.md); [adapter](../../brain/benchmarks/r01-candidates/precision.mjs) |
 | Candidates 3 and 4 | [Structured contracts](STRUCTURED.md); [codecs and edit helpers](../../brain/benchmarks/r01-candidates/structured.mjs) |
