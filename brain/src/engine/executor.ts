@@ -33,7 +33,7 @@ import {
   AddressUnresolvedError, CONTRACT_TAG, InvalidOpError, NOTE_PROP_FIDELITY,
   ParameterValueUnrepresentableError,
   StaleAddressError, addressKey, addressScene, addressTrack, assertDevicesRoutable, assertOpsWritable,
-  ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, deltaComplete, sameMixerValue,
+  ClipSnapshotRefusedError, GroupSlotError, blindSpotError, opsHaveSceneRows, sceneGuardOf, clipMetadata as clipMetadataAt, clipLaunch as clipLaunchAt, deltaComplete, sameMixerValue,
   discreteNormalizedValues, discreteValueIsRepresentable, clipMetadataDifferences, failures, ownedClipMetadata,
   CLIP_METADATA_FIELDS, notes as notesAt,
   param as paramAt, noteReadCell, snapshotAddresses,
@@ -85,7 +85,8 @@ export interface RunOptions {
   readonly ifRevision?: number;
   /**
    * Fresh scalar cohort state. It replaces duplicate resolve and stash reads. 8i7: `set_track_mixer` passes its
-   * prior read of the mixer fields, so its revision guard starts at that read.
+   * prior read of the mixer fields, so its revision guard starts at that read. P01: the clip property and launch
+   * settings tools pass their read of the clip metadata or launch settings in the same way.
    */
   readonly parameterPreflight?: Snapshot;
   /**
@@ -449,6 +450,14 @@ export class Executor {
         phase: 'finalReconciliation',
         elapsedMs: performance.now() - reconcileStarted,
       });
+    }
+    // P01: a clip metadata or launch readback comes from a pointed cursor, whose value observer can lag a write by
+    // more than 90 ms (E413). Read again, without repeating the write, while a written field still reads its old
+    // value; the result reports whatever the last read shows.
+    for (let attempt = 0; attempt < CLIP_SCALAR_REREADS && clipScalarsLag(ops, verify, unread); attempt += 1) {
+      await this.adapter.settle('trackStruct');
+      verify = await this.timed('verificationRetry', () => this.adapter.read(readable, verifyOptions))
+        .catch(() => verify);
     }
     if (mutationConflicts.length > 0) {
       this.onTiming?.({ phase: 'conflict', elapsedMs: 0 });
@@ -1265,6 +1274,44 @@ export function disagreementsOf(
  * on the same clip while the mutation settled. Note writes merge, so the prior
  * snapshot is part of the expected result.
  */
+/** Rereads of a lagging clip metadata or launch readback (P01, E413): about 0.6 s at most. */
+const CLIP_SCALAR_REREADS = 4;
+
+/**
+ * Does a written clip metadata or launch field read back unlike the request? Colour is not checked: Bitwig makes a
+ * very dark colour lighter (D42), which no reread changes.
+ */
+function clipScalarsLag(ops: readonly Op[], verify: Snapshot, unread: ReadonlySet<string>): boolean {
+  // Each written field is expected at the value of the last op that wrote it.
+  const expected = new Map<string, { clip: ClipAddress; values: Map<ClipMetadataField, unknown> }>();
+  const launches = new Map<string, Extract<Op, { op: 'clip.launchSettings' }>>();
+  for (const op of ops) {
+    if (op.op === 'clip.update') {
+      const key = addressKey(clipMetadataAt(op.clip));
+      const entry = expected.get(key) ?? { clip: op.clip, values: new Map() };
+      for (const field of op.fields ?? CLIP_METADATA_FIELDS) {
+        if (field !== 'color') entry.values.set(field, op.metadata[field]);
+      }
+      expected.set(key, entry);
+    }
+    if (op.op === 'clip.launchSettings') launches.set(addressKey(clipLaunchAt(op.clip)), op);
+  }
+  for (const [key, { values }] of expected) {
+    const entry = verify.entries[key];
+    if (unread.has(key) || entry?.value.of !== 'clipMetadata') continue;
+    const observed = entry.value.metadata;
+    for (const [field, value] of values) if (observed[field] !== value) return true;
+  }
+  for (const [key, op] of launches) {
+    const entry = verify.entries[key];
+    if (unread.has(key) || entry?.value.of !== 'clipLaunch') continue;
+    const launch = entry.value.launch;
+    if (launch.quantization !== op.quantization || launch.mode !== op.mode
+      || launch.useLoopStartAsQuantizationReference !== op.useLoopStartAsQuantizationReference) return true;
+  }
+  return false;
+}
+
 export function mutationStateDisagreementsOf(
   ops: readonly Op[],
   before: Snapshot,

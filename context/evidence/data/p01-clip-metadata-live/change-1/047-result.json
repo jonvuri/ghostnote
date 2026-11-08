@@ -1,0 +1,370 @@
+{
+  "passed": true,
+  "cleanup": true,
+  "results": [
+    {
+      "label": "typical-name",
+      "clips": 1,
+      "set": {
+        "ms": 778,
+        "turns": 30,
+        "bytes": 13096,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 5,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 3,
+          "cursor.clipMetadata": 2,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 1256,
+        "turns": 46,
+        "bytes": 18676,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 6,
+          "cursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "slot.select": 4,
+          "cursor.status": 6,
+          "cursor.clipMetadata": 3,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "typical-colour-length",
+      "clips": 1,
+      "set": {
+        "ms": 751,
+        "turns": 30,
+        "bytes": 13089,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 5,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 3,
+          "cursor.clipMetadata": 2,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 1237,
+        "turns": 46,
+        "bytes": 18578,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 6,
+          "cursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "slot.select": 4,
+          "cursor.status": 6,
+          "cursor.clipMetadata": 3,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "typical-launch",
+      "clips": 1,
+      "set": {
+        "ms": 771,
+        "turns": 30,
+        "bytes": 12962,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 5,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 3,
+          "cursor.launchSettings": 2,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 1257,
+        "turns": 46,
+        "bytes": 18412,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 6,
+          "cursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "slot.select": 4,
+          "cursor.status": 6,
+          "cursor.launchSettings": 3,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "large-name-1",
+      "clips": 1,
+      "set": {
+        "ms": 735,
+        "turns": 30,
+        "bytes": 13139,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 5,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 3,
+          "cursor.clipMetadata": 2,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 1265,
+        "turns": 46,
+        "bytes": 18732,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 6,
+          "cursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "slot.select": 4,
+          "cursor.status": 6,
+          "cursor.clipMetadata": 3,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "large-name-8",
+      "clips": 8,
+      "set": {
+        "ms": 4178,
+        "turns": 119,
+        "bytes": 28152,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 33,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 14,
+          "cursor.pointTrack": 8,
+          "slot.select": 9,
+          "cursor.status": 22,
+          "cursor.clipMetadata": 16,
+          "cursor.pointExpanded": 2,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 7094,
+        "turns": 190,
+        "bytes": 44513,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 34,
+          "cursor.pin": 29,
+          "cursor.pointTrack": 16,
+          "slot.select": 18,
+          "cursor.status": 45,
+          "cursor.clipMetadata": 24,
+          "cursor.pointExpanded": 3,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "large-launch-8",
+      "clips": 8,
+      "set": {
+        "ms": 4148,
+        "turns": 122,
+        "bytes": 26672,
+        "methods": {
+          "selection.status": 3,
+          "slot.status": 33,
+          "revision.get": 6,
+          "track.list": 6,
+          "cursor.pin": 16,
+          "cursor.pointTrack": 8,
+          "slot.select": 9,
+          "cursor.status": 24,
+          "cursor.launchSettings": 16,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 7125,
+        "turns": 193,
+        "bytes": 41177,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 4,
+          "slot.status": 34,
+          "cursor.pin": 32,
+          "cursor.pointTrack": 16,
+          "slot.select": 18,
+          "cursor.status": 48,
+          "cursor.launchSettings": 24,
+          "batch.run": 1
+        }
+      }
+    },
+    {
+      "label": "typical-noop",
+      "clips": 1,
+      "set": {
+        "ms": 538,
+        "turns": 18,
+        "bytes": 5681,
+        "methods": {
+          "selection.status": 2,
+          "slot.status": 3,
+          "revision.get": 2,
+          "track.list": 2,
+          "cursor.pin": 2,
+          "cursor.pointTrack": 1,
+          "slot.select": 2,
+          "cursor.status": 3,
+          "cursor.clipMetadata": 1
+        }
+      }
+    },
+    {
+      "label": "cleanup",
+      "status": "differs",
+      "set": {
+        "ms": 474,
+        "turns": 26,
+        "bytes": 14390,
+        "methods": {
+          "track.list": 8,
+          "selection.status": 2,
+          "slot.status": 1,
+          "revision.get": 6,
+          "batch.run": 1,
+          "cursor.pin": 8
+        }
+      },
+      "removedAfterMs": 26
+    }
+  ],
+  "afterTracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Instrument Layer",
+        "position": 0,
+        "type": "Hybrid",
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      {
+        "index": 1,
+        "name": "Hybrid 2",
+        "position": 1,
+        "type": "Hybrid",
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+      },
+      {
+        "index": 2,
+        "name": "gn-A",
+        "position": 2,
+        "type": "Instrument",
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+      },
+      {
+        "index": 3,
+        "name": "gn-B",
+        "position": 3,
+        "type": "Instrument",
+        "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+      },
+      {
+        "index": 4,
+        "name": "Group 5",
+        "position": 4,
+        "type": "Group",
+        "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+      },
+      {
+        "index": 5,
+        "name": "gn-E16",
+        "position": 5,
+        "type": "Instrument",
+        "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+        "hidden": true
+      },
+      {
+        "index": 6,
+        "name": "gn-lay",
+        "position": 6,
+        "type": "Instrument",
+        "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      {
+        "index": 7,
+        "name": "gn-lay4",
+        "position": 7,
+        "type": "Instrument",
+        "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      {
+        "index": 8,
+        "name": "gn-sel",
+        "position": 8,
+        "type": "Instrument",
+        "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+      },
+      {
+        "index": 9,
+        "name": "FX 1",
+        "position": 9,
+        "type": "Effect",
+        "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+      },
+      {
+        "index": 10,
+        "name": "Master",
+        "position": 10,
+        "type": "Master",
+        "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+      }
+    ],
+    "count": 11,
+    "itemCount": 11,
+    "bankSize": 256
+  },
+  "afterSelection": {
+    "trackIndex": 9,
+    "slotIndex": 8,
+    "mixerTrackIndex": 8,
+    "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+    "changes": 533,
+    "revision": 591,
+    "slotProject": "gn-scale-test",
+    "mixerProject": "gn-scale-test",
+    "project": "gn-scale-test"
+  }
+}

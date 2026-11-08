@@ -238,7 +238,8 @@ test('call budget: the 8h4d Launcher clip tools', async () => {
   const props = await fx.call('set_launcher_clip_properties', { clips: [{ trackId: fx.trackId, row: 0,
     properties: { name: 'budget' } }] });
   assert.equal(props.result.readback?.status, 'verified');
-  assert.deepEqual(props.counts, { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 });
+  // P01 (D65): the metadata read is the stash; the executor verify read is the readback.
+  assert.deepEqual(props.counts, { mark: 1, tracks: 1, read: 2, apply: 1, delta: 1 });
   // A launch: no change record; one playback read after the executor.
   const launched = await fx.call('launch_clip', { trackId: fx.trackId, row: 0, quantization: 'none', mode: 'from_start' });
   assert.equal(launched.result.applied, true);
@@ -447,7 +448,8 @@ test('call budget: the 8h4g rows for the remaining tools', async () => {
 // reversal, and edit_preset_modulation need a simulated host preset load; their budget is the live wire count in
 // the performance ledger (E247 inventory). read_preset_modulation and list_modulator_types make no adapter call.
 const EXPECTED_8H4G_BUDGETS: Record<string, Counts> = {
-  'launch-settings': { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
+  // P01 (D65): the launch read is the stash.
+  'launch-settings': { mark: 1, tracks: 1, read: 2, apply: 1, delta: 1 },
   move: { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
   'delete-clip': { mark: 1, tracks: 1, read: 3, resolve: 1, apply: 1, delta: 1 },
   'add-scenes': { mark: 2, read: 2, apply: 1, delta: 1 },

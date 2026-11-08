@@ -37,7 +37,7 @@ import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult, readbackOrUnavailable,
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
-import { checkHealth, format, selectionWarnings, withSelection } from './agent-native.js';
+import { checkHealth, format, guarded, selectionWarnings, withSelection } from './agent-native.js';
 import { checkDesiredOverlaps, documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
@@ -610,23 +610,26 @@ const LAUNCH_SETTINGS_DESCRIPTION = `${PROFILE} Set the launch grid and mode of 
 async function setLaunchSettings(workspace: Workspace, args: LaunchSettingsInput): Promise<unknown> {
   const started = performance.now();
   const target = { clips: args.clips.length };
-  return guardedRun(LAUNCH_SETTINGS_SCHEMA, target, async (state) => {
+  // P01 (D65): one selection scope holds each clip's cursor point from the read through the write and readback.
+  return guardedRun(LAUNCH_SETTINGS_SCHEMA, target, async (state) => guarded(workspace, async () => {
     requireWithinLimit('clipCursorBatch', args.clips.length, 'clips');
     state.stage = 'resolve';
     const at = await markFor(workspace, args.clips.map((item) => item.row));
     await requireTracks(workspace, args.clips.map((item) => item.trackId));
     state.stage = 'acquire';
-    const { occupancy } = await readSlots(workspace, args.clips, at);
+    const { read, occupancy } = await readSlots(workspace, args.clips, at,
+      args.clips.map((item) => launchAt(clipOf(item, at))));
     const empty = args.clips.filter((item) => occupancy(item) === 'empty').map(({ trackId: id, row: r }) => ({ trackId: id, row: r }));
     if (empty.length > 0) throw new ToolFailure('absent', 'acquire', 'A slot holds no clip.', { detail: { clips: empty } });
 
     state.stage = 'write';
+    // P01 (D65): the fresh read above is the stash; the executor makes one independent readback.
     const settings = args.clips.map((item) => ({ ...item,
       useLoopStartAsQuantizationReference: item.useLoopStartAsQuantizationReference ?? false }));
     const change = await workspace.apply(settings.map((item): Op => ({
       op: 'clip.launchSettings', clip: clipOf(item, at), quantization: item.quantization, mode: item.mode,
       useLoopStartAsQuantizationReference: item.useLoopStartAsQuantizationReference,
-    })));
+    })), { parameterPreflight: read });
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Set the launch settings of ${args.clips.length} clip(s).`));
 
@@ -652,7 +655,7 @@ async function setLaunchSettings(workspace: Workspace, args: LaunchSettingsInput
       warnings: [], timing: { totalMs: performance.now() - started },
     };
     return { ...result, target };
-  });
+  }));
 }
 
 const setLaunchSettingsTool: ToolSpec = {
@@ -703,13 +706,14 @@ const PROPERTIES_DESCRIPTION = `${PROFILE} Set properties of Launcher clips: nam
   + 'makes a very dark colour lighter (black reads back as 81,81,81), so readback.status is then differs, with '
   + 'readback.clips[].differences. Do not retry to chase exact bytes. Every clip must exist '
   + '(code absent). When no property changes, nothing is written and readback.status is unchanged. One call sets at '
-  + 'most 8 clips: the connection confirms at most 8 clips in one write (8 clips of '
-  + '16,384 notes: about 34 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
+  + 'most 8 clips: the connection confirms at most 8 clips in one write (8 clips: about 4 s, for any clip '
+  + 'size). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
 
 async function setProperties(workspace: Workspace, args: PropertiesInput): Promise<unknown> {
   const started = performance.now();
   const target = { clips: args.clips.length };
-  return guardedRun(PROPERTIES_SCHEMA, target, async (state) => {
+  // P01 (D65): one selection scope holds each clip's cursor point from the read through the write and readback.
+  return guardedRun(PROPERTIES_SCHEMA, target, async (state) => guarded(workspace, async () => {
     requireWithinLimit('clipCursorBatch', args.clips.length, 'clips');
     state.stage = 'resolve';
     const at = await markFor(workspace, args.clips.map((item) => item.row));
@@ -749,8 +753,9 @@ async function setProperties(workspace: Workspace, args: PropertiesInput): Promi
     }
 
     state.stage = 'write';
+    // P01 (D65): the fresh read above is the stash; the executor makes one independent readback.
     const change = await workspace.apply(writes.map(({ item, metadata, fields }): Op => ({
-      op: 'clip.update', clip: clipOf(item, at), metadata, fields })));
+      op: 'clip.update', clip: clipOf(item, at), metadata, fields })), { parameterPreflight: read });
     requireApplied(change);
     state.effects.push(effectOf(change, target, `Set the properties of ${writes.length} clip(s).`));
 
@@ -779,7 +784,7 @@ async function setProperties(workspace: Workspace, args: PropertiesInput): Promi
       warnings: [], timing: { totalMs: performance.now() - started },
     };
     return { ...result, target };
-  });
+  }));
 }
 
 const setPropertiesTool: ToolSpec = {

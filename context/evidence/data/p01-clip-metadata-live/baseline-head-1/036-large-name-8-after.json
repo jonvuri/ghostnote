@@ -1,0 +1,170 @@
+{
+  "0": {
+    "metadata": {
+      "name": "gn-p01-large-0",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "1": {
+    "metadata": {
+      "name": "gn-p01-large-1",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "2": {
+    "metadata": {
+      "name": "gn-p01-large-2",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "3": {
+    "metadata": {
+      "name": "gn-p01-large-3",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "4": {
+    "metadata": {
+      "name": "gn-p01-large-4",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "5": {
+    "metadata": {
+      "name": "gn-p01-large-5",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "6": {
+    "metadata": {
+      "name": "gn-p01-large-6",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "7": {
+    "metadata": {
+      "name": "gn-p01-large-7",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  }
+}

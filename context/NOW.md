@@ -1,7 +1,7 @@
 ---
 title: Current state
 kind: status
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 ## Now
@@ -104,8 +104,26 @@ or all 281 settings; 4 / 8 / 12 / 16 routes took 9.1 / 18.3 / 26.8 / 36.4 s
 (E252: 4 routes 22.5 s).
 [D69](decisions/d69-device-control-limits-follow-routes.md) replaces D44's
 row: 256 settings on 12 routes (was 64 on 4), folded into descriptions v63.
-Next: metadata-only clip reads
-([brief](work/p01-edit-path-performance.md#scalar-cohort-result--live-2026-11-07)).
+
+**P01 metadata-only clip reads are verified live (2026-11-08).**
+`set_launcher_clip_properties` and `set_launcher_clip_launch_settings` read
+metadata or launch settings through a pointed cursor instead of replaying the
+clip's notes, and pass that read to the executor as the stash (D65); one
+verify read remains. A cursor readback lagged one rename by more than 90 ms,
+so the executor rereads (at most four times, 144 ms apart) while a written
+field reads its old value, without repeating the write.
+[E413](evidence/experiments/e413-p01-metadata-only-clip-reads-live.md): one
+clip of any size takes 0.74–0.81 s (HEAD: 1.1–1.5 s typical, 2.8 s at 16,384
+notes); 8 clips of 16,384 notes 4.1–4.3 s for a rename (23.7 s) or launch
+settings (16.4 s), reverts 7.1–7.5 s (36.9 / 22.1 s). Descriptions v64;
+only brain code changed (wire 94 / `526cd7e3760580cc`, already loaded). All
+2,661 brain tests pass; cleanup and preservation passed. Two pre-existing
+findings are open in the
+[brief](work/p01-edit-path-performance.md#metadata-only-clip-reads--live-2026-11-08):
+a spurious collapsed-group point on an ungrouped track, and `delete_track`
+reporting `differs` for a track with large clips. The project's launcher slot
+selection is now FX 1, row 8 (it had none; the adapter cannot clear one).
+Remaining P01 items are optional.
 
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits
@@ -145,7 +163,7 @@ worktree's updated code to use these brain changes.
 retain the obligation audit. The D65 composition integration is verified live
 in E406, the adapter reductions and D67 limits in E407, and shared relocation
 readings in E408, and one-turn scalar cohorts in E411 (above).
-Clip-metadata capture reductions remain open.
+Clip-metadata capture reductions are verified live in E413.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)
 records P01's evidence renumbering to E400–E404, both retained probes, and

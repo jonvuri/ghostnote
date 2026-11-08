@@ -353,6 +353,70 @@ test('4b settlement: delayed exact state retries the read and never replays the 
   assert.ok(timings.includes('verificationRetry'));
 });
 
+/** An adapter whose first `staleReads` reads after the apply return the state from before the apply. */
+async function laggingClipScalars(staleReads: number) {
+  const fx = await fixture();
+  let applied = false;
+  let applyCalls = 0;
+  let lagging = staleReads;
+  const timings: string[] = [];
+  const before = new Map<string, Awaited<ReturnType<BitwigAdapter['read']>>>();
+  const keyOf = (selection: readonly unknown[]) => JSON.stringify(selection);
+  const adapter: BitwigAdapter = {
+    ...adapterOf(fx.fake),
+    read: async (selection, options) => {
+      if (!applied) {
+        const read = await fx.fake.read(selection, options);
+        before.set(keyOf(selection), read);
+        return read;
+      }
+      const stale = before.get(keyOf(selection));
+      if (lagging > 0 && stale !== undefined) {
+        lagging -= 1;
+        return stale;
+      }
+      return await fx.fake.read(selection, options);
+    },
+    apply: async (batch) => {
+      applyCalls += 1;
+      const receipt = await fx.fake.apply(batch);
+      applied = true;
+      return receipt;
+    },
+  };
+  const executor = new Executor(adapter, { onTiming: (event) => timings.push(event.phase) });
+  const base = (await fx.fake.read([clipMetadata(fx.clipA)])).entries[addressKey(clipMetadata(fx.clipA))]!.value;
+  assert.equal(base.of, 'clipMetadata');
+  const ops: Op[] = [
+    { op: 'clip.update', clip: fx.clipA, metadata: { ...(base.of === 'clipMetadata' ? base.metadata : null)!, name: 'lag' },
+      fields: ['name'] },
+    { op: 'clip.launchSettings', clip: fx.clipA, quantization: '1', mode: 'synced',
+      useLoopStartAsQuantizationReference: true },
+  ];
+  return { take: await executor.run(ops), applyCalls: () => applyCalls,
+    retries: () => timings.filter((phase) => phase === 'verificationRetry').length };
+}
+
+test('P01: a lagging clip metadata or launch readback is read again, and the write is not repeated (E413)', async () => {
+  const lag = await laggingClipScalars(2);
+  assert.equal(lag.applyCalls(), 1);
+  assert.equal(lag.retries(), 2);
+  assert.deepEqual(lag.take.report.disagreements, []);
+});
+
+test('P01: a clip readback that stays stale stops after four rereads and reports the difference', async () => {
+  const lag = await laggingClipScalars(100);
+  assert.equal(lag.applyCalls(), 1);
+  assert.equal(lag.retries(), 4);
+  assert.ok(lag.take.report.disagreements.length > 0);
+});
+
+test('P01: a readback that agrees at once is read once', async () => {
+  const lag = await laggingClipScalars(0);
+  assert.equal(lag.retries(), 0);
+  assert.deepEqual(lag.take.report.disagreements, []);
+});
+
 test('4b settlement: a rejected later stage reports partial state without replay', async () => {
   const fx = await fixture();
   await fx.fake.apply({
@@ -860,7 +924,8 @@ test('8i0 X-report: repeated owned updates of one clip verify as one merged requ
   const entry = prior.entries[addressKey(clipMetadata(fx.clipA))]!.value;
   assert.equal(entry.of, 'clipMetadata');
   const base = (entry as { metadata: ClipMetadataState }).metadata;
-  const take = await new Executor(fx.fake).run([
+  const phases: string[] = [];
+  const take = await new Executor(fx.fake, { onTiming: (event) => phases.push(event.phase) }).run([
     { op: 'clip.update', clip: fx.clipA, metadata: { ...base, name: 'first' }, fields: ['name'] },
     { op: 'clip.update', clip: fx.clipA, metadata: { ...base, color: { red: 145, green: 105, blue: 78 } },
       fields: ['color'] },
@@ -868,6 +933,7 @@ test('8i0 X-report: repeated owned updates of one clip verify as one merged requ
       fields: ['lengthBeats', 'loopEndBeats', 'playStartBeats', 'name'] },
   ]);
   assert.deepEqual(take.report.disagreements, [], 'the colour reads back one byte low, inside the tolerance');
+  assert.equal(phases.includes('verificationRetry'), false, 'P01: each field is expected from its last writer');
   assert.deepEqual(take.targets.find((t) => t.address.kind === 'clipMetadata')!.fields,
     ['lengthBeats', 'loopEndBeats', 'playStartBeats', 'name', 'color']);
   const seen = take.verify.entries[addressKey(clipMetadata(fx.clipA))]!.value as { metadata: ClipMetadataState };

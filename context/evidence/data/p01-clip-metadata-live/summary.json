@@ -1,0 +1,305 @@
+{
+ "note": "ms and wire turns per tool call; change-1 ran before the bounded reread was added; change-2 and change-3 are the final code. Stopped runs: stopped-baseline-colour-tolerance (driver demanded exact restored colour bytes, D42), stopped-change-stale-readback (product: stale cursor readback after a write, fixed by the bounded reread).",
+ "runs": {
+  "baseline-head-1": {
+   "typical-name": {
+    "set": [
+     1518,
+     43
+    ],
+    "revert": [
+     1291,
+     41
+    ]
+   },
+   "typical-colour-length": {
+    "set": [
+     1308,
+     42
+    ],
+    "revert": [
+     1287,
+     41
+    ]
+   },
+   "typical-launch": {
+    "set": [
+     1122,
+     34
+    ],
+    "revert": [
+     1223,
+     38
+    ]
+   },
+   "large-name-1": {
+    "set": [
+     2844,
+     45
+    ],
+    "revert": [
+     2845,
+     45
+    ]
+   },
+   "large-name-8": {
+    "set": [
+     23708,
+     170
+    ],
+    "revert": [
+     36901,
+     162
+    ]
+   },
+   "large-launch-8": {
+    "set": [
+     16392,
+     128
+    ],
+    "revert": [
+     22124,
+     139
+    ]
+   },
+   "typical-noop": {
+    "set": [
+     410,
+     12
+    ]
+   },
+   "cleanup": {
+    "set": [
+     501,
+     26
+    ],
+    "status": "differs"
+   }
+  },
+  "change-1": {
+   "typical-name": {
+    "set": [
+     778,
+     30
+    ],
+    "revert": [
+     1256,
+     46
+    ]
+   },
+   "typical-colour-length": {
+    "set": [
+     751,
+     30
+    ],
+    "revert": [
+     1237,
+     46
+    ]
+   },
+   "typical-launch": {
+    "set": [
+     771,
+     30
+    ],
+    "revert": [
+     1257,
+     46
+    ]
+   },
+   "large-name-1": {
+    "set": [
+     735,
+     30
+    ],
+    "revert": [
+     1265,
+     46
+    ]
+   },
+   "large-name-8": {
+    "set": [
+     4178,
+     119
+    ],
+    "revert": [
+     7094,
+     190
+    ]
+   },
+   "large-launch-8": {
+    "set": [
+     4148,
+     122
+    ],
+    "revert": [
+     7125,
+     193
+    ]
+   },
+   "typical-noop": {
+    "set": [
+     538,
+     18
+    ]
+   },
+   "cleanup": {
+    "set": [
+     474,
+     26
+    ],
+    "status": "differs"
+   }
+  },
+  "change-2": {
+   "typical-name": {
+    "set": [
+     768,
+     30
+    ],
+    "revert": [
+     1272,
+     46
+    ]
+   },
+   "typical-colour-length": {
+    "set": [
+     774,
+     30
+    ],
+    "revert": [
+     1313,
+     46
+    ]
+   },
+   "typical-launch": {
+    "set": [
+     789,
+     30
+    ],
+    "revert": [
+     1301,
+     46
+    ]
+   },
+   "large-name-1": {
+    "set": [
+     790,
+     30
+    ],
+    "revert": [
+     1395,
+     48
+    ]
+   },
+   "large-name-8": {
+    "set": [
+     4263,
+     120
+    ],
+    "revert": [
+     7449,
+     193
+    ]
+   },
+   "large-launch-8": {
+    "set": [
+     4285,
+     121
+    ],
+    "revert": [
+     7489,
+     194
+    ]
+   },
+   "typical-noop": {
+    "set": [
+     572,
+     18
+    ]
+   },
+   "cleanup": {
+    "set": [
+     507,
+     26
+    ],
+    "status": "differs"
+   }
+  },
+  "change-3": {
+   "typical-name": {
+    "set": [
+     790,
+     30
+    ],
+    "revert": [
+     1298,
+     46
+    ]
+   },
+   "typical-colour-length": {
+    "set": [
+     791,
+     30
+    ],
+    "revert": [
+     1293,
+     46
+    ]
+   },
+   "typical-launch": {
+    "set": [
+     794,
+     30
+    ],
+    "revert": [
+     1305,
+     46
+    ]
+   },
+   "large-name-1": {
+    "set": [
+     809,
+     31
+    ],
+    "revert": [
+     1355,
+     47
+    ]
+   },
+   "large-name-8": {
+    "set": [
+     4100,
+     119
+    ],
+    "revert": [
+     7162,
+     193
+    ]
+   },
+   "large-launch-8": {
+    "set": [
+     4123,
+     121
+    ],
+    "revert": [
+     7167,
+     193
+    ]
+   },
+   "typical-noop": {
+    "set": [
+     565,
+     18
+    ]
+   },
+   "cleanup": {
+    "set": [
+     493,
+     26
+    ],
+    "status": "differs"
+   }
+  }
+ }
+}

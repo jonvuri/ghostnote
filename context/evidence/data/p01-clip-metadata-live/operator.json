@@ -1,0 +1,6 @@
+{
+  "reply": "Proceed (Recommended)",
+  "question": "OK to run the P01 metadata-only clip-read live check in the open Bitwig project (expected gn-scale-test)? Baseline (HEAD brain) then this change; one scratch track gn-p01-clipmeta each, scenes up to row 8 if needed, 1 typical clip and 8 clips of 16,384 notes, property and launch-setting writes with reverts, deletion and preservation checks.",
+  "date": "2026-11-08",
+  "note": "No controller replacement was needed: probe:hello showed the normal build already loaded (normal-v1, 94 methods, 526cd7e3760580cc, fresh initialization, B18 marker). Only brain code changed. No other bridge client or probe driver was connected."
+}

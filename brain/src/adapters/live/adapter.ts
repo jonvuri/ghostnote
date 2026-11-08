@@ -3928,11 +3928,29 @@ export class LiveAdapter implements BitwigAdapter {
       }
       return reading;
     };
-    // 8h4a5: every metadata and launch read uses the `clip.read` capture of the clip, with no cursor point.
-    // One snapshot reads each clip once: the notes, metadata, launch, and source passes share the capture.
+    // 8h4a5: a clip whose notes, length, or source this snapshot reads uses one `clip.read` capture for all of
+    // them, with no cursor point. P01: a clip read only for its metadata or launch settings uses a pointed pool
+    // cursor instead: the replay of every note is the cost of the capture, and E234 measured the
+    // `cursor.clipMetadata` reply byte-equal to the capture's metadata block.
+    const captured = new Set<AddressKey>(sourceClips.map((clipRef) => addressKey(clipRef)));
+    for (const address of sel) {
+      if (address.kind === 'notes') captured.add(addressKey(address.clip));
+      if (address.kind === 'clip' && !occupancyOnly) captured.add(addressKey(address));
+      if (address.kind === 'slot' && !occupancyOnly) captured.add(addressKey(clipAt(address)));
+    }
+    const pointed = (clipRef: ClipAddress): boolean => !captured.has(addressKey(clipRef));
     const metadataOf = (clipRef: ClipAddress, trackIndex: number): Promise<ParsedClipMetadata> => {
       const key = addressKey(clipRef);
       let reading = metadataReads.get(key);
+      if (reading === undefined && pointed(clipRef)) {
+        // The caller has confirmed that the slot holds a clip (E2: never point at an empty slot).
+        reading = this.pointAtClip(clipRef, trackIndex, pointedAt).then(async (cursor) => {
+          const raw = await this.transport.send({ method: WIRE.cursorClipMetadata, params: { cursor } });
+          try { return parseClipMetadata(raw as Readonly<Record<string, unknown>>); }
+          catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
+        });
+        metadataReads.set(key, reading);
+      }
       if (reading === undefined) {
         reading = noteReadOf(clipRef, trackIndex).then((capture) => {
           if (capture === undefined) throw new AddressUnresolvedError(clipRef, 'the slot holds no clip');
@@ -3945,6 +3963,27 @@ export class LiveAdapter implements BitwigAdapter {
         metadataReads.set(key, reading);
       }
       return reading;
+    };
+    // The launch block of the capture, or the same `ClipLaunch` values from a pointed cursor. Undefined: no clip.
+    const launchOf = async (clipRef: ClipAddress, trackIndex: number): Promise<ParsedClipLaunch | undefined> => {
+      let raw: Readonly<Record<string, unknown>> | undefined;
+      if (pointed(clipRef)) {
+        const status = await this.transport.send({ method: WIRE.slotStatus,
+          params: { trackIndex, slotIndex: clipRef.slot.scene.index } }) as { hasContent: boolean };
+        if (!status.hasContent) return undefined;
+        const cursor = await this.pointAtClip(clipRef, trackIndex, pointedAt);
+        raw = await this.transport.send({ method: WIRE.cursorLaunchSettings, params: { cursor } }) as
+          Readonly<Record<string, unknown>>;
+      } else {
+        const capture = await noteReadOf(clipRef, trackIndex);
+        if (capture === undefined) return undefined;
+        if (capture.launch === undefined) {
+          throw new AddressUnresolvedError(clipRef, 'clip.read returned no launch block; call hello with the current extension');
+        }
+        raw = capture.launch;
+      }
+      try { return parseClipLaunch(raw); }
+      catch (error) { throw new AddressUnresolvedError(clipRef, String(error)); }
     };
 
     // 8i7: every mixer field of every named track in one `track.mixer` call, on the rows of this mark.
@@ -3987,7 +4026,7 @@ export class LiveAdapter implements BitwigAdapter {
       const entry = address.kind === 'mixer'
         ? await this.readMixerField(address, row, mixerOf)
         : await this.readOne(
-          address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, occupancyOnly,
+          address, row, pointedAt, noteReads, parameterReads, remoteReads, metadataOf, launchOf, occupancyOnly,
           options.structure === true,
         );
       // ⚠ A chain-family address whose container has no observable scope is
@@ -4508,6 +4547,7 @@ export class LiveAdapter implements BitwigAdapter {
     parameterReads: Map<AddressKey, Promise<ParameterInventory>>,
     remoteReads: Map<AddressKey, Promise<RemoteInventory>>,
     metadataOf: (clip: ClipAddress, trackIndex: number) => Promise<ParsedClipMetadata>,
+    launchOf: (clip: ClipAddress, trackIndex: number) => Promise<ParsedClipLaunch | undefined>,
     occupancyOnly = false,
     structureOnly = false,
   ): Promise<StateEntry | 'unreachable' | 'unstable' | undefined> {
@@ -4595,22 +4635,8 @@ export class LiveAdapter implements BitwigAdapter {
 
       case 'clipLaunch': {
         if (row === undefined) return undefined;
-        // 8h4a5: the launch block of the `clip.read` capture, with no cursor point.
-        const key = addressKey(address.clip);
-        let reading = noteReads.get(key);
-        if (reading === undefined) {
-          reading = this.readClipNotes(address.clip, row.index);
-          noteReads.set(key, reading);
-        }
-        const capture = await reading;
-        if (capture === undefined) return undefined;
-        if (capture.launch === undefined) {
-          throw new AddressUnresolvedError(address.clip, 'clip.read returned no launch block; call hello with the current extension');
-        }
-        let launch: ParsedClipLaunch;
-        try { launch = parseClipLaunch(capture.launch); }
-        catch (error) { throw new AddressUnresolvedError(address.clip, String(error)); }
-        return { address, fidelity: 'exact', value: { of: 'clipLaunch', launch } };
+        const launch = await launchOf(address.clip, row.index);
+        return launch === undefined ? undefined : { address, fidelity: 'exact', value: { of: 'clipLaunch', launch } };
       }
 
       case 'clipPlay': {

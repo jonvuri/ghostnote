@@ -118,8 +118,8 @@ live wire-call count of the E247 inventory.
 | `copy_launcher_clips` refusals: track type; occupied destination; missing row | 25 ms, 2 calls; 94 ms, 6 calls; 23 ms, 2 calls; no write | — | — | E263 |
 | `copy_launcher_clips`, 8 clips of 16,384 notes to another track (the D44 limit); its revert | 8,368 ms, 170 wire calls, 106 turns; 14,574 ms, 182 calls, 118 turns | E252: 13,192 ms; 24,623 ms (project "New 6", next rows) | as one call | E263 |
 | `move_launcher_clips`, one clip | 1,190 ms | Before: 1,472 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
-| `set_launcher_clip_launch_settings` | 1,056 ms | — | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
-| `set_launcher_clip_properties`, one clip | Name, length, or colour: 1,423–1,436 ms; 3 captures, 1 stage, only the owned setters; no change: no write | E247: 1,447 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E249 |
+| `set_launcher_clip_launch_settings` | One clip, any size: 0.77–0.79 s, 30 turns; 8 clips of 16,384 notes 4.1–4.3 s, revert 7.2–7.5 s; two cursor reads per clip, no note capture | HEAD: 1,122 ms; 8 large 16,392 ms, revert 22,124 ms | mark 1, tracks 1, read 2, apply 1, delta 1 | E413 |
+| `set_launcher_clip_properties` | One clip, any size: name, length or colour 0.74–0.81 s, 30 turns; 8 clips of 16,384 notes 4.1–4.3 s, revert 7.1–7.5 s; two cursor reads per clip, no note capture, only the owned setters; no change: no write (0.57 s) | HEAD: typical 1,308–1,518 ms, 16,384 notes 2,844 ms; 8 large 23,708 ms, revert 36,901 ms | mark 1, tracks 1, read 2, apply 1, delta 1 | E413 |
 | Copy, extend 64 → 128 beats, and insert 153 notes (the dogfood path) | Copy 888 ms; read 422 ms; edit 1,760 ms, no colour setter; revert 2,082 ms | Dogfood edit: 2,190 ms for 153 inserts | as targeted edit | E249 |
 | `delete_launcher_clip` | 878 ms | Before: 1,233 ms | mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1 | E247 |
 | Clip batches at the D44 limits, typical clip: copy 8 (revert); properties 8 (revert); launch settings 8; delete 4 (revert); move 8 | 5,221 (7,023); 8,146 (7,945); 5,627; 2,614 (18,413); 7,363 ms | Before 8i3: copy 64 38.5 s, not revertible (24 launcher content events); properties of 64 refused after 32.1 s; delete 16 not revertible (8 clips in one stage) | as one call | E252 |
@@ -333,7 +333,7 @@ revise recovery-related limits with the affected behavior and tests.
 | Writer window (pool cursors, `fineSteps`) | 4,194,304 steps (the reader width; was 512); fixed at extension start. A writer parks after each write. The adapter refuses note writes on a narrower writer (`WriterWidthError`, `unhealthy`). The 2,048-step window is the separate `fine` read cursor (`noteReadSteps`, E52) | E44, E52, E248, D41 |
 | Add at the reader limit, ZGC used peak | 2,450–2,786 MiB of 3,072 (the read alone: 2,168–2,196) | E248 |
 | Dense `cursor.getNotes*` scan without `maxX` | 8,192 steps | E248 |
-| Longest admitted direct call | `set_launcher_clip_properties` of 8 clips of 16,384 notes, 33.5 s (its revert 32.8 s); E247 stated the staged composition of 4 layer chains (30.6 s), but 5×4 took 102 s | E252, D44 |
+| Longest admitted direct call | `set_device_controls` on 12 Diva routes, 26.8 s (E412). `set_launcher_clip_properties` of 8 clips of 16,384 notes was 33.5 s (E252) and is now 4.1–4.3 s, its revert 7.1–7.5 s (E413) | E412, E413, D44 |
 | Track mixer tracks in one call (`read_track_mixer`, `set_track_mixer`) | 8 (a plan bound: 8 tracks cost the same turns as 1) | E257, D48 |
 | D44 write limits | `compose_devices` 16 layer chains (D68) and 16 device units (VST3, CLAP and existing sources 2, a device with modulators 2 more) and 4 modulators (D67); `set_device_controls` 256 settings on 12 routes (D69); `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
 | Launcher content events (`Rig.CONTENT_LOG`) | 8,192 after the latest read or check of a ref (was 24); one more retires the ref with `delta-incomplete`. A revert compares across them | E252, E405 |
@@ -380,12 +380,11 @@ requirements to retain them.
   also for the same target. The cost of a plug-in control route grows with
   its DirectParameter count, which Ghostnote cannot know before it reads;
   pure deletion no longer captures that inventory.
-- E252 measured `set_launcher_clip_properties` at 33.5 s for eight reader-limit
-  clips and attributed two captures per clip. The P01 source audit finds three
-  in the current changed-target path: surface metadata planning, executor stash,
-  executor verification. Each metadata snapshot currently captures notes too.
-  The result normally reuses verification. See the [audit](../work/p01-edit-path-performance.md#call-and-obligation-audit);
-  current-host capture timing remains to be measured.
+- E413: clip property and launch-settings edits read metadata through a pointed
+  cursor and use that read as the stash; no note capture remains on these
+  paths. A lagging cursor readback is read again (at most four times, 144 ms
+  apart), never rewritten. E252's 33.5 s for eight reader-limit clips is now
+  4.1–4.3 s.
 - `read_launcher_clip` returns all 16 channels (about 12 KB for the typical
   clip); an edit needs a read for its base.
 - `wrap_existing_device_modulation` takes about 10 s: five structural stages,

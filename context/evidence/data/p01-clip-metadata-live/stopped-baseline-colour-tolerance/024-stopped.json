@@ -1,0 +1,7 @@
+{
+  "scratchId": "b3070528-5f1f-48c4-b1aa-63a42f55f493",
+  "scratchName": "gn-p01-clipmeta",
+  "scenesBefore": 10,
+  "error": "AssertionError [ERR_ASSERTION]: typical-colour-length row 8 restored\n+ actual - expected\n... Skipped lines\n\n  {\n    channel1: 16,\n    launch: {\n      mode: 'default',\n      quantization: 'default',\n...\n      color: {\n+       blue: 109,\n-       blue: 110,\n        green: 56,\n        red: 217\n      },\n      lengthBeats: 64,\n      loopEnabled: true,\n",
+  "next": "Inspect effects before any further write; never repeat automatically."
+}

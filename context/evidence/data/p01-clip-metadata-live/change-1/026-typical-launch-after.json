@@ -1,0 +1,23 @@
+{
+  "8": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 255,
+        "green": 87,
+        "blue": 2
+      },
+      "lengthBeats": 64,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 64
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 16
+  }
+}

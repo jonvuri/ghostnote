@@ -1,0 +1,23 @@
+{
+  "0": {
+    "metadata": {
+      "name": "gn-p01-large",
+      "color": {
+        "red": 115,
+        "green": 152,
+        "blue": 17
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "default",
+      "mode": "default",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  }
+}

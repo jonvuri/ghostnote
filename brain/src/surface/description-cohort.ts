@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v63';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v64';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -944,3 +944,9 @@ export const TOOL_DESCRIPTION_V62_SHA256 = 'cbd34075f71a4cb1bf2dfad1e862e8c68360
  * any number of settings. One call admits 256 settings on 12 device routes (was 64 on 4).
  */
 export const TOOL_DESCRIPTION_V63_SHA256 = 'c52f0f68b8cf7de8fd096731b16f2bcd68c50ba92404785529b92b34a7626565';
+
+/**
+ * v64 (P01, D65): set_launcher_clip_properties states about 4 s for 8 clips of any size (was about 34 s for 8 clips
+ * of 16,384 notes); a metadata or launch-settings edit no longer captures the clip's notes.
+ */
+export const TOOL_DESCRIPTION_V64_SHA256 = '7b3ba5b955dfff60418a8f32f9da1c38bcf515252ffd2e16cb7a6acad33564a7';

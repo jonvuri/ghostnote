@@ -1,0 +1,170 @@
+{
+  "0": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "1": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "2": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "3": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "4": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "5": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "6": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  },
+  "7": {
+    "metadata": {
+      "name": "",
+      "color": {
+        "red": 217,
+        "green": 46,
+        "blue": 33
+      },
+      "lengthBeats": 1024,
+      "playStartBeats": 0,
+      "loopEnabled": true,
+      "loopStartBeats": 0,
+      "loopEndBeats": 1024
+    },
+    "launch": {
+      "quantization": "1",
+      "mode": "synced",
+      "useLoopStartAsQuantizationReference": false
+    },
+    "channel1": 1024
+  }
+}

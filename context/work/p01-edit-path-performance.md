@@ -416,14 +416,62 @@ applies D65 to `set_device_controls` and `set_track_mixer`.
   routes took 26.8 s and 16 took 36.4 s. D69 replaces D44's row: 256
   settings on 12 routes (was 64 on 4).
 
+**Next.** Metadata-only clip reads are done (E413, below). The other items
+remain possible: skip the empty-slot descent in a top-level control route's
+inventories (about 0.4 s of each Diva inventory, E412); the scalar revert path
+under D65; and sharing the surface's bank read with the preflight read (about
+0.24 s per route).
+
+## Metadata-only clip reads — live, 2026-11-08
+
+[E413](../evidence/experiments/e413-p01-metadata-only-clip-reads-live.md)
+applies D65 to the clip property and launch-settings tools.
+
+- **Adapter.** A snapshot that reads a clip's notes, length (`clip` without
+  occupancy) or D32 source keeps one shared `clip.read` capture. A clip read
+  only for `clipMetadata` or `clipLaunch` now uses a pointed pool cursor
+  (`pointAtClip`, then `cursor.clipMetadata` / `cursor.launchSettings`) and
+  replays no notes. E234 measured the cursor reply byte-equal to the capture's
+  metadata block; both launch routes call `ClipLaunch.read`. An empty slot is
+  never pointed at (E2); a collapsed group child uses `cursor.pointExpanded`.
+  Both methods were already in the normal profile; the wire is unchanged.
+- **Surface (D65).** `set_launcher_clip_properties` and
+  `set_launcher_clip_launch_settings` run in one selection scope and pass their
+  fresh read to the executor as the stash (`parameterPreflight`, as
+  `set_track_mixer` does). The executor's resolve and stash reads are gone; its
+  verify read remains the one independent readback. The held cursor point
+  carries from the read through the write and readback. Launch settings now
+  read the prior launch values in the surface read.
+- **Unchanged.** `revert_change` keeps its own stash and verify reads (now
+  pointed reads). Reads with notes or sources, `clip.delete` stashes and
+  `edit_launcher_clip` whole-clip routes keep the capture.
+- **Offline.** Fake budgets: properties and launch settings fall from
+  `mark 1, tracks 1, read 3, resolve 1, apply 1, delta 1` to
+  `mark 1, tracks 1, read 2, apply 1, delta 1`. New adapter test: a
+  metadata-and-launch read makes one point, one `cursor.clipMetadata`, one
+  `cursor.launchSettings` and no `clip.read`, with values equal to the capture.
+- **Bounded reread.** A cursor readback lagged a rename by more than 90 ms in
+  one live run (the write was correct). After a `clip.update` or
+  `clip.launchSettings`, the executor rereads (144 ms settle, at most four)
+  while a written non-colour field reads its old value; it never repeats the
+  write.
+- **Results.** One clip: 0.77–0.81 s for any size (HEAD 1.1–1.5 s typical,
+  2.8 s at 16,384 notes). Eight clips of 16,384 notes: rename 4.1–4.3 s
+  (23.7 s), revert 7.2–7.5 s (36.9 s); launch settings 4.1–4.3 s (16.4 s),
+  revert 7.2–7.5 s (22.1 s). Descriptions v64. All 2,661 brain tests pass.
+- **Findings.** The same-track, other-row point answer falls into
+  `cursor.pointExpanded` on an ungrouped track (pre-existing, also at HEAD);
+  `delete_track` of a track with eight large clips reports `differs` and the
+  track leaves the list about 25 ms later (pre-existing).
+
 **Next.**
 
-1. Metadata-only clip reads (clip property edits).
-2. Possibly: skip the empty-slot descent in a top-level control route's
+1. Possibly: skip the empty-slot descent in a top-level control route's
    inventories (about 0.4 s of each Diva inventory, E412).
-3. Possibly: the scalar revert path under D65 (one turn and the executor's
-   collateral comparison), and sharing the surface's bank read with the
-   preflight read (about 0.24 s per route).
+2. Possibly: the scalar and clip revert paths under D65 (one turn, the
+   preflight as stash); a clip revert of 8 large clips takes about 7.2 s.
+3. Possibly: confirm a same-track, other-row point by re-polling before the
+   group route, and settle `delete_track`'s readback (both pre-existing).
 
 ## Next session — adapter per-operation checks and the D44 measurement
 
@@ -539,8 +587,8 @@ several paged banks.
 | Scalar device edit: resolve and preflight | `device-controls.ts` groups by route, reads the complete top-level identity and one complete parameter/remote inventory per cohort, validates IDs/names/domains, and passes `parameterPreflight` into the executor. This read also supplies prior scalar values for reversal. | **Retain/share.** Already shared with the executor; removing it loses target and input validation, not just recovery. |
 | Scalar device edit: adapter stages | `LiveAdapter.apply` reads two equal live-generation polls after intermediate direct-parameter stages, and a full settled inventory after the last. It compares unrelated parameters against the initial cohort. Remote writes have their own stage readback. | **Removed for supplied cohorts (E411).** One write turn per route; the executor readback reports requested values and unrequested changes, and an unrequested change still stops later routes. The path without a supplied preflight keeps its stage proofs. |
 | Scalar device edit: executor/result | `Executor.runInside` reads target scalars plus the integrity device after applying a supplied cohort. The surface consumes that take. One-route fake budget: `devices=1, read=2, apply=1, delta=1`; the adapter's internal inventories are additional. Inventory payload scales with all P parameters, not just the K written controls. E252's one Diva control cost 3,447 ms on its historical build. | **Retain one final independent read**, shared with the result and scalar reversal. Cheap scalar inverse remains useful; no history-retention redesign. |
-| Clip property edit: surface preflight | `setProperties` calls `readSlots` with occupancy and metadata, plans coupled range fields, and detects no-ops. In `LiveAdapter.read`, metadata comes from `readClipNotes`, which captures all channels even for a rename. | **Retain identity and metadata; narrow the payload after live proof.** Name/colour need no note-based planning; loop/range writes require their separate coupled-field tests. |
-| Clip property edit: stash and verify | The executor separately reads metadata before and after `clip.update`. The write set contains metadata fields, not notes. Each metadata read currently captures the full clip. `readbackOf` normally reuses `take.verify`; it adds a read only when required entries are missing. Budget: `mark=1, tracks=1, read=3, resolve=1, apply=1, delta=1`. | **Share the first metadata snapshot; retain one independent final metadata read.** Normal changed-target path is three full captures by current source, not two. Captured note data is discarded from these metadata entries; this is payload overreach, not a useful complete recovery stash. The ledger's two-capture summary needs fresh host measurement before replacing its old timings. |
+| Clip property edit: surface preflight | `setProperties` calls `readSlots` with occupancy and metadata, plans coupled range fields, and detects no-ops. In `LiveAdapter.read`, metadata comes from `readClipNotes`, which captures all channels even for a rename. | **Narrowed (E413).** A metadata-only read points a cursor and captures no notes; the read is shared with the executor as its stash. |
+| Clip property edit: stash and verify | The executor separately reads metadata before and after `clip.update`. The write set contains metadata fields, not notes. Each metadata read currently captures the full clip. `readbackOf` normally reuses `take.verify`; it adds a read only when required entries are missing. Budget: `mark=1, tracks=1, read=3, resolve=1, apply=1, delta=1`. | **Done (E413): the first metadata snapshot is the stash; one independent final metadata read remains, reread while it lags.** Normal changed-target path is three full captures by current source, not two. Captured note data is discarded from these metadata entries; this is payload overreach, not a useful complete recovery stash. The ledger's two-capture summary needs fresh host measurement before replacing its old timings. |
 | Targeted note edit | The surface takes a fresh sourced snapshot, validates the agent's base and plans exact addressed notes. For targeted edits without `clip.update`, `snapshotPreflight` shares this with the executor; `verifySources` supplies the final receipt and collateral comparison. Budget: `mark=1, tracks=1, clipRead=2, delta=3, apply=1`. | **Retain/share.** Already two full captures, each serving a different requirement. Do not drop the final content comparison or broaden the note write. |
 | Whole-clip/document property edit | `agent-native-edit.ts` withholds `snapshotPreflight` on whole-clip and `clip.update` paths, so fresh planning, stash and verify are separate captures. Budget: `mark=2, tracks=1, clipRead=3, delta=3, resolve=1, apply=1`. | **Share the planning capture in a later D65 change**, with stale-agent validation, project/scene identity and truthful readback intact. No need to preserve the old concurrent-human-edit scenario as a runtime design requirement. |
 | Device/container deletion: public summary | The native wrapper reads structure to report removed layer chains; the stable removal path reads identity and enabled order. One-container budget: `read=3, devices=3, resolve=1, apply=1, delta=1`. | **Retain/share structure and identity.** The removal summary is a requested-result receipt, not a restoration promise. |
@@ -612,4 +660,4 @@ E403/E404. The D65 composition rewrite (E406), the adapter check
 reductions, guarded insertions and the D67 reweighting (E407) are done.
 Shared relocation readings are verified in E408, and the named 16-chain
 seed with the D68 chain limit in E409, and one-turn scalar cohorts in E411.
-Metadata-only clip reads remain open in this same P01 item.
+Metadata-only clip reads are verified live in E413 (see [Metadata-only clip reads](#metadata-only-clip-reads--live-2026-11-08)).

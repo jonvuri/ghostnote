@@ -353,6 +353,12 @@ class CursorModelTransport implements Transport {
         return model === undefined ? {} : CursorModelTransport.metadataOf(model);
       }
 
+      case WIRE.cursorLaunchSettings: {
+        const on = this.cursorOn.get(params['cursor'] as string);
+        return on === undefined || !this.slots.has(on) ? { exists: false }
+          : { exists: true, sceneIndex: on, ...this.launchBlock };
+      }
+
       case WIRE.cursorGetNotesVerbose:
       case WIRE.cursorGetNotesVerboseAllChannels: {
         const cursor = params['cursor'] as string;
@@ -499,16 +505,36 @@ test('8h4a: a snapshot read takes metadata from the clip.read block and keeps th
   assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0,
     'no pool cursor point at all for a snapshot read');
   assert.equal(after.sources?.[addressKey(CLIP(0))]?.domain, 'ghostnote-launcher-source/1');
-  // 8h4a5: a clip address without a note read also takes the block. It does not point.
-  await blockAdapter.read([clipMetadata(CLIP(0))]);
-  assert.equal(block.frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 0);
-  // A reply without the block is an extension before 8h4a. The read refuses; it does not point.
+  // A reply without the block is an extension before 8h4a. A read that needs the capture refuses; it does not point.
   const old = new CursorModelTransport(slots);
   old.metadataBlock = false;
   const oldAdapter = new UntimedAdapter({ transport: old });
   await oldAdapter.hello();
-  await assert.rejects(oldAdapter.read([clipMetadata(CLIP(0))]), /no metadata block/);
+  await assert.rejects(oldAdapter.read([clipMetadata(CLIP(0)), notesAt(CLIP(0), 0)]), /no metadata block/);
   assert.equal(old.frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0);
+});
+
+test('P01: a metadata-only read points one cursor and replays no notes; its value equals the capture block', async () => {
+  const slots = new Map([[0, { lengthBeats: 16, pitch: 60 }]]);
+  const wire = new CursorModelTransport(slots);
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 2 });
+  await adapter.hello();
+  const captured = await adapter.read([clipMetadata(CLIP(0)), notesAt(CLIP(0), 0)]);
+  const before = wire.frames.length;
+  const pointed = await adapter.read([clipMetadata(CLIP(0)), clipLaunch(CLIP(0))]);
+  const frames = wire.frames.slice(before);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.clipRead).length, 0, 'no note replay');
+  assert.equal(frames.filter((frame) => frame.method === WIRE.cursorClipMetadata).length, 1);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.cursorLaunchSettings).length, 1);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.cursorPointTrack).length, 1, 'metadata and launch share one point');
+  const key = addressKey(clipMetadata(CLIP(0)));
+  assert.deepEqual(pointed.entries[key]?.value, captured.entries[key]?.value);
+  // An empty slot is never pointed at (E2), and has no entry.
+  const empty = wire.frames.length;
+  const none = await adapter.read([clipMetadata(CLIP(3)), clipLaunch(CLIP(3))]);
+  assert.equal(none.entries[addressKey(clipMetadata(CLIP(3)))], undefined);
+  assert.equal(none.entries[addressKey(clipLaunch(CLIP(3)))], undefined);
+  assert.equal(wire.frames.slice(empty).filter((frame) => frame.method === WIRE.cursorPointTrack).length, 0);
 });
 
 test('8h4a: batch.run carries the scene guard, and a first-stage refusal is a StaleAddressError', async () => {
@@ -1100,13 +1126,15 @@ test('8h4a5: the clip, metadata, launch, and notes of one clip share one clip.re
   assert.equal(metadata?.of === 'clipMetadata' ? metadata.metadata.lengthBeats : undefined, 4);
 });
 
-test('8h4a5: the clip.read launch block is validated; a bad or absent block refuses the read', async () => {
+test('8h4a5: the launch block and the cursor launch reply are validated; a bad or absent block refuses the read', async () => {
   const bad = async (launch: Record<string, unknown> | undefined, pattern: RegExp): Promise<void> => {
     const wire = new CursorModelTransport(new Map([[0, { lengthBeats: 4, pitch: 60 }]]));
     wire.launchBlock = launch;
     const adapter = new UntimedAdapter({ transport: wire });
     await adapter.hello();
-    await assert.rejects(adapter.read([clipLaunch(CLIP(0))]), pattern);
+    // P01: the capture block and the pointed cursor reply are validated alike.
+    await assert.rejects(adapter.read([clipLaunch(CLIP(0)), notesAt(CLIP(0), 0)]), pattern);
+    if (launch !== undefined) await assert.rejects(adapter.read([clipLaunch(CLIP(0))]), pattern);
   };
   const good = { launchQuantization: '1/4', launchMode: 'synced', useLoopStartAsQuantizationReference: true };
   await bad({ ...good, launchQuantization: '3' }, /quantization is not a known value: 3/);

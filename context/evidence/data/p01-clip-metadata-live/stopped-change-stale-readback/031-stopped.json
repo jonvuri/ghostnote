@@ -1,0 +1,7 @@
+{
+  "scratchId": "d92e4207-d65c-4c16-a578-471e1aa06fb9",
+  "scratchName": "gn-p01-clipmeta",
+  "scenesBefore": 10,
+  "error": "AssertionError [ERR_ASSERTION]: {\"schema\":\"ghostnote-launcher-clip-properties/1\",\"applied\":true,\"effects\":[{\"changeId\":\"d880a6d3-527a-4adc-ab2e-6b6dcd95f505\",\"target\":{\"clips\":1},\"summary\":\"Set the properties of 1 clip(s).\",\"fidelity\":\"exact\"}],\"readback\":{\"status\":\"differs\",\"clips\":[{\"trackId\":\"d92e4207-d65c-4c16-a578-471e1aa06fb9\",\"row\":0,\"properties\":{\"name\":\"\",\"color\":{\"red\":217,\"green\":157,\"blue\":13},\"lengthBeats\":1024,\"playStartBeats\":0,\"loopEnabled\":true,\"loopStartBeats\":0,\"loopEndBeats\":1024},\"verified\":false,\"differences\":[{\"field\":\"name\",\"requested\":\"gn-p01-large\",\"observed\":\"\"}]}]},\"next\":{\"revert\":{\"tool\":\"revert_change\",\"changeId\":\"d880a6d3-527a-4adc-ab2e-6b6dcd95f505\"}},\"warnings\":[],\"timing\":{\"totalMs\":673.7403750000085},\"target\":{\"clips\":1}}\n+ actual - expected\n\n+ 'differs'\n- 'verified'\n",
+  "next": "Inspect effects before any further write; never repeat automatically."
+}
