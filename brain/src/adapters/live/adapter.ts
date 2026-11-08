@@ -594,6 +594,12 @@ const CONTAINER_SLOT_DESCENTS = 2;
  * so the retry re-points rather than re-reading; two attempts bound it.
  */
 const CONTAINER_POINT_ATTEMPTS = 2;
+/**
+ * B19 (E415): how long a stage of track deletes waits for the tracks to leave the bank. Sixteen tracks of 128 clips
+ * left within about 7 s of the request; the bound allows 8 s and 1 s for each track.
+ */
+const TRACK_DELETE_SETTLE_MS = 8000;
+const TRACK_DELETE_SETTLE_PER_TRACK_MS = 1000;
 /** Observe delayed enabled values without repeating the setter. */
 const DEVICE_ENABLED_READ_ATTEMPTS = 8;
 /**
@@ -767,6 +773,8 @@ export interface LiveOptions {
    * multi-page writer path. A product adapter refuses them with `WriterWidthError` before any mutation.
    */
   readonly allowNarrowWriter?: boolean;
+  /** For tests: the whole wait for deleted tracks to leave the bank, instead of the per-track bound (E415). */
+  readonly trackDeleteSettleMs?: number;
 }
 
 export interface MasterRecorderStatus {
@@ -1083,6 +1091,7 @@ export class LiveAdapter implements BitwigAdapter {
   private pendingNoteWake: NoteWake | undefined;
   private readonly noteWake: boolean;
   private readonly allowNarrowWriter: boolean;
+  private readonly trackDeleteSettleMs: number | undefined;
   /** One confirmed device cursor is the complete DirectParameter route. */
   private parameterQueue: Promise<void> = Promise.resolve();
   /** Keep complete scalar write pipelines from interleaving on that cursor. */
@@ -1106,6 +1115,7 @@ export class LiveAdapter implements BitwigAdapter {
     this.onTiming = options.onTiming;
     this.noteWake = options.noteWake === true;
     this.allowNarrowWriter = options.allowNarrowWriter === true;
+    this.trackDeleteSettleMs = options.trackDeleteSettleMs;
     this.onTrace = options.onTrace;
     // A pool of one until `hello()` learns the rig's real size — which is the
     // Phase-0 behaviour exactly, so an adapter used before the handshake is no
@@ -6896,6 +6906,21 @@ export class LiveAdapter implements BitwigAdapter {
           const started = Date.now();
           while (!after.some((track: WireTrack) => !before.has(track.channelId))
             && Date.now() - started < 8000) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            after = (await this.scanTracks()).tracks;
+          }
+        }
+        // B19 (E415): Bitwig removes a deleted track after the request returns, seconds later for a track with many
+        // clips. Until it does, every bank index above it is stale, and a later index-addressed write lands on the
+        // wrong track. Wait until each accepted delete has left the bank, and report a delete that has not by the
+        // bound through the caller's readback. The delete is never sent again.
+        const deleting = new Set(stage.ops.flatMap((o, k) =>
+          o.op === 'track.delete' && receipts[receipts.length - 1]!.ops[k]?.ok !== false ? [o.track.channelId] : []));
+        if (deleting.size > 0) {
+          const started = Date.now();
+          const bound = this.trackDeleteSettleMs
+            ?? TRACK_DELETE_SETTLE_MS + deleting.size * TRACK_DELETE_SETTLE_PER_TRACK_MS;
+          while (after.some((track: WireTrack) => deleting.has(track.channelId)) && Date.now() - started < bound) {
             await new Promise((resolve) => setTimeout(resolve, 100));
             after = (await this.scanTracks()).tracks;
           }

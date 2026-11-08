@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v66';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v67';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -554,7 +554,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * D52) adds check_grid_support at the end: the Grid admission gate of the connected build, read from the local jar
  * fingerprint and the accepted doctor cache. v54 (V14) adds resolve_device_name at the end: exact stock-device,
  * VST3, CLAP, and Bitwig-preset name resolution from the running host's configuration, with no Bitwig call. v66
- * (B19 session 2) adds list_launcher_slots at the end: every occupied Launcher slot in one host call.
+ * (B19 session 2) adds list_launcher_slots at the end: every occupied Launcher slot in one host call. v67 keeps
+ * this list: delete_track states that it waits for Bitwig's removal and what differs means.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -973,3 +974,9 @@ export const TOOL_DESCRIPTION_V65_SHA256 = '9504efe308d2e6230d55a4c806956fef91f3
  * call, from the normal-profile slot.occupancy method. No other description changes.
  */
 export const TOOL_DESCRIPTION_V66_SHA256 = '385084ba1646f0612a4d7a755595c8f38efb5c10f99bb1fecc2b5110bef1dbf3';
+
+/**
+ * v67 (B19, E415): delete_track waits until Bitwig has removed each track, and states that a track still there reads
+ * back as differs, is not in readback.removed, and needs list_tracks before another delete.
+ */
+export const TOOL_DESCRIPTION_V67_SHA256 = 'e93c2815d84024adb8d85567b2d72f6be8000502c5c0c8da42922c1054a2b7bd';

@@ -1,0 +1,5 @@
+{"at":4784,"step":"cleanup-tracks","sent":16,"before":48,"after":32,"readback":"differs"}
+{"at":9030,"step":"cleanup-tracks","sent":16,"before":32,"after":16,"readback":"verified"}
+{"at":13129,"step":"cleanup-tracks","sent":16,"before":16,"after":0,"readback":"verified"}
+{"at":18251,"step":"cleanup-scenes","rows":40,"readback":"verified"}
+{"at":18275,"step":"cleanup","matchesEntry":true,"sceneCount":10,"entrySceneCount":10,"clips":25}

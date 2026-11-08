@@ -667,7 +667,9 @@ type DeleteTracksInput = z.infer<typeof deleteTracksInput>;
 
 const DELETE_TRACK_DESCRIPTION = `${PROFILE} Delete tracks with everything on them: every clip, device, and `
   + 'setting. A group track deletes the tracks inside it too. Nothing here can undo it: a track made again has a '
-  + 'new trackId, so no record of the old track applies to it. readback.removed names each deleted trackId. Bitwig '
+  + 'new trackId, so no record of the old track applies to it. Bitwig removes a track with many clips seconds after '
+  + 'the request; the call waits for that. readback.removed names each deleted trackId. A track that is still there '
+  + 'reads back as differs and is not in readback.removed: read list_tracks before deleting it again. Bitwig '
   + 'moves the mixer selection on a delete; the tool then selects the mixer track that was selected before. When '
   + 'that track was deleted, or the selection changed again, warning mixer-selection-moved names the selected track. '
   + 'One call deletes at most 64 tracks. A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.';
@@ -693,9 +695,13 @@ async function deleteTracks(workspace: Workspace, args: DeleteTracksInput): Prom
     state.effects.push(effectOf(change, target, `Deleted ${args.trackIds.length} track(s).`));
     // The executor's structural readback after the write is the independent evidence (D15).
     const status = statusOf(receiptOf(change));
+    // B19 (E415): a delete that the extension refused, or that Bitwig has not carried out within the adapter's wait,
+    // reads back as a track that still exists. The others are gone.
+    const remaining = new Set(change.take.report.disagreements.flatMap((item) =>
+      item.address.kind === 'track' && item.field === 'exists' ? [item.address.channelId] : []));
     const result: WriteResult<unknown> = {
       schema: TRACK_DELETE_SCHEMA, applied: true, effects: state.effects,
-      readback: { status, removed: status === 'verified' ? args.trackIds : [] },
+      readback: { status, removed: status === 'unavailable' ? [] : args.trackIds.filter((id) => !remaining.has(id)) },
       warnings: [{ code: 'not-reversible', message: 'revert_change cannot put a deleted track back.' },
         ...unavailableWarnings(status, 'the tracks with list_tracks'), ...selectionWarnings(selection)],
     };

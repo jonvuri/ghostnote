@@ -602,8 +602,9 @@ export function encodeOp(op: Op, ctx: EncodeContext): Frame[] {
     case 'track.rename':
       return [frame(WIRE.trackSetName, { trackIndex: ctx.trackIndex(op.track), name: op.name })];
 
+    // B19 (E415): the handler refuses when another track is at the index, as after a pending delete.
     case 'track.delete':
-      return [frame(WIRE.trackDelete, { trackIndex: ctx.trackIndex(op.track) })];
+      return [frame(WIRE.trackDelete, { trackIndex: ctx.trackIndex(op.track), expectedChannelId: op.track.channelId })];
 
     // 8i7 (E257): the handler checks the channelId and the automation flag immediately before the setter.
     case 'mixer.set': {

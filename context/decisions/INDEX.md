@@ -73,6 +73,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D69 | Device-control limits follow routes: with one write turn per route (E411), `set_device_controls` admits 256 settings on 12 device routes (12 Diva routes 26.8 s, E412); replaces D44's `set_device_controls` row | [open](d69-device-control-limits-follow-routes.md) |
 | D70 | Clip writers return the read-back document as a file: `documentOutputPath` on add and edit (a dry run writes the expected document), `readback.clipId`, and no failed write for a failed publication | [open](d70-clip-writers-return-the-read-back-document-as-a-file.md) |
 | D71 | Launcher slot occupancy is one call with its own mark: normal-profile `slot.occupancy`, `list_launcher_slots` reports occupied rows only, groups mirror their children, no paging, no public freshness token (writers refuse `occupied`) | [open](d71-launcher-slot-occupancy-in-one-call.md) |
+| D72 | Track deletes wait for Bitwig's removal: a stage of track deletes polls until each track has left the bank (8 s + 1 s per track, never resent); `readback.removed` names each track gone; `track.delete` carries `expectedChannelId`; scene deletes unchanged | [open](d72-track-deletes-wait-for-the-removal.md) |
 
 ## Phase 4 closeout audit
 

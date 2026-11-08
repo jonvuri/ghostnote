@@ -185,8 +185,24 @@ public final class TrackHandlers extends HandlerGroup {
         return r;
     }
 
+    /** B19 deliberate build marker: `track.delete` refuses another track at the index (E415). */
+    public static final String DELETE_IDENTITY_RULE =
+        "track.delete: refuses when the track at trackIndex does not have expectedChannelId (B19, E415)";
+
+    /**
+     * B19 (E415): Bitwig removes a deleted track after this returns, and an index from before the removal names the
+     * next track. With `expectedChannelId` (the product always sends it) the handler deletes only the named track.
+     */
     private JsonElement trackDelete(JsonObject params) {
         Track track = requireTrack(params.get("trackIndex").getAsInt());
+        if (params.has("expectedChannelId")) {
+            String expected = params.get("expectedChannelId").getAsString();
+            String actual = track.channelId().get();
+            if (!expected.equals(actual)) {
+                throw new IllegalArgumentException(
+                    "track identity changed before delete: expected " + expected + ", found " + actual);
+            }
+        }
         track.deleteObject();
         return ok();
     }

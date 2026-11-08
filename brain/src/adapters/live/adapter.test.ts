@@ -5563,8 +5563,11 @@ test('8i7: a bank row whose channelId moved before track.mixer reads unstable, n
  * create moves the mixer selection; a clip create selects the new slot. `operatorAfterMove` is a person who selects
  * another mixer track after the host move and before the restore.
  */
-function selectionTransport(frames: Frame[], options: { operatorAfterMove?: boolean } = {}): Transport {
+function selectionTransport(frames: Frame[],
+  options: { operatorAfterMove?: boolean; deleteLandsAfterLists?: number } = {}): Transport {
   const ids = ['track-a', 'track-b', 'track-c'];
+  // B19 (E415): a deleted track can stay in the bank for this many more track lists, as Bitwig removes it later.
+  const pending: { id: string; lists: number }[] = [];
   const sel = { trackIndex: -1, slotIndex: -1, mixer: 'track-a', revision: 10, owner: undefined as string | undefined };
   let revision = 1;
   let created = 0;
@@ -5576,9 +5579,15 @@ function selectionTransport(frames: Frame[], options: { operatorAfterMove?: bool
       switch (frame.method) {
         case WIRE.revisionGet:
           return { revision, generation: 'g', sceneEpoch: 1, contentEpoch: 1, project: 'p', sceneCount: 4 };
-        case WIRE.trackList:
+        case WIRE.trackList: {
+          for (const item of [...pending]) {
+            if (item.lists-- > 0) continue;
+            ids.splice(ids.indexOf(item.id), 1);
+            pending.splice(pending.indexOf(item), 1);
+          }
           return { tracks: ids.map((channelId, index) => ({ index, name: channelId, position: index, type: 'Instrument',
             channelId })), count: ids.length, itemCount: ids.length, bankSize: 256 };
+        }
         case WIRE.selectionStatus:
           return { trackIndex: sel.trackIndex, slotIndex: sel.slotIndex, mixerTrackIndex: ids.indexOf(sel.mixer),
             mixerChannelId: sel.mixer, revision: sel.revision, slotProject: 'p', mixerProject: 'p', project: 'p' };
@@ -5597,6 +5606,10 @@ function selectionTransport(frames: Frame[], options: { operatorAfterMove?: bool
             const opParams = (op.params ?? {}) as Record<string, any>;
             if (op.method === WIRE.trackDelete) {
               const at = opParams['trackIndex'] as number;
+              if (options.deleteLandsAfterLists !== undefined) {
+                pending.push({ id: ids[at]!, lists: options.deleteLandsAfterLists });
+                continue;
+              }
               ids.splice(at, 1);
               select(ids[Math.min(at, ids.length - 1)]!);
             } else if (op.method === WIRE.trackCreate) {
@@ -5634,6 +5647,33 @@ test('8i8 call budget: after a track delete, one selection read and one guarded 
   assert.deepEqual(tail[1]!.params, { channelId: 'track-a', expectedChannelId: 'track-c', expectedRevision: 11 });
   assert.equal(frames.filter((frame) => frame.method === WIRE.selectionStatus).length, 3, 'the entry read, the '
     + 'read after the move, and the confirming poll');
+});
+
+test('B19 (E415): a track delete names its track, and the stage waits until Bitwig removes it', async () => {
+  const frames: Frame[] = [];
+  const adapter = new LiveAdapter({ transport: selectionTransport(frames, { deleteLandsAfterLists: 3 }) });
+  await adapter.tracks();
+  const take = await new Executor(adapter).run([{ op: 'track.delete', track: track('track-b') }],
+    { clearance: directedDestruction('delete_track') });
+  const batch = frames.find((frame) => frame.method === WIRE.batchRun)!;
+  assert.deepEqual((batch.params!['ops'] as Frame[]).map((op) => op.params),
+    [{ trackIndex: 1, expectedChannelId: 'track-b' }]);
+  assert.deepEqual(take.report.disagreements, [], 'the readback ran after the removal');
+  assert.ok(!(await adapter.tracks()).some((t) => t.channelId === 'track-b'));
+});
+
+test('B19 (E415): a track that Bitwig has not removed by the bound reads back as still there; no second delete', async () => {
+  const frames: Frame[] = [];
+  const adapter = new LiveAdapter({ transport: selectionTransport(frames, { deleteLandsAfterLists: 1_000 }),
+    trackDeleteSettleMs: 300 });
+  await adapter.tracks();
+  const take = await new Executor(adapter).run([{ op: 'track.delete', track: track('track-b') }],
+    { clearance: directedDestruction('delete_track') });
+  assert.deepEqual(take.report.disagreements.map((item) => [item.at, item.field, item.readback]),
+    [['track', 'exists', true]]);
+  const deletes = frames.filter((frame) => frame.method === WIRE.batchRun)
+    .flatMap((frame) => frame.params!['ops'] as Frame[]).filter((op) => op.method === WIRE.trackDelete);
+  assert.equal(deletes.length, 1);
 });
 
 test('8i8 limit: a person\'s mixer click inside the write turn looks like the host move, and is restored', async () => {

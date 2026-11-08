@@ -1,0 +1,25 @@
+{"at":29790,"step":"tracks","positions":["0:Instrument Layer","1:Hybrid 2","2:gn-A","3:gn-B","4:Group 5","5:gn-E16","6:gn-lay","7:gn-lay4","8:gn-sel","9:gn-dr-d00","10:gn-dr-d01","11:gn-dr-d02","12:gn-dr-d03","13:gn-dr-d04","14:gn-dr-d05","15:gn-dr-d06","16:gn-dr-d07","17:gn-dr-d08","18:gn-dr-d09","19:gn-dr-d10","20:gn-dr-d11","21:gn-dr-d12","22:gn-dr-d13","23:gn-dr-d14","24:gn-dr-d15","25:gn-dr-d16","26:gn-dr-d17","27:gn-dr-d18","28:gn-dr-d19","29:gn-dr-d20","30:gn-dr-d21","31:gn-dr-d22","32:gn-dr-d23","33:gn-dr-d24","34:gn-dr-d25","35:gn-dr-d26","36:gn-dr-d27","37:gn-dr-d28","38:gn-dr-d29","39:gn-dr-d30","40:gn-dr-d31","41:gn-dr-d32","42:gn-dr-d33","43:gn-dr-d34","44:gn-dr-d35","45:gn-dr-d36","46:gn-dr-d37","47:gn-dr-d38","48:gn-dr-d39","49:gn-dr-d40","50:gn-dr-d41","51:gn-dr-d42","52:gn-dr-d43","53:gn-dr-d44","54:gn-dr-d45","55:gn-dr-d46","56:gn-dr-d47","57:gn-dr-k00","58:gn-dr-k01","59:gn-dr-k02","60:gn-dr-k03","61:gn-dr-k04","62:gn-dr-k05","63:gn-dr-k06","64:gn-dr-k07","65:gn-dr-k08","66:gn-dr-k09","67:gn-dr-k10","68:gn-dr-k11","69:gn-dr-k12","70:gn-dr-k13","71:gn-dr-k14","72:gn-dr-k15","73:FX 1","74:Master"]}
+{"at":32812,"step":"clips-sent","cells":8192}
+{"at":74938,"step":"clips-landed","filled":8192,"cells":8192}
+{"at":83822,"step":"delete-call","names":["gn-dr-d00","gn-dr-d01","gn-dr-d02","gn-dr-d03","gn-dr-d04","gn-dr-d05","gn-dr-d06","gn-dr-d07","gn-dr-d08","gn-dr-d09","gn-dr-d10","gn-dr-d11","gn-dr-d12","gn-dr-d13","gn-dr-d14","gn-dr-d15"],"ms":8882,"applied":true,"readback":"differs","removed":0,"warnings":["not-reversible","mixer-selection-moved"],"frames":[24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9]}
+{"at":91820,"step":"delete-call","names":["gn-dr-d16","gn-dr-d17","gn-dr-d18","gn-dr-d19","gn-dr-d20","gn-dr-d21","gn-dr-d22","gn-dr-d23","gn-dr-d24","gn-dr-d25","gn-dr-d26","gn-dr-d27","gn-dr-d28","gn-dr-d29","gn-dr-d30","gn-dr-d31"],"ms":7998,"applied":true,"readback":"differs","removed":0,"warnings":["not-reversible"],"frames":[35,34,33,31,30,29,28,26,25,24,22,21,20,19,17,16]}
+{"at":99703,"step":"delete-call","names":["gn-dr-d32","gn-dr-d33","gn-dr-d34","gn-dr-d35","gn-dr-d36","gn-dr-d37","gn-dr-d38","gn-dr-d39","gn-dr-d40","gn-dr-d41","gn-dr-d42","gn-dr-d43","gn-dr-d44","gn-dr-d45","gn-dr-d46","gn-dr-d47"],"ms":7883,"applied":true,"readback":"differs","removed":0,"warnings":["not-reversible"],"frames":[46,45,44,42,41,40,38,37,36,34,33,32,30,29,28,26]}
+{"at":100843,"step":"change","gone":["gn-dr-d00"],"added":[],"count":59}
+{"at":101964,"step":"change","gone":["gn-dr-d42"],"added":[],"count":58}
+{"at":102980,"step":"change","gone":["gn-dr-d41"],"added":[],"count":57}
+{"at":104014,"step":"change","gone":["gn-dr-d40"],"added":[],"count":56}
+{"at":105035,"step":"change","gone":["gn-dr-d37","gn-dr-d38"],"added":[],"count":54}
+{"at":106047,"step":"change","gone":["gn-dr-d36"],"added":[],"count":53}
+{"at":107164,"step":"change","gone":["gn-dr-d33","gn-dr-d35"],"added":[],"count":51}
+{"at":108189,"step":"change","gone":["gn-dr-d32"],"added":[],"count":50}
+{"at":109202,"step":"change","gone":["gn-dr-d31"],"added":[],"count":49}
+{"at":110220,"step":"change","gone":["gn-dr-d28","gn-dr-d29"],"added":[],"count":47}
+{"at":111230,"step":"change","gone":["gn-dr-d27"],"added":[],"count":46}
+{"at":112244,"step":"change","gone":["gn-dr-d24","gn-dr-d26"],"added":[],"count":44}
+{"at":113263,"step":"change","gone":["gn-dr-d23"],"added":[],"count":43}
+{"at":114283,"step":"change","gone":["gn-dr-k13","gn-dr-k15","FX 1"],"added":[],"count":40}
+{"at":115295,"step":"change","gone":["gn-dr-k11","gn-dr-k12"],"added":[],"count":38}
+{"at":116311,"step":"change","gone":["gn-dr-k07","gn-dr-k08","gn-dr-k09"],"added":[],"count":35}
+{"at":117326,"step":"change","gone":["gn-dr-k03","gn-dr-k04","gn-dr-k05"],"added":[],"count":32}
+{"at":118339,"step":"change","gone":["gn-dr-k01"],"added":[],"count":31}
+{"at":238508,"step":"summary","targetsDeleted":32,"targetsRemaining":["gn-dr-d16","gn-dr-d17","gn-dr-d18","gn-dr-d19","gn-dr-d20","gn-dr-d21","gn-dr-d22","gn-dr-d25","gn-dr-d30","gn-dr-d34","gn-dr-d39","gn-dr-d43","gn-dr-d44","gn-dr-d45","gn-dr-d46","gn-dr-d47"],"canariesDeleted":["gn-dr-k01","gn-dr-k03","gn-dr-k04","gn-dr-k05","gn-dr-k07","gn-dr-k08","gn-dr-k09","gn-dr-k11","gn-dr-k12","gn-dr-k13","gn-dr-k15"],"entryMissing":["FX 1"],"settledAfterMs":118340}

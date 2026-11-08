@@ -15,6 +15,14 @@ occupied Launcher slot in one call through the new normal-profile method
 [D71](decisions/d71-launcher-slot-occupancy-in-one-call.md)). On 251 tracks ×
 128 scenes with 30,745 clips the tool took 30.5 ms and matched 32,128
 single-slot reads ([E414](evidence/experiments/e414-b19-slot-occupancy-live.md)).
+A follow-up fixed a data-loss fault that E414's teardown exposed: Bitwig removes
+a deleted track seconds after the request, and an index-addressed delete sent
+meanwhile removed other tracks
+([E415](evidence/experiments/e415-b19-track-delete-lands-late-and-misdirects.md)).
+Each stage of track deletes now waits for the removal, `track.delete` names its
+track, and `delete_track` lists each track gone (descriptions v67;
+[D72](decisions/d72-track-deletes-wait-for-the-removal.md); same 95 methods
+and hash, marker `rig.info.trackDeleteIdentity`).
 Next is session 3: overlays, clip annotations and provenance (with a last
 format evaluation, a possible final benchmark, and the choice between a
 clip-level default and a column binding for uniform release velocity); then
@@ -129,10 +137,11 @@ notes); 8 clips of 16,384 notes 4.1–4.3 s for a rename (23.7 s) or launch
 settings (16.4 s), reverts 7.1–7.5 s (36.9 / 22.1 s). Descriptions v64;
 only brain code changed (wire 94 / `526cd7e3760580cc`, already loaded). All
 2,661 brain tests pass; cleanup and preservation passed. Two pre-existing
-findings are open in the
+findings were open in the
 [brief](work/p01-edit-path-performance.md#metadata-only-clip-reads--live-2026-11-08):
-a spurious collapsed-group point on an ungrouped track, and `delete_track`
-reporting `differs` for a track with large clips. The project's launcher slot
+a spurious collapsed-group point on an ungrouped track, which stays open, and
+`delete_track` reporting `differs` for a track with large clips, which main
+fixed with D72 (E415). The project's launcher slot
 selection is now FX 1, row 8 (it had none; the adapter cannot clear one).
 Remaining P01 items are optional.
 

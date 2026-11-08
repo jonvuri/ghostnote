@@ -1,0 +1,7 @@
+{"at":15085,"step":"tracks","positions":["0:Instrument Layer","1:Hybrid 2","2:gn-A","3:gn-B","4:Group 5","5:gn-E16","6:gn-lay","7:gn-lay4","8:gn-sel","9:gn-dr-d00","10:gn-dr-d01","11:gn-dr-d02","12:gn-dr-d03","13:gn-dr-d04","14:gn-dr-d05","15:gn-dr-d06","16:gn-dr-d07","17:gn-dr-d08","18:gn-dr-d09","19:gn-dr-d10","20:gn-dr-d11","21:gn-dr-d12","22:gn-dr-d13","23:gn-dr-d14","24:gn-dr-d15","25:gn-dr-k00","26:gn-dr-k01","27:gn-dr-k02","28:gn-dr-k03","29:gn-dr-k04","30:gn-dr-k05","31:gn-dr-k06","32:gn-dr-k07","33:gn-dr-k08","34:gn-dr-k09","35:gn-dr-k10","36:gn-dr-k11","37:gn-dr-k12","38:gn-dr-k13","39:gn-dr-k14","40:gn-dr-k15","41:Master"]}
+{"at":16775,"step":"clips-sent","cells":4096}
+{"at":34118,"step":"clips-landed","filled":4096,"cells":4096}
+{"at":39493,"step":"delete-call","names":["gn-dr-d00","gn-dr-d01","gn-dr-d02","gn-dr-d03","gn-dr-d04","gn-dr-d05","gn-dr-d06","gn-dr-d07","gn-dr-d08","gn-dr-d09","gn-dr-d10","gn-dr-d11","gn-dr-d12","gn-dr-d13","gn-dr-d14","gn-dr-d15"],"ms":5373,"applied":true,"readback":"differs","removed":0,"warnings":["not-reversible","mixer-selection-moved"],"frames":[24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9]}
+{"at":40603,"step":"change","gone":["gn-dr-d03","gn-dr-d04"],"added":[],"count":29}
+{"at":41618,"step":"change","gone":["gn-dr-d00","gn-dr-d01","gn-dr-d02"],"added":[],"count":26}
+{"at":161794,"step":"summary","targetsDeleted":16,"targetsRemaining":[],"canariesDeleted":[],"entryMissing":[],"settledAfterMs":41619}

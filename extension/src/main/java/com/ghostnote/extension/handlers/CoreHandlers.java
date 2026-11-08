@@ -122,8 +122,9 @@ public final class CoreHandlers extends HandlerGroup {
         result.addProperty("clipCopy", TrackHandlers.CLIP_COPY);
         // B18 deliberate build marker: the content-event ring size; revision.get slices it by `since`.
         result.addProperty("contentLog", Rig.CONTENT_LOG);
-        // B19 session 2 deliberate build marker: the whole-bank slot occupancy route.
+        // B19 deliberate build markers: the whole-bank slot occupancy route and the guarded track delete.
         result.addProperty("slotOccupancy", SlotOccupancyHandlers.RULE);
+        result.addProperty("trackDeleteIdentity", TrackHandlers.DELETE_IDENTITY_RULE);
         // 8h4a (D33): the track-bank content filter that init applied.
         result.addProperty("contentFilter", rig.contentFilterApplied);
         return result;
