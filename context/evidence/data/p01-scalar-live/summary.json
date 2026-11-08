@@ -1,0 +1,407 @@
+{
+ "baseline-head-2": {
+  "passed": true,
+  "cleanup": true,
+  "rows": {
+   "poly-1-set": {
+    "ms": 2212,
+    "turns": 55,
+    "methods": {
+     "selection.status": 3,
+     "track.list": 6,
+     "devcursor.pin": 8,
+     "cursor.pointTrack": 5,
+     "device.list": 5,
+     "revision.get": 5,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 4,
+     "directparam.list": 9,
+     "param.list": 3,
+     "chain.observe": 2,
+     "batch.run": 1,
+     "directparam.completion": 2
+    }
+   },
+   "poly-1-revert": {
+    "ms": 2763,
+    "turns": 61,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "selection.status": 2,
+     "devcursor.pin": 4,
+     "cursor.pointTrack": 2,
+     "device.list": 2,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 6,
+     "directparam.list": 18,
+     "param.list": 6,
+     "batch.run": 1,
+     "directparam.completion": 2
+    }
+   },
+   "poly-8-set": {
+    "ms": 3379,
+    "turns": 90,
+    "methods": {
+     "selection.status": 3,
+     "track.list": 6,
+     "devcursor.pin": 8,
+     "cursor.pointTrack": 5,
+     "device.list": 5,
+     "revision.get": 5,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 4,
+     "directparam.list": 23,
+     "param.list": 3,
+     "chain.observe": 2,
+     "batch.run": 8,
+     "directparam.completion": 16
+    }
+   },
+   "poly-44-set": {
+    "ms": 9365,
+    "turns": 270,
+    "methods": {
+     "selection.status": 3,
+     "track.list": 6,
+     "devcursor.pin": 8,
+     "cursor.pointTrack": 5,
+     "device.list": 5,
+     "revision.get": 5,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 4,
+     "directparam.list": 95,
+     "param.list": 3,
+     "chain.observe": 2,
+     "batch.run": 44,
+     "directparam.completion": 88
+    }
+   },
+   "remote-64-set": {
+    "ms": 4655,
+    "turns": 105,
+    "methods": {
+     "selection.status": 3,
+     "track.list": 6,
+     "devcursor.pin": 7,
+     "cursor.pointTrack": 4,
+     "device.list": 5,
+     "revision.get": 5,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 3,
+     "remote.list": 6,
+     "batch.run": 64
+    }
+   },
+   "nested-eq5-8-set": {
+    "ms": 3566,
+    "turns": 94,
+    "methods": {
+     "selection.status": 3,
+     "track.list": 6,
+     "devcursor.pin": 7,
+     "cursor.pointTrack": 4,
+     "device.list": 5,
+     "revision.get": 5,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 8,
+     "layer.list": 2,
+     "devcursor.selectInLayer": 2,
+     "directparam.list": 23,
+     "param.list": 3,
+     "batch.run": 8,
+     "directparam.completion": 16
+    }
+   },
+   "mixer-set": {
+    "ms": 238,
+    "turns": 14,
+    "methods": {
+     "revision.get": 5,
+     "track.list": 5,
+     "track.mixer": 2,
+     "selection.status": 1,
+     "batch.run": 1
+    }
+   },
+   "mixer-revert": {
+    "ms": 334,
+    "turns": 21,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "track.mixer": 3,
+     "selection.status": 1,
+     "batch.run": 1
+    }
+   }
+  }
+ },
+ "change-1": {
+  "passed": true,
+  "cleanup": true,
+  "rows": {
+   "poly-1-set": {
+    "ms": 1349,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "poly-1-revert": {
+    "ms": 2746,
+    "turns": 61,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "selection.status": 2,
+     "devcursor.pin": 4,
+     "cursor.pointTrack": 2,
+     "device.list": 2,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 6,
+     "directparam.list": 18,
+     "param.list": 6,
+     "batch.run": 1,
+     "directparam.completion": 2
+    }
+   },
+   "poly-8-set": {
+    "ms": 1342,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "poly-44-set": {
+    "ms": 1333,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "remote-64-set": {
+    "ms": 1238,
+    "turns": 30,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "remote.list": 6,
+     "batch.run": 1
+    }
+   },
+   "nested-eq5-8-set": {
+    "ms": 1439,
+    "turns": 36,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 5,
+     "layer.list": 1,
+     "devcursor.selectInLayer": 1,
+     "directparam.list": 6,
+     "param.list": 2,
+     "batch.run": 1
+    }
+   },
+   "mixer-set": {
+    "ms": 216,
+    "turns": 13,
+    "methods": {
+     "revision.get": 5,
+     "track.list": 5,
+     "track.mixer": 2,
+     "batch.run": 1
+    }
+   },
+   "mixer-revert": {
+    "ms": 311,
+    "turns": 20,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "track.mixer": 3,
+     "batch.run": 1
+    }
+   }
+  }
+ },
+ "change-2": {
+  "passed": true,
+  "cleanup": true,
+  "rows": {
+   "poly-1-set": {
+    "ms": 1330,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "poly-1-revert": {
+    "ms": 2782,
+    "turns": 61,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "selection.status": 2,
+     "devcursor.pin": 4,
+     "cursor.pointTrack": 2,
+     "device.list": 2,
+     "devcursor.selectAt": 2,
+     "devcursor.status": 6,
+     "directparam.list": 18,
+     "param.list": 6,
+     "batch.run": 1,
+     "directparam.completion": 2
+    }
+   },
+   "poly-8-set": {
+    "ms": 1345,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "poly-44-set": {
+    "ms": 1341,
+    "turns": 34,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "directparam.list": 6,
+     "param.list": 2,
+     "chain.observe": 2,
+     "batch.run": 1
+    }
+   },
+   "remote-64-set": {
+    "ms": 1244,
+    "turns": 30,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 3,
+     "remote.list": 6,
+     "batch.run": 1
+    }
+   },
+   "nested-eq5-8-set": {
+    "ms": 1433,
+    "turns": 36,
+    "methods": {
+     "selection.status": 1,
+     "track.list": 6,
+     "devcursor.pin": 3,
+     "cursor.pointTrack": 1,
+     "device.list": 3,
+     "revision.get": 5,
+     "devcursor.selectAt": 1,
+     "devcursor.status": 5,
+     "layer.list": 1,
+     "devcursor.selectInLayer": 1,
+     "directparam.list": 6,
+     "param.list": 2,
+     "batch.run": 1
+    }
+   },
+   "mixer-set": {
+    "ms": 215,
+    "turns": 13,
+    "methods": {
+     "revision.get": 5,
+     "track.list": 5,
+     "track.mixer": 2,
+     "batch.run": 1
+    }
+   },
+   "mixer-revert": {
+    "ms": 313,
+    "turns": 20,
+    "methods": {
+     "revision.get": 8,
+     "track.list": 8,
+     "track.mixer": 3,
+     "batch.run": 1
+    }
+   }
+  }
+ }
+}

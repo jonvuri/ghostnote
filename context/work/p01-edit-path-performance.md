@@ -380,10 +380,50 @@ the requested chain names.
 
 **Next.**
 
-1. Scalar-cohort and clip-metadata capture reductions (item 3 above).
+1. Scalar-cohort reductions: done; see the scalar-cohort result below.
+   Clip-metadata capture reductions remain (item 3 above).
 2. Possible later reductions: one extension call for the insertions of
    several chains (each chain is now one 0.4–0.5 s `chain.insert` turn at
    position 18), and batching reversal's extract/restore pairs.
+
+## Scalar-cohort result — live, 2026-11-07
+
+[E411](../evidence/experiments/e411-p01-one-turn-scalar-cohorts-live.md)
+applies D65 to `set_device_controls` and `set_track_mixer`.
+
+- **One turn per route.** A same-route cohort with a supplied preflight is
+  one `batch.run` (`applySuppliedParameterCohort`), with one receipt per op
+  from the extension's own result. The per-write completion read, the
+  cohort integrity polls and the adapter's settled inventory after the last
+  write are removed; the executor readback already compares the requested
+  values and every unrequested DirectParameter with the preflight. The
+  adapter no longer reads the chain before the write: every frame states it
+  and the extension checks it. One selection scope covers the tool call, so
+  the write and the readback reuse the preflight's cursor target.
+- **Behavior change.** A setting that Bitwig refuses no longer stops the
+  later settings of its route (each frame carries its own guard); an
+  unrequested change still stops later routes. Descriptions v63.
+- **Results.** A native route of 1, 8 or 44 Polysynth controls takes
+  1.33–1.35 s / 34 calls (same-session HEAD: 2.2 / 3.4 / 9.4 s); 64 remote
+  controls 1.24 s (4.66 s); 8 nested EQ-5 controls 1.44 s (3.57 s).
+- **Mixer.** Already one read (the stash), one stage and one readback; a
+  mixer-only batch now skips the selection capture: 216 ms (238 ms).
+- **Not changed.** The scalar path without a supplied preflight
+  (`revert_change`, managed FX chains) keeps its per-stage proofs; a
+  one-control revert takes 2.7 s.
+- **Limits (D69).** [E412](../evidence/experiments/e412-p01-device-control-limits-live.md)
+  remeasured with Diva: a route costs 2.3 s for 64 or 281 settings; 12
+  routes took 26.8 s and 16 took 36.4 s. D69 replaces D44's row: 256
+  settings on 12 routes (was 64 on 4).
+
+**Next.**
+
+1. Metadata-only clip reads (clip property edits).
+2. Possibly: skip the empty-slot descent in a top-level control route's
+   inventories (about 0.4 s of each Diva inventory, E412).
+3. Possibly: the scalar revert path under D65 (one turn and the executor's
+   collateral comparison), and sharing the surface's bank read with the
+   preflight read (about 0.24 s per route).
 
 ## Next session — adapter per-operation checks and the D44 measurement
 
@@ -497,7 +537,7 @@ several paged banks.
 | Route / step | Current work and purpose | Verdict |
 |---|---|---|
 | Scalar device edit: resolve and preflight | `device-controls.ts` groups by route, reads the complete top-level identity and one complete parameter/remote inventory per cohort, validates IDs/names/domains, and passes `parameterPreflight` into the executor. This read also supplies prior scalar values for reversal. | **Retain/share.** Already shared with the executor; removing it loses target and input validation, not just recovery. |
-| Scalar device edit: adapter stages | `LiveAdapter.apply` reads two equal live-generation polls after intermediate direct-parameter stages, and a full settled inventory after the last. It compares unrelated parameters against the initial cohort. Remote writes have their own stage readback. | **Remove in the D65 follow-up.** Final executor verification can serve integrity and requested-value comparison. Preserve coupling verdicts and partial effects; do not simply delete checks while callers still stop based on their receipts. |
+| Scalar device edit: adapter stages | `LiveAdapter.apply` reads two equal live-generation polls after intermediate direct-parameter stages, and a full settled inventory after the last. It compares unrelated parameters against the initial cohort. Remote writes have their own stage readback. | **Removed for supplied cohorts (E411).** One write turn per route; the executor readback reports requested values and unrequested changes, and an unrequested change still stops later routes. The path without a supplied preflight keeps its stage proofs. |
 | Scalar device edit: executor/result | `Executor.runInside` reads target scalars plus the integrity device after applying a supplied cohort. The surface consumes that take. One-route fake budget: `devices=1, read=2, apply=1, delta=1`; the adapter's internal inventories are additional. Inventory payload scales with all P parameters, not just the K written controls. E252's one Diva control cost 3,447 ms on its historical build. | **Retain one final independent read**, shared with the result and scalar reversal. Cheap scalar inverse remains useful; no history-retention redesign. |
 | Clip property edit: surface preflight | `setProperties` calls `readSlots` with occupancy and metadata, plans coupled range fields, and detects no-ops. In `LiveAdapter.read`, metadata comes from `readClipNotes`, which captures all channels even for a rename. | **Retain identity and metadata; narrow the payload after live proof.** Name/colour need no note-based planning; loop/range writes require their separate coupled-field tests. |
 | Clip property edit: stash and verify | The executor separately reads metadata before and after `clip.update`. The write set contains metadata fields, not notes. Each metadata read currently captures the full clip. `readbackOf` normally reuses `take.verify`; it adds a read only when required entries are missing. Budget: `mark=1, tracks=1, read=3, resolve=1, apply=1, delta=1`. | **Share the first metadata snapshot; retain one independent final metadata read.** Normal changed-target path is three full captures by current source, not two. Captured note data is discarded from these metadata entries; this is payload overreach, not a useful complete recovery stash. The ledger's two-capture summary needs fresh host measurement before replacing its old timings. |
@@ -571,5 +611,5 @@ unmeasured allocation change. Ordered direct insertion and deletion snapshot nar
 E403/E404. The D65 composition rewrite (E406), the adapter check
 reductions, guarded insertions and the D67 reweighting (E407) are done.
 Shared relocation readings are verified in E408, and the named 16-chain
-seed with the D68 chain limit in E409. Scalar cohort consolidation and
-metadata-only clip reads remain open in this same P01 item.
+seed with the D68 chain limit in E409, and one-turn scalar cohorts in E411.
+Metadata-only clip reads remain open in this same P01 item.

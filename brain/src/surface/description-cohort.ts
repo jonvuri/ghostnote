@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v62';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v63';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -937,3 +937,10 @@ export const TOOL_DESCRIPTION_V61_SHA256 = '8332613f6160f3a62f74aa251b160e819dc3
  * or renamed live, and admits at most 16 layer chains.
  */
 export const TOOL_DESCRIPTION_V62_SHA256 = 'cbd34075f71a4cb1bf2dfad1e862e8c68360b6c65c3510ac17b7d7e372f3ae62';
+
+/**
+ * v63 (P01, D65, D69): set_device_controls writes the settings of one device route together and reads them back
+ * from one inventory; a refused setting does not stop the others of its route. A native route takes about 1.3 s for
+ * any number of settings. One call admits 256 settings on 12 device routes (was 64 on 4).
+ */
+export const TOOL_DESCRIPTION_V63_SHA256 = 'c52f0f68b8cf7de8fd096731b16f2bcd68c50ba92404785529b92b34a7626565';

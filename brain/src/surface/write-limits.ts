@@ -10,13 +10,17 @@
 import { ToolFailure } from './agent-native-result.js';
 
 export const WRITE_LIMITS = Object.freeze({
-  /** set_device_controls: settings in one call. */
-  deviceControlSettings: 64,
   /**
-   * set_device_controls: same-route cohorts in one call. Each reads complete inventories: about 2 s on a native
-   * device, 3.4 s on a 281-ID plug-in (E252 final3: 4 plug-in cohorts and 64 settings took 22.5 s).
+   * set_device_controls: settings in one call (D69). A route's settings share one write turn, so they add no
+   * measured cost: one Diva route of 64 or of all 281 settings took 2.4 s, 16 routes of 16 (256) verified (E412).
    */
-  deviceControlCohorts: 4,
+  deviceControlSettings: 256,
+  /**
+   * set_device_controls: same-route cohorts in one call (D69). Each is one write turn between two complete
+   * inventories: about 1.3 s on a native device (E411) and 2.3 s on a 281-ID plug-in. 12 Diva routes took 26.8 s,
+   * 16 took 36.4 s (E412).
+   */
+  deviceControlCohorts: 12,
   /**
    * compose_devices: device units (D67, E407). A new native or preset source is 1; a VST3, CLAP or existing source 2;
    * a device with modulators 2 more. After P01's direct insertion and adapter reductions (D65), units no longer

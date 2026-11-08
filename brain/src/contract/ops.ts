@@ -317,8 +317,9 @@ export const OP_SETTLE: Record<OpKind, SettleBudget | 'instant'> = {
   // the write that created the note (E15-B). Giving it a settle class is what
   // forces `planStages` to break the batch here.
   'note.props': 'noteWrite',
-  // One confirmed device cursor serves this route. Each write gets its own turn
-  // and independent observer readback.
+  // One confirmed device cursor serves this route. A planned stage holds one
+  // scalar write; the live adapter sends a validated same-route cohort with a
+  // supplied preflight as one turn instead (P01, D65).
   'param.set': 'tick',
   'remote.set': 'tick',
   notify: 'instant',

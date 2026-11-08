@@ -3371,10 +3371,15 @@ class ParameterTransport implements Transport {
           this.padSelected = false;
         }
         const results = [];
+        // As in `BatchHandlers.runOp`: a refused op records its error, and the batch continues.
         for (const op of ops) {
-          const opResult = await this.send({ method: op.method, params: op.params });
-          results.push({ method: op.method, ok: true,
-            ...(op.method === WIRE.directParamSet ? { result: opResult } : {}) });
+          try {
+            const opResult = await this.send({ method: op.method, params: op.params });
+            results.push({ method: op.method, ok: true,
+              ...(op.method === WIRE.directParamSet ? { result: opResult } : {}) });
+          } catch (error) {
+            results.push({ method: op.method, ok: false, error: (error as Error).message });
+          }
         }
         this.revision++;
         return { applied: true, revision: this.revision,
@@ -3747,7 +3752,7 @@ test('7f-follow-up: complete inventory can verify a missing plug-in write callba
     frame.method === WIRE.directParamList && frame.params?.['begin'] === true));
 });
 
-test('d02-s7 live integrity: an unrequested delta stops later scalar writes', async () => {
+test('P01 (D65): an unrequested delta in a one-turn cohort is reported by the executor readback', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const device = deviceAt(TRACK, 0);
@@ -3755,17 +3760,19 @@ test('d02-s7 live integrity: an unrequested delta stops later scalar writes', as
   const preflight = await adapter.read([device, ...addresses]);
   wire.collateralAfterWrite = { id: 'P12', value: 0.99 };
 
-  const receipt = await adapter.apply({
-    ops: addresses.map((address, index) => ({
-      op: 'param.set', param: address, value: 0.6 + index / 10,
-    })),
-    parameterPreflight: preflight,
-  });
+  const takes = await new Executor(adapter).runParameterCohort(addresses.map((address, index) => ({
+    op: 'param.set' as const, param: address, value: 0.6 + index / 10,
+  })), { parameterPreflight: preflight });
 
-  assert.equal(receipt.stages.length, 1);
-  assert.match(receipt.stages[0]!.ops[0]!.error ?? '', /unrequested parameter P12.*author unknown/);
+  // Every requested write is in the one turn; the unrequested change is stated, with no author.
   assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.directParamSet)
-    .map((frame) => frame.params?.['id']), ['P1']);
+    .map((frame) => frame.params?.['id']), ['P1', 'P2', 'P3']);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.batchRun).length, 1);
+  assert.equal(takes.length, 3);
+  const collateral = takes.flatMap((take) => take.report.disagreements)
+    .filter((item) => item.address.kind === 'param' && item.address.directId === 'P12');
+  assert.equal(collateral.length, 1);
+  assert.match(collateral[0]!.at, /unrequested parameter changed.*author unknown/);
 });
 
 test('4g parameter guard refuses a raw positional shift before the wire write', async () => {
@@ -3987,7 +3994,7 @@ test('4f live route: remote pages settle twice and one control restores exactly'
   assert.equal(afterEntry?.value.of === 'remote' ? afterEntry.value.remote.value : undefined, 0.25);
 });
 
-test('d02-s3 live route: four depth-2 remotes use one preflight and one readback', async () => {
+test('d02-s3 live route: four depth-2 remotes use one preflight, one write turn and one readback (P01)', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const outer = chainAt(deviceAt(TRACK, 0), 'Outer');
@@ -4024,7 +4031,7 @@ test('d02-s3 live route: four depth-2 remotes use one preflight and one readback
   }), requested);
   assert.equal(wire.frames.filter((frame) => frame.method === WIRE.remoteList
     && frame.params?.['begin'] === true).length, 2);
-  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.batchRun).length, 4);
+  assert.equal(wire.frames.filter((frame) => frame.method === WIRE.batchRun).length, 1);
   const writes = wire.frames.filter((frame) => frame.method === WIRE.remoteSet);
   assert.equal(writes.length, 4);
   assert.equal(writes.every((frame) => frame.params?.['expectedTargetDeviceName'] === 'Deep synth'), true);
@@ -4065,50 +4072,81 @@ test('d02-s3 concurrency: scalar cohorts do not interleave one device cursor', a
     .map((frame) => frame.params?.['value']), [...firstValues, ...secondValues]);
 });
 
-test('8i3 cohort poll: stages before the last read the live generation; the last reads the settled inventory', async () => {
+test('P01 (D65): a supplied direct cohort is one write turn with no completion, poll or chain read', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const device = deviceAt(TRACK, 0);
   const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
-  const preflight = await adapter.read([device, ...addresses]);
+  // One selection scope, as `set_device_controls` uses: the write reuses the target that the preflight confirmed.
+  let from = 0;
+  const receipt = await adapter.preserveSelection(async () => {
+    const preflight = await adapter.read([device, ...addresses]);
+    from = wire.frames.length;
+    return adapter.apply({
+      ops: addresses.map((address, index) => ({
+        op: 'param.set' as const, param: address, value: 0.6 + index / 10,
+        expectedName: 'Polysynth', expectedChain: ['Polysynth', 'Polymer'], expectedEnabledChain: [true, true],
+      })),
+      parameterPreflight: preflight,
+    });
+  });
+
+  assert.deepEqual(receipt.stages.map((stage) => stage.index), [0, 1, 2]);
+  assert.equal(receipt.stages.every((stage) => stage.ops.length === 1 && stage.ops[0]!.ok), true);
+  const frames = wire.frames.slice(from);
+  assert.equal(frames.filter((frame) => frame.method === WIRE.batchRun).length, 1);
+  assert.deepEqual(frames.filter((frame) => frame.method === WIRE.directParamSet)
+    .map((frame) => [frame.params?.['id'], frame.params?.['expectedDeviceNames']]),
+  addresses.map((address) => [address.directId, ['Polysynth', 'Polymer']]));
+  for (const method of [WIRE.directParamCompletion, WIRE.directParamList, WIRE.deviceList, WIRE.deviceCursorPin]) {
+    assert.equal(frames.filter((frame) => frame.method === method).length, 0, method);
+  }
+  assert.equal(frames.filter((frame) => frame.method === WIRE.deviceCursorStatus).length, 1, 'held target reused');
+});
+
+test('8i3 cohort poll: without a supplied preflight, stages before the last read the live generation; the last reads the settled inventory', async () => {
+  const wire = new ParameterTransport();
+  const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
+  const device = deviceAt(TRACK, 0);
+  const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
+  await adapter.read([device, ...addresses]);
   const from = wire.frames.length;
 
   const receipt = await adapter.apply({
     ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
-    parameterPreflight: preflight,
   });
 
   assert.equal(receipt.stages.length, 3);
   assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), true);
   const frames = wire.frames.slice(from);
+  // The adapter's own preflight inventory, then the settled inventory after the last stage.
   assert.equal(frames.filter((frame) => frame.method === WIRE.directParamList
-    && frame.params?.['begin'] === true).length, 1);
+    && frame.params?.['begin'] === true).length, 2);
   const lastWrite = frames.map((frame) => frame.method).lastIndexOf(WIRE.batchRun);
   assert.ok(frames.slice(lastWrite).some((frame) => frame.method === WIRE.directParamList
     && frame.params?.['begin'] === true), 'the last stage reads the settled inventory');
 });
 
-test('8i3 cohort poll: another observer generation falls back to the settled inventory', async () => {
+test('8i3 cohort poll: without a supplied preflight, another observer generation falls back to the settled inventory', async () => {
   const wire = new ParameterTransport();
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
   const device = deviceAt(TRACK, 0);
   const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
-  const preflight = await adapter.read([device, ...addresses]);
+  await adapter.read([device, ...addresses]);
   wire.generationAfterWrite = true;
   const from = wire.frames.length;
 
   const receipt = await adapter.apply({
     ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
-    parameterPreflight: preflight,
   });
 
   assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), true);
   assert.equal(wire.frames.slice(from).filter((frame) => frame.method === WIRE.directParamList
-    && frame.params?.['begin'] === true).length, 3);
+    && frame.params?.['begin'] === true).length, 4);
 });
 
 for (const recovers of [true, false]) {
-  test(`8i3 cohort poll: a wrong observer index ${recovers ? 'recovers through a settled read' : 'stops later writes'}`, async () => {
+  test(`8i3 cohort poll: without a supplied preflight, a wrong observer index ${recovers ? 'recovers through a settled read' : 'stops later writes'}`, async () => {
     class WrongIndexTransport extends ParameterTransport {
       wrongIndex = false;
       override async send(frame: Frame): Promise<unknown> {
@@ -4127,22 +4165,21 @@ for (const recovers of [true, false]) {
     const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
     const device = deviceAt(TRACK, 0);
     const addresses = ['P1', 'P2', 'P3'].map((id) => param(device, id));
-    const preflight = await adapter.read([device, ...addresses]);
+    await adapter.read([device, ...addresses]);
     const from = wire.frames.length;
     const receipt = await adapter.apply({
       ops: addresses.map((address, index) => ({ op: 'param.set', param: address, value: 0.6 + index / 10 })),
-      parameterPreflight: preflight,
-    });
+      });
     const frames = wire.frames.slice(from);
     assert.equal(frames.filter((frame) => frame.method === WIRE.directParamList
-      && frame.params?.['begin'] === true).length, 3, 'a stale observer requires a settled inventory');
+      && frame.params?.['begin'] === true).length, 4, 'a stale observer requires a settled inventory');
     assert.equal(frames.filter((frame) => frame.method === WIRE.directParamSet).length, recovers ? 3 : 1);
     assert.equal(receipt.stages.every((stage) => stage.ops.every((op) => op.ok)), recovers);
     if (!recovers) assert.match(receipt.stages[0]!.ops[0]!.error ?? '', /inventory was unstable/);
   });
 }
 
-test('d02-s3 failure: a changed shared target stops later cohort settings', async () => {
+test('d02-s3 failure: a refused remote write keeps its own receipt; later writes in the turn keep theirs (P01)', async () => {
   const wire = new ParameterTransport();
   wire.failRemoteIndex = 1;
   const adapter = new UntimedAdapter({ transport: wire, cursorPool: 3 });
@@ -4157,11 +4194,12 @@ test('d02-s3 failure: a changed shared target stops later cohort settings', asyn
     parameterPreflight: preflight,
   });
 
-  assert.equal(receipt.stages.length, 2);
-  assert.equal(receipt.stages[0]!.ops.every((op) => op.ok), true);
+  // The extension checks each frame's own selector, so a refusal does not authorize or block another control.
+  assert.equal(receipt.stages.length, 4);
+  assert.deepEqual(receipt.stages.map((stage) => stage.ops[0]!.ok), [true, false, true, true]);
   assert.match(receipt.stages[1]!.ops[0]!.error ?? '', /target 1 changed/);
   assert.deepEqual(wire.frames.filter((frame) => frame.method === WIRE.remoteSet)
-    .map((frame) => frame.params?.['index']), [0, 1]);
+    .map((frame) => frame.params?.['index']), [0, 1, 2, 3]);
 });
 
 test('5a remote proof: changing modulated values do not prevent selector settlement', async () => {
@@ -5432,7 +5470,8 @@ test('8i7 call budget: a mixer read is one mark and one track.mixer for every tr
   ], { parameterPreflight: prior });
   assert.equal(take.report.applied, true);
   assert.deepEqual(take.report.disagreements, []);
-  assert.deepEqual(frames.map((frame) => frame.method), [WIRE.selectionStatus, WIRE.slotStatus,
+  // P01: a mixer-only write moves no selection, so the executor captures none.
+  assert.deepEqual(frames.map((frame) => frame.method), [
     WIRE.revisionGet, WIRE.trackList, WIRE.batchRun, WIRE.revisionGet, WIRE.trackList,
     WIRE.revisionGet, WIRE.trackList, WIRE.trackMixer, WIRE.revisionGet, WIRE.trackList]);
   const batch = frames.find((frame) => frame.method === WIRE.batchRun)!;

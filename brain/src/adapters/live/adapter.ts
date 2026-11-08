@@ -5329,9 +5329,66 @@ export class LiveAdapter implements BitwigAdapter {
   }
 
   /**
+   * P01 (D65): send a validated same-route scalar cohort as one `batch.run`. The device cursor already holds the
+   * target, and each frame carries the complete route and chain guard, so no write needs a turn of its own. Each op
+   * gets its own receipt, in caller order, with the extension's own result for that op; a refused op does not stop
+   * a later one, whose guard the extension checks again. The executor's single readback after the turn proves the
+   * values and compares every unrequested DirectParameter of the device.
+   */
+  private async applySuppliedParameterCohort(batch: BatchRequest): Promise<BatchReceipt> {
+    const selection = await this.beginSelectionBorrow(true);
+    let result: BatchRunResult;
+    try {
+      result = await this.sendStage(batch.ops, batch.ifRevision, new Map(), undefined, batch.ifScene);
+    } catch (error) {
+      await this.restoreSelection(selection);
+      throw error;
+    }
+    if (result.rejected) {
+      await this.restoreSelection(selection);
+      const at = await this.revision();
+      if (result.reason === 'stale-scene' && batch.ifScene !== undefined) {
+        const field = result.field === 'generation' || result.field === 'project' ? result.field : 'sceneEpoch';
+        throw sceneGuardError(batch.ops, batch.ifScene, field, at.sceneEpoch);
+      }
+      return {
+        contract: CONTRACT_TAG,
+        accepted: false,
+        rejected: { reason: 'stale-revision', expected: result.expected ?? -1, actual: result.actual ?? -1 },
+        stages: [],
+        minted: {},
+        at,
+      };
+    }
+    // E2: the writes become visible one turn later; the executor's settle and readback follow.
+    await this.settle('tick');
+    const replies = result.results;
+    const aligned = replies === undefined || replies.length === batch.ops.length;
+    const stages: StageReceipt[] = batch.ops.map((op, index) => {
+      const reply = replies?.[index];
+      return {
+        index,
+        settled: 'tick',
+        applied: result.applied,
+        ops: [aligned
+          ? {
+            op: reply?.method ?? op.op,
+            ok: reply?.ok ?? true,
+            ...(reply?.error === undefined ? {} : { error: reply.error }),
+          }
+          : { op: op.op, ok: false, error: 'the batch reply did not have one result for each scalar write' }],
+        revision: result.revision,
+      };
+    });
+    await this.restoreSelection(selection);
+    return { contract: CONTRACT_TAG, accepted: true, stages, minted: {}, at: await this.revision() };
+  }
+
+  /**
    * Validate one multi-scalar parameter cohort from one fresh inventory. The
    * caller keeps route and view stable, so later stages must not reacquire the
-   * same observer generation.
+   * same observer generation. With a supplied preflight, the cohort is then
+   * sent as one turn (`applySuppliedParameterCohort`).
    */
   private async prepareParameterCohort(
     ops: readonly Op[],
@@ -5377,7 +5434,15 @@ export class LiveAdapter implements BitwigAdapter {
       throw new AddressUnresolvedError(device, 'the parameter track is not visible');
     }
     let names: readonly string[] | undefined;
-    if (first.expectedChain !== undefined) {
+    if (preflight !== undefined && first.expectedChain !== undefined && first.expectedEnabledChain !== undefined) {
+      // P01 (D65): each scalar frame states the complete chain, and the extension refuses the write if the track,
+      // a name, an enabled state, the bank size, or the route differs. A chain read here would repeat the caller's.
+      if (first.expectedEnabledChain.length !== first.expectedChain.length) {
+        throw new InvalidOpError(first.op, 'expectedEnabledChain must align with expectedChain');
+      }
+      names = first.expectedChain;
+      this.deviceChainEnabled.set(device.track.channelId, first.expectedEnabledChain);
+    } else if (first.expectedChain !== undefined) {
       const chain = await this.deviceChain(device.track);
       names = this.guardedDeviceNames(
         device.track,
@@ -5812,6 +5877,9 @@ export class LiveAdapter implements BitwigAdapter {
       batch.ops,
       batch.parameterPreflight,
     );
+    if (parameterCohort !== undefined && batch.parameterPreflight !== undefined) {
+      return this.applySuppliedParameterCohort(batch);
+    }
 
     type LiveStage = Stage & { readonly writerPageStart?: number };
     const writerSteps = this.fineSteps ?? this.gridSteps ?? 64;

@@ -1,0 +1,6 @@
+{
+  "reply": "gn-scale test open with engine on, Diva loads, transport stops",
+  "request": "Re-measure the set_device_controls limit with Diva routes.",
+  "date": "2026-11-07",
+  "note": "The operator opened gn-scale-test with the audio engine on, checked that Diva (CLAP) loads, and stopped the transport. The driver owns one scratch track and adds the Diva instances itself. Only brain code changed since E411's handshake."
+}

@@ -56,7 +56,7 @@ the result; create a separate E record when it will be useful to cite later.
 | DirectParameter display set (any count, 8–281 IDs) to text for each ID | One turn (22.6–25.4 ms); a switch sends no text | E244 |
 | DirectParameter same-type switch settle (driver: point and poll) | 165–174 ms, independent of the observed count | E244 |
 | DirectParameter inventory with the parameter settle | About 290 ms of settle and poll (the idle time of `read_device_controls`) | E247 inventory |
-| Cohort integrity read after a scalar stage that is not the last (D44) | Two equal polls of the live generation, about 50 ms; the last stage and a changed generation read the settled inventory (about 0.36 s) | E252 poll A/B |
+| Cohort integrity read after a scalar stage that is not the last (D44) | Only a scalar batch without a supplied preflight (the `revert_change` path): two equal polls of the live generation, about 50 ms; the last stage and a changed generation read the settled inventory (about 0.36 s). A `set_device_controls` route is one write turn with no adapter integrity read; the executor readback compares every DirectParameter (P01) | E252 poll A/B; E411 |
 | Container proof of a composition (`structure` read) | The container scope only, no parameter inventory of the container (about 0.3 s less) | E252 |
 | Named-slot descent into an empty slot | Two misses, about 0.4 s, then the slots are incomplete (8 misses: about 3 s); a layer-chain move does not descend | E252 |
 | Device insertion, layer-chain copy (`deviceInsert`) | A poll of the structural proof, deadline 4,000 ms; a native device lands in about 1 s. A drum pad insertion polls its pad (was the fixed 4,000 ms) | E247, E252 |
@@ -193,6 +193,7 @@ above stay the reference for top-level tracks.
 | `set_track_mixer`, every field already holds its value | 47 ms; 2 turns, no write | — | read 1 | E257 |
 | `set_track_mixer`, automation refusal | About 50 ms; 2 turns, no write | — | read 1 | E257 |
 | `revert_change` of a mixer change, 1 field; 32 fields on 8 tracks | 369 ms; 364 ms; 14 turns | E247 device enable revert: 775 ms | read 3, delta 2, resolve 1, apply 1 | E257 |
+| `set_track_mixer`, 3 fields on 1 track; its revert (P01: a mixer-only write takes no selection capture) | 215–216 ms, 13 wire calls; 311–313 ms, 20 | Same-session HEAD: 238 ms, 14; 334 ms, 21 | unchanged | E411 |
 | `check_revert`, a clip edit | 442 ms | E239: a rename, 42 ms | read 1, delta 1 | E247 |
 | `revert_change`, a targeted clip edit; a device enable | 1,581 ms; 775 ms | — | revert: read 3, delta 2, resolve 1, apply 1 | E247 |
 
@@ -203,10 +204,10 @@ above stay the reference for top-level tracks.
 | `read_devices`, by structure | 542–562 ms (one container); 652 ms (one device); 695–950 ms (a container and 1–3 devices) | E238: 460–495 ms (one container); before: 634 ms (one device) | devices 1, read 1 | E247 |
 | `read_device_controls`, new or same target (Polysynth) | 764–823 ms | E238: 701–731 ms | read 1 | E247 |
 | `read_device_controls`, Diva (CLAP, 281 IDs) | 1,284–1,305 ms | E252 before the descent bound: 3,833–3,873 ms; E238: 3,919–4,011 ms | read 1 | E252 |
-| `set_device_controls`, one write | 2,555–2,650 ms; 74 wire calls | E238: 2,324–2,398 ms (CLAP: 8,302 ms) | devices 1, read 2, apply 1, delta 1 | E247 |
-| `set_device_controls`, 27 controls (Polysynth) | 6,612 ms; 190 wire calls | E247: 14,372–14,391 ms, 276 wire calls (a settled inventory after each control) | as one write | E252 |
-| `set_device_controls`, 44 controls (every continuous Polysynth control); 64 remote controls | 9,442 ms, 275 wire calls; 4,616 ms | Before 8i3: 21,415 ms, 401 wire calls | as one write | E252 |
-| `set_device_controls`, Diva (CLAP, 281 IDs): 1, 27, 64 settings; 16 settings on each of 4 Divas (D44 limit 64 on 4 routes) | 3,447; 7,740; 13,905 ms; 22,465 ms | E238: 8,302 ms (one write) | as one write | E252 |
+| `set_device_controls`, one Polysynth route of 1 / 8 / 44 controls (P01: one write turn per route) | 1,330–1,349 / 1,342–1,345 / 1,333–1,341 ms; 34 wire calls each | Same-session HEAD: 2,212 / 3,379 / 9,365 ms, 55 / 90 / 270 calls. E252: 1 / 27 / 44 controls 2,247 / 6,612 / 9,442 ms. E247: one write 2,555–2,650 ms | devices 1, read 2, apply 1, delta 1 | E411 |
+| `set_device_controls`, 64 remote controls; 8 EQ-5 controls inside a layer chain (P01) | 1,238–1,244 ms, 30 calls; 1,433–1,439 ms, 36 calls | Same-session HEAD: 4,655 ms, 105; 3,566 ms, 94. E252: 64 remote controls 4,616 ms | as one write | E411 |
+| `revert_change` of one control (no supplied preflight: per-stage path) | 2,746–2,782 ms; 61 calls | Same-session HEAD: 2,763 ms, 61 | revert: read 3, delta 2, resolve 1, apply 1 | E411 |
+| `set_device_controls`, Diva (CLAP, 281 IDs), one-turn routes: 1 route of 64 or 281 settings; 4 / 8 / 12 / 16 routes of 16 (D69 limit: 256 settings on 12 routes) | 2,378; 2,370 ms (50 calls); 9,124 / 18,272 / 26,787 / 36,403 ms | E252: 1 / 27 / 64 settings 3,447 / 7,740 / 13,905 ms; 4 routes of 16 22,465 ms. E238: 8,302 ms (one write) | as one write | E412 |
 | `set_device_controls`, one remote control at a sparse host position (Blur `Common/7/Mix`); its revert. Direct-ID arm | 1,561–1,623 ms, 42–45 wire calls; 2,503 ms. Direct: 2,196–2,271 ms, 57–60 | Before 8i5: refused `internal` | as one write; the selector lookup adds no call | E254 |
 | `set_device_enabled`, one device; its revert | 905 ms; 775 ms | E239: 770 ms; 665 ms | devices 1, resolve 1, read 2, apply 1, delta 1 | E247 |
 | `add_devices`, one native device | 1,447–1,544 ms; 67 wire calls | Before: 5,541 ms | devices 2, read 2, apply 1, delta 1 | E247 |
@@ -334,7 +335,7 @@ revise recovery-related limits with the affected behavior and tests.
 | Dense `cursor.getNotes*` scan without `maxX` | 8,192 steps | E248 |
 | Longest admitted direct call | `set_launcher_clip_properties` of 8 clips of 16,384 notes, 33.5 s (its revert 32.8 s); E247 stated the staged composition of 4 layer chains (30.6 s), but 5×4 took 102 s | E252, D44 |
 | Track mixer tracks in one call (`read_track_mixer`, `set_track_mixer`) | 8 (a plan bound: 8 tracks cost the same turns as 1) | E257, D48 |
-| D44 write limits | `compose_devices` 16 layer chains (D68) and 16 device units (VST3, CLAP and existing sources 2, a device with modulators 2 more) and 4 modulators (D67); `set_device_controls` 64 settings on 4 routes; `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
+| D44 write limits | `compose_devices` 16 layer chains (D68) and 16 device units (VST3, CLAP and existing sources 2, a device with modulators 2 more) and 4 modulators (D67); `set_device_controls` 256 settings on 12 routes (D69); `delete_device` 10; `set_device_enabled` 32; `rename_track` and `delete_track` 64; clip properties and launch settings 8 (host); copy 8; delete 4; move 8 rows; wrap 15 modulators (host). Refusal: `outside-limit` before any read or write; each bounded input states its limit in its schema text | D44 |
 | Launcher content events (`Rig.CONTENT_LOG`) | 8,192 after the latest read or check of a ref (was 24); one more retires the ref with `delta-incomplete`. A revert compares across them | E252, E405 |
 | Remote-page window (`remotePages`) | 16 pages | E252 |
 
@@ -357,11 +358,12 @@ requirements to retain them.
   cursor path, re-pointing within a property operation loses updates. Keep
   the interleaved stages on that path. A shared stage for the channels of
   one clip is a separate candidate for a focused live check.
-- A device control route reads three complete settled parameter inventories:
-  the change record, the integrity check after the last stage, and the
-  executor readback (D15). The stages before the last read the live
-  generation (two polls, E252). The fixed cost is about 2 s for each native
-  route and 3.4 s for a 281-ID plug-in.
+- A device control route reads the top-level bank and two complete settled
+  parameter inventories: the preflight (the change record and input
+  validation) and the executor readback. Its writes go in one turn, so a
+  native route costs about 1.3 s for any number of settings (E411), a
+  281-ID Diva route about 2.3 s (E412). A plug-in route grows with its
+  DirectParameter count, which Ghostnote cannot know before it reads.
 - `add_launcher_clip` resolves twice (creation, then the edit limb) and is two
   change records; reverting it takes two calls.
 - `launch_clip` on `agent-native-v1` checks the track and the occupancy

@@ -1,0 +1,164 @@
+{
+ "passed": true,
+ "cleanup": true,
+ "rows": {
+  "routes-4x16-set": {
+   "ms": 9124,
+   "turns": 191,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 24,
+    "devcursor.pin": 17,
+    "cursor.pointTrack": 1,
+    "device.list": 16,
+    "revision.get": 20,
+    "devcursor.selectAt": 24,
+    "devcursor.status": 12,
+    "directparam.list": 24,
+    "param.list": 8,
+    "chain.observe": 8,
+    "devcursor.selectFirstInSlot": 16,
+    "chain.inventory": 16,
+    "batch.run": 4
+   },
+   "verified": true
+  },
+  "revert-one": {
+   "ms": 2762,
+   "turns": 61,
+   "methods": {
+    "revision.get": 8,
+    "track.list": 8,
+    "selection.status": 2,
+    "devcursor.pin": 4,
+    "cursor.pointTrack": 2,
+    "device.list": 2,
+    "devcursor.selectAt": 2,
+    "devcursor.status": 6,
+    "directparam.list": 18,
+    "param.list": 6,
+    "batch.run": 1,
+    "directparam.completion": 2
+   },
+   "verified": null
+  },
+  "routes-8x16-set": {
+   "ms": 18272,
+   "turns": 379,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 48,
+    "devcursor.pin": 33,
+    "cursor.pointTrack": 1,
+    "device.list": 32,
+    "revision.get": 40,
+    "devcursor.selectAt": 48,
+    "devcursor.status": 24,
+    "directparam.list": 48,
+    "param.list": 16,
+    "chain.observe": 16,
+    "devcursor.selectFirstInSlot": 32,
+    "chain.inventory": 32,
+    "batch.run": 8
+   },
+   "verified": true
+  },
+  "routes-12x16-set": {
+   "ms": 26787,
+   "turns": 567,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 72,
+    "devcursor.pin": 49,
+    "cursor.pointTrack": 1,
+    "device.list": 48,
+    "revision.get": 60,
+    "devcursor.selectAt": 72,
+    "devcursor.status": 36,
+    "directparam.list": 72,
+    "param.list": 24,
+    "chain.observe": 24,
+    "devcursor.selectFirstInSlot": 48,
+    "chain.inventory": 48,
+    "batch.run": 12
+   },
+   "verified": true
+  },
+  "routes-16x16-set": {
+   "ms": 36403,
+   "turns": 755,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 96,
+    "devcursor.pin": 65,
+    "cursor.pointTrack": 1,
+    "device.list": 64,
+    "revision.get": 80,
+    "devcursor.selectAt": 96,
+    "devcursor.status": 48,
+    "directparam.list": 96,
+    "param.list": 32,
+    "chain.observe": 32,
+    "devcursor.selectFirstInSlot": 64,
+    "chain.inventory": 64,
+    "batch.run": 16
+   },
+   "verified": true
+  },
+  "route-1x64-set": {
+   "ms": 2378,
+   "turns": 50,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 6,
+    "devcursor.pin": 5,
+    "cursor.pointTrack": 1,
+    "device.list": 4,
+    "revision.get": 5,
+    "devcursor.selectAt": 6,
+    "devcursor.status": 3,
+    "directparam.list": 6,
+    "param.list": 2,
+    "chain.observe": 2,
+    "devcursor.selectFirstInSlot": 4,
+    "chain.inventory": 4,
+    "batch.run": 1
+   },
+   "verified": true
+  },
+  "route-1x281-set": {
+   "ms": 2370,
+   "turns": 50,
+   "methods": {
+    "selection.status": 1,
+    "track.list": 6,
+    "devcursor.pin": 5,
+    "cursor.pointTrack": 1,
+    "device.list": 4,
+    "revision.get": 5,
+    "devcursor.selectAt": 6,
+    "devcursor.status": 3,
+    "directparam.list": 6,
+    "param.list": 2,
+    "chain.observe": 2,
+    "devcursor.selectFirstInSlot": 4,
+    "chain.inventory": 4,
+    "batch.run": 1
+   },
+   "verified": true
+  }
+ },
+ "divaReadMs": {
+  "count": 53,
+  "min": 258,
+  "max": 1948
+ },
+ "readbackDifferences": {
+  "routes-4x16": 0,
+  "routes-8x16": 0,
+  "routes-12x16": 0,
+  "routes-16x16": 0,
+  "route-1x64": 0,
+  "route-1x281": 0
+ }
+}

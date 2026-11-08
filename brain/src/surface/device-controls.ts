@@ -491,8 +491,24 @@ export function parameterCohorts<T extends ParameterSetting>(
   return cohorts;
 }
 
-/** Write DirectParameters or remote controls in same-route cohorts, with readback for each scalar. */
+/**
+ * Write DirectParameters or remote controls in same-route cohorts. Each cohort is one write turn with one
+ * independent readback after it (P01, D65).
+ *
+ * One selection scope covers the whole call: the bank read, each preflight, each write and each readback. The
+ * device cursor then keeps the target that the preflight confirmed, and the person's selection is captured and
+ * restored once.
+ */
 export async function setDeviceControls(
+  workspace: Workspace,
+  args: { readonly settings: readonly ParameterSetting[] },
+): Promise<unknown> {
+  return workspace.preserveSelection === undefined
+    ? setDeviceControlsInside(workspace, args)
+    : workspace.preserveSelection(() => setDeviceControlsInside(workspace, args));
+}
+
+async function setDeviceControlsInside(
   workspace: Workspace,
   args: { readonly settings: readonly ParameterSetting[] },
 ): Promise<unknown> {

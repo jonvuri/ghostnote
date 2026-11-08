@@ -80,8 +80,32 @@ no chain is grown or renamed live.
 [D68](decisions/d68-composition-chain-limit-is-the-seed-width.md) raises the
 layer-chain limit from 8 to 16; descriptions are v62. Only brain code
 changed (wire 94 / `526cd7e3760580cc`, already loaded). All 2,652 brain tests
-pass; cleanup and preservation passed. Next: scalar-cohort and clip-metadata
-reductions ([brief](work/p01-edit-path-performance.md#named-seed-result--live-2026-11-07)).
+pass; cleanup and preservation passed.
+
+**P01 one-turn scalar cohorts are verified live (2026-11-07).**
+`set_device_controls` writes all settings of one device route in one
+`batch.run` and proves them with the executor's single readback, which
+compares every unrequested DirectParameter; the adapter's per-write
+callbacks, integrity polls, last-stage inventory and pre-write chain read
+are gone, and one selection scope lets the write and readback reuse the
+preflight's cursor target.
+[E411](evidence/experiments/e411-p01-one-turn-scalar-cohorts-live.md): a
+native route of 1, 8 or 44 Polysynth controls takes 1.33–1.35 s / 34 calls
+(same-session HEAD: 2.2 / 3.4 / 9.4 s); 64 remote controls 1.24 s (4.66 s);
+8 nested EQ-5 controls 1.44 s (3.57 s). A refused setting no longer stops
+the other settings of its route. `set_track_mixer` was already one read,
+one stage and one readback; a mixer-only write now skips the selection
+capture (216 ms, was 238). Descriptions v63; only brain code changed (wire
+94 / `526cd7e3760580cc`, already loaded). All 2,656 brain tests pass;
+cleanup and preservation passed.
+[E412](evidence/experiments/e412-p01-device-control-limits-live.md) then
+remeasured the limits with Diva (CLAP, 281 IDs): a route costs 2.3 s for 64
+or all 281 settings; 4 / 8 / 12 / 16 routes took 9.1 / 18.3 / 26.8 / 36.4 s
+(E252: 4 routes 22.5 s).
+[D69](decisions/d69-device-control-limits-follow-routes.md) replaces D44's
+row: 256 settings on 12 routes (was 64 on 4), folded into descriptions v63.
+Next: metadata-only clip reads
+([brief](work/p01-edit-path-performance.md#scalar-cohort-result--live-2026-11-07)).
 
 Ordered direct insertion is now proved in
 [E403](evidence/experiments/e403-ordered-direct-chain-insertion.md). V2 waits
@@ -120,8 +144,8 @@ worktree's updated code to use these brain changes.
 [E400](evidence/experiments/e400-p01-offline-cost-attribution.md) and the brief
 retain the obligation audit. The D65 composition integration is verified live
 in E406, the adapter reductions and D67 limits in E407, and shared relocation
-readings in E408 (above). Scalar cohort
-and clip-metadata capture reductions remain open.
+readings in E408, and one-turn scalar cohorts in E411 (above).
+Clip-metadata capture reductions remain open.
 
 The [reconciliation checkpoint](work/p01-edit-path-performance.md#reconciliation-and-parallel-queues--2026-11-07)
 records P01's evidence renumbering to E400–E404, both retained probes, and

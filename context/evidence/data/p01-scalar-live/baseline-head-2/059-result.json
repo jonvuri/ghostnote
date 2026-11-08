@@ -1,0 +1,266 @@
+{
+  "passed": true,
+  "cleanup": true,
+  "results": [
+    {
+      "label": "poly-1",
+      "count": 1,
+      "set": {
+        "ms": 2212,
+        "turns": 55,
+        "bytes": 105053,
+        "methods": {
+          "selection.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "revision.get": 5,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 4,
+          "directparam.list": 9,
+          "param.list": 3,
+          "chain.observe": 2,
+          "batch.run": 1,
+          "directparam.completion": 2
+        }
+      },
+      "revert": {
+        "ms": 2763,
+        "turns": 61,
+        "bytes": 194344,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "selection.status": 2,
+          "devcursor.pin": 4,
+          "cursor.pointTrack": 2,
+          "device.list": 2,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 6,
+          "directparam.list": 18,
+          "param.list": 6,
+          "batch.run": 1,
+          "directparam.completion": 2
+        }
+      }
+    },
+    {
+      "label": "poly-8",
+      "count": 8,
+      "set": {
+        "ms": 3379,
+        "turns": 90,
+        "bytes": 184270,
+        "methods": {
+          "selection.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "revision.get": 5,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 4,
+          "directparam.list": 23,
+          "param.list": 3,
+          "chain.observe": 2,
+          "batch.run": 8,
+          "directparam.completion": 16
+        }
+      }
+    },
+    {
+      "label": "poly-44",
+      "count": 44,
+      "set": {
+        "ms": 9365,
+        "turns": 270,
+        "bytes": 592176,
+        "methods": {
+          "selection.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 8,
+          "cursor.pointTrack": 5,
+          "device.list": 5,
+          "revision.get": 5,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 4,
+          "directparam.list": 95,
+          "param.list": 3,
+          "chain.observe": 2,
+          "batch.run": 44,
+          "directparam.completion": 88
+        }
+      }
+    },
+    {
+      "label": "remote-64",
+      "count": 64,
+      "set": {
+        "ms": 4655,
+        "turns": 105,
+        "bytes": 100042,
+        "methods": {
+          "selection.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 4,
+          "device.list": 5,
+          "revision.get": 5,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 3,
+          "remote.list": 6,
+          "batch.run": 64
+        }
+      }
+    },
+    {
+      "label": "nested-eq5-8",
+      "count": 8,
+      "set": {
+        "ms": 3566,
+        "turns": 94,
+        "bytes": 97917,
+        "methods": {
+          "selection.status": 3,
+          "track.list": 6,
+          "devcursor.pin": 7,
+          "cursor.pointTrack": 4,
+          "device.list": 5,
+          "revision.get": 5,
+          "devcursor.selectAt": 2,
+          "devcursor.status": 8,
+          "layer.list": 2,
+          "devcursor.selectInLayer": 2,
+          "directparam.list": 23,
+          "param.list": 3,
+          "batch.run": 8,
+          "directparam.completion": 16
+        }
+      }
+    },
+    {
+      "label": "mixer-3",
+      "set": {
+        "ms": 238,
+        "turns": 14,
+        "bytes": 9702,
+        "methods": {
+          "revision.get": 5,
+          "track.list": 5,
+          "track.mixer": 2,
+          "selection.status": 1,
+          "batch.run": 1
+        }
+      },
+      "revert": {
+        "ms": 334,
+        "turns": 21,
+        "bytes": 15153,
+        "methods": {
+          "revision.get": 8,
+          "track.list": 8,
+          "track.mixer": 3,
+          "selection.status": 1,
+          "batch.run": 1
+        }
+      }
+    }
+  ],
+  "afterTracks": {
+    "tracks": [
+      {
+        "index": 0,
+        "name": "Instrument Layer",
+        "position": 0,
+        "type": "Hybrid",
+        "channelId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e"
+      },
+      {
+        "index": 1,
+        "name": "Hybrid 2",
+        "position": 1,
+        "type": "Hybrid",
+        "channelId": "4a6a024a-f213-48f1-9029-532fc077d857"
+      },
+      {
+        "index": 2,
+        "name": "gn-A",
+        "position": 2,
+        "type": "Instrument",
+        "channelId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63"
+      },
+      {
+        "index": 3,
+        "name": "gn-B",
+        "position": 3,
+        "type": "Instrument",
+        "channelId": "78a40fcf-3eae-48fc-badf-1ff18900166b"
+      },
+      {
+        "index": 4,
+        "name": "Group 5",
+        "position": 4,
+        "type": "Group",
+        "channelId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3"
+      },
+      {
+        "index": 5,
+        "name": "gn-E16",
+        "position": 5,
+        "type": "Instrument",
+        "channelId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+        "hidden": true
+      },
+      {
+        "index": 6,
+        "name": "gn-lay",
+        "position": 6,
+        "type": "Instrument",
+        "channelId": "d367ac16-b7bd-4662-971f-fe924ec033a3"
+      },
+      {
+        "index": 7,
+        "name": "gn-lay4",
+        "position": 7,
+        "type": "Instrument",
+        "channelId": "9a88b37d-337a-4ef2-96a8-a147419d7cda"
+      },
+      {
+        "index": 8,
+        "name": "gn-sel",
+        "position": 8,
+        "type": "Instrument",
+        "channelId": "6fb96670-abde-4958-9147-f573a4b43918"
+      },
+      {
+        "index": 9,
+        "name": "FX 1",
+        "position": 9,
+        "type": "Effect",
+        "channelId": "52bd865e-c958-4bda-b9d3-97d0ea2f463a"
+      },
+      {
+        "index": 10,
+        "name": "Master",
+        "position": 10,
+        "type": "Master",
+        "channelId": "834e65ab-efa4-4bc6-ae9d-4eafd818d16e"
+      }
+    ],
+    "count": 11,
+    "itemCount": 11,
+    "bankSize": 256
+  },
+  "afterSelection": {
+    "trackIndex": -1,
+    "slotIndex": -1,
+    "mixerTrackIndex": 8,
+    "mixerChannelId": "6fb96670-abde-4958-9147-f573a4b43918",
+    "changes": 0,
+    "revision": 39,
+    "slotProject": "",
+    "mixerProject": "gn-scale-test",
+    "project": "gn-scale-test"
+  }
+}

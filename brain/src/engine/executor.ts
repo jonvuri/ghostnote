@@ -157,6 +157,8 @@ export class Executor {
    * automatic branch because *"only reporting is imposed"*.
    */
   async run(ops: readonly Op[], options: RunOptions = {}): Promise<Take> {
+    // P01: a mixer write points no cursor and moves no selection (E257), so there is nothing to capture.
+    if (ops.length > 0 && ops.every((op) => op.op === 'mixer.set')) return this.runInside(ops, options);
     return this.adapter.preserveSelection(() => this.runInside(ops, options));
   }
 
