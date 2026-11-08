@@ -184,13 +184,15 @@ export const FORMAT_STATEMENT = 'The document is Ghostnote Document 1.0: Ghostno
   + `JSON object. ${REFERENCE_TOOL} returns the rules and templates with no Bitwig call.`;
 
 /**
- * When to request Timing overlays (8i10). It names timing feel by its musical terms: in the 8i10 trials, agents
- * requested only the sections that a description named, and never Timing overlays (E259).
+ * When to request Timing overlays. It names timing feel by its musical terms: in the 8i10 trials, agents requested
+ * only the sections that a description named, and never Timing overlays (E259). B19 (E392, E393): the route sent
+ * agents to put two claims on almost every note, about 95% of written bytes, and no later turn used them. It now
+ * routes only an explicit request for claims.
  */
-export const TIMING_FEEL_ROUTE = 'Timing feel (swing, groove, pocket, or notes ahead of or behind the beat): to '
-  + 'make, keep, clean, or revise it, first request the Timing overlays section (read_launcher_clip reference, or '
-  + `${REFERENCE_TOOL} sections). It has the analysis method; nominal and groove claims keep the rhythm and its `
-  + 'offsets apart for a later change.';
+export const TIMING_FEEL_ROUTE = 'Timing feel (swing, groove, pocket, or notes ahead of or behind the beat) is in '
+  + 'the note onsets and durations: making, keeping, or changing it needs no overlays. Only when the user asks to '
+  + 'record or analyze timing feel as claims, first request the Timing overlays section (read_launcher_clip '
+  + `reference, or ${REFERENCE_TOOL} sections).`;
 
 /** The parameter text of a document input. */
 export const documentParameter = (kind: string): string => `${kind} in Ghostnote Document 1.0: FIELDS text (default), `

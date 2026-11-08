@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v59';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v60';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -919,3 +919,11 @@ export const TOOL_DESCRIPTION_V58_SHA256 = '36e7ef9662dfb7abd62bfe6db8fa5bbbd270
  * and retiredRefs carries the why.
  */
 export const TOOL_DESCRIPTION_V59_SHA256 = 'e30c59a95386b646d2ada5ad5b879818702b5108ba59b7dc4a4c2b3a40de8477';
+
+/**
+ * v60 (B19 session 1): add and edit state that a verified readback is an independent read and need not be checked
+ * again, return readback.clipId, and take documentOutputPath; a dry run caps its change lists at 64 entries. The
+ * clip and MIDI reads prefer documentOutputPath and warn on an inline document above 48 KB. Timing overlays are
+ * routed only on an explicit request for claims (model reference revision 6).
+ */
+export const TOOL_DESCRIPTION_V60_SHA256 = 'cbd3e43ae89ec4735f3dda5d1511b439abb982d9e5f1eaafe09e9f621e9339de';

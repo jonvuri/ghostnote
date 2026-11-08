@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-10-29
+updated: 2026-11-08
 ---
 
 # Decision index
@@ -68,6 +68,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D54 | Requested edits do not require Ghostnote reversal; simplify recovery machinery when useful, while preserving correct effects and truthful results **[SETTLED 2026-10-24]** | [open](d54-recovery-is-not-a-prerequisite-for-requested-edits.md) |
 | D65 | Proved routes run with one readback at the end: no mid-operation proofs, no concurrent-operator guards, rigor in tests and E records **[SETTLED 2026-10-25]** | [open](d65-proved-routes-run-with-one-readback.md) |
 | D66 | Pressure refusal is a verification limit: setter effects are visible in the inspector, but independent API readback remains blind; retain product admission and correct the rationale | [open](d66-pressure-refusal-is-a-verification-limit.md) |
+| D67 | Clip writers return the read-back document as a file: `documentOutputPath` on add and edit (a dry run writes the expected document), `readback.clipId`, and no failed write for a failed publication | [open](d67-clip-writers-return-the-read-back-document-as-a-file.md) |
 
 ## Phase 4 closeout audit
 

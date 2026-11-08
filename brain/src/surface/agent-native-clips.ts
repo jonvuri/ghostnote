@@ -38,11 +38,15 @@ import {
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
 import { checkHealth, format, selectionWarnings, withSelection } from './agent-native.js';
-import { checkDesiredOverlaps, documentText, editLauncherClip, parseProposal } from './agent-native-edit.js';
+import {
+  VERIFIED_READBACK_STATEMENT, checkDesiredOverlaps, documentText, editLauncherClip, parseProposal,
+} from './agent-native-edit.js';
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
 } from './document-help.js';
-import { DOCUMENT_PATH_STATEMENT, documentInput, documentPathInput } from './document-files.js';
+import {
+  DOCUMENT_PATH_STATEMENT, checkDocumentOutput, documentInput, documentPathInput, writeDocumentOutputPathInput,
+} from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import { WRITE_LIMITS, atMost, requireWithinLimit } from './write-limits.js';
 import type { Workspace } from './workspace.js';
@@ -222,8 +226,10 @@ const addInput = z.object({
   documentPath: documentPathInput,
   format,
   readback: z.enum(['summary', 'document']).optional().describe(
-    'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
+    'summary (default): the new base, clip ID, ID counts, and discrepancies. document: also the read-back '
+    + 'document inline.',
   ),
+  documentOutputPath: writeDocumentOutputPathInput,
 }).strict();
 type AddInput = z.infer<typeof addInput>;
 
@@ -244,9 +250,8 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'
-  + 'Two changes: the empty clip, then its notes and properties. Result: effects (each with a changeId), and '
-  + 'readback from an independent read with the base sha256 and ref for read_launcher_clip, '
-  + 'check_launcher_clips, and edit_launcher_clip. A refusal of the content after the clip exists returns the '
+  + `Two changes: the empty clip, then its notes and properties. ${VERIFIED_READBACK_STATEMENT} The new clip gets `
+  + 'a new clip ID (readback.clipId); the event IDs of the document stay. A refusal of the content after the clip exists returns the '
   + 'creation in failure.effects; revert_change with its changeId removes the empty clip. To undo a complete '
   + 'add, revert the content change, then the creation (next.revert has both, in order).\n'
   + 'Bitwig selects the new clip; the tool then selects the Launcher slot that was selected before. With no slot '
@@ -270,6 +275,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
     const input = await documentInput(args, args.format ?? 'fields');
+    if (args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
     const { document: proposal, seal } = parseProposal(input, 'add');
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
       throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
@@ -308,6 +314,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       const edited = await editLauncherClip(workspace, {
         trackId: args.trackId, row: args.row, document: input.document, intent: 'replace', format: args.format ?? 'fields',
         ...(args.readback === undefined ? {} : { readback: args.readback }),
+        ...(args.documentOutputPath === undefined ? {} : { documentOutputPath: args.documentOutputPath }),
       }, { parsed: checked, ...(input.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
       return { creation: made, content: edited };
     });

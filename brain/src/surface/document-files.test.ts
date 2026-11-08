@@ -10,7 +10,7 @@ import { Executor } from '../engine/index.js';
 import { SIMPLE_MIDI, midiDocument } from '../midi/fixtures.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
-import { detectEncoding, publishDocumentFile } from './document-files.js';
+import { LARGE_INLINE_DOCUMENT_BYTES, detectEncoding, publishDocumentFile } from './document-files.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool } from './tools.js';
 import { workspaceOf, type Workspace } from './workspace.js';
 
@@ -210,3 +210,62 @@ for (const mode of ['differs', 'unavailable'] as const) {
     assert.equal(result.warnings.length, mode === 'unavailable' ? 1 : 0);
   });
 }
+
+test('B19: a verified add and edit return the clip ID and write the read-back document to documentOutputPath', async t => {
+  const dir = await files(t), { workspace, trackId } = liveFixture();
+  const addOut = join(dir, 'added.gndoc');
+  const added = await call('add_launcher_clip', { trackId, row: 0, document: serialize(midiDocument(4), 'fields'),
+    documentOutputPath: addOut }, workspace);
+  assert.equal(added.readback.status, 'verified', JSON.stringify(added));
+  assert.equal(added.readback.mintedIds, 0);
+  assert.equal(added.readback.document, undefined);
+  assert.equal(added.readback.documentFile.readback.status, 'verified');
+  const filed = parse(await readFile(addOut, 'utf8'), 'fields') as StateDocument;
+  assert.equal(added.readback.clipId, filed.clips[0]!.id);
+  assert.deepEqual(filed.events.map((event) => event.id), ['n0', 'n1', 'n2', 'n3'], 'the event IDs of the document stay');
+
+  // The next edit needs no read: BASE is readback.base, and the clip and event IDs come from the file.
+  const patch = ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(added.readback.base)}`,
+    'FIELDS id clip at duration pitch velocity channel mute',
+    `ADD n9 ${added.readback.clipId} 3 1/2 72 90 1 false`, 'REMOVE n0', ''].join('\n');
+  const editOut = join(dir, 'edited.gndoc');
+  const edited = await call('edit_launcher_clip', { trackId, row: 0, document: patch, documentOutputPath: editOut,
+    readback: 'document' }, workspace);
+  assert.equal(edited.readback.status, 'verified', JSON.stringify(edited));
+  assert.equal(edited.readback.clipId, added.readback.clipId);
+  assert.equal(edited.readback.document, undefined, 'the file replaces the inline document');
+  assert.equal(edited.readback.documentFile.sha256, edited.readback.documentFile.readback.sha256);
+  const read = await call('read_launcher_clip', { trackId, row: 0 }, workspace);
+  assert.equal(read.authority.base.ref, edited.readback.base.ref);
+  assert.equal(await readFile(editOut, 'utf8'), read.data.document);
+});
+
+test('B19: an existing write documentOutputPath refuses with code occupied before any host call', async t => {
+  const dir = await files(t);
+  const taken = join(dir, 'taken.gndoc');
+  await writeFile(taken, 'keep');
+  const document = serialize(midiDocument(1), 'fields');
+  const added = await call('add_launcher_clip', { trackId: 'any', row: 0, document, documentOutputPath: taken });
+  assert.equal(added.failure?.code, 'occupied', JSON.stringify(added));
+  const edited = await call('edit_launcher_clip', { trackId: 'any', row: 0, document, intent: 'replace',
+    documentOutputPath: taken });
+  assert.equal(edited.failure?.code, 'occupied', JSON.stringify(edited));
+  assert.equal(await readFile(taken, 'utf8'), 'keep');
+});
+
+test('B19: a large inline clip read warns; the same read to a file does not', async t => {
+  const dir = await files(t), { workspace, trackId } = liveFixture();
+  const added = await call('add_launcher_clip', { trackId, row: 0, documentPath: await (async () => {
+    const path = join(dir, 'large.gndoc');
+    await writeFile(path, serialize(midiDocument(1500), 'fields'));
+    return path;
+  })() }, workspace);
+  assert.equal(added.readback.status, 'verified', JSON.stringify(added).slice(0, 400));
+  const inline = await call('read_launcher_clip', { trackId, row: 0 }, workspace);
+  assert.ok(Buffer.byteLength(inline.data.document) > LARGE_INLINE_DOCUMENT_BYTES);
+  assert.deepEqual(inline.warnings.map((item: Wire) => item.code), ['large-inline-document']);
+  const filed = await call('read_launcher_clip', { trackId, row: 0, documentOutputPath: join(dir, 'out.gndoc') }, workspace);
+  assert.deepEqual(filed.warnings, []);
+  const small = await call('read_launcher_clip', { trackId, row: 1 }, workspace);
+  assert.deepEqual(small.warnings, []);
+});

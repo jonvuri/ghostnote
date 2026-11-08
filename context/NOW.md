@@ -6,10 +6,14 @@ updated: 2026-11-07
 
 ## Now
 
-**Next: [B19](work/b19-real-use-tooling-and-annotations.md)** in three
-sessions: quick tool wins; overlays, clip annotations and provenance (with a
-last format evaluation and possible final benchmark); clip operations and
-stateless analysis tools. P01 continues in its worktree after B18.
+**Next: [B19](work/b19-real-use-tooling-and-annotations.md)** in four
+sessions. Session 1 is complete and checked live (descriptions v60, model
+reference revision 6, [D67](decisions/d67-clip-writers-return-the-read-back-document-as-a-file.md));
+next is session 2, slot occupancy. The sessions: quick tool wins; whole-project slot occupancy through one new
+extension method; overlays, clip annotations and provenance (with a last
+format evaluation, a possible final benchmark, and the choice between a
+clip-level default and a column binding for uniform release velocity); clip
+operations and stateless analysis tools. P01 continues in its worktree after B18.
 
 [B18](work/b18-content-event-window.md) is complete and verified live in
 [E405](evidence/experiments/e405-b18-content-event-window-live.md). The
