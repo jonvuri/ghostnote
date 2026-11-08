@@ -241,3 +241,28 @@ Each operation needs ledger rows, call-budget tests and a focused live check.
   scratch clip was deleted and the slot reads empty. The add left the new
   clip's slot selected (no slot was selected before; warning
   `slot-selection-moved`).
+
+### Session 2 (2026-11-08): complete
+
+- **Route.** The normal profile has one new read method, `slot.occupancy`
+  (95 methods, `0439995f8f3d9953`, marker `rig.info.slotOccupancy`). In one
+  handler run it returns every existing bank track with its occupied scene
+  indices and the `revision.get` fields of the same run. The adapter
+  enumerator `launcherSlots()` builds a complete mark from that reply, so no
+  launcher event falls between the listing and its mark. `rig.scanTracks` is
+  unchanged.
+- **Tool.** `list_launcher_slots` returns `rowCount` and, for each track,
+  `trackId`, `name`, `kind` and `occupiedRows`; a group track is
+  `mirror-children` with no rows. The questions are settled in
+  [D71](../decisions/d71-launcher-slot-occupancy-in-one-call.md): occupancy
+  only, children of collapsed groups listed as their own tracks, `partial`
+  coverage instead of paging, and no public freshness token because the clip
+  writers refuse an occupied target.
+- **Checks.** Descriptions v66 (47 tools). All 2,673 brain tests and
+  `gradle check` pass: new extension scan and profile tests, a live-adapter
+  frame test, four tool tests, and call budget `launcherSlots: 1`.
+- **Live check ([E414](../evidence/experiments/e414-b19-slot-occupancy-live.md)).**
+  On 251 tracks × 128 scenes with 30,745 clips, one call took 32.5 ms median
+  (130 KB) and the tool 30.5 ms (124 KB), against about 12.7 minutes of
+  sequential `slot.status` reads. The listing matched all 32,128 single-slot
+  reads.

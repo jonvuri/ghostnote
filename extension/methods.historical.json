@@ -15,8 +15,8 @@
   ],
   "extractedAt": "2026-10-29",
   "extractedFrom": "handlers/*Handlers.java registration declarations",
-  "count": 183,
-  "methodsHash": "725dc5fce7ee9e7f",
+  "count": 184,
+  "methodsHash": "e2fda386e3484d34",
   "addedInPhase0": [
     "api.runtimeMethods",
     "app.selectionNotifications",
@@ -108,6 +108,7 @@
     "slot.epoch",
     "slot.launchWithOptions",
     "slot.moveTo",
+    "slot.occupancy",
     "slot.playState",
     "status.push",
     "stepdata.observer.enrich",
@@ -308,6 +309,7 @@
     "slot.launch",
     "slot.launchWithOptions",
     "slot.moveTo",
+    "slot.occupancy",
     "slot.playState",
     "slot.select",
     "slot.status",
@@ -597,5 +599,8 @@
   ],
   "addedInR02": [
     "probe.pressure"
+  ],
+  "addedInB19": [
+    "slot.occupancy"
   ]
 }

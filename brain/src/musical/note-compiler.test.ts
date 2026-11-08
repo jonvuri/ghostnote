@@ -105,6 +105,7 @@ function adapterOf(fake: FakeAdapter): BitwigAdapter {
     hello: () => fake.hello(),
     resolve: (refs) => fake.resolve(refs),
     tracks: () => fake.tracks(),
+    launcherSlots: () => fake.launcherSlots(),
     devices: (trackRef) => fake.devices(trackRef),
     drumPads: (container) => fake.drumPads(container),
     read: (addresses) => fake.read(addresses),

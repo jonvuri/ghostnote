@@ -21,8 +21,8 @@ surface without relying on the user's UI selection.
 - Existing writes use the executor and stash with readback verification,
   concurrency reporting, and fidelity-aware reversal. D54 makes custom recovery
   optional for new capabilities; [P01](BACKLOG.md) assesses existing costs.
-- The default tool profile is `agent-native-v1` (D40): 46 tools on one
-  address, health, result, and error vocabulary, descriptions v65. The 8i
+- The default tool profile is `agent-native-v1` (D40): 47 tools on one
+  address, health, result, and error vocabulary, descriptions v66. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
   [C01 removal](BACKLOG.md). `check_grid_support` reports the Grid admission
   gate (D52, E343); the product refuses native Grid writes without an
@@ -37,7 +37,8 @@ surface without relying on the user's UI selection.
   new clip (D47). The document writers take `documentPath` and the readers
   take `documentOutputPath`, so a large document stays out of the
   conversation (D51). `read_midi_file` and `write_midi_file` convert MIDI
-  files offline, with no host call (D50).
+  files offline, with no host call (D50). `list_launcher_slots` lists the
+  occupied slots of every addressable track in one host call (D71).
 - Track mixers are read and set in exact dB, pan, mute, and nonexclusive
   solo on durable track IDs (`read_track_mixer`, `set_track_mixer`, D48).
   The volume unit is the host raw value; automation refuses before a write.

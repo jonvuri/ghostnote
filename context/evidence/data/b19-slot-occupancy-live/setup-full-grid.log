@@ -1,0 +1,20 @@
+{"step":"tracks","added":240,"ms":108630}
+{"step":"clips","requested":30720,"filled":8448,"ms":11516}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: every scratch slot holds a clip
+
+8448 !== 30720
+
+    at <anonymous> (/Users/jonvuri/Development/ghostnote/brain/src/probes/b19-slot-grid.ts:103:10) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 8448,
+  expected: 30720,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.11.1

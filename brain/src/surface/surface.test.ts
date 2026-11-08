@@ -117,6 +117,7 @@ function fixture(
     hello: () => fake.hello(),
     resolve: (refs) => fake.resolve(refs),
     tracks: () => fake.tracks(),
+    launcherSlots: () => fake.launcherSlots(),
     devices: async (trackRef) => {
       const actual = await fake.devices(trackRef);
       deviceReads += 1;

@@ -2329,6 +2329,7 @@ export function runConformance(h: AdapterHarness): void {
           hello: () => adapter.hello(),
           resolve: (refs) => adapter.resolve(refs),
           tracks: () => adapter.tracks(),
+          launcherSlots: () => adapter.launcherSlots(),
           devices: (trackRef) => adapter.devices(trackRef),
           drumPads: (container) => adapter.drumPads(container),
           read: async (sel) => {

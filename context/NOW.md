@@ -8,13 +8,19 @@ updated: 2026-11-08
 
 **Next: [B19](work/b19-real-use-tooling-and-annotations.md)** in four
 sessions. Session 1 is complete and checked live (main descriptions v60, model
-reference revision 6, [D70](decisions/d70-clip-writers-return-the-read-back-document-as-a-file.md));
-next is session 2, slot occupancy. The sessions: quick tool wins; whole-project slot occupancy through one new
-extension method; overlays, clip annotations and provenance (with a last
+reference revision 6, [D70](decisions/d70-clip-writers-return-the-read-back-document-as-a-file.md)).
+Session 2 is complete and checked live: `list_launcher_slots` lists every
+occupied Launcher slot in one call through the new normal-profile method
+`slot.occupancy` (95 methods, `0439995f8f3d9953`; descriptions v66, 47 tools;
+[D71](decisions/d71-launcher-slot-occupancy-in-one-call.md)). On 251 tracks ×
+128 scenes with 30,745 clips the tool took 30.5 ms and matched 32,128
+single-slot reads ([E414](evidence/experiments/e414-b19-slot-occupancy-live.md)).
+Next is session 3: overlays, clip annotations and provenance (with a last
 format evaluation, a possible final benchmark, and the choice between a
-clip-level default and a column binding for uniform release velocity); clip
-operations and stateless analysis tools. P01 is merged with B19 session 1;
-the merged surface is descriptions v65.
+clip-level default and a column binding for uniform release velocity); then
+session 4, clip operations and stateless analysis tools. P01 is merged with
+B19 session 1; P01's next deploy must carry `slot.occupancy`, and its live
+probes pin the 94-method hash until it merges session 2.
 
 [B18](work/b18-content-event-window.md) is complete and verified live in
 [E405](evidence/experiments/e405-b18-content-event-window-live.md). The

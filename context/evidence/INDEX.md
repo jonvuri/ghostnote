@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # Evidence index
@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E414 | B19 session 2 on Bitwig 6.1.4: one `slot.occupancy` call lists a 251 × 128 bank with 30,745 clips in 32.5 ms median (130 KB) and matches 32,128 single-slot reads; `list_launcher_slots` 30.5 ms (124 KB), against about 12.7 min of sequential reads. A group row reports its children's rows. Scratch grid removed (2026-11-08) | [open](experiments/e414-b19-slot-occupancy-live.md) |
 | E412 | P01 `set_device_controls` limits with Diva (CLAP, 281 IDs): a route costs 2.3 s for 64 or 281 settings; 4 / 8 / 12 / 16 routes of 16 took 9.1 / 18.3 / 26.8 / 36.4 s (E252: 4 routes 22.5 s); every readback exact; D69 sets 256 settings on 12 routes. Cleanup and preservation pass (2026-11-07) | [open](experiments/e412-p01-device-control-limits-live.md) |
 | E411 | P01 one-turn scalar cohorts on Bitwig 6.1.4: a native `set_device_controls` route of 1, 8 or 44 Polysynth controls takes 1.33–1.35 s / 34 calls (same-session HEAD 2.2 / 3.4 / 9.4 s); 64 remote controls 1.24 s (4.66 s); a mixer-only write skips the selection capture (216 ms, was 238). Independent readback, reverts, cleanup and preservation pass (2026-11-07) | [open](experiments/e411-p01-one-turn-scalar-cohorts-live.md) |
 | E405 | B18 on Bitwig 6.1.4: the content-event ring holds 8,192 events; IDs stay current after 24, 25, 1,000 and 8,192 slot events following the latest read, and 8,193 re-mint fail-closed with `why: delta-incomplete` and a warning. A plain mark carries no events; a full-window delta is 889 KB / 45–51 ms. Run 1 found that a current read kept the first-read mark (fixed). Scratch removed (2026-11-07) | [open](experiments/e405-b18-content-event-window-live.md) |

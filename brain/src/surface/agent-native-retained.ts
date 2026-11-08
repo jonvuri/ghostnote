@@ -51,6 +51,7 @@ import { captureWorkspaceChanges, type Workspace } from './workspace.js';
 
 export const CONNECTION_SCHEMA = 'ghostnote-connection/1';
 export const TRACKS_SCHEMA = 'ghostnote-tracks/1';
+export const LAUNCHER_SLOTS_SCHEMA = 'ghostnote-launcher-slots/1';
 export const CHANGES_SCHEMA = 'ghostnote-changes/1';
 export const REVERT_CHECK_SCHEMA = 'ghostnote-revert-check/1';
 export const REVERT_SCHEMA = 'ghostnote-revert/1';
@@ -208,6 +209,53 @@ async function listTracks(workspace: Workspace): Promise<unknown> {
         tracks: tracks.map((item) => ({
           trackId: item.channelId, name: item.name, kind: item.type, position: item.position,
           ...(isGroupTrack(item) ? { group: true, launcherSlots: 'mirror-children' } : {}),
+        })),
+      },
+      warnings,
+    };
+    return result;
+  });
+}
+
+// --- list_launcher_slots ----------------------------------------------------------------
+
+const LIST_LAUNCHER_SLOTS_DESCRIPTION = `${PROFILE} List which Launcher slots hold a clip, for every track that this `
+  + 'connection can address, in one host call. Use it to find empty slots instead of reading slots one at a '
+  + 'time. data.rowCount is the number of Launcher rows (scenes); rows run from 0 to rowCount - 1. Each track '
+  + 'has its trackId, name, kind, and occupiedRows: the ascending zero-based rows that hold a clip. Every other '
+  + 'row below rowCount is empty. A group track has group true and no occupiedRows: its slots mirror the clips '
+  + 'of its child tracks. This is a listing at one moment; a clip writer checks its own target again and '
+  + 'refuses a slot that holds a clip with code occupied. When the project has more tracks or scenes than the '
+  + 'connection can address, coverage.status is partial: tracks and rows outside the window are not listed.';
+
+async function listLauncherSlots(workspace: Workspace): Promise<unknown> {
+  return guardedRun(LAUNCHER_SLOTS_SCHEMA, undefined, async (state) => {
+    state.stage = 'acquire';
+    const { at, tracks } = await workspace.launcherSlots();
+    if (at.project.length === 0) checkHealth(at);
+    const notListed = at.window.tracks.count < 0 ? null : Math.max(0, at.window.tracks.count - tracks.length);
+    const scenesCovered = at.window.scenes.count >= 0 && at.window.scenes.count <= at.window.scenes.bankSize;
+    const warnings: Warning[] = [];
+    if (notListed === null || notListed > 0) {
+      warnings.push({ code: 'partial', message: 'Some tracks exist and cannot be addressed through this '
+        + 'connection; their slots are not listed. Raise tracks in ~/.ghostnote/rig.json and reload the controller.' });
+    }
+    if (!scenesCovered) {
+      warnings.push({ code: 'partial', message: 'Some scenes exist and cannot be addressed through this '
+        + 'connection; their rows are not listed. Raise scenes in ~/.ghostnote/rig.json and reload the controller.' });
+    }
+    const result: ReadResult<unknown> = {
+      schema: LAUNCHER_SLOTS_SCHEMA,
+      source: { host: 'bitwig', read: 'slot-occupancy' },
+      target: { project: at.project },
+      coverage: { status: warnings.length === 0 ? 'complete' : 'partial', listed: tracks.length, notListed,
+        scenes: coverageOf(at.window.scenes) },
+      authority: { kind: 'fresh-read' },
+      data: {
+        rowCount: at.window.scenes.count < 0 ? null : Math.min(at.window.scenes.count, at.window.scenes.bankSize),
+        tracks: tracks.map(({ track, occupied }) => ({
+          trackId: track.channelId, name: track.name, kind: track.type,
+          ...(isGroupTrack(track) ? { group: true, launcherSlots: 'mirror-children' } : { occupiedRows: occupied }),
         })),
       },
       warnings,
@@ -848,6 +896,8 @@ const empty = z.object({}).strict();
 export function agentNativeRetainedTools(): {
   readonly replacements: ReadonlyMap<string, ToolSpec>;
   readonly renamed: ReadonlyMap<string, ToolSpec>;
+  /** Tools with no stable predecessor, at the end of the profile. B19: list_launcher_slots. */
+  readonly additions: readonly ToolSpec[];
 } {
   const replacements = new Map<string, ToolSpec>([
     ['list_modulator_types', spec('list_modulator_types', 'read', 'List supported modulator types',
@@ -885,5 +935,9 @@ export function agentNativeRetainedTools(): {
       TRACK_DUPLICATE_SCHEMA, ['track.duplicate', 'track.rename'],
       (workspace, input) => duplicateTrack(workspace, input as DuplicateInput), { status: ['track-copy'] })],
   ]);
-  return { replacements, renamed };
+  const additions = [
+    spec('list_launcher_slots', 'read', 'List the occupied Launcher slots', LIST_LAUNCHER_SLOTS_DESCRIPTION, empty,
+      LAUNCHER_SLOTS_SCHEMA, [], (workspace) => listLauncherSlots(workspace)),
+  ];
+  return { replacements, renamed, additions };
 }

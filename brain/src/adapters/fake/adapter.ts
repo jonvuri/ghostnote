@@ -25,7 +25,7 @@ import {
   type DeviceSource, type Op, type OpReceipt, type ReadOptions, type ResolveResult,
   type ParamState, type RemoteControlState, type RemoteControlsState, type ResolvedAddress,
   type RevisionMark, type SceneAddress, type SettleBudget, type Snapshot,
-  type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
+  type LauncherSlotListing, type StageReceipt, type StateEntry, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { INSTRUMENT_LAYER_SEED_BASENAME } from '../../device-alternates/assets.js';
 import { readFileSync } from 'node:fs';
@@ -567,6 +567,18 @@ export class FakeAdapter implements BitwigAdapter {
       position: index,
       type: t.type,
     }));
+  }
+
+  /** B19: the visible tracks with their occupied rows inside the scene window, and the mark of the same moment. */
+  async launcherSlots(): Promise<LauncherSlotListing> {
+    // One host call live: build the rows here rather than through the overridable tracks().
+    return {
+      at: this.mark(),
+      tracks: this.model.visibleTracks().map((t, index) => ({
+        track: { channelId: t.channelId, name: t.name, position: index, type: t.type },
+        occupied: t.slots.slice(0, this.model.sceneBankSize).flatMap((item, row) => item.hasContent ? [row] : []),
+      })),
+    };
   }
 
   /** One visible track as `tracks()` reports it. */

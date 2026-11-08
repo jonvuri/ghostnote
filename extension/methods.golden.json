@@ -5,8 +5,8 @@
   ],
   "profile": "normal",
   "identity": "normal-v1",
-  "count": 94,
-  "methodsHash": "526cd7e3760580cc",
+  "count": 95,
+  "methodsHash": "0439995f8f3d9953",
   "methods": [
     "batch.run",
     "branch.duplicateTrack",
@@ -91,6 +91,7 @@
     "slot.delete",
     "slot.launchWithOptions",
     "slot.moveTo",
+    "slot.occupancy",
     "slot.playState",
     "slot.select",
     "slot.status",

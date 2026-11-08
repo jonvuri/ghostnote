@@ -1,9 +1,9 @@
 /**
  * The wire vocabulary — THE ONLY PLACE `category.action` strings live.
  *
- * The product encoder can emit 98 methods. The normal extension registers 93;
- * the optional capture extension registers all 98. The Phase 8 probe extension
- * registers 121 methods. The historical source inventory has 180 declarations.
+ * The product encoder can emit 100 methods. The normal extension registers 95;
+ * the optional capture extension registers all 100. The Phase 8 probe extension
+ * registers 125 methods. The historical source inventory has 184 declarations.
  *
  *   - historical exploration methods stay in source evidence but no active
  *     runtime registers them;
@@ -48,6 +48,8 @@ export const WIRE = {
 
   clipCreate: 'clip.create',
   slotStatus: 'slot.status',
+  /** B19 session 2: every occupied slot of the bank and the mark of the same handler run, in one turn. */
+  slotOccupancy: 'slot.occupancy',
   slotSelect: 'slot.select',
   slotDelete: 'slot.delete',
   /** 8i14 (E263): one clip to a named slot, for every `clip.duplicate`. */

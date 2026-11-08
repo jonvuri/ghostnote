@@ -5,8 +5,8 @@
   ],
   "profile": "probe",
   "identity": "phase-8-probe-v1",
-  "count": 124,
-  "methodsHash": "a8dfbfce3d47f16f",
+  "count": 125,
+  "methodsHash": "86e1065529810d73",
   "methods": [
     "api.runtimeMethods",
     "app.actions",
@@ -118,6 +118,7 @@
     "slot.duplicateClip",
     "slot.launchWithOptions",
     "slot.moveTo",
+    "slot.occupancy",
     "slot.playState",
     "slot.select",
     "slot.status",

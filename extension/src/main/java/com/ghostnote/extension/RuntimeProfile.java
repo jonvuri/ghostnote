@@ -184,6 +184,7 @@ public enum RuntimeProfile {
             "slot.delete",
             "slot.launchWithOptions",
             "slot.moveTo",
+            "slot.occupancy",
             "slot.playState",
             "slot.select",
             "slot.status",
@@ -336,6 +337,7 @@ public enum RuntimeProfile {
             "rig.stats",
             "scene.count",
             "selection.status",
+            "slot.occupancy",
             "slot.playState",
             "slot.status",
             "stepdata.observer.read",
@@ -375,11 +377,11 @@ public enum RuntimeProfile {
             ALL_CLASSIFIED = Set.copyOf(classified);
 
             if (!PRODUCT.containsAll(OPTIONAL_CAPTURE)
-                    || PRODUCT.size() != 99
-                    || NORMAL.size() != 94
-                    || PROBE.size() != 124
+                    || PRODUCT.size() != 100
+                    || NORMAL.size() != 95
+                    || PROBE.size() != 125
                     || HISTORICAL.size() != 54
-                    || ALL_CLASSIFIED.size() != 183
+                    || ALL_CLASSIFIED.size() != 184
                     || !ALL_CLASSIFIED.containsAll(READS)
                     || !ALL_CLASSIFIED.containsAll(CLIP_READS)
                     || READS.stream().anyMatch(CLIP_READS::contains)) {

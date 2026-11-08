@@ -964,6 +964,43 @@ test('B4: overlapping pipelines share one capture and restore after both finish'
   assert.equal(typeof selects.at(-1)?.params?.['restoreOwnerToken'], 'string');
 });
 
+test('B19: launcherSlots is one slot.occupancy frame, and its mark comes from the same reply', async () => {
+  const frames: Frame[] = [];
+  const transport: Transport = {
+    async send(frame) {
+      frames.push(frame);
+      if (frame.method === WIRE.slotOccupancy) {
+        return {
+          tracks: [
+            { index: 0, channelId: CHANNEL_ID, name: 'Bass', position: 0, type: 'Instrument', occupied: [0, 3] },
+            { index: 1, channelId: 'empty-id', name: 'Pad', position: 1, type: 'Instrument', occupied: [] },
+          ],
+          revision: 4, generation: 'slots-gen', project: 'slots-project', sceneEpoch: 2, sceneCount: 8,
+          contentEpoch: 31, unpinnedCursorTracks: ['GN_CT_2'], itemCount: 2, bankSize: 256, sceneBankSize: 8,
+          scanMicros: 900,
+        };
+      }
+      throw new Error(`unexpected frame ${frame.method}`);
+    },
+    async close() {},
+  };
+  const adapter = new UntimedAdapter({ transport, cursorPool: 3, sceneBankSize: 8 });
+
+  const listing = await adapter.launcherSlots();
+
+  assert.deepEqual(frames.map((frame) => frame.method), [WIRE.slotOccupancy]);
+  assert.deepEqual(listing.tracks, [
+    { track: { channelId: CHANNEL_ID, name: 'Bass', position: 0, type: 'Instrument' }, occupied: [0, 3] },
+    { track: { channelId: 'empty-id', name: 'Pad', position: 1, type: 'Instrument' }, occupied: [] },
+  ]);
+  const { revision, sceneEpoch, contentEpoch, generation, project, window } = listing.at;
+  assert.deepEqual({ revision, sceneEpoch, contentEpoch, generation, project, window }, {
+    revision: 4, sceneEpoch: 2, contentEpoch: 31, generation: 'slots-gen', project: 'slots-project',
+    window: { tracks: { count: 2, bankSize: 256 }, scenes: { count: 8, bankSize: 8 } },
+  });
+  assert.deepEqual(unpinnedCursorTracksOf(listing.at), ['GN_CT_2']);
+});
+
 test('4b: live navigation resolves the durable track id before the UI-only frame', async () => {
   const frames: Frame[] = [];
   const transport: Transport = {

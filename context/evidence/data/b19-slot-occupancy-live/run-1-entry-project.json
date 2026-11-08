@@ -1,0 +1,156 @@
+{
+  "version": "b19-slot-occupancy-v1",
+  "date": "2026-11-08T15:52:30.768Z",
+  "build": {
+    "profile": "normal-v1",
+    "methods": 95,
+    "hash": "0439995f8f3d9953",
+    "marker": "slot.occupancy: tracks with occupied scene indices and the same-turn mark (B19)",
+    "bank": {
+      "tracks": 256,
+      "scenes": 128
+    }
+  },
+  "project": "gn-scale-test",
+  "tracks": 11,
+  "groups": 1,
+  "sceneCount": 10,
+  "occupied": 25,
+  "coverage": {
+    "status": "complete",
+    "listed": 11,
+    "notListed": 0,
+    "scenes": {
+      "addressable": 128,
+      "inProject": 10
+    }
+  },
+  "cost": {
+    "raw": {
+      "ms": {
+        "n": 20,
+        "min": 19.8,
+        "median": 24.9,
+        "p90": 26.1,
+        "max": 29.1
+      },
+      "bytes": {
+        "n": 20,
+        "min": 1727,
+        "median": 1728,
+        "p90": 1728,
+        "max": 1728
+      },
+      "scanMicros": {
+        "n": 20,
+        "min": 697,
+        "median": 1088,
+        "p90": 1308,
+        "max": 4619
+      }
+    },
+    "tool": {
+      "ms": {
+        "n": 20,
+        "min": 19.9,
+        "median": 24.6,
+        "p90": 25.7,
+        "max": 26
+      },
+      "bytes": {
+        "n": 20,
+        "min": 1519,
+        "median": 1519,
+        "p90": 1519,
+        "max": 1519
+      }
+    }
+  },
+  "agreement": {
+    "slots": 110,
+    "chunk": 64,
+    "ms": 47,
+    "mismatches": 0,
+    "mark": [
+      "c29c5347-ffa5-4466-a439-1ff5ecff4530",
+      "gn-scale-test",
+      32793,
+      2,
+      10
+    ]
+  },
+  "sequential": {
+    "n": 48,
+    "ms": 1144,
+    "perCall": {
+      "n": 48,
+      "min": 21.3,
+      "median": 23.9,
+      "p90": 25,
+      "max": 25.2
+    }
+  },
+  "sample": [
+    {
+      "trackId": "98ba8aa3-dbce-4e51-8bb2-de9302542b6e",
+      "name": "Instrument Layer",
+      "kind": "Hybrid",
+      "occupiedRows": [
+        2,
+        4
+      ]
+    },
+    {
+      "trackId": "4a6a024a-f213-48f1-9029-532fc077d857",
+      "name": "Hybrid 2",
+      "kind": "Hybrid",
+      "occupiedRows": [
+        1,
+        2
+      ]
+    },
+    {
+      "trackId": "d61c23c2-4f85-4eee-bc08-8bb9baf6ff63",
+      "name": "gn-A",
+      "kind": "Instrument",
+      "occupiedRows": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "trackId": "78a40fcf-3eae-48fc-badf-1ff18900166b",
+      "name": "gn-B",
+      "kind": "Instrument",
+      "occupiedRows": [
+        0,
+        5
+      ]
+    },
+    {
+      "trackId": "ae4caa0f-f689-4f17-88cf-a5ae0d9ebdd3",
+      "name": "Group 5",
+      "kind": "Group",
+      "group": true,
+      "launcherSlots": "mirror-children"
+    },
+    {
+      "trackId": "e75d9383-425e-4bff-9ca6-802bb9caed02",
+      "name": "gn-E16",
+      "kind": "Instrument",
+      "occupiedRows": [
+        0,
+        1,
+        2
+      ]
+    }
+  ]
+}

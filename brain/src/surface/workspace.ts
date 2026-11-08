@@ -40,7 +40,7 @@
  * track that is no longer there. The dependencies are therefore getters.
  */
 import type {
-  Address, AdapterInfo, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, SelectionOutcome, Snapshot, TrackAddress, TrackState,
+  Address, AdapterInfo, BitwigAdapter, ClipAddress, ClipNavigationResult, ContentDelta, DeviceAddress, LauncherSlotListing, ObservedDeviceBank, ObservedDrumPadBank, Op, ReadOptions, RevisionMark, SelectionOutcome, Snapshot, TrackAddress, TrackState,
 } from '../contract/index.js';
 import type { Executor, RunOptions, Take } from '../engine/index.js';
 import type { ReversalPlan, Slice, Stash, StashLog, StashedChangeset } from '../stash/index.js';
@@ -74,6 +74,8 @@ export interface Workspace {
   mark(): Promise<RevisionMark>;
   /** Where a caller's first durable track id comes from. */
   tracks(): Promise<readonly TrackState[]>;
+  /** B19: every occupied Launcher slot of the bank window, with the mark of the same observation. */
+  launcherSlots(): Promise<LauncherSlotListing>;
   /** Complete observable top-level device order on one track. */
   devices(track: TrackAddress): Promise<ObservedDeviceBank>;
   /** Complete top-level and reachable-pad structure for one Drum Machine. */
@@ -154,6 +156,10 @@ export function cancellableWorkspace(
     async tracks() {
       before();
       return after(await workspace.tracks());
+    },
+    async launcherSlots() {
+      before();
+      return after(await workspace.launcherSlots());
     },
     async devices(track) {
       before();
@@ -250,6 +256,11 @@ export function workspaceOf(deps: WorkspaceDeps): Workspace {
     async tracks(): Promise<readonly TrackState[]> {
       await deps.ready();
       return deps.adapter.tracks();
+    },
+
+    async launcherSlots(): Promise<LauncherSlotListing> {
+      await deps.ready();
+      return deps.adapter.launcherSlots();
     },
 
     async devices(trackRef: TrackAddress): Promise<ObservedDeviceBank> {

@@ -25,6 +25,7 @@ import com.ghostnote.extension.handlers.NavigationHandlers;
 import com.ghostnote.extension.handlers.ObservationHandlers;
 import com.ghostnote.extension.handlers.ParamHandlers;
 import com.ghostnote.extension.handlers.PressureHandlers;
+import com.ghostnote.extension.handlers.SlotOccupancyHandlers;
 import com.ghostnote.extension.handlers.StructureHandlers;
 import com.ghostnote.extension.handlers.TrackHandlers;
 import com.ghostnote.extension.handlers.StatusHandlers;
@@ -75,6 +76,7 @@ public class GhostnoteExtension extends ControllerExtension {
             new ChainInsertProbeHandlers(host, rig, state),
             new PressureHandlers(host, rig, state),
             new TrackHandlers(host, rig, state),
+            new SlotOccupancyHandlers(host, rig, state),
             new MixerHandlers(host, rig, state),
             new CursorHandlers(host, rig, state),
             new NoteHandlers(host, rig, state),

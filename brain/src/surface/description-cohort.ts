@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v65';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v66';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -553,7 +553,8 @@ export const DESCRIPTION_COHORT_V42: readonly DescriptionCohortMember[] = DESCRI
  * omit targetBpm; add_launcher_clip and edit_launcher_clip state the overlap detail and the pre-check. v53 (9b.7,
  * D52) adds check_grid_support at the end: the Grid admission gate of the connected build, read from the local jar
  * fingerprint and the accepted doctor cache. v54 (V14) adds resolve_device_name at the end: exact stock-device,
- * VST3, CLAP, and Bitwig-preset name resolution from the running host's configuration, with no Bitwig call.
+ * VST3, CLAP, and Bitwig-preset name resolution from the running host's configuration, with no Bitwig call. v66
+ * (B19 session 2) adds list_launcher_slots at the end: every occupied Launcher slot in one host call.
  */
 export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   ...DESCRIPTION_COHORT_V42,
@@ -563,6 +564,7 @@ export const DESCRIPTION_COHORT: readonly DescriptionCohortMember[] = [
   { name: 'write_midi_file', kind: 'write', reason: 'Writes an inline or file document to a new local MIDI file without a host call.' },
   { name: 'check_grid_support', kind: 'read', reason: 'Reads the native Grid admission gate of the connected build: jar fingerprint and accepted doctor cache (D52).' },
   { name: 'resolve_device_name', kind: 'read', reason: 'Resolves one exact device or preset name to its add_devices identity from the running host configuration (V14).' },
+  { name: 'list_launcher_slots', kind: 'read', reason: 'Lists the occupied Launcher slots of every addressable track in one host call (B19 session 2).' },
 ];
 
 interface ToolAnnotations {
@@ -965,3 +967,9 @@ export const TOOL_DESCRIPTION_V60_B19_SHA256 = 'cbd3e43ae89ec4735f3dda5d1511b439
  * warning, and Timing overlays only on an explicit request for claims.
  */
 export const TOOL_DESCRIPTION_V65_SHA256 = '9504efe308d2e6230d55a4c806956fef91f3f37d130605eaf6c781899d3e5af0';
+
+/**
+ * v66 (B19 session 2): list_launcher_slots lists the occupied Launcher rows of every addressable track in one host
+ * call, from the normal-profile slot.occupancy method. No other description changes.
+ */
+export const TOOL_DESCRIPTION_V66_SHA256 = '385084ba1646f0612a4d7a755595c8f38efb5c10f99bb1fecc2b5110bef1dbf3';

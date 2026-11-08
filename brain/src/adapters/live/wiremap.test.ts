@@ -100,9 +100,9 @@ test('8b: normal, capture, and probe profiles have only their owned methods', ()
     probeGolden.methods,
     [...new Set([...normalGolden.methods, ...probeOnly])].sort(),
   );
-  assert.equal(normalGolden.count, 94);
-  assert.equal(captureGolden.count, 99);
-  assert.equal(probeGolden.count, 124);
+  assert.equal(normalGolden.count, 95);
+  assert.equal(captureGolden.count, 100);
+  assert.equal(probeGolden.count, 125);
 });
 
 test('9b: hello and the doctor driver require the delegated Grid marker', () => {
@@ -224,7 +224,8 @@ test('W-split: session 2 added only E14 probe surface, nothing the contract can 
       ...(golden.addedInPhase8h4e0 ?? []), ...(golden.addedInPhase8h4e ?? []),
       ...(golden.addedInPhase8i7 ?? []), ...(golden.addedInPhase8i8 ?? []),
       ...(golden.addedInPhase8i14 ?? []), ...(golden.addedInPhase9a ?? []), ...(golden.addedInR05 ?? []),
-      ...(golden.addedInB08 ?? []), ...(golden.addedInB17 ?? []), ...(golden.addedInP01 ?? []), ...(golden.addedInR02 ?? [])];
+      ...(golden.addedInB08 ?? []), ...(golden.addedInB17 ?? []), ...(golden.addedInP01 ?? []), ...(golden.addedInR02 ?? []),
+      ...(golden.addedInB19 ?? [])];
   assert.deepEqual(
     [...golden.addedInPhase0].sort(),
     historical.filter((method) => golden.methods.includes(method)).sort(),

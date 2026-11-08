@@ -43,7 +43,7 @@ import {
   type Address, type AddressKey, type AdapterInfo, type BatchReceipt, type BatchRequest,
   type BitwigAdapter, type ChainAddress, type ChainMiss, type DeviceState, type ClipAddress, type ClipSourceDigest, type ClipMetadataState, type ClipNavigationResult, type ContentDelta, type ContentEvent, type DeviceAddress, type DeviceSlotAddress, type Fidelity,
   type MixerAddress, type NoteRecord, type ObservedContainer, type ObservedDeviceSequence, type ObservedDrumPadBank, type Op, type ParamState, type ReadOptions, type ResolveResult, type ResolvedAddress, type RevisionMark,
-  type LaunchMode, type LaunchQuantization, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
+  type LaunchMode, type LaunchQuantization, type LauncherSlotListing, type SceneAddress, type SettleBudget, type Snapshot, type StageReceipt, type StateEntry,
   type Stage, type TrackAddress, type TrackState, type WindowCoverage,
 } from '../../contract/index.js';
 import { LAUNCH_MODES, LAUNCH_QUANTIZATIONS, recordUnpinnedCursorTracks, resolveRemoteSelector, SETTLE_MS } from '../../contract/index.js';
@@ -101,6 +101,21 @@ interface TrackListResult {
   count: number;
   itemCount?: number;
   bankSize?: number;
+}
+
+/** B19: `slot.occupancy` — the bank rows with occupied scenes, and the `revision.get` fields of the same run. */
+interface SlotOccupancyReply {
+  tracks: (Pick<WireTrack, 'index' | 'channelId' | 'name' | 'position' | 'type'> & { occupied: number[] })[];
+  revision: number;
+  generation: string;
+  project?: string;
+  sceneEpoch: number;
+  sceneCount?: number;
+  contentEpoch: number;
+  unpinnedCursorTracks?: readonly string[];
+  itemCount?: number;
+  bankSize?: number;
+  scanMicros?: number;
 }
 
 interface WireDevice {
@@ -3595,6 +3610,35 @@ export class LiveAdapter implements BitwigAdapter {
       position: t.position,
       type: t.type,
     }));
+  }
+
+  /**
+   * B19 session 2: one `slot.occupancy` call lists the whole bank and carries the `revision.get` fields of the same
+   * handler run, so the listing and its mark are one observation. The bank cache (`this.bank`) stays with
+   * `track.list`, which also reports collapsed-group membership.
+   */
+  async launcherSlots(): Promise<LauncherSlotListing> {
+    const r = await this.transport.send({ method: WIRE.slotOccupancy }) as SlotOccupancyReply;
+    const at: RevisionMark = {
+      revision: r.revision,
+      sceneEpoch: r.sceneEpoch,
+      contentEpoch: r.contentEpoch,
+      generation: r.generation,
+      project: r.project ?? '',
+      window: {
+        tracks: { count: r.itemCount ?? -1, bankSize: r.bankSize ?? -1 },
+        scenes: { count: r.sceneCount ?? -1, bankSize: this.sceneBankSize },
+      },
+    };
+    if (r.unpinnedCursorTracks !== undefined) recordUnpinnedCursorTracks(at, r.unpinnedCursorTracks);
+    this.lastMark = at;
+    return {
+      at,
+      tracks: r.tracks.map((t) => ({
+        track: { channelId: t.channelId, name: t.name, position: t.position, type: t.type },
+        occupied: t.occupied,
+      })),
+    };
   }
 
   async devices(trackRef: TrackAddress) {

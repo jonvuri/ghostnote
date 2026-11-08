@@ -38,6 +38,7 @@ public final class RuntimeProfileTest {
             require(profile.includes("probe.pressure") == (profile == RuntimeProfile.PROBE),
                 "pressure reproduction escaped the probe profile");
             require(profile.includes("chain.insert"), "direct chain insertion is missing from " + profile);
+            require(profile.includes("slot.occupancy"), "slot occupancy is missing from " + profile);
             System.out.println(profile.identity() + ": " + actual.size() + " methods, " + hash);
         }
         require(RuntimeProfile.kind("probe.browserDiscovery") == WriteGate.Kind.WRITE,
@@ -48,6 +49,8 @@ public final class RuntimeProfileTest {
             "pressure writes bypass the write gate");
         require(RuntimeProfile.kind("chain.insert") == WriteGate.Kind.WRITE,
             "chain insertion bypasses the write gate");
+        require(RuntimeProfile.kind("slot.occupancy") == WriteGate.Kind.READ,
+            "slot occupancy is not a plain read");
         Set<String> missing = new TreeSet<>(declarations);
         missing.remove("probe.browserDiscovery");
         refuses(missing);

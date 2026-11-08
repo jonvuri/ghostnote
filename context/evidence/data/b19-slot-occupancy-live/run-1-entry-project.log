@@ -1,0 +1,4 @@
+{"step":"entry","project":"gn-scale-test","build":["normal-v1",95,"0439995f8f3d9953"],"marker":"slot.occupancy: tracks with occupied scene indices and the same-turn mark (B19)","bank":[256,128]}
+{"step":"cost","tracks":11,"occupied":25,"raw":{"ms":{"n":20,"min":19.8,"median":24.9,"p90":26.1,"max":29.1},"bytes":{"n":20,"min":1727,"median":1728,"p90":1728,"max":1728},"scanMicros":{"n":20,"min":697,"median":1088,"p90":1308,"max":4619}},"tool":{"ms":{"n":20,"min":19.9,"median":24.6,"p90":25.7,"max":26},"bytes":{"n":20,"min":1519,"median":1519,"p90":1519,"max":1519}}}
+{"step":"agreement","slots":110,"concurrentChunk":64,"ms":47,"mismatches":0,"groups":[{"name":"Group 5","observedRows":[0,1,2]}]}
+{"step":"sequential","n":48,"ms":1144,"perCall":{"n":48,"min":21.3,"median":23.9,"p90":25,"max":25.2}}

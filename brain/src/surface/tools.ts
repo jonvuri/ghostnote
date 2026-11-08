@@ -3888,6 +3888,7 @@ export const AGENT_NATIVE_TOOLS: readonly ToolSpec[] = [
   ...MIDI_FILE_TOOLS,
   ...GRID_SUPPORT_TOOLS,
   ...DEVICE_DISCOVERY_TOOLS,
+  ...AGENT_NATIVE_RETAINED.additions,
 ].map((item) => MEASURED_BODY_SCHEMAS[item.name] === undefined ? item
   : measuredBody(item, MEASURED_BODY_SCHEMAS[item.name]!));
 

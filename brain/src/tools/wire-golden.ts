@@ -117,6 +117,8 @@ export interface Golden {
   addedInB17?: string[];
   /** P01 direct layer-chain insertion research. */
   addedInP01?: string[];
+  /** B19 session 2 whole-bank Launcher slot occupancy. */
+  addedInB19?: string[];
   preSplitCount: number;
   preSplitHash: string;
   methods: string[];

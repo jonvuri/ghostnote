@@ -5,11 +5,12 @@
  * never in adapter method proliferation. That is the Beat Twin lesson (a
  * 57-tool surface, abandoned) applied at the one place it is cheap to apply.
  *
- * The three enumerators are deliberate exceptions: `tracks()` discovers durable
+ * The four enumerators are deliberate exceptions: `tracks()` discovers durable
  * track addresses, while `devices(track)` proves a complete top-level signal
  * order. `drumPads(container)` proves the complete reachable pad structure.
  * These facts cannot be represented as reads of addresses the caller already
- * holds.
+ * holds. `launcherSlots()` (B19) could be, one slot at a time; it exists because
+ * that read costs one turn for each slot.
  *
  * The structural proof that the JSON-RPC frame is an implementation detail: the
  * FAKE NEVER SEES A WIRE FRAME. If any type in `contract/` ever mentions a
@@ -51,6 +52,24 @@ export interface ResolvedAddress {
    */
   readonly reason?: 'absent' | 'outside-bank-window' | 'stale-epoch' | 'unsupported' | 'ambiguous' | 'unstable'
     | 'group-slot';
+}
+
+/** One track of a `launcherSlots()` listing: the `tracks()` state and its occupied Launcher rows. */
+export interface LauncherSlotTrack {
+  readonly track: TrackState;
+  /** Ascending zero-based scene indices whose slot holds a clip, inside the scene window. */
+  readonly occupied: readonly number[];
+}
+
+/**
+ * Every occupied Launcher slot of the bank window (B19 session 2).
+ *
+ * `at` is the mark of the same observation: live, the extension takes both in one handler run, so no launcher
+ * event falls between the listing and its mark. Its `window` reports the tracks and scenes left out.
+ */
+export interface LauncherSlotListing {
+  readonly at: RevisionMark;
+  readonly tracks: readonly LauncherSlotTrack[];
 }
 
 export interface ResolveResult {
@@ -162,6 +181,13 @@ export interface BitwigAdapter {
    * enumeration and the read end up disagreeing about what a track is.
    */
   tracks(): Promise<readonly TrackState[]>;
+
+  /**
+   * Every track of the bank window with its occupied Launcher rows, and the mark of the same moment. The fourth
+   * enumerator: a slot-by-slot read costs one turn for each slot (E393), and this costs one for the whole bank.
+   * Like `tracks()`, it does not refuse an overflowing project; `at.window` reports the reach.
+   */
+  launcherSlots(): Promise<LauncherSlotListing>;
 
   /** Complete observable top-level device order for one durable track id. */
   devices(track: import('./address.js').TrackAddress): Promise<ObservedDeviceBank>;

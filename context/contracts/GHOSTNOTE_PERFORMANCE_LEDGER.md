@@ -1,7 +1,7 @@
 ---
 title: Ghostnote performance ledger
 kind: reference
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # Ghostnote performance ledger
@@ -48,6 +48,7 @@ the result; create a separate E record when it will be useful to cite later.
 | One `clip.read` capture, typical clip | About 190 ms | E246 trace |
 | One `clip.read` capture, 16,384 notes | About 970 ms | E247 worst trace |
 | An occupancy read (`ReadOptions.occupancy`) of a `clip` address | One `slot.status` (one turn) | E237 |
+| `slot.occupancy`, whole bank (B19) | One turn: 25 ms median for 11 tracks (1.7 KB); 32.5 ms median, 49 ms p90 for 251 tracks × 128 scenes with 30,745 clips (130 KB). The scan grows with existing tracks (about 0.08–0.1 ms each), the reply with occupied slots (about 4.2 B each) | E414 |
 | Bare replay read (the primitive) | 46–698 ms, by size | E227 |
 | `gridChange` settle | 144 ms | E15-D, `SETTLE_MS` |
 | Writer page check before a note stage | About 210 ms for each distinct view (step size, page): set, scroll, settle, status. Not repeated for each channel. The writer window is the reader width, so an admitted clip has one page at each grid (at 512 steps, a 2,048-beat clip at 1/512 had 512 pages: 111 s) | E46, E247, E248 |
@@ -181,6 +182,7 @@ above stay the reference for top-level tracks.
 |---|---:|---|---|---|
 | `check_bitwig_connection` | 25 ms; 2 wire calls | One mark | mark 1 | E247 |
 | `list_tracks` | 25 ms; 2 wire calls | E239: 43 ms, 3 calls | mark 1, tracks 1 (the mark's scan) | E247 |
+| `list_launcher_slots` | 24.6 ms (11 tracks); 30.5 ms, 124 KB result (251 × 128, 30,745 clips); 1 wire call | Sequential `slot.status`: 23.7 ms per slot, about 12.7 min for the same grid; E393: 172 reads, 54 s | launcherSlots 1 | E414 |
 | `add_tracks`, one track; two tracks | 835–841 ms, 46 wire calls; 1,277 ms, 66 | Before: 1,163 ms; E239 two tracks: 1,935 ms | read 4, apply 2, delta 2, resolve 1, tracks 1 | E247 |
 | `duplicate_track` | 817–844 ms; 46 wire calls | Before: 1,176 ms; E239: 1,178–1,197 ms; E16: visible in 117–190 ms | tracks 2, read 4, apply 2, delta 2, resolve 1 | E247 |
 | `rename_track` | 381 ms | E239: 386 ms | tracks 1, resolve 1, read 2, apply 1, delta 1 | E247 |

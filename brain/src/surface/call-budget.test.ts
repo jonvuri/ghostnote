@@ -38,6 +38,7 @@ class CountingAdapter extends FakeAdapter {
   override async revision(...args: Parameters<FakeAdapter['revision']>) { this.count('mark'); return super.revision(...args); }
   override async contentSince(...args: Parameters<FakeAdapter['contentSince']>) { this.count('delta'); return super.contentSince(...args); }
   override async tracks(...args: Parameters<FakeAdapter['tracks']>) { this.count('tracks'); return super.tracks(...args); }
+  override async launcherSlots() { this.count('launcherSlots'); return super.launcherSlots(); }
   override async devices(...args: Parameters<FakeAdapter['devices']>) { this.count('devices'); return super.devices(...args); }
   override async resolve(...args: Parameters<FakeAdapter['resolve']>) { this.count('resolve'); return super.resolve(...args); }
   override async apply(...args: Parameters<FakeAdapter['apply']>) { this.count('apply'); return super.apply(...args); }
@@ -376,6 +377,7 @@ test('call budget: the 8h4f retained and track tools', async () => {
   await run('connection', 'check_bitwig_connection', {});
   await run('grid-support', 'check_grid_support', {});
   await run('tracks', 'list_tracks', {});
+  await run('slots', 'list_launcher_slots', {});
   const added = await run('add', 'add_tracks', { tracks: [{ name: 'gn-audio', kind: 'audio' }] });
   const audio = added.readback.tracks[0].trackId as string;
   const copied = await run('duplicate', 'duplicate_track', { trackId: audio, name: 'gn-audio copy' });
@@ -397,6 +399,8 @@ const EXPECTED_RETAINED_BUDGETS: Record<string, Counts> = {
   // 9b.7: one mark for the health check; the jar hash and the cache read are local (D52).
   'grid-support': { mark: 1 },
   tracks: { mark: 1, tracks: 1 },
+  // B19 session 2: one slot.occupancy call carries the listing and its mark (one turn for the whole bank).
+  slots: { launcherSlots: 1 },
   add: { read: 4, apply: 2, delta: 2, resolve: 1, tracks: 1 },
   duplicate: { tracks: 2, read: 4, apply: 2, delta: 2, resolve: 1 },
   rename: { tracks: 1, resolve: 1, read: 2, apply: 1, delta: 1 },

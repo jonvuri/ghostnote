@@ -34,6 +34,7 @@ const CASES: Readonly<Record<string, { readonly input: Wire; readonly expect: 's
   list_modulator_types: { input: {}, expect: 'success' },
   check_bitwig_connection: { input: {}, expect: 'success' },
   list_tracks: { input: {}, expect: 'success' },
+  list_launcher_slots: { input: {}, expect: 'success' },
   list_changes: { input: {}, expect: 'success' },
   check_revert: { input: { changeId: 'no-such-change' }, expect: 'failure' },
   launch_clip: { input: { trackId: MISSING, row: 0, quantization: 'none', mode: 'default' }, expect: 'failure' },
@@ -133,7 +134,7 @@ function workspace() {
 }
 
 test('8h4f vocabulary: every agent-native-v1 tool declares its schema and envelope', () => {
-  assert.equal(AGENT_NATIVE_TOOLS.length, 46);
+  assert.equal(AGENT_NATIVE_TOOLS.length, 47);
   assert.deepEqual(Object.keys(CASES).sort(), AGENT_NATIVE_TOOLS.map((spec) => spec.name).sort(),
     'each tool has exactly one vocabulary case');
   for (const spec of AGENT_NATIVE_TOOLS) {
