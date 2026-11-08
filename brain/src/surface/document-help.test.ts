@@ -410,7 +410,7 @@ test('8i9 claim repair: known-source and unknown-source timing faults name the e
 
 // --- timing-feel routing and method (8i10) -------------------------------------------
 
-test('8i10 routing: add, edit, and the read reference input say when to request Timing overlays', () => {
+test('B19 routing: add, edit, and the read reference input request Timing overlays only for claims the user asks for', () => {
   for (const name of ['add_launcher_clip', 'edit_launcher_clip']) {
     assert.ok(spec(name).description.includes(TIMING_FEEL_ROUTE), name);
   }
@@ -418,8 +418,11 @@ test('8i10 routing: add, edit, and the read reference input say when to request 
   for (const term of ['swing', 'groove', 'pocket', 'ahead of or behind the beat', 'Timing overlays']) {
     assert.ok(TIMING_FEEL_ROUTE.includes(term), term);
   }
+  // E392: the route no longer sends agents to claims for making or keeping feel; the notes carry it.
+  assert.match(TIMING_FEEL_ROUTE, /needs no overlays\. Only when the user asks to record or analyze timing feel as claims/);
+  assert.doesNotMatch(TIMING_FEEL_ROUTE, /to make, keep/);
   const reference = String((spec('read_launcher_clip').inputSchema['reference'] as { description?: string }).description);
-  assert.match(reference, /swing, groove, pocket, or notes ahead of or behind the beat, also request Timing overlays/);
+  assert.match(reference, /When the user asks to record or analyze timing feel \(swing, groove, pocket, or notes ahead of or behind the beat\) as claims, also request Timing overlays/);
 });
 
 /** The method note of the Timing overlays section. */
@@ -430,7 +433,8 @@ test('8i10 method: the Timing overlays section has the method note; it names no 
   const method = timingMethod();
   for (const text of ['shortest', 'push at the end of each phrase', 'about `1/128` beat', 'dense part',
     'provenance `inferred`', 'intent\n   `unresolved`', 'Keep the nominal\n   claims', 'keep their values',
-    'edit does not move keeps its current claims', 'new values under the\n   same IDs']) {
+    'edit does not move keeps its current claims', 'new values under the\n   same IDs',
+    'Use it only when the user asks', 'needs no claims']) {
     assert.ok(method.includes(text), text);
   }
   // R14-R16 give phase, cross, and local no musical meaning; the method does not either.

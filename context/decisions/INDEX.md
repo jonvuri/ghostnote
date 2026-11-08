@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-11-07
+updated: 2026-11-08
 ---
 
 # Decision index
@@ -71,6 +71,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D67 | Composition limits follow layer chains and existing sources: `compose_devices` admits 8 layer chains and 16 device units (VST3, CLAP and existing sources 2); replaces D44's `compose_devices` row | [open](d67-composition-limits-follow-chains-and-existing-sources.md) |
 | D68 | The composition chain limit is the seed width: a human-saved 16-chain seed carries the requested names, and `compose_devices` admits 16 layer chains; replaces D67's layer-chain row | [open](d68-composition-chain-limit-is-the-seed-width.md) |
 | D69 | Device-control limits follow routes: with one write turn per route (E411), `set_device_controls` admits 256 settings on 12 device routes (12 Diva routes 26.8 s, E412); replaces D44's `set_device_controls` row | [open](d69-device-control-limits-follow-routes.md) |
+| D70 | Clip writers return the read-back document as a file: `documentOutputPath` on add and edit (a dry run writes the expected document), `readback.clipId`, and no failed write for a failed publication | [open](d70-clip-writers-return-the-read-back-document-as-a-file.md) |
 
 ## Phase 4 closeout audit
 

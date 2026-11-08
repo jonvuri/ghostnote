@@ -15,6 +15,7 @@ import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import { AGENT_NATIVE_TOOL_PROFILE, callTool } from './tools.js';
+import { PLAN_CHANGE_LIST_ITEMS } from './agent-native-edit.js';
 import { workspaceOf } from './workspace.js';
 
 /** A note as the cold reader reports a new host note (E245). */
@@ -377,6 +378,24 @@ test('edit: dryRun returns the plan and writes nothing', async () => {
   assert.equal(typeof result.expected.document, 'string');
   assert.deepEqual(json(await fx.raw()), json(before));
   assert.equal(changeCount(fx), changes);
+});
+
+test('B19 edit: a dry run caps each change list at 64 entries and keeps the counts', async () => {
+  const fx = await fixture();
+  await fx.write(0, { 0: Array.from({ length: 100 }, (_, i) => note({ pitch: 36 + i % 48, startBeats: i / 4,
+    durationBeats: 1 / 4 })) }, 32);
+  const first = await fx.read();
+  const document = documentOf(first);
+  const updates = document.events.map((event) => `UPDATE ${event.id} {"velocity":64}`);
+  const result = await fx.editClip(patch(first.authority.base, updates), { dryRun: true });
+  assert.equal(result.failure, undefined, JSON.stringify(result).slice(0, 400));
+  assert.equal(result.plan.changed, 100);
+  assert.equal(result.plan.changes.changed.length, PLAN_CHANGE_LIST_ITEMS);
+  assert.deepEqual(result.plan.changes.truncated, ['changed']);
+  assert.equal(result.plan.changes.added.length, 0);
+  const small = await fx.editClip(patch(first.authority.base, updates.slice(0, 3)), { dryRun: true });
+  assert.equal(small.plan.changes.changed.length, 3);
+  assert.equal(small.plan.changes.truncated, undefined);
 });
 
 /** Run one refused edit: the result is a failure with the code and reason, and the host and the stash are unchanged. */

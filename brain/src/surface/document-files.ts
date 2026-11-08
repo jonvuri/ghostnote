@@ -31,6 +31,26 @@ export const documentOutputPathInput = absolute.optional().describe('Absolute pa
   + 'document. The result then has data.documentFile in place of the inline document. The parent directory must exist; '
   + `an existing path refuses with code occupied before any read. ${DOCUMENT_FILE_CONVENTION}`);
 
+/** B19: documentOutputPath of the clip writers. The file gets the read-back document, or the expected one of a dry run. */
+export const writeDocumentOutputPathInput = absolute.optional().describe('Absolute path of a new local file for the '
+  + 'read-back document (a dry run: the expected document), in the format encoding. The result then has '
+  + 'readback.documentFile (dry run: expected.documentFile) in place of an inline document. The parent directory '
+  + `must exist; an existing path refuses with code occupied before any read or write. ${DOCUMENT_FILE_CONVENTION}`);
+
+/**
+ * B19 (E392): an inline document above this size warns. Codex truncated tool results of about 48 KB and more, and
+ * those results lost EVENT rows.
+ */
+export const LARGE_INLINE_DOCUMENT_BYTES = 48 * 1024;
+
+/** The warning for one large inline document, or none. `document` is FIELDS text or a JSON object. */
+export function largeInlineDocumentWarnings(document: unknown): Warning[] {
+  const bytes = Buffer.byteLength(typeof document === 'string' ? document : JSON.stringify(document), 'utf8');
+  if (bytes <= LARGE_INLINE_DOCUMENT_BYTES) return [];
+  return [{ code: 'large-inline-document', message: `The inline document has ${bytes} bytes. A client can truncate `
+    + 'a result this large. Pass documentOutputPath to write the document to a new file instead.' }];
+}
+
 /** The facts of one document file in a result. */
 export interface DocumentFile {
   readonly path: string;

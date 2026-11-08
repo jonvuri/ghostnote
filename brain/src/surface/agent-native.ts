@@ -30,7 +30,10 @@ import {
 import {
   CORE_REFERENCE, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS, getDocumentReferenceTool, selectedReference,
 } from './document-help.js';
-import { checkDocumentOutput, documentOutputPathInput, publishDocumentFile } from './document-files.js';
+import {
+  LARGE_INLINE_DOCUMENT_BYTES, checkDocumentOutput, documentOutputPathInput, largeInlineDocumentWarnings,
+  publishDocumentFile,
+} from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
@@ -249,8 +252,8 @@ const readInput = z.object({
   reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
     'Optional model reference sections to return in the result, with the same document and authority.base. The '
     + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read. '
-    + 'When the task makes, keeps, cleans, or revises swing, groove, pocket, or notes ahead of or behind the beat, '
-    + 'also request Timing overlays. '
+    + 'When the user asks to record or analyze timing feel (swing, groove, pocket, or notes ahead of or behind the '
+    + 'beat) as claims, also request Timing overlays. '
     + 'get_document_reference returns the sections and templates without a clip.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),
@@ -284,7 +287,10 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'data.documentFile has path, format, bytes, sha256, and readback.status (verified, differs, or unavailable), and '
   + 'data has no inline document. An empty slot writes no file. The file has no change ID and cannot use '
   + 'revert_change. authority.base stays in the result: a script can build a patch or desired document from the '
-  + 'file for edit_launcher_clip documentPath. write_midi_file takes the file unchanged.\n'
+  + 'file for edit_launcher_clip documentPath. write_midi_file takes the file unchanged. A large clip is tens of '
+  + 'thousands of tokens inline, and a client can truncate the result; prefer documentOutputPath when a script '
+  + `processes the notes. An inline document above ${LARGE_INLINE_DOCUMENT_BYTES / 1024} KB returns warning `
+  + 'large-inline-document.\n'
   + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
   + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
@@ -371,6 +377,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
     stage = 'write';
     const output = args.documentOutputPath === undefined ? undefined : await publishDocumentFile(READ_SCHEMA,
       args.documentOutputPath, encodeLauncherClip(projection.document, encoding), encoding);
+    const inline = output === undefined ? encoded(projection.document, encoding) : undefined;
     const result: ReadResult<Record<string, unknown>> = {
       schema: READ_SCHEMA,
       source: SOURCE,
@@ -384,11 +391,11 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
       data: {
         occupancy: 'occupied',
         format: encoding,
-        ...(output === undefined ? { document: encoded(projection.document, encoding) } : { documentFile: output.documentFile }),
+        ...(inline === undefined ? { documentFile: output!.documentFile } : { document: inline }),
         ...lossOf(projection),
       },
       warnings: [...deltaIncompleteWarnings(acquired, why), ...projectionWarnings(projection),
-        ...(output?.warnings ?? [])],
+        ...(output?.warnings ?? largeInlineDocumentWarnings(inline))],
       timing: { readMs, totalMs: performance.now() - started },
       ...(args.reference === undefined ? {} : { reference: selectedReference(args.reference) }),
       ...(args.diagnostic === true ? { diagnostic: exactSource(snapshot) } : {}),

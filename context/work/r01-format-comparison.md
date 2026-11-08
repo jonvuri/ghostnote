@@ -193,8 +193,9 @@ the three offline investigations.
 [B19](b19-real-use-tooling-and-annotations.md) runs quick tool wins,
 then overlays, clip annotations and provenance (R01's format evaluation
 resumes there, possibly with a final benchmark), then clip operations and
-analysis tools. R01 stays open until B19 session 2 settles the format and
-claims questions.
+analysis tools. On 2026-11-08 a slot-occupancy session was inserted after the
+quick wins, so the overlay session is now B19 session 3. R01 stays open until
+that session settles the format and claims questions.
 
 ### Former next-session checklist (done in E392 and above)
 

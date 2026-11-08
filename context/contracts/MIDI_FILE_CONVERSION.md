@@ -119,7 +119,10 @@ Document IDs and overlay provenance are not MIDI identities.
 document tools. `documentPath` replaces inline `document` in
 `add_launcher_clip`, `edit_launcher_clip`, and `write_midi_file`; exactly one
 is required. `documentOutputPath` adds a file output to `read_launcher_clip`
-and `read_midi_file`. Paths are absolute on the server filesystem.
+and `read_midi_file`, and, under [D70](../decisions/d70-clip-writers-return-the-read-back-document-as-a-file.md),
+to `add_launcher_clip` and `edit_launcher_clip`: the read-back document, or
+the expected document of a dry run, in `readback.documentFile` or
+`expected.documentFile`. Paths are absolute on the server filesystem.
 
 Input files are regular files with no symbolic link, at most 8 MiB (R28), and
 valid UTF-8. Detect the encoding from the first record after leading white
@@ -135,7 +138,8 @@ Publication uses the same staged, atomic no-replace link as MIDI export, then
 an independent read compares the bytes. `data.documentFile` has path, format,
 bytes, SHA-256, and `readback.status`: `verified`, `differs`, or
 `unavailable`. An empty Launcher slot writes no file. A document file has no
-change ID and no revert.
+change ID and no revert. An inline document above 48 KB in a read result, a
+write readback, or a dry run returns warning `large-inline-document` (B19).
 
 The recommended names are `.gndoc` for FIELDS and `.gndoc.json` for JSON. The
 tools do not check names. `.gn` is avoided: GN build files use it.

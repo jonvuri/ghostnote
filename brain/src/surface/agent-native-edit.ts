@@ -34,7 +34,7 @@ import { UnprotectedWriteError, takeAppliedAnything } from '../engine/index.js';
 import type { BaseEntry } from '../bindings/identity-registry.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
 import {
-  launcherClipCells, projectLauncherClip, type LauncherClipProjection,
+  encodeLauncherClip, launcherClipCells, projectLauncherClip, type LauncherClipProjection,
 } from '../bindings/launcher-clip-document.js';
 import {
   EditRefusal, compareReadback, planLauncherClipEdit, type EditPlan,
@@ -55,11 +55,30 @@ import {
   asToolFailure, bindSnapshot, checkHealth, encoded, format, guarded, identityFacts, identityRegistryOf,
   lossOf, projectionWarnings, SOURCE,
 } from './agent-native.js';
-import { DOCUMENT_PATH_STATEMENT, documentInput, documentPathInput, type DocumentFile } from './document-files.js';
+import {
+  DOCUMENT_PATH_STATEMENT, checkDocumentOutput, documentInput, documentPathInput, largeInlineDocumentWarnings,
+  publishDocumentFile, writeDocumentOutputPathInput, type DocumentFile,
+} from './document-files.js';
 import type { ToolSpec } from './tools.js';
 import type { Workspace } from './workspace.js';
 
 export const EDIT_SCHEMA = 'ghostnote-launcher-clip-edit/1';
+
+/** At most this many entries in each change list of a dry-run plan (B19, E392: Codex truncated two dry runs). */
+export const PLAN_CHANGE_LIST_ITEMS = 64;
+
+/**
+ * B19 (E393): agents re-read 77 verified writes in the same turn (2.08 MB, 166 s). The readback is a new read after
+ * the write, not the writer echo (D15, D38), and its base and clip ID serve the next edit.
+ */
+export const VERIFIED_READBACK_STATEMENT = 'Result: applied, effects (each with a changeId for revert_change), and '
+  + 'readback from a new read of all 16 channels after the write, independent of the writer. readback.status '
+  + 'verified means that this read matched the expected document exactly: the sha256 and every value. Do not read '
+  + 'the clip again to check a verified write. readback.base (sha256 and ref) is the BASE of the next edit, and '
+  + 'readback.clipId is its clip ID. With mintedIds 0, every note has the ID that it had in the base or the call. '
+  + 'readback document returns the read-back document inline; documentOutputPath writes it to a new file instead '
+  + '(readback.documentFile). Status differs lists discrepancies (at most 64; discrepancyCount counts all). Status '
+  + 'unchanged writes nothing and no file.';
 
 const editInput = z.object({
   trackId: z.string().min(1).describe('Durable track ID from list_tracks.'),
@@ -74,8 +93,10 @@ const editInput = z.object({
   ),
   dryRun: z.boolean().optional().describe('Return the plan and make no write.'),
   readback: z.enum(['summary', 'document']).optional().describe(
-    'summary (default): the new base, IDs, and discrepancies. document: also the read-back document.',
+    'summary (default): the new base, clip ID, ID counts, and discrepancies. document: also the read-back '
+    + 'document inline.',
   ),
+  documentOutputPath: writeDocumentOutputPathInput,
 }).strict();
 export type EditInput = z.infer<typeof editInput>;
 
@@ -106,10 +127,10 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'detail.repair has the known correction, the reference section, and a template when one helps), or BASE '
   + 'does not match. Code absent: no clip in the slot; add_launcher_clip creates one. Code outside-limit: the clip '
   + 'is above a reader limit (see read_launcher_clip).\n'
-  + 'Result: applied, effects (each with a changeId for revert_change), and readback from an independent read of '
-  + 'all 16 channels: the new base (sha256 and ref), the IDs, and discrepancies (empty when every value landed). '
-  + 'readback document returns the new document too. dryRun returns the plan and writes nothing. A failed write '
-  + 'states its effects and is not retried; read the clip before another edit.\n'
+  + `${VERIFIED_READBACK_STATEMENT}\n`
+  + 'dryRun returns the plan and writes nothing; each change list of plan.changes holds at most '
+  + `${PLAN_CHANGE_LIST_ITEMS} entries, and plan has the counts. With documentOutputPath, the expected document goes `
+  + 'to the file. A failed write states its effects and is not retried; read the clip before another edit.\n'
   + 'Overlays in the document are stored with the base ref in this server process. A later read returns them, '
   + 'stale or removed when their notes changed. This tool is the dependency-basis utility: a current claim that '
   + 'the call states (OVERLAY_PUT, or a new or changed OVERLAY of a desired document) can omit basis, and the tool '
@@ -301,21 +322,50 @@ function summaryText(plan: EditPlan): string {
 }
 
 function planView(plan: EditPlan) {
+  const lists = {
+    added: plan.report.added,
+    removed: plan.report.removed,
+    changed: plan.report.changedFields,
+    moved: plan.moved,
+    overlays: plan.report.overlayChanges,
+  };
+  const truncated = Object.entries(lists).filter(([, list]) => list.length > PLAN_CHANGE_LIST_ITEMS).map(([name]) => name);
+  const cap = <T>(list: readonly T[]): readonly T[] => list.slice(0, PLAN_CHANGE_LIST_ITEMS);
   return {
     ...summaryOf(plan),
     changes: {
-      added: plan.report.added,
-      removed: plan.report.removed,
-      changed: plan.report.changedFields,
-      ...(plan.moved.length === 0 ? {} : { moved: plan.moved.map((item) => ({ id: item.id,
+      added: cap(lists.added),
+      removed: cap(lists.removed),
+      changed: cap(lists.changed),
+      ...(plan.moved.length === 0 ? {} : { moved: cap(plan.moved).map((item) => ({ id: item.id,
         from: { channel: item.from.channel + 1, pitch: item.from.pitch, at: `${item.from.cell}/512` },
         to: { channel: item.to.channel + 1, pitch: item.to.pitch, at: `${item.to.cell}/512` } })) }),
       ...(plan.report.clipFields.length === 0 ? {} : { clip: plan.report.clipFields }),
-      ...(plan.report.overlayChanges.length === 0 ? {} : { overlays: plan.report.overlayChanges }),
+      ...(lists.overlays.length === 0 ? {} : { overlays: cap(lists.overlays) }),
+      ...(truncated.length === 0 ? {} : { truncated }),
     },
     operations: plan.ops.map((op) => op.op),
     expectedSha256: plan.expectedHash,
   };
+}
+
+/**
+ * The read-back document as a new file, after an applied write. A failed publication does not fail the write: the
+ * result keeps applied and its effects, and a warning names the file failure.
+ */
+async function publishedReadback(
+  path: string, document: LauncherClipProjection['document'], encoding: Encoding, warnings: Warning[],
+): Promise<Record<string, unknown>> {
+  try {
+    const output = await publishDocumentFile(EDIT_SCHEMA, path, encodeLauncherClip(document, encoding), encoding);
+    warnings.push(...output.warnings);
+    return { documentFile: output.documentFile };
+  } catch (error) {
+    const reason = error instanceof ToolFailure ? `${error.code}: ${error.message}` : String(error);
+    warnings.push({ code: 'document-file-unwritten', message: 'The write is applied, but the read-back document '
+      + `file was not written (${reason}). Read the clip with documentOutputPath.` });
+    return {};
+  }
 }
 
 /** The internal options of `add_launcher_clip`: its parsed and checked proposal, on the clip that it created. */
@@ -334,6 +384,8 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
   try {
     // The inline encoding is format; a documentPath file sets its own. format also encodes returned documents.
     const input = creation === undefined ? await documentInput(args, encoding) : undefined;
+    // add_launcher_clip checks its destination before the creation.
+    if (creation === undefined && args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
     const file = creation?.documentFile ?? input?.file;
     const fileFacts = file === undefined ? {} : { documentFile: file };
     const { document: proposal, seal } = creation?.parsed ?? parseProposal(input!);
@@ -433,7 +485,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
     if (plan.noChange) {
       const result: WriteResult<Record<string, unknown>> = {
         schema: EDIT_SCHEMA, applied: false, effects: [],
-        readback: { base, status: 'unchanged' },
+        readback: { base, clipId: entry.clipId, status: 'unchanged' },
         timing: { ...timing, totalMs: performance.now() - started },
       };
       return { ...result, target, ...fileFacts, plan: planView(plan) };
@@ -443,10 +495,15 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         schema: EDIT_SCHEMA, applied: false, effects: [], readback: null,
         timing: { ...timing, totalMs: performance.now() - started },
       };
+      const expected = encoded(plan.expected, encoding);
+      const output = args.documentOutputPath === undefined ? undefined : await publishDocumentFile(EDIT_SCHEMA,
+        args.documentOutputPath, encodeLauncherClip(plan.expected, encoding), encoding);
+      const warnings = [...(plan.route === 'whole-clip' ? [PRESSURE_WARNING] : []),
+        ...(output === undefined ? largeInlineDocumentWarnings(expected) : output.warnings)];
       return {
         ...result, target, ...fileFacts, dryRun: true, base, plan: planView(plan),
-        ...(plan.route === 'whole-clip' ? { warnings: [PRESSURE_WARNING] } : {}),
-        expected: { format: encoding, document: encoded(plan.expected, encoding) },
+        ...(warnings.length === 0 ? {} : { warnings }),
+        expected: { format: encoding, ...(output === undefined ? { document: expected } : { documentFile: output.documentFile }) },
       };
     }
 
@@ -504,13 +561,21 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
       readback = {
         status: discrepancies.length === 0 && acquired.entry.contentHash === plan.expectedHash ? 'verified' : 'differs',
         base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
+        clipId: acquired.entry.clipId,
         ...identityFacts(acquired, projection),
         discrepancies: discrepancies.slice(0, 64),
         ...(discrepancies.length > 64 ? { discrepancyCount: discrepancies.length } : {}),
         ...(acquired.entry.contentHash === plan.expectedHash ? {} : { expectedSha256: plan.expectedHash }),
         ...lossOf(projection!),
-        ...(args.readback === 'document' ? { format: encoding, document: encoded(projection!.document, encoding) } : {}),
       };
+      const back = projection!.document;
+      if (args.documentOutputPath !== undefined) {
+        readback = { ...readback, ...await publishedReadback(args.documentOutputPath, back, encoding, warnings) };
+      } else if (args.readback === 'document') {
+        const document = encoded(back, encoding);
+        readback = { ...readback, format: encoding, document };
+        warnings.push(...largeInlineDocumentWarnings(document));
+      }
     } catch (error) {
       readback = unavailableReadback(EDIT_SCHEMA, asToolFailure(error));
       warnings.push(readbackUnavailableWarning('the clip'));

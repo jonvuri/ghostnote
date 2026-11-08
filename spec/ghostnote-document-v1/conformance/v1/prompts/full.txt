@@ -1,6 +1,6 @@
 # Model format reference
 
-Format: `ghostnote-document/1.0`. Reference revision: `5`.
+Format: `ghostnote-document/1.0`. Reference revision: `6`.
 The [identity file](MODEL-REFERENCE.identity.json) gives the SHA-256 of this
 maintained source. Select the Core section and the optional sections needed
 for the task. Examples use generated MIT fixture music.
@@ -146,10 +146,11 @@ For `n1`: sourceAt `17/32` = `1/2` + template `1/32`; source duration `3/16`
 = `1/4` + durationIntent `-1/16`; both deltas are zero. For `n2`: unassigned
 `1/128` = `129/128` - `1`; durationUnassigned `-1/32` = `15/32` - `1/2`.
 
-Method for timing feel (guidance, not a rule). Use it when a task makes,
-keeps, cleans, transfers, or revises swing, groove, pocket, or the position of
-notes ahead of or behind the beat. Skip it for notes on the grid with no
-timing feel.
+Method for timing feel (guidance, not a rule). Use it only when the user asks
+to record or analyze swing, groove, pocket, or the position of notes ahead of
+or behind the beat as claims. The note onsets and durations carry the feel:
+making, copying, keeping, or changing it needs no claims. Claims stay in the
+server process; a clip copy or move, or a project save-as, drops them.
 
 1. Put a nominal claim on each note at its grid position.
 2. Find the step pattern: the typical offset of each step position over the

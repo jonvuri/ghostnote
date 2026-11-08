@@ -9,7 +9,7 @@ import { MidiError, MIDI_LIMITS } from '../midi/smf.js';
 import { ToolFailure, failureResult, readbackOrUnavailable, readbackStatusOf } from './agent-native-result.js';
 import { repairOf } from './document-help.js';
 import {
-  DOCUMENT_FILE_CONVENTION, checkDocumentOutput, documentInput, documentOutputPathInput, documentPathInput, publishDocumentFile,
+  DOCUMENT_FILE_CONVENTION, LARGE_INLINE_DOCUMENT_BYTES, checkDocumentOutput, largeInlineDocumentWarnings, documentInput, documentOutputPathInput, documentPathInput, publishDocumentFile,
   type DocumentFile,
 } from './document-files.js';
 import type { ToolSpec } from './tools.js';
@@ -60,7 +60,7 @@ export async function readMidiFile(args: z.infer<typeof readInput>) {
       data: output === undefined ? { format: 'fields', document: text, documentBytes: Buffer.byteLength(text), report }
         : { format: 'fields', documentFile: output.documentFile, report },
       warnings: [
-        ...(output?.warnings ?? []),
+        ...(output?.warnings ?? largeInlineDocumentWarnings(text)),
         ...(report.ignored.length ? [{ code: 'midi-data-omitted', message: 'Some source MIDI data has no document mapping. See data.report.ignored. Sustain and other controller effects are not applied to note lengths.' }] : []),
         ...(report.overlappingNoteOns ? [{ code: 'midi-fifo-pairing', message: 'Overlapping same-pitch notes use FIFO pairing: each note-off closes the earliest open note on its track and channel. MIDI carries no note identity.' }] : []),
       ] };
@@ -101,6 +101,7 @@ export const MIDI_FILE_TOOLS: readonly ToolSpec[] = [{
   description: 'Profile agent-native-v1. Read a local Standard MIDI File as a complete Ghostnote Document 1.0 FIELDS desired document, inline in data.document. '
     + 'With documentOutputPath, write the document to that new file instead: data.documentFile has path, format, bytes, sha256, and readback.status (verified, differs, or unavailable), and the result holds no inline document. '
     + 'A large transcription is tens of thousands of tokens inline; prefer documentOutputPath when a script processes the notes, then give the file to add_launcher_clip or edit_launcher_clip with documentPath. '
+    + `An inline document above ${LARGE_INLINE_DOCUMENT_BYTES / 1024} KB returns warning large-inline-document. `
     + 'Use get_document_reference for format syntax. Each musical track becomes one CLIP; channels are 1 to 16. Keep leading silence and source beat coordinates by default. '
     + 'targetBpm preserves elapsed time through the source tempo map and maps it to the requested constant BPM before normalization; omit it when the file has its own tempo map. '
     + 'data.report.sourceTempo summarizes the source map: events, changes (events with a new value), equalMerged, firstBpm, minBpm, and maxBpm. Consecutive equal tempos make one overlay. '

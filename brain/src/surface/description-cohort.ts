@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v64';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v65';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -950,3 +950,18 @@ export const TOOL_DESCRIPTION_V63_SHA256 = 'c52f0f68b8cf7de8fd096731b16f2bcd68c5
  * of 16,384 notes); a metadata or launch-settings edit no longer captures the clip's notes.
  */
 export const TOOL_DESCRIPTION_V64_SHA256 = '7b3ba5b955dfff60418a8f32f9da1c38bcf515252ffd2e16cb7a6acad33564a7';
+
+/**
+ * v60 on main (B19 session 1), published in parallel with P01 v60–v64: add and edit state that a verified readback is an independent read and need not be checked
+ * again, return readback.clipId, and take documentOutputPath; a dry run caps its change lists at 64 entries. The
+ * clip and MIDI reads prefer documentOutputPath and warn on an inline document above 48 KB. Timing overlays are
+ * routed only on an explicit request for claims (model reference revision 6).
+ */
+export const TOOL_DESCRIPTION_V60_B19_SHA256 = 'cbd3e43ae89ec4735f3dda5d1511b439abb982d9e5f1eaafe09e9f621e9339de';
+
+/**
+ * v65: the P01 v64 surface merged with the B19 session 1 changes (main's v60): verified readback statements,
+ * readback.clipId, documentOutputPath on the clip writers, capped dry-run change lists, the large inline document
+ * warning, and Timing overlays only on an explicit request for claims.
+ */
+export const TOOL_DESCRIPTION_V65_SHA256 = '9504efe308d2e6230d55a4c806956fef91f3f37d130605eaf6c781899d3e5af0';
