@@ -341,5 +341,19 @@ Each tool needs ledger rows, call-budget tests and a focused live check.
   - move: lost at the destination (identity new); re-attaching it with a
     provenance-only edit verified;
   - copy: the source keeps it; the copy has none.
-- **Open.** Copy and move do not yet carry provenance to the destination clip
-  (proposal 6); it finishes session 3.
+- **Copy and move carry (proposal 6,
+  [D74](../decisions/d74-ghostnote-moves-keep-clip-identity.md)).** A
+  verified copy or move leaves a carry at the destination, with no host call;
+  the first read there takes it when the document equals the source as last
+  read. A move keeps the clip and event IDs (identity `moved`); a copy takes
+  the provenance with new IDs. Registry and tool tests cover the move, the
+  copy, an overlapping move, and the cases that drop the carry; the copy and
+  move call budgets are unchanged. Descriptions v69.
+- **Carry checked live (2026-11-08, gn-scale-test-d73, v69 after an MCP
+  server restart).** Provenance was re-attached to the scratch clip on gn-B
+  row 8 (clip `c1`, events `e2`–`e5`). A move to row 7 read back as identity
+  `moved` with 4 IDs retained, 0 minted, the same clip and event IDs, and the
+  provenance. A copy to row 2 read back as identity `new` with clip `c6`, new
+  event IDs, and the source's provenance; the source stayed `current`. Both
+  tools took their usual time (move 1,193 ms, copy 993 ms). The scratch clips
+  were then deleted from gn-scale-test-d73.

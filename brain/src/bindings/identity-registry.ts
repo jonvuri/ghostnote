@@ -18,6 +18,13 @@
  * Each entry also holds the stored META, EXTENSIONS, and clip provenance of its
  * document (D73): Bitwig stores none of them. A kept clip ID carries them.
  *
+ * A verified clip copy or move leaves a carry at its destination (B19): the
+ * next acquisition there that has no live prior takes the source entry's
+ * envelope when its document equals the source entry's document. A move also
+ * keeps the clip ID and every event ID (`moved`); a copy mints new IDs. A
+ * mismatch, another domain or scene layout, a write, or an empty read at the
+ * destination drops the carry.
+ *
  * The registry never matches by similarity. It is in process memory only: a
  * restart retires every ref. It holds at most `limit` live refs (default 256).
  * The least recently used ref retires first. A project or generation change
@@ -88,7 +95,7 @@ export type Lookup =
   | { readonly state: 'unknown' };
 
 /** How the IDs of one acquisition relate to the prior entry at the address. */
-export type IdentityOutcome = 'new' | 'current' | 'stale' | 'retired-and-new' | 'written';
+export type IdentityOutcome = 'new' | 'current' | 'stale' | 'retired-and-new' | 'written' | 'moved';
 
 export interface Acquired {
   readonly entry: BaseEntry;
@@ -125,6 +132,22 @@ export function storedEnvelope(document: Pick<StateDocument, 'meta' | 'extension
   };
 }
 
+/** One slot address of a copy or move. */
+export interface SlotAddress {
+  readonly channelId: string;
+  readonly row: number;
+}
+
+/** A pending carry: the source entry of a copy or move and the mark after the write. */
+interface Carry {
+  readonly kind: 'copy' | 'move';
+  readonly mark: RevisionMark;
+  readonly from: BaseEntry;
+}
+
+const sameDomain = (a: RevisionMark, b: RevisionMark): boolean => a.project === b.project
+  && a.generation === b.generation && a.sceneEpoch === b.sceneEpoch && a.window.scenes.count === b.window.scenes.count;
+
 const RETIRING: ReadonlySet<ClipSnapshotVerdictKind> = new Set(['identity-changed', 'absent', 'incomparable', 'uncovered']);
 
 const addressOf = (snapshot: Pick<ClipSnapshotRef, 'channelId' | 'row'>): string =>
@@ -134,6 +157,7 @@ export class IdentityRegistry {
   private readonly entries = new Map<string, BaseEntry>();
   private readonly tombstones = new Map<string, Retirement>();
   private readonly latest = new Map<string, string>();
+  private readonly carries = new Map<string, Carry>();
   private counter = 0;
 
   constructor(
@@ -166,6 +190,7 @@ export class IdentityRegistry {
         retired.push(this.retire(entry, 'identity-changed'));
       }
     }
+    for (const [address, carry] of [...this.carries]) if (!sameDomain(carry.mark, now)) this.carries.delete(address);
     return retired;
   }
 
@@ -196,12 +221,43 @@ export class IdentityRegistry {
     this.entries.set(ref, refreshed);
   }
 
+  /** A read found the slot empty: retire its refs (`absent`) and drop its carry. */
+  emptied(slot: SlotAddress): readonly Retirement[] {
+    this.carries.delete(addressOf(slot));
+    return this.retireAddress(slot, 'absent');
+  }
+
   /** Retire every live ref at the address of `snapshot`, with one reason. */
   retireAddress(snapshot: Pick<ClipSnapshotRef, 'channelId' | 'row'>, reason: RetirementReason): readonly Retirement[] {
     const address = addressOf(snapshot);
     return [...this.entries.values()]
       .filter((entry) => addressOf(entry.snapshot) === address)
       .map((entry) => this.retire(entry, reason));
+  }
+
+  /**
+   * Record a verified clip copy or move (B19). Each pair names a source and a destination slot. The newest entry
+   * at each source becomes a carry at its destination: a move carries its IDs and envelope, a copy only a
+   * nonempty envelope. Every ref at a destination retires (`identity-changed`), and a moved source retires
+   * (`absent`), so a stale ref of another clip cannot bind the moved clip. `mark` is the mark after the write.
+   * Returns the number of carries.
+   */
+  carry(kind: 'copy' | 'move', pairs: readonly { source: SlotAddress; destination: SlotAddress }[], mark: RevisionMark): number {
+    const from = pairs.map((pair) => this.latestAt(pair.source.channelId, pair.source.row));
+    if (kind === 'move') for (const pair of pairs) this.emptied(pair.source);
+    for (const pair of pairs) {
+      this.retireAddress(pair.destination, 'identity-changed');
+      this.carries.delete(addressOf(pair.destination));
+    }
+    let carried = 0;
+    pairs.forEach((pair, index) => {
+      const entry = from[index];
+      if (entry === undefined || (kind === 'copy' && Object.keys(entry.envelope).length === 0)) return;
+      this.carries.set(addressOf(pair.destination), { kind, mark, from: entry });
+      carried += 1;
+    });
+    while (this.carries.size > this.limit) this.carries.delete(this.carries.keys().next().value!);
+    return carried;
   }
 
   /**
@@ -243,6 +299,14 @@ export class IdentityRegistry {
       retired = [...this.retireAddress(prior.entry.snapshot, prior.verdict as RetirementReason)];
     }
 
+    const carry = base === undefined ? this.takeCarry(snapshot, keys, input.project) : undefined;
+    if (carry?.moved !== undefined) {
+      const { clipId, eventIds, projected } = carry.moved;
+      const entry = this.entryOf(snapshot, clipId, keys, eventIds, projected);
+      this.insert(entry);
+      return { entry, outcome: 'moved', retained: keys.length, minted: 0, ...(retired === undefined ? {} : { retired }) };
+    }
+
     const clipId = base?.clipId ?? this.mint('c');
     let retained = 0;
     const eventIds = keys.map((key) => {
@@ -253,7 +317,7 @@ export class IdentityRegistry {
       }
       return this.mint('e');
     });
-    const projected = input.project({ clipId, eventIds, envelope: base?.envelope ?? {} });
+    const projected = input.project({ clipId, eventIds, envelope: base?.envelope ?? carry?.envelope ?? {} });
     const entry = this.entryOf(snapshot, clipId, keys, eventIds, projected);
     this.insert(entry);
     const outcome: IdentityOutcome = base !== undefined ? 'stale' : retired !== undefined ? 'retired-and-new' : 'new';
@@ -279,6 +343,7 @@ export class IdentityRegistry {
   }): Acquired {
     const keys = input.cells.map(cellKey);
     if (new Set(keys).size !== keys.length) throw new Error('two acquired events have one cell address');
+    this.carries.delete(addressOf(input.snapshot));
     let retained = 0;
     const used = new Set<string>();
     const eventIds = keys.map((key) => {
@@ -294,6 +359,29 @@ export class IdentityRegistry {
     const entry = this.entryOf(input.snapshot, input.clipId, keys, eventIds, projected);
     this.insert(entry);
     return { entry, outcome: 'written', retained, minted: keys.length - retained };
+  }
+
+  /**
+   * Take the carry at the address of `snapshot`. It applies when the domain is unchanged, the cells are the
+   * source entry's cells, and the document projected with the source IDs and envelope has the source entry's
+   * content hash: the destination holds the clip that Ghostnote last read at the source.
+   */
+  private takeCarry(
+    snapshot: ClipSnapshotRef, keys: readonly string[], project: (ids: ProjectionIds) => Projected,
+  ): { readonly envelope: StoredEnvelope; readonly moved?: { clipId: string; eventIds: string[]; projected: Projected } } | undefined {
+    const address = addressOf(snapshot);
+    const carry = this.carries.get(address);
+    if (carry === undefined) return undefined;
+    this.carries.delete(address);
+    const { from } = carry;
+    if (!sameDomain(carry.mark, snapshot.mark) || keys.length !== from.events.size
+        || keys.some((key) => !from.events.has(key))) return undefined;
+    const eventIds = keys.map((key) => from.events.get(key)!);
+    const projected = project({ clipId: from.clipId, eventIds, envelope: from.envelope });
+    if (projected.contentHash !== from.contentHash) return undefined;
+    return carry.kind === 'move'
+      ? { envelope: from.envelope, moved: { clipId: from.clipId, eventIds, projected } }
+      : { envelope: from.envelope };
   }
 
   private entryOf(

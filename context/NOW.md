@@ -34,7 +34,8 @@ reference revision 7, descriptions v68 (47 tools); all 2,591 brain tests
 pass, with no wire change. Live, provenance survives a project save; a
 save-as rename, a move, and a copy's destination lose it, and a
 provenance-only edit re-attaches it ([brief](work/b19-real-use-tooling-and-annotations.md#session-3-2026-11-08-implemented-and-checked-live)).
-Next: provenance carry on copy and move, which finishes session 3; then
+Copy and move now carry it (D74, descriptions v69; a move keeps the clip and
+event IDs), checked live. Then
 session 4, clip operations, and session 5, analysis tools after the selector
 and tool-grain decisions. P01 is merged with
 B19 session 1; P01's next deploy must carry `slot.occupancy`, and its live

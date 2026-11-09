@@ -284,7 +284,9 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'large-inline-document.\n'
   + 'Bitwig stores no clip provenance, META, or EXTENSIONS. Those that add_launcher_clip or edit_launcher_clip '
   + 'wrote come back with the document while the clip ID stays (also after a human edit), until a restart or a '
-  + 'retired ref. Without them, re-attach provenance from your document with an edit CLIP_UPDATE.\n'
+  + 'retired ref. The first read after copy_launcher_clips or move_launcher_clips returns them when the clip '
+  + 'equals its source as Ghostnote last read it; a moved clip also keeps its clip ID and event IDs (identity '
+  + 'moved). Without them, re-attach provenance from your document with an edit CLIP_UPDATE.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
   + 'target-changed, stale-address, group-slot, collapsed-group-row, range (select the clip in Bitwig '
   + 'and use Consolidate, then read again), collision, partial, or unavailable. Branch on the code, '
@@ -345,7 +347,7 @@ async function readLauncherClip(workspace: Workspace, args: ReadInput): Promise<
         ? 'The clip is outside the observed window.' : 'The track or the launcher slot does not exist.');
     }
     if (entry.value.of !== 'clip' || !entry.value.exists) {
-      registry.retireAddress({ channelId: args.trackId, row: args.row }, 'absent');
+      registry.emptied({ channelId: args.trackId, row: args.row });
       const result: ReadResult<{ occupancy: 'empty' }> = {
         schema: READ_SCHEMA,
         source: SOURCE,
@@ -423,7 +425,7 @@ const readLauncherClipTool: ToolSpec = {
     envelope: ['schema', 'source', 'target', 'coverage', 'authority', 'data', 'warnings', 'timing'],
     failure: ['schema', 'failure.code', 'failure.stage', 'failure.effects', 'message', 'retryWhen'],
     occupancy: ['occupied', 'empty'],
-    identity: ['new', 'current', 'stale', 'retired-and-new'],
+    identity: ['new', 'current', 'stale', 'retired-and-new', 'moved'],
     reference: MODEL_REFERENCE,
   },
   run: (workspace, input) => readLauncherClip(workspace, input as ReadInput),

@@ -28,8 +28,13 @@ Two equal clips have different IDs. A duplicate always gets a new ID.
 Retain an ID while its reference checks as `current`, and across a `stale`
 verdict at the same address: note and metadata edits keep the clip. Retire it
 when the verdict is `identity-changed`, `absent`, `incomparable`, or
-`uncovered`. D32 has no move proof. A moved, duplicated, or replaced clip always
-gets a new ID, also when its content is equal. A scene insertion or deletion
+`uncovered`. D32 has no move proof. A clip that a person moves, duplicates, or
+replaces always gets a new ID, also when its content is equal. A verified
+move by the binding's own move tool is the proof D32 lacks: the first read at
+the destination keeps the clip ID and every event ID when the document there
+equals the document last read at the source, in the same project and scene
+layout ([D74](../../context/decisions/d74-ghostnote-moves-keep-clip-identity.md)).
+A copy is a new clip with new IDs. A scene insertion or deletion
 changes the scene guard and retires every reference in the project. Track index
 changes resolve through `channelId`. A stale base is never repaired by editing
 its address alone.
@@ -76,7 +81,8 @@ live ID. D23 does not expose multiple source IDs in a collided cell.
 | Authorized portable update that changes address | Retain proposal event ID after verified application | Original ID map, exact before guard, collision-free plan, and independent after readback |
 | Authorized add/remove | Mint supplied new ID / retire removed ID | IDs valid and unique; fresh occupancy and expected-state checks |
 | Reconstruct unchanged retained events | Retain only from the authorized plan | Complete protected before state and independent final mapping; partial effects do not prove missing IDs survived |
-| Clip move | Mint all events | D32 has no move proof; the new address needs a new read |
+| Clip move by the binding | Retain every event ID and the clip ID at the first read of the destination | The binding's verified move; the destination document equals the source document last read, with the same cells, project, and scene layout (D74) |
+| Clip move by a person | Mint all events | D32 has no move proof; the new address needs a new read |
 | Clip duplication/replacement | Mint all events | A separate document clip ID even when notes match |
 | Reload, project change, or ambiguity | Retire; mint after fresh acquisition | `incomparable` or `identity-changed` verdict, or no unique proof; no similarity matching |
 
@@ -111,7 +117,8 @@ analysis of the notes is recomputed, not stored.
 | `stale` verdict (a human note or metadata edit) | Carried to the new ref unchanged. Provenance does not go stale: the notes still derive from the named source |
 | Verified write | The expected document's envelope, bound to the new ref; `readback.held` names provenance |
 | `identity-changed`, `absent`, `incomparable`, `uncovered`, eviction, restart | Dropped with the ref; a new acquisition has none |
-| Clip move, duplication, or replacement | None on the new ID; the agent re-attaches provenance with `clipUpdate` |
+| Copy or move by the binding | Carried to the first read of the destination when its document equals the source document last read (D74); a move keeps the clip ID |
+| A person's move, duplication, or replacement; a project save-as | None on the new ID; the agent re-attaches provenance with `clipUpdate` |
 
 A patch keeps the stored provenance unless its `clipUpdate` sets or clears it.
 A desired replacement supplies the complete provenance. A provenance change

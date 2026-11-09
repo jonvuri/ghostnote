@@ -36,7 +36,7 @@ import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult, readbackOrUnavailable,
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
-import { checkHealth, format, guarded, selectionWarnings, withSelection } from './agent-native.js';
+import { checkHealth, format, guarded, identityRegistryOf, selectionWarnings, withSelection } from './agent-native.js';
 import {
   PROVENANCE_STATEMENT, VERIFIED_READBACK_STATEMENT, checkDesiredOverlaps, documentText, editLauncherClip, parseProposal,
 } from './agent-native-edit.js';
@@ -339,6 +339,12 @@ const addLauncherClipTool: ToolSpec = {
 
 // --- copy_launcher_clips -------------------------------------------------------
 
+/** The registry address of a slot. */
+const slotOf = (item: Target) => ({ channelId: item.trackId, row: item.row });
+
+/** B19: what a copy or move does with the Ghostnote-held clip facts. */
+const CARRY_STATEMENT = 'Ghostnote keeps clip provenance (with META and EXTENSIONS) that Bitwig cannot store. ';
+
 const copyInput = z.object({
   copies: z.array(z.object({ source: address, destination: address }).strict()).min(1).describe(
     `Each copy names its source clip and its destination slot. ${atMost('clipCopyBatch', 'copies')}`,
@@ -356,6 +362,9 @@ const COPY_DESCRIPTION = `${PROFILE} Copy Launcher clips. Each copy names a sour
   + 'add scenes at the end with add_scenes. Every result, also a refusal and a dry run, has occupancy: the '
   + 'state of each slot that the preflight read.\n'
   + 'One call copies at most 8 clips (8 clips of 16,384 notes: about 12 s). A larger request refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
+  + CARRY_STATEMENT + 'The next read of a copy returns the provenance of its source when the copy equals the '
+  + 'source as Ghostnote last read it; the copy gets a new clip ID and new event IDs. Otherwise re-attach the '
+  + 'provenance with an edit CLIP_UPDATE.\n'
   + 'Result: one effect with a changeId; revert_change removes the copies while they are unchanged.';
 
 /** 8i14 (E263): the track types with a proved clip copy. Bitwig changes an Audio track that receives a note clip. */
@@ -419,6 +428,8 @@ async function copyLauncherClips(workspace: Workspace, args: CopyInput): Promise
     }
     const copied = (item: Target) => occupancyIn(after.entries, item, after.at);
     const missing = destinations.filter((item) => copied(item) !== 'occupied');
+    identityRegistryOf(workspace).carry('copy', args.copies.filter((item) => copied(item.destination) === 'occupied')
+      .map((item) => ({ source: slotOf(item.source), destination: slotOf(item.destination) })), after.at);
     const outcome: WriteResult<unknown> = {
       schema: COPY_SCHEMA,
       applied: true,
@@ -469,6 +480,9 @@ const MOVE_DESCRIPTION = `${PROFILE} Move a contiguous range of Launcher clips o
   + 'no clip is replaced. Every result, also a refusal and a dry run, has occupancy: the state of each row that '
   + 'the preflight read. One call moves at most 8 rows (8 clips of 16,384 notes: about 24 s). A larger range '
   + 'refuses before any read or write (code outside-limit, the limit in detail): split it into more calls.\n'
+  + CARRY_STATEMENT + 'The next read of a moved clip keeps its clip ID, event IDs, and provenance (identity '
+  + 'moved) when the clip equals the source as Ghostnote last read it; otherwise it mints new IDs. Refs of the '
+  + 'source and destination rows retire: read the clip again before an edit.\n'
   + 'revert_change does not move clips back: a clip has no durable identity. next.reverse is the exact reverse '
   + 'call; it is safe while the old source rows stay empty and the new rows hold these clips.';
 
@@ -542,6 +556,11 @@ async function moveLauncherClips(workspace: Workspace, args: MoveInput): Promise
         lastRow: destinationLastRow }, { next: reverse, started }), target };
     }
     const missing = destinationRows.filter((index) => occupancyIn(after.entries, at$(index), after.at) !== 'occupied');
+    if (missing.length === 0) {
+      identityRegistryOf(workspace).carry('move', sourceRows.map((sourceRow) => ({
+        source: slotOf(at$(sourceRow)), destination: slotOf(at$(args.destinationFirstRow + sourceRow - args.firstRow)) })),
+      after.at);
+    }
     const outcome: WriteResult<unknown> = {
       schema: MOVE_SCHEMA,
       applied: true,

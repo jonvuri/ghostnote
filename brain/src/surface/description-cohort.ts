@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v68';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v69';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -989,3 +989,10 @@ export const TOOL_DESCRIPTION_V67_SHA256 = 'e93c2815d84024adb8d85567b2d72f6be800
  * revision 7).
  */
 export const TOOL_DESCRIPTION_V68_SHA256 = 'cd5a7b02996797bf4998b4335a4970a3161897bf5049bda56054703c56ea253d';
+
+/**
+ * v69 (B19 session 3): copy_launcher_clips and move_launcher_clips carry the Ghostnote-held provenance to the next
+ * read of the new clip when it equals its source as last read; a move also keeps the clip and event IDs (identity
+ * moved). read_launcher_clip states both.
+ */
+export const TOOL_DESCRIPTION_V69_SHA256 = '0a5cd6a8511fd0f38e569c2098b3cd93643e3f0cdb01879aaba1d5d0d81b46bb';

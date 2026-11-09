@@ -191,3 +191,95 @@ test('D73: a kept clip ID carries the stored provenance and envelope; a new clip
   assert.equal(fresh.outcome, 'retired-and-new');
   assert.deepEqual(seen!.envelope, {});
 });
+
+const CELLS = [cell(60), cell(64, 512), cell(67, 1024)];
+const at = (row: number) => ({ channelId: 'track-a', row });
+
+/** A registry with one written entry at row 0 that holds provenance. */
+function withHeld() {
+  const registry = new IdentityRegistry();
+  const prior = first(registry);
+  const provenance = { sources: [{ path: '/music/source.mid' }] };
+  const written = registry.recordWrite({ snapshot: ref('b'), cells: CELLS, clipId: prior.entry.clipId,
+    ids: prior.entry.events, envelope: { provenance }, project: project('2') });
+  return { registry, written: written.entry, provenance };
+}
+
+test('B19: a moved clip that equals its source keeps the clip ID, event IDs, and envelope (moved)', () => {
+  const { registry, written, provenance } = withHeld();
+  assert.equal(registry.carry('move', [{ source: at(0), destination: at(2) }], mark()), 1);
+  assert.equal(registry.lookup(written.ref).state, 'retired', 'the source ref retires');
+  assert.equal(registry.latestAt('track-a', 0), undefined);
+  const moved = registry.acquire({ snapshot: ref('b', { row: 2 }), cells: CELLS, project: project('2') });
+  assert.equal(moved.outcome, 'moved');
+  assert.equal(moved.entry.clipId, written.clipId);
+  assert.deepEqual([...moved.entry.events], [...written.events]);
+  assert.deepEqual(moved.entry.envelope, { provenance });
+  assert.equal(moved.minted, 0);
+  // The carry is used once: the next read is an ordinary acquisition.
+  assert.equal(registry.acquire({ snapshot: ref('b', { row: 2 }), cells: CELLS,
+    prior: { entry: moved.entry, verdict: 'current' }, project: project('2') }).outcome, 'current');
+});
+
+test('B19: a copy carries the envelope with new IDs; a copy of a clip without one carries nothing', () => {
+  const { registry, written, provenance } = withHeld();
+  assert.equal(registry.carry('copy', [{ source: at(0), destination: at(3) }], mark()), 1);
+  assert.equal(registry.lookup(written.ref).state, 'live', 'the source stays');
+  let seen: ProjectionIds | undefined;
+  const copied = registry.acquire({ snapshot: ref('b', { row: 3 }), cells: CELLS,
+    project: (ids) => { seen = ids; return project('2')(ids); } });
+  assert.equal(copied.outcome, 'new');
+  assert.notEqual(copied.entry.clipId, written.clipId);
+  assert.ok([...copied.entry.events.values()].every((id) => ![...written.events.values()].includes(id)));
+  assert.deepEqual(seen!.envelope, { provenance });
+  assert.deepEqual(copied.entry.envelope, { provenance });
+
+  const plain = new IdentityRegistry();
+  first(plain);
+  assert.equal(plain.carry('copy', [{ source: at(0), destination: at(3) }], mark()), 0);
+});
+
+test('B19: a carry applies only to the same document in the same domain, once', () => {
+  // Another document at the destination (the source changed before the copy): new IDs, no envelope.
+  const changed = withHeld();
+  changed.registry.carry('move', [{ source: at(0), destination: at(2) }], mark());
+  const other = changed.registry.acquire({ snapshot: ref('x', { row: 2 }), cells: CELLS, project: project('9') });
+  assert.equal(other.outcome, 'new');
+  assert.notEqual(other.entry.clipId, changed.written.clipId);
+  assert.deepEqual(other.entry.envelope, {});
+  // Other cells refuse the carry before any projection with the source IDs.
+  const cells = withHeld();
+  cells.registry.carry('copy', [{ source: at(0), destination: at(2) }], mark());
+  assert.deepEqual(cells.registry.acquire({ snapshot: ref('b', { row: 2 }), cells: [cell(60)], project: project('2') })
+    .entry.envelope, {});
+  // A scene layout change, an empty read, or a write at the destination drops the carry.
+  const swept = withHeld();
+  swept.registry.carry('copy', [{ source: at(0), destination: at(2) }], mark());
+  swept.registry.sweep(mark({ sceneEpoch: 1 }));
+  assert.deepEqual(swept.registry.acquire({ snapshot: ref('b', { row: 2, mark: mark({ sceneEpoch: 1 }) }), cells: CELLS,
+    project: project('2') }).entry.envelope, {});
+  const emptied = withHeld();
+  emptied.registry.carry('copy', [{ source: at(0), destination: at(2) }], mark());
+  emptied.registry.emptied(at(2));
+  assert.deepEqual(emptied.registry.acquire({ snapshot: ref('b', { row: 2 }), cells: CELLS, project: project('2') })
+    .entry.envelope, {});
+  const rewritten = withHeld();
+  rewritten.registry.carry('copy', [{ source: at(0), destination: at(2) }], mark());
+  const add = rewritten.registry.recordWrite({ snapshot: ref('e', { row: 2 }), cells: [cell(72)], clipId: 'cz',
+    ids: new Map(), envelope: {}, project: project('5') });
+  const reread = rewritten.registry.acquire({ snapshot: ref('b', { row: 2 }), cells: CELLS,
+    prior: { entry: add.entry, verdict: 'identity-changed' }, project: project('2') });
+  assert.deepEqual(reread.entry.envelope, {});
+});
+
+test('B19: an overlapping move carries each clip to its own destination', () => {
+  const registry = new IdentityRegistry();
+  const a = registry.acquire({ snapshot: ref('a', { row: 1 }), cells: [cell(60)], project: project('1') });
+  const b = registry.acquire({ snapshot: ref('b', { row: 2 }), cells: [cell(62)], project: project('2') });
+  assert.equal(registry.carry('move', [{ source: at(2), destination: at(3) }, { source: at(1), destination: at(2) }],
+    mark()), 2);
+  const atTwo = registry.acquire({ snapshot: ref('a', { row: 2 }), cells: [cell(60)], project: project('1') });
+  const atThree = registry.acquire({ snapshot: ref('b', { row: 3 }), cells: [cell(62)], project: project('2') });
+  assert.deepEqual([atTwo.outcome, atTwo.entry.clipId], ['moved', a.entry.clipId]);
+  assert.deepEqual([atThree.outcome, atThree.entry.clipId], ['moved', b.entry.clipId]);
+});

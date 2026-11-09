@@ -212,6 +212,45 @@ test('D73 edit_launcher_clip: a provenance-only CLIP_UPDATE writes nothing to th
   assert.equal((parse(last.data.document, 'fields') as StateDocument).clips[0]!.provenance, undefined);
 });
 
+test('B19 move_launcher_clips: the next read keeps the clip ID, event IDs, and provenance (identity moved)', async () => {
+  const fx = fixture();
+  const added = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, document: withProvenance(),
+    readback: 'document' });
+  const before = parse(added.readback.document, 'fields') as StateDocument;
+  const moved = await fx.native('move_launcher_clips', { trackId: fx.trackId, firstRow: 1, lastRow: 1,
+    destinationFirstRow: 3 });
+  assert.equal(moved.readback.status, 'verified', JSON.stringify(moved).slice(0, 400));
+  const read = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 3 });
+  assert.equal(read.authority.identity, 'moved', JSON.stringify(read.authority));
+  assert.equal(read.authority.mintedIds, 0);
+  const after = parse(read.data.document, 'fields') as StateDocument;
+  assert.equal(after.clips[0]!.id, before.clips[0]!.id);
+  assert.deepEqual(after.events.map((item) => item.id), before.events.map((item) => item.id));
+  assert.deepEqual(plainJson(after.clips[0]!.provenance), PROVENANCE);
+  // The base ref of the add retired with the move; the read's base edits the moved clip.
+  const patch = ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(read.authority.base)}`,
+    'FIELDS id clip at duration pitch velocity', `UPDATE ${after.events[0]!.id} {"velocity":70}`].join('\n') + '\n';
+  const edited = await fx.native('edit_launcher_clip', { trackId: fx.trackId, row: 3, document: patch });
+  assert.equal(edited.readback.status, 'verified', JSON.stringify(edited).slice(0, 400));
+  assert.deepEqual(edited.readback.held, ['provenance']);
+});
+
+test('B19 copy_launcher_clips: the next read of the copy returns the source provenance with new IDs', async () => {
+  const fx = fixture();
+  const added = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, document: withProvenance() });
+  const copied = await fx.native('copy_launcher_clips', { copies: [{ source: { trackId: fx.trackId, row: 1 },
+    destination: { trackId: fx.trackId, row: 4 } }] });
+  assert.equal(copied.readback.status, 'verified', JSON.stringify(copied).slice(0, 400));
+  const copy = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 4 });
+  assert.equal(copy.authority.identity, 'new');
+  const document = parse(copy.data.document, 'fields') as StateDocument;
+  assert.notEqual(document.clips[0]!.id, added.readback.clipId);
+  assert.deepEqual(plainJson(document.clips[0]!.provenance), PROVENANCE);
+  const source = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+  assert.equal(source.authority.identity, 'current');
+  assert.equal(source.authority.base.ref, added.readback.base.ref);
+});
+
 test('8h4d copy_launcher_clips: copies below, reports occupancy, and guards the destination', async () => {
   const fx = fixture();
   await fx.seed(0);
