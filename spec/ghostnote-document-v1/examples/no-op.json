@@ -3,13 +3,11 @@
   "version": "1.0",
   "kind": "patch",
   "base": {
-    "sha256": "ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec",
+    "sha256": "863de7bb841d3db22d1f286898c25a9d51f6e7862cba58bb9e8bf12f82047a65",
     "ref": "fixture:complete"
   },
   "add": [],
   "remove": [],
   "update": [],
-  "clipUpdate": [],
-  "overlayPut": [],
-  "overlayRemove": []
+  "clipUpdate": []
 }

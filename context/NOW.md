@@ -23,10 +23,20 @@ Each stage of track deletes now waits for the removal, `track.delete` names its
 track, and `delete_track` lists each track gone (descriptions v67;
 [D72](decisions/d72-track-deletes-wait-for-the-removal.md); same 95 methods
 and hash, marker `rig.info.trackDeleteIdentity`).
-Next is session 3: overlays, clip annotations and provenance (with a last
-format evaluation, a possible final benchmark, and the choice between a
-clip-level default and a column binding for uniform release velocity); then
-session 4, clip operations and stateless analysis tools. P01 is merged with
+Session 3 is implemented and checked live
+([D73](decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md)):
+Document 1.0 has no overlays and no annotation layer replaces them; a CLIP
+carries a provenance pointer to its source files, which the binding holds
+with the clip ID (`readback.held`); uniform columns become clip defaults, and
+canonical FIELDS binds only the columns some row needs (the pinned 8c corpus
+is 30–36 percent smaller). MIDI conversion is `midi-document-v3`, the model
+reference revision 7, descriptions v68 (47 tools); all 2,591 brain tests
+pass, with no wire change. Live, provenance survives a project save; a
+save-as rename, a move, and a copy's destination lose it, and a
+provenance-only edit re-attaches it ([brief](work/b19-real-use-tooling-and-annotations.md#session-3-2026-11-08-implemented-and-checked-live)).
+Next: provenance carry on copy and move, which finishes session 3; then
+session 4, clip operations, and session 5, analysis tools after the selector
+and tool-grain decisions. P01 is merged with
 B19 session 1; P01's next deploy must carry `slot.occupancy`, and its live
 probes pin the 94-method hash until it merges session 2.
 

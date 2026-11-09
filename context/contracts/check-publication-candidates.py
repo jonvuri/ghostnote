@@ -17,7 +17,7 @@ review='Contains third-party/provider evidence. 10b must review redistribution b
 for p in sorted((root/'spec/ghostnote-document-v1').rglob('*')):
     if not p.is_file(): continue
     path=p.relative_to(root).as_posix()
-    is_binding='/bindings/' in path or p.name in ('HOST-BINDING.md','IDENTITY-AND-OVERLAYS.md')
+    is_binding='/bindings/' in path or p.name in ('HOST-BINDING.md','IDENTITY-AND-PROVENANCE.md')
     add(path,'ghostnote-binding/1' if is_binding else 'ghostnote-document/1.0',
         ['brain/src/bindings/ghostnote-document.ts','spec/ghostnote-document-v1/SPEC.md'] if is_binding else ['brain/src/document/','LICENSE'],
         fixtures if '/examples/' in path or '/canonical/' in path else mit)
@@ -26,7 +26,7 @@ for directory in ('brain/src/document','brain/src/bindings'):
         add(p.relative_to(root).as_posix(),'ghostnote-binding/1' if 'bindings' in directory else 'ghostnote-document/1.0',
             ['brain/src/document/','brain/src/contract/'] if 'bindings' in directory else ['ES2022 or later','Node module support','brain/package-lock.json'],mit)
 for path in ('context/contracts/GHOSTNOTE_CACHE_CONTRACT.md','context/contracts/GHOSTNOTE_MIGRATION_AND_VERIFICATION.md'):
-    add(path,'ghostnote-binding/1',['spec/ghostnote-document-v1/HOST-BINDING.md','spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md','context/plan/phase-8/8g-shadow-project-cache.md','context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md'],mit)
+    add(path,'ghostnote-binding/1',['spec/ghostnote-document-v1/HOST-BINDING.md','spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md','context/plan/phase-8/8g-shadow-project-cache.md','context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md'],mit)
 for path in ('LICENSE','brain/package.json','brain/package-lock.json','brain/src/tools/document-artifacts.ts','brain/src/tools/document-standalone-check.ts','context/contracts/check-publication-candidates.py'):
     add(path,'repository snapshot 2026-10-01',['10b package dependency/notice review'],mit)
 for path in ('context/evidence/format/FORMAT_BENCHMARK_PRODUCT_REVIEW.md','context/evidence/format/COMPACT_BAR_REPRODUCIBILITY.md','context/evidence/experiments/e209-offline-score-repair-updates-eight-arm-matrix.md','context/evidence/experiments/e213-audit-adjudications-update-native-composite-scoring.md','brain/benchmarks/symbolic-format-v5/runs/2026-09-30-corrected-assessment.json','brain/benchmarks/symbolic-format-v5/corrected_assessment.py','brain/benchmarks/native-composite-v1/audits/adjudicated-assessment.json','brain/benchmarks/native-composite-v1/audits/adjudication-policy.json','brain/benchmarks/native-composite-v1/audits/adjudicated-report.md','brain/benchmarks/native-composite-v1/audits/adjudicated_assessment.py'):

@@ -53,18 +53,45 @@ export interface Range {
     from: RationalText;
     to: RationalText;
 }
+export interface ProvenanceSource {
+    path: string;
+    sha256?: string;
+    range?: Range;
+    read?: {
+        [key: string]: Json;
+    };
+    refs?: {
+        [key: string]: string;
+    };
+}
+/** R33: where a clip's notes came from. A pointer, not an analysis. */
+export interface ClipProvenance {
+    sources?: ProvenanceSource[];
+    generator?: {
+        path: string;
+        sha256?: string;
+    };
+}
+export type OptionalEventField = Exclude<EventField, 'id' | 'clip' | 'at' | 'duration' | 'pitch' | 'velocity'>;
+/** R34: input layout only. Parsing expands it into the clip's events. */
+export type ClipDefaults = {
+    [K in OptionalEventField]?: Event[K];
+};
 export interface Clip {
     id: string;
     length: RationalText;
     name?: string;
     loop?: Range | null;
     playRange?: Range | null;
+    provenance?: ClipProvenance;
+    defaults?: ClipDefaults;
 }
 export type ClipSet = {
     length?: RationalText;
     name?: string | null;
     loop?: Range | null;
     playRange?: Range | null;
+    provenance?: ClipProvenance | null;
 };
 export interface Coverage {
     clip: string;
@@ -75,103 +102,6 @@ export interface Coverage {
     status: 'complete' | 'partial' | 'unavailable';
     reason?: string;
 }
-export interface Depends {
-    events: {
-        id: string;
-        fields: EventField[];
-    }[];
-    clips: {
-        id: string;
-        fields: (keyof Clip)[];
-    }[];
-    overlays: string[];
-    membership: string[];
-}
-export interface Provenance {
-    kind: 'declared' | 'measured' | 'inferred';
-    source: string;
-    method: string;
-    confidence?: number;
-}
-export interface Nominal {
-    event: string;
-    at: RationalText;
-    duration: RationalText;
-    division: RationalText;
-}
-export interface Groove {
-    event: string;
-    nominal: string;
-    intent: 'resolved' | 'unresolved';
-    phase: RationalText;
-    template: RationalText;
-    cross: RationalText;
-    local: RationalText;
-    unassigned: RationalText;
-    durationIntent: RationalText;
-    durationUnassigned: RationalText;
-    atDelta: RationalText | null;
-    durationDelta: RationalText | null;
-    sourceAt?: RationalText;
-    sourceDuration?: RationalText;
-    templateRef?: string;
-    swing?: [
-        number,
-        number
-    ];
-    shape?: {
-        kind: 'point';
-    } | {
-        kind: 'span';
-        width: RationalText;
-    };
-    anchor?: string;
-}
-export interface Group {
-    clip: string;
-    events: string[];
-}
-export interface OverlayData {
-    nominal: Nominal;
-    groove: Groove;
-    harmony: Group & Range & {
-        chord?: string;
-        key?: string;
-    };
-    role: Group & {
-        label: string;
-        articulation?: string;
-    };
-    motif: Group & {
-        label: string;
-        articulation?: string;
-    };
-    meter: {
-        clip: string;
-        at: RationalText;
-        numerator: number;
-        denominator: number;
-    };
-    tempo: {
-        clip: string;
-        at: RationalText;
-        bpm: number;
-    };
-    region: Group & Range & {
-        label: string;
-    };
-}
-export type Overlay = {
-    [K in keyof OverlayData]: {
-        id: string;
-        type: K;
-        state: 'current' | 'stale';
-        provenance: Provenance;
-        depends: Depends;
-        basis: string;
-        data: OverlayData[K];
-    };
-}[keyof OverlayData];
 export interface Envelope {
     format: 'ghostnote-document';
     version: '1.0';
@@ -193,7 +123,6 @@ export interface StateDocument extends Envelope {
     clips: Clip[];
     coverage: Coverage[];
     events: Event[];
-    overlays: Overlay[];
 }
 export interface Patch extends Envelope {
     kind: 'patch';
@@ -211,13 +140,13 @@ export interface Patch extends Envelope {
         id: string;
         set: ClipSet;
     }[];
-    overlayPut: Overlay[];
-    overlayRemove: string[];
 }
 export type Document = StateDocument | Patch;
 export const EVENT_FIELDS: EventField[] = ['id', 'clip', 'at', 'duration', 'pitch', 'velocity', 'channel', 'mute', 'releaseVelocity', 'articulation', 'expression', 'chance', 'occurrence', 'recurrence', 'repeat'];
 export const REQUIRED_FIELDS: EventField[] = ['id', 'clip', 'at', 'duration', 'pitch', 'velocity'];
-export const BINDING: EventField[] = [...REQUIRED_FIELDS, 'channel', 'mute'];
+/** The coverage fields that every observation must declare (R03). */
+export const COVERAGE_FIELDS: EventField[] = [...REQUIRED_FIELDS, 'channel', 'mute'];
+export const OPTIONAL_FIELDS = EVENT_FIELDS.filter(field => !REQUIRED_FIELDS.includes(field)) as OptionalEventField[];
 export const EVENT_DEFAULTS = {
     channel: 1, mute: false, releaseVelocity: 100 / 127, articulation: 'normal',
     expression: { velocitySpread: 0, gain: 1, pan: 0, pressure: 0, timbre: 0.5, transpose: 0 },
@@ -226,4 +155,4 @@ export const EVENT_DEFAULTS = {
     repeat: { enabled: false, count: 1, curve: 0, velocityCurve: 0, velocityEnd: 1 },
 } satisfies Partial<Event>;
 export const CLIP_DEFAULTS = { name: '', loop: null, playRange: null };
-export const LIMITS = { bytes: 8 * 1024 * 1024, clips: 256, events: 131072, overlays: 32768, patchEntries: 131072, depth: 32, string: 4096, rationalDigits: 96, bits: 4096, dependencies: 1024, fieldReferences: 262144 } as const;
+export const LIMITS = { bytes: 8 * 1024 * 1024, clips: 256, events: 131072, patchEntries: 131072, depth: 32, string: 4096, rationalDigits: 96, bits: 4096, sources: 64 } as const;

@@ -3,7 +3,7 @@ import { DocumentError, fail } from './error.js';
 import { canonicalJson, scalarLength } from './json.js';
 import { rational, spelling } from './rational.js';
 import { LIMITS } from './model.js';
-const RULES: Record<string, string> = { id: 'R01', extensions: 'R01', stateDocument: 'R02', patch: 'R08', meta: 'R02', base: 'R02', clip: 'R03', range: 'R03', coverage: 'R03', event: 'R04', eventSet: 'R08', clipSet: 'R08', eventUpdate: 'R08', clipUpdate: 'R08', depends: 'R12', eventDependency: 'R21', clipDependency: 'R21', provenance: 'R12', overlay: 'R12', nominalData: 'R13', grooveData: 'R14', shape: 'R14', harmonyData: 'R17', roleData: 'R18', motifData: 'R18', meterData: 'R19', tempoData: 'R19', regionData: 'R20' };
+const RULES: Record<string, string> = { id: 'R01', extensions: 'R01', stateDocument: 'R02', patch: 'R08', meta: 'R02', base: 'R02', clip: 'R03', range: 'R03', coverage: 'R03', event: 'R04', eventSet: 'R08', clipSet: 'R08', eventUpdate: 'R08', clipUpdate: 'R08', clipProvenance: 'R33', provenanceSource: 'R33', generator: 'R33', path: 'R33', clipDefaults: 'R34' };
 const TIMING_DEFS = new Set(['rational', 'nonnegative', 'positive']);
 const BRANCH_KEYWORDS = ['anyOf', 'oneOf'] as const;
 const REF_NAMES = new Map<string, string>();
@@ -166,8 +166,11 @@ export function validateStructure(value: any): void {
     if (value.version !== '1.0')
         fail('R01', '$.version', 'unsupported version');
     const patch = value.kind === 'patch';
+    for (const key of patch ? ['overlayPut', 'overlayRemove'] : ['overlays'])
+        if (Object.hasOwn(value, key))
+            fail('R12', `$.${key}`, 'overlays were removed from Document 1.0 (D73); put source facts in clip provenance');
     if (patch) {
-        const total = ['add', 'remove', 'update', 'clipUpdate', 'overlayPut', 'overlayRemove'].reduce((n, k) => n + (Array.isArray(value[k]) ? value[k].length : 0), 0);
+        const total = ['add', 'remove', 'update', 'clipUpdate'].reduce((n, k) => n + (Array.isArray(value[k]) ? value[k].length : 0), 0);
         if (total > LIMITS.patchEntries)
             fail('R28', '$', 'total patch entries exceed 131072');
     }
@@ -184,10 +187,15 @@ export function normalizeTimingFields(value: any): void {
         if (bag)
             reduce(bag, ['from', 'to']);
     };
+    const sources = (provenance: any) => {
+        for (const source of provenance?.sources ?? [])
+            range(source.range);
+    };
     for (const c of value.clips ?? []) {
         reduce(c, ['length']);
         range(c.loop);
         range(c.playRange);
+        sources(c.provenance);
     }
     for (const c of value.coverage ?? [])
         reduce(c, ['from', 'to']);
@@ -199,11 +207,7 @@ export function normalizeTimingFields(value: any): void {
         reduce(u.set, ['length']);
         range(u.set.loop);
         range(u.set.playRange);
-    }
-    for (const o of value.overlays ?? value.overlayPut ?? []) {
-        reduce(o.data, ['at', 'duration', 'division', 'phase', 'template', 'cross', 'local', 'unassigned', 'durationIntent', 'durationUnassigned', 'atDelta', 'durationDelta', 'sourceAt', 'sourceDuration', 'from', 'to']);
-        if (o.data.shape?.kind === 'span')
-            reduce(o.data.shape, ['width']);
+        sources(u.set.provenance);
     }
 }
 export function validateEventStructure(value: unknown, path = '$import'): void {

@@ -8,16 +8,15 @@ import test from 'node:test';
 
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
-import { parseSealable, sealProposal } from '../bindings/overlay-seal.js';
 import {
-  applyPatch, contentHash, dependencyBasis, parse, serialize, type Patch, type StateDocument,
+  applyPatch, contentHash, parse, serialize, type Patch, type StateDocument,
 } from '../document/index.js';
 import { Executor } from '../engine/index.js';
 import { FakeObservationStore } from '../observation/index.js';
 import { Stash } from '../stash/index.js';
 import {
   ADD_EXAMPLE_ROW, EXAMPLE_REF, MODEL_REFERENCE, OPTIONAL_REFERENCE_SECTIONS, REFERENCE_SCHEMA, REFERENCE_TOOL,
-  TIMING_FEEL_ROUTE, TIMING_FIXTURE, TIMING_TEMPLATE_NOTE, template, timingTemplate,
+  template,
 } from './document-help.js';
 import { AGENT_NATIVE_TOOL_PROFILE, AGENT_NATIVE_TOOLS, callTool } from './tools.js';
 import { workspaceOf, type Workspace } from './workspace.js';
@@ -105,8 +104,8 @@ test('8i6 reference: every section and JSON templates; the largest request stays
   assert.equal(parse(JSON.stringify(data.templates.desired), 'json').kind, 'desired');
   assert.equal(parse(JSON.stringify(data.templates.patch), 'json').kind, 'patch');
   const reference = readFileSync(new URL('MODEL-REFERENCE.md', SPEC), 'utf8');
-  // The JSON escaping of the reference, the four templates, and the timing note (8i9) add about 4.8 KB.
-  assert.ok(Buffer.byteLength(JSON.stringify(result)) < Buffer.byteLength(reference) + 6_144);
+  // The JSON escaping of the reference and the two templates add about 2 KB.
+  assert.ok(Buffer.byteLength(JSON.stringify(result)) < Buffer.byteLength(reference) + 3_072);
 });
 
 // --- descriptions ----------------------------------------------------------------
@@ -187,6 +186,8 @@ const MALFORMED: readonly { name: string; document: string | Wire; format?: 'jso
     repair: 'header', template: true },
   { name: 'FIELDS sent as json', document: lines(H, CLIP, COVERAGE, FIELDS, ROW), format: 'json', rule: 'R11',
     repair: 'encoding-mismatch' },
+  { name: 'removed OVERLAY record (D73)', document: lines(H, CLIP, COVERAGE, FIELDS, ROW,
+    'OVERLAY {"id":"nom1","type":"nominal"}'), rule: 'R12', repair: 'overlay-removed' },
 ];
 
 for (const tool of ['add_launcher_clip', 'edit_launcher_clip'] as const) {
@@ -274,205 +275,13 @@ function timingExample(): StateDocument {
   return parse(/```fields\n([\s\S]*?)```/.exec(section)![1]!, 'fields') as StateDocument;
 }
 
-test('8i9 timing example: complete envelopes in both encodings; each groove depends on its nominal', () => {
-  const example = timingExample();
-  assert.deepEqual(parse(serialize(example, 'json'), 'json'), example);
-  for (const claim of example.overlays) {
-    assert.deepEqual(Object.keys(claim.depends).sort(), ['clips', 'events', 'membership', 'overlays'], claim.id);
-    assert.deepEqual(claim.depends.events.map((item) => [item.id, ...item.fields]),
-      [[(claim.data as { event: string }).event, 'at', 'clip', 'duration']], claim.id);
-    assert.equal(claim.basis, dependencyBasis(example, claim), claim.id);
-    if (claim.type === 'groove') assert.deepEqual(claim.depends.overlays, [(claim.data as { nominal: string }).nominal]);
+test('D73 descriptions: no tool routes to overlays; the clip tools and the MIDI read name clip provenance', () => {
+  for (const item of AGENT_NATIVE_TOOLS) {
+    const text = JSON.stringify([item.description, item.inputSchema]);
+    assert.doesNotMatch(text, /OVERLAY|Timing overlays|overlays/, item.name);
   }
-  const grooves = example.overlays.filter((claim) => claim.type === 'groove').map((claim) => claim.data as Wire);
-  assert.deepEqual(grooves.map((data) => [data.event, 'sourceAt' in data, data.intent, data.atDelta]),
-    [['n1', true, 'resolved', '0'], ['n2', false, 'unresolved', null]]);
-  assert.deepEqual(TIMING_FIXTURE.overlays, []);
-  assert.deepEqual(TIMING_FIXTURE.events, example.events);
-});
-
-for (const kind of ['known', 'unknown'] as const) {
-  for (const encoding of ['fields', 'json'] as const) {
-    test(`8i9 timing template ${kind} (${encoding}): no basis; it seals and applies to its fixture as the example`, () => {
-      const value = timingTemplate(kind, encoding);
-      const text = typeof value === 'string' ? value : JSON.stringify(value);
-      assert.doesNotMatch(text, /"basis"/);
-      if (encoding === 'json') {
-        for (const key of ['add', 'remove', 'update', 'clipUpdate', 'overlayPut', 'overlayRemove']) {
-          assert.ok(Array.isArray((value as Wire)[key]), key);
-        }
-      }
-      const { document, seal } = parseSealable(text, encoding);
-      assert.equal(document.kind, 'patch');
-      assert.equal((document as Patch).base.ref, EXAMPLE_REF);
-      assert.equal((document as Patch).base.sha256, contentHash(TIMING_FIXTURE));
-      const applied = applyPatch(TIMING_FIXTURE, sealProposal(document, seal, TIMING_FIXTURE) as Patch).document;
-      const event = kind === 'known' ? 'n1' : 'n2';
-      assert.deepEqual(applied.overlays, timingExample().overlays.filter((claim) => (claim.data as Wire).event === event));
-      // The returned document is a valid portable document in both encodings.
-      for (const out of ['fields', 'json'] as const) assert.deepEqual(parse(serialize(applied, out), out), applied);
-    });
+  for (const name of ['add_launcher_clip', 'edit_launcher_clip', 'read_launcher_clip', 'read_midi_file']) {
+    assert.match(spec(name).description, /provenance/, name);
   }
-}
-
-test('8i9 reference: Timing overlays returns the timing templates and the host basis rule; Core does not', async () => {
-  const { workspace, calls } = hostless();
-  const core = await call(workspace, REFERENCE_TOOL, { sections: ['Patch'] });
-  assert.deepEqual(Object.keys(core['data'].templates), ['desired', 'patch']);
-  assert.doesNotMatch(core['data'].reference, /OVERLAY/);
-  const timing = await call(workspace, REFERENCE_TOOL, { sections: ['Timing overlays'], format: 'json' });
-  assert.deepEqual(calls, []);
-  const templates = timing['data'].templates;
-  assert.deepEqual(Object.keys(templates), ['desired', 'timing']);
-  assert.deepEqual(Object.keys(templates.timing), ['note', 'known', 'unknown']);
-  assert.equal(templates.timing.note, TIMING_TEMPLATE_NOTE);
-  assert.match(TIMING_TEMPLATE_NOTE, /not of the portable format/);
-  assert.match(TIMING_TEMPLATE_NOTE, /R22 and detail\.expectedBasis/);
-  assert.match(TIMING_TEMPLATE_NOTE, /stale claim must state it/);
-  assert.deepEqual(templates.timing.known, timingTemplate('known', 'json'));
-  assert.match(timing['data'].reference, /```fields\nDOC ghostnote-document 1\.0 desired\n[\s\S]*OVERLAY \{"basis"/);
-});
-
-const fixtureHead = (kind: 'desired' | 'patch') => kind === 'desired'
-  ? lines(H, CLIP, COVERAGE, FIELDS, 'EVENT n1 part 17/32 3/16 60 100 1 false', 'EVENT n2 part 129/128 15/32 64 90 1 false')
-  : lines('DOC ghostnote-document 1.0 patch',
-    `BASE ${JSON.stringify({ ref: 'gnb1.AAAAAAAAAAAA', sha256: contentHash(TIMING_FIXTURE) })}`, FIELDS);
-
-/** The claims of the known timing template, with basis, as JSON objects. */
-const knownClaims = (): Wire[] => (JSON.parse(JSON.stringify(timingTemplate('known', 'json'))) as Wire)['overlayPut'];
-
-/** The listed malformed claims (8i9 work item 5), each with its rule and repair case. */
-const MALFORMED_CLAIMS: readonly { name: string; change: (nominal: Wire, groove: Wire) => void; rule: string;
-  repair: string }[] = [
-  { name: 'no membership array', change: (n) => { delete n.depends.membership; }, rule: 'R12', repair: 'overlay-depends' },
-  { name: 'no depends', change: (n) => { delete n.depends; }, rule: 'R12', repair: 'overlay-depends' },
-  { name: 'event dependency as an ID', change: (n) => { n.depends.events = ['n1']; }, rule: 'R21', repair: 'dependency-entry' },
-  { name: 'event dependency without fields', change: (n) => { n.depends.events = [{ id: 'n1' }]; }, rule: 'R21',
-    repair: 'dependency-entry' },
-  { name: 'overlay dependency as an object', change: (_, g) => { g.depends.overlays = [{ id: 'nom1' }]; }, rule: 'R01',
-    repair: 'dependency-entry' },
-  { name: 'membership as an object', change: (n) => { n.depends.membership = [{ id: 'part' }]; }, rule: 'R01',
-    repair: 'dependency-entry' },
-  { name: 'groove without its nominal dependency', change: (_, g) => { g.depends.overlays = []; }, rule: 'R21',
-    repair: 'dependency-minimum' },
-  { name: 'nominal without the duration dependency', change: (n) => { n.depends.events[0].fields = ['at', 'clip']; },
-    rule: 'R21', repair: 'dependency-minimum' },
-  { name: 'no provenance', change: (n) => { delete n.provenance; }, rule: 'R12', repair: 'overlay-envelope' },
-  { name: 'provenance as text', change: (n) => { n.provenance = 'declared'; }, rule: 'R12', repair: 'overlay-envelope' },
-  { name: 'no data', change: (n) => { delete n.data; }, rule: 'R12', repair: 'overlay-data' },
-  { name: 'nominal without division', change: (n) => { delete n.data.division; }, rule: 'R13', repair: 'overlay-data' },
-];
-
-for (const tool of ['add_launcher_clip', 'edit_launcher_clip'] as const) {
-  for (const item of MALFORMED_CLAIMS) {
-    test(`8i9 claim repair: ${tool}, ${item.name}: the rule and location, a bounded correction, no host call`, async () => {
-      const { workspace, calls } = hostless();
-      const [groove, nominal] = knownClaims();
-      item.change(nominal!, groove!);
-      const record = tool === 'add_launcher_clip' ? 'OVERLAY' : 'OVERLAY_PUT';
-      const document = lines(fixtureHead(tool === 'add_launcher_clip' ? 'desired' : 'patch'),
-        `${record} ${JSON.stringify(nominal)}`, `${record} ${JSON.stringify(groove)}`) + '\n';
-      const result = await call(workspace, tool, { trackId: 'gn-help', row: 0, document });
-      const text = JSON.stringify(result);
-      assert.deepEqual(calls, [], text.slice(0, 300));
-      assert.equal(result['failure']?.code, 'invalid-input', text.slice(0, 300));
-      assert.equal(result['failure'].stage, 'input');
-      assert.deepEqual(result['failure'].effects, []);
-      const detail = result['detail'];
-      assert.equal(detail.rule, item.rule, text.slice(0, 400));
-      assert.match(detail.path, /^\$\.(overlays|overlayPut)\[\d\]/);
-      assert.equal(typeof detail.line, 'number');
-      assert.equal(detail.repair?.case, item.repair, text.slice(0, 400));
-      assert.deepEqual(detail.repair.reference, { tool: REFERENCE_TOOL, sections: ['Core', 'Timing overlays'] });
-      assert.ok(Buffer.byteLength(JSON.stringify(detail.repair)) < 2_048, item.name);
-      assert.equal(JSON.stringify(detail.repair).includes('authored-late-template'), false, 'no copy of the input');
-    });
-  }
-}
-
-test('8i9 claim repair: known-source and unknown-source timing faults name the equations; no host call on add', async () => {
-  const { workspace, calls } = hostless();
-  const mixed = knownClaims();
-  delete mixed[0]!.data.sourceAt;
-  delete mixed[0]!.data.sourceDuration;
-  const unequal = knownClaims();
-  unequal[0]!.data.sourceAt = '1/2';
-  for (const [claims, rule] of [[mixed, 'R16'], [unequal, 'R15']] as const) {
-    const result = await call(workspace, 'add_launcher_clip', { trackId: 'gn-help', row: 0,
-      document: lines(fixtureHead('desired'), ...claims.map((claim) => `OVERLAY ${JSON.stringify(claim)}`)) + '\n' });
-    assert.equal(result['failure']?.code, 'invalid-input', JSON.stringify(result).slice(0, 300));
-    assert.equal(result['detail'].rule, rule);
-    assert.equal(result['detail'].repair?.case, 'groove-timing');
-    assert.ok(Buffer.byteLength(JSON.stringify(result['detail'].repair)) < 2_048);
-  }
-  assert.deepEqual(calls, []);
-});
-
-// --- timing-feel routing and method (8i10) -------------------------------------------
-
-test('B19 routing: add, edit, and the read reference input request Timing overlays only for claims the user asks for', () => {
-  for (const name of ['add_launcher_clip', 'edit_launcher_clip']) {
-    assert.ok(spec(name).description.includes(TIMING_FEEL_ROUTE), name);
-  }
-  // The route names timing feel by its musical terms, not "feel" alone (E259).
-  for (const term of ['swing', 'groove', 'pocket', 'ahead of or behind the beat', 'Timing overlays']) {
-    assert.ok(TIMING_FEEL_ROUTE.includes(term), term);
-  }
-  // E392: the route no longer sends agents to claims for making or keeping feel; the notes carry it.
-  assert.match(TIMING_FEEL_ROUTE, /needs no overlays\. Only when the user asks to record or analyze timing feel as claims/);
-  assert.doesNotMatch(TIMING_FEEL_ROUTE, /to make, keep/);
-  const reference = String((spec('read_launcher_clip').inputSchema['reference'] as { description?: string }).description);
-  assert.match(reference, /When the user asks to record or analyze timing feel \(swing, groove, pocket, or notes ahead of or behind the beat\) as claims, also request Timing overlays/);
-});
-
-/** The method note of the Timing overlays section. */
-const timingMethod = () => /Method for timing feel[\s\S]*$/.exec(readFileSync(new URL('MODEL-REFERENCE.md', SPEC), 'utf8')
-  .split(/(?=^## )/m).find((piece) => piece.startsWith('## Timing overlays\n'))!)![0];
-
-test('8i10 method: the Timing overlays section has the method note; it names no undefined groove term', async () => {
-  const method = timingMethod();
-  for (const text of ['shortest', 'push at the end of each phrase', 'about `1/128` beat', 'dense part',
-    'provenance `inferred`', 'intent\n   `unresolved`', 'Keep the nominal\n   claims', 'keep their values',
-    'edit does not move keeps its current claims', 'new values under the\n   same IDs',
-    'Use it only when the user asks', 'needs no claims']) {
-    assert.ok(method.includes(text), text);
-  }
-  // R14-R16 give phase, cross, and local no musical meaning; the method does not either.
-  assert.doesNotMatch(method, /\b(phase|cross|local)\b/);
-  // The method states thresholds in beats, not milliseconds: no tempo arithmetic.
-  assert.doesNotMatch(method, /\bms\b|bpm/i);
-  const { workspace, calls } = hostless();
-  const timing = await call(workspace, REFERENCE_TOOL, { sections: ['Timing overlays'] });
-  assert.ok(timing['data'].reference.includes(method.trimEnd()));
-  assert.deepEqual(calls, []);
-});
-
-test('8i10 method: an inferred step-pattern claim seals; a cleanup keeps the earlier claims stale with their values', () => {
-  const known = timingTemplate('known', 'json') as Wire;
-  const nominal = known['overlayPut'].find((claim: Wire) => claim.type === 'nominal');
-  const groove = known['overlayPut'].find((claim: Wire) => claim.type === 'groove');
-  // n1 is at 17/32 with duration 3/16 on the nominal 1/2 and 1/4: template 1/64 and unassigned 1/64 (step 6).
-  const inferred = {
-    ...groove, provenance: { kind: 'inferred', source: 'agent', method: 'step-pattern' },
-    data: { ...groove.data, intent: 'unresolved', template: '1/64', unassigned: '1/64', durationIntent: '0',
-      durationUnassigned: '-1/16' },
-  };
-  const sealApply = (patch: Wire, base: StateDocument) => {
-    const { document, seal } = parseSealable(JSON.stringify(patch), 'json');
-    return applyPatch(base, sealProposal(document, seal, base) as Patch).document;
-  };
-  const before = sealApply({ ...known, overlayPut: [nominal, inferred] }, TIMING_FIXTURE);
-  // The cleanup moves n1 to the template and puts new claims with new IDs in the same patch (step 8).
-  const nominal2 = { ...nominal, id: 'nom1-v2' };
-  const groove2 = {
-    ...inferred, id: 'groove1-v2', depends: { ...inferred.depends, overlays: ['nom1-v2'] },
-    data: { ...inferred.data, nominal: 'nom1-v2', sourceAt: '33/64', unassigned: '0' },
-  };
-  const after = sealApply({
-    ...known, base: { sha256: contentHash(before), ref: EXAMPLE_REF },
-    update: [{ id: 'n1', set: { at: '33/64' } }], overlayPut: [nominal2, groove2],
-  }, before);
-  assert.deepEqual(after.overlays.map((claim) => [claim.id, claim.state, (claim.data as Wire).unassigned ?? null]), [
-    ['groove1', 'stale', '1/64'], ['groove1-v2', 'current', '0'], ['nom1', 'stale', null], ['nom1-v2', 'current', null],
-  ]);
+  assert.match(spec('edit_launcher_clip').description, /readback\.held \["provenance"\]/);
 });

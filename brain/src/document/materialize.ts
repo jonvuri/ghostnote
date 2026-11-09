@@ -3,7 +3,7 @@ import { cloneJson } from './json.js';
 import { CLIP_DEFAULTS, EVENT_DEFAULTS, type Document, type Patch, type StateDocument } from './model.js';
 import { validate } from './index.js';
 import { cmp } from './rational.js';
-import { ascii, basisFromIndex, normalizedContentHash, clipValues, equal, eventValues, indexState, overlayOrder } from './semantic.js';
+import { ascii, canonicalClipDefaults, normalizedContentHash, clipValues, equal, eventValues, indexState } from './semantic.js';
 export interface ChangeReport {
     added: string[];
     removed: string[];
@@ -18,11 +18,6 @@ export interface ChangeReport {
     clearedDefaults: {
         id: string;
         fields: string[];
-    }[];
-    overlayChanges: {
-        id: string;
-        from: 'current' | 'stale' | null;
-        to: 'current' | 'stale' | null;
     }[];
 }
 export interface Materialized {
@@ -42,17 +37,10 @@ function guard(base: StateDocument, proposal: Document): void {
         fail('R09', '$.base.sha256', 'base guard does not match');
     fullBase(base);
 }
-function finish(base: StateDocument, result: StateDocument, explicit: Set<string>): Materialized {
-    const index = indexState(result);
-    for (const o of overlayOrder(result.overlays)) {
-        if (explicit.has(o.id) || o.state === 'stale')
-            continue;
-        if (o.depends.overlays.some(id => index.overlays.get(id)!.state === 'stale') || o.basis !== basisFromIndex(index, o))
-            o.state = 'stale';
-    }
+function finish(base: StateDocument, result: StateDocument): Materialized {
     const document = validate(result) as StateDocument;
     const old = indexState(base), next = indexState(document);
-    const report: ChangeReport = { added: [], removed: [], changedFields: [], clipFields: [], clearedDefaults: [], overlayChanges: [] };
+    const report: ChangeReport = { added: [], removed: [], changedFields: [], clipFields: [], clearedDefaults: [] };
     for (const [id, e] of next.events) {
         const prev = old.events.get(id);
         if (!prev) {
@@ -73,21 +61,16 @@ function finish(base: StateDocument, result: StateDocument, explicit: Set<string
         const prev = old.clips.get(id);
         if (!prev)
             continue;
-        const a = clipValues(prev), b = clipValues(c), fields = Object.keys(b).filter(k => !equal(a[k as keyof typeof a], b[k as keyof typeof b])).sort(ascii);
+        const a = clipValues(prev), b = clipValues(c), fields = [...new Set([...Object.keys(a), ...Object.keys(b)])].filter(k => !equal(a[k as keyof typeof a] ?? null, b[k as keyof typeof b] ?? null)).sort(ascii);
         if (fields.length)
             report.clipFields.push({ id, fields });
         const cleared = fields.filter(k => Object.hasOwn(CLIP_DEFAULTS, k) && equal(b[k as keyof typeof b], CLIP_DEFAULTS[k as keyof typeof CLIP_DEFAULTS]));
         if (cleared.length)
             report.clearedDefaults.push({ id, fields: cleared });
     }
-    for (const id of new Set([...old.overlays.keys(), ...next.overlays.keys()])) {
-        const a = old.overlays.get(id), b = next.overlays.get(id);
-        if (!equal(a ?? null, b ?? null))
-            report.overlayChanges.push({ id, from: a?.state ?? null, to: b?.state ?? null });
-    }
     report.added.sort(ascii);
     report.removed.sort(ascii);
-    for (const key of ['changedFields', 'clipFields', 'clearedDefaults', 'overlayChanges'] as const)
+    for (const key of ['changedFields', 'clipFields', 'clearedDefaults'] as const)
         report[key].sort((a, b) => ascii(a.id, b.id));
     return { document, report };
 }
@@ -118,10 +101,13 @@ export function applyPatchTo(base: Document, patchInput: Patch): Materialized {
             else
                 (e as any)[k] = v;
     }
+    // R34: an add that omits an optional field takes its base clip's canonical default.
+    const defaults = canonicalClipDefaults(base);
     for (const e of patch.add) {
         if (index.events.has(e.id))
             fail('R09', '$.add', `existing event ${e.id}`);
-        index.events.set(e.id, e);
+        const values = defaults.get(e.clip);
+        index.events.set(e.id, values ? { ...values, ...e } : e);
     }
     for (const u of patch.clipUpdate) {
         const c = index.clips.get(u.id);
@@ -135,14 +121,8 @@ export function applyPatchTo(base: Document, patchInput: Patch): Materialized {
     }
     for (const c of result.coverage)
         c.to = index.clips.get(c.clip)!.length;
-    for (const id of patch.overlayRemove)
-        if (!index.overlays.delete(id))
-            fail('R09', '$.overlayRemove', `missing overlay ${id}`);
-    for (const o of patch.overlayPut)
-        index.overlays.set(o.id, o);
     result.events = [...index.events.values()];
-    result.overlays = [...index.overlays.values()];
-    return finish(base, result, new Set(patch.overlayPut.map(o => o.id)));
+    return finish(base, result);
 }
 export function applyDesired(baseInput: StateDocument, desiredInput: StateDocument): Materialized {
     return applyDesiredTo(validate(baseInput), desiredInput);
@@ -155,6 +135,5 @@ export function applyDesiredTo(base: Document, desiredInput: StateDocument): Mat
     guard(base, desired);
     const result = cloneJson(desired) as StateDocument;
     delete result.base;
-    const prior = indexState(base), explicit = new Set(result.overlays.filter(o => !equal(o, prior.overlays.get(o.id) ?? null)).map(o => o.id));
-    return finish(base, result, explicit);
+    return finish(base, result);
 }

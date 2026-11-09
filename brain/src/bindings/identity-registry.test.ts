@@ -18,7 +18,11 @@ const cell = (pitch: number, at = 0, channel = 0): CellKey => ({ channel, pitch,
 const project = (hash: string) => (ids: ProjectionIds) => ({
   contentHash: hash.repeat(64).slice(0, 64), coverage: [],
   boundary: { plane: 'D23-1/512-cell' as const, channels: 16 as const, from: '0', to: '4' },
-  document: { overlays: ids.overlays, ...ids.envelope },
+  document: {
+    clips: ids.envelope.provenance === undefined ? [] : [{ id: ids.clipId, length: '4', provenance: ids.envelope.provenance }],
+    ...(ids.envelope.meta === undefined ? {} : { meta: ids.envelope.meta }),
+    ...(ids.envelope.extensions === undefined ? {} : { extensions: ids.envelope.extensions }),
+  },
 });
 
 function first(registry: IdentityRegistry, cells = [cell(60), cell(64, 512), cell(67, 1024)]) {
@@ -153,7 +157,7 @@ test('identity: a verified write keeps the clip ID and takes event IDs from the 
     [cellKey(moved), prior.events.get(cellKey(cell(64, 512)))!], [cellKey(cell(70, 0)), 'n-new']]);
   const written = registry.recordWrite({
     snapshot: ref('b', { mark: mark({ revision: 2 }) }), cells: [cell(60), moved, cell(70, 0), cell(72, 0)],
-    clipId: prior.clipId, ids, overlays: [], envelope: {}, project: project('2'),
+    clipId: prior.clipId, ids, envelope: {}, project: project('2'),
   });
   assert.equal(written.outcome, 'written');
   assert.equal(written.entry.clipId, prior.clipId);
@@ -163,4 +167,27 @@ test('identity: a verified write keeps the clip ID and takes event IDs from the 
   assert.equal(written.entry.events.get(cellKey(cell(70, 0))), 'n-new');
   assert.equal(registry.latestAt('track-a', 0), written.entry);
   assert.equal(registry.lookup(prior.ref).state, 'live', 'the older ref stays live; its next check is stale');
+});
+
+test('D73: a kept clip ID carries the stored provenance and envelope; a new clip ID starts without them', () => {
+  const registry = new IdentityRegistry();
+  const prior = first(registry);
+  const provenance = { sources: [{ path: '/music/source.mid', sha256: 'f'.repeat(64) }] };
+  const written = registry.recordWrite({
+    snapshot: ref('b'), cells: [cell(60), cell(64, 512), cell(67, 1024)], clipId: prior.entry.clipId,
+    ids: prior.entry.events, envelope: { provenance, meta: { title: 'kept' } }, project: project('2'),
+  });
+  assert.deepEqual(written.entry.envelope, { provenance, meta: { title: 'kept' } });
+  // A human edit (stale verdict) keeps the clip ID, so the next projection receives the same envelope.
+  let seen: ProjectionIds | undefined;
+  const stale = registry.acquire({ snapshot: ref('c'), cells: [cell(60), cell(65, 512)],
+    prior: { entry: written.entry, verdict: 'stale' }, project: (ids) => { seen = ids; return project('3')(ids); } });
+  assert.equal(stale.outcome, 'stale');
+  assert.deepEqual(seen!.envelope, { provenance, meta: { title: 'kept' } });
+  assert.deepEqual(stale.entry.envelope.provenance, provenance);
+  // A retiring verdict mints a new clip ID with no envelope.
+  const fresh = registry.acquire({ snapshot: ref('d'), cells: [cell(60)],
+    prior: { entry: stale.entry, verdict: 'identity-changed' }, project: (ids) => { seen = ids; return project('4')(ids); } });
+  assert.equal(fresh.outcome, 'retired-and-new');
+  assert.deepEqual(seen!.envelope, {});
 });

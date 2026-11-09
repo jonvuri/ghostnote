@@ -54,7 +54,7 @@ export function desiredFixture(): Bag {
       { id: 'n2', clip: 'c1', at: '17/16', duration: '7/16', pitch: 64, velocity: 83, channel: 2,
         expression: { ...EVENT_DEFAULTS.expression, gain: 0.8, pan: -0.25, timbre: 0.4, transpose: 0.25 } },
       { id: 'n3', clip: 'c1', at: '2', duration: '1/4', pitch: 67, velocity: 75, channel: 1 },
-      { id: 'n4', clip: 'c1', at: '49/16', duration: '5/16', pitch: 72, velocity: 86, channel: 2 }], overlays: [] };
+      { id: 'n4', clip: 'c1', at: '49/16', duration: '5/16', pitch: 72, velocity: 86, channel: 2 }] };
 }
 export function documentOf(read: Bag): StateDocument {
   return parse(typeof read.data.document === 'string' ? read.data.document : JSON.stringify(read.data.document),

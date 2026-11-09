@@ -10,11 +10,14 @@ transforms written as ID lists, and nothing used multi-turn identity. The
 largest costs came from the tool surface, not the notation. Per-note timing
 overlays made up about 95% of written bytes and were never used, while the
 information that mattered was clip-level: source, intended feel and tempo
-decisions. B19 runs as four sessions in this order, after
+decisions. B19 runs as five sessions in this order, after
 [B18](b18-content-event-window.md). The proposal numbers below refer to the
 table in E393 section 3. On 2026-11-08 the operator moved slot occupancy
 (proposal 4) to its own extension session (session 2) and moved the release
-velocity question (proposal 8) to the overlay session (session 3).
+velocity question (proposal 8) to the overlay session (session 3). After
+session 3 the operator split the last session in two: clip operations
+(session 4), then analysis tools with the selector and tool-grain decisions
+(session 5); provenance carry on copy and move finishes session 3.
 
 ## Session 1 — Quick tool wins (independent of the overlay decision)
 
@@ -83,7 +86,7 @@ it.
 **Question.** Should document 1.0 drop overlays entirely (nominal, groove,
 tempo, meter, harmony, role, motif, region; SPEC R12–R24), keeping note IDs,
 and replace them with durable clip provenance, a small set of clip-level
-annotations, and stateless analysis tools (session 4)? Real use wrote only
+annotations, and stateless analysis tools (session 5)? Real use wrote only
 timing overlays, never read them, and lost them on every save, move and copy;
 harmony, role, motif and region were never used (E393 section 2).
 
@@ -175,27 +178,42 @@ equal state. The evidence collected on 2026-11-08:
   [FIELDS.md](../../spec/ghostnote-document-v1/FIELDS.md),
   [MODEL-REFERENCE.md](../../spec/ghostnote-document-v1/MODEL-REFERENCE.md).
 
-## Session 4 — Clip operations and stateless analysis tools
+## Session 4 — Clip operations
 
-Design after session 3, because these tools replace what overlays were meant
-to provide.
-- **Structural operations (proposal 5).** Create a clip from a source clip,
-  beat range and shift, with an optional patch, preserving ID lineage: slice,
-  split, and duplicate-and-vary. Real use restated 114–126 notes for light
-  variations and wrote long REMOVE lists to split clips.
-- **Stateless analysis and transforms.** What agents improvised in Python:
-  crop, retime, drum-map remap, pitch-class or scale transforms, voice
-  separation, groove extraction, and comparison of a clip with its source. A
-  source-comparison check would have answered every timing question in E393.
-- **Selectors.** Selector or range patch records and server-side transforms
-  conflict with [D21](../decisions/d21-musical-patch-and-public-tool-grain.md)
-  and [D51](../decisions/d51-document-file-paths.md); revisit them with this
-  evidence. Script-generated ID patches were cheap (466 UPDATEs, 13 KB), so the
-  case for selectors is about agent effort and errors rather than bytes.
-  Producer Pal's compact transforms ([E353](../evidence/experiments/e353-producer-pal-offline-formats-and-claims.md))
-  are prior art.
+Create a clip from a source clip, a beat range and a shift, with an optional
+patch, preserving ID lineage: slice, split, and duplicate-and-vary (proposal
+5). Real use restated 114–126 notes for light variations and wrote long
+REMOVE lists to split clips. Open design questions: notes that cross a range
+edge, how new event IDs record their source notes, the new clip's length and
+loop, and what provenance a clip derived from another clip states (R33 names
+files only). A clip operation acts on a whole clip, a distinct object
+boundary under [D21](../decisions/d21-musical-patch-and-public-tool-grain.md),
+and puts no transform into the format.
 
 Each operation needs ledger rows, call-budget tests and a focused live check.
+
+## Session 5 — Analysis tools, preceded by selectors and tool grain
+
+These tools replace what overlays were meant to provide (D73). Settle the
+design questions first:
+- **Selectors.** Selector or range patch records and server-side transforms
+  conflict with [D51](../decisions/d51-document-file-paths.md), which keeps
+  transforms of document content in agent scripts. Script-generated ID
+  patches were cheap (466 UPDATEs, 13 KB), so the case for selectors is about
+  agent effort and errors rather than bytes. Producer Pal's compact
+  transforms ([E353](../evidence/experiments/e353-producer-pal-offline-formats-and-claims.md))
+  are prior art.
+- **Tool grain.** D21 admits a new tool only for a different permission class
+  or object boundary, and rejects one tool per chord, scale or transform.
+  Decide between a few broad tools (for example analyze and compare) and an
+  amendment of D21.
+
+Then the tools: what agents improvised in Python, such as crop, retime,
+drum-map remap, pitch-class or scale transforms, voice separation, groove
+extraction, and comparison of a clip with its source. A source-comparison
+check would have answered every timing question in E393.
+
+Each tool needs ledger rows, call-budget tests and a focused live check.
 
 ## Result
 
@@ -266,3 +284,62 @@ Each operation needs ledger rows, call-budget tests and a focused live check.
   (130 KB) and the tool 30.5 ms (124 KB), against about 12.7 minutes of
   sequential `slot.status` reads. The listing matched all 32,128 single-slot
   reads.
+
+### Session 3 (2026-11-08): implemented and checked live
+
+- **Decisions.** The operator went through the format evidence and the field
+  overlays (E393, `.tmp/r01-usage/r3-timing-overlays.md`) and settled the
+  questions without a final benchmark
+  ([D73](../decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md)).
+  - Overlays are removed, including tempo and meter, and no clip-level
+    annotation layer replaces them. Every value the field overlays held can
+    be recomputed from the notes, or from the notes plus the named source;
+    analysis moves to the stateless tools of session 5.
+  - The only persisted fact is a provenance pointer: source files (path,
+    sha256, range, conversion settings, external refs) and an optional
+    generator script. Ghostnote keeps no store (D18); the pointer lives in
+    the CLIP record, and the binding holds it with the clip ID.
+  - The stateless row format stays. Uniform columns move to clip defaults
+    (the release-velocity question): a CLIP states a value every note shares,
+    and the FIELDS binding has only the columns some row needs.
+- **Implementation.** Schema and codec (R12–R24 retired, R33 provenance, R34
+  column defaults; canonical FIELDS without WITH), the identity registry
+  (provenance in the stored envelope; overlay carry and sealing deleted), the
+  clip writers (`readback.held`, a provenance-only `CLIP_UPDATE` writes
+  nothing to Bitwig), MIDI conversion `midi-document-v3` (clip provenance,
+  `report.tempo` and `report.meter`, `tempoFrom` and `meter` on write), the
+  model reference (revision 7: Core and Patch only), the spec prose
+  (`IDENTITY-AND-PROVENANCE.md` replaces `IDENTITY-AND-OVERLAYS.md`), the
+  examples and conformance corpus (`clip-defaults` replaces
+  `unknown-source`), and descriptions v68 (47 tools). The overlay probes
+  `phase8i4-overlay-seal` and `phase8i9-overlay-add` and the D44
+  `claimDependencyExpansion` limit are removed.
+- **Measured offline.** Canonical FIELDS of the pinned 8c read corpus fell by
+  30–36 percent (1,528 / 4,673 / 9,006 → 978 / 3,330 / 6,293 bytes); the
+  typical 256-note, 16-channel clip from 9,902 to 8,361 bytes. The
+  `get_document_reference` result with all sections fell from 17,383 to
+  7,098 bytes; Core alone grew from 4,469 to 5,665 bytes, because it now
+  states column defaults and provenance (ledger).
+- **Checks.** Typecheck and all 2,591 brain tests pass; `document:artifacts
+  --check`, `document:conformance` (209), `document:bindings` (35), and
+  `document:standalone` pass; the publication inventory is rewritten. No
+  extension or wire change (normal 95 / `0439995f8f3d9953`).
+- **Live check (operator-approved, 2026-11-08, gn-scale-test, v68 after an
+  MCP server restart; no controller replacement).** A scratch clip on gn-B
+  was added with provenance and the defaults `{"channel":2,"releaseVelocity":0}`
+  and one muted note: verified, `readback.held: ["provenance"]`, and the
+  host read derived the same defaults and bound only `mute`. A fresh read
+  returned the same document (identity current). A provenance-only
+  `CLIP_UPDATE` made no host write (route none, no effects) and verified. A
+  patch ADD without channel took channel 2 and release velocity 0 from the
+  clip defaults and verified.
+- **Provenance persistence (same check).** Overlays failed all four cases
+  (E393); provenance:
+  - project save: kept (identity current, same clip and event IDs);
+  - save-as under a new name: lost (identity new, IDs re-minted); re-attach
+    with `CLIP_UPDATE`;
+  - move: lost at the destination (identity new); re-attaching it with a
+    provenance-only edit verified;
+  - copy: the source keeps it; the copy has none.
+- **Open.** Copy and move do not yet carry provenance to the destination clip
+  (proposal 6); it finishes session 3.

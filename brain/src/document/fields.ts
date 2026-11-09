@@ -1,6 +1,7 @@
-import { BINDING, EVENT_DEFAULTS, EVENT_FIELDS, REQUIRED_FIELDS, type Document, type Event, type EventField } from './model.js';
+import { EVENT_FIELDS, OPTIONAL_FIELDS, REQUIRED_FIELDS, type ClipDefaults, type Document, type Event, type EventField } from './model.js';
 import { DocumentError, fail } from './error.js';
 import { canonicalJson, readJson } from './json.js';
+import { canonicalClipDefaults } from './semantic.js';
 export interface FieldSource {
     value: any;
     locations: Map<string, {
@@ -87,7 +88,7 @@ export function readFields(text: string): FieldSource {
             value = { format: parts[1].text, version: parts[2].text, kind: parts[3].text };
             if (!['snapshot', 'desired', 'patch'].includes(value.kind))
                 error('unknown document kind');
-            for (const key of value.kind === 'patch' ? ['add', 'remove', 'update', 'clipUpdate', 'overlayPut', 'overlayRemove'] : ['clips', 'coverage', 'events', 'overlays'])
+            for (const key of value.kind === 'patch' ? ['add', 'remove', 'update', 'clipUpdate'] : ['clips', 'coverage', 'events'])
                 value[key] = [];
             mark('$');
             mark('$.format', parts[1]);
@@ -164,7 +165,9 @@ export function readFields(text: string): FieldSource {
             value[key].push(row);
             continue;
         }
-        const bodies: Record<string, string> = { OVERLAY: 'overlays', OVERLAY_PUT: 'overlayPut', OVERLAY_REMOVE: 'overlayRemove', REMOVE: 'remove', UPDATE: 'update', CLIP_UPDATE: 'clipUpdate' };
+        if (word === 'OVERLAY' || word === 'OVERLAY_PUT' || word === 'OVERLAY_REMOVE')
+            error('overlays were removed from Document 1.0 (D73); put source facts in clip provenance', 'R12');
+        const bodies: Record<string, string> = { REMOVE: 'remove', UPDATE: 'update', CLIP_UPDATE: 'clipUpdate' };
         if (!Object.hasOwn(bodies, word))
             error('unknown or repeated record', 'R01');
         const key = bodies[word];
@@ -182,7 +185,7 @@ export function readFields(text: string): FieldSource {
         else {
             if (parts.length !== 2)
                 error('wrong record width');
-            value[key].push(word === 'OVERLAY' || word === 'OVERLAY_PUT' ? json(parts[1]) : parts[1].text);
+            value[key].push(parts[1].text);
         }
     }
     if (!value)
@@ -191,44 +194,53 @@ export function readFields(text: string): FieldSource {
         throw new DocumentError('R10', '$', 'missing FIELDS binding', locations.get('$'));
     return { value, locations };
 }
-function row(event: Event): string {
-    const e = { ...EVENT_DEFAULTS, ...event }, extra: Record<string, unknown> = {};
-    for (const k of Object.keys(event) as EventField[])
-        if (!BINDING.includes(k))
-            extra[k] = event[k];
-    return BINDING.map(k => ['id', 'clip', 'at', 'duration'].includes(k) ? String(e[k]) : canonicalJson(e[k])).join(' ') + (Object.keys(extra).length ? ' WITH ' + canonicalJson(extra) : '');
+const BARE: readonly EventField[] = ['id', 'clip', 'at', 'duration'];
+const slot = (field: EventField, value: unknown): string => BARE.includes(field) ? String(value) : canonicalJson(value);
+/**
+ * R26/R34 canonical rows. A bound optional field writes `_` where the event takes its clip default, or the
+ * portable default when the clip states none. Normalized events omit portable-default values, so an own value
+ * differs from the portable default.
+ */
+function rows(events: Event[], defaults: Map<string, ClipDefaults>): { binding: EventField[]; rows: string[] } {
+    const omits = (e: Event, field: EventField): boolean => {
+        if (!Object.hasOwn(e, field))
+            return true;
+        const values = defaults.get(e.clip) as Record<string, unknown> | undefined;
+        return values !== undefined && Object.hasOwn(values, field) && canonicalJson(values[field]) === canonicalJson(e[field]);
+    };
+    const bound = OPTIONAL_FIELDS.filter(field => events.some(e => !omits(e, field)));
+    const binding = [...REQUIRED_FIELDS, ...bound];
+    return { binding, rows: events.map(e => binding.map(field => REQUIRED_FIELDS.includes(field) ? slot(field, e[field]) : omits(e, field) ? '_' : slot(field, e[field])).join(' ')) };
 }
 export function writeFields(doc: Document): string {
     const lines = [`DOC ghostnote-document 1.0 ${doc.kind}`];
     for (const [key, record] of [['meta', 'META'], ['base', 'BASE'], ['extensions', 'EXTENSIONS']] as const)
         if (doc[key])
             lines.push(record + ' ' + canonicalJson(doc[key]));
-    if (doc.kind !== 'patch') {
-        for (const c of doc.clips)
-            lines.push('CLIP ' + canonicalJson(c));
-        for (const c of doc.coverage)
-            lines.push('COVERAGE ' + canonicalJson(c));
-    }
-    lines.push('FIELDS ' + BINDING.join(' '));
     if (doc.kind === 'patch') {
+        // A patch add omits a field only when the input omitted it: the base clip default then applies (R34).
+        const { binding, rows: added } = rows(doc.add, new Map());
+        lines.push('FIELDS ' + binding.join(' '));
         for (const id of doc.remove)
             lines.push('REMOVE ' + id);
         for (const u of doc.update)
             lines.push('UPDATE ' + u.id + ' ' + canonicalJson(u.set));
-        for (const e of doc.add)
-            lines.push('ADD ' + row(e));
+        for (const row of added)
+            lines.push('ADD ' + row);
         for (const u of doc.clipUpdate)
             lines.push('CLIP_UPDATE ' + u.id + ' ' + canonicalJson(u.set));
-        for (const id of doc.overlayRemove)
-            lines.push('OVERLAY_REMOVE ' + id);
-        for (const o of doc.overlayPut)
-            lines.push('OVERLAY_PUT ' + canonicalJson(o));
+        return lines.join('\n') + '\n';
     }
-    else {
-        for (const e of doc.events)
-            lines.push('EVENT ' + row(e));
-        for (const o of doc.overlays)
-            lines.push('OVERLAY ' + canonicalJson(o));
+    const defaults = canonicalClipDefaults(doc);
+    for (const c of doc.clips) {
+        const values = defaults.get(c.id);
+        lines.push('CLIP ' + canonicalJson(values ? { ...c, defaults: values } : c));
     }
+    for (const c of doc.coverage)
+        lines.push('COVERAGE ' + canonicalJson(c));
+    const { binding, rows: events } = rows(doc.events, defaults);
+    lines.push('FIELDS ' + binding.join(' '));
+    for (const row of events)
+        lines.push('EVENT ' + row);
     return lines.join('\n') + '\n';
 }

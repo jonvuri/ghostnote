@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host binding
 kind: reference
 state: active
-updated: 2026-10-09
+updated: 2026-11-08
 owner: phase-8f3
 ---
 
@@ -59,7 +59,7 @@ value in a portable range has passed a live test.
 
 | Portable value | Host mapping and observation | Write or preservation rule |
 |---|---|---|
-| `id`, event `clip` | Binding registry; no durable host note UUID | Mint and recover under [identity rules](IDENTITY-AND-OVERLAYS.md); never write IDs to notes |
+| `id`, event `clip` | Binding registry; no durable host note UUID | Mint and recover under [identity rules](IDENTITY-AND-PROVENANCE.md); never write IDs to notes |
 | `at` | Exact acquired cell index divided by 512 | Use D9 for new realized timing; preserve original finer host onset for an untouched note |
 | `duration` | R07 of the exact binary64 host duration | Write a validated cell duration through D9; preserve untouched raw duration |
 | `pitch` | NoteStep `y`, integer MIDI 0..127 | Direct; never clamp or wrap |
@@ -146,7 +146,8 @@ wider profile needs named values and independent host evidence.
 | Clip `loop` | Enabled host loop from loop start through start plus length; null when disabled. Keep disabled raw markers private |
 | Clip `playRange` | Requires both independently read play markers in valid local bounds. Play-stop setter is inert; preserve an unchanged range or refuse a changed one |
 | `coverage` | Acquisition statement. A proposal cannot edit it as a host property |
-| Overlay envelope and data | Binding annotation state under [overlay rules](IDENTITY-AND-OVERLAYS.md). Never a second note list |
+| Clip `provenance` | No host storage. The binding store keeps it with `meta` and `extensions` while the clip ID is kept, under [identity rules](IDENTITY-AND-PROVENANCE.md). A write readback reports it in `readback.held`, not as verified state. A provenance-only `clipUpdate` writes nothing to the host |
+| Clip `defaults` | Layout only (R34): parsing expands them into the events, so the binding never sees them |
 
 Do not shift stored coordinates to the play start. A nonzero loop start, negative
 stored onset, onset at/after length, or incompatible local range requires an
@@ -194,8 +195,9 @@ unrepresented controls on untouched notes. Reconstructing a note requires
 proof that all its prior fields are replayable. Pressure and repeat refusals
 can therefore block a pitch/timing edit that requires reconstruction.
 
-A complete desired document replaces all portable events and overlays in its
-mapped clips. Omitted optional values are portable defaults. It is not a sparse
+A complete desired document replaces all portable events and the clip
+provenance in its mapped clips. Omitted optional values are clip defaults or
+portable defaults. It is not a sparse
 preservation request. Match retained IDs, validate full inventory, and make
 removed notes explicit in the plan. Preserve host fields outside the format
 only where the measured operation proves preservation; otherwise refuse or
@@ -219,7 +221,7 @@ private acquisition evidence. 8h3e implements this domain.
 The retained diagnostic wrapper uses `exact-note-source-v0` and
 `exact-note-json-v0`. Its decoded omissions cannot establish complete raw field
 authority for the new route. Neither source digest is the R27 document hash.
-R22 dependency basis and the E231 research `pull-fp-v1` digest are also separate.
+The E231 research `pull-fp-v1` digest is also separate.
 Do not compare bare digest strings across domains.
 
 For each desired replacement or sparse patch:
@@ -298,54 +300,25 @@ change would overwrite such an edit, so the executor reads the clip again
 before the write. A targeted edit reads the clip twice; every other edit three
 times.
 
-### Overlay basis sealing
+### Clip provenance on writes
 
-The edit limb is the supplied dependency-basis utility of the model reference
-(8i4, [D45](../../context/decisions/d45-the-edit-limb-seals-explicit-overlay-claims.md)).
-This is a host input rule. The portable grammar does not change.
+Bitwig stores no clip provenance
+([D73](../../context/decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md)).
+The edit limb treats it as binding state, like `meta` and `extensions`.
 
-1. A current claim that the call states can omit `basis`. A stated claim is
-   each `OVERLAY_PUT` of a patch, and each `OVERLAY` of a desired document that
-   omits `basis` or differs from the stored claim.
-2. The limb computes the R22 basis of each stated current claim on the
-   proposed state: the base after the event and clip changes of the same call,
-   with the claims of the call. It checks the references first (R21).
-3. A supplied basis on a stated current claim must match. A mismatch refuses
-   with `invalid-input`, `detail.reason` `R22`, and `detail.expectedBasis`.
-4. The limb never computes a basis for a retained claim (a desired claim equal
-   to the stored claim) or a stale claim. A stale claim needs its prior basis
-   (R12). The codec lifecycle (R23) and its R22 check apply to every claim.
-
-The stored and returned document is a valid Document 1.0 with the computed
-bases.
-
-### Claims on clip creation
-
-`add_launcher_clip` takes claims in its desired document (8i9,
-[D47](../../context/decisions/d47-clip-creation-binds-claims-to-the-live-clip.md)).
-Each claim is a stated claim.
-
-1. Before any read or write, the tool counts the dependency expansion of the
-   stated current claims: one unit for each event of a membership clip, and
-   one unit for each 4 bytes of a claim that another claim depends on. Above
-   the D44 limit it refuses with `outside-limit`.
-2. Before any read or write, the tool seals the claims in the clip ID space
-   of the document as sent. It checks each supplied basis there, and the codec
-   checks every claim: references, cycles, and the timing equations (R13–R16,
-   R21). A refusal has code `invalid-input`, stage `input`, and no effect; a
-   wrong basis has `detail.expectedBasis` in that ID space.
-3. After the creation, the tool binds the document to the clip ID of the new
-   clip: the clip, the coverage, each event, and each claim reference
-   (`data.clip`, `depends.clips`, `depends.membership`). Each current claim
-   then gets the basis of the same dependencies under the live ID. This is an
-   ID mapping of a checked basis, not a replacement of a wrong value. A stale
-   claim keeps its prior basis. Event and claim IDs do not change.
-4. The content write and its independent readback are those of the edit limb.
-   A refusal after the creation returns the creation in `failure.effects` and
-   its `revert_change` route.
-
-An unguarded replacement of an existing clip (`edit_launcher_clip` with intent
-`replace`) with claims must still use the clip ID of a read.
+1. A patch keeps the stored provenance unless `clipUpdate` sets or clears it.
+   A desired document, also on clip creation, supplies the complete provenance;
+   omitting it removes the stored value.
+2. A provenance change is not a clip property write. A plan whose only change
+   is provenance has no host operation; it still reads the clip once and binds
+   the result.
+3. After a verified write, the registry entry of the new ref stores the
+   expected document's provenance, and the projected readback carries it.
+   `readback.held` is `["provenance"]` when the clip has provenance: the read
+   verified every host value, and Ghostnote supplied the provenance (D15).
+4. Later reads return it while the clip ID is kept (`current`, `stale`, or a
+   verified write). A retired ref or a restart drops it; the agent re-attaches
+   it with `clipUpdate`.
 
 ### Edit refusals
 
@@ -364,9 +337,8 @@ Each refusal happens before a host call. Code `unsupported` has
 
 Code `range` (reason `past-clip-end`): a written note would start or end after
 the clip length. Code `invalid-input`: codec errors, a BASE sha256 that does
-not match the ref, and a supplied basis that does not match (reason `R22`, with
-`detail.expectedBasis` for a stated claim). A known claim structure or timing
-fault also has `detail.repair` (8i9). Non-`current` verdicts use their verdict codes; `stale`
+not match the ref, and a document with overlays (rule R12). A known codec fault
+also has `detail.repair`. Non-`current` verdicts use their verdict codes; `stale`
 returns the new document and base in `detail`.
 
 ## D9 writes, loss, and readback

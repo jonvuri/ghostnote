@@ -7,7 +7,7 @@
  *
  * The planner follows the host binding base-resolution steps 3–6:
  *
- *   1. Re-project the fresh snapshot with the original IDs and overlays. The
+ *   1. Re-project the fresh snapshot with the original IDs and stored envelope. The
  *      original R27 guard must match.
  *   2. The read covers every field except articulation and repeat, so the base
  *      is partial. Resolve it to a full base: articulation has no host storage,
@@ -48,7 +48,6 @@ import {
 } from './ghostnote-document.js';
 import { cellKey, type BaseEntry, type CellKey } from './identity-registry.js';
 import { launcherClipCells, projectLauncherClip, type LauncherClipProjection } from './launcher-clip-document.js';
-import { NO_SEAL, SealRefusal, bindCreatedClaims, sealProposal, type SealRequest } from './overlay-seal.js';
 
 /** A planner refusal. `code` is a stable failure code of the result module. */
 export class EditRefusal extends Error {
@@ -103,12 +102,10 @@ export interface EditPlanInput {
   readonly proposal: Document;
   /**
    * `replace`: an unguarded desired document replaces the clip. The entry is a fresh acquisition. `create`: the same
-   * on a clip that this call created; the claims of the proposal are bound to the live clip ID (8i9).
+   * on a clip that this call created.
    */
   readonly mode: 'guarded' | 'replace' | 'create';
   readonly fresh: FreshAuthority;
-  /** The claims that the parse left to seal (`parseSealable`). Omitted: none. */
-  readonly seal?: SealRequest;
 }
 
 /** The raw note keys that one portable event field maps to. Channel moves the note between channel lists. */
@@ -152,7 +149,6 @@ function refusalOf(error: unknown): never {
   if (error instanceof DocumentError) {
     throw new EditRefusal('invalid-input', error.rule, error.message, { rule: error.rule, path: error.path });
   }
-  if (error instanceof SealRefusal) throw new EditRefusal('invalid-input', 'R22', error.message, error.detail);
   if (error instanceof NoteTimingUnrepresentableError) {
     throw new EditRefusal('unsupported', 'timing', 'A note start or duration does not fit a supported writable '
       + 'grid. Binary grids extend through 1/512 beat; the triplet family through 1/768 beat.');
@@ -309,20 +305,16 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   const replace = input.mode !== 'guarded';
   const eventIds = replace ? replacementIds(named.length, input.proposal) : named as string[];
   const original = replace ? projectLauncherClip(snapshot, entry.clipId, eventIds)
-    : projectLauncherClip(snapshot, entry.clipId, eventIds, entry.overlays, entry.envelope);
+    : projectLauncherClip(snapshot, entry.clipId, eventIds, entry.envelope);
   if (!replace && original.contentHash !== entry.contentHash) {
     throw new EditRefusal('target-changed', 'reprojection', 'The fresh read does not reproduce the base document.');
   }
   const expected: Authority = { snapshot: entry.snapshot };
   const full = fullBase(original.document);
-  const seal = input.seal ?? NO_SEAL;
 
   let result: Materialized;
   try {
-    // A replacement has no stored claim; its claims are sealed against the desired document before the rebind.
-    const proposal = replace
-      ? rebindReplacement(sealProposal(input.proposal, seal, undefined), original, full, input.mode === 'create')
-      : input.proposal;
+    const proposal = replace ? rebindReplacement(input.proposal, original, full) : input.proposal;
     if (replace) {
       result = assessBindingProposal(full, proposal, expected, fresh, { rawReplay: true });
     } else {
@@ -335,7 +327,7 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
       }
       result = resolvePartialProposal({
         original: original.document, freshProjection: original.document, full,
-        proposal: sealProposal(proposal, seal, full), expected, fresh,
+        proposal, expected, fresh,
         resolution: {
           ref: proposal.base.ref ?? '',
           declaredFields: full.events.map((event) => ({ event: event.id, fields: UNCOVERED })),
@@ -353,7 +345,10 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
   const clip = document.clips[0]!;
   const baseClip = original.document.clips[0]!;
   const clipFields = result.report.clipFields.find((item) => item.id === clip.id)?.fields ?? [];
-  const { metadata, fields: metadataFields } = plannedMetadata(snapshot.metadata, clip, clipFields);
+  // Provenance has no host storage (D73): the binding keeps it, so it changes no clip property.
+  const provenanceChanged = clipFields.includes('provenance');
+  const { metadata, fields: metadataFields } = plannedMetadata(snapshot.metadata, clip,
+    clipFields.filter((field) => field !== 'provenance'));
 
   const raw = rawNotes(snapshot);
   const rawById = new Map<string, { channel: number; note: NoteRecord; key: CellKey }>();
@@ -456,7 +451,6 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
     ...document, kind: 'snapshot',
     coverage: original.document.coverage.map((item) => ({ ...item, to: clip.length })),
   }) as StateDocument;
-  const overlaysChanged = result.report.overlayChanges.length > 0;
   return {
     expected: expectedDocument,
     expectedHash: normalizedContentHash(expectedDocument),
@@ -471,42 +465,23 @@ export function planLauncherClipEdit(input: EditPlanInput): EditPlan {
       cell: Math.floor(item.note.startBeats * 512) }), item.id])),
     clipId: baseClip.id,
     moved,
-    noChange: ops.length === 0 && !overlaysChanged,
+    noChange: ops.length === 0 && !provenanceChanged,
   };
 }
 
 /** Base event IDs for an unguarded replacement: distinct from every ID of the proposal. */
 function replacementIds(count: number, proposal: Document): string[] {
-  const used = new Set(proposal.kind === 'patch' ? [] : [...proposal.events.map((event) => event.id),
-    ...proposal.overlays.map((overlay) => overlay.id)]);
+  const used = new Set(proposal.kind === 'patch' ? [] : proposal.events.map((event) => event.id));
   let prefix = 'gn.replaced.';
   while ([...used].some((id) => id.startsWith(prefix))) prefix = `${prefix}x.`;
   return Array.from({ length: count }, (_, index) => `${prefix}${index + 1}`);
 }
 
 /**
- * Check a creation proposal before the clip exists (8i9). The claims are sealed in the clip ID space of the
- * proposal, and the codec checks every claim: references, cycles, timing equations, and each supplied basis. Returns
- * the sealed proposal for the planner; a proposal without claims is returned as it is.
- */
-export function checkCreation(proposal: Document, seal: SealRequest): Document {
-  if (proposal.kind !== 'desired' || proposal.overlays.length === 0) return proposal;
-  try {
-    return validate(sealProposal(proposal, seal, undefined));
-  } catch (error) {
-    return refusalOf(error);
-  }
-}
-
-/**
  * An unguarded desired replacement names its own clip ID. Bind it to the clip ID of the fresh read, and give it
- * the base sha256 of the full base. A replacement cannot carry overlays with another clip ID: their dependency bases
- * name the agent's clip ID. A creation can (8i9): its claims were sealed against the proposal, so each claim moves
- * to the live clip ID with the basis of the same dependencies.
+ * the base sha256 of the full base.
  */
-function rebindReplacement(
-  proposal: Document, original: LauncherClipProjection, full: StateDocument, create: boolean,
-): Document {
+function rebindReplacement(proposal: Document, original: LauncherClipProjection, full: StateDocument): Document {
   if (proposal.kind !== 'desired') {
     throw new EditRefusal('invalid-input', 'replace', 'intent replace needs a desired document.');
   }
@@ -518,16 +493,10 @@ function rebindReplacement(
     throw new EditRefusal('invalid-input', 'clip-inventory', 'A desired document for one Launcher clip has exactly one CLIP.');
   }
   const clipId = original.document.clips[0]!.id;
-  const from = proposal.clips[0]!.id;
-  if (from !== clipId && proposal.overlays.length > 0 && !create) {
-    throw new EditRefusal('invalid-input', 'replace', 'A replacement with overlays must use the clip ID of a read. '
-      + 'add_launcher_clip takes overlays with any clip ID.');
-  }
   const rebound = cloneJson(proposal) as StateDocument;
   rebound.clips = rebound.clips.map((item) => ({ ...item, id: clipId }));
   rebound.coverage = rebound.coverage.map((item) => ({ ...item, clip: clipId }));
   rebound.events = rebound.events.map((event) => ({ ...event, clip: clipId }));
-  if (create && from !== clipId) bindCreatedClaims(rebound, from, clipId);
   rebound.base = { sha256: contentHash(full) };
   return validate(rebound);
 }

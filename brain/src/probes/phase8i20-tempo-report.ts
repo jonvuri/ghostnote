@@ -1,6 +1,6 @@
 /**
  * Measure the bounded tempo report without connecting to Bitwig (8i20). For each MIDI file: the inline and file
- * result sizes, the tempo summary, and an export round trip of the notes, the tempo overlays, and the realized
+ * result sizes, the tempo summary, and an export round trip of the notes, the tempo map (tempoFrom), and the realized
  * timing. Only sizes, counts, hashes, and times leave the temporary directory.
  */
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
@@ -23,7 +23,8 @@ const call = async (name: string, args: Wire) => {
   return { result, ms: performance.now() - start, bytes: Buffer.byteLength(JSON.stringify(result)) };
 };
 const notes = (d: StateDocument) => d.events.map(({ id, clip, ...note }) => note);
-const tempos = (d: StateDocument) => d.overlays.flatMap(o => o.type === 'tempo' ? [{ at: o.data.at, bpm: o.data.bpm }] : []);
+// D73: the tempo map stays in the file; the export copies it with tempoFrom. A listed map compares directly.
+const tempos = (report: Wire) => ({ list: report.tempo, summary: report.sourceTempo });
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
 const value = (spelled: string) => { const [n, d = '1'] = spelled.split('/'); return Number(n) / Number(d); };
 
@@ -33,9 +34,10 @@ try {
     const inline = await call('read_midi_file', { path });
     const filed = await call('read_midi_file', { path, documentOutputPath: join(directory, `${index}.gndoc`) });
     const output = join(directory, `${index}.mid`);
-    await call('write_midi_file', { path: output, documentPath: join(directory, `${index}.gndoc`) });
+    await call('write_midi_file', { path: output, documentPath: join(directory, `${index}.gndoc`), tempoFrom: path });
     const original = parse(inline.result.data.document, 'fields') as StateDocument;
-    const recovered = parse((await call('read_midi_file', { path: output })).result.data.document, 'fields') as StateDocument;
+    const reread = (await call('read_midi_file', { path: output })).result;
+    const recovered = parse(reread.data.document, 'fields') as StateDocument;
     // Realized timing: a 1000 BPM target-tempo import measures seconds in cells of 0.117 ms. The export differs from
     // the source only by the R07 normalization of the read (1/512 beat at the source tempo); a tempo-map change would
     // add to it.
@@ -46,12 +48,12 @@ try {
     if (before.length !== after.length) throw new Error('The export has another note count.');
     const maxOnsetDeviationMs = Math.max(0, ...before.map((t, i) => Math.abs(t[0]! - after[i]![0]!) * 1000));
     const maxEndDeviationMs = Math.max(0, ...before.map((t, i) => Math.abs(t[1]! - after[i]![1]!) * 1000));
-    const roundTrip = { notes: same(notes(original), notes(recovered)), tempoOverlays: same(tempos(original), tempos(recovered)),
+    const roundTrip = { notes: same(notes(original), notes(recovered)), tempoMap: same(tempos(inline.result.data.report), tempos(reread.data.report)),
       maxOnsetDeviationMs, maxEndDeviationMs };
-    if (!roundTrip.notes || !roundTrip.tempoOverlays) throw new Error(`Round trip failed: ${JSON.stringify(roundTrip)}`);
+    if (!roundTrip.notes || !roundTrip.tempoMap) throw new Error(`Round trip failed: ${JSON.stringify(roundTrip)}`);
     results.push({ file: `${basename(dirname(dirname(path)))}/${basename(dirname(path))}/${basename(path)}`,
       sourceSha256: inline.result.source.sha256, notes: original.events.length, sourceTempo: inline.result.data.report.sourceTempo,
-      tempoOverlays: tempos(original).length, inlineResultBytes: inline.bytes, fileResultBytes: filed.bytes,
+      tempoPoints: inline.result.data.report.sourceTempo.changes + 1, inlineResultBytes: inline.bytes, fileResultBytes: filed.bytes,
       reportBytes: Buffer.byteLength(JSON.stringify(inline.result.data.report)), documentBytes: inline.result.data.documentBytes,
       inlineReadMs: inline.ms, fileReadMs: filed.ms, roundTrip });
   }

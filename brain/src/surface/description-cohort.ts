@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import type { ToolClass, ToolSpec } from './tools.js';
 
-export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v67';
+export const TOOL_DESCRIPTION_VERSION = 'ghostnote-description-v68';
 
 export interface DescriptionCohortMember {
   readonly name: string;
@@ -980,3 +980,12 @@ export const TOOL_DESCRIPTION_V66_SHA256 = '385084ba1646f0612a4d7a755595c8f38efb
  * back as differs, is not in readback.removed, and needs list_tracks before another delete.
  */
 export const TOOL_DESCRIPTION_V67_SHA256 = 'e93c2815d84024adb8d85567b2d72f6be8000502c5c0c8da42922c1054a2b7bd';
+
+/**
+ * v68 (B19 session 3, D73): overlays are gone from the document tools. add_launcher_clip and edit_launcher_clip state
+ * that Ghostnote holds clip provenance (readback.held) and drop the claim and timing-overlay text; read_launcher_clip
+ * returns stored provenance; read_midi_file names its source in each CLIP and lists short tempo and meter maps;
+ * write_midi_file takes tempoFrom and meter; get_document_reference has Core and Patch only (model reference
+ * revision 7).
+ */
+export const TOOL_DESCRIPTION_V68_SHA256 = 'cd5a7b02996797bf4998b4335a4970a3161897bf5049bda56054703c56ea253d';

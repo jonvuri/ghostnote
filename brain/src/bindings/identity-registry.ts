@@ -4,7 +4,7 @@
  * One entry binds an opaque base ref to one D32 snapshot reference, the
  * document clip ID, the R27 content hash, the coverage, the acquisition
  * boundary, and the event map `(host channel, pitch, cell)` to event ID. The
- * identity table of IDENTITY-AND-OVERLAYS.md decides each transition:
+ * identity table of IDENTITY-AND-PROVENANCE.md decides each transition:
  *
  *   - `current`: keep the entry, its ref, and every ID; the entry takes the new
  *     acquisition's mark (B18), so the ref's change window starts at the latest read.
@@ -15,9 +15,8 @@
  *   - a verified write (8h4c, "authorized portable update"): keep the clip ID
  *     and take the event ID of each cell from the confirmed candidate.
  *
- * Each entry also holds the stored overlays, META, and EXTENSIONS of its
- * document: the binding annotation store. A kept clip ID carries them
- * (`overlay-carry.ts`).
+ * Each entry also holds the stored META, EXTENSIONS, and clip provenance of its
+ * document (D73): Bitwig stores none of them. A kept clip ID carries them.
  *
  * The registry never matches by similarity. It is in process memory only: a
  * restart retires every ref. It holds at most `limit` live refs (default 256).
@@ -29,10 +28,13 @@ import { randomBytes } from 'node:crypto';
 
 import type { ClipSnapshotRef, ClipSnapshotVerdictKind } from '../contract/clip-snapshot.js';
 import type { RevisionMark } from '../contract/snapshot.js';
-import type { Coverage, Overlay, StateDocument } from '../document/index.js';
+import type { ClipProvenance, Coverage, StateDocument } from '../document/index.js';
 
-/** The inert document envelope that the binding stores: META and EXTENSIONS. It grants no host authority. */
-export type StoredEnvelope = Pick<StateDocument, 'meta' | 'extensions'>;
+/**
+ * What the binding stores beside the host notes: META, EXTENSIONS, and the clip provenance (D73). It grants no
+ * host authority; a readback reports the provenance as held, not verified.
+ */
+export type StoredEnvelope = Pick<StateDocument, 'meta' | 'extensions'> & { readonly provenance?: ClipProvenance };
 
 export const REGISTRY_LIMIT = 256;
 const TOMBSTONE_LIMIT = 1024;
@@ -64,9 +66,7 @@ export interface BaseEntry {
   readonly boundary: AcquisitionBoundary;
   /** `cellKey` to event ID. */
   readonly events: ReadonlyMap<string, string>;
-  /** The stored overlays of the document (the annotation store). */
-  readonly overlays: readonly Overlay[];
-  /** The stored META and EXTENSIONS of the document. */
+  /** The stored META, EXTENSIONS, and clip provenance of the document. */
   readonly envelope: StoredEnvelope;
 }
 
@@ -104,17 +104,25 @@ export interface Projected {
   readonly contentHash: string;
   readonly coverage: readonly Coverage[];
   readonly boundary: AcquisitionBoundary;
-  readonly document: { readonly overlays: readonly Overlay[] } & StoredEnvelope;
+  readonly document: Pick<StateDocument, 'meta' | 'extensions' | 'clips'>;
 }
 
-/** The IDs and stored overlays that one projection uses. */
+/** The IDs and stored envelope that one projection uses. */
 export interface ProjectionIds {
   readonly clipId: string;
   readonly eventIds: readonly string[];
-  /** The stored overlays to carry: those of the kept clip, or none for a new clip ID. */
-  readonly overlays: readonly Overlay[];
   /** The stored envelope of the kept clip, or none for a new clip ID. */
   readonly envelope: StoredEnvelope;
+}
+
+/** The stored envelope of a one-clip document: its META, EXTENSIONS, and clip provenance. */
+export function storedEnvelope(document: Pick<StateDocument, 'meta' | 'extensions' | 'clips'>): StoredEnvelope {
+  const provenance = document.clips[0]?.provenance;
+  return {
+    ...(document.meta === undefined ? {} : { meta: document.meta }),
+    ...(document.extensions === undefined ? {} : { extensions: document.extensions }),
+    ...(provenance === undefined ? {} : { provenance }),
+  };
 }
 
 const RETIRING: ReadonlySet<ClipSnapshotVerdictKind> = new Set(['identity-changed', 'absent', 'incomparable', 'uncovered']);
@@ -245,7 +253,7 @@ export class IdentityRegistry {
       }
       return this.mint('e');
     });
-    const projected = input.project({ clipId, eventIds, overlays: base?.overlays ?? [], envelope: base?.envelope ?? {} });
+    const projected = input.project({ clipId, eventIds, envelope: base?.envelope ?? {} });
     const entry = this.entryOf(snapshot, clipId, keys, eventIds, projected);
     this.insert(entry);
     const outcome: IdentityOutcome = base !== undefined ? 'stale' : retired !== undefined ? 'retired-and-new' : 'new';
@@ -258,7 +266,7 @@ export class IdentityRegistry {
   /**
    * Bind the independent readback of a verified write (identity table row "authorized portable update"). The
    * confirmed candidate gives the event ID of each cell in `ids`; a cell that the candidate does not name gets a
-   * new ID. The clip ID stays, and `overlays` are the stored overlays of the written document. Older refs at the
+   * new ID. The clip ID stays, and `envelope` is the stored envelope of the written document. Older refs at the
    * address stay live; their next check is `stale`.
    */
   recordWrite(input: {
@@ -266,7 +274,6 @@ export class IdentityRegistry {
     readonly cells: readonly CellKey[];
     readonly clipId: string;
     readonly ids: ReadonlyMap<string, string>;
-    readonly overlays: readonly Overlay[];
     readonly envelope: StoredEnvelope;
     readonly project: (ids: ProjectionIds) => Projected;
   }): Acquired {
@@ -283,7 +290,7 @@ export class IdentityRegistry {
       }
       return this.mint('e');
     });
-    const projected = input.project({ clipId: input.clipId, eventIds, overlays: input.overlays, envelope: input.envelope });
+    const projected = input.project({ clipId: input.clipId, eventIds, envelope: input.envelope });
     const entry = this.entryOf(input.snapshot, input.clipId, keys, eventIds, projected);
     this.insert(entry);
     return { entry, outcome: 'written', retained, minted: keys.length - retained };
@@ -300,11 +307,7 @@ export class IdentityRegistry {
       coverage: projected.coverage,
       boundary: projected.boundary,
       events: new Map(keys.map((key, index) => [key, eventIds[index]!])),
-      overlays: projected.document.overlays,
-      envelope: {
-        ...(projected.document.meta === undefined ? {} : { meta: projected.document.meta }),
-        ...(projected.document.extensions === undefined ? {} : { extensions: projected.document.extensions }),
-      },
+      envelope: storedEnvelope(projected.document),
     };
   }
 

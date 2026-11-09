@@ -22,7 +22,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3a9e01ab9405d5d69f79c47b05bfda0b0dde50281a5b3c25fae6f41f4202ee0f"
+        "value": "59e04c8d6a8a9d158511ecefb00ea124db751dd64e5f5c7c8f4f3111aa66e90d"
       },
       "dependencies": [
         "brain/src/document/",
@@ -36,7 +36,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "1c4e17d6db88b74230f5c140976337de7acf586a032ced8605384b68f62cde04"
+        "value": "693c8625ca28d90b391890d080730159b13ed44f11392b2366daec632dd1e5da"
       },
       "dependencies": [
         "brain/src/document/",
@@ -50,7 +50,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "9db41879d4ff4c12881ff3df4c1e6a607d60532b104694c722c1ce4d69dcf346"
+        "value": "2d99bd5df389b2582856effdb382fd8844b9aa1c24d23e456e05e0b22f5eb97d"
       },
       "dependencies": [
         "brain/src/document/",
@@ -64,7 +64,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "25da8de558ea1ce9687cc872101373f6aa97f22c3b5a0082ded31448a92f8e30"
+        "value": "e7997b06f68d2f3fb69f657e030c1601da8bf2027baba27ecd4861360c880bdd"
       },
       "dependencies": [
         "brain/src/document/",
@@ -78,7 +78,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "6cdf8dcf8b28871b51d25b955336040425fef55faf0ea4d5aaf8ec623e33023e"
+        "value": "4cdc991054dbd4bf5316415ab984fe75cb54a9c5bf4a8fc5450df7931d093d36"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -92,7 +92,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "eb997aafddea55eafe77f845b55a2e1ae92be386c5076c14c84b991c2c7bba6e"
+        "value": "73b4c6923d600a65e4940c6d921e46f3da0048dc77d7af19c32e52b36b6eb626"
       },
       "dependencies": [
         "brain/src/document/",
@@ -102,11 +102,25 @@
     },
     {
       "path": "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "67a93b3adbf0010f875010ad119b8248d5b0aafddafa83453cbeb87e41cd175b"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md",
       "version": "ghostnote-binding/1",
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "1d9f357e598628d94cff8f25a0a666f7edb68f6e3c1f32bb6ad0e843fc01d3fb"
+        "value": "70de8e2dd3278cc395328edbf8f56eb8949425253b2b21b40893c6de1b560f47"
       },
       "dependencies": [
         "brain/src/bindings/ghostnote-document.ts",
@@ -120,7 +134,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "bb74b23959c931871a4f7c9bedd8182b5f7413ec33a01553961716c5345c82c6"
+        "value": "28b631c17b80f20d0099fb78bec24fa1ce8655355dd6cfd3bbb54db4b55548de"
       },
       "dependencies": [
         "brain/src/document/",
@@ -134,7 +148,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a1303abc90d4eb6088c564ca781702f476a522c9f03bc4575e1ce8f2994a3ed7"
+        "value": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051"
       },
       "dependencies": [
         "brain/src/document/",
@@ -148,7 +162,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "47ca69c6540bf9eca743ed3daf7d7faf4e60b61fd5446848dbcebbbea01b0b23"
+        "value": "fbfd3bffbacfb063a4ebf1663f8fe37c0d424d37141e1a0d91fa99b862493d0a"
       },
       "dependencies": [
         "brain/src/document/",
@@ -213,12 +227,40 @@
       "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/clip-defaults.fields",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "c143804fc0dafdb5fbb6b649cb1ea19fd408c07c8d9eb0cf379f533a960314fd"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/clip-defaults.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "a46a5eae47defa33c3ce032749c2a26dc17657dbd61cd1d0dca1cbb558bc3985"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
       "path": "spec/ghostnote-document-v1/conformance/v1/canonical/complete.fields",
       "version": "ghostnote-document/1.0",
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "8a26c4c5e0f0d839d7166d662adf25e8810188ed5bdd4e17cea93cd26561e54c"
+        "value": "8acfe18a8c73f74e774bc0a8ce3536c6a11d168daaf32369316a9d09670fe4bb"
       },
       "dependencies": [
         "brain/src/document/",
@@ -232,7 +274,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3bf7b478580f66efc0fa115fdaace017adaabfff7a5f155fea5b1b4a30eec075"
+        "value": "9a3511b3613a26265721c91f70ad5577f1b8e3bd8534320f0a7f6e67dd70c468"
       },
       "dependencies": [
         "brain/src/document/",
@@ -246,7 +288,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "637ccdc583f51f1569b1d01ab718b937e6fb46f10ad44c20f8244412c59c9ea5"
+        "value": "28cd5acf0c161d500915540ef9de6d042ae3f8125e468bbd58ac80df9a138a93"
       },
       "dependencies": [
         "brain/src/document/",
@@ -260,7 +302,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "bc9b4737c1e9e5abd6392198802653cdbf2b571a80031bea50036a35b80c6206"
+        "value": "b7e92880f7d15fbdae960dafaf5ba940a7705a56eeea6befc443c7eff300157d"
       },
       "dependencies": [
         "brain/src/document/",
@@ -274,7 +316,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "51c010668f6f69e1b51e752ea35b61a464e5d9e7fbf99eaf3d05452b3ce612f2"
+        "value": "34b0434e3502c8dce27174c12b73a496f0ad487ea4a68c0469e3b70485d9ee9c"
       },
       "dependencies": [
         "brain/src/document/",
@@ -288,7 +330,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "9bf872c24cd4f15db7f4d10fe2e8c1da4f8a16e80fac5b2a87228df4c5ad6136"
+        "value": "285e7e976e12da36b745bb039575a69e497656342c031291346c7d2ede6ba35f"
       },
       "dependencies": [
         "brain/src/document/",
@@ -302,7 +344,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "56913c1865e4e8b29348c20d4b99b4250bedb3176718d522884b85b12a61d53d"
+        "value": "f55808861ba00d8147db51f87ce523fdd36673223b8c0aa4f77d9f48754fc936"
       },
       "dependencies": [
         "brain/src/document/",
@@ -316,7 +358,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "494187b95116303983316d29fe20887f39df2f3fcebfbea480a756bded881cf3"
+        "value": "8c91be3a98c38c9ab4b313e5e189462e2e45124752926919f8865bd1ced397ee"
       },
       "dependencies": [
         "brain/src/document/",
@@ -330,7 +372,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "8c9a1497a7a05166874c6fb5ac73b41a742a8f8c86c694028ba82962152a4f60"
+        "value": "dc404ba295677655703adbbf260157fdd0905f5c51bb44a77485a53ab8cbcfde"
       },
       "dependencies": [
         "brain/src/document/",
@@ -344,7 +386,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "d4860a9276aeadc91095d18fdbe914a5c64ebb3a51195a52b5e45dd4f5462c58"
+        "value": "3e369a7c1cdd9795078693531869ef618dba0755697b2b7552d916da04600b06"
       },
       "dependencies": [
         "brain/src/document/",
@@ -358,7 +400,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "c0889191064191eb090cb3c0eb7b603deaed8ca09108101451ce35d296bf9107"
+        "value": "a199fd20aead3485bd9bb5c49247c7ae5bb58ab19a7179ab47ebeac112cece83"
       },
       "dependencies": [
         "brain/src/document/",
@@ -372,7 +414,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "1c060b3cc5f5538d0cc2264167b8ebe5475d50450fe12f0a211873eebd61a763"
+        "value": "8a148ea9fe49984683542b5b89474064f5beaa5f1c164ab3acb2dafa7d55a4fe"
       },
       "dependencies": [
         "brain/src/document/",
@@ -386,7 +428,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "23197e097103e425175a2676c921b0b2bdb9f5f119f80f6e12539f0a9a60d4a1"
+        "value": "3cb6c1fb268863a4f29a077b342064af3e7c564b3adf15cb1ed492e645f06390"
       },
       "dependencies": [
         "brain/src/document/",
@@ -400,35 +442,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3b56761532f78fa719e9b25df3940863f3afa85b30c2d1210ae112bcb9f0dc67"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "LICENSE"
-      ],
-      "redistribution": "Generated repository music; MIT. Include the repository notice."
-    },
-    {
-      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/unknown-source.fields",
-      "version": "ghostnote-document/1.0",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "9949992032cab9061b7ac3683d9c4f09bbb6feaa177603eccd56a50b2a381539"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "LICENSE"
-      ],
-      "redistribution": "Generated repository music; MIT. Include the repository notice."
-    },
-    {
-      "path": "spec/ghostnote-document-v1/conformance/v1/canonical/unknown-source.json",
-      "version": "ghostnote-document/1.0",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "b75d07f59a068f0dfb09dd6d5db7e6abb20cea082159d4eec1c9e528176f3b8a"
+        "value": "8d185427a7aa46863423626597d2c589076b1c53c6343165d87eaf74c5d32fbf"
       },
       "dependencies": [
         "brain/src/document/",
@@ -442,7 +456,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "304ab4327e93442a36078b14b0780e00c6c30b473eb0f153c9e781a590154916"
+        "value": "d80b85929819f54434b8cc27541f1bff0d459cd29a24692eafc0d7bea4aaee2b"
       },
       "dependencies": [
         "brain/src/document/",
@@ -470,7 +484,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "29d5e1a186aa091c8b3a3415243a086aef84f4da36a0c150d0193db9868feece"
+        "value": "0dcda1c6e4b1e12581c5a0b8ca081eb9d55752d19767281c4f5aa41f10d8a469"
       },
       "dependencies": [
         "brain/src/document/",
@@ -484,7 +498,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "4786e6254561b1b7f8fb02278a759b3865d2bc281cc256e3bc32c79d9657da38"
+        "value": "f3a3b8846acfdc34735da08b0403e7d49a8a370c1bf3cf136e214403bf2d7c9b"
       },
       "dependencies": [
         "brain/src/document/",
@@ -498,7 +512,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a1303abc90d4eb6088c564ca781702f476a522c9f03bc4575e1ce8f2994a3ed7"
+        "value": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051"
       },
       "dependencies": [
         "brain/src/document/",
@@ -512,7 +526,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "eb4a1b7abcabe2d68dd3d62ac9db20ee9cb5a8b0480ba478dde22c8b35a41f53"
+        "value": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051"
       },
       "dependencies": [
         "brain/src/document/",
@@ -521,18 +535,32 @@
       "redistribution": "Repository MIT notice required; 10b confirms final package scope."
     },
     {
-      "path": "spec/ghostnote-document-v1/conformance/v1/prompts/timing.txt",
+      "path": "spec/ghostnote-document-v1/examples/clip-defaults.fields",
       "version": "ghostnote-document/1.0",
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "ab13050fbcff250dfad7c1e771c6ad9bb8f6923bf044c8d505c8fa0de51deea8"
+        "value": "c143804fc0dafdb5fbb6b649cb1ea19fd408c07c8d9eb0cf379f533a960314fd"
       },
       "dependencies": [
         "brain/src/document/",
         "LICENSE"
       ],
-      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
+    },
+    {
+      "path": "spec/ghostnote-document-v1/examples/clip-defaults.json",
+      "version": "ghostnote-document/1.0",
+      "hash": {
+        "algorithm": "sha256",
+        "domain": "exact-file-bytes",
+        "value": "a06e906823d953fc99b2ace654cde62f27b7f1884ca9252a0becf9247962a77d"
+      },
+      "dependencies": [
+        "brain/src/document/",
+        "LICENSE"
+      ],
+      "redistribution": "Generated repository music; MIT. Include the repository notice."
     },
     {
       "path": "spec/ghostnote-document-v1/examples/complete.fields",
@@ -540,7 +568,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "8a26c4c5e0f0d839d7166d662adf25e8810188ed5bdd4e17cea93cd26561e54c"
+        "value": "8acfe18a8c73f74e774bc0a8ce3536c6a11d168daaf32369316a9d09670fe4bb"
       },
       "dependencies": [
         "brain/src/document/",
@@ -554,7 +582,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "dd23aa638ebb35ddc60a796249cfafd606ae6adef58112993d45f30595844f3f"
+        "value": "565e8db68755061049061d55616ecf9370f08094769c38a6b66845daa37ed993"
       },
       "dependencies": [
         "brain/src/document/",
@@ -568,7 +596,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "637ccdc583f51f1569b1d01ab718b937e6fb46f10ad44c20f8244412c59c9ea5"
+        "value": "28cd5acf0c161d500915540ef9de6d042ae3f8125e468bbd58ac80df9a138a93"
       },
       "dependencies": [
         "brain/src/document/",
@@ -582,7 +610,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "2826388dd2142f9d21fdd0507507344e248942465f586859b4258c17886fd079"
+        "value": "37817efbcb28ee0fe860127dbeecc27dccb41fdfc767fe0d159dccb522efe186"
       },
       "dependencies": [
         "brain/src/document/",
@@ -596,7 +624,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "51c010668f6f69e1b51e752ea35b61a464e5d9e7fbf99eaf3d05452b3ce612f2"
+        "value": "34b0434e3502c8dce27174c12b73a496f0ad487ea4a68c0469e3b70485d9ee9c"
       },
       "dependencies": [
         "brain/src/document/",
@@ -610,7 +638,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "e2a63fc600f2c1a13736c5d116c6f4d0a0121d7dde49a51a7dd2922905bacf74"
+        "value": "4308b1796b75057e9d64c283962fc851caaa353ba06bbad3acfc5283ab222d59"
       },
       "dependencies": [
         "brain/src/document/",
@@ -624,7 +652,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "e45ac1d941cbf9d3f3954bf9caf16ce9d5c363129984bcd2308f6f4748e56d0e"
+        "value": "9dc98c01826cdf6fc716346bec734c07cbbbb43ce367df99f54f6cc1ce201153"
       },
       "dependencies": [
         "brain/src/document/",
@@ -638,7 +666,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "56913c1865e4e8b29348c20d4b99b4250bedb3176718d522884b85b12a61d53d"
+        "value": "f55808861ba00d8147db51f87ce523fdd36673223b8c0aa4f77d9f48754fc936"
       },
       "dependencies": [
         "brain/src/document/",
@@ -652,7 +680,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "f3dcea087a451524ce8c55f52c1736b00274daaee1ed4614ffbbd6c475436fd1"
+        "value": "17307e55fecc5d0b5c8e6fdc084b8f9690638e11c14741acd57c688272395e03"
       },
       "dependencies": [
         "brain/src/document/",
@@ -666,7 +694,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "8c9a1497a7a05166874c6fb5ac73b41a742a8f8c86c694028ba82962152a4f60"
+        "value": "dc404ba295677655703adbbf260157fdd0905f5c51bb44a77485a53ab8cbcfde"
       },
       "dependencies": [
         "brain/src/document/",
@@ -680,7 +708,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "7d0640c8a978d9da6923b9e8209d85c4ac0574d3c11b47f98156440d2791f626"
+        "value": "110b6325f95650e05882e4cdaea270b2872a1e333cb5007d48765cbcc773e28d"
       },
       "dependencies": [
         "brain/src/document/",
@@ -694,7 +722,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "c0889191064191eb090cb3c0eb7b603deaed8ca09108101451ce35d296bf9107"
+        "value": "a199fd20aead3485bd9bb5c49247c7ae5bb58ab19a7179ab47ebeac112cece83"
       },
       "dependencies": [
         "brain/src/document/",
@@ -708,7 +736,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "bff7b6ae7f9b74ac253696cae49f2cc5275239d90eafa8ba705313739c834d2f"
+        "value": "ee38fe88979ed59e8fbe99931b9deee77854c1e2ed2f6293085fb7509c6cdf03"
       },
       "dependencies": [
         "brain/src/document/",
@@ -722,7 +750,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "23197e097103e425175a2676c921b0b2bdb9f5f119f80f6e12539f0a9a60d4a1"
+        "value": "3cb6c1fb268863a4f29a077b342064af3e7c564b3adf15cb1ed492e645f06390"
       },
       "dependencies": [
         "brain/src/document/",
@@ -736,35 +764,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "794403fcda37731286b10305e0bd34d9429c6ff4fdc4e54dab048bf50c5b79ed"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "LICENSE"
-      ],
-      "redistribution": "Generated repository music; MIT. Include the repository notice."
-    },
-    {
-      "path": "spec/ghostnote-document-v1/examples/unknown-source.fields",
-      "version": "ghostnote-document/1.0",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "9949992032cab9061b7ac3683d9c4f09bbb6feaa177603eccd56a50b2a381539"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "LICENSE"
-      ],
-      "redistribution": "Generated repository music; MIT. Include the repository notice."
-    },
-    {
-      "path": "spec/ghostnote-document-v1/examples/unknown-source.json",
-      "version": "ghostnote-document/1.0",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "752ca2597ab49fd52a1f9518ec848cf42b4a3a96811af9bc2e6daeccd568c6b9"
+        "value": "bc267c95e998dd9bdea62e644d8f24f72318cb85a8798a8ec857faa37c4cbcc2"
       },
       "dependencies": [
         "brain/src/document/",
@@ -778,7 +778,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "d59bc47dc9bfff8c988df9bb11e28fa9bd87c469f772231ce548b34675a2fb69"
+        "value": "ef3fa500d93d7cd64b5026dafbdf6843147ed9262847d359bc8734e586aa13e0"
       },
       "dependencies": [
         "brain/src/document/",
@@ -792,7 +792,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "948695a9414d50948ed012fc47db5b0ddb75ecc1482c5c7da2282db069777224"
+        "value": "a22db7aaf49827747c02d1c796f5eea5cd41c9166fff07fdac4cd3de669bd622"
       },
       "dependencies": [
         "brain/src/document/",
@@ -836,22 +836,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "3cc674fc66874030de9971eb419b8ede437529be570c9461f86e6a29b268e605"
-      },
-      "dependencies": [
-        "ES2022 or later",
-        "Node module support",
-        "brain/package-lock.json"
-      ],
-      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
-    },
-    {
-      "path": "brain/src/document/display.ts",
-      "version": "ghostnote-document/1.0",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "17271d2a7dbcc6f3866724f13a2482049d3ed33eca863f594d7fae7755125c1d"
+        "value": "903f3d52b55809250501687a4862afa76f1c215a599841afeddd0626ebdac173"
       },
       "dependencies": [
         "ES2022 or later",
@@ -881,7 +866,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "d67e5792163cf52b603532ab32e7a546922529e41fdfe89368dd441608c07e4e"
+        "value": "dcf9d37c89b195dd217648b9ad12a025a9aaef82701d03ef68920f3cf413a5cf"
       },
       "dependencies": [
         "ES2022 or later",
@@ -911,7 +896,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "df1d0b03c8e9a47d1770623eef47f70e03edc02a8cddbb60357f0723141ed21e"
+        "value": "3c8629dad7b1276155bccd6a02752735576feae9ef06c1f205263656bd5b1d33"
       },
       "dependencies": [
         "ES2022 or later",
@@ -941,7 +926,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "0518571b0a0931f0a3dc6dbffcf360a945d7a79c06de1cdcc59d058cea810b29"
+        "value": "ea4166a70caa6339faca005f04097898113b85764a53e5f7d9884eeb035f083d"
       },
       "dependencies": [
         "ES2022 or later",
@@ -956,7 +941,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "97e53068fb79bac4e5a38eb20821463caa9c7245b57e2278fc10dfb3e2a728f5"
+        "value": "f529319c9416ed96618d06e5558aefeac5d87dc908d980e4c23d9f9abb9bb701"
       },
       "dependencies": [
         "ES2022 or later",
@@ -986,7 +971,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "371f8c50bdbaa8707d9c7264e7135492fc90670feedf9670d8bff3c78af26e3c"
+        "value": "446495379dd9e72bfd90847a9c06d39424da90785878660ed8d4c2f0fb3df28f"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1001,7 +986,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "0625bc561562d2b1b1f4a2f3180ac8801973f8f44bd0e4c2add2cfcd400c66ad"
+        "value": "0cdd8295be6325542a41bcca8dd80a641bf372694e12a84f037825089bb99187"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1016,7 +1001,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a59dcd5c74da6a15e522fdda6ff47677fa691deaddbf2953fa8e41dda3424894"
+        "value": "c1b8ada3141bdb75a08363805fd25283622edcbe9475d222056d8f4d4ae4168d"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1031,7 +1016,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "cf7d545053914e8662ddbb433ac2668b6b4550a014f994d3038f639a3eeb60fd"
+        "value": "7329f9556619f3f11d60d0db96134f7ff16bda694a85acfcaf516fb0aa093b1f"
       },
       "dependencies": [
         "ES2022 or later",
@@ -1046,7 +1031,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "56bfe0b9b23e277232070cf9bffe6f33260584ff241473ffb7099cf08a3be095"
+        "value": "7b29d708303ba92223ebac4d3332b70a3127340ab60a550b84fa8d985fc736f2"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1060,7 +1045,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "474633b2bb66990e04d12542c3aeff6a2d9f74eed9462e4a7ed827026bcfd345"
+        "value": "71dc294d4f656d11bfe03ae3c37690e82617c415bd9fed182de72eebd675c296"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1074,7 +1059,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "1cb2fd81dd679807b21063c06739f01a98a8852f378a1a044750993e6d4e5fa8"
+        "value": "16a755cce2fd18552c217cb7b1ed990305e99e76c196661f7e7104886119d487"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1088,7 +1073,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "d0d5c77a9cccd8a0aff66193121895add41656c947ae0ef3a6a9364754c058b4"
+        "value": "6b4bcfa6b31bf1e63a8a42244824f99ed7afcb1f8d142ccf0d0deb23d2174af6"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1102,7 +1087,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "10026a0b2effde873b59d561331111074976c53c3e30fc197f30c7d4d82300d9"
+        "value": "bedf282fe2be991069990a94572f70afee318c9cb1ac102e309c1f7e9b257a87"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1116,7 +1101,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "de63cf6c6fcd1f97443999c9ef40c31a41510f442a70b752e531d639af99ba33"
+        "value": "33977533a4e0f5328e923fc4720a62ce0c1d16200bcb710abf2c691f14d57b63"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1130,35 +1115,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "a4c41d92b9e07ee4fc4659535bd914c3dca6a3f99f2593d48671516e40738d71"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "brain/src/contract/"
-      ],
-      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
-    },
-    {
-      "path": "brain/src/bindings/overlay-carry.ts",
-      "version": "ghostnote-binding/1",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "2a416c01ae10abf4af0f313113b471bee904bbae716fe8809a5a251d379b2648"
-      },
-      "dependencies": [
-        "brain/src/document/",
-        "brain/src/contract/"
-      ],
-      "redistribution": "Repository MIT notice required; 10b confirms final package scope."
-    },
-    {
-      "path": "brain/src/bindings/overlay-seal.ts",
-      "version": "ghostnote-binding/1",
-      "hash": {
-        "algorithm": "sha256",
-        "domain": "exact-file-bytes",
-        "value": "962d383bf942bb065410af310780b651d9cb26a4d534af19479d3608c84292ca"
+        "value": "1c46dac31487c8084d74ddff8abc23e50dd21c3c9108dc4ff3014f59ae0ae30b"
       },
       "dependencies": [
         "brain/src/document/",
@@ -1176,7 +1133,7 @@
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
-        "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+        "spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md",
         "context/plan/phase-8/8g-shadow-project-cache.md",
         "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
       ],
@@ -1188,11 +1145,11 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "cc0c5bdc8ef1e41e11d1d1808022cfa767742876178f0982868c343c89074970"
+        "value": "2bf1a72cc91230a51591c8aab49c4a52e2c46ce952f5af69976a47d6a48aeaab"
       },
       "dependencies": [
         "spec/ghostnote-document-v1/HOST-BINDING.md",
-        "spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md",
+        "spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md",
         "context/plan/phase-8/8g-shadow-project-cache.md",
         "context/plan/phase-8/8h-cache-promotion-and-interface-simplification.md"
       ],
@@ -1217,7 +1174,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "f93d428ad6510e07cccc67830eca08ffb4fbb03ad516d23b5f7e7dc7bc225edc"
+        "value": "0d98a8478bbb5b6e35d8c060296d967d0b5d14f9100488c206e4e0bbe6511775"
       },
       "dependencies": [
         "10b package dependency/notice review"
@@ -1243,7 +1200,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "b692fa39f02f05327c9a1ba9a5f4fec748af4f02d9515cbd948ed0750f795c1e"
+        "value": "4566f77c4181c76ffc9236ca0d79efce12fa931c63283f234db771fbcaa05747"
       },
       "dependencies": [
         "10b package dependency/notice review"
@@ -1269,7 +1226,7 @@
       "hash": {
         "algorithm": "sha256",
         "domain": "exact-file-bytes",
-        "value": "cf76018e828c77c29c4974129da511c9c698b7a945d7c68380ac32345b9ddac0"
+        "value": "15a6f6185c34a20dcdf7a793d52353dcbe6bb77be1a4aae56d88d9e6b4faa48b"
       },
       "dependencies": [
         "10b package dependency/notice review"

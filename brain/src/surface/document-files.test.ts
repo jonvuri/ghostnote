@@ -141,7 +141,7 @@ test('a clip round trip uses files only: add, read to a file, edit from a file, 
 
   // A script makes a patch from the file and the base of the read.
   const patch = { format: 'ghostnote-document', version: '1.0', kind: 'patch', base: read.authority.base,
-    add: [], remove: [], clipUpdate: [], overlayPut: [], overlayRemove: [],
+    add: [], remove: [], clipUpdate: [],
     update: [{ id: snapshot.events[0]!.id, set: { velocity: 33 } }] };
   await writeFile(join(dir, 'patch.gndoc.json'), JSON.stringify(patch));
   const edited = await call('edit_launcher_clip', { trackId, row: 0, documentPath: join(dir, 'patch.gndoc.json'),
@@ -257,7 +257,7 @@ test('B19: a large inline clip read warns; the same read to a file does not', as
   const dir = await files(t), { workspace, trackId } = liveFixture();
   const added = await call('add_launcher_clip', { trackId, row: 0, documentPath: await (async () => {
     const path = join(dir, 'large.gndoc');
-    await writeFile(path, serialize(midiDocument(1500), 'fields'));
+    await writeFile(path, serialize(midiDocument(2500), 'fields'));
     return path;
   })() }, workspace);
   assert.equal(added.readback.status, 'verified', JSON.stringify(added).slice(0, 400));

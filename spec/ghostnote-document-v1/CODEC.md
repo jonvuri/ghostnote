@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 reference codec
 kind: guide
 state: active
-updated: 2026-10-01
+updated: 2026-11-08
 ---
 
 # Reference codec
@@ -22,38 +22,35 @@ They do not replace the existing musical, host, or cache types.
 | `serialize(document, encoding)` | Validates and returns canonical bytes as a string; JSON has no final LF, FIELDS has one |
 | `convert(input, from, to)` | Strict parse and canonical serialization; timing is unchanged |
 | `contentHash(document)` | R27 SHA-256 over normalized content and its domain prefix |
-| `dependencyBasis(base, claim)` | R22 basis from a valid state base; the claim can be outside the base |
-| `sealOverlays(state)` | Sets bases for explicitly supplied current claims in dependency order; then validates all relationships |
-| `applyPatch(base, patch)` | Checks the guard and full coverage; returns desired state and a change report |
+| `applyPatch(base, patch)` | Checks the guard and full coverage; an add takes its base clip's canonical defaults; returns desired state and a change report |
 | `applyDesired(base, desired)` | Checks the guard and complete desired input; returns replacement state and a change report |
 | `normalizeTiming(at, duration)` | Explicit R07 acquisition from exact strings or host binary64 values; reports both deltas and minimum promotion |
 | `importNotes(sourceNotes)` | Validates event fields, normalizes timing, and reports source values, collisions, and changed overlap intervals |
 | `observeCells(cells)` | Labels acquired `bigint` cell indices with the D23 boundary; does not floor cell indices or claim recovered source IDs |
-| `timingDisplay(state, clip, nominalAt, component)` | Exact local milliseconds with BPM and the required tempo dependency; returns null when current tempo is unknown |
+| `canonicalClipDefaults(state)` | The R34 canonical clip defaults of a normalized state document, by clip ID |
 
 Native timing fields are rational strings. Numeric host timing enters only
 `normalizeTiming`, `importNotes`, or the declared cell observation utility.
-The codec never calls acquisition normalization to repair a document. Groove
-validation uses R07 to check a declared source; it does not change the event.
-Display values are outside the serialized document.
+The codec never calls acquisition normalization to repair a document.
 
-Canonical native results omit covered default properties. An omitted snapshot
-field can be unknown. Read coverage before a caller expands defaults. Compound
+Parsing expands clip defaults (R34) into the events, so native results never
+contain them; canonical FIELDS output states them again. Canonical native
+results omit covered portable default properties. An omitted snapshot field can
+be unknown. Read coverage before a caller expands defaults. Compound
 properties stay atomic. Inert extension arrays retain order. The validator
 rejects native values that JSON would discard, including accessors, array
 holes, extra array properties, undefined values, and nonfinite numbers.
 
 All calls return new document data. Application validates the complete result
 before return. A failed call leaves its inputs unchanged. Change reports name
-event additions/removals, changed event and clip fields, fields reset to
-defaults, and overlay changes. An empty report is a no-op. Patch annotations
+event additions/removals, changed event and clip fields (including
+provenance), and fields reset to defaults. An empty report is a no-op. Patch annotations
 remain on the proposal; its result retains base annotations.
 
-`sealOverlays` is for an explicit new or revised claim. It is not a stale-state
-repair operation. It does not recalculate interpretation data or provenance.
-Callers must supply these values. It leaves stale bases unchanged. Normal
-patch application makes retained claims stale when their dependencies change.
-An undo does not make a stale claim current.
+Overlays were removed by
+[D73](../../context/decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md):
+an `overlays`, `overlayPut`, or `overlayRemove` key, or an OVERLAY record,
+fails with rule R12.
 
 `ImportCollisionError` contains the full collision report and returns no
 events. All source IDs in each collision group remain in the report. Overlap
@@ -64,7 +61,8 @@ repair overlap or choose a collision survivor.
 
 `DocumentError` has `rule`, `path`, `field`, and, for serialized input, `line`
 and `column`. Parsing has no recovery mode. [R28](SPEC.md#r28--bounds) bounds
-input, native JSON size, both canonical encodings, arithmetic, and references.
+input, native JSON size, both canonical encodings, arithmetic, and provenance
+sources.
 A document must fit both encodings to preserve strict cross-encoding round trips.
 This can make a count limit unreachable before the byte limit.
 
@@ -116,6 +114,6 @@ complete-example hash, and removes the temporary directory.
 A future package must include SPEC.md, FIELDS.md, fields.ebnf, schema.json,
 the corpus, the Model format reference, and the MIT license. Phase 10b owns
 packaging and external publication. The [8f3 host binding](HOST-BINDING.md) defines capability mappings and
-partial-base resolution. [Identity rules](IDENTITY-AND-OVERLAYS.md) and the
+partial-base resolution. [Identity rules](IDENTITY-AND-PROVENANCE.md) and the
 [pull snapshot contract](../../context/contracts/GHOSTNOTE_CACHE_CONTRACT.md) define
 the remaining integration boundaries.

@@ -3,28 +3,28 @@
   "owner": "8f1 specification inputs; verify and regenerate with the 8f2 codec",
   "documents": {
     "complete": {
-      "sha256": "ce4ddc6bc28b30795a606472c57ba6e36be0b9abaab81334a5385e8172f385ec"
+      "sha256": "863de7bb841d3db22d1f286898c25a9d51f6e7862cba58bb9e8bf12f82047a65"
     },
     "patch": {
-      "sha256": "c7802bc24d2b41731a09710745a4bdaa1bfe08d60adbb5466c0cd5bfd1ea19e4"
+      "sha256": "2a84692f3649f27302261b45d79ed7e3d593a4b85ac7d4bc290b199b9f7cfc58"
     },
     "patch-result": {
-      "sha256": "423dcfa03e40141a19a861d34727bd91870a77f80ed94f306d7bcf6380367b2e"
+      "sha256": "93424d6cfc67a018b0fa1dba4b714d254836a755fdd8fa801a0035a0c14314bb"
     },
     "no-op": {
-      "sha256": "bc936b30c17d275f85013f06074c2d2397dc360c808d47c64b3b387d59c5d6f7"
+      "sha256": "41f2b1dbfa41a8f4af626e597f09e7742ed53e49a9ce74a972f73dfcc0e6cbad"
     },
     "empty": {
-      "sha256": "bce588d0c5703f81f07f618276082d2d4982d82dd4c4c5c8bb7e5fc4eb6c5b52"
+      "sha256": "5f0af99f0b1806897bc3b2584bcd320acdaec7e98db4490d13ff300a9f19e0fa"
     },
     "empty-clip": {
-      "sha256": "855f945bc2f1609313a55908cf019e0cffb21ea41cfdd0540e0a0cfb8214fa08"
+      "sha256": "ce54070225165a955c31253ee2a97e7aa15de79295054aaf9d3a844931dfa4f5"
     },
     "partial": {
-      "sha256": "0d92cdc675e510204eaacf6e89d660523af9a4b33496eeb19291b80177c01ea2"
+      "sha256": "c3d07bc4d378a7a1a01385481a752fbd3c58496119ecce72141bf6552ed51f44"
     },
-    "unknown-source": {
-      "sha256": "8fee765f8371064e3cc612e2a66a4917ff322bda49ed5911888f230a86ece545"
+    "clip-defaults": {
+      "sha256": "f2cdfbcd1bf4c2190c6955adc24abfa958719a911009ca49f91c09ee088f3b99"
     }
   }
 }

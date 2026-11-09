@@ -2,14 +2,17 @@
 title: Ghostnote Document 1.0 field reference
 kind: reference
 state: active
-updated: 2026-10-07
+updated: 2026-11-08
 ---
 
 # Field reference
 
 This table defines [R04](SPEC.md#r04--event-values-and-defaults). The
 [schema](schema.json) gives the same types. Defaults are portable choices.
-They are not measured Bitwig defaults. `number` means finite binary64.
+They are not measured Bitwig defaults. A clip can state its own default for
+an optional field ([R34](SPEC.md#r34--clip-column-defaults)); in that clip it
+precedes the portable default, which does not change. `number` means finite
+binary64.
 Compound defaults are atomic values, not partial objects. An explicit compound
 value must supply all its keys. All field names in this document are exact.
 
@@ -43,8 +46,9 @@ a binding must map or refuse them. Chance, occurrence, recurrence, and repeat
 describe event controls. The codec does not expand or simulate playback.
 
 Null values are not allowed in event objects. Patch `set` permits null for
-each defaulted field, as an explicit reset. Complete desired omission means
-default. Snapshot omission means default only when coverage contains that
+each defaulted field, as an explicit reset to the portable default. Complete
+desired omission means the clip default ([R34](SPEC.md#r34--clip-column-defaults)),
+or the portable default when the clip states none. Snapshot omission means default only when coverage contains that
 field. A covered explicit default is equivalent to omission. Uncovered fields
 are unknown and must be absent. A sparse update omission always preserves.
 
@@ -91,10 +95,9 @@ Do not generate a second note list from repeat controls during conversion.
 | Clip ID/length | Required ID/nonnegative rational beats | Portable metadata; length update only |
 | Clip name | String; default `""` | Portable metadata; update/reset |
 | Clip loop/playRange | Rational `{from,to}` or null; default null | Portable range declarations; update/reset |
+| Clip provenance | Optional `{sources,generator}` ([R33](SPEC.md#r33--clip-provenance)); absent means no supplied pointer | Source pointer with no musical effect; in content identity; update/reset with `clipUpdate` |
+| Clip defaults | Optional map of optional event fields to values ([R34](SPEC.md#r34--clip-column-defaults)) | Input and FIELDS layout; expanded into the clip's events; not in content identity; no `clipUpdate` |
 | Coverage | Required per clip; no implicit values | Observation completeness and known-field declaration; never a patch edit |
-| Overlay identity/type/state | Required; no default | Claim lifecycle; full put/remove |
-| Overlay provenance | Required kind/source/method; confidence optional | Claim authority; no inferred default |
-| Overlay dependencies/basis/data | Required; no default | Dependency state and claim values; full put/remove |
 
 No root metadata string gives permission to apply a live edit. Permission text
 can record the source or fixture rights. Live permission remains a separate
@@ -102,8 +105,7 @@ host boundary. Clip names and articulation labels do not resolve host targets.
 
 ## Portable and host fields
 
-Portable fields are all fields in this reference and the overlay definitions
-in [R12-R24](SPEC.md#r12--initial-overlay-envelope). The portable contract
+Portable fields are all fields in this reference. The portable contract
 supports observation, proposal, and pure materialization within these limits.
 It does not require a host to expose or write every supported value.
 

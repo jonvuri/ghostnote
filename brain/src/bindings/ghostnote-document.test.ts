@@ -51,13 +51,13 @@ function base(overrides: Partial<Event> = {}): StateDocument {
     format: 'ghostnote-document', version: '1.0', kind: 'snapshot',
     clips: [fixture.clip], coverage: [{ clip: fixture.clip.id, from: '0', to: '4',
       channels: Array.from({ length: 16 }, (_, i) => i + 1), fields: 'all', status: 'complete' }],
-    events: [{ id: 'event1', clip: fixture.clip.id, at: '0', duration: '1', pitch: 60, velocity: 90, ...overrides }], overlays: [],
+    events: [{ id: 'event1', clip: fixture.clip.id, at: '0', duration: '1', pitch: 60, velocity: 90, ...overrides }],
   }) as StateDocument;
 }
 function patch(b: StateDocument, set: Patch['update'][number]['set']): Patch {
   return { format: 'ghostnote-document', version: '1.0', kind: 'patch',
     base: { sha256: contentHash(b), ref: 'retained1' }, add: [], remove: [],
-    update: [{ id: 'event1', set }], clipUpdate: [], overlayPut: [], overlayRemove: [] };
+    update: [{ id: 'event1', set }], clipUpdate: [] };
 }
 function refusal(code: string, body: () => unknown) {
   assert.throws(body, (e: unknown) => e instanceof BindingRefusal && e.code === code);

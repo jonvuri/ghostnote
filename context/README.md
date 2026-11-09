@@ -11,7 +11,7 @@ and result.
 |---|---|
 | Product and design | [PROJECT](PROJECT.md), [decisions](decisions/INDEX.md) |
 | Host capability | [Subject pages](evidence/capability/INDEX.md), then the relevant [experiment](evidence/INDEX.md) |
-| Document format and host integration | [Specification](../spec/ghostnote-document-v1/SPEC.md), [host binding](../spec/ghostnote-document-v1/HOST-BINDING.md), [identity](../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md), [snapshot contract](contracts/GHOSTNOTE_CACHE_CONTRACT.md) |
+| Document format and host integration | [Specification](../spec/ghostnote-document-v1/SPEC.md), [host binding](../spec/ghostnote-document-v1/HOST-BINDING.md), [identity](../spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md), [snapshot contract](contracts/GHOSTNOTE_CACHE_CONTRACT.md) |
 | Live performance | Relevant [ledger](contracts/GHOSTNOTE_PERFORMANCE_LEDGER.md) rows and call-budget tests |
 | Dogfood trial | Relevant parts of the [runbook](plan/phase-8/8i-automated-dogfood-runbook.md) |
 | Feature breadth and accepted direction | [Overlap sources](plan/overlap/README.md); work order is in the backlog |

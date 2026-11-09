@@ -2,15 +2,15 @@ import { DocumentError, fail } from './error.js';
 import { cloneJson, decodeInput, readJson, canonicalJson } from './json.js';
 import { readFields, writeFields } from './fields.js';
 import { validateStructure, normalizeTimingFields } from './structure.js';
-import { normalizedContentHash, normalizeDocument, validateSemantics, basisFromIndex, indexState, overlayOrder, checkReferences } from './semantic.js';
-import { LIMITS, type Document, type Overlay, type StateDocument } from './model.js';
+import { normalizedContentHash, normalizeDocument, validateSemantics, expandClipDefaults } from './semantic.js';
+import { LIMITS, type Document } from './model.js';
 export * from './model.js';
 export * from './error.js';
 export { modelReference, REFERENCE_SECTIONS, type ReferenceSection } from './reference.js';
-export { timingDisplay } from './display.js';
 export { normalizeTiming } from './rational.js';
 export { importNotes, observeCells, ImportCollisionError } from './import.js';
 export { applyPatch, applyDesired } from './materialize.js';
+export { canonicalClipDefaults } from './semantic.js';
 export type { SourceNote, ImportReport } from './import.js';
 export type { ChangeReport, Materialized } from './materialize.js';
 export type Encoding = 'fields' | 'json';
@@ -27,6 +27,7 @@ function validateValue(input: unknown, nativeBytes: boolean): Document {
     const doc = cloneJson(input, '$', 1, new Set(), { bytes: 0, max: nativeBytes ? LIMITS.bytes : Infinity });
     validateStructure(doc);
     normalizeTimingFields(doc);
+    expandClipDefaults(doc);
     validateSemantics(doc);
     const normalized = normalizeDocument(doc);
     for (const output of [canonicalJson(normalized), writeFields(normalized)])
@@ -38,10 +39,10 @@ function preflight(input: unknown): void {
     if (!input || typeof input !== 'object')
         return;
     const d = Object.fromEntries(Object.entries(Object.getOwnPropertyDescriptors(input)).filter(([, property]) => 'value' in property).map(([key, property]) => [key, property.value]));
-    for (const [key, max] of Object.entries({ clips: LIMITS.clips, coverage: LIMITS.clips, events: LIMITS.events, overlays: LIMITS.overlays, add: LIMITS.events, remove: LIMITS.events, update: LIMITS.events, clipUpdate: LIMITS.clips, overlayPut: LIMITS.overlays, overlayRemove: LIMITS.overlays }))
+    for (const [key, max] of Object.entries({ clips: LIMITS.clips, coverage: LIMITS.clips, events: LIMITS.events, add: LIMITS.events, remove: LIMITS.events, update: LIMITS.events, clipUpdate: LIMITS.clips }))
         if (Array.isArray(d[key]) && d[key].length > max)
             fail('R28', `$.${key}`, 'array exceeds declared count');
-    if (d.kind === 'patch' && ['add', 'remove', 'update', 'clipUpdate', 'overlayPut', 'overlayRemove'].reduce((n, k) => n + (Array.isArray(d[k]) ? d[k].length : 0), 0) > LIMITS.patchEntries)
+    if (d.kind === 'patch' && ['add', 'remove', 'update', 'clipUpdate'].reduce((n, k) => n + (Array.isArray(d[k]) ? d[k].length : 0), 0) > LIMITS.patchEntries)
         fail('R28', '$', 'total patch entries exceed 131072');
 }
 export function parse(input: string | Uint8Array, encoding: Encoding): Document {
@@ -89,34 +90,4 @@ export function contentHash(doc: Document): string {
 }
 export function convert(input: string | Uint8Array, from: Encoding, to: Encoding): string {
     return serialize(parse(input, from), to);
-}
-/** Compute a claim's basis from a valid base. The claim need not be in the base. */
-export function dependencyBasis(doc: StateDocument, overlay: Overlay): string {
-    const base = validate(doc);
-    if (base.kind === 'patch')
-        fail('R22', '$', 'a dependency basis needs full state');
-    const proposal = validate({ format: 'ghostnote-document', version: '1.0', kind: 'patch', base: { sha256: '0'.repeat(64) }, add: [], remove: [], update: [], clipUpdate: [], overlayPut: [overlay], overlayRemove: [] });
-    if (proposal.kind !== 'patch')
-        fail('R22', '$claim', 'expected a claim');
-    const claim = proposal.overlayPut[0], index = indexState(base);
-    checkReferences(index, claim, '$claim');
-    const overlays = new Map(base.overlays.map(o => [o.id, o]));
-    overlays.set(claim.id, claim);
-    overlayOrder([...overlays.values()]);
-    return basisFromIndex(index, claim);
-}
-/** Seal explicit claims in dependency order, then validate every relationship. */
-export function sealOverlays(input: StateDocument): StateDocument {
-    const doc = cloneJson(input);
-    validateStructure(doc);
-    normalizeTimingFields(doc);
-    if (doc.kind === 'patch')
-        fail('R22', '$', 'sealing requires a state document');
-    validateSemantics(doc, false);
-    normalizeDocument(doc);
-    const index = indexState(doc);
-    for (const o of overlayOrder(doc.overlays))
-        if (o.state === 'current')
-            o.basis = basisFromIndex(index, o);
-    return validate(doc) as StateDocument;
 }

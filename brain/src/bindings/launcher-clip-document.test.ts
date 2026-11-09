@@ -89,9 +89,10 @@ test('8h4b corpus: the frozen fixture is the pinned 8c corpus', () => {
 });
 
 /**
- * E245 records these bytes. FIELDS is at most 40 percent of the equivalent exact JSON. Each 8c note has MIDI
- * release velocity 64, not the default 100/127, so each row keeps it in WITH (about 45 bytes). The pins make any
- * change of the read output visible.
+ * E245 recorded 1,528 / 4,673 / 9,006 FIELDS bytes. FIELDS is at most 40 percent of the equivalent exact JSON. Each 8c
+ * note has MIDI release velocity 64, not the default 100/127: before D73 each row kept it in WITH (about 45 bytes);
+ * now the clip states it once as a column default, and the binding omits channel and mute when no note needs them.
+ * The pins make any change of the read output visible.
  */
 test('8h4b2 corpus: FIELDS is at most 40 percent of the equivalent exact JSON', () => {
   const measured = Object.fromEntries((Object.keys(PINNED) as (keyof typeof PINNED)[]).map((name) => {
@@ -100,13 +101,13 @@ test('8h4b2 corpus: FIELDS is at most 40 percent of the equivalent exact JSON', 
     return [name, { fields, exact, control }];
   }));
   assert.deepEqual(measured, {
-    short: { fields: 1528, exact: 4330, control: 2200 },
-    medium: { fields: 4673, exact: 16818, control: 8495 },
-    long: { fields: 9006, exact: 33674, control: 17133 },
+    short: { fields: 978, exact: 4330, control: 2200 },
+    medium: { fields: 3330, exact: 16818, control: 8495 },
+    long: { fields: 6293, exact: 33674, control: 17133 },
   });
 });
 
-/** A typical E231 clip of new host notes (256 notes, 16 channels): no WITH object, and the same bound. */
+/** A typical E231 clip of new host notes (256 notes, 16 channels): no WITH object, and the same bound (9,902 bytes before D73). */
 test('8h4b2 typical clip: host-default notes have no WITH object', () => {
   const channels: NoteRecord[][] = Array.from({ length: 16 }, (_, channel) => Array.from({ length: 16 }, (_, k) => {
     const step = k * 16 + channel;
@@ -123,5 +124,5 @@ test('8h4b2 typical clip: host-default notes have no WITH object', () => {
   assert.ok(!fields.includes(' WITH '));
   const bytes = { notes: 256, fields: Buffer.byteLength(fields), exact: Buffer.byteLength(equivalentExactJson(document)) };
   assert.ok(bytes.fields <= 0.4 * bytes.exact);
-  assert.deepEqual(bytes, { notes: 256, fields: 9902, exact: 92468 });
+  assert.deepEqual(bytes, { notes: 256, fields: 8361, exact: 92468 });
 });

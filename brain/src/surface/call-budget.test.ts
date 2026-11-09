@@ -102,7 +102,7 @@ test('call budget: read_launcher_clip, first and repeated', async () => {
 
 test('call budget: get_document_reference and a refused document input make no adapter call (8i6)', async () => {
   const fx = await fixture();
-  const reference = await fx.call('get_document_reference', { sections: ['Patch', 'Timing overlays', 'Groups', 'Meter and tempo'] });
+  const reference = await fx.call('get_document_reference', { sections: ['Patch'] });
   assert.equal(reference.result.failure, undefined);
   assert.deepEqual(reference.counts, {});
   for (const name of ['add_launcher_clip', 'edit_launcher_clip']) {
@@ -114,24 +114,21 @@ test('call budget: get_document_reference and a refused document input make no a
   }
 });
 
-test('call budget: add_launcher_clip with claims keeps the add budget; a refused claim makes no call (8i9)', async () => {
+test('call budget: add_launcher_clip with provenance and clip defaults keeps the add budget; an OVERLAY row makes no call (D73)', async () => {
   const fx = await fixture();
-  const claim = (id: string, event: string, at: string) => ({ id, type: 'nominal', state: 'current',
-    provenance: { kind: 'declared', source: 'agent', method: 'author' },
-    depends: { events: [{ id: event, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
-    data: { event, at, duration: '1/4', division: '1/4' } });
-  const document = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"bass","length":"8"}',
+  const document = ['DOC ghostnote-document 1.0 desired',
+    'CLIP {"defaults":{"releaseVelocity":0},"id":"bass","length":"8","provenance":{"sources":[{"path":"/music/bass.mid"}]}}',
     'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"bass","fields":"all","from":"0","status":"complete","to":"8"}',
     'FIELDS id clip at duration pitch velocity channel',
-    ...Array.from({ length: 16 }, (_, c) => `EVENT n${c} bass ${c}/4 1/4 60 100 ${c + 1}`),
-    ...Array.from({ length: 16 }, (_, c) => `OVERLAY ${JSON.stringify(claim(`nom${c}`, `n${c}`, `${c}/4`))}`)].join('\n') + '\n';
-  // The claim check, the ID binding, and the seal are brain work: the counts equal the add without claims.
+    ...Array.from({ length: 16 }, (_, c) => `EVENT n${c} bass ${c}/4 1/4 60 100 ${c + 1}`)].join('\n') + '\n';
+  // Provenance and the expansion of clip defaults are brain work: the counts equal the add without them.
   const added = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 2, document });
   assert.equal(added.result.readback?.status, 'verified', JSON.stringify(added.result).slice(0, 300));
+  assert.deepEqual(added.result.readback.held, ['provenance']);
   assert.deepEqual(added.counts, { mark: 3, tracks: 2, read: 3, resolve: 2, apply: 2, delta: 4, clipRead: 3 });
   const refused = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 3,
-    document: document.replace('"overlays":[],', '') });
-  assert.equal(refused.result.detail?.repair?.case, 'overlay-depends', JSON.stringify(refused.result).slice(0, 300));
+    document: document + 'OVERLAY {"id":"nom1","type":"nominal"}\n' });
+  assert.equal(refused.result.detail?.repair?.case, 'overlay-removed', JSON.stringify(refused.result).slice(0, 300));
   assert.deepEqual(refused.counts, {});
 });
 
@@ -203,15 +200,12 @@ test('call budget: edit_launcher_clip on the targeted, whole-clip, and property 
   assert.equal(named.result.readback?.status, 'verified');
   assert.deepEqual(named.counts, { mark: 2, tracks: 1, clipRead: 3, delta: 3, resolve: 1, apply: 1 });
 
-  // A claim put without basis (8i4, D45): the seal is brain work. No write; the readback is a new read.
+  // D73: a provenance-only CLIP_UPDATE is brain work. No write; the readback is a new read.
   read = (await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 0 })).result;
-  const claim = { id: 'nom1', type: 'nominal', state: 'current',
-    provenance: { kind: 'declared', source: 'agent', method: 'author' },
-    depends: { events: [{ id, fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] },
-    data: { event: id, at: '0', duration: '1', division: '1/4' } };
   const put = await fx.call('edit_launcher_clip', { trackId: fx.trackId, row: 0,
-    document: patch(read.authority.base, [`OVERLAY_PUT ${JSON.stringify(claim)}`]) });
+    document: patch(read.authority.base, [`CLIP_UPDATE ${clipId} {"provenance":{"sources":[{"path":"/music/a.mid"}]}}`]) });
   assert.equal(put.result.plan?.route, 'none', JSON.stringify(put.result).slice(0, 300));
+  assert.deepEqual(put.result.readback?.held, ['provenance']);
   assert.deepEqual(put.counts, { mark: 2, tracks: 1, clipRead: 2, delta: 2 });
 });
 

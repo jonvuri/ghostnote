@@ -121,7 +121,7 @@ export function projectRawClip(clip: StateDocument['clips'][number], notes: RawN
   const { events, report } = importNotes(source);
   const document = validate({
     format: 'ghostnote-document', version: '1.0', kind: 'snapshot',
-    clips: [clip], events, overlays: [], coverage: [{
+    clips: [clip], events, coverage: [{
       clip: clip.id, from: '0', to: clip.length, channels: Array.from({ length: 16 }, (_, i) => i + 1),
       fields: RAW_FIELDS, status: 'complete',
       ...(options.reason === false ? {} : { reason: 'Full supplied raw scan; articulation and repeat are unavailable' }),
@@ -377,7 +377,7 @@ export function d9MappedFields(
   } else {
     const patch = validate({ format: 'ghostnote-document', version: '1.0', kind: 'patch',
       base: { sha256: '0'.repeat(64) }, add: [event], remove: [], update: [],
-      clipUpdate: [], overlayPut: [], overlayRemove: [] });
+      clipUpdate: [] });
     if (patch.kind !== 'patch') refuse('event', 'The scalar mapper needs a valid portable event');
     checked = patch.add[0];
   }

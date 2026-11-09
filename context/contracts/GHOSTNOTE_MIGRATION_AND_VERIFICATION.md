@@ -10,7 +10,7 @@ scope: Document 1.0 migration reference and retained Phase 8 gates
 This reference records the Document 1.0 migration and its implemented
 boundaries. Use the [specification](../../spec/ghostnote-document-v1/SPEC.md),
 [host binding](../../spec/ghostnote-document-v1/HOST-BINDING.md), and
-[identity rules](../../spec/ghostnote-document-v1/IDENTITY-AND-OVERLAYS.md)
+[identity rules](../../spec/ghostnote-document-v1/IDENTITY-AND-PROVENANCE.md)
 for field semantics. [E272](../evidence/experiments/e272-8i-gate-close-out.md)
 records Phase 8 acceptance. Current tool counts are in [PROJECT](../PROJECT.md).
 

@@ -94,20 +94,13 @@ export function projectionWarnings(projection: LauncherClipProjection): Warning[
   return warnings;
 }
 
-export function identityFacts(acquired: Acquired, projection?: LauncherClipProjection, why?: string) {
-  const carried = projection?.overlays;
+export function identityFacts(acquired: Acquired, _projection?: LauncherClipProjection, why?: string) {
   return {
     identity: acquired.outcome,
     retainedIds: acquired.retained,
     mintedIds: acquired.minted,
     ...(acquired.retired === undefined ? {} : {
       retiredRefs: acquired.retired.map((item) => ({ ref: item.ref, reason: item.reason, ...(why === undefined ? {} : { why }) })),
-    }),
-    ...(carried === undefined || carried.removed.length + carried.staled.length === 0 ? {} : {
-      overlays: {
-        ...(carried.removed.length === 0 ? {} : { removed: carried.removed }),
-        ...(carried.staled.length === 0 ? {} : { staled: carried.staled }),
-      },
     }),
   };
 }
@@ -143,15 +136,15 @@ export function bindSnapshot(
     snapshot: snapshot.ref,
     cells,
     ...(prior === undefined ? {} : { prior }),
-    project: ({ clipId, eventIds, overlays, envelope }) => {
-      projection = projectLauncherClip(snapshot, clipId, eventIds, overlays, envelope);
+    project: ({ clipId, eventIds, envelope }) => {
+      projection = projectLauncherClip(snapshot, clipId, eventIds, envelope);
       return projection;
     },
   });
   if (projection === undefined) {
     const { entry } = acquired;
     projection = projectLauncherClip(snapshot, entry.clipId, cells.map((key) => entry.events.get(cellKey(key))!),
-      entry.overlays, entry.envelope);
+      entry.envelope);
     if (projection.contentHash !== entry.contentHash) throw new Error('a current ref projected another document');
   }
   return { acquired, projection };
@@ -249,11 +242,9 @@ const readInput = z.object({
   trackId: z.string().min(1).describe('Durable track ID from list_tracks.'),
   row: z.number().int().min(0).describe('Zero-based Launcher row (scene).'),
   format,
-  reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(4).optional().describe(
+  reference: z.array(z.enum(OPTIONAL_REFERENCE_SECTIONS)).max(1).optional().describe(
     'Optional model reference sections to return in the result, with the same document and authority.base. The '
     + 'Core section is in this description. Before a planned patch edit, request Patch on the first fresh read. '
-    + 'When the user asks to record or analyze timing feel (swing, groove, pocket, or notes ahead of or behind the '
-    + 'beat) as claims, also request Timing overlays. '
     + 'get_document_reference returns the sections and templates without a clip.',
   ),
   diagnostic: z.boolean().optional().describe('Also return the exact host source of the read. Use only to diagnose a problem.'),
@@ -291,8 +282,9 @@ const READ_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Read one Launche
   + 'thousands of tokens inline, and a client can truncate the result; prefer documentOutputPath when a script '
   + `processes the notes. An inline document above ${LARGE_INLINE_DOCUMENT_BYTES / 1024} KB returns warning `
   + 'large-inline-document.\n'
-  + 'Overlays, META, and EXTENSIONS that edit_launcher_clip stored come back with the document while the clip '
-  + 'ID stays. When notes change, authority.overlays names the claims that became stale or were removed.\n'
+  + 'Bitwig stores no clip provenance, META, or EXTENSIONS. Those that add_launcher_clip or edit_launcher_clip '
+  + 'wrote come back with the document while the clip ID stays (also after a human edit), until a restart or a '
+  + 'retired ref. Without them, re-attach provenance from your document with an edit CLIP_UPDATE.\n'
   + 'A failure has failure.code: absent, outside-limit, unhealthy, authority-unavailable, '
   + 'target-changed, stale-address, group-slot, collapsed-group-row, range (select the clip in Bitwig '
   + 'and use Consolidate, then read again), collision, partial, or unavailable. Branch on the code, '

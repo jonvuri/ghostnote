@@ -1,7 +1,7 @@
 {
   "owner": "8f2 reference codec",
   "formatVersion": "1.0",
-  "referenceSha256": "03e4904f1f81fe095d5a0854775a1e489459f35d56c462bb54874febdff8539e",
+  "referenceSha256": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051",
   "scope": "Complete selected reference plus its examples and source identity preface. No task, input document, or provider wrapper.",
   "providerTokensReason": "No tokenizer for these provider models is bundled. No token-count or generation request was made. Bytes are not tokens.",
   "baseline": {
@@ -58,9 +58,9 @@
       "sections": [
         "Core"
       ],
-      "bytes": 3639,
-      "sha256": "def46be774310c0e2cb52684ef1d0c54f959ee07ae05a00609039860e41ad350",
-      "ratioToRetainedReference": 4.9918,
+      "bytes": 4805,
+      "sha256": "f3a3b8846acfdc34735da08b0403e7d49a8a370c1bf3cf136e214403bf2d7c9b",
+      "ratioToRetainedReference": 6.5912,
       "providerTokens": null
     },
     {
@@ -69,34 +69,20 @@
         "Core",
         "Patch"
       ],
-      "bytes": 4714,
-      "sha256": "8291f5a7d211eb2e06dc3d1714b3d6dc68c4293420f7bc5d7b65db9db5455d66",
-      "ratioToRetainedReference": 6.4664,
-      "providerTokens": null
-    },
-    {
-      "name": "timing",
-      "sections": [
-        "Core",
-        "Timing overlays"
-      ],
-      "bytes": 10547,
-      "sha256": "8fd4368400d9b2e77270a9db16473d86d2844a19402dff05af7db50fdb874aa9",
-      "ratioToRetainedReference": 14.4678,
+      "bytes": 5969,
+      "sha256": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051",
+      "ratioToRetainedReference": 8.1879,
       "providerTokens": null
     },
     {
       "name": "full",
       "sections": [
         "Core",
-        "Patch",
-        "Timing overlays",
-        "Groups",
-        "Meter and tempo"
+        "Patch"
       ],
-      "bytes": 12607,
-      "sha256": "03e4904f1f81fe095d5a0854775a1e489459f35d56c462bb54874febdff8539e",
-      "ratioToRetainedReference": 17.2936,
+      "bytes": 5969,
+      "sha256": "c588385bc04193e154510210813e23b2a680c7fcf49532162d2897d20843b051",
+      "ratioToRetainedReference": 8.1879,
       "providerTokens": null
     }
   ]

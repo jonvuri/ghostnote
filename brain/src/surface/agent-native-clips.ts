@@ -27,10 +27,9 @@ import {
 } from '../contract/index.js';
 import { branchProtected, directedDestruction, takeAppliedAnything } from '../engine/index.js';
 import {
-  EditRefusal, checkCreation, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
+  EditRefusal, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
 } from '../bindings/launcher-clip-edit.js';
 import { OVERLAP_DETAIL_PAIRS } from '../bindings/ghostnote-document.js';
-import { NO_SEAL, dependencyExpansion, type SealRequest } from '../bindings/overlay-seal.js';
 import type { Document } from '../document/index.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
@@ -39,10 +38,10 @@ import {
 } from './agent-native-result.js';
 import { checkHealth, format, guarded, selectionWarnings, withSelection } from './agent-native.js';
 import {
-  VERIFIED_READBACK_STATEMENT, checkDesiredOverlaps, documentText, editLauncherClip, parseProposal,
+  PROVENANCE_STATEMENT, VERIFIED_READBACK_STATEMENT, checkDesiredOverlaps, documentText, editLauncherClip, parseProposal,
 } from './agent-native-edit.js';
 import {
-  DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, kindRepair,
+  DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, documentParameter, kindRepair,
 } from './document-help.js';
 import {
   DOCUMENT_PATH_STATEMENT, checkDocumentOutput, documentInput, documentPathInput, writeDocumentOutputPathInput,
@@ -213,15 +212,11 @@ const occupancyIn = (entries: Snapshot['entries'], target: Target, at: RevisionM
 
 // --- add_launcher_clip ---------------------------------------------------------
 
-const CLAIM_DEPENDENCY_UNITS = 'claim dependency units (one for each note of a membership dependency, and one for '
-  + 'each 4 bytes of a claim that another claim depends on)';
-
 const addInput = z.object({
   trackId,
   row,
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe(
-    `${documentParameter('A desired document without BASE (one CLIP and its notes)')} `
-    + atMost('claimDependencyExpansion', CLAIM_DEPENDENCY_UNITS),
+    documentParameter('A desired document without BASE (one CLIP and its notes)'),
   ),
   documentPath: documentPathInput,
   format,
@@ -239,14 +234,12 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + `${DESIRED_EXAMPLE_TEXT}\n`
   + 'The CLIP length is the clip length in beats. A CLIP without loop makes a clip that does not loop; loop '
   + '{"from":"0","to":<length>} makes it loop over its length. The notes are written through the '
-  + 'edit_launcher_clip path, with its rules and refusals. OVERLAY rows can use the document clip ID and omit '
-  + 'basis: the tool checks them before any write, binds them to the new clip, and computes each basis. It takes at '
-  + `most ${WRITE_LIMITS.claimDependencyExpansion} claim dependency units (see document). A refused `
+  + 'edit_launcher_clip path, with its rules and refusals. A refused '
   + 'document returns code invalid-input before any write; detail.repair has the known correction. Two notes of '
   + 'one channel and pitch that overlap refuse before any host call with code unsupported, detail.reason overlap, '
   + `detail.overlaps (at most ${OVERLAP_DETAIL_PAIRS} pairs: event IDs, channel, pitch, and onsets), and `
   + 'detail.overlapPairs (the total count).\n'
-  + `${TIMING_FEEL_ROUTE}\n`
+  + `${PROVENANCE_STATEMENT}\n`
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'
@@ -257,26 +250,13 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'Bitwig selects the new clip; the tool then selects the Launcher slot that was selected before. With no slot '
   + 'selected before, the new clip stays selected (warning slot-selection-moved).';
 
-/** The creation check (`checkCreation`) as an input refusal: no read, no write, and the known repair. */
-function checkedCreation(proposal: Document, seal: SealRequest): { document: Document; seal: SealRequest } {
-  try {
-    const document = checkCreation(proposal, seal);
-    return document === proposal ? { document, seal } : { document, seal: NO_SEAL };
-  } catch (error) {
-    if (!(error instanceof EditRefusal)) throw error;
-    const repair = claimRepairOf(error);
-    throw new ToolFailure(error.code, 'input', `${error.message} Nothing was written.`, {
-      detail: { reason: error.reason, ...error.detail, ...(repair === undefined ? {} : { repair }) } });
-  }
-}
-
 async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<unknown> {
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
     const input = await documentInput(args, args.format ?? 'fields');
     if (args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
-    const { document: proposal, seal } = parseProposal(input, 'add');
+    const parsed = parseProposal(input, 'add'), proposal = parsed.document;
     if (proposal.kind !== 'desired' || proposal.base !== undefined) {
       throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
         detail: { repair: kindRepair('add', input.format, documentText(input.document)) } });
@@ -284,11 +264,8 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
     if (proposal.clips.length !== 1) {
       throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
     }
-    requireWithinLimit('claimDependencyExpansion', dependencyExpansion(proposal, seal), CLAIM_DEPENDENCY_UNITS);
     checkDesiredOverlaps(proposal);
     const lengthBeats = documentClipLength(proposal.clips[0]!);
-    // The claims are checked and sealed before the clip exists; the planner binds them to the live clip ID (8i9).
-    const checked = checkedCreation(proposal, seal);
 
     state.stage = 'resolve';
     const at = await markFor(workspace, [args.row]);
@@ -315,7 +292,7 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
         trackId: args.trackId, row: args.row, document: input.document, intent: 'replace', format: args.format ?? 'fields',
         ...(args.readback === undefined ? {} : { readback: args.readback }),
         ...(args.documentOutputPath === undefined ? {} : { documentOutputPath: args.documentOutputPath }),
-      }, { parsed: checked, ...(input.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
+      }, { parsed, ...(input.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
       return { creation: made, content: edited };
     });
     const { creation, content } = written;

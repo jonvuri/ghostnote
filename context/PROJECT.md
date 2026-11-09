@@ -1,7 +1,7 @@
 ---
 title: ghostnote project context
 kind: project
-updated: 2026-10-26
+updated: 2026-11-08
 ---
 
 # ghostnote
@@ -22,7 +22,7 @@ surface without relying on the user's UI selection.
   concurrency reporting, and fidelity-aware reversal. D54 makes custom recovery
   optional for new capabilities; [P01](BACKLOG.md) assesses existing costs.
 - The default tool profile is `agent-native-v1` (D40): 47 tools on one
-  address, health, result, and error vocabulary, descriptions v67. The 8i
+  address, health, result, and error vocabulary, descriptions v68. The 8i
   gate is closed (E272); `stable-v1` is the frozen rollback until its
   [C01 removal](BACKLOG.md). `check_grid_support` reports the Grid admission
   gate (D52, E343); the product refuses native Grid writes without an
@@ -33,8 +33,10 @@ surface without relying on the user's UI selection.
   fresh `clip.read` capture; a reference that is not `current` refuses (D32).
   `get_document_reference` returns the format reference and templates with
   no host call, and a refused document returns a repair (E255).
-  `add_launcher_clip` takes overlay claims in one call and binds them to the
-  new clip (D47). The document writers take `documentPath` and the readers
+  Documents have no overlays: a CLIP carries a provenance pointer to its
+  source files, which Ghostnote holds with the clip ID because Bitwig cannot
+  store it, and FIELDS states uniform columns once as clip defaults (D73).
+  The document writers take `documentPath` and the readers
   take `documentOutputPath`, so a large document stays out of the
   conversation (D51). `read_midi_file` and `write_midi_file` convert MIDI
   files offline, with no host call (D50). `list_launcher_slots` lists the

@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 specification
 kind: specification
 state: active
-updated: 2026-10-07
+updated: 2026-11-08
 source: ../../context/decisions/d25-fields-json-document-format-and-publication.md
 ---
 
@@ -44,23 +44,24 @@ The root has `format`, `version`, and `kind`. Kind is `snapshot`, `desired`, or
 document describes complete proposed state. A patch describes sparse changes.
 Neither a desired document nor a patch gives permission to write a host.
 
-Snapshot and desired documents have `clips`, `coverage`, `events`, and
-`overlays` arrays, including empty arrays. Optional `meta` has `title`,
+Snapshot and desired documents have `clips`, `coverage`, and `events`
+arrays, including empty arrays. Optional `meta` has `title`,
 `description`, and `permission` strings. Omission means no supplied metadata;
 an empty string is a supplied value. Root metadata has no musical effect.
 Optional `base` names an earlier document with `sha256` and optional `ref`.
 A patch requires `base`. Snapshot forbids it. Desired can omit it for new work.
 `ref` is an opaque external locator. Its resolution belongs to the binding.
 
-Every event has one `clip` reference. Clip IDs, event IDs, and overlay IDs each
-have their own document-wide namespace. Equal IDs in different namespaces are
+Every event has one `clip` reference. Clip IDs and event IDs each have their
+own document-wide namespace. Equal IDs in different namespaces are
 allowed. Beat zero is the start of each clip's stored coordinate plane. One
 beat is one quarter note. Tempo does not change beat coordinates. Clip IDs can
 describe multiple parts. A host track ID or launcher address is not a core field.
 
 ## R03 — Clips and coverage
 
-A clip has `id`, rational `length`, and optional `name`, `loop`, and `playRange`.
+A clip has `id`, rational `length`, and optional `name`, `loop`, `playRange`,
+`provenance` (R33), and `defaults` (R34).
 Name defaults to `""`. Loop and play range default to `null`, which means no
 portable range declaration. A range has rational `from` and `to`; require
 `0 <= from < to <= length`. Clip length is nonnegative. Zero length requires
@@ -80,14 +81,14 @@ represented under the selected acquisition boundary. `partial` means they
 are not all represented; require a nonempty reason. `unavailable` means no
 events were obtained; require a nonempty reason. Do not infer empty state from
 either status. All represented events must be inside their coverage and use
-only covered fields. A covered omitted optional field means its portable
-default. An uncovered field is unknown, even if its default is usually zero.
+only covered fields. A covered omitted optional field means its clip default
+(R34), or its portable default when the clip states none. An uncovered field is unknown, even if its default is usually zero.
 `"all"` covers every field in the 1.0 field reference.
 
 A desired document requires complete coverage of `[0,length)` on all 16
 channels, with `fields:"all"`, for every clip. Thus its omitted properties are
 defaults, not a request to preserve earlier values. Empty documents have all
-four arrays empty. An empty clip still has a clip and coverage record.
+three arrays empty. An empty clip still has a clip and coverage record.
 A snapshot can be partial or have unknown properties. It remains convertible;
 it is not a complete desired replacement.
 
@@ -98,7 +99,8 @@ An event requires `id`, `clip`, `at`, `duration`, `pitch`, and `velocity`.
 Channel defaults to 1 and mute defaults to false. Optional values have one
 portable default. A default can equal a measured host insertion value, as
 release velocity `100/127` does, but it does not define a host insertion
-policy. Realized properties belong to the event. No overlay is another note list.
+policy. A clip default (R34) states one value for the events of one clip; it
+does not change the portable default. Realized properties belong to the event.
 
 Do not collapse distinct event IDs because their pitches or times match.
 Reject a duplicate `(clip,channel,pitch,at)` address after rational reduction.
@@ -126,8 +128,7 @@ hashing. Parsing, rendering, and encoding conversion must not quantize.
 Realized event `at` and `duration` are integer multiples of `1/512` beat.
 Duration is at least `1/512`. Reject off-grid realized values in either
 encoding, including a model proposal at `1/3`. Do not silently repair an input
-document. Nominal overlay values can use any bounded exact rational.
-The conversion guarantee preserves represented values after acquisition.
+document. The conversion guarantee preserves represented values after acquisition.
 It does not guarantee source precision or multiplicity below one cell.
 
 ## R07 — Acquisition and import normalization
@@ -169,18 +170,18 @@ which source onset Bitwig exposes.
 
 ## R08 — Sparse patch structure
 
-A patch has required `add`, `remove`, `update`, `clipUpdate`, `overlayPut`, and
-`overlayRemove` arrays, which can all be empty. It has no full state arrays or
-coverage. Add contains complete events with the R04 defaults. Remove contains
-event IDs. Update entries have `id` and nonempty `set`. Set contains editable
-event fields; it cannot change `id` or `clip`. ClipUpdate entries have `id` and
-nonempty `set` for `length,name,loop,playRange`. Patch cannot add or remove a
-clip container. Use a desired document for a different clip inventory.
+A patch has required `add`, `remove`, `update`, and `clipUpdate` arrays, which
+can all be empty. It has no full state arrays or coverage. Add contains events.
+An added event that omits an optional field takes its base clip's canonical
+default (R34), else the portable default; a patch keeps explicit values in its
+adds, including a portable default value. Remove contains event IDs. Update
+entries have `id` and nonempty `set`. Set contains editable event fields; it
+cannot change `id` or `clip`. ClipUpdate entries have `id` and nonempty `set`
+for `length,name,loop,playRange,provenance`. Patch cannot add or remove a clip
+container. Use a desired document for a different clip inventory.
 
-`overlayPut` contains complete overlay envelopes. It adds a new ID or replaces
-the full envelope at an existing ID. It does not merge data or dependencies.
-OverlayRemove contains overlay IDs. Optional patch meta and extensions are
-annotations of the patch itself. They do not change the base root annotations.
+Optional patch meta and extensions are annotations of the patch itself. They do
+not change the base root annotations.
 
 ## R09 — Preservation, clearing, references, and order
 
@@ -191,49 +192,45 @@ A proposal can name a partial snapshot, but applying it needs a binding that
 resolves the missing state and checks its guard. That policy belongs to 8f3.
 
 Unmentioned values and events remain unchanged. A null in `set` resets an
-optional event property to its portable default. It does not mean unknown.
-Null is forbidden for required onset, duration, pitch, and velocity. Name null
-resets to `""`; range null removes that declaration. Length cannot be null.
-An update with a value equal to the existing value is a no-op. Empty patch is
-a no-op. Removing a missing ID, updating a missing ID, adding an existing ID,
-or removing a missing overlay is an error, not a no-op.
+optional event property to its portable default, also in a clip that states a
+default. It does not mean unknown. Null is forbidden for required onset,
+duration, pitch, and velocity. Name null resets to `""`; range and provenance
+null remove that declaration. Length cannot be null. An update with a value
+equal to the existing value is a no-op. Empty patch is a no-op. Removing a
+missing ID, updating a missing ID, or adding an existing ID is an error, not a
+no-op.
 
-Reject repeated IDs within each array. Reject one event ID in more than one
-of add/remove/update, and one overlay ID in both put/remove. ClipUpdate has one
-entry per clip. Treat arrays as sets of changes. Input order cannot determine
-the result. First form the final clips and events; then process explicit
-overlay removals and replacements; then run R21-R24 lifecycle checks. Validate
-the entire result before accepting it. Report changed fields, defaults cleared,
-added/removed IDs, and overlay state changes. No-op reports have no changes.
+Reject repeated IDs within each array and one event ID in more than one of
+add/remove/update. ClipUpdate has one entry per clip. Treat arrays as sets of
+changes. Input order cannot determine the result. Form the final clips and
+events, then validate the entire result before accepting it. Report changed
+event and clip fields, defaults cleared, and added/removed IDs. No-op reports
+have no changes.
 
-A desired replacement keeps matching IDs and removes omitted events and
-overlays. It does not preserve unnamed event properties. It is full state,
-unlike a patch. Compare retained overlays with the base under R21-R24. Reject
-an unknown base guard. A desired input must pass its own current-basis rules.
-When dependencies change, its caller must mark inherited claims stale or supply
-explicit replacements. A patch materializer performs that invalidation for
-unnamed retained overlays. For new desired work, current overlays must also
-have valid dependency bases. A pure result is a desired document without the
-proposal's `base`. Preserve base root annotations during patch materialization.
-Do not include patch annotations in that result.
+A desired replacement keeps matching IDs and removes omitted events. It does
+not preserve unnamed event properties or clip provenance. It is full state,
+unlike a patch. Reject an unknown base guard. A pure result is a desired
+document without the proposal's `base`. Preserve base root annotations during
+patch materialization. Do not include patch annotations in that result.
 
 ## R10 — FIELDS records
 
 The normative [EBNF](fields.ebnf) defines record syntax. The first nonblank line
 is `DOC ghostnote-document 1.0 <kind>`. Exactly one `FIELDS` binding follows
 the envelope records and precedes all event rows, even for empty inputs. A
-binding contains unique event field names and includes the six required R04
-fields. Each EVENT or ADD row has exactly one value per bound field. `_` omits
-an optional field. It cannot omit a required field. An optional `WITH` JSON
+binding contains unique event field names: the six required R04 fields and any
+optional fields that rows set. Each EVENT or ADD row has exactly one value per
+bound field. `_` omits an optional field; the event then takes its clip default
+(R34) or portable default. `_` cannot omit a required field. An optional `WITH` JSON
 object carries unbound event fields. Reject a field in both the binding and
 WITH, even when the row has `_`. There is no implicit positional binding.
 
-CLIP, COVERAGE, OVERLAY, META, BASE, EXTENSIONS, UPDATE, CLIP_UPDATE, and
-OVERLAY_PUT use the same JSON objects as their corresponding JSON encoding.
-An UPDATE record takes an ID and its set object. It maps to `{id,set}`.
-REMOVE and OVERLAY_REMOVE take one ID. Records must match the document kind.
-Snapshot/desired use EVENT; patch uses ADD. Multiple META, BASE, EXTENSIONS,
-or FIELDS records are errors. JSON-valued records occupy one physical line.
+CLIP, COVERAGE, META, BASE, EXTENSIONS, UPDATE, and CLIP_UPDATE use the same
+JSON objects as their corresponding JSON encoding. An UPDATE or CLIP_UPDATE
+record takes an ID and its set object. It maps to `{id,set}`. REMOVE takes one
+ID. OVERLAY, OVERLAY_PUT, and OVERLAY_REMOVE are refused (R12). Records must
+match the document kind. Snapshot/desired use EVENT; patch uses ADD. Multiple
+META, BASE, EXTENSIONS, or FIELDS records are errors. JSON-valued records occupy one physical line.
 Quoted strings can contain escaped line breaks. Objects and arrays can have
 spaces inside them. A scanner must track nesting and strings, not split the
 line only at spaces. Bare slot strings use ID or rational syntax; JSON strings
@@ -252,219 +249,79 @@ Unicode normalization. Different Unicode scalar strings remain different.
 
 ## R12 — Initial overlay envelope
 
-Every overlay has `id`, `type`, `state`, `provenance`, `depends`, `basis`, and
-`data`. State is `current` or `stale`. IDs remain stable while the same claim
-is revised. Mint a new ID for a different claim. Types are `nominal`, `groove`,
-`harmony`, `role`, `motif`, `meter`, `tempo`, and `region`.
-
-Provenance has `kind` (`declared`, `measured`, or `inferred`), nonempty `source`,
-and nonempty `method`. Optional `confidence` is a binary64 number in `[0,1]`.
-Omission means no confidence claim. Declared states an author's choice.
-Measured states an observation or calculation from observations. Inferred
-states an interpretation from a rule or provider. Provenance is required; do
-not infer intent from a late onset. A current overlay is a current claim under
-its recorded dependencies, not proof that its interpretation is musically true.
-
-Depends has `events`, `clips`, `overlays`, and `membership` arrays. Each event
-or clip dependency has `id` and a nonempty unique `fields` set. Overlay
-dependencies are IDs of whole overlays. Membership contains clip IDs whose
-entire event-ID set affects the claim. All arrays can be empty, but R13-R20
-set minimum dependencies. Field paths are top-level fields; `expression`
-depends on the whole expression object. `basis` is the R22 dependency digest.
-An overlay refers only to this document, never to an unresolved external event.
+Retired by
+[D73](../../context/decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md).
+Document 1.0 has no overlays. Reject an `overlays` key in a state document,
+`overlayPut` or `overlayRemove` in a patch, and OVERLAY, OVERLAY_PUT, and
+OVERLAY_REMOVE records, with rule R12. A clip names its sources in provenance
+(R33); analysis of the notes is not stored in the document.
 
 ## R13 — Nominal rhythm
 
-Nominal data has `event`, rational `at`, `duration`, and `division`. Division
-is the spacing of the nominal rhythmic lattice in beats. Require `at/division`
-to be an integer; nominal duration need not be a multiple of division. Depend
-on that event's `at,duration,clip` fields. There is at most one current nominal
-overlay per event. Nominal values do not force a note edit. Triplet, quintuplet,
-and septuplet divisions can be `1/3`, `1/5`, and `1/7`.
+Retired with R12.
 
 ## R14 — Groove and timing intent
 
-Groove data refers to `event` and its nominal overlay `nominal`. It has
-`intent` (`resolved` or `unresolved`), rational `phase`, `template`, `cross`,
-`local`, `unassigned`, `durationIntent`, and `durationUnassigned`; also
-`atDelta` and `durationDelta`, each a rational or null. Optional `sourceAt`
-and `sourceDuration` form a pair. Optional `templateRef` is a nonempty opaque
-template name, `swing` is a pair of positive integer weights, `shape` is
-`{kind:"point"}` or `{kind:"span",width:<positive rational>}`, and `anchor`
-is another event ID. Swing and templateRef identify a declared interpretation;
-they do not generate timing by themselves. A transferable template consists
-of these components plus the referenced nominal divisions and positions.
-
-Depend on the subject's `clip,at,duration`, its nominal overlay, and the
-anchor's `clip,at` when present. Anchor must be in the same clip. There is at
-most one current groove overlay per event. A current groove requires a current
-nominal dependency. R15 defines known-source timing; R16 defines unknown-source
-timing. Neither mode edits the core event.
+Retired with R12.
 
 ## R15 — Known-source groove equations
 
-If sourceAt and sourceDuration are present, both deltas must be rational.
-R07 must map those source values to the core timing and supplied deltas.
-With `n` as the nominal overlay and `g` as the groove overlay, require:
-
-```text
-deviation = g.phase + g.template + g.cross + g.local + g.unassigned
-sourceAt = n.at + deviation
-event.at = n.at + deviation + g.atDelta
-sourceDuration = n.duration + g.durationIntent + g.durationUnassigned
-event.duration = sourceDuration + g.durationDelta
-```
-
-Resolved intent requires unassigned and durationUnassigned to be zero.
-Measured provenance requires unresolved intent and zero phase, template,
-cross, local, and durationIntent. The unassigned terms then state differences,
-not causes. Declared or inferred provenance can assign causes. Inferred source
-timing is an estimate, not a recovered host observation. Never put acquisition
-displacement in phase, template, cross, local, or durationIntent.
-
-For source onset `1/3`, duration `1/6`, and no intentional deviations:
-event onset is `85/256`; event duration is `85/512`. Nominal onset is `1/3`;
-nominal duration and division are `1/6` and `1/3`. The onset delta is `-1/768`;
-the duration delta is `-1/1536`.
-The onset delta is quantization displacement. It is not negative swing.
+Retired with R12.
 
 ## R16 — Unknown-source timing and time display
 
-Without source timing, both deltas must be null, intent must be unresolved,
-and all intentional terms must be zero. Require
-`unassigned = event.at - nominal.at` and
-`durationUnassigned = event.duration - nominal.duration`.
-These residuals include an unknown acquisition component. Do not identify them
-as a template, phase, or local cause. This mode permits useful nominal labels
-on cell-only observations without inventing precise pre-acquisition timing.
-
-Millisecond values are not serialized timing fields. A display can derive
-`60000 * component / bpm` using the tempo active at nominal onset. This is a
-local tempo-qualified display, not integration across tempo changes. If tempo
-is unknown or has conflicting current interpretations, do not supply the display.
-Any interpretation derived from tempo must list the relevant tempo overlay in
-depends.overlays. Beat relationships do not otherwise depend on tempo.
+Retired with R12.
 
 ## R17 — Harmony
 
-Harmony data has `clip`, positive span `from,to`, `events` (a unique ID set),
-and optional `chord` and `key` strings. At least one nonempty label is required.
-The span is within the clip. Event members must start within the span and clip.
-Depend on each member's `clip,pitch,at,duration` and the clip's `length`.
-Depend on clip membership to detect added notes. Labels are uninterpreted
-musical text; 1.0 does not require one chord spelling or theory engine. Empty
-membership permits a declared chord region. Interpretation does not transpose
-or add notes.
+Retired with R12.
 
 ## R18 — Roles and motifs
 
-Role and motif data have `clip`, nonempty `label`, and unique `events` sets,
-which can be empty for a declared future group. Depend on the clip's `length`,
-clip membership, and each member's `clip,pitch,at,duration`. Optional data
-`articulation` is a nonempty interpretation label. Realized event articulation
-is a separate property. Roles can name melody, bass, or another function.
-Motifs name groups for continuation or transformation; no automatic pattern
-expansion is part of this contract.
+Retired with R12.
 
 ## R19 — Meter and tempo
 
-Meter data has `clip`, rational `at`, integer numerator 1..64, and denominator
-in `1,2,4,8,16,32,64`. Tempo data has `clip`, rational `at`, and binary64
-`bpm` in `(0,1000]`. Depend on clip length. Positions are in `[0,length)`,
-or exactly zero for a zero-length clip. Meter denominator describes the
-notated beat unit; it does not redefine the quarter-note coordinate unit.
-Changes take effect at their position and continue until the next current
-overlay of the same type in that clip. Require at most one current meter
-and one current tempo at each position. No default meter or tempo is inferred.
-Missing an initial point means context before the first point is unknown.
+Retired with R12.
 
 ## R20 — Regions
 
-Region data has `clip`, nonempty `label`, rational `from,to`, and a unique
-`events` set. Require `0 <= from < to <= length`. Members must start inside
-the span and clip. Depend on clip length, clip membership, and each member's
-`clip,at`. Groups are explicit. Adding a note does not silently add it to a
-region, role, motif, or harmony. A later revision can change the group and basis.
+Retired with R12.
 
 ## R21 — References and dependency graph
 
-Reject every dangling reference, including one in a stale overlay. Reject
-duplicate overlay IDs, repeated dependency IDs, duplicate field paths,
-self-dependencies, and cycles between overlays. Dependencies can exceed a
-type's minimum when the method uses more fields. They cannot omit its minimum.
-Reject unknown dependency paths. Referenced event fields must be covered.
-A current overlay cannot depend on a stale overlay.
-
-Deleting an event or overlay requires explicit removal or replacement of each
-overlay that refers to it. A stale flag cannot retain a dangling ID. An added
-event invalidates each overlay that depends on that clip's membership. It does
-not enter an explicit group. Removing a nonmember can still change a membership
-dependency. Stable IDs alone never establish that a claim is current.
+Retired with R12.
 
 ## R22 — Dependency basis
 
-Compute basis as SHA-256 over UTF-8 of `ghostnote-dependencies/1.0\n` followed
-by the R26 canonical JSON for this projection:
-
-```text
-{"events":[{"id":ID,"values":{FIELD:VALUE,...}},...],
- "clips":[{"id":ID,"values":{FIELD:VALUE,...}},...],
- "overlays":[OVERLAY,...],
- "membership":[{"clip":ID,"events":[EVENT_ID,...]},...]}
-```
-
-Only declared dependency fields enter values, with defaults expanded. Each
-array is sorted by ID (membership by clip). Membership IDs are sorted.
-Overlay dependencies use full normalized envelopes with only their `basis`
-key omitted. Their dependency ID arrays are normalized under R25. This omits
-recursive basis values while retaining data, provenance, state, and dependency
-definitions. Hashing needs no host access. A current overlay's basis must match
-the current projection. A stale overlay keeps the basis of the prior projection;
-it can match current values after an undo and still remain stale.
+Retired with R12.
 
 ## R23 — Edit lifecycle
 
-Compare dependency values, not raw syntax. A change outside the dependencies
-preserves the overlay and basis. A changed dependency marks a retained current
-overlay stale and retains its data and prior basis. Propagate stale state in
-dependency order to dependent overlays. Do not silently recompute an inferred
-or measured value. Do not automatically revalidate a stale overlay after undo.
-
-An explicit overlayPut can recompute or reaffirm a claim: supply the full
-envelope, matching new basis, and provenance for the method. It can use the
-same ID. This is an explicit declaration, not proof of truth. An explicit
-stale replacement is also allowed. Removing an overlay changes no event.
-In a desired replacement, an unchanged retained envelope gets this lifecycle
-handling. A changed envelope is an explicit replacement. A caller cannot
-update just the basis to conceal an old claim without an explicit replacement.
+Retired with R12.
 
 ## R24 — Stale data use
 
-Validate stale structure, field types, sign constraints, and live references.
-Do not require old basis equality, old span membership, groove equations,
-current nominal/groove uniqueness, or current dependency state for a stale
-claim. Its values describe a previous context. Do not apply stale overlay
-values as instructions or use them as current analysis. Current overlays must
-pass all type-specific relationships and basis checks. A patch can keep stale
-claims, remove them, or replace them explicitly.
+Retired with R12.
 
 ## R25 — Semantic normalization and ordering
 
-Normalize rational spellings and scalar numbers. Expand covered defaults for
-validation and dependency calculations; canonical output omits optional values
-equal to defaults. Keep unknown fields unknown. Default-valued and omitted
-covered values have the same meaning. Preserve empty root metadata strings.
-Omitted root meta/extensions normalize to `{}` and are omitted on output.
-Empty meta/extensions normalize the same way. All required arrays remain.
+Normalize rational spellings and scalar numbers. Expand clip defaults (R34) into
+the events of their clip, then expand covered portable defaults for validation;
+canonical output omits optional values equal to portable defaults. Keep unknown
+fields unknown. Default-valued and omitted covered values have the same meaning.
+Preserve empty root metadata strings. Omitted root meta/extensions normalize to
+`{}` and are omitted on output. Empty meta/extensions normalize the same way.
+All required arrays remain. A patch keeps explicit values in its adds, because
+an omitted value takes the base clip default (R08).
 
-Sort clips and coverage by clip ID, overlays by overlay ID, and patch change
-arrays by addressed ID. Sort events by clip ID, exact at, channel, pitch, then
-ID. Sort all ID/field/channel sets, using ASCII ordering for text and numeric
-ordering for channels. A coverage field set with every 1.0 event field
-normalizes to `"all"`. Dependency arrays sort by ID. Swing weight order has
-meaning and is never sorted. No other 1.0 array has sequence meaning. Arrays
-inside inert extensions retain order. Do not use locale ordering.
-Snapshot, desired, and patch kinds remain distinct semantic values.
+Sort clips and coverage by clip ID, and patch change arrays by addressed ID.
+Sort events by clip ID, exact at, channel, pitch, then ID. Sort all
+ID/field/channel sets, using ASCII ordering for text and numeric ordering for
+channels. A coverage field set with every 1.0 event field normalizes to
+`"all"`. Provenance sources keep their order. No other 1.0 array has sequence
+meaning. Arrays inside inert extensions retain order. Do not use locale
+ordering. Snapshot, desired, and patch kinds remain distinct semantic values.
 
 ## R26 — Canonical output
 
@@ -478,28 +335,34 @@ must fit their declared integer range; other numeric fields mean finite
 binary64 values. Non-timing numeric decimal/exponent input is allowed.
 Reject numeric overflow. Conversion preserves the parsed binary64 value.
 
+Canonical JSON is the R25 normalized document. It states no clip defaults.
+
 Canonical FIELDS has LF, no indentation or blank lines, one final LF, and
 records in this order: DOC, META if nonempty, BASE if present, EXTENSIONS if
-nonempty, CLIP records, COVERAGE records, FIELDS, then EVENT records, then
-OVERLAY records. Patch body order is REMOVE, UPDATE, ADD, CLIP_UPDATE,
-OVERLAY_REMOVE, OVERLAY_PUT. Within each record type use R25 ordering.
-The canonical binding is always `id clip at duration pitch velocity channel mute`.
-Always emit those eight slot values. Emit other nondefault properties in WITH.
-IDs and rational slots use bare text; numeric and boolean slots use canonical
-JSON scalars. Compound values use R26 JSON. Use one space between tokens.
-Canonical ADD uses the same binding and WITH policy as EVENT.
+nonempty, CLIP records, COVERAGE records, FIELDS, then EVENT records. Patch
+body order is REMOVE, UPDATE, ADD, CLIP_UPDATE. Within each record type use
+R25 ordering. Each CLIP record states the canonical clip defaults of R34. The
+binding is `id clip at duration pitch velocity`, followed, in field-reference
+order, by each optional field that some row cannot omit. A row writes `_` where
+its value equals its clip default, or the portable default when the clip
+states none; otherwise it writes the value. Canonical output has no WITH. A
+canonical ADD binds each optional field that some add states, and writes `_`
+only where the add omits it. IDs and rational slots use bare text; other
+scalar slots use canonical JSON scalars. Compound values use R26 JSON. Use one
+space between tokens.
 
 ## R27 — Content identity
 
 Content SHA-256 is UTF-8 of `ghostnote-document/1.0\n` followed by R26 canonical
 JSON of the R25 normalized semantic document. Include kind, IDs, metadata,
-coverage, base guard, extensions, values, and overlay lifecycle/provenance.
-Exclude FIELDS binding and all serialization layout. A reordered binding with
+coverage, base guard, extensions, values, and clip provenance. Exclude the
+FIELDS binding, clip defaults, and all other serialization layout: a clip
+default and the equal explicit values have one identity. A reordered binding with
 equivalent values has the same identity. A renamed event ID changes identity.
 An empty patch's own hash differs from its base; its materialized result has
 the base's hash if the base was an unguarded desired document. Snapshot kind
 and guarded desired kind are different hash domains within this model.
-Do not confuse this content hash with an exact host-source or dependency hash.
+Do not confuse this content hash with an exact host-source hash.
 Do not put a document's own content hash inside that document.
 
 ## R28 — Bounds
@@ -508,8 +371,8 @@ Require these limits before expensive work: UTF-8 input at most 8 MiB. Both
 canonical encodings of an accepted semantic document must also fit within
 8 MiB. This common bound permits cross-encoding round trips. Native I/O input
 is bounded by its JSON size; decoded FIELDS records use the input and canonical
-encoding bounds. Require at most 256 clips, 131072 events, 32768 overlays, and
-131072 total patch entries.
+encoding bounds. Require at most 256 clips, 131072 events, 131072 total patch
+entries, and 64 provenance sources in each clip provenance.
 JSON nesting is at most 32 containers, with the root container at depth 1.
 A string is at most 4096 Unicode
 scalars, except IDs (R01) and rational text. Each unreduced rational numerator
@@ -519,10 +382,8 @@ a limit is a resource error, not rounding. Binary64 source conversion can use
 its exact larger intermediate fraction within that bit limit, then enforce
 the external digit limit on any emitted source timing.
 
-At most 1024 dependencies per overlay and 262144 declared field references
-across all overlays are allowed. Each explicit overlay group has at most
-131072 members, subject to input and reference limits. Extension data shares
-all input, string, and depth limits. Do not interpret these as host cache limits.
+Extension data and provenance `read` and `refs` values share all input,
+string, and depth limits. Do not interpret these as host cache limits.
 Reject the first detected limit breach without constructing a partial document.
 
 Import analysis can retain at most 131072 overlap pairs in each source or
@@ -537,15 +398,16 @@ or reference, and a short reason. No successful conformance parse uses recovery.
 Reject malformed headers, missing arrays, missing bindings, surplus row values,
 unknown enum values, invalid references, and invalid numbers. Pattern code,
 expression automation curves, MIDI sysex, controller messages, audio events,
-external overlay references, and implicit recurrence expansion are outside 1.0.
+and implicit recurrence expansion are outside 1.0.
 Do not silently discard them. A future recovery tool must be a separate API.
 
 ## R30 — Authority and host boundary
 
 Portable event and metadata operations are representational edits. Snapshot
 values have observation authority only within their declared coverage and
-acquisition boundary. Desired and patch values are proposals. Overlay authority
-is given by provenance. A host binding declares observability, writability,
+acquisition boundary. Desired and patch values are proposals. Clip provenance
+is a pointer with the authority of its author; it is not an observation. A host
+binding declares observability, writability,
 freshness, identity recovery, conflicts, normalization loss, and readback.
 Pressure can be represented even when a host cannot write it. Preserve it or
 refuse its requested reconstruction; never convert it to zero because of an
@@ -565,6 +427,39 @@ and musical task failure in every report.
 The [JSON schema](schema.json) uses the
 [JSON Schema 2020-12 dialect](https://json-schema.org/draft/2020-12/json-schema-core).
 It is local and has no network references other than its dialect identifier.
-The normative grammar uses the EBNF conventions stated in its header. R01-R31
-and FIELDS.md govern conditions that the schema cannot express. The codec
+The normative grammar uses the EBNF conventions stated in its header. R01-R31,
+R33, R34, and FIELDS.md govern conditions that the schema cannot express. The codec
 must validate both structure and semantics; a schema-only pass is insufficient.
+
+## R33 — Clip provenance
+
+A clip can state `provenance`: where its notes came from. It has `sources` (1
+to 64 entries) and an optional `generator`; at least one is present. A source
+has a nonempty `path` and optional `sha256` (lowercase hex), `range` (positive
+`from`/`to` span in source beats), `read` (inert JSON describing the
+conversion, such as `{"conversion":"midi-document-v3","track":1}`), and `refs`
+(ID keys with nonempty string values, such as Ghostworks IDs). Require `from <
+to`. A generator has a nonempty `path` and optional `sha256`. Sources keep
+their order.
+
+Provenance is clip metadata: it has no musical effect, content identity
+includes it, `clipUpdate` can set it or clear it with null, and a desired
+replacement without it removes it. It is a pointer, not an analysis: it holds
+no tempo, groove, intent, or other claim about the notes ([D73](../../context/decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md)). Paths are
+opaque locators; the codec does not resolve them.
+
+## R34 — Clip column defaults
+
+A clip can state `defaults`: a nonempty object of optional event fields and
+values, with the event field types. In that clip, an event that omits the
+field takes the clip value; an explicit event value wins. A default must name a
+field that the clip's coverage covers. Defaults are layout, like the FIELDS
+binding: parsing expands them into the events, so the semantic document and its
+R27 identity do not contain them.
+
+The canonical defaults of a clip state, for each covered optional field, the
+value that every event of the clip has, when the clip has events and the value
+is not the portable default. Canonical FIELDS writes them (R26); canonical JSON
+does not. In a patch, an added event that omits an optional field takes the
+canonical default of its base clip (R08). A `null` in `set` still resets to the
+portable default (R09).

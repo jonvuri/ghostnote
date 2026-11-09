@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import Ajv2020 from 'ajv/dist/2020.js';
-import { parse, serialize, validate, contentHash, applyPatch, applyDesired, sealOverlays, dependencyBasis, normalizeTiming, importNotes, observeCells, ImportCollisionError, DocumentError, EVENT_DEFAULTS, EVENT_FIELDS, BINDING, LIMITS, type StateDocument, type Patch, type Document, type Overlay } from './index.js';
+import { parse, serialize, validate, contentHash, applyPatch, applyDesired, normalizeTiming, importNotes, observeCells, ImportCollisionError, DocumentError, EVENT_DEFAULTS, EVENT_FIELDS, COVERAGE_FIELDS, LIMITS, type StateDocument, type Patch, type Document } from './index.js';
 import { canonicalJson, readJson } from './json.js';
 import { boundedInteger, rational, spelling, cmp, sum } from './rational.js';
 import { schema } from './schema-data.js';
@@ -11,8 +11,8 @@ const root = new URL('../../../', import.meta.url);
 const file = (path: string) => readFileSync(new URL(path, root), 'utf8');
 const fixture = (name: string) => parse(file(`spec/ghostnote-document-v1/examples/${name}.json`), 'json') as any;
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v));
-const fresh = (): StateDocument => ({ format: 'ghostnote-document', version: '1.0', kind: 'desired', clips: [{ id: 'part', length: '4' }], coverage: [{ clip: 'part', from: '0', to: '4', channels: Array.from({ length: 16 }, (_, i) => i + 1), fields: 'all', status: 'complete' }], events: [{ id: 'n1', clip: 'part', at: '0', duration: '1', pitch: 60, velocity: 100 }], overlays: [] });
-const patch = (base: StateDocument): Patch => ({ format: 'ghostnote-document', version: '1.0', kind: 'patch', base: { sha256: contentHash(base) }, add: [], remove: [], update: [], clipUpdate: [], overlayPut: [], overlayRemove: [] });
+const fresh = (): StateDocument => ({ format: 'ghostnote-document', version: '1.0', kind: 'desired', clips: [{ id: 'part', length: '4' }], coverage: [{ clip: 'part', from: '0', to: '4', channels: Array.from({ length: 16 }, (_, i) => i + 1), fields: 'all', status: 'complete' }], events: [{ id: 'n1', clip: 'part', at: '0', duration: '1', pitch: 60, velocity: 100 }] });
+const patch = (base: StateDocument): Patch => ({ format: 'ghostnote-document', version: '1.0', kind: 'patch', base: { sha256: contentHash(base) }, add: [], remove: [], update: [], clipUpdate: [] });
 function agree(input: Document): Document {
     const d = validate(input), j = serialize(d, 'json'), f = serialize(d, 'fields');
     assert.deepEqual(parse(j, 'json'), parse(f, 'fields'));
@@ -39,10 +39,6 @@ function bad(mut: (d: any) => void, rule?: string, name = 'invalid') {
         mut(d);
         rejects(() => parse(JSON.stringify(d), 'json'), rule);
     });
-}
-function nominal(doc: StateDocument, at = '1/3', division = '1/3'): StateDocument {
-    doc.overlays = [{ id: 'nom', type: 'nominal', state: 'current', basis: '0'.repeat(64), provenance: { kind: 'declared', source: 'fixture', method: 'author' }, depends: { events: [{ id: 'n1', fields: ['clip', 'at', 'duration'] }], clips: [], overlays: [], membership: [] }, data: { event: 'n1', at, duration: '1/6', division } }];
-    return sealOverlays(doc);
 }
 const expected = JSON.parse(file('spec/ghostnote-document-v1/examples/expected.json'));
 for (const [name, expect] of Object.entries(expected.documents) as [
@@ -83,7 +79,7 @@ test('C01 IDs case and separate namespaces', () => {
     d.events.push({ ...d.events[0], id: 'N1', at: '1' });
     agree(d);
 });
-for (const key of ['clips', 'coverage', 'events', 'overlays'])
+for (const key of ['clips', 'coverage', 'events'])
     bad(d => delete d[key], 'R02', `C02 missing ${key}`);
 bad(d => d.kind = 'song', 'R02', 'C02 kind');
 bad(d => {
@@ -118,7 +114,7 @@ test('C02 multiple clips single event namespace', () => {
     d.events.push({ ...d.events[0], id: 'n2', clip: 'second' });
     agree(d);
 });
-for (const name of ['empty', 'empty-clip', 'partial', 'unknown-source'])
+for (const name of ['empty', 'empty-clip', 'partial', 'clip-defaults'])
     test(`C03 ${name}`, () => {
         agree(fixture(name));
     });
@@ -143,16 +139,16 @@ for (const [label, mut] of Object.entries({ outside: (d: any): void => {
         d.coverage[0].channels = [2];
     }, unknown: (d: any) => {
         d.kind = 'snapshot';
-        d.coverage[0].fields = [...BINDING];
+        d.coverage[0].fields = [...COVERAGE_FIELDS];
         d.events[0].expression = clone(EVENT_DEFAULTS.expression);
-    }, coverage: (d: any) => d.coverage = [], duplicate: (d: any) => d.coverage.push(clone(d.coverage[0])), range: (d: any) => d.clips[0].loop = { from: '3', to: '2' }, end: (d: any) => d.clips[0].playRange = { from: '0', to: '5' }, incomplete: (d: any) => d.coverage[0].fields = [...BINDING] }))
+    }, coverage: (d: any) => d.coverage = [], duplicate: (d: any) => d.coverage.push(clone(d.coverage[0])), range: (d: any) => d.clips[0].loop = { from: '3', to: '2' }, end: (d: any) => d.clips[0].playRange = { from: '0', to: '5' }, incomplete: (d: any) => d.coverage[0].fields = [...COVERAGE_FIELDS] }))
     bad(mut, 'R03', `C03 ${label}`);
 test('C03 long duration preserved and covered defaults', () => {
     const d = fresh();
     d.events[0].duration = '8';
     agree(d);
     d.kind = 'snapshot';
-    d.coverage[0].fields = [...BINDING];
+    d.coverage[0].fields = [...COVERAGE_FIELDS];
     const n = agree(d) as StateDocument;
     assert.equal(n.events[0].duration, '8');
     assert.equal(n.events[0].expression, undefined);
@@ -190,11 +186,9 @@ test('C04 recurrence 53 and 64 high bits', () => {
 for (const timing of ['1.0', '1e0', 1, '01', '+1', '1/-2', '1/0', '1 /2'])
     bad(d => d.events[0].at = timing, 'R05', `C05 timing ${timing}`);
 test('C05 reductions and large exact values', () => {
-    let d = nominal(fresh(), '2/6', '1/3');
-    d.overlays[0].data = (d.overlays[0] as any).data;
-    assert.equal(((agree(d) as StateDocument).overlays[0].data as any).at, '1/3');
-    d = nominal(fresh(), '-0', '1/5');
-    agree(d);
+    const loop = fresh();
+    loop.clips[0].loop = { from: '-0', to: '8/2' };
+    assert.deepEqual(clone((agree(loop) as StateDocument).clips[0].loop), { from: '0', to: '4' });
     const a = fresh();
     a.events[0].at = '170/512';
     a.events[0].duration = '2/2';
@@ -210,7 +204,7 @@ test('C05 reductions and large exact values', () => {
 for (const value of ['0', '-1', '1/1024', '1/3'])
     bad(d => d.events[0].duration = value, value === '0' || value === '-1' ? 'R05' : 'R06', `C06 duration ${value}`);
 bad(d => d.events[0].at = '1/3', 'R06', 'C06 full offgrid');
-test('C06 add/update offgrid reject and nominal divisions survive', () => {
+test('C06 add/update offgrid reject', () => {
     const b = fresh();
     for (const key of ['add', 'update'] as const) {
         const p = patch(b);
@@ -220,8 +214,6 @@ test('C06 add/update offgrid reject and nominal divisions survive', () => {
             p.update = [{ id: 'n1', set: { at: '1/3' } }];
         rejects(() => validate(p), 'R06');
     }
-    for (const division of ['1/3', '1/5', '1/7'])
-        agree(nominal(fresh(), division, division));
 });
 const timingCases = [['1/3', '1/6', '85/256', '85/512', '-1/768', '-1/1536'], ['0', '1/1024', '0', '1/512', '0', '1/1024'], ['0', '1/2048', '0', '1/512', '0', '3/2048'], ['0', '3/1024', '0', '1/256', '0', '1/1024'], ['1/512', '1/512', '1/512', '1/512', '0', '0'], ['1/513', '1/1025', '0', '1/512', '-1/513', '513/524800'], ['1/511', '1/1023', '1/512', '1/512', '-1/261632', '511/523776']];
 for (const [at, duration, a, d, ad, dd] of timingCases)
@@ -298,7 +290,7 @@ test('C08 no-op full add and required arrays', () => {
         delete (bad.add[0] as any)[field];
         rejects(() => validate(bad), 'R04');
     }
-    for (const array of ['add', 'remove', 'update', 'clipUpdate', 'overlayPut', 'overlayRemove']) {
+    for (const array of ['add', 'remove', 'update', 'clipUpdate']) {
         const bad = clone(p);
         delete (bad as any)[array];
         rejects(() => validate(bad), 'R08');
@@ -329,12 +321,11 @@ test('C09 golden apply atomic result and no-op report', () => {
     assert.deepEqual(r.report.removed, ['n3']);
     assert.ok(r.report.clearedDefaults.some(v => v.id === 'n1' && v.fields.includes('expression')));
     assert.equal(contentHash(applyPatch(b, fixture('no-op')).document), contentHash(b));
-    assert.deepEqual(applyPatch(b, fixture('no-op')).report, { added: [], removed: [], changedFields: [], clipFields: [], clearedDefaults: [], overlayChanges: [] });
+    assert.deepEqual(applyPatch(b, fixture('no-op')).report, { added: [], removed: [], changedFields: [], clipFields: [], clearedDefaults: [] });
     assert.equal(b.events[0].pitch, 60);
 });
 test('C09 preservation null reset every optional event field and clip range', () => {
     const complete = fixture('complete') as StateDocument;
-    complete.overlays = [];
     for (const field of Object.keys(EVENT_DEFAULTS)) {
         const b = clone(complete), p = patch(b);
         p.update = [{ id: 'n1', set: { [field]: null } }];
@@ -361,7 +352,7 @@ for (const field of ['at', 'duration', 'pitch', 'velocity'])
         p.update = [{ id: 'n1', set: { [field]: null } } as any];
         rejects(() => validate(p));
     });
-for (const mode of ['remove', 'update', 'add', 'overlayRemove'] as const)
+for (const mode of ['remove', 'update', 'add'] as const)
     test(`C09 missing/existing ${mode}`, () => {
         const b = fresh(), p = patch(b);
         if (mode === 'add')
@@ -370,8 +361,6 @@ for (const mode of ['remove', 'update', 'add', 'overlayRemove'] as const)
             p.remove = ['missing'];
         if (mode === 'update')
             p.update = [{ id: 'missing', set: { pitch: 61 } }];
-        if (mode === 'overlayRemove')
-            p.overlayRemove = ['missing'];
         rejects(() => applyPatch(b, p), 'R09');
     });
 test('C09 guard partial bases conflicts and final state clip length', () => {
@@ -400,12 +389,10 @@ test('C09 desired clears omitted properties inventories and guards', () => {
     const b = fixture('complete') as StateDocument, d = clone(b);
     d.base = { sha256: contentHash(b) };
     d.events = [{ id: 'n1', clip: 'part', at: '1', duration: '1', pitch: 60, velocity: 100 }];
-    d.overlays = [];
     const r = applyDesired(b, d);
     assert.equal(r.document.base, undefined);
     assert.equal(r.document.events[0].expression, undefined);
     assert.equal(r.document.events.length, 1);
-    assert.equal(r.document.overlays.length, 0);
     agree(r.document);
 });
 test('C10 permuted binding all slots WITH reserved ID and balanced JSON', () => {
@@ -418,13 +405,14 @@ test('C10 permuted binding all slots WITH reserved ID and balanced JSON', () => 
     const text = fields.join('\n');
     assert.equal(contentHash(parse(text, 'fields')), contentHash(d));
     const simple = serialize(fresh(), 'fields');
-    assert.deepEqual(parse(simple.replace('100 1 false', '100 _ _'), 'fields'), parse(simple, 'fields'));
+    assert.deepEqual(parse(simple.replace('velocity\n', 'velocity channel mute\n').replace('60 100', '60 100 _ _'), 'fields'), parse(simple, 'fields'));
+    assert.deepEqual(parse(simple.replace('60 100', '60 100 WITH {"channel":1}'), 'fields'), parse(simple, 'fields'));
 });
 const fieldBase = () => serialize(fresh(), 'fields');
-for (const [label, mut] of Object.entries({ binding: (s: string) => s.replace(/^FIELDS.*\n/m, ''), required: (s: string) => s.replace('duration pitch', 'pitch'), width: (s: string) => s.replace('100 1 false', '100 1 false 7'), underwidth: (s: string) => s.replace('100 1 false', '100'), conflict: (s: string) => s.replace('100 1 false', '100 _ false WITH {"channel":1}'), emptyRequired: (s: string) => s.replace('n1 part 0', '_ part 0'), repeat: (s: string) => s + 'FIELDS id clip at duration pitch velocity\n', envelope: (s: string) => s + 'META {}\n', wrongKind: (s: string) => s.replace('EVENT', 'ADD') }))
+for (const [label, mut] of Object.entries({ binding: (s: string) => s.replace(/^FIELDS.*\n/m, ''), required: (s: string) => s.replace('duration pitch', 'pitch'), width: (s: string) => s.replace('60 100', '60 100 7'), underwidth: (s: string) => s.replace('60 100', '60'), conflict: (s: string) => s.replace('velocity\n', 'velocity channel\n').replace('60 100', '60 100 _ WITH {"channel":1}'), emptyRequired: (s: string) => s.replace('n1 part 0', '_ part 0'), repeat: (s: string) => s + 'FIELDS id clip at duration pitch velocity\n', envelope: (s: string) => s + 'META {}\n', wrongKind: (s: string) => s.replace('EVENT', 'ADD') }))
     test(`C10 invalid ${label}`, () => rejects(() => parse(mut(fieldBase()), 'fields'), 'R10'));
-test('C10 forward overlay references body interleaving', () => {
-    const d = fixture('unknown-source');
+test('C10 body interleaving', () => {
+    const d = fixture('complete');
     const lines = serialize(d, 'fields').trimEnd().split('\n'), start = lines.findIndex((l: string) => l.startsWith('FIELDS')) + 1;
     lines.splice(start, lines.length - start, ...lines.slice(start).reverse());
     assert.equal(contentHash(parse(lines.join('\n'), 'fields')), contentHash(d));
@@ -449,359 +437,141 @@ test('C11 invalid UTF8 and native nonJSON reject', () => {
     d.meta = undefined;
     rejects(() => validate(d), 'R29');
 });
-for (const kind of ['declared', 'measured', 'inferred'] as const)
-    test(`C12 provenance ${kind}`, () => {
-        const d = nominal(fresh());
-        d.overlays[0].provenance.kind = kind;
-        agree(sealOverlays(d));
+for (const [key, kind] of [['overlays', 'desired'], ['overlayPut', 'patch'], ['overlayRemove', 'patch']] as const)
+    test(`C12 removed ${key} refuses`, () => {
+        const d: any = kind === 'patch' ? patch(fresh()) : fresh();
+        d[key] = [];
+        assert.throws(() => validate(d), (e: any) => e instanceof DocumentError && e.rule === 'R12' && /D73/.test(e.message));
+        assert.throws(() => parse(JSON.stringify(d), 'json'), (e: any) => e instanceof DocumentError && e.rule === 'R12');
     });
-for (const value of [0, 1])
-    test(`C12 confidence ${value}`, () => {
-        const d = nominal(fresh());
-        d.overlays[0].provenance.confidence = value;
-        agree(sealOverlays(d));
+for (const record of ['OVERLAY {}', 'OVERLAY_PUT {}', 'OVERLAY_REMOVE nom'])
+    test(`C12 removed ${record.split(' ')[0]} record refuses`, () => {
+        const base = record === 'OVERLAY {}' ? serialize(fresh(), 'fields') : serialize(patch(fresh()), 'fields');
+        assert.throws(() => parse(base + record + '\n', 'fields'), (e: any) => e instanceof DocumentError && e.rule === 'R12' && /D73/.test(e.message) && e.line !== undefined);
     });
-for (const field of ['state', 'provenance', 'basis', 'depends'])
-    test(`C12 missing ${field}`, () => {
-        const d = nominal(fresh());
-        delete (d.overlays[0] as any)[field];
-        rejects(() => validate(d), 'R12');
-    });
-test('C12 bad confidence and stable revised IDs', () => {
-    const d = nominal(fresh());
-    d.overlays[0].provenance.confidence = 1.1;
-    rejects(() => validate(d), 'R12');
-    delete d.overlays[0].provenance.confidence;
-    const p = patch(d), next = clone(d.overlays[0]);
-    next.provenance.method = 'reaffirm';
-    p.overlayPut = [next];
-    assert.equal(applyPatch(d, p).document.overlays[0].id, 'nom');
-});
-test('C13 nominal lattice dependency uniqueness and removal', () => {
-    const d = nominal(fresh());
-    const invalid = clone(d);
-    (invalid.overlays[0] as any).data.at = '1/4';
-    rejects(() => sealOverlays(invalid), 'R13');
-    invalid.overlays[0] = clone(d.overlays[0]);
-    invalid.overlays[0].depends.events[0].fields = ['at'];
-    rejects(() => validate(invalid), 'R21');
-    const duplicate = clone(d);
-    duplicate.overlays.push({ ...clone(d.overlays[0]), id: 'nom2' });
-    rejects(() => sealOverlays(duplicate), 'R13');
-    const p = patch(d);
-    p.overlayRemove = ['nom'];
-    assert.deepEqual(applyPatch(d, p).document.events, d.events);
-});
-function unknown(): StateDocument {
-    const d = fixture('unknown-source');
-    d.events = d.events.filter((e: any) => e.id === 'n2');
-    d.overlays = d.overlays.filter((o: any) => o.id === 'nominal2' || o.id === 'groove2');
+const sourced = (provenance: any): StateDocument => {
+    const d = fresh();
+    d.clips[0].provenance = provenance;
     return d;
-}
-function groove(d: StateDocument): any {
-    return d.overlays.find(o => o.type === 'groove')!;
-}
-test('C14 optional groove template swing shape and anchor', () => {
-    const d = fixture('complete') as StateDocument;
-    const g = groove(d);
-    g.data.templateRef = 'swing name';
-    g.data.swing = [17, 15];
-    g.data.shape = { kind: 'span', width: '1/8' };
-    g.data.anchor = 'n3';
-    g.depends.events.push({ id: 'n3', fields: ['clip', 'at'] });
-    agree(sealOverlays(d));
-    g.data.shape = { kind: 'point' };
-    agree(sealOverlays(d));
-    g.data.swing = [1, 0];
-    rejects(() => sealOverlays(d));
-});
-test('C14 groove bad pair width anchor and duplicate', () => {
-    const d = fixture('complete') as StateDocument;
-    const g = groove(d);
-    delete g.data.sourceDuration;
-    rejects(() => validate(d), 'R14');
-    const u = unknown();
-    groove(u).data.shape = { kind: 'span', width: '0' };
-    rejects(() => validate(u), 'R05');
-    const dup = unknown();
-    dup.overlays.push({ ...clone(groove(dup)), id: 'duplicate' });
-    rejects(() => sealOverlays(dup), 'R14');
-});
-test('C14 C15 groove transfer writes target nominal realized plane', () => {
-    const d = fixture('complete') as StateDocument;
-    const source: any = d.overlays.find(o => o.type === 'groove' && o.data.event === 'n1');
-    const target = source.data;
-    const n = fresh();
-    n.events[0].at = '33/64';
-    n.events[0].duration = '1/4';
-    const nominalOverlay: any = clone(d.overlays.find(o => o.type === 'nominal' && o.data.event === 'n1'));
-    nominalOverlay.id = 'targetNom';
-    nominalOverlay.data.at = '1/2';
-    nominalOverlay.data.duration = '1/4';
-    nominalOverlay.data.division = '1/4';
-    const copied: any = clone(source);
-    copied.id = 'targetGroove';
-    copied.data.nominal = 'targetNom';
-    copied.data.sourceAt = '33/64';
-    copied.depends.overlays = ['targetNom'];
-    n.overlays = [nominalOverlay, copied];
-    const result = sealOverlays(n);
-    agree(result);
-    assert.equal(groove(result).data.template, target.template);
-    assert.equal(result.events[0].at, '33/64');
-});
-for (const field of ['sourceAt', 'atDelta', 'sourceDuration', 'durationDelta'])
-    test(`C15 mismatched ${field}`, () => {
-        const d = fixture('complete');
-        const g = groove(d);
-        g.data[field] = '1/512';
-        rejects(() => sealOverlays(d), 'R15');
+};
+for (const [label, provenance] of Object.entries({
+    path: { sources: [{ path: '/music/a.mid' }] },
+    full: { sources: [{ path: '/music/a.mid', sha256: 'a'.repeat(64), range: { from: '8', to: '12' }, read: { conversion: 'midi-document-v3', track: 1, nested: { list: [1, null] } }, refs: { 'ghostworks:assetId': 'x1' } }, { path: '/music/b.mid' }], generator: { path: '/music/compose.py', sha256: 'b'.repeat(64) } },
+    generator: { generator: { path: '/music/compose.py' } },
+    many: { sources: Array.from({ length: 64 }, (_, i) => ({ path: `/music/${i}.mid` })) },
+}))
+    test(`C33 provenance ${label}`, () => {
+        const d = agree(sourced(provenance)) as StateDocument;
+        assert.deepEqual(clone(d.clips[0].provenance), provenance);
     });
-test('C15 signed components measured authority and resolved residuals', () => {
-    const d = fixture('complete');
-    const g: any = d.overlays.find((o: any) => o.type === 'groove' && o.data.event === 'n1');
-    g.data.phase = '-1/64';
-    g.data.local = '1/64';
-    g.provenance.kind = 'inferred';
-    agree(sealOverlays(d));
-    g.data.unassigned = '1/64';
-    rejects(() => sealOverlays(d), 'R15');
-    g.data.unassigned = '0';
-    g.provenance.kind = 'measured';
-    rejects(() => sealOverlays(d), 'R15');
+for (const [label, provenance, rule] of [
+    ['empty object', {}, 'R33'], ['empty sources', { sources: [] }, 'R33'],
+    ['too many sources', { sources: Array.from({ length: 65 }, (_, i) => ({ path: `/m/${i}.mid` })) }, 'R28'],
+    ['missing path', { sources: [{ sha256: 'a'.repeat(64) }] }, 'R33'], ['empty path', { sources: [{ path: '' }] }, 'R33'],
+    ['bad sha256', { sources: [{ path: '/a.mid', sha256: 'ABC' }] }, 'R33'],
+    ['equal range', { sources: [{ path: '/a.mid', range: { from: '4', to: '4' } }] }, 'R33'],
+    ['reversed range', { sources: [{ path: '/a.mid', range: { from: '5', to: '4' } }] }, 'R33'],
+    ['decimal range', { sources: [{ path: '/a.mid', range: { from: '0.5', to: '4' } }] }, 'R05'],
+    ['unknown source key', { sources: [{ path: '/a.mid', tempo: 120 }] }, 'R01'],
+    ['unknown key', { sources: [{ path: '/a.mid' }], intent: 'funky' }, 'R01'],
+    ['bad ref value', { sources: [{ path: '/a.mid', refs: { 'gw:x': 1 } }] }, 'R33'],
+    ['duplicate source', { sources: [{ path: '/a.mid' }, { path: '/a.mid' }] }, 'R33'],
+] as const)
+    test(`C33 provenance rejects ${label}`, () => rejects(() => validate(sourced(provenance)), rule));
+test('C33 provenance identity, clip update set and clear', () => {
+    const plain = fresh(), d = sourced({ sources: [{ path: '/music/a.mid' }] });
+    assert.notEqual(contentHash(d), contentHash(plain));
+    assert.equal(contentHash(sourced({ sources: [{ path: '/music/a.mid', range: { from: '2/2', to: '4' } }] })), contentHash(sourced({ sources: [{ path: '/music/a.mid', range: { from: '1', to: '4' } }] })));
+    const set = patch(plain);
+    set.clipUpdate = [{ id: 'part', set: { provenance: { sources: [{ path: '/music/a.mid' }] } } }];
+    agree(set);
+    const added = applyPatch(plain, set);
+    assert.equal(contentHash(added.document), contentHash(d));
+    assert.deepEqual(added.report.clipFields, [{ id: 'part', fields: ['provenance'] }]);
+    const clear = patch(d);
+    clear.clipUpdate = [{ id: 'part', set: { provenance: null } }];
+    const cleared = applyPatch(d, clear);
+    assert.equal(cleared.document.clips[0].provenance, undefined);
+    assert.deepEqual(cleared.report.clipFields, [{ id: 'part', fields: ['provenance'] }]);
+    const bad = patch(d);
+    bad.clipUpdate = [{ id: 'part', set: { provenance: { sources: [{ path: '/a', range: { from: '2', to: '1' } }] } } }];
+    rejects(() => validate(bad), 'R33');
 });
-for (const [field, value] of Object.entries({ atDelta: '0', intent: 'resolved', phase: '1/512', unassigned: '0', durationUnassigned: '0' }))
-    test(`C16 unknown source ${field}`, () => {
-        const d = unknown();
-        groove(d).data[field] = value;
-        rejects(() => sealOverlays(d), 'R16');
-    });
-function group(type: 'harmony' | 'role' | 'motif' | 'region', doc = fresh(), members = ['n1']): StateDocument {
-    const data: any = { clip: 'part', events: members };
-    if (type === 'harmony') {
-        data.from = '0';
-        data.to = '2';
-        data.chord = 'C strange opaque';
-    }
-    else {
-        data.label = type;
-        if (type === 'region') {
-            data.from = '0';
-            data.to = '2';
-        }
-        else
-            data.articulation = 'legato interpretation';
-    }
-    doc.overlays = [{ id: type, type, state: 'current', provenance: { kind: 'declared', source: 'fixture', method: 'author' }, basis: '0'.repeat(64), depends: { events: members.map(id => ({ id, fields: type === 'region' ? ['clip', 'at'] : ['clip', 'pitch', 'at', 'duration'] })), clips: [{ id: 'part', fields: ['length'] }], membership: ['part'], overlays: [] }, data } as Overlay];
-    return sealOverlays(doc);
-}
-for (const type of ['harmony', 'role', 'motif', 'region'] as const)
-    test(`C17 C18 C20 ${type} current groups membership lifecycle`, () => {
-        const d = group(type), before = contentHash(d);
-        agree(d);
-        const empty = group(type, fresh(), []);
-        agree(empty);
-        const p = patch(d);
-        p.add = [{ ...d.events[0], id: 'new', at: '3' }];
-        const r = applyPatch(d, p);
-        assert.equal(r.document.overlays[0].state, 'stale');
-        assert.deepEqual((r.document.overlays[0].data as any).events, ['n1']);
-        assert.notEqual(contentHash(r.document), before);
-        assert.equal(r.document.events[0].articulation, undefined);
-        const bad = clone(d);
-        (bad.overlays[0].data as any).clip = 'missing';
-        rejects(() => sealOverlays(bad), 'R21');
-        const missing = clone(d);
-        missing.overlays[0].depends.membership = [];
-        rejects(() => sealOverlays(missing), 'R21');
-    });
-test('C17 harmony chord/key/both labels and bad span', () => {
-    for (const labels of [{ chord: 'C' }, { key: 'C major' }, { chord: 'C', key: 'C' }]) {
-        const d = group('harmony');
-        d.overlays[0].data = { clip: 'part', from: '0', to: '2', events: ['n1'], ...labels } as any;
-        agree(sealOverlays(d));
-    }
-    const bad = group('harmony');
-    (bad.overlays[0].data as any).from = '1';
-    rejects(() => sealOverlays(bad), 'R17');
+/** Two notes of one clip; `defaults` and per-note extras as given. */
+const kit = (defaults?: any, extras: any[] = [{}, {}]): StateDocument => {
+    const d = fresh();
+    if (defaults)
+        d.clips[0].defaults = defaults;
+    d.events = extras.map((extra, i) => ({ id: 'n' + (i + 1), clip: 'part', at: String(i), duration: '1', pitch: 60, velocity: 100, ...extra }));
+    return d;
+};
+test('C34 defaults expand in both encodings and explicit values win', () => {
+    const d = kit({ channel: 10, releaseVelocity: 0 }, [{}, { releaseVelocity: 0.5 }]);
+    const n = validate(d) as StateDocument;
+    assert.equal(n.clips[0].defaults, undefined);
+    assert.deepEqual(n.events.map(e => [e.channel, e.releaseVelocity]), [[10, 0], [10, 0.5]]);
+    assert.equal(contentHash(d), contentHash(kit(undefined, [{ channel: 10, releaseVelocity: 0 }, { channel: 10, releaseVelocity: 0.5 }])));
+    const fields = 'DOC ghostnote-document 1.0 desired\nCLIP {"defaults":{"channel":10,"releaseVelocity":0},"id":"part","length":"4"}\n'
+        + 'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"part","fields":"all","from":"0","status":"complete","to":"4"}\n'
+        + 'FIELDS id clip at duration pitch velocity releaseVelocity\nEVENT n1 part 0 1 60 100 _\nEVENT n2 part 1 1 60 100 0.5\n';
+    assert.deepEqual(parse(fields, 'fields'), n);
+    assert.deepEqual(parse(JSON.stringify(d), 'json'), n);
+    assert.deepEqual(parse(fields.replace('100 0.5', '100 _ WITH {"channel":10}').replace('velocity releaseVelocity\n', 'velocity releaseVelocity\n'), 'fields').kind, 'desired');
+    rejects(() => validate(kit({ pitch: 60 })), 'R01');
+    rejects(() => validate(kit({})), 'R34');
+    rejects(() => validate(kit({ channel: 17 })), 'R34');
 });
-test('C18 role motif opaque labels do not expand notes', () => {
-    for (const type of ['role', 'motif'] as const) {
-        const d = group(type);
-        (d.overlays[0].data as any).label = 'bass or melody';
-        const before = clone(d.events);
-        agree(sealOverlays(d));
-        assert.deepEqual(clone(d.events), before);
-    }
+test('C34 a default needs a covered field', () => {
+    const d = kit({ releaseVelocity: 0 });
+    d.kind = 'snapshot';
+    d.coverage[0].fields = [...COVERAGE_FIELDS];
+    rejects(() => validate(d), 'R34');
+    d.clips[0].defaults = { channel: 2 };
+    assert.deepEqual((validate(d) as StateDocument).events.map(e => e.channel), [2, 2]);
 });
-function context(type: 'meter' | 'tempo', at = '0', doc = fresh()): StateDocument {
-    const clip = doc.clips[0].id;
-    doc.overlays = [{ id: type, type, state: 'current', basis: '0'.repeat(64), provenance: { kind: 'declared', source: 'fixture', method: 'author' }, depends: { events: [], clips: [{ id: clip, fields: ['length'] }], overlays: [], membership: [] }, data: type === 'meter' ? { clip, at, numerator: 4, denominator: 4 } : { clip, at, bpm: 120 } } as Overlay];
-    return sealOverlays(doc);
-}
-for (const denominator of [1, 2, 4, 8, 16, 32, 64])
-    test(`C19 meter denominator ${denominator}`, () => {
-        const d = context('meter');
-        (d.overlays[0].data as any).denominator = denominator;
-        (d.overlays[0].data as any).numerator = denominator === 8 ? 7 : 4;
-        agree(sealOverlays(d));
-    });
-for (const [field, value] of [['numerator', 0], ['numerator', 65], ['denominator', 3]] as const)
-    test(`C19 invalid meter ${field} ${value}`, () => {
-        const d = context('meter');
-        (d.overlays[0].data as any)[field] = value;
-        rejects(() => sealOverlays(d), 'R19');
-    });
-for (const bpm of [0.001, 1000])
-    test(`C19 BPM ${bpm}`, () => {
-        const d = context('tempo');
-        (d.overlays[0].data as any).bpm = bpm;
-        agree(sealOverlays(d));
-    });
-for (const bpm of [0, -1, 1001])
-    test(`C19 invalid BPM ${bpm}`, () => {
-        const d = context('tempo');
-        (d.overlays[0].data as any).bpm = bpm;
-        rejects(() => sealOverlays(d), 'R19');
-    });
-test('C19 points at empty clip zero late context and uniqueness', () => {
-    for (const type of ['meter', 'tempo'] as const) {
-        agree(context(type, '0', fixture('empty-clip')));
-        const d = context(type, '1');
-        d.overlays.push({ ...clone(d.overlays[0]), id: 'later', data: { ...d.overlays[0].data, at: '2' } } as Overlay);
-        agree(sealOverlays(d));
-        d.overlays.push({ ...clone(d.overlays[0]), id: 'duplicate' });
-        rejects(() => sealOverlays(d), 'R19');
-    }
+test('C34 canonical FIELDS states uniform nondefault values once', () => {
+    const uniform = serialize(kit(undefined, [{ channel: 10, releaseVelocity: 0, mute: false }, { channel: 10, releaseVelocity: 0 }]), 'fields');
+    assert.match(uniform, /^CLIP \{"defaults":\{"channel":10,"releaseVelocity":0\},"id":"part","length":"4"\}$/m);
+    assert.match(uniform, /^FIELDS id clip at duration pitch velocity$/m);
+    assert.match(uniform, /^EVENT n1 part 0 1 60 100$/m);
+    assert.ok(!uniform.includes('WITH'));
+    const mixed = serialize(kit(undefined, [{ channel: 10, releaseVelocity: 0 }, { channel: 10, mute: true }]), 'fields');
+    assert.match(mixed, /^CLIP \{"defaults":\{"channel":10\},"id":"part","length":"4"\}$/m);
+    assert.match(mixed, /^FIELDS id clip at duration pitch velocity mute releaseVelocity$/m);
+    assert.match(mixed, /^EVENT n1 part 0 1 60 100 _ 0$/m);
+    assert.match(mixed, /^EVENT n2 part 1 1 60 100 true _$/m);
+    const portable = serialize(kit({ channel: 1, releaseVelocity: 100 / 127 }), 'fields');
+    assert.match(portable, /^CLIP \{"id":"part","length":"4"\}$/m);
+    assert.match(portable, /^FIELDS id clip at duration pitch velocity$/m);
+    const twoClips = fresh();
+    twoClips.events = [];
+    twoClips.clips.push({ id: 'drums', length: '4', defaults: { channel: 10 } });
+    twoClips.coverage.push({ ...clone(twoClips.coverage[0]), clip: 'drums' });
+    twoClips.events.push({ id: 'k', clip: 'drums', at: '0', duration: '1', pitch: 36, velocity: 100 }, { id: 'p', clip: 'part', at: '0', duration: '1', pitch: 60, velocity: 100, channel: 2 }, { id: 'q', clip: 'part', at: '1', duration: '1', pitch: 60, velocity: 100 });
+    const both = serialize(twoClips, 'fields');
+    assert.match(both, /^FIELDS id clip at duration pitch velocity channel$/m);
+    assert.match(both, /^EVENT k drums 0 1 36 100 _$/m);
+    assert.match(both, /^EVENT p part 0 1 60 100 2$/m);
+    assert.match(both, /^EVENT q part 1 1 60 100 _$/m);
+    agree(twoClips);
+    const json = serialize(kit({ channel: 10 }), 'json');
+    assert.ok(!json.includes('defaults'));
+    assert.ok(json.includes('"channel":10'));
 });
-test('C20 overlapping regions membership span and empty clip', () => {
-    const d = group('region');
-    d.overlays.push({ ...clone(d.overlays[0]), id: 'also' });
-    agree(sealOverlays(d));
-    const invalid = group('region');
-    (invalid.overlays[0].data as any).from = '1';
-    rejects(() => sealOverlays(invalid), 'R20');
-    const empty = fixture('empty-clip');
-    empty.overlays = clone(d.overlays);
-    empty.overlays.forEach((o: any) => {
-        o.data.events = [];
-        o.depends.events = [];
-        o.data.clip = 'empty';
-        o.depends.clips[0].id = 'empty';
-        o.depends.membership = ['empty'];
-    });
-    rejects(() => sealOverlays(empty), 'R20');
+test('C34 patch adds take the base clip default; explicit and null stay portable', () => {
+    const base = kit(undefined, [{ releaseVelocity: 0 }, { releaseVelocity: 0 }]), p = patch(base);
+    p.add = [{ id: 'a', clip: 'part', at: '2', duration: '1', pitch: 62, velocity: 90 }, { id: 'b', clip: 'part', at: '3', duration: '1', pitch: 62, velocity: 90, releaseVelocity: 100 / 127 }];
+    p.update = [{ id: 'n2', set: { releaseVelocity: null } }];
+    const n = agree(p) as Patch;
+    assert.equal(n.add.find(e => e.id === 'b')!.releaseVelocity, 100 / 127);
+    assert.equal(n.add.find(e => e.id === 'a')!.releaseVelocity, undefined);
+    const text = serialize(n, 'fields');
+    assert.match(text, /^FIELDS id clip at duration pitch velocity releaseVelocity$/m);
+    assert.match(text, /^ADD a part 2 1 62 90 _$/m);
+    const events = applyPatch(base, p).document.events;
+    assert.deepEqual(events.map(e => [e.id, e.releaseVelocity]), [['n1', 0], ['n2', undefined], ['a', 0], ['b', undefined]]);
 });
-for (const state of ['current', 'stale'] as const)
-    for (const ref of ['event', 'clip', 'overlay', 'anchor'])
-        test(`C21 dangling ${ref} ${state}`, () => {
-            const d = unknown(), g = groove(d);
-            g.state = state;
-            if (ref === 'event')
-                g.data.event = 'missing';
-            if (ref === 'clip')
-                g.depends.membership = ['missing'];
-            if (ref === 'overlay')
-                g.data.nominal = 'missing';
-            if (ref === 'anchor')
-                g.data.anchor = 'missing', g.depends.events.push({ id: 'missing', fields: ['clip', 'at'] });
-            rejects(() => validate(d), 'R21');
-        });
-test('C21 duplicate dependencies paths cycles self and current on stale', () => {
-    const d = nominal(fresh());
-    const cases = [(x: any) => x.overlays[0].depends.events.push(clone(x.overlays[0].depends.events[0])), (x: any) => x.overlays[0].depends.events[0].fields.push('at'), (x: any) => x.overlays[0].depends.events[0].fields.push('unknown'), (x: any) => x.overlays[0].depends.overlays.push('nom')];
-    for (const mut of cases) {
-        const x = clone(d);
-        mut(x);
-        rejects(() => validate(x), 'R21');
-    }
-    const u = unknown();
-    u.overlays.find(o => o.type === 'nominal')!.depends.overlays = [groove(u).id];
-    rejects(() => validate(u), 'R21');
-    const stale = unknown();
-    stale.overlays.find(o => o.type === 'nominal')!.state = 'stale';
-    rejects(() => validate(stale), 'R21');
-});
-test('C21 deletion explicit removals nonmember removal invalidates membership', () => {
-    const d = group('role');
-    d.events.push({ ...d.events[0], id: 'nonmember', at: '3' });
-    const base = sealOverlays(d);
-    const p = patch(base);
-    p.remove = ['nonmember'];
-    assert.equal(applyPatch(base, p).document.overlays[0].state, 'stale');
-    const x = patch(base);
-    x.remove = ['n1'];
-    rejects(() => applyPatch(base, x), 'R21');
-    x.overlayRemove = ['role'];
-    assert.equal(applyPatch(base, x).document.overlays.length, 0);
-});
-test('C22 independent default projection digest and dependency order', () => {
-    const d = nominal(fresh());
-    d.overlays[0].depends.events[0].fields = ['channel', 'duration', 'clip', 'at'];
-    const sealed = sealOverlays(d), o = sealed.overlays[0];
-    const projection = '{"clips":[],"events":[{"id":"n1","values":{"at":"0","channel":1,"clip":"part","duration":"1"}}],"membership":[],"overlays":[]}';
-    const expected = createHash('sha256').update('ghostnote-dependencies/1.0\n' + projection).digest('hex');
-    assert.equal(o.basis, expected);
-    const permuted = clone(sealed);
-    permuted.overlays[0].depends.events[0].fields.reverse();
-    agree(permuted);
-    assert.equal(contentHash(permuted), contentHash(sealed));
-    const v = clone(sealed);
-    v.events[0].velocity = 50;
-    assert.equal(dependencyBasis(v, o), expected);
-    v.events[0].at = '1';
-    assert.notEqual(dependencyBasis({ ...v, overlays: [] }, o), expected);
-});
-test('C22 overlay basis omitted recursively data provenance state included', () => {
-    const d = unknown(), g = groove(d), nom = d.overlays.find(o => o.type === 'nominal')!;
-    const projectionBase = clone(d);
-    projectionBase.overlays.forEach(o => o.state = 'stale');
-    g.state = 'stale';
-    const original = dependencyBasis(projectionBase, g);
-    projectionBase.overlays.find(o => o.type === 'nominal')!.basis = 'f'.repeat(64);
-    assert.equal(dependencyBasis(projectionBase, g), original);
-    projectionBase.overlays.find(o => o.type === 'nominal')!.provenance.method = 'other';
-    assert.notEqual(dependencyBasis(projectionBase, g), original);
-    const bad = clone(d);
-    bad.overlays.find(o=>o.type==='nominal')!.basis = 'f'.repeat(64);
-    rejects(() => validate(bad), 'R22');
-    assert.equal(nom.state, 'current');
-});
-test('C23 velocity preserves timing edit propagates stale explicit reaffirm undo', () => {
-    const base = unknown(), p = patch(base);
-    p.update = [{ id: base.events[0].id, set: { velocity: 50 } }];
-    assert.ok(applyPatch(base, p).document.overlays.every(o => o.state === 'current'));
-    p.update = [{ id: base.events[0].id, set: { at: '1/2' } }];
-    const stale = applyPatch(base, p).document;
-    assert.ok(stale.overlays.every(o => o.state === 'stale'));
-    assert.deepEqual(stale.overlays.map(o => o.basis), base.overlays.map(o => o.basis));
-    const undo = patch(stale);
-    undo.update = [{ id: base.events[0].id, set: { at: base.events[0].at } }];
-    const restored = applyPatch(stale, undo).document;
-    assert.ok(restored.overlays.every(o => o.state === 'stale'));
-    const reaffirm = patch(restored);
-    reaffirm.overlayPut = clone(base.overlays);
-    assert.ok(applyPatch(restored, reaffirm).document.overlays.every(o => o.state === 'current'));
-    const desired = clone(stale);
-    desired.base = { sha256: contentHash(base) };
-    assert.ok(applyDesired(base, desired).document.overlays.every(o => o.state === 'stale'));
-});
-test('C24 stale previous span equations uniqueness and references', () => {
-    const d = unknown();
-    d.overlays.forEach(o => o.state = 'stale');
-    groove(d).data.unassigned = '-8';
-    agree(d);
-    const groupDoc = group('harmony');
-    groupDoc.overlays[0].state = 'stale';
-    (groupDoc.overlays[0].data as any).to = '8';
-    agree(groupDoc);
-    const dup = nominal(fresh());
-    dup.overlays.push({ ...clone(dup.overlays[0]), id: 'previous', state: 'stale' });
-    agree(dup);
-    (dup.overlays[1].data as any).duration = '-1';
-    rejects(() => validate(dup), 'R05');
-});
-test('C25 default omission sets ordering swing and extensions order', () => {
+test('C25 default omission sets ordering source order and extensions order', () => {
     const b = fresh(), d = clone(b);
     Object.assign(d.events[0], clone(EVENT_DEFAULTS));
     d.clips[0].name = '';
@@ -813,19 +583,13 @@ test('C25 default omission sets ordering swing and extensions order', () => {
     d.coverage[0].channels.reverse();
     assert.equal(contentHash(d), contentHash(b));
     const full = fixture('complete');
-    full.overlays.reverse();
     full.events.reverse();
-    full.overlays.forEach((o: any) => {
-        o.depends.events.reverse();
-        o.depends.clips.reverse();
-        o.depends.membership.reverse();
-        o.depends.overlays.reverse();
-        o.depends.events.forEach((x: any) => x.fields.reverse());
-        o.depends.clips.forEach((x: any) => x.fields.reverse());
-        if (o.data.events)
-            o.data.events.reverse();
-    });
     assert.equal(contentHash(full), contentHash(fixture('complete')));
+    const sources = fixture('complete');
+    sources.clips[0].provenance.sources.push({ path: '/fixtures/other.mid' });
+    const swapped = clone(sources);
+    swapped.clips[0].provenance.sources.reverse();
+    assert.notEqual(contentHash(swapped), contentHash(sources));
     const x = fresh();
     x.extensions = { 'v:list': [2, 1] };
     const h = contentHash(x);
@@ -855,16 +619,15 @@ test('C27 content domains renamed IDs coverage provenance base distinct', () => 
     assert.notEqual(contentHash(renamed), h);
     const snapshot = clone(d);
     snapshot.kind = 'snapshot';
-    snapshot.coverage[0].fields = [...BINDING];
+    snapshot.coverage[0].fields = [...COVERAGE_FIELDS];
     assert.notEqual(contentHash(snapshot), h);
-    const overlay = nominal(fresh()), oh = contentHash(overlay);
-    overlay.overlays[0].provenance.kind = 'inferred';
-    assert.notEqual(contentHash(sealOverlays(overlay)), oh);
+    const sourced = clone(d);
+    sourced.clips[0].provenance = { sources: [{ path: '/a.mid' }] };
+    assert.notEqual(contentHash(sourced), h);
     const guarded = clone(d);
     guarded.base = { sha256: h };
     assert.notEqual(contentHash(guarded), h);
     assert.notEqual(contentHash(patch(d)), h);
-    assert.notEqual(contentHash(nominal(fresh())), nominal(fresh()).overlays[0].basis);
 });
 test('C28 byte limit exact input boundary and plus one', () => {
     const text = serialize(fresh(), 'json');
@@ -894,13 +657,13 @@ test('C28 IDs strings depth digits and integer arithmetic boundaries', () => {
     rejects(() => boundedInteger(1n << 4096n), 'R28');
     rejects(() => normalizeTiming(Number.MIN_VALUE, 1), 'R28');
 });
-for (const [key, max] of Object.entries({ clips: 256, coverage: 256, events: 131072, overlays: 32768 }))
+for (const [key, max] of Object.entries({ clips: 256, coverage: 256, events: 131072 }))
     test(`C28 count ${key} plus one`, () => {
         const d: any = fresh();
         d[key] = new Array(max + 1).fill(null);
         rejects(() => validate(d), 'R28');
     });
-test('C28 256 clips 32768 overlays and count bounds', () => {
+test('C28 256 clips and count bounds', () => {
     const clips = fresh();
     clips.clips = [];
     clips.coverage = [];
@@ -911,39 +674,11 @@ test('C28 256 clips 32768 overlays and count bounds', () => {
         clips.coverage.push({ clip: id, from: '0', to: '0', channels: Array.from({ length: 16 }, (_, i) => i + 1), fields: 'all', status: 'complete' });
     }
     agree(clips);
-    const overlays = nominal(fresh());
-    const template = overlays.overlays[0];
-    overlays.overlays = [];
-    for (let i = 0; i < 32768; i++)
-        overlays.overlays.push({ ...clone(template), id: 'o' + i, state: 'stale' });
-    // This count fits the array limit. Its canonical encodings exceed the byte limit.
-    rejects(() => validate(overlays), 'R28');
     const p = patch(fresh());
     p.remove = Array.from({ length: 131072 }, (_, i) => 'n' + i);
     agree(p);
     p.update = [{ id: 'other', set: { pitch: 61 } }];
     rejects(() => validate(p), 'R28');
-});
-test('C28 dependency and field reference limits', () => {
-    const base = fresh();
-    base.events = [];
-    base.clips[0].length = '2048';
-    base.coverage[0].to = '2048';
-    for (let i = 0; i < 1024; i++)
-        base.events.push({ id: 'n' + i, clip: 'part', at: String(i), duration: '1', pitch: 60, velocity: 80 });
-    const o: any = { id: 'nom', type: 'nominal', state: 'stale', basis: '0'.repeat(64), provenance: { kind: 'declared', source: 'test', method: 'bound' }, depends: { events: base.events.map(e => ({ id: e.id, fields: ['clip', 'at', 'duration'] })), clips: [], overlays: [], membership: [] }, data: { event: 'n0', at: '0', duration: '1', division: '1' } };
-    base.overlays = [o];
-    agree(base);
-    const extra = clone(base);
-    extra.overlays[0].depends.membership = ['part'];
-    rejects(() => validate(extra), 'R28');
-    const refs = clone(base);
-    (refs.overlays[0] as any).depends.events.forEach((e: any) => e.fields = [...EVENT_FIELDS]);
-    refs.overlays = [];
-    for (let i = 0; i < 18; i++)
-        refs.overlays.push({ ...clone(o), id: 'o' + i });
-    refs.overlays.forEach(x => x.depends.events.forEach(e => e.fields = [...EVENT_FIELDS]));
-    rejects(() => validate(refs), 'R28');
 });
 test('C29 rule path field and FIELDS line column failures', () => {
     const raw = fieldBase().replace('n1 part 0', 'n1 part 1/3');
@@ -989,12 +724,14 @@ test('C30 pure pressure preservation portable defaults snapshot authority', () =
     assert.equal(snapshot.coverage[0].status, 'partial');
     agree(snapshot);
 });
-test('C31 corpus owner rule index all 32 families and golden provenance', () => {
+test('C31 corpus owner rule index of the retained families and golden provenance', () => {
     const inventory = JSON.parse(file('spec/ghostnote-document-v1/conformance/v1/manifest.json'));
     assert.equal(inventory.owner, '8f2 reference codec');
-    assert.equal(inventory.rules.length, 32);
-    for (let i = 1; i <= 32; i++)
-        assert.equal(inventory.rules[i - 1].rule, 'R' + String(i).padStart(2, '0'));
+    // D73 retired R13-R24 (overlays); R12 now covers their refusal, and R33-R34 are new.
+    const rules = [...Array.from({ length: 12 }, (_, i) => i + 1), ...Array.from({ length: 10 }, (_, i) => i + 25)];
+    assert.deepEqual(inventory.rules.map((r: any) => r.rule), rules.map(i => 'R' + String(i).padStart(2, '0')));
+    for (const r of inventory.rules)
+        assert.equal(r.family, 'C' + r.rule.slice(1));
     assert.equal(inventory.regressions.length, 4);
     for (const item of inventory.regressions)
         assert.ok(file(item.source).length > 0);
@@ -1025,7 +762,6 @@ for (const [field, lo, hi] of [['velocitySpread', 0, 1], ['gain', 0, 8], ['pan',
 for (const field of ['chance', 'occurrence', 'recurrence', 'repeat'] as const)
     test(`C04 disabled ${field} retains values`, () => {
         const d = fixture('complete') as StateDocument;
-        d.overlays = [];
         d.events[0][field]!.enabled = false;
         const n = agree(d) as StateDocument;
         assert.equal(n.events[0][field]!.enabled, false);
@@ -1035,7 +771,6 @@ for (const field of ['chance', 'occurrence', 'recurrence', 'repeat'] as const)
     });
 test('C08 all editable fields are complete atomic updates', () => {
     const d = fixture('complete') as StateDocument;
-    d.overlays = [];
     const source = d.events[0], base = fresh(), p = patch(base), set: any = {};
     for (const [field, value] of Object.entries(source))
         if (field !== 'id' && field !== 'clip')
@@ -1045,25 +780,15 @@ test('C08 all editable fields are complete atomic updates', () => {
     const result = applyPatch(base, p);
     assert.deepEqual(result.document.events[0], validate({ ...base, events: [source] }).kind === 'patch' ? null : (validate({ ...base, events: [source] }) as StateDocument).events[0]);
 });
-test('C09 operation order independence overlay conflict clip reset length', () => {
+test('C09 operation order independence clip reset length', () => {
     const b = fresh(), p = patch(b);
     p.add = [{ ...b.events[0], id: 'z', at: '3' }, { ...b.events[0], id: 'a', at: '2' }];
     const r = applyPatch(b, p);
     p.add.reverse();
     assert.equal(contentHash(applyPatch(b, p).document), contentHash(r.document));
-    const invalid = patch(b);
-    invalid.overlayPut = nominal(b).overlays;
-    invalid.overlayRemove = ['nom'];
-    rejects(() => validate(invalid), 'R09');
     const c = patch(fresh());
     c.clipUpdate = [{ id: 'part', set: { length: null } } as any];
     rejects(() => validate(c), 'R05');
-});
-test('C09 desired unchanged current claim on changed timing refuses', () => {
-    const b = nominal(fresh()), d = clone(b);
-    d.events[0].at = '1';
-    d.base = { sha256: contentHash(b) };
-    rejects(() => applyDesired(b, d), 'R22');
 });
 test('C10 repeated singleton envelope missing binding empty wrong record', () => {
     for (const word of ['META', 'EXTENSIONS', 'BASE']) {
@@ -1079,65 +804,12 @@ test('C11 carriage returns unescaped controls forbidden JSON layouts', () => {
     rejects(() => parse('{/* comment */}', 'json'), 'R11');
     rejects(() => parse('[1,]', 'json'), 'R11');
 });
-test('C14 anchor same clip requirement', () => {
-    const d = fixture('complete') as StateDocument;
-    d.clips.push({ id: 'other', length: '4' });
-    d.coverage.push({ ...clone(d.coverage[0]), clip: 'other' });
-    d.events.push({ id: 'anchor', clip: 'other', at: '0', duration: '1', pitch: 60, velocity: 80 });
-    const g = groove(d);
-    g.data.anchor = 'anchor';
-    g.depends.events.push({ id: 'anchor', fields: ['clip', 'at'] });
-    rejects(() => sealOverlays(d), 'R14');
-});
-test('C16 local tempo display context dependency and stale exclusion', async () => {
-    const { timingDisplay } = await import('./index.js');
-    const late = context('tempo', '1');
-    assert.equal(timingDisplay(late, 'part', '0', '1/64'), null);
-    const ms = timingDisplay(late, 'part', '1', '1/64')!;
-    assert.equal(ms.milliseconds, '125/16');
-    assert.deepEqual(ms.dependsOverlays, ['tempo']);
-    late.overlays[0].state = 'stale';
-    assert.equal(timingDisplay(late, 'part', '1', '1/64'), null);
-    const conflicting = context('tempo');
-    conflicting.overlays.push({ ...clone(conflicting.overlays[0]), id: 'conflict' });
-    rejects(() => timingDisplay(conflicting, 'part', '1', '1/64'), 'R19');
-});
-test('C22 sorting overlay dependency data and field definitions', () => {
-    const d = fixture('complete') as StateDocument, g = groove(d);
-    g.depends.overlays.push('harmony1');
-    const base = sealOverlays(d), reordered = clone(base);
-    const harmony: any = reordered.overlays.find(o => o.id === 'harmony1');
-    harmony.data.events.reverse();
-    harmony.depends.events.reverse();
-    harmony.depends.events.forEach((e: any) => e.fields.reverse());
-    assert.equal(contentHash(reordered), contentHash(base));
-});
-test('C28 each patch count and group count plus one', () => {
-    for (const [key, max] of Object.entries({ add: 131072, remove: 131072, update: 131072, clipUpdate: 256, overlayPut: 32768, overlayRemove: 32768 })) {
+test('C28 each patch count plus one', () => {
+    for (const [key, max] of Object.entries({ add: 131072, remove: 131072, update: 131072, clipUpdate: 256 })) {
         const p: any = patch(fresh());
         p[key] = new Array(max + 1).fill(null);
         rejects(() => validate(p), 'R28');
     }
-    const d = group('role');
-    (d.overlays[0].data as any).events = new Array(131073).fill('n1');
-    rejects(() => validate(d), 'R28');
-});
-test('C28 exact field-reference threshold accepted plus one rejected', () => {
-    const d = fresh();
-    d.clips[0].length = '2048';
-    d.coverage[0].to = '2048';
-    d.events = [];
-    for (let i = 0; i < 1024; i++)
-        d.events.push({ id: 'n' + i, clip: 'part', at: String(i), duration: '1', pitch: 60, velocity: 80 });
-    const o: any = { id: 'o', type: 'nominal', state: 'stale', basis: '0'.repeat(64), provenance: { kind: 'declared', source: 'test', method: 'bound' }, depends: { events: d.events.map(e => ({ id: e.id, fields: [...EVENT_FIELDS] })), clips: [], membership: [], overlays: [] }, data: { event: 'n0', at: '0', duration: '1', division: '1' } };
-    d.overlays = Array.from({ length: 17 }, (_, i) => ({ ...clone(o), id: 'o' + i }));
-    const last = clone(o);
-    last.id = 'last';
-    last.depends.events = last.depends.events.slice(0, 1022).map((e: any, i: number) => ({ ...e, fields: i === 0 ? ['clip', 'at', 'duration'] : ['at'] }));
-    d.overlays.push(last);
-    agree(d);
-    last.depends.events[1].fields.push('clip');
-    rejects(() => validate(d), 'R28');
 });
 test('C28 import pair report budget resource failure', () => {
     const b = fresh().events[0];
@@ -1169,12 +841,4 @@ test('C07 import validates portable fields and detaches caller objects', () => {
     const imported = importNotes([note]);
     note.expression.pressure = 0;
     assert.equal(imported.events[0].expression!.pressure, 0.5);
-});
-test('C21 basis and sealing helpers reject unknown paths and uncovered values', () => {
-    const base = nominal(fresh()), claim = clone(base.overlays[0]);
-    claim.depends.events[0].fields.push('unsupported' as any);
-    rejects(() => dependencyBasis(base, claim), 'R21');
-    const partial = fixture('partial');
-    partial.events[0].expression = clone(EVENT_DEFAULTS.expression);
-    rejects(() => sealOverlays(partial), 'R03');
 });

@@ -103,11 +103,11 @@ live wire-call count of the E247 inventory.
 | Whole-clip edit, 16,384 notes (reader limit) | 6,588 ms (plan 1,195, write 3,710, readback 637) | E247: 8,337 ms, 75 wire calls; E246: 47,977 ms (plan 12,003, write 31,609) | as whole-clip | E248 worst |
 | Whole-clip edit, 512 notes on 2,048 beats at the 1/512 grid (the review case) | 1,781 ms; 53 wire calls | 512 steps: 110,838 ms, 512 page checks | as whole-clip | E248 reviewer |
 | Edit planner, 16,384 notes, offline | 1.2 s (4,096 notes: 0.5 s); budget 4,000 ms | E246: 12.0 s live | `phase8h4g-inventory.test.ts` | E247 |
-| Edit planner with claims, offline (`seal-bench`: every velocity and one claim without basis on each note) | 4,096 claims 1.55 s; 16,384 claims 6.3 s; budget 4,000 ms at 4,096 | HEAD, helper bases: 1.39 s; 5.8 s (the codec structure check of each overlay) | `phase8h4g-inventory.test.ts` | E253 |
-| `edit_launcher_clip`, claims only (put or remove, no note change) | 806 ms (read 357, readback 409); no write | Edit refusal about 400 ms (E246) | mark 2, tracks 1, clipRead 2, delta 2 (the seal adds no call; new test) | E253 |
+| Edit planner with claims, offline | Retired by [D73](../decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md): no claims, no seal, no `seal-bench` | E253: 4,096 claims 1.55 s; 16,384 claims 6.3 s | — | E253 |
+| `edit_launcher_clip`, provenance only (`CLIP_UPDATE` provenance, no note change; D73) | No host write and no change record; a fresh read and the readback read. Not measured live: the call shape is the E253 claims-only edit (806 ms) | E253 claims only: 806 ms | mark 2, tracks 1, clipRead 2, delta 2 (`call-budget.test.ts`) | D73 |
 | Edit refusal before a write | About 400 ms | E236: 560 ms | — | E246 |
 | Document input refused by the codec (add or edit), with `detail.repair` | 1 ms; 0 wire calls | Before 8i6: the same refusal without repair | none (new test) | E255 |
-| `get_document_reference`, Core and the desired template; Timing overlays; all sections and all templates | 4,469 bytes; 14,997 bytes; 17,383 bytes (FIELDS) | E256: 4,469; 13,347; 15,733 bytes (E255: 4,469; 6,806; 9,192). Reference source 7,980 → 10,736 bytes (the timing example) → 12,359 bytes (the timing-feel method, E259) | none | E255, E256, E259 |
+| `get_document_reference`, Core and the desired template; Patch (all sections) | 5,665 bytes; 7,098 bytes (FIELDS, D73, reference revision 7) | E259: Core 4,469; Timing overlays 14,997; all 17,383 bytes. Reference source 12,359 → 5,969 bytes (D73 removed the overlay sections) | none | E255, E256, E259, D73 |
 | `add_launcher_clip` with the desired template (1 note); a template-form patch (1 ADD, 1 UPDATE) after a read with Patch help | 2,460 ms, 87 wire calls; 1,546 ms, 45 wire calls (read 389 ms) | E250 add typical 2,158 ms; targeted insert 1,367–1,428 ms | unchanged | E255 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |
@@ -285,6 +285,17 @@ the 3,243-note E268 file, and 28.7 to 1.05 KB for the live clip. See
 tempo map. File-mode results of the E270 files with 512, 247, and 489 tempo
 events: 21,573, 11,194, and 20,655 bytes before; 1,834, 1,773, and 1,774 bytes
 after. Read times are unchanged (147–328 ms). No host call.
+
+D73 (`midi-document-v3`) removes the tempo and meter overlays from the
+document. The report adds `tempo` and `meter` point lists of at most 16 points
+each (`null` above that), so the report stays bounded; each clip gains one
+provenance source of about 150 bytes. A 512-event map reads with `tempo: null`.
+
+D73 also changes canonical FIELDS. Clip column defaults and a binding that omits
+unneeded columns shrink the pinned 8c read corpus from 1,528, 4,673, and 9,006
+bytes to 978, 3,330, and 6,293 bytes (30–36 percent), and the typical
+256-note, 16-channel clip from 9,902 to 8,361 bytes
+(`launcher-clip-document.test.ts`). No host cost changes.
 
 `add_launcher_clip` and an `edit_launcher_clip` with `intent: replace` check
 same-key overlaps of the desired document before any host call. A refused

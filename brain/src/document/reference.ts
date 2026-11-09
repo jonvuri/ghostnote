@@ -1,4 +1,4 @@
-export const REFERENCE_SECTIONS = ['Core', 'Patch', 'Timing overlays', 'Groups', 'Meter and tempo'] as const;
+export const REFERENCE_SECTIONS = ['Core', 'Patch'] as const;
 export type ReferenceSection = typeof REFERENCE_SECTIONS[number];
 /** Select maintained reference sections. Core is always included. */
 export function modelReference(source: string, sections: ReferenceSection[] = []): string {

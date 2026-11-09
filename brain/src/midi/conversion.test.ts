@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { serialize, parse, sealOverlays, BINDING, type StateDocument } from '../document/index.js';
+import { serialize, parse, COVERAGE_FIELDS, type StateDocument } from '../document/index.js';
 import { importMidi, exportMidi } from './conversion.js';
 import { parseSmf, MidiError, MIDI_LIMITS, vlq } from './smf.js';
 import { EOT, SIMPLE_MIDI, smfFixture, midiDocument } from './fixtures.js';
@@ -12,7 +12,7 @@ const noteValues = (d: StateDocument) => d.events.map(({ id, clip, ...note }) =>
 function midiSnapshot(count = 1): StateDocument {
   const doc = midiDocument(count);
   doc.kind = 'snapshot';
-  doc.coverage[0]!.fields = [...BINDING, 'releaseVelocity'];
+  doc.coverage[0]!.fields = [...COVERAGE_FIELDS, 'releaseVelocity'];
   return doc;
 }
 
@@ -27,7 +27,7 @@ test('snapshot export uses covered MIDI fields without changing kind or coverage
 });
 
 test('snapshot export refuses missing fields, channels, spans, or complete status even with accepted loss', () => {
-  const missing = midiSnapshot(); missing.coverage[0]!.fields = [...BINDING];
+  const missing = midiSnapshot(); missing.coverage[0]!.fields = [...COVERAGE_FIELDS];
   assert.throws(() => exportMidi(missing, { acceptLoss: true }), (e: unknown) => {
     assert.ok(e instanceof MidiError);
     assert.equal(e.code, 'invalid-input');
@@ -46,14 +46,14 @@ test('snapshot export refuses missing fields, channels, spans, or complete statu
   }
   const multi = midiSnapshot(0);
   multi.clips.push({ id: 'c2', length: '4' });
-  multi.coverage.push({ ...multi.coverage[0]!, clip: 'c2', fields: [...BINDING] });
+  multi.coverage.push({ ...multi.coverage[0]!, clip: 'c2', fields: [...COVERAGE_FIELDS] });
   refuses(() => exportMidi(multi, { acceptLoss: true }), 'invalid-input');
 });
 
 test('snapshot export keeps the loss checks for loops and observed nondefault fields', () => {
   const doc = midiSnapshot();
   doc.clips[0]!.loop = { from: '0', to: '4' };
-  doc.coverage[0]!.fields = [...BINDING, 'releaseVelocity', 'chance'];
+  doc.coverage[0]!.fields = [...COVERAGE_FIELDS, 'releaseVelocity', 'chance'];
   doc.events[0]!.chance = { enabled: true, value: 0.5 };
   refuses(() => exportMidi(doc), 'unsupported');
   assert.deepEqual(exportMidi(doc, { acceptLoss: true }).report.losses,
@@ -66,7 +66,7 @@ test('source beats and 60-to-120 elapsed-time conversion use distinct coordinate
   assert.equal(converted.document.events[0]!.duration, '2');
   assert.equal(converted.document.clips[0]!.length, '2');
   assert.equal(converted.report.timing, 'elapsed-time-at-target-bpm');
-  assert.deepEqual(plain(converted.document.overlays[0]!.data), { clip: 'c1', at: '0', bpm: 120 });
+  assert.deepEqual(converted.report.tempo, [{ at: '0', bpm: 120 }]);
   assert.equal(converted.document.events[0]!.releaseVelocity, 0);
   assert.deepEqual(importMidi(SIMPLE_MIDI, { targetBpm: 120 }), converted);
 });
@@ -80,10 +80,10 @@ test('a held note crosses a tempo change: integrate onset and end separately', (
   assert.equal(imported.document.clips[0]!.length, '3');
   assert.deepEqual(imported.report.sourceTempo, { events: 2, changes: 2, equalMerged: 0, firstBpm: 60, minBpm: 60, maxBpm: 120 });
   const preserved = importMidi(bytes);
-  assert.deepEqual(plain(preserved.document.overlays.map(o => o.data)), [{ clip: 'c1', at: '0', bpm: 60 }, { clip: 'c1', at: '1', bpm: 120 }]);
+  assert.deepEqual(preserved.report.tempo, [{ at: '0', bpm: 60 }, { at: '1', bpm: 120 }]);
 });
 
-test('consecutive equal tempos make one overlay; timing and export do not change (8i20)', () => {
+test('consecutive equal tempos make one listed point; timing and a tempoFrom export do not change (8i20, D73)', () => {
   const tempo = (us: [number, number, number]) => [255, 81, 3, ...us];
   const at60: [number, number, number] = [15, 66, 64], at120: [number, number, number] = [7, 161, 32], at125: [number, number, number] = [7, 83, 0];
   // Ticks (ppq 1000): 60 at 0 and 500, 120 at 1000 and 2500; the note is 0 to 2000.
@@ -92,21 +92,19 @@ test('consecutive equal tempos make one overlay; timing and export do not change
   const single = smfFixture([[0, ...tempo(at60), 0, 0x90, 60, 90, 0x87, 0x68, ...tempo(at120), 0x87, 0x68, 0x80, 60, 40, 0x83, 0x74, 0xff, 1, 0, ...EOT]]);
   const variable = importMidi(repeated);
   assert.deepEqual(variable.report.sourceTempo, { events: 4, changes: 2, equalMerged: 2, firstBpm: 60, minBpm: 60, maxBpm: 120 });
-  assert.deepEqual(plain(variable.document.overlays.filter(o => o.type === 'tempo').map(o => o.data)),
-    [{ clip: 'c1', at: '0', bpm: 60 }, { clip: 'c1', at: '1', bpm: 120 }]);
+  assert.deepEqual(variable.report.tempo, [{ at: '0', bpm: 60 }, { at: '1', bpm: 120 }]);
   // The elapsed-time clock is the same with and without the equal events.
   assert.deepEqual(noteValues(importMidi(repeated, { targetBpm: 120 }).document), noteValues(importMidi(single, { targetBpm: 120 }).document));
   assert.equal(importMidi(repeated, { targetBpm: 120 }).document.events[0]!.duration, '3');
-  const again = importMidi(exportMidi(variable.document).bytes);
+  const again = importMidi(exportMidi(variable.document, { tempoFrom: repeated }).bytes);
   assert.deepEqual(noteValues(again.document), noteValues(variable.document));
-  const tempoData = (d: StateDocument) => plain(d.overlays.filter(o => o.type === 'tempo').map(({ data: { clip, ...data } }) => data));
-  assert.deepEqual(tempoData(again.document), tempoData(variable.document));
+  assert.deepEqual(again.report.tempo, variable.report.tempo);
   assert.equal(again.report.sourceTempo.changes, 2);
   const constant = importMidi(smfFixture([[0, ...tempo(at125), 0, 0x90, 60, 90, 0x83, 0x74, ...tempo(at125),
     0x83, 0x74, ...tempo(at125), 0, 0x80, 60, 40, ...EOT]]));
   assert.deepEqual(constant.report.sourceTempo, { events: 3, changes: 1, equalMerged: 2, firstBpm: 125, minBpm: 125, maxBpm: 125 });
-  assert.equal(constant.document.overlays.filter(o => o.type === 'tempo').length, 1);
-  assert.equal(constant.report.version, 'midi-document-v2');
+  assert.equal(constant.report.tempo!.length, 1);
+  assert.equal(constant.report.version, 'midi-document-v3');
 });
 
 test('running status, velocity-zero off, channel 16, and leading silence', () => {
@@ -136,7 +134,7 @@ test('track names, musical tracks, meter, and source losses are explicit', () =>
   assert.deepEqual(d.document.clips.map(c => c.id), ['c2', 'c3']);
   assert.equal(d.document.clips[0]!.name, 'Bass');
   assert.equal(d.document.events[1]!.channel, 10);
-  assert.equal(d.document.overlays.filter(o => o.type === 'meter').length, 2);
+  assert.equal(d.report.meter!.length, 1);
   assert.deepEqual(d.report.ignored.map(l => l.code), ['control-change', 'meter-click-fields', 'pitch-bend', 'program-change']);
 });
 
@@ -206,15 +204,23 @@ test('export refuses partial input and same-pitch overlaps; reports tail and rou
   assert.throws(() => exportMidi(d));
 });
 
-test('source tempo and meter survive export; explicit tempo override is a stated loss', () => {
+test('export tempo is 120, bpm, or the map of tempoFrom; meter sets one time signature (D73)', () => {
   const doc = importMidi(SIMPLE_MIDI).document;
-  const out = exportMidi(doc);
-  assert.equal(importMidi(out.bytes).document.overlays.find(o => o.type === 'tempo')!.data.bpm, 60);
-  refuses(() => exportMidi(doc, { bpm: 120 }), 'unsupported');
-  const override = exportMidi(doc, { bpm: 120, acceptLoss: true });
-  const read = importMidi(override.bytes);
+  const plainOut = exportMidi(doc);
+  assert.equal(plainOut.report.defaultTempoApplied, true);
+  assert.deepEqual(importMidi(plainOut.bytes).report.tempo, [{ at: '0', bpm: 120 }]);
+  const copied = exportMidi(doc, { tempoFrom: SIMPLE_MIDI });
+  assert.equal(copied.report.defaultTempoApplied, false);
+  assert.deepEqual(importMidi(copied.bytes).report.tempo, importMidi(SIMPLE_MIDI).report.tempo);
+  refuses(() => exportMidi(doc, { bpm: 120, tempoFrom: SIMPLE_MIDI }), 'invalid-input');
+  const read = importMidi(exportMidi(doc, { bpm: 100, meter: { numerator: 7, denominator: 8 } }).bytes);
   assert.equal(read.document.events[0]!.duration, '1');
-  assert.equal(read.document.overlays.find(o => o.type === 'tempo')!.data.bpm, 120);
+  assert.deepEqual(read.report.tempo, [{ at: '0', bpm: 100 }]);
+  assert.deepEqual(read.report.meter, [{ at: '0', numerator: 7, denominator: 8 }]);
+  refuses(() => exportMidi(doc, { meter: { numerator: 3, denominator: 3 } }), 'invalid-input');
+  // Clip provenance has no MIDI mapping and is not a loss: the export is a new file.
+  const named = importMidi(SIMPLE_MIDI, { source: { path: '/music/simple.mid', sha256: 'a'.repeat(64) } }).document;
+  assert.deepEqual(exportMidi(named).report.losses, []);
 });
 
 test('resource limits refuse whole inputs; VLQ boundary is exact', () => {
@@ -234,18 +240,20 @@ test('FIFO pairing preserves crossing overlaps and equal ends with distinct rele
   assert.deepEqual(noteValues(again.document), noteValues(parse(serialize(d, 'fields'), 'fields') as StateDocument));
 });
 
-test('a tempo map on one track cannot silently change a different clip map', () => {
+test('each clip names its source file, track, and conversion; no overlays (D73)', () => {
   const source = smfFixture([
     [0, 255, 81, 3, 7, 161, 32, ...EOT],
     [0, 0x90, 60, 100, 0x90, 0, 0x80, 60, 100, ...EOT],
     [0, 0x91, 64, 100, 0x90, 0, 0x81, 64, 100, ...EOT],
   ], 512);
-  const doc = importMidi(source).document;
-  const tempo = doc.overlays.find(o => o.type === 'tempo')!;
-  if (tempo.type !== 'tempo') throw new Error('fixture');
-  doc.overlays.push({ ...tempo, id: 'changedTempo', depends: { ...tempo.depends, clips: [{ id: 'c3', fields: ['length'] }] }, data: { clip: 'c3', at: '1', bpm: 60 } });
-  const sealed = sealOverlays(doc);
-  refuses(() => exportMidi(sealed), 'unsupported');
+  const sha256 = 'b'.repeat(64);
+  const doc = importMidi(source, { source: { path: '/music/two.mid', sha256 } }).document;
+  assert.deepEqual(plain(doc.clips.map(clip => clip.provenance)), [1, 2].map(track => ({ sources: [{ path: '/music/two.mid',
+    sha256, read: { conversion: 'midi-document-v3', track } }] })));
+  assert.equal('overlays' in doc, false);
+  const target = importMidi(source, { targetBpm: 90, source: { path: '/music/two.mid', sha256 } }).document;
+  assert.deepEqual(plain(target.clips[0]!.provenance!.sources![0]!.read), { conversion: 'midi-document-v3', track: 1, targetBpm: 90 });
+  assert.equal(importMidi(source).document.clips[0]!.provenance, undefined);
 });
 
 test('import event and note limits are enforced before document materialization', () => {

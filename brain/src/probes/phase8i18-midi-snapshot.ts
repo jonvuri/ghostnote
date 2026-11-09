@@ -3,7 +3,7 @@ import { readFile, mkdtemp, rm } from 'node:fs/promises';
 import { join, isAbsolute, basename } from 'node:path';
 import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
-import { serialize, BINDING, type StateDocument } from '../document/index.js';
+import { serialize, COVERAGE_FIELDS, type StateDocument } from '../document/index.js';
 import { midiDocument } from '../midi/fixtures.js';
 import { writeMidiFile } from '../surface/midi-files.js';
 
@@ -46,7 +46,7 @@ try {
   }
   if (results.length !== 3) throw new Error('Expected the three trial exports.');
   const generated: StateDocument = midiDocument(16384); generated.kind = 'snapshot';
-  generated.coverage[0]!.fields = [...BINDING, 'releaseVelocity'];
+  generated.coverage[0]!.fields = [...COVERAGE_FIELDS, 'releaseVelocity'];
   const text = serialize(generated, 'fields'); global.gc?.();
   const before = process.memoryUsage(), start = performance.now();
   const maximum = await writeMidiFile({ path: join(directory, 'maximum.mid'), document: text }) as Wire;

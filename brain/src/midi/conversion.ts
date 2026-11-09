@@ -1,10 +1,13 @@
 /** Exact MIDI timing conversion and the Document 1.0 import boundary. */
-import { importNotes, sealOverlays, validate, BINDING, EVENT_DEFAULTS, ImportCollisionError,
-  LIMITS, type StateDocument, type SourceNote, type Document } from '../document/index.js';
+import { importNotes, validate, COVERAGE_FIELDS, EVENT_DEFAULTS, ImportCollisionError,
+  type StateDocument, type SourceNote, type Document } from '../document/index.js';
 import { add, sub, fraction, rational, spelling, cmp, sum, type Rational } from '../document/rational.js';
 import { MIDI_LIMITS, MidiError, requireMidi, parseSmf, writeSmf, metaEvent, type OutputEvent } from './smf.js';
 
-export const MIDI_CONVERSION_VERSION = 'midi-document-v2';
+/** v3 (D73): no overlays; clip provenance names the file; the report lists short tempo and meter maps. */
+export const MIDI_CONVERSION_VERSION = 'midi-document-v3';
+/** The longest tempo or meter map that a read report lists. A longer map stays in the source file. */
+export const LISTED_MAP_POINTS = 16;
 const channels = Array.from({ length: 16 }, (_, i) => i + 1);
 export interface Loss { code: string; count: number }
 const countLoss = (counts: Map<string, number>, code: string, count = 1) => counts.set(code, (counts.get(code) ?? 0) + count);
@@ -33,12 +36,13 @@ function uniqueMap<T extends { tick: number }>(values: T[], label: string): T[] 
   return [...map.values()].sort((a, b) => a.tick - b.tick);
 }
 
-export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) {
-  const midi = parseSmf(bytes), ignored = new Map<string, number>();
-  const target = options.targetBpm === undefined ? undefined : bpmValue(options.targetBpm);
+export interface MidiSource { readonly path: string; readonly sha256: string }
+
+/** Read the tempo and meter meta events of every track. */
+function metadataEvents(midi: ReturnType<typeof parseSmf>): { tempos: Tempo[]; meters: Meter[]; clickFields: number } {
   const tempos: Tempo[] = [], meters: Meter[] = [];
-  const trackNames = new Map<number, string>();
-  for (const [trackIndex, track] of midi.tracks.entries()) for (const event of track.events) {
+  let clickFields = 0;
+  for (const track of midi.tracks) for (const event of track.events) {
     if (event.meta === 0x51) {
       const microseconds = event.data.readUIntBE(0, 3);
       requireMidi(microseconds > 0, 'MIDI tempo must be positive.');
@@ -47,8 +51,21 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
       const [numerator, power, clocks, thirtySeconds] = event.data;
       requireMidi(numerator! > 0 && numerator! <= 64 && power! <= 6, 'Time signature exceeds Document 1.0 limits.', 'unsupported');
       meters.push({ tick: event.tick, numerator: numerator!, denominator: 2 ** power! });
-      if (clocks !== 24 || thirtySeconds !== 8) countLoss(ignored, 'meter-click-fields');
-    } else if (event.meta === 3 && !trackNames.has(trackIndex)) {
+      if (clocks !== 24 || thirtySeconds !== 8) clickFields++;
+    }
+  }
+  return { tempos, meters, clickFields };
+}
+
+export function importMidi(bytes: Buffer, options: { targetBpm?: number; source?: MidiSource } = {}) {
+  const midi = parseSmf(bytes), ignored = new Map<string, number>();
+  const target = options.targetBpm === undefined ? undefined : bpmValue(options.targetBpm);
+  const { tempos, meters, clickFields } = metadataEvents(midi);
+  if (clickFields) countLoss(ignored, 'meter-click-fields', clickFields);
+  const trackNames = new Map<number, string>();
+  for (const [trackIndex, track] of midi.tracks.entries()) for (const event of track.events) {
+    if (event.meta === 0x51 || event.meta === 0x58) continue;
+    if (event.meta === 3 && !trackNames.has(trackIndex)) {
       // SMF text has no mandatory encoding. UTF-8 is tried first, then Latin-1.
       let name: string;
       try { name = new TextDecoder('utf-8', { fatal: true }).decode(event.data); }
@@ -66,7 +83,7 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
   let tempoMap = uniqueMap(tempos, 'tempo');
   const defaultTempo = !tempoMap.some(t => t.tick === 0);
   if (defaultTempo) tempoMap = [{ tick: 0, microseconds: 500000 }, ...tempoMap];
-  // v2 (8i20): consecutive equal tempos make one overlay. The clock and the outside-clip count keep the source map.
+  // v2 (8i20): consecutive equal tempos make one point. The clock and the outside-clip count keep the source map.
   const tempoPoints = tempoMap.filter((t, i) => i === 0 || t.microseconds !== tempoMap[i - 1]!.microseconds);
   const bpms = tempoPoints.map(t => 60000000 / t.microseconds);
   const events = tempoMap.length - (defaultTempo ? 1 : 0), changes = tempoPoints.length - (defaultTempo ? 1 : 0);
@@ -126,49 +143,47 @@ export function importMidi(bytes: Buffer, options: { targetBpm?: number } = {}) 
     if (error instanceof ImportCollisionError) throw new MidiError('collision', 'MIDI notes collide after 1/512-beat normalization.', { collisions: error.report.collisionGroups });
     throw error;
   }
+  // D73: each clip names the file and the conversion that made it. The tempo map stays a fact of the file.
+  const provenance = (index: number) => options.source === undefined ? {} : { provenance: { sources: [{
+    path: options.source.path, sha256: options.source.sha256,
+    read: { conversion: MIDI_CONVERSION_VERSION, track: index, ...(target ? { targetBpm: options.targetBpm! } : {}) } }] } };
   const doc: StateDocument = { format: 'ghostnote-document', version: '1.0', kind: 'desired',
-    clips: tracks.map(t => ({ id: t.clip, name: t.name, length: t.length })),
+    clips: tracks.map(t => ({ id: t.clip, name: t.name, length: t.length, ...provenance(t.index) })),
     coverage: tracks.map(t => ({ clip: t.clip, from: '0', to: t.length, channels, fields: 'all', status: 'complete' })),
-    events: imported.events, overlays: [] };
-  const overlay = (type: 'tempo' | 'meter', clip: string, at: string, data: Record<string, number>) => {
-    requireMidi(doc.overlays.length < LIMITS.overlays, 'MIDI metadata exceeds the document overlay limit.', 'outside-limit');
-    doc.overlays.push({ id: `m${doc.overlays.length + 1}`, state: 'current', basis: '0'.repeat(64),
-      provenance: { kind: 'declared', source: 'midi-file', method: MIDI_CONVERSION_VERSION },
-      depends: { clips: [{ id: clip, fields: ['length'] }], events: [], overlays: [], membership: [] },
-      ...(type === 'tempo' ? { type: 'tempo', data: { clip, at, bpm: data.bpm! } }
-        : { type: 'meter', data: { clip, at, numerator: data.numerator!, denominator: data.denominator! } }) });
-  };
-  for (const track of tracks) {
-    for (const tempo of target ? [{ tick: 0, microseconds: 60000000 / options.targetBpm! }] : tempoPoints) {
-      const at = spelling(position(tempo.tick));
-      if (cmp(at, track.length) >= 0 && !(at === '0' && track.length === '0')) continue;
-      const bpm = target ? options.targetBpm! : 60000000 / tempo.microseconds;
-      requireMidi(bpm <= 1000, 'Source tempo exceeds 1000 BPM; supply targetBpm to convert elapsed time.', 'unsupported');
-      overlay('tempo', track.clip, at, { bpm });
-    }
-    for (const meter of meterMap) {
-      const at = spelling(position(meter.tick));
-      if (cmp(at, track.length) < 0 || (at === '0' && track.length === '0')) overlay('meter', track.clip, at, { numerator: meter.numerator, denominator: meter.denominator });
-    }
-  }
+    events: imported.events };
+  const tempoList = target ? [{ at: '0', bpm: options.targetBpm! }]
+    : tempoPoints.length > LISTED_MAP_POINTS ? null
+    : tempoPoints.map(point => ({ at: spelling(position(point.tick)), bpm: 60000000 / point.microseconds }));
+  const meterList = meterMap.length > LISTED_MAP_POINTS ? null
+    : meterMap.map(point => ({ at: spelling(position(point.tick)), numerator: point.numerator, denominator: point.denominator }));
   for (const [kind, points] of [['tempo', tempoMap], ['meter', meterMap]] as const) {
     for (const point of points) {
       const at = spelling(position(point.tick));
       if (!tracks.some(t => cmp(at, t.length) < 0 || (at === '0' && t.length === '0'))) countLoss(ignored, `${kind}-outside-clips`);
     }
   }
-  const document = sealOverlays(doc);
+  const document = validate(doc) as StateDocument;
   return { document, normalization: imported.report, report: { version: MIDI_CONVERSION_VERSION, sourceFormat: midi.format, sourcePpq: midi.ppq,
     timing: target ? 'elapsed-time-at-target-bpm' : 'source-beats', targetBpm: options.targetBpm ?? null,
     notePairing: 'fifo-per-track-channel-pitch', overlappingNoteOns, velocityZeroOffReleaseVelocity: 64,
-    sourceTempo, defaultTempoApplied: defaultTempo, tracks,
+    sourceTempo, tempo: tempoList, meter: meterList, defaultTempoApplied: defaultTempo, tracks,
     notes: imported.events.length, normalizedOnsets: imported.report.notes.filter(n => n.atDelta !== '0').length,
     normalizedDurations: imported.report.notes.filter(n => n.durationDelta !== '0').length,
     minimumDurationPromotions: imported.report.notes.filter(n => n.minimumDurationPromotion).length,
     changedOverlapPairs: imported.report.changedOverlaps.length, ignored: lossesOf(ignored) } };
 }
 
-export function exportMidi(input: Document, options: { acceptLoss?: boolean; bpm?: number } = {}) {
+export interface ExportOptions {
+  readonly acceptLoss?: boolean;
+  /** One constant tempo. */
+  readonly bpm?: number;
+  /** A MIDI file whose tempo and meter map the export copies, on the same beats. */
+  readonly tempoFrom?: Buffer;
+  /** One constant time signature; replaces any meter of `tempoFrom`. */
+  readonly meter?: { readonly numerator: number; readonly denominator: number };
+}
+
+export function exportMidi(input: Document, options: ExportOptions = {}) {
   const document = validate(input);
   requireMidi(document.kind !== 'patch', 'Export needs a complete desired document or a complete snapshot.');
   // A snapshot needs known MIDI fields. Other fields can remain unobserved.
@@ -177,7 +192,7 @@ export function exportMidi(input: Document, options: { acceptLoss?: boolean; bpm
     requireMidi(coverage.status === 'complete' && cmp(coverage.from, '0') === 0
       && cmp(coverage.to, lengths.get(coverage.clip)!) === 0 && coverage.channels.length === 16,
     `MIDI export needs complete coverage of the full clip and all 16 channels (${coverage.clip}).`);
-    const missingFields = [...BINDING, 'releaseVelocity' as const]
+    const missingFields = [...COVERAGE_FIELDS, 'releaseVelocity' as const]
       .filter(field => coverage.fields !== 'all' && !coverage.fields.includes(field));
     if (missingFields.length) throw new MidiError('invalid-input',
       `MIDI export needs observed note fields for clip ${coverage.clip}: ${missingFields.join(', ')}. Read these fields; do not change coverage to all.`,
@@ -195,29 +210,10 @@ export function exportMidi(input: Document, options: { acceptLoss?: boolean; bpm
     if (scaled % r.d) countLoss(rounding, 'metadata-time-rounded');
     return Number(result);
   };
-  for (const type of ['tempo', 'meter'] as const) {
-    if (type === 'tempo' && options.bpm !== undefined) continue;
-    const maps = document.clips.map(clip => ({ clip, points: document.overlays
-      .filter(o => o.type === type && o.state === 'current' && o.data.clip === clip.id)
-      .map(o => {
-        if (o.type !== 'tempo' && o.type !== 'meter') throw new Error('metadata type');
-        return { at: o.data.at, value: o.type === 'tempo' ? [o.data.bpm] : [o.data.numerator, o.data.denominator] };
-      }).sort((a, b) => cmp(a.at, b.at)) })).filter(m => m.points.length);
-    for (let i = 0; i < maps.length; i++) for (let j = i + 1; j < maps.length; j++) {
-      const a = maps[i]!, b = maps[j]!;
-      const length = cmp(a.clip.length, b.clip.length) < 0 ? a.clip.length : b.clip.length;
-      const points = [...new Set([...a.points, ...b.points].map(p => p.at))].sort(cmp);
-      let ai = 0, bi = 0;
-      for (const at of points) {
-        if (cmp(at, length) >= 0) break;
-        while (ai + 1 < a.points.length && cmp(a.points[ai + 1]!.at, at) <= 0) ai++;
-        while (bi + 1 < b.points.length && cmp(b.points[bi + 1]!.at, at) <= 0) bi++;
-        const ap = a.points[ai]!, bp = b.points[bi]!;
-        if (cmp(ap.at, at) <= 0 && cmp(bp.at, at) <= 0) requireMidi(same(ap.value, bp.value),
-          `Clips ${a.clip.id} and ${b.clip.id} have incompatible ${type} maps at beat ${at}.`, 'unsupported');
-      }
-    }
-  }
+  requireMidi(options.bpm === undefined || options.tempoFrom === undefined, 'Use bpm or tempoFrom, not both.');
+  if (options.meter !== undefined) requireMidi(Number.isInteger(options.meter.numerator) && options.meter.numerator >= 1
+    && options.meter.numerator <= 64 && [1, 2, 4, 8, 16, 32, 64].includes(options.meter.denominator),
+  'meter needs a numerator 1..64 and a denominator 1, 2, 4, 8, 16, 32, or 64.');
   const tempoEvents = new Map<number, Buffer>(), meterEvents = new Map<number, Buffer>();
   const put = (map: Map<number, Buffer>, at: number, bytes: Buffer) => {
     requireMidi(!map.has(at) || map.get(at)!.equals(bytes), `Conflicting global MIDI metadata at tick ${at}.`, 'unsupported');
@@ -229,16 +225,18 @@ export function exportMidi(input: Document, options: { acceptLoss?: boolean; bpm
     if (60000000n * b.d % b.n) countLoss(rounding, 'tempo-microseconds-rounded');
     const data = Buffer.alloc(3); data.writeUIntBE(Number(us), 0, 3); return metaEvent(0x51, data);
   };
-  for (const overlay of document.overlays) {
-    if (overlay.state !== 'current' || (overlay.type !== 'tempo' && overlay.type !== 'meter')) {
-      countLoss(losses, `overlay-${overlay.type}`); continue;
+  const meterBytes = (numerator: number, denominator: number) => metaEvent(0x58, Buffer.from([numerator, Math.log2(denominator), 24, 8]));
+  if (options.tempoFrom !== undefined) {
+    const source = parseSmf(options.tempoFrom), map = metadataEvents(source);
+    const sourceTick = (at: number) => tick(spelling(fraction(BigInt(at), BigInt(source.ppq))));
+    for (const tempo of map.tempos) {
+      const data = Buffer.alloc(3); data.writeUIntBE(tempo.microseconds, 0, 3);
+      put(tempoEvents, sourceTick(tempo.tick), metaEvent(0x51, data));
     }
-    if (overlay.type === 'tempo') {
-      if (options.bpm !== undefined) { countLoss(losses, 'tempo-map-overridden'); continue; }
-      put(tempoEvents, tick(overlay.data.at), tempoBytes(overlay.data.bpm));
-    } else put(meterEvents, tick(overlay.data.at), metaEvent(0x58,
-      Buffer.from([overlay.data.numerator, Math.log2(overlay.data.denominator), 24, 8])));
+    if (options.meter === undefined) for (const meter of map.meters) put(meterEvents, sourceTick(meter.tick), meterBytes(meter.numerator, meter.denominator));
   }
+  if (options.meter !== undefined) meterEvents.set(0, meterBytes(options.meter.numerator, options.meter.denominator));
+  const defaultTempoApplied = options.bpm === undefined && !tempoEvents.has(0);
   if (options.bpm !== undefined || !tempoEvents.has(0)) tempoEvents.set(0, tempoBytes(options.bpm ?? 120));
   const conductor: OutputEvent[] = [
     ...[...tempoEvents].map(([at, bytes]) => ({ tick: at, priority: 0, bytes })),
@@ -285,5 +283,5 @@ export function exportMidi(input: Document, options: { acceptLoss?: boolean; bpm
   conductor.push({ tick: Math.max(lastTick, ...conductor.map(e => e.tick)), priority: 9, bytes: metaEvent(0x2f, Buffer.alloc(0)) });
   return { bytes: writeSmf([conductor, ...tracks]), report: { version: MIDI_CONVERSION_VERSION, format: 1, ppq: 512,
     clips: document.clips.length, notes: noteCount, notePairing: 'fifo-per-track-channel-pitch', losses: loss, rounding: lossesOf(rounding),
-    defaultTempoApplied: options.bpm === undefined && !document.overlays.some(o => o.type === 'tempo' && o.state === 'current' && o.data.at === '0') } };
+    defaultTempoApplied } };
 }

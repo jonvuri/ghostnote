@@ -3,7 +3,7 @@ import { mkdtemp, readFile, writeFile, readdir, rm, symlink } from 'node:fs/prom
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { serialize, parse, BINDING, type StateDocument } from '../document/index.js';
+import { serialize, parse, COVERAGE_FIELDS, type StateDocument } from '../document/index.js';
 import { FakeAdapter } from '../adapters/fake/adapter.js';
 import { IdentityRegistry } from '../bindings/identity-registry.js';
 import { Executor } from '../engine/index.js';
@@ -49,7 +49,7 @@ test('a Launcher read exports directly with its observed field coverage', async 
 });
 
 test('missing snapshot MIDI fields refuse before publication and cannot be accepted as loss', async () => {
-  const document = midiDocument(); document.kind = 'snapshot'; document.coverage[0]!.fields = [...BINDING];
+  const document = midiDocument(); document.kind = 'snapshot'; document.coverage[0]!.fields = [...COVERAGE_FIELDS];
   let published = false;
   const result = await writeMidiFile({ path: '/unused.mid', format: 'json', document: { ...document }, acceptLoss: true }, {
     publish: async () => { published = true; }, read: async () => Buffer.alloc(0),
@@ -92,7 +92,7 @@ test('full inline output has every note beyond 24,000 characters', async t => {
   assert.deepEqual(await readdir(dir), ['large.mid']);
 });
 
-test('a 512-event tempo map gives a bounded read report; the document keeps each change (8i20, E270)', async t => {
+test('a 512-event tempo map gives a bounded read report; the map stays in the file (8i20, E270, D73)', async t => {
   const dir = await files(t), input = join(dir, 'tempo.mid');
   // 512 tempo events, 125 BPM and 120 BPM in pairs, each 250 ticks apart; one note over all of them.
   const us = (bpm: number) => { const v = 60000000 / bpm; return [v >> 16, (v >> 8) & 255, v & 255]; };
@@ -102,7 +102,11 @@ test('a 512-event tempo map gives a bounded read report; the document keeps each
   await writeFile(input, smfFixture([track]));
   const inline = await call('read_midi_file', { path: input });
   assert.deepEqual(inline.data.report.sourceTempo, { events: 512, changes: 256, equalMerged: 256, firstBpm: 125, minBpm: 120, maxBpm: 125 });
-  assert.equal((parse(inline.data.document, 'fields') as StateDocument).overlays.filter(o => o.type === 'tempo').length, 256);
+  // D73: more than 16 points are not listed; the file keeps the map, and each clip names the file.
+  assert.equal(inline.data.report.tempo, null);
+  const clip = (parse(inline.data.document, 'fields') as StateDocument).clips[0]!;
+  assert.deepEqual(JSON.parse(JSON.stringify(clip.provenance)), { sources: [{ path: input, sha256: inline.source.sha256,
+    read: { conversion: 'midi-document-v3', track: 0 } }] });
   const filed = await call('read_midi_file', { path: input, documentOutputPath: join(dir, 'tempo.gndoc') });
   assert.equal(filed.data.documentFile.readback.status, 'verified');
   assert.ok(JSON.stringify(filed).length <= 4096, String(JSON.stringify(filed).length));

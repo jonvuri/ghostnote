@@ -56,9 +56,9 @@ with the original decision heading and preserves its amendments and rationale.
 | D42 | A clip property write owns only its changed fields, and a written colour is verified within one byte **[SETTLED 2026-10-08]** | [open](d42-clip-colour-tolerance-and-metadata-ownership.md) |
 | D43 | Every owned cursor track stays pinned **[SETTLED 2026-10-08]** | [open](d43-owned-cursor-tracks-stay-pinned.md) |
 | D44 | Long writes are optimized first, then bounded on their own input **[SETTLED 2026-10-08]** | [open](d44-long-writes-are-optimized-then-bounded.md) |
-| D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
+| D45 | The edit limb seals explicit overlay claims **[SETTLED 2026-10-09; SUPERSEDED BY D73]** | [open](d45-the-edit-limb-seals-explicit-overlay-claims.md) |
 | D46 | Modulation writers claim the route, not the sound **[SETTLED 2026-10-09]** | [open](d46-modulation-writers-claim-the-route-not-the-sound.md) |
-| D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
+| D47 | Clip creation binds claims to the live clip **[SETTLED 2026-10-09; CLAIMS SUPERSEDED BY D73]** | [open](d47-clip-creation-binds-claims-to-the-live-clip.md) |
 | D48 | The track mixer writes host raw values **[SETTLED 2026-10-09]** | [open](d48-track-mixer-writes-host-raw-values.md) |
 | D49 | The fidelity of a revert states what the revert restored **[SETTLED 2026-10-11]** | [open](d49-revert-fidelity-states-what-the-revert-restored.md) |
 | D50 | MIDI files are offline conversions: full inline documents, explicit tempo mapping and losses, FIFO pairing, atomic new-file export with no project revert; snapshot export uses observed MIDI field coverage **[SETTLED 2026-10-14, AMENDED 2026-10-15]** | [open](d50-midi-files-are-offline-conversions.md) |
@@ -74,6 +74,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D70 | Clip writers return the read-back document as a file: `documentOutputPath` on add and edit (a dry run writes the expected document), `readback.clipId`, and no failed write for a failed publication | [open](d70-clip-writers-return-the-read-back-document-as-a-file.md) |
 | D71 | Launcher slot occupancy is one call with its own mark: normal-profile `slot.occupancy`, `list_launcher_slots` reports occupied rows only, groups mirror their children, no paging, no public freshness token (writers refuse `occupied`) | [open](d71-launcher-slot-occupancy-in-one-call.md) |
 | D72 | Track deletes wait for Bitwig's removal: a stage of track deletes polls until each track has left the bank (8 s + 1 s per track, never resent); `readback.removed` names each track gone; `track.delete` carries `expectedChannelId`; scene deletes unchanged | [open](d72-track-deletes-wait-for-the-removal.md) |
+| D73 | Overlays are removed; clips carry provenance and column defaults: no overlays in Document 1.0 (R12–R24 retired); a CLIP `provenance` pointer (source files, generator) that the binding holds with the clip ID and reports as `readback.held`; clip `defaults` for uniform columns, with a canonical FIELDS binding of only needed columns and no WITH; MIDI reads name their file and list short tempo/meter maps; writes take `tempoFrom` and `meter` | [open](d73-overlays-removed-for-clip-provenance-and-column-defaults.md) |
 
 ## Phase 4 closeout audit
 

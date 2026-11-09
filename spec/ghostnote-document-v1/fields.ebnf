@@ -1,4 +1,5 @@
 (* Ghostnote Document 1.0. R10-R11 and schema.json constrain these productions.
+   OVERLAY, OVERLAY_PUT, and OVERLAY_REMOVE were removed by D73 (R12).
    EBNF: comma is concatenation; | is choice; {} repeats; [] is optional.
    Quoted terminals are case-sensitive. Productions consume a physical line.
    json-object and json-value use strict JSON syntax and balanced scanning.
@@ -20,10 +21,7 @@ body-record = "EVENT", S, row
             | "ADD", S, row
             | "REMOVE", S, id
             | "UPDATE", S, id, S, json-object
-            | "CLIP_UPDATE", S, id, S, json-object
-            | "OVERLAY", S, json-object
-            | "OVERLAY_PUT", S, json-object
-            | "OVERLAY_REMOVE", S, id ;
+            | "CLIP_UPDATE", S, id, S, json-object ;
 row = slot, { S, slot }, [ S, "WITH", S, json-object ] ;
 slot = "_" | rational | id | json-value ;
 field-name = "id" | "clip" | "at" | "duration" | "pitch" | "velocity"

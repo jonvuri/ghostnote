@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { isAbsolute } from 'node:path';
 import { z } from 'zod';
 import { parse, validate, serialize, contentHash, DocumentError, type Encoding } from '../document/index.js';
-import { importMidi, exportMidi, MIDI_CONVERSION_VERSION } from '../midi/conversion.js';
+import { importMidi, exportMidi, LISTED_MAP_POINTS, MIDI_CONVERSION_VERSION } from '../midi/conversion.js';
 import { readMidiBytes, publishMidi, fileError } from '../midi/files.js';
 import { MidiError, MIDI_LIMITS } from '../midi/smf.js';
 import { ToolFailure, failureResult, readbackOrUnavailable, readbackStatusOf } from './agent-native-result.js';
@@ -19,13 +19,16 @@ const hash = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex')
 const path = z.string().min(1).refine(isAbsolute, 'Use an absolute path on the Ghostnote server filesystem.');
 const bpm = z.number().positive().max(1000);
 const readInput = z.object({ path: path.describe('Absolute path of the local .mid or .midi file.'),
-  targetBpm: bpm.optional().describe('Replace the source tempo map with this one constant BPM and keep elapsed time: beat positions and durations scale with the tempo. Omit it when the file has its own tempo map (data.report.sourceTempo); the document then keeps source beats and the map as tempo overlays. A read without targetBpm returns the map.'),
+  targetBpm: bpm.optional().describe('Replace the source tempo map with this one constant BPM and keep elapsed time: beat positions and durations scale with the tempo. Omit it when the file has its own tempo map (data.report.sourceTempo); the document then keeps source beats, and the map stays in the file.'),
   documentOutputPath: documentOutputPathInput }).strict();
 const writeInput = z.object({ path: path.describe('Absolute path for a new .mid or .midi file. The parent directory must exist; an existing path refuses.'),
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe('Complete Ghostnote Document 1.0 FIELDS text or JSON object, including a read_launcher_clip snapshot with explicit MIDI field coverage. One CLIP becomes one MIDI track. Use get_document_reference for syntax.'),
   documentPath: documentPathInput,
   format: z.enum(['fields', 'json']).optional().describe('Encoding of the inline document. Default fields; a native JSON object requires json. Omit it with documentPath.'),
-  bpm: bpm.optional().describe('Export tempo in BPM. This changes playback speed, not note beat positions. Without it, use current tempo overlays or the MIDI default 120 BPM. Replacing tempo overlays requires acceptLoss.'),
+  bpm: bpm.optional().describe('Export tempo in BPM. This changes playback speed, not note beat positions. Without bpm or tempoFrom, the file has the MIDI default 120 BPM.'),
+  tempoFrom: path.optional().describe('Absolute path of a MIDI file whose tempo and meter map the export copies at the same beat positions, such as the source file named in the clip provenance of a read_midi_file document read without targetBpm. Not with bpm.'),
+  meter: z.object({ numerator: z.number().int().min(1).max(64), denominator: z.union([z.literal(1), z.literal(2), z.literal(4), z.literal(8), z.literal(16), z.literal(32), z.literal(64)]) }).strict().optional()
+    .describe('One constant time signature written at beat 0; it replaces the meter of tempoFrom. Without meter or tempoFrom, the file has no time signature (MIDI reads 4/4).'),
   acceptLoss: z.boolean().optional().describe('After reviewing a refusal detail.losses, allow those unsupported document fields to be omitted. Default false. Timing, tempo, and release-velocity rounding are always reported.') }).strict();
 
 /** `source` is the input document of a write: a codec refusal then keeps its line and the known repair, as in the clip writers. */
@@ -49,7 +52,8 @@ export async function readMidiFile(args: z.infer<typeof readInput>) {
   try {
     if (args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
     stage = 'acquire';
-    const bytes = await readMidiBytes(args.path), { document, report } = importMidi(bytes, args);
+    const bytes = await readMidiBytes(args.path);
+    const { document, report } = importMidi(bytes, { targetBpm: args.targetBpm, source: { path: args.path, sha256: hash(bytes) } });
     const text = serialize(document, 'fields');
     stage = 'write';
     const output = args.documentOutputPath === undefined ? undefined
@@ -79,7 +83,8 @@ export async function writeMidiFile(args: z.infer<typeof writeInput>, io = { pub
     if (typeof input.document !== 'string' && format !== 'json') throw new MidiError('invalid-input', 'A document object requires format: json.');
     source = { text: typeof input.document === 'string' ? input.document : JSON.stringify(input.document), format };
     const document = typeof input.document === 'string' ? parse(input.document, format) : validate(input.document);
-    const { bytes, report } = exportMidi(document, args), sha256 = hash(bytes);
+    const tempoFrom = args.tempoFrom === undefined ? undefined : await io.read(args.tempoFrom);
+    const { bytes, report } = exportMidi(document, { acceptLoss: args.acceptLoss, bpm: args.bpm, tempoFrom, meter: args.meter }), sha256 = hash(bytes);
     stage = 'write'; await io.publish(args.path, bytes);
     const check = await readbackOrUnavailable(WRITE_SCHEMA, 'the MIDI file', () => io.read(args.path));
     const readback = check.ok ? { status: readbackStatusOf({ applied: true,
@@ -104,9 +109,11 @@ export const MIDI_FILE_TOOLS: readonly ToolSpec[] = [{
     + `An inline document above ${LARGE_INLINE_DOCUMENT_BYTES / 1024} KB returns warning large-inline-document. `
     + 'Use get_document_reference for format syntax. Each musical track becomes one CLIP; channels are 1 to 16. Keep leading silence and source beat coordinates by default. '
     + 'targetBpm preserves elapsed time through the source tempo map and maps it to the requested constant BPM before normalization; omit it when the file has its own tempo map. '
-    + 'data.report.sourceTempo summarizes the source map: events, changes (events with a new value), equalMerged, firstBpm, minBpm, and maxBpm. Consecutive equal tempos make one overlay. '
+    + 'data.report.sourceTempo summarizes the source map: events, changes (events with a new value), equalMerged, firstBpm, minBpm, and maxBpm. '
+    + `data.report.tempo and data.report.meter list the map points in document beats (at, bpm; at, numerator, denominator), or are null above ${LISTED_MAP_POINTS} points; consecutive equal tempos make one point. `
+    + 'Each CLIP has provenance naming this file, its sha256, and the conversion (track, targetBpm). Keep it when you edit or add the notes: it is the pointer back to the source. '
     + 'Onsets floor to 1/512 beat; durations round to nearest, ties up, with a one-cell minimum. Report counts in data.report; no per-note diagnostic expansion. '
-    + 'Preserve notes, release velocity, names, and tempo/meter overlays. Program changes, controllers (including sustain), pitch bend, pressure, and other unsupported events are omitted and counted. '
+    + 'Preserve notes, release velocity, and names. Program changes, controllers (including sustain), pitch bend, pressure, and other unsupported events are omitted and counted. '
     + 'No musical analysis or excerpts. No loop is inferred. Note-offs close the earliest open note of the same track, channel, and pitch (FIFO); overlapping note-ons are counted and warned. Format 2, SMPTE timing, unmatched notes, and normalized note collisions refuse. '
     + LIMITS_TEXT + 'This tool makes no Bitwig call or project change. Paths are on the server filesystem; input symlinks refuse. '
     + `An existing documentOutputPath refuses with code occupied before the MIDI read; the document file has no change ID and cannot use revert_change. ${DOCUMENT_FILE_CONVENTION}`,
@@ -121,8 +128,8 @@ export const MIDI_FILE_TOOLS: readonly ToolSpec[] = [{
     + 'Send the document inline in document, or as a local file in documentPath (the content sets the encoding; the result then has documentFile with path, format, bytes, and sha256). '
     + "This is Ghostnote's own format. Use get_document_reference for syntax. Accept a desired document or a snapshot from read_launcher_clip unchanged. Require complete full-clip coverage on all 16 channels for id, clip, at, duration, pitch, velocity, channel, mute, and releaseVelocity; an explicit field list is valid. Other unobserved fields stay unknown. Patches or missing required coverage refuse, even with acceptLoss. "
     + 'Write format 1, one track per CLIP plus a global tempo/meter track, at 512 ticks per quarter note. Realized note timing is exact. '
-    + 'Current tempo/meter overlays supply global metadata; conflicting maps refuse. With no tempo at zero, use 120 BPM. bpm changes playback tempo without rescaling beat coordinates. '
-    + 'Report rounded metadata and release velocity. Unsupported nondefault fields, loops, other overlays, muted or zero-velocity notes, and note tails past clip length require acceptLoss: true after reviewing detail.losses. '
+    + 'The tempo is 120 BPM, or bpm, or the map of the MIDI file in tempoFrom; meter sets one time signature. None of them rescales beat coordinates. Clip provenance is not written. '
+    + 'Report rounded metadata and release velocity. Unsupported nondefault fields, loops, muted or zero-velocity notes, and note tails past clip length require acceptLoss: true after reviewing detail.losses. '
     + 'Muted and zero-velocity notes are omitted on accepted loss. Same-pitch overlaps use FIFO pairing. Nested note ends or same-pitch overlaps across tracks refuse; no note is shortened. At most 255 clips. '
     + LIMITS_TEXT + 'The parent directory must exist. Existing destinations, including symlinks, refuse with occupied; use a new filename. '
     + 'Publication is atomic and does not replace a file. The result has applied, file, report, and readback.status (verified, differs, or unavailable). '

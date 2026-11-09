@@ -382,10 +382,9 @@ test('8h4b read: a partial note refuses; the diagnostic and reference sections a
   assert.equal(partial.failure?.code, 'partial');
   control(fx.fake).setPartialNoteReads(false);
   await fx.write(1, { 0: [note()] });
-  const detailed = await fx.read({ row: 1, diagnostic: true, reference: ['Patch', 'Groups'] });
+  const detailed = await fx.read({ row: 1, diagnostic: true, reference: ['Patch'] });
   assert.deepEqual(Object.keys(detailed.diagnostic!), ['source', 'mark', 'metadata', 'channels']);
   assert.match(detailed.reference!, /^## Patch\n/);
-  assert.match(detailed.reference!, /\n## Groups\n/);
   assert.doesNotMatch(detailed.reference!, /## Core/);
 });
 

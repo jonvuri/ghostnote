@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 host handoff
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-11-08
 ---
 
 # Host handoff
@@ -23,7 +23,7 @@ capability claim.
 | Cell identity | Unique clip/channel/pitch/onset cell; explicit import collisions refuse | Map D23 scans, unknown host survivor, event ID minting, moves, edits, restarts, and ambiguity. Exact-source loss and codec loss remain separate. |
 | Clip metadata and coordinates | Length/name/loop/play range in stored quarter-note beats | Map launcher scope, coordinate access, loop declarations, and played-range limits. A portable clip inventory is not permission to create/remove host containers. |
 | Guards and partial bases | Portable content digest; pure apply requires full represented base | Define exact-source/content hash projection and guarded application from partial observations. Preserve unnamed host fields with fresh authority; refuse when reconstruction cannot preserve them. |
-| Overlay live lifecycle | Field/membership dependencies, digest basis, explicit stale/removal/revision | Map generation and identity loss to portable invalidation. Do not retain a current claim only because IDs were retained. Acquired-only timing uses unknown-source residuals. |
+| Clip provenance | A pointer to source files with no musical effect (R33; overlays retired by D73) | The host cannot store it: keep it beside the clip ID while the ID is kept, report it as held rather than verified, and drop it when identity is lost. |
 | Freshness and verification | Desired state is a proposal; no host code in syntax | Name public Launcher read scope, conflict rules, risk tier, independent normalized readback, reversal protection, and cleanup fixtures. |
 | Cache and migration | Cache limits are outside R28 parser bounds | Hand 8g cache contracts; hand 8h migration/rollback and public I/O binding; retain frozen benchmark forms and retire/migrate experimental forms explicitly. |
 
@@ -35,7 +35,7 @@ not treat its omissions as a complete replacement.
 
 ## 8f3 resolution
 
-[Host field bindings](HOST-BINDING.md), [identity and overlays](IDENTITY-AND-OVERLAYS.md),
+[Host field bindings](HOST-BINDING.md), [identity and provenance](IDENTITY-AND-PROVENANCE.md),
 and the [binding corpus](bindings/v1/README.md) now settle these target rules.
 `read_launcher_clip` addresses one Launcher clip. Raw acquisition must retain
 disabled properties. Timbre maps host -1..1 to portable 0..1; gain keeps its
@@ -63,12 +63,9 @@ spelling, sparse model proposals, and an equivalent JSON form. Replace the
 six-field benchmark omission policy with explicit channel, mute, release,
 articulation, expression, and playback-control decisions. Replace implicit
 track context with clip references and coverage. Add empty documents,
-version/extension refusal, and dependency-aware overlays.
-
-The old groove equation lacked acquisition displacement. R15 now separates
-onset and duration displacement from intentional components. R16 gives
-cell-only observations an explicit unresolved mode. This prevents a triplet's
-floor error from becoming a claimed local or template deviation.
+version/extension refusal, and clip provenance. The dependency-aware overlays
+that 1.0 first added (R12–R24) were retired by D73; acquisition displacement
+stays separate from musical intent through R07's import report.
 
 ## Retrospective
 

@@ -17,13 +17,12 @@
 import type { ClipSnapshot } from '../contract/clip-snapshot.js';
 import type { NoteRecord } from '../contract/state.js';
 import {
-  contentHash, LIMITS, serialize, type Coverage, type Encoding, type ImportReport, type Overlay, type StateDocument,
+  contentHash, LIMITS, serialize, type Coverage, type Encoding, type ImportReport, type StateDocument,
 } from '../document/index.js';
 import { binary64, spelling } from '../document/rational.js';
 import { normalizedContentHash } from '../document/semantic.js';
 import { projectRawClip, type RawNote } from './ghostnote-document.js';
 import { cellKey, type AcquisitionBoundary, type CellKey, type StoredEnvelope } from './identity-registry.js';
-import { carryOverlays, type CarriedOverlays } from './overlay-carry.js';
 
 /** The note fields that the reader always reports. A note without one is a partial read. */
 const ALWAYS_READ = ['releaseVelocity', 'isChanceEnabled', 'isOccurrenceEnabled', 'isRecurrenceEnabled'] as const;
@@ -193,34 +192,30 @@ export interface LauncherClipProjection {
   readonly loss: LossFacts;
   /** Notes whose end is after the clip length. Valid in the document; the host writer refuses them. */
   readonly notesPastLength: number;
-  /** The carry of stored overlays, when the clip had any (8h4c). */
-  readonly overlays?: CarriedOverlays;
 }
 
 /**
- * Project the snapshot with assigned IDs. `eventIds` follows `launcherClipCells` order. `priorOverlays` are the
- * stored overlays of the clip ID; the projection carries them under the overlay lifecycle rules. `envelope` is
- * the stored META and EXTENSIONS.
+ * Project the snapshot with assigned IDs. `eventIds` follows `launcherClipCells` order. `envelope` is the stored
+ * META, EXTENSIONS, and clip provenance of the clip ID (D73).
  */
 export function projectLauncherClip(
   snapshot: ClipSnapshot,
   clipId: string,
   eventIds: readonly string[],
-  priorOverlays: readonly Overlay[] = [],
   envelope: StoredEnvelope = {},
 ): LauncherClipProjection {
   // 8h4g: an edit projects its fresh read again to check the base (R27). When the D32 source digest, the IDs, the
-  // overlays, and the envelope are the inputs of the last projection, the result is the same; reuse it. The
+  // and the envelope are the inputs of the last projection, the result is the same; reuse it. The
   // source digest covers the clip metadata and every raw note field. The memo holds one frozen projection.
   const source = snapshot.ref?.source?.sha256;
-  if (typeof source !== 'string') return projectOnce(snapshot, clipId, eventIds, priorOverlays, envelope);
-  const key = { source, clipId, eventIds, extra: JSON.stringify([priorOverlays, envelope]) };
+  if (typeof source !== 'string') return projectOnce(snapshot, clipId, eventIds, envelope);
+  const key = { source, clipId, eventIds, extra: JSON.stringify(envelope) };
   const last = lastProjection;
   if (last !== undefined && last.key.source === key.source && last.key.clipId === clipId && last.key.extra === key.extra
       && last.key.eventIds.length === eventIds.length && last.key.eventIds.every((id, index) => id === eventIds[index])) {
     return last.projection;
   }
-  const projection = deepFreeze(projectOnce(snapshot, clipId, eventIds, priorOverlays, envelope));
+  const projection = deepFreeze(projectOnce(snapshot, clipId, eventIds, envelope));
   lastProjection = { key: { ...key, eventIds: [...eventIds] }, projection };
   return projection;
 }
@@ -242,7 +237,6 @@ function projectOnce(
   snapshot: ClipSnapshot,
   clipId: string,
   eventIds: readonly string[],
-  priorOverlays: readonly Overlay[],
   envelope: StoredEnvelope,
 ): LauncherClipProjection {
   const located = locate(snapshot);
@@ -254,24 +248,26 @@ function projectOnce(
     length,
     name: metadata.name,
     loop: metadata.loopEnabled ? { from: '0', to: length } : null,
+    ...(envelope.provenance === undefined ? {} : { provenance: envelope.provenance }),
   };
   const notes = located.map((item, index) => rawNote(eventIds[index]!, item.channel, item.note));
   // Complete coverage needs no reason; the read wrapper states the uncovered fields.
   const { document, report } = projectRawClip(clip, notes, { reason: false });
   const coverage = document.coverage;
   const plain = envelope.meta === undefined && envelope.extensions === undefined;
-  const bare: StateDocument = plain ? document : { ...document, ...envelope };
-  const overlays = priorOverlays.length === 0 ? undefined : carryOverlays(priorOverlays, bare);
-  const projected: StateDocument = overlays === undefined ? bare : { ...bare, overlays: overlays.overlays };
+  const projected: StateDocument = plain ? document : {
+    ...document,
+    ...(envelope.meta === undefined ? {} : { meta: envelope.meta }),
+    ...(envelope.extensions === undefined ? {} : { extensions: envelope.extensions }),
+  };
   return {
     document: projected,
-    // A projection without envelope or overlays is the validated document itself (8h4g: one validation).
+    // A projection without META or EXTENSIONS is the validated document itself (8h4g: one validation).
     contentHash: projected === document ? normalizedContentHash(document) : contentHash(projected),
     coverage,
     boundary: { plane: 'D23-1/512-cell', channels: 16, from: '0', to: length },
     loss: lossFacts(report),
     notesPastLength: located.filter((item) => item.note.startBeats + item.note.durationBeats > metadata.lengthBeats).length,
-    ...(overlays === undefined ? {} : { overlays }),
   };
 }
 

@@ -32,7 +32,7 @@ import {
 } from '../contract/index.js';
 import { UnprotectedWriteError, takeAppliedAnything } from '../engine/index.js';
 import type { BaseEntry } from '../bindings/identity-registry.js';
-import { IdentityRegistry } from '../bindings/identity-registry.js';
+import { IdentityRegistry, storedEnvelope } from '../bindings/identity-registry.js';
 import {
   encodeLauncherClip, launcherClipCells, projectLauncherClip, type LauncherClipProjection,
 } from '../bindings/launcher-clip-document.js';
@@ -40,10 +40,9 @@ import {
   EditRefusal, compareReadback, planLauncherClipEdit, type EditPlan,
 } from '../bindings/launcher-clip-edit.js';
 import { BindingRefusal, OVERLAP_DETAIL_PAIRS, refuseOverlaps } from '../bindings/ghostnote-document.js';
-import { DocumentError, type Document, type Encoding } from '../document/index.js';
-import { parseSealable, type SealRequest } from '../bindings/overlay-seal.js';
+import { DocumentError, parse, type Document, type Encoding, type StateDocument } from '../document/index.js';
 import {
-  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, TIMING_FEEL_ROUTE, claimRepairOf, documentParameter, encodingRepair, kindRepair,
+  FORMAT_STATEMENT, PATCH_EXAMPLE_TEXT, documentParameter, encodingRepair, kindRepair,
   repairOf,
   type DocumentUse,
 } from './document-help.js';
@@ -78,7 +77,19 @@ export const VERIFIED_READBACK_STATEMENT = 'Result: applied, effects (each with 
   + 'readback.clipId is its clip ID. With mintedIds 0, every note has the ID that it had in the base or the call. '
   + 'readback document returns the read-back document inline; documentOutputPath writes it to a new file instead '
   + '(readback.documentFile). Status differs lists discrepancies (at most 64; discrepancyCount counts all). Status '
-  + 'unchanged writes nothing and no file.';
+  + 'unchanged writes nothing and no file. readback.held ["provenance"]: Bitwig cannot store clip provenance, so '
+  + 'Ghostnote keeps it; the read verified everything else.';
+
+/** D73: clip provenance has no host storage; the binding keeps it with the clip ID. */
+export const PROVENANCE_STATEMENT = 'CLIP provenance (the source files of the notes) has no Bitwig storage: Ghostnote '
+  + 'keeps it, with META and EXTENSIONS, in this server process while the clip ID stays, and returns it with each '
+  + 'read. Keep it in a desired document; a patch keeps it unless CLIP_UPDATE sets or clears it (a provenance-only '
+  + 'CLIP_UPDATE writes nothing to Bitwig). After a restart or a retired ref, re-attach it with CLIP_UPDATE.';
+
+/** D73, D15: the readback verified the host state; Ghostnote supplied the provenance. */
+export function heldFacts(expected: StateDocument): { held?: readonly ['provenance'] } {
+  return expected.clips.some((clip) => clip.provenance !== undefined) ? { held: ['provenance'] } : {};
+}
 
 const editInput = z.object({
   trackId: z.string().min(1).describe('Durable track ID from list_tracks.'),
@@ -131,13 +142,7 @@ const EDIT_DESCRIPTION = `Profile ${AGENT_NATIVE_TOOL_PROFILE}. Edit one Launche
   + 'dryRun returns the plan and writes nothing; each change list of plan.changes holds at most '
   + `${PLAN_CHANGE_LIST_ITEMS} entries, and plan has the counts. With documentOutputPath, the expected document goes `
   + 'to the file. A failed write states its effects and is not retried; read the clip before another edit.\n'
-  + 'Overlays in the document are stored with the base ref in this server process. A later read returns them, '
-  + 'stale or removed when their notes changed. This tool is the dependency-basis utility: a current claim that '
-  + 'the call states (OVERLAY_PUT, or a new or changed OVERLAY of a desired document) can omit basis, and the tool '
-  + 'computes it on the state after the note changes of the same call. A supplied basis that does not match refuses '
-  + 'with code invalid-input, detail.reason R22, and detail.expectedBasis. Retained and stale claims keep their '
-  + 'basis. get_document_reference with Timing overlays has claim templates.\n'
-  + `${TIMING_FEEL_ROUTE}\n`
+  + `${PROVENANCE_STATEMENT}\n`
   + 'A whole-clip rewrite at the reader limit (16,384 notes) takes about 7 s.';
 
 /** The input document as text. */
@@ -145,13 +150,13 @@ export const documentText = (document: NonNullable<EditInput['document']>): stri
   typeof document === 'string' ? document : JSON.stringify(document);
 
 /**
- * Parse the proposal. A current claim can omit its basis: the planner seals it (D45). A codec refusal keeps its
- * rule and location and adds the known repair (8i6). Nothing reaches the host before this parse.
+ * Parse the proposal. A codec refusal keeps its rule and location and adds the known repair (8i6). Nothing reaches
+ * the host before this parse.
  */
 export function parseProposal(
   args: { readonly document: NonNullable<EditInput['document']>; readonly format?: Encoding | undefined },
   use: DocumentUse = 'edit',
-): { document: Document; seal: SealRequest } {
+): { document: Document } {
   const encoding: Encoding = args.format ?? 'fields';
   if (typeof args.document !== 'string' && encoding !== 'json') {
     throw new ToolFailure('invalid-input', 'input', 'A JSON object document needs format json.', {
@@ -159,7 +164,7 @@ export function parseProposal(
   }
   const text = documentText(args.document);
   try {
-    return parseSealable(text, encoding);
+    return { document: parse(text, encoding) };
   } catch (error) {
     if (error instanceof DocumentError) {
       const repair = repairOf(error, text, encoding, use);
@@ -267,9 +272,7 @@ function verifiedSnapshot(verify: Snapshot, trackId: string, row: number): ClipS
 
 function planFailure(error: unknown): unknown {
   if (error instanceof EditRefusal) {
-    const repair = claimRepairOf(error);
-    return new ToolFailure(error.code, 'plan', error.message, {
-      detail: { reason: error.reason, ...error.detail, ...(repair === undefined ? {} : { repair }) } });
+    return new ToolFailure(error.code, 'plan', error.message, { detail: { reason: error.reason, ...error.detail } });
   }
   return asToolFailure(error);
 }
@@ -310,7 +313,6 @@ function summaryOf(plan: EditPlan) {
     changed: report.changedFields.length,
     moved: plan.moved.length,
     ...(clipFields.length === 0 ? {} : { clipFields }),
-    ...(report.overlayChanges.length === 0 ? {} : { overlays: report.overlayChanges.length }),
   };
 }
 
@@ -327,7 +329,6 @@ function planView(plan: EditPlan) {
     removed: plan.report.removed,
     changed: plan.report.changedFields,
     moved: plan.moved,
-    overlays: plan.report.overlayChanges,
   };
   const truncated = Object.entries(lists).filter(([, list]) => list.length > PLAN_CHANGE_LIST_ITEMS).map(([name]) => name);
   const cap = <T>(list: readonly T[]): readonly T[] => list.slice(0, PLAN_CHANGE_LIST_ITEMS);
@@ -341,7 +342,6 @@ function planView(plan: EditPlan) {
         from: { channel: item.from.channel + 1, pitch: item.from.pitch, at: `${item.from.cell}/512` },
         to: { channel: item.to.channel + 1, pitch: item.to.pitch, at: `${item.to.cell}/512` } })) }),
       ...(plan.report.clipFields.length === 0 ? {} : { clip: plan.report.clipFields }),
-      ...(lists.overlays.length === 0 ? {} : { overlays: cap(lists.overlays) }),
       ...(truncated.length === 0 ? {} : { truncated }),
     },
     operations: plan.ops.map((op) => op.op),
@@ -370,7 +370,7 @@ async function publishedReadback(
 
 /** The internal options of `add_launcher_clip`: its parsed and checked proposal, on the clip that it created. */
 export interface CreationContent {
-  readonly parsed: { readonly document: Document; readonly seal: SealRequest };
+  readonly parsed: { readonly document: Document };
   readonly documentFile?: DocumentFile;
 }
 
@@ -388,7 +388,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
     if (creation === undefined && args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
     const file = creation?.documentFile ?? input?.file;
     const fileFacts = file === undefined ? {} : { documentFile: file };
-    const { document: proposal, seal } = creation?.parsed ?? parseProposal(input!);
+    const { document: proposal } = creation?.parsed ?? parseProposal(input!);
     if (proposal.kind === 'snapshot') {
       throw new ToolFailure('invalid-input', 'input', 'A snapshot is not an edit. Send a patch or a desired document.', {
         detail: { repair: kindRepair('edit', input!.format, documentText(input!.document!)) } });
@@ -475,7 +475,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
     const planStarted = performance.now();
     let plan: EditPlan;
     try {
-      plan = planLauncherClipEdit({ snapshot, entry, proposal, seal, fresh,
+      plan = planLauncherClipEdit({ snapshot, entry, proposal, fresh,
         mode: creation !== undefined ? 'create' : replace ? 'replace' : 'guarded' });
     } catch (error) {
       throw planFailure(error);
@@ -547,13 +547,9 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         cells: launcherClipCells(after),
         clipId: plan.clipId,
         ids: plan.ids,
-        overlays: plan.expected.overlays,
-        envelope: {
-          ...(plan.expected.meta === undefined ? {} : { meta: plan.expected.meta }),
-          ...(plan.expected.extensions === undefined ? {} : { extensions: plan.expected.extensions }),
-        },
-        project: ({ clipId, eventIds, overlays, envelope }) => {
-          projection = projectLauncherClip(after, clipId, eventIds, overlays, envelope);
+        envelope: storedEnvelope(plan.expected),
+        project: ({ clipId, eventIds, envelope }) => {
+          projection = projectLauncherClip(after, clipId, eventIds, envelope);
           return projection;
         },
       });
@@ -562,6 +558,7 @@ export async function editLauncherClip(workspace: Workspace, args: EditInput, cr
         status: discrepancies.length === 0 && acquired.entry.contentHash === plan.expectedHash ? 'verified' : 'differs',
         base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
         clipId: acquired.entry.clipId,
+        ...heldFacts(plan.expected),
         ...identityFacts(acquired, projection),
         discrepancies: discrepancies.slice(0, 64),
         ...(discrepancies.length > 64 ? { discrepancyCount: discrepancies.length } : {}),

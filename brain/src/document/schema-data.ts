@@ -3,7 +3,7 @@ export const schema: Record<string, any> = {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:ghostnote:document:1.0",
   "title": "Ghostnote Document 1.0",
-  "$comment": "Structural checks only. SPEC.md R01-R32 and FIELDS.md define semantic checks and defaults. No external release is claimed.",
+  "$comment": "Structural checks only. SPEC.md R01-R11 and R25-R34 and FIELDS.md define semantic checks and defaults. No external release is claimed.",
   "oneOf": [
     {
       "$ref": "#/$defs/stateDocument"
@@ -61,6 +61,82 @@ export const schema: Record<string, any> = {
         "to"
       ],
       "additionalProperties": false
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "provenanceSource": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "range": {
+          "$ref": "#/$defs/range"
+        },
+        "read": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/text"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/extensionValue"
+          }
+        },
+        "refs": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/id"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/label"
+          }
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "generator": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "path"
+      ],
+      "additionalProperties": false
+    },
+    "clipProvenance": {
+      "type": "object",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/provenanceSource"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "generator": {
+          "$ref": "#/$defs/generator"
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
     },
     "expression": {
       "type": "object",
@@ -267,6 +343,45 @@ export const schema: Record<string, any> = {
       ],
       "additionalProperties": false
     },
+    "clipDefaults": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "mute": {
+          "type": "boolean"
+        },
+        "releaseVelocity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "articulation": {
+          "$ref": "#/$defs/label"
+        },
+        "expression": {
+          "$ref": "#/$defs/expression"
+        },
+        "chance": {
+          "$ref": "#/$defs/chance"
+        },
+        "occurrence": {
+          "$ref": "#/$defs/occurrence"
+        },
+        "recurrence": {
+          "$ref": "#/$defs/recurrence"
+        },
+        "repeat": {
+          "$ref": "#/$defs/repeat"
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "minProperties": 1
+    },
     "eventSet": {
       "type": "object",
       "properties": {
@@ -432,6 +547,12 @@ export const schema: Record<string, any> = {
               "type": "null"
             }
           ]
+        },
+        "provenance": {
+          "$ref": "#/$defs/clipProvenance"
+        },
+        "defaults": {
+          "$ref": "#/$defs/clipDefaults"
         }
       },
       "required": [
@@ -470,6 +591,16 @@ export const schema: Record<string, any> = {
           "anyOf": [
             {
               "$ref": "#/$defs/range"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/clipProvenance"
             },
             {
               "type": "null"
@@ -671,615 +802,6 @@ export const schema: Record<string, any> = {
         "$ref": "#/$defs/extensionValue"
       }
     },
-    "eventDependency": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/id"
-        },
-        "fields": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "id",
-              "clip",
-              "at",
-              "duration",
-              "pitch",
-              "velocity",
-              "channel",
-              "mute",
-              "releaseVelocity",
-              "articulation",
-              "expression",
-              "chance",
-              "occurrence",
-              "recurrence",
-              "repeat"
-            ]
-          },
-          "minItems": 1,
-          "maxItems": 15,
-          "uniqueItems": true
-        }
-      },
-      "required": [
-        "id",
-        "fields"
-      ],
-      "additionalProperties": false
-    },
-    "clipDependency": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/id"
-        },
-        "fields": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "id",
-              "length",
-              "name",
-              "loop",
-              "playRange"
-            ]
-          },
-          "minItems": 1,
-          "maxItems": 5,
-          "uniqueItems": true
-        }
-      },
-      "required": [
-        "id",
-        "fields"
-      ],
-      "additionalProperties": false
-    },
-    "depends": {
-      "type": "object",
-      "properties": {
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/eventDependency"
-          },
-          "minItems": 0,
-          "maxItems": 1024
-        },
-        "clips": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/clipDependency"
-          },
-          "minItems": 0,
-          "maxItems": 256
-        },
-        "overlays": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 1024,
-          "uniqueItems": true
-        },
-        "membership": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 256,
-          "uniqueItems": true
-        }
-      },
-      "required": [
-        "events",
-        "clips",
-        "overlays",
-        "membership"
-      ],
-      "additionalProperties": false
-    },
-    "provenance": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "enum": [
-            "declared",
-            "measured",
-            "inferred"
-          ]
-        },
-        "source": {
-          "$ref": "#/$defs/label"
-        },
-        "method": {
-          "$ref": "#/$defs/label"
-        },
-        "confidence": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        }
-      },
-      "required": [
-        "kind",
-        "source",
-        "method"
-      ],
-      "additionalProperties": false
-    },
-    "nominalData": {
-      "type": "object",
-      "properties": {
-        "event": {
-          "$ref": "#/$defs/id"
-        },
-        "at": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "duration": {
-          "$ref": "#/$defs/positive"
-        },
-        "division": {
-          "$ref": "#/$defs/positive"
-        }
-      },
-      "required": [
-        "event",
-        "at",
-        "duration",
-        "division"
-      ],
-      "additionalProperties": false
-    },
-    "shape": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "kind": {
-              "const": "point"
-            }
-          },
-          "required": [
-            "kind"
-          ],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "kind": {
-              "const": "span"
-            },
-            "width": {
-              "$ref": "#/$defs/positive"
-            }
-          },
-          "required": [
-            "kind",
-            "width"
-          ],
-          "additionalProperties": false
-        }
-      ]
-    },
-    "grooveData": {
-      "type": "object",
-      "properties": {
-        "event": {
-          "$ref": "#/$defs/id"
-        },
-        "nominal": {
-          "$ref": "#/$defs/id"
-        },
-        "intent": {
-          "enum": [
-            "resolved",
-            "unresolved"
-          ]
-        },
-        "phase": {
-          "$ref": "#/$defs/rational"
-        },
-        "template": {
-          "$ref": "#/$defs/rational"
-        },
-        "cross": {
-          "$ref": "#/$defs/rational"
-        },
-        "local": {
-          "$ref": "#/$defs/rational"
-        },
-        "unassigned": {
-          "$ref": "#/$defs/rational"
-        },
-        "durationIntent": {
-          "$ref": "#/$defs/rational"
-        },
-        "durationUnassigned": {
-          "$ref": "#/$defs/rational"
-        },
-        "atDelta": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/rational"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "durationDelta": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/rational"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "sourceAt": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "sourceDuration": {
-          "$ref": "#/$defs/positive"
-        },
-        "templateRef": {
-          "$ref": "#/$defs/label"
-        },
-        "swing": {
-          "type": "array",
-          "prefixItems": [
-            {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 2147483647
-            },
-            {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 2147483647
-            }
-          ],
-          "items": false,
-          "minItems": 2,
-          "maxItems": 2
-        },
-        "shape": {
-          "$ref": "#/$defs/shape"
-        },
-        "anchor": {
-          "$ref": "#/$defs/id"
-        }
-      },
-      "required": [
-        "event",
-        "nominal",
-        "intent",
-        "phase",
-        "template",
-        "cross",
-        "local",
-        "unassigned",
-        "durationIntent",
-        "durationUnassigned",
-        "atDelta",
-        "durationDelta"
-      ],
-      "additionalProperties": false,
-      "dependentRequired": {
-        "sourceAt": [
-          "sourceDuration"
-        ],
-        "sourceDuration": [
-          "sourceAt"
-        ]
-      }
-    },
-    "harmonyData": {
-      "type": "object",
-      "properties": {
-        "clip": {
-          "$ref": "#/$defs/id"
-        },
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 131072,
-          "uniqueItems": true
-        },
-        "from": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "to": {
-          "$ref": "#/$defs/positive"
-        },
-        "chord": {
-          "$ref": "#/$defs/label"
-        },
-        "key": {
-          "$ref": "#/$defs/label"
-        }
-      },
-      "required": [
-        "clip",
-        "events",
-        "from",
-        "to"
-      ],
-      "additionalProperties": false,
-      "anyOf": [
-        {
-          "required": [
-            "chord"
-          ]
-        },
-        {
-          "required": [
-            "key"
-          ]
-        }
-      ]
-    },
-    "roleData": {
-      "type": "object",
-      "properties": {
-        "clip": {
-          "$ref": "#/$defs/id"
-        },
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 131072,
-          "uniqueItems": true
-        },
-        "label": {
-          "$ref": "#/$defs/label"
-        },
-        "articulation": {
-          "$ref": "#/$defs/label"
-        }
-      },
-      "required": [
-        "clip",
-        "events",
-        "label"
-      ],
-      "additionalProperties": false
-    },
-    "motifData": {
-      "$ref": "#/$defs/roleData"
-    },
-    "meterData": {
-      "type": "object",
-      "properties": {
-        "clip": {
-          "$ref": "#/$defs/id"
-        },
-        "at": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "numerator": {
-          "type": "integer",
-          "minimum": 1,
-          "maximum": 64
-        },
-        "denominator": {
-          "enum": [
-            1,
-            2,
-            4,
-            8,
-            16,
-            32,
-            64
-          ]
-        }
-      },
-      "required": [
-        "clip",
-        "at",
-        "numerator",
-        "denominator"
-      ],
-      "additionalProperties": false
-    },
-    "tempoData": {
-      "type": "object",
-      "properties": {
-        "clip": {
-          "$ref": "#/$defs/id"
-        },
-        "at": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "bpm": {
-          "type": "number",
-          "exclusiveMinimum": 0,
-          "maximum": 1000
-        }
-      },
-      "required": [
-        "clip",
-        "at",
-        "bpm"
-      ],
-      "additionalProperties": false
-    },
-    "regionData": {
-      "type": "object",
-      "properties": {
-        "clip": {
-          "$ref": "#/$defs/id"
-        },
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 131072,
-          "uniqueItems": true
-        },
-        "from": {
-          "$ref": "#/$defs/nonnegative"
-        },
-        "to": {
-          "$ref": "#/$defs/positive"
-        },
-        "label": {
-          "$ref": "#/$defs/label"
-        }
-      },
-      "required": [
-        "clip",
-        "events",
-        "from",
-        "to",
-        "label"
-      ],
-      "additionalProperties": false
-    },
-    "overlay": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/id"
-        },
-        "type": {
-          "enum": [
-            "nominal",
-            "groove",
-            "harmony",
-            "role",
-            "motif",
-            "meter",
-            "tempo",
-            "region"
-          ]
-        },
-        "state": {
-          "enum": [
-            "current",
-            "stale"
-          ]
-        },
-        "provenance": {
-          "$ref": "#/$defs/provenance"
-        },
-        "depends": {
-          "$ref": "#/$defs/depends"
-        },
-        "basis": {
-          "$ref": "#/$defs/sha256"
-        },
-        "data": {}
-      },
-      "required": [
-        "id",
-        "type",
-        "state",
-        "provenance",
-        "depends",
-        "basis",
-        "data"
-      ],
-      "additionalProperties": false,
-      "oneOf": [
-        {
-          "properties": {
-            "type": {
-              "const": "nominal"
-            },
-            "data": {
-              "$ref": "#/$defs/nominalData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "groove"
-            },
-            "data": {
-              "$ref": "#/$defs/grooveData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "harmony"
-            },
-            "data": {
-              "$ref": "#/$defs/harmonyData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "role"
-            },
-            "data": {
-              "$ref": "#/$defs/roleData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "motif"
-            },
-            "data": {
-              "$ref": "#/$defs/motifData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "meter"
-            },
-            "data": {
-              "$ref": "#/$defs/meterData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "tempo"
-            },
-            "data": {
-              "$ref": "#/$defs/tempoData"
-            }
-          }
-        },
-        {
-          "properties": {
-            "type": {
-              "const": "region"
-            },
-            "data": {
-              "$ref": "#/$defs/regionData"
-            }
-          }
-        }
-      ]
-    },
     "stateDocument": {
       "type": "object",
       "properties": {
@@ -1327,14 +849,6 @@ export const schema: Record<string, any> = {
           },
           "minItems": 0,
           "maxItems": 131072
-        },
-        "overlays": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/overlay"
-          },
-          "minItems": 0,
-          "maxItems": 32768
         }
       },
       "required": [
@@ -1343,8 +857,7 @@ export const schema: Record<string, any> = {
         "kind",
         "clips",
         "coverage",
-        "events",
-        "overlays"
+        "events"
       ],
       "additionalProperties": false,
       "allOf": [
@@ -1419,23 +932,6 @@ export const schema: Record<string, any> = {
           },
           "minItems": 0,
           "maxItems": 256
-        },
-        "overlayPut": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/overlay"
-          },
-          "minItems": 0,
-          "maxItems": 32768
-        },
-        "overlayRemove": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/id"
-          },
-          "minItems": 0,
-          "maxItems": 32768,
-          "uniqueItems": true
         }
       },
       "required": [
@@ -1446,9 +942,7 @@ export const schema: Record<string, any> = {
         "add",
         "remove",
         "update",
-        "clipUpdate",
-        "overlayPut",
-        "overlayRemove"
+        "clipUpdate"
       ],
       "additionalProperties": false
     }

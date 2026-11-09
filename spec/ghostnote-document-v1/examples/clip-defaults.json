@@ -1,0 +1,74 @@
+{
+  "format": "ghostnote-document",
+  "version": "1.0",
+  "kind": "desired",
+  "meta": {
+    "title": "Clip defaults",
+    "description": "",
+    "permission": "Generated MIT fixture"
+  },
+  "clips": [
+    {
+      "id": "kit",
+      "length": "4",
+      "defaults": {
+        "channel": 10,
+        "releaseVelocity": 0
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "clip": "kit",
+      "from": "0",
+      "to": "4",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "fields": "all",
+      "status": "complete"
+    }
+  ],
+  "events": [
+    {
+      "id": "k1",
+      "clip": "kit",
+      "at": "0",
+      "duration": "1/4",
+      "pitch": 36,
+      "velocity": 110
+    },
+    {
+      "id": "h1",
+      "clip": "kit",
+      "at": "1/2",
+      "duration": "1/8",
+      "pitch": 42,
+      "velocity": 70,
+      "mute": true
+    },
+    {
+      "id": "s1",
+      "clip": "kit",
+      "at": "1",
+      "duration": "1/4",
+      "pitch": 38,
+      "velocity": 100
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+DOC ghostnote-document 1.0 desired
+META {"description":"","permission":"Generated MIT fixture","title":"Clip defaults"}
+CLIP {"defaults":{"channel":10,"releaseVelocity":0},"id":"kit","length":"4"}
+COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"kit","fields":"all","from":"0","status":"complete","to":"4"}
+FIELDS id clip at duration pitch velocity mute
+EVENT k1 kit 0 1/4 36 110 _
+EVENT h1 kit 1/2 1/8 42 70 true
+EVENT s1 kit 1 1/4 38 100 _

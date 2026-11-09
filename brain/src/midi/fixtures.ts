@@ -13,5 +13,5 @@ export function midiDocument(count = 1): StateDocument {
   return { format: 'ghostnote-document', version: '1.0', kind: 'desired',
     clips: [{ id: 'c1', length: String(Math.max(4, count)), name: 'Generated MIDI fixture' }],
     coverage: [{ clip: 'c1', from: '0', to: String(Math.max(4, count)), channels: Array.from({ length: 16 }, (_, i) => i + 1), fields: 'all', status: 'complete' }],
-    events: Array.from({ length: count }, (_, i) => ({ id: `n${i}`, clip: 'c1', at: String(i), duration: '1/2', pitch: 36 + i % 48, velocity: 80 + i % 40 })), overlays: [] };
+    events: Array.from({ length: count }, (_, i) => ({ id: `n${i}`, clip: 'c1', at: String(i), duration: '1/2', pitch: 36 + i % 48, velocity: 80 + i % 40 })) };
 }

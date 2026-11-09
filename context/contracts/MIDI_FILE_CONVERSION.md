@@ -12,8 +12,11 @@ evidence: E265, E267, E269, E271
 `read_midi_file` and `write_midi_file` are offline tools in `agent-native-v1`.
 They use the existing Document 1.0 codec. They make no Bitwig call and need no
 controller replacement. Source: `brain/src/midi/` and
-`brain/src/surface/midi-files.ts`. Conversion version: `midi-document-v2` (8i20: equal tempo events merge;
-`midi-document-v1` made one overlay for each event).
+`brain/src/surface/midi-files.ts`. Conversion version: `midi-document-v3`
+([D73](../decisions/d73-overlays-removed-for-clip-provenance-and-column-defaults.md):
+no overlays; clip provenance names the file; the report lists short tempo and
+meter maps). `midi-document-v2` (8i20) merged equal tempo events into tempo
+overlays; `midi-document-v1` made one overlay for each event.
 
 ## Read
 
@@ -35,25 +38,30 @@ subtract to get the source duration. Apply the existing R07 onset floor and
 nearest-duration rules once. `targetBpm` replaces the source tempo map with one
 constant tempo and keeps elapsed time; beat positions and durations scale with
 the tempo. Omit it when the file has its own tempo map: the document then
-keeps source beats and the map. It does not infer tempo, meter, or a downbeat.
+keeps source beats, and the map stays in the file. It does not infer tempo,
+meter, or a downbeat.
 The MIDI default tempo is 120 BPM when no source tempo exists at tick zero.
 
 Each musical track becomes a clip, with stable source-order IDs, its end-of-track
 length, name, channels, pitches, velocities, and release velocities. Keep leading
 silence. A conductor-only track does not become a musical clip. A wholly empty
 file yields one empty clip. A named empty non-conductor track stays a clip.
-No loop or play range is inferred. Tempo and meter become declared overlays;
-these are file metadata, not harmonic analysis. Consecutive source tempo events
-with the same value make one tempo overlay. A target tempo replaces the source
-tempo map in the document. The elapsed-time clock and the outside-clip count
-use the complete source map.
+No loop or play range is inferred. Each clip has `provenance` with one source:
+the file `path`, its `sha256`, and `read` (`conversion`, the source `track`
+index, and `targetBpm` when given). The document holds no tempo or meter; they
+are facts of the file. The elapsed-time clock and the outside-clip count use the
+complete source map.
 
 `report.sourceTempo` summarizes the source map: `events` (source tempo events),
 `changes` (events with a new value), `equalMerged` (`events` minus `changes`),
 `firstBpm` (the tempo at zero), `minBpm`, and `maxBpm`. The default 120 BPM is
-in the BPM values when `defaultTempoApplied` is true; it is not an event. The
-report size does not grow with the map. A read without `targetBpm` has the
-map in the document. See [E271](../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md).
+in the BPM values when `defaultTempoApplied` is true; it is not an event.
+`report.tempo` lists the map points in document beats (`at`, `bpm`; consecutive
+equal tempos make one point), and `report.meter` the meter points (`at`,
+`numerator`, `denominator`). Each list is `null` when it has more than 16
+points, so the report size stays bounded; the file keeps the map. With
+`targetBpm`, `report.tempo` is that one point. See
+[E271](../evidence/experiments/e271-midi-tempo-report-and-overlap-precheck.md).
 
 Note-offs close the earliest open note with the same track, channel, and pitch
 (FIFO). MIDI has no note ID. Count overlapping note-ons and warn when this rule
@@ -80,7 +88,8 @@ contract; `documentOutputPath` keeps the document out of the result.
 
 Input: an absolute new `.mid` or `.midi` `path`, exactly one of inline
 `document` and `documentPath`, optional `format` (`fields` by default, or
-`json`), optional `bpm`, and optional `acceptLoss` (false by default). Native
+`json`), optional `bpm` or `tempoFrom`, optional `meter`, and optional
+`acceptLoss` (false by default). Native
 JSON objects require `format: json`. `format` describes only the inline
 document; with `documentPath` it refuses, because the file content sets the
 encoding.
@@ -95,10 +104,12 @@ to `all` to bypass an unknown value. Refuse patches. All clips start at the same
 file origin. See [E267](../evidence/experiments/e267-midi-snapshot-export.md).
 
 Write SMF format 1, one track per clip plus the conductor track, at 512 ticks per
-quarter note. Realized note timing is exact. Export current tempo and meter
-maps when compatible across clips. Missing tempo at zero uses 120 BPM. `bpm`
-overrides tempo without changing beat positions; replacing a supplied tempo map
-requires loss acceptance. Metadata positions round to the nearest tick, ties up.
+quarter note. Realized note timing is exact. The tempo is 120 BPM, or `bpm`, or
+the tempo and meter map of the MIDI file named by `tempoFrom` (an absolute
+path), copied at the same beat positions; `bpm` and `tempoFrom` refuse together.
+`meter` (`numerator` 1..64, `denominator` a power of two through 64) writes one
+time signature at beat zero and replaces the meter of `tempoFrom`. None of them
+changes beat positions. Metadata positions round to the nearest tick, ties up.
 Tempo rounds to integer microseconds per quarter; release velocity rounds to
 0 through 127. Report these conversions in `report.rounding`.
 
@@ -106,12 +117,13 @@ A FIFO-compatible same-pitch overlap is preserved. A nested end order or a
 same-pitch overlap across tracks refuses. Equal-tick note-offs precede note-ons;
 equal-end note-offs keep onset order, including their release velocities.
 
-Unsupported nondefault event fields, non-tempo/meter overlays, stale overlays,
-loop/play ranges, document metadata, and extensions require `acceptLoss: true`.
+Unsupported nondefault event fields, loop/play ranges, document metadata, and
+extensions require `acceptLoss: true`. Clip provenance is not written and is
+not a loss: the export is a new file.
 The refusal lists `detail.losses`. Accepted muted or zero-velocity notes are
 omitted. A note tail past clip length extends the MIDI track and is an explicit
 loss. Export does not render repeats, chance, expression, or interpretive claims.
-Document IDs and overlay provenance are not MIDI identities.
+Document IDs and clip provenance are not MIDI identities.
 
 ## Document files
 
@@ -167,7 +179,7 @@ repeat an applied write because verification failed. See
 
 Input/output byte limit: 8 MiB. Note limit: 16,384. Source track limit: 256;
 export clip limit: 255 plus the conductor. MIDI event limit: 262,144. Document
-limits still apply, including 32,768 overlays and 131,072 overlap pairs in each
+limits still apply, including 131,072 overlap pairs in each
 normalization comparison. A refusal returns no partial document or output file.
 Format 2, SMPTE division, malformed framing, oversized deltas, and unsupported
 metadata values refuse. Running status ends at a meta or SysEx event.

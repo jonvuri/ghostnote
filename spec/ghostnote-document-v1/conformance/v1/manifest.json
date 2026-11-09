@@ -101,102 +101,6 @@
       "fixtures": []
     },
     {
-      "rule": "R13",
-      "family": "C13",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C13",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R14",
-      "family": "C14",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C14",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R15",
-      "family": "C15",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C15",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R16",
-      "family": "C16",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C16",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R17",
-      "family": "C17",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C17",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R18",
-      "family": "C18",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C18",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R19",
-      "family": "C19",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C19",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R20",
-      "family": "C20",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C20",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R21",
-      "family": "C21",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C21",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R22",
-      "family": "C22",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C22",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R23",
-      "family": "C23",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C23",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
-      "rule": "R24",
-      "family": "C24",
-      "test": "brain/src/document/codec.test.ts",
-      "selector": "C24",
-      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
-      "fixtures": []
-    },
-    {
       "rule": "R25",
       "family": "C25",
       "test": "brain/src/document/codec.test.ts",
@@ -218,7 +122,7 @@
         "empty",
         "empty-clip",
         "partial",
-        "unknown-source"
+        "clip-defaults"
       ]
     },
     {
@@ -235,7 +139,7 @@
         "empty",
         "empty-clip",
         "partial",
-        "unknown-source"
+        "clip-defaults"
       ]
     },
     {
@@ -276,7 +180,7 @@
         "empty",
         "empty-clip",
         "partial",
-        "unknown-source"
+        "clip-defaults"
       ]
     },
     {
@@ -293,7 +197,28 @@
         "empty",
         "empty-clip",
         "partial",
-        "unknown-source"
+        "clip-defaults"
+      ]
+    },
+    {
+      "rule": "R33",
+      "family": "C33",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C33",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "complete",
+        "patch"
+      ]
+    },
+    {
+      "rule": "R34",
+      "family": "C34",
+      "test": "brain/src/document/codec.test.ts",
+      "selector": "C34",
+      "inventory": "spec/ghostnote-document-v1/CONFORMANCE.md",
+      "fixtures": [
+        "clip-defaults"
       ]
     }
   ],

@@ -2,7 +2,7 @@
 title: Ghostnote Document 1.0 paired examples
 kind: reference
 state: active
-updated: 2026-10-01
+updated: 2026-11-08
 ---
 
 # Paired examples
@@ -16,56 +16,50 @@ content hashes. A schema pass does not prove all semantic rules.
 
 | Case | JSON | FIELDS | Purpose |
 |---|---|---|---|
-| Complete | [complete.json](examples/complete.json) | [complete.fields](examples/complete.fields) | One clip and event set, all event properties, every initial overlay type, known-source timing, and inert annotations |
-| Patch | [patch.json](examples/patch.json) | [patch.fields](examples/patch.fields) | Guarded add/remove/update, expression reset, clip rename, overlay revision and removal |
-| Result | [patch-result.json](examples/patch-result.json) | [patch-result.fields](examples/patch-result.fields) | Expected materialized result; role becomes stale, timing remains current |
+| Complete | [complete.json](examples/complete.json) | [complete.fields](examples/complete.fields) | One clip and event set, all event properties, clip provenance with a source and a generator, and inert annotations |
+| Patch | [patch.json](examples/patch.json) | [patch.fields](examples/patch.fields) | Guarded add/remove/update, expression reset, clip rename, and provenance cleared with null |
+| Result | [patch-result.json](examples/patch-result.json) | [patch-result.fields](examples/patch-result.fields) | Expected materialized result of the patch |
 | No-op | [no-op.json](examples/no-op.json) | [no-op.fields](examples/no-op.fields) | Empty sparse changes against the complete base |
 | Empty document | [empty.json](examples/empty.json) | [empty.fields](examples/empty.fields) | No clips and no events |
 | Empty clip | [empty-clip.json](examples/empty-clip.json) | [empty-clip.fields](examples/empty-clip.fields) | A zero-length clip with complete all-channel coverage |
 | Partial observation | [partial.json](examples/partial.json) | [partial.fields](examples/partial.fields) | Selected event only; unknown properties and missing membership cannot mean empty state |
-| Unknown source | [unknown-source.json](examples/unknown-source.json) | [unknown-source.fields](examples/unknown-source.fields) | Cell-only triplet observation with unresolved residuals, not invented groove causes |
+| Clip defaults | [clip-defaults.json](examples/clip-defaults.json) | [clip-defaults.fields](examples/clip-defaults.fields) | A drum clip whose notes share channel 10 and release velocity 0: the CLIP states them once, and only the mute column remains |
 
 ## Complete state and sparse changes
 
 `n1`, `n2`, and `n3` belong to clip `part`. `n1` demonstrates channel 2, mute,
 release velocity, articulation, scalar expression including pressure, and all
 playback controls. The document can represent pressure without promising a
-live pressure write. `n2` demonstrates exact nominal triplet rhythm over a
-normalized event. `n3` demonstrates channel 16.
+live pressure write. `n2` sits at `85/256` with duration `85/512`, the
+normalized cells of a source triplet (R07). `n3` demonstrates channel 16.
+Because only `n1` sets most optional fields, the canonical FIELDS binding
+names them all and the other rows write `_`.
+
+The clip provenance names a source file, its sha256, the source bar range,
+the conversion settings, a Ghostworks reference, and a generator script
+([R33](SPEC.md#r33--clip-provenance)). It is a pointer and makes no claim
+about the notes.
 
 The patch adds `n4`, removes `n3`, changes `n1` pitch, resets its expression,
-and renames the clip. Resetting expression changes all its members to defaults;
-it is an atomic field. The patch removes motif and region claims that refer to
-the deleted event. It replaces harmony with a fresh basis and member group.
-The role's explicit members remain `n1,n2`, but its pitch and membership
-dependencies changed. Its state becomes stale and its old basis remains.
-Nominal and groove depend on timing, which this patch preserves. Removing an
-overlay does not remove a note. Host permission, pressure handling, and fresh
-readback are separate 8f3 requirements.
+renames the clip, and clears its provenance with null. Resetting expression
+changes all its members to defaults; it is an atomic field. `n4` omits every
+optional field; the base clip states no default, so it takes the portable
+defaults. Host permission, pressure handling, and fresh readback are separate
+8f3 requirements.
 
-## Acquisition and intent
+## Clip defaults
 
-For `n2`, exact source onset `1/3` floors to `85/256`. Exact source duration
-`1/6` rounds to `85/512`. Onset displacement is `-1/768`; duration displacement
-is `-1/1536`. Nominal values retain `1/3` and `1/6`. In the complete example,
-measured groove provenance records those deltas with no assigned intentional
-components. In unknown-source, the deltas are null and the same observed
-differences are unresolved residuals. Neither example calls them swing.
-
-`n1` has nominal onset `1/4` and template contribution `1/64`. Its source and
-realized onset are `17/64`, with no acquisition displacement. The declared
-template has weights `17:15`. This records the author's interpretation.
-
-To move its nominal onset to `1/2` and keep swing, explicitly update the
-nominal overlay, set source onset to `33/64`, retain template `1/64`, and write
-the core onset as `33/64`. Supply fresh dependency bases for both overlays.
-To transfer that phase/template to another part, refer to the target event's
-own nominal overlay and write the target's normalized realized onset. Merely
-copying the overlay does not edit a note. R14-R16 and C14-C16 govern this case.
+In clip-defaults, `k1`, `h1`, and `s1` all have channel 10 and release
+velocity 0. Canonical FIELDS states them once as
+`"defaults":{"channel":10,"releaseVelocity":0}` on the CLIP record and binds
+only `mute`, the one optional field whose values differ; `k1` and `s1` write
+`_` there. The JSON file states the same defaults; canonical JSON expands them
+into the events. Both encodings have one content hash
+([R34](SPEC.md#r34--clip-column-defaults)).
 
 ## Limits of this verification
 
-8f1 checks JSON structure, paired example agreement, hashes, timing equations,
-and current dependency bases with independent local calculations. The [8f2 conformance corpus](conformance/v1/README.md) checks grammar, error
+8f1 checks JSON structure, paired example agreement, and hashes with
+independent local calculations. The [8f2 conformance corpus](conformance/v1/README.md) checks grammar, error
 locations, patch application, normalization APIs, and reference serializers. These checks need no Bitwig
 project, cache, provider, or paid call.
