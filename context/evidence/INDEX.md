@@ -2,7 +2,7 @@
 title: Evidence index
 kind: index
 state: active
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # Evidence index
@@ -18,6 +18,7 @@ follow-up sessions. It does not add live experiment results or close 8g.
 
 | ID | Finding | Detail |
 |---|---|---|
+| E416 | B19 session 4 on Bitwig 6.1.4: `add_launcher_clip` with `source` (D75) derived a cross-track slice (`from` 1, `to` 4, `shift` 1/2; one note shortened, provenance range narrowed) and a patched whole-clip variation; both verified with the source event IDs in 3.0–3.1 s (source document add 2.65 s; source read 358 ms); the source stayed current; an out-of-range patch refused with no effect. Scratch removed, occupancy matches entry (2026-11-09) | [open](experiments/e416-b19-derived-clips-live.md) |
 | E415 | B19 on Bitwig 6.1.4: a track delete lands seconds after the request, and Bitwig resolves its bank index then; three back-to-back `delete_track` calls of 16 tracks with 128 clips each read back `differs` and deleted 11 canaries and `FX 1` while missing 16 targets (E414's dropped deletes, reinterpreted). With D72's wait the same calls read back `verified` in 4.1–6.4 s and delete only the targets; the extension identity guard alone does not prevent it; back-to-back `delete_scene` calls did not misdirect | [open](experiments/e415-b19-track-delete-lands-late-and-misdirects.md) |
 | E414 | B19 session 2 on Bitwig 6.1.4: one `slot.occupancy` call lists a 251 × 128 bank with 30,745 clips in 32.5 ms median (130 KB) and matches 32,128 single-slot reads; `list_launcher_slots` 30.5 ms (124 KB), against about 12.7 min of sequential reads. A group row reports its children's rows. Scratch grid removed (2026-11-08) | [open](experiments/e414-b19-slot-occupancy-live.md) |
 | E412 | P01 `set_device_controls` limits with Diva (CLAP, 281 IDs): a route costs 2.3 s for 64 or 281 settings; 4 / 8 / 12 / 16 routes of 16 took 9.1 / 18.3 / 26.8 / 36.4 s (E252: 4 routes 22.5 s); every readback exact; D69 sets 256 settings on 12 routes. Cleanup and preservation pass (2026-11-07) | [open](experiments/e412-p01-device-control-limits-live.md) |

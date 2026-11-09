@@ -82,6 +82,7 @@ live ID. D23 does not expose multiple source IDs in a collided cell.
 | Authorized add/remove | Mint supplied new ID / retire removed ID | IDs valid and unique; fresh occupancy and expected-state checks |
 | Reconstruct unchanged retained events | Retain only from the authorized plan | Complete protected before state and independent final mapping; partial effects do not prove missing IDs survived |
 | Clip move by the binding | Retain every event ID and the clip ID at the first read of the destination | The binding's verified move; the destination document equals the source document last read, with the same cells, project, and scene layout (D74) |
+| Clip derived by the binding from a source clip | Keep the source event ID of each kept note; the new clip gets a new clip ID | The binding's read of the source (current against a patch BASE) and the verified add (D75) |
 | Clip move by a person | Mint all events | D32 has no move proof; the new address needs a new read |
 | Clip duplication/replacement | Mint all events | A separate document clip ID even when notes match |
 | Reload, project change, or ambiguity | Retire; mint after fresh acquisition | `incomparable` or `identity-changed` verdict, or no unique proof; no similarity matching |
@@ -118,6 +119,7 @@ analysis of the notes is recomputed, not stored.
 | Verified write | The expected document's envelope, bound to the new ref; `readback.held` names provenance |
 | `identity-changed`, `absent`, `incomparable`, `uncovered`, eviction, restart | Dropped with the ref; a new acquisition has none |
 | Copy or move by the binding | Carried to the first read of the destination when its document equals the source document last read (D74); a move keeps the clip ID |
+| Clip derived by the binding from a source clip | The source envelope, written with the new clip; a provenance source range that spans the source clip narrows to the slice (D75) |
 | A person's move, duplication, or replacement; a project save-as | None on the new ID; the agent re-attaches provenance with `clipUpdate` |
 
 A patch keeps the stored provenance unless its `clipUpdate` sets or clears it.

@@ -2,7 +2,7 @@
 title: Decision index
 kind: index
 state: active
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # Decision index
@@ -76,6 +76,7 @@ with the original decision heading and preserves its amendments and rationale.
 | D72 | Track deletes wait for Bitwig's removal: a stage of track deletes polls until each track has left the bank (8 s + 1 s per track, never resent); `readback.removed` names each track gone; `track.delete` carries `expectedChannelId`; scene deletes unchanged | [open](d72-track-deletes-wait-for-the-removal.md) |
 | D73 | Overlays are removed; clips carry provenance and column defaults: no overlays in Document 1.0 (R12–R24 retired); a CLIP `provenance` pointer (source files, generator) that the binding holds with the clip ID and reports as `readback.held`; clip `defaults` for uniform columns, with a canonical FIELDS binding of only needed columns and no WITH; MIDI reads name their file and list short tempo/meter maps; writes take `tempoFrom` and `meter` | [open](d73-overlays-removed-for-clip-provenance-and-column-defaults.md) |
 | D74 | Ghostnote's own clip moves keep clip identity; copies carry provenance: a verified `move_launcher_clips` or `copy_launcher_clips` leaves a carry at the destination; the first read there, when its document equals the source as last read, keeps the clip and event IDs (move, identity `moved`) or takes the stored provenance with new IDs (copy); no host call | [open](d74-ghostnote-moves-keep-clip-identity.md) |
+| D75 | A new clip can be derived from a source clip, keeping its event IDs: `add_launcher_clip` takes `source` (a clip, a beat range `[from, to)`, a `shift`) and an optional patch on a read of the source; onsets in the range stay and notes past `to` are shortened; kept notes keep their source event IDs; the new clip is `shift + (to - from)` beats, loops when the source loops, and keeps provenance, with a source range spanning the clip narrowed to the slice; no new tool (D21) | [open](d75-clips-derived-from-a-source-clip.md) |
 
 ## Phase 4 closeout audit
 

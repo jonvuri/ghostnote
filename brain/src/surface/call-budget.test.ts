@@ -132,6 +132,33 @@ test('call budget: add_launcher_clip with provenance and clip defaults keeps the
   assert.deepEqual(refused.counts, {});
 });
 
+test('call budget: add_launcher_clip from a source clip adds the source read to the add (B19 session 4)', async () => {
+  const fx = await fixture();
+  // A first read of the source: one clip read and one delta. The fixture source loops, so the new clip keeps the
+  // loop that Bitwig gives a new clip, and the content needs no clip property stage (the document add of the
+  // budget below changes the loop: one mark, one resolve, and one clip read more).
+  const slice = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 2, source: { trackId: fx.trackId, row: 0, from: '1', to: '3' } });
+  assert.equal(slice.result.readback?.status, 'verified', JSON.stringify(slice.result).slice(0, 300));
+  assert.equal(slice.result.derived.notes, 32);
+  assert.deepEqual(slice.counts, { mark: 2, tracks: 2, read: 3, resolve: 1, apply: 2, delta: 5, clipRead: 3 });
+  // A source with a prior read also judges that read: one more delta, as in a repeated read.
+  const again = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 3, source: { trackId: fx.trackId, row: 0 } });
+  assert.equal(again.result.readback?.status, 'verified', JSON.stringify(again.result).slice(0, 300));
+  assert.deepEqual(again.counts, { mark: 2, tracks: 2, read: 3, resolve: 1, apply: 2, delta: 6, clipRead: 3 });
+  // A patch: the source read checks the patch base, and the patch is brain work; the cost equals the first case.
+  const read = await fx.call('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+  const base = read.result.authority.base, events = documentOf(read.result).events;
+  const varied = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 4, source: { trackId: fx.trackId, row: 1 },
+    document: patch(base, events.slice(0, 16).map((event) => `UPDATE ${event.id} {"velocity":70}`)) });
+  assert.equal(varied.result.readback?.status, 'verified', JSON.stringify(varied.result).slice(0, 300));
+  assert.deepEqual(varied.result.derived.patch, { added: 0, removed: 0, changed: 16 });
+  assert.deepEqual(varied.counts, { mark: 2, tracks: 2, read: 3, resolve: 1, apply: 2, delta: 5, clipRead: 3 });
+  // A bound refused before the read makes no adapter call.
+  const refused = await fx.call('add_launcher_clip', { trackId: fx.trackId, row: 5, source: { trackId: fx.trackId, row: 0, from: '0.5' } });
+  assert.equal(refused.result.failure?.code, 'invalid-input');
+  assert.deepEqual(refused.counts, {});
+});
+
 test('call budget: a same-key overlap in a desired document refuses with no adapter call (8i20)', async () => {
   const fx = await fixture();
   const document = ['DOC ghostnote-document 1.0 desired', 'CLIP {"id":"lead","length":"8"}',

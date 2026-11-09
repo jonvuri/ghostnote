@@ -1,7 +1,7 @@
 ---
 title: Ghostnote performance ledger
 kind: reference
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 # Ghostnote performance ledger
@@ -110,6 +110,7 @@ live wire-call count of the E247 inventory.
 | `get_document_reference`, Core and the desired template; Patch (all sections) | 5,665 bytes; 7,098 bytes (FIELDS, D73, reference revision 7) | E259: Core 4,469; Timing overlays 14,997; all 17,383 bytes. Reference source 12,359 → 5,969 bytes (D73 removed the overlay sections) | none | E255, E256, E259, D73 |
 | `add_launcher_clip` with the desired template (1 note); a template-form patch (1 ADD, 1 UPDATE) after a read with Patch help | 2,460 ms, 87 wire calls; 1,546 ms, 45 wire calls (read 389 ms) | E250 add typical 2,158 ms; targeted insert 1,367–1,428 ms | unchanged | E255 |
 | `add_launcher_clip`, typical (256 notes) | 2,323 ms; 85 wire calls | 16 notes, E237: 2,611 ms; `add_clip` 1,827 ms | mark 3, tracks 2, read 3, resolve 2, apply 2, delta 4, clipRead 3 | E247 |
+| `add_launcher_clip` with `source` (slice or patched variation, 2–4 notes; D75) | 3.0–3.1 s; the source read 358 ms | Document add of the 4-note source: 2,651 ms | the add plus one source read: clipRead 1 and delta 1 (a prior read of the source: delta 2); a looping source needs no loop stage (`call-budget.test.ts`) | E416 |
 | `add_launcher_clip`, 16,384 notes | 6,418 ms (plan 778, write 3,352) | E247: 8,172 ms | as typical | E248 add-worst |
 | `add_launcher_clip` with claims, typical (28 notes, 56 nominal and groove claims, no read before) | 2,279 ms (plan 47, readback 40); 79 wire calls, 54 turns | Same notes without claims: 2,157 ms (plan 10), 77 calls, 53 turns; E250 256 notes: 2,158 ms, 77 | as typical (claims add no call; new test) | E256 |
 | `add_launcher_clip`, largest admitted with claims (16,384 notes, 13,498 claims, 4,188,652 expansion units: the D44 limit) | 22,156 ms (plan 8,383, write 3,518, readback 4,969); 77 calls, 53 turns; reverts 3,816 and 1,143 ms; offline 20.3 s | E248 add-worst without claims 6,418 ms; E253 planning 16,384 claims 6.3 s | as typical | E256 |

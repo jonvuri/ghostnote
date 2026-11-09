@@ -357,3 +357,31 @@ Each tool needs ledger rows, call-budget tests and a focused live check.
   event IDs, and the source's provenance; the source stayed `current`. Both
   tools took their usual time (move 1,193 ms, copy 993 ms). The scratch clips
   were then deleted from gn-scale-test-d73.
+
+### Session 4 (2026-11-09): complete
+
+- **Design ([D75](../decisions/d75-clips-derived-from-a-source-clip.md)).**
+  No new tool: `add_launcher_clip` takes `source` (a clip, a beat range
+  `[from, to)` and a `shift`), and the document input becomes an optional
+  patch. Notes with an onset in the range stay, a note past `to` is shortened
+  (`derived.shortened`), and a note that starts before `from` stays out.
+  Kept notes keep their source event IDs; the new clip gets a new clip ID,
+  is `shift + (to - from)` beats long, and loops when the source loops. The
+  patch BASE is a current read of the source; its beats are beats of the new
+  clip. Provenance, the name, META and EXTENSIONS stay; a source range that
+  spans the source clip narrows to the slice. Split is one call per part.
+- **Implementation.** `brain/src/bindings/launcher-clip-derive.ts` (pure
+  derivation), `acquireClipDocument` in `agent-native-edit.ts` (the source
+  read, guarded by the patch BASE), and the `source` path in
+  `add_launcher_clip`, whose result adds `derived`. Identity and provenance
+  rows in `IDENTITY-AND-PROVENANCE.md`. Descriptions v70 (47 tools).
+- **Checks.** Typecheck and all 2,608 brain tests pass (derivation unit
+  tests; tool tests for a slice, a looping source, a patched variation and
+  the refusals; call budget: the add plus one clip read and one or two
+  deltas). Document artifacts, conformance (209), bindings (43) and the
+  standalone check pass. No wire or extension change.
+- **Live check ([E416](../evidence/experiments/e416-b19-derived-clips-live.md)).**
+  A cross-track slice and a patched variation verified with the source IDs
+  in 3.0–3.1 s; the source stayed current, an out-of-range patch refused, and
+  cleanup restored the entry occupancy. A spurious `narrowedSources` entry
+  for an unchanged range was fixed afterwards (offline-tested).

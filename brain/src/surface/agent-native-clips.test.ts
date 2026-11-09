@@ -251,6 +251,138 @@ test('B19 copy_launcher_clips: the next read of the copy returns the source prov
   assert.equal(source.authority.base.ref, added.readback.base.ref);
 });
 
+// --- clips derived from a source clip (B19 session 4) -----------------------------
+
+const SLICE_PROVENANCE = { sources: [{ path: '/music/source.mid', range: { from: '64', to: '72' } },
+  { path: '/music/other.mid', range: { from: '0', to: '4' } }] };
+
+/** An 8-beat source: n3 crosses beat 4, n4 is past it. */
+const sliceSource = () => ['DOC ghostnote-document 1.0 desired',
+  `CLIP ${JSON.stringify({ id: 'c1', length: '8', name: 'riff', provenance: SLICE_PROVENANCE })}`,
+  'COVERAGE {"channels":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],"clip":"c1","fields":"all","from":"0","status":"complete","to":"8"}',
+  'FIELDS id clip at duration pitch velocity channel',
+  'EVENT n1 c1 0 1 60 100 1', 'EVENT n2 c1 1 1 64 90 2', 'EVENT n3 c1 3 2 67 80 1', 'EVENT n4 c1 6 1 72 70 1'].join('\n') + '\n';
+
+const sourcePatch = (base: Wire, lines: string[]) => ['DOC ghostnote-document 1.0 patch', `BASE ${JSON.stringify(base)}`,
+  'FIELDS id clip at duration pitch velocity channel', ...lines].join('\n') + '\n';
+
+test('B19 add_launcher_clip source: a slice keeps source IDs, shortens at the range end, and narrows provenance', async () => {
+  const fx = fixture();
+  const added = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, document: sliceSource() });
+  assert.equal(added.readback.status, 'verified', JSON.stringify(added).slice(0, 400));
+  const records = fx.records();
+  const slice = await fx.native('add_launcher_clip', { trackId: fx.otherId, row: 2,
+    source: { trackId: fx.trackId, row: 1, from: '1', to: 4, shift: '1/2' }, readback: 'document' });
+  assert.equal(slice.readback?.status, 'verified', JSON.stringify(slice).slice(0, 600));
+  assert.equal(fx.records(), records + 2, 'the creation and the content');
+  assert.deepEqual(slice.derived, {
+    source: { trackId: fx.trackId, row: 1, clipId: added.readback.clipId, base: added.readback.base },
+    from: '1', to: '4', shift: '1/2', length: '7/2', notes: 2, omitted: 2, shortened: ['n3'], narrowedSources: [0],
+  });
+  const document = parse(slice.readback.document, 'fields') as StateDocument;
+  assert.deepEqual(document.events.map((event) => [event.id, event.at, event.duration, event.pitch, event.channel ?? 1]),
+    [['n2', '1/2', '1', 64, 2], ['n3', '5/2', '1', 67, 1]]);
+  const clip = document.clips[0]!;
+  assert.notEqual(clip.id, added.readback.clipId, 'a new clip ID');
+  assert.equal(clip.length, '7/2');
+  assert.equal(clip.name, 'riff');
+  assert.equal(clip.loop ?? null, null, 'the source does not loop');
+  assert.deepEqual(plainJson(clip.provenance), { sources: [{ path: '/music/source.mid', range: { from: '65', to: '68' } },
+    { path: '/music/other.mid', range: { from: '0', to: '4' } }] });
+  assert.deepEqual(slice.readback.held, ['provenance']);
+  // The source stays, with its ref current.
+  const source = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+  assert.equal(source.authority.identity, 'current');
+  assert.equal(source.authority.base.ref, added.readback.base.ref);
+  // The new clip reads back current on the returned base.
+  const read = await fx.native('read_launcher_clip', { trackId: fx.otherId, row: 2 });
+  assert.equal(read.authority.base.ref, slice.readback.base.ref);
+  // Revert removes the new clip.
+  for (const step of slice.next.revert) await fx.native('revert_change', { changeId: step.changeId });
+  assert.equal(fx.occupied(2, 1), false);
+});
+
+test('B19 add_launcher_clip source: a looping source makes a looping slice; default range is the whole clip', async () => {
+  const fx = fixture();
+  await fx.seed(0);
+  const whole = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, source: { trackId: fx.trackId, row: 0 } });
+  assert.equal(whole.readback?.status, 'verified', JSON.stringify(whole).slice(0, 600));
+  assert.equal(whole.derived.length, '8');
+  assert.equal(whole.derived.notes, 4);
+  const half = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 2,
+    source: { trackId: fx.trackId, row: 0, from: 2 }, readback: 'document' });
+  assert.equal(half.readback?.status, 'verified', JSON.stringify(half).slice(0, 600));
+  const clip = (parse(half.readback.document, 'fields') as StateDocument).clips[0]!;
+  assert.equal(clip.length, '6');
+  assert.deepEqual(plainJson(clip.loop), { from: '0', to: '6' });
+});
+
+test('B19 add_launcher_clip source: a patch on the source read varies the new clip only', async () => {
+  const fx = fixture();
+  const added = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, document: sliceSource() });
+  const clipId = added.readback.clipId;
+  const varied = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 3,
+    source: { trackId: fx.trackId, row: 1 }, readback: 'document',
+    document: sourcePatch(added.readback.base, ['REMOVE n4', 'UPDATE n1 {"pitch":61}', `ADD v1 ${clipId} 7 1 48 100 1`,
+      `CLIP_UPDATE ${clipId} {"name":"riff b"}`]) });
+  assert.equal(varied.readback?.status, 'verified', JSON.stringify(varied).slice(0, 600));
+  assert.deepEqual(varied.derived.patch, { added: 1, removed: 1, changed: 1, clipFields: ['name'] });
+  const document = parse(varied.readback.document, 'fields') as StateDocument;
+  assert.deepEqual(document.events.map((event) => [event.id, event.pitch]), [['n1', 61], ['n2', 64], ['n3', 67], ['v1', 48]]);
+  assert.equal(document.clips[0]!.name, 'riff b');
+  const source = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 1 });
+  assert.equal(source.authority.identity, 'current', 'the source is unchanged');
+});
+
+test('B19 add_launcher_clip source: refusals write nothing', async () => {
+  const fx = fixture();
+  const added = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 1, document: sliceSource() });
+  const clipId = added.readback.clipId;
+  const records = fx.records();
+  const refuse = async (args: Wire, code: string, stage?: string) => {
+    const result = await fx.native('add_launcher_clip', { trackId: fx.trackId, row: 3, ...args });
+    assert.equal(result.failure?.code, code, JSON.stringify(result).slice(0, 400));
+    if (stage !== undefined) assert.equal(result.failure.stage, stage, JSON.stringify(result).slice(0, 400));
+    assert.deepEqual(result.failure.effects, []);
+    return result;
+  };
+  const source = { trackId: fx.trackId, row: 1 };
+  // Before any host call: a decimal bound, the source slot as the target, and a desired document with source.
+  assert.equal((await refuse({ source: { ...source, from: '1.5' } }, 'invalid-input', 'input')).detail.field, 'source.from');
+  await refuse({ row: 1, source }, 'invalid-input', 'input');
+  await refuse({ source, document: sliceSource() }, 'invalid-input', 'input');
+  // After the source read: a range past the clip end and an empty range.
+  assert.equal((await refuse({ source: { ...source, to: '9' } }, 'invalid-input', 'plan')).detail.field, 'source.to');
+  await refuse({ source: { ...source, from: '4', to: '4' } }, 'invalid-input', 'plan');
+  // A patch that names a note outside the range.
+  const outside = await refuse({ source: { ...source, to: '4' },
+    document: sourcePatch(added.readback.base, ['UPDATE n4 {"velocity":1}']) }, 'invalid-input', 'plan');
+  assert.match(outside.message, /outside the range/);
+  // A patch whose added note overlaps a kept note of one key.
+  const overlap = await refuse({ source, document: sourcePatch(added.readback.base, [`ADD o1 ${clipId} 1/2 1 60 100 1`]) },
+    'unsupported', 'plan');
+  assert.equal(overlap.detail.reason, 'overlap');
+  // An empty source slot.
+  await refuse({ source: { trackId: fx.trackId, row: 5 } }, 'absent');
+  // A source that read_launcher_clip refuses keeps the read's code and remediation (loop start not at 0).
+  await fx.seed(4);
+  fx.fake.model.visibleTracks()[0]!.slots[4]!.loopStartBeats = 2;
+  fx.fake.model.revision += 1;
+  const read = await fx.native('read_launcher_clip', { trackId: fx.trackId, row: 4 });
+  const loop = await refuse({ source: { trackId: fx.trackId, row: 4 } }, 'range', 'project');
+  assert.equal(read.failure?.code, 'range', JSON.stringify(read).slice(0, 300));
+  assert.equal(loop.message, read.message);
+  assert.equal(loop.retryWhen, read.retryWhen);
+  assert.deepEqual(loop.detail, read.detail);
+  // A changed source since the patch base.
+  fx.fake.model.visibleTracks()[0]!.slots[1]!.notes.set('0:50:7', note({ pitch: 50, startBeats: 7 }));
+  fx.fake.model.revision += 1;
+  const stale = await refuse({ source, document: sourcePatch(added.readback.base, ['UPDATE n1 {"velocity":1}']) }, 'stale');
+  assert.notEqual(stale.detail.base.ref, added.readback.base.ref);
+  assert.equal(fx.records(), records + 1, 'only the seed of row 4');
+  assert.equal(fx.occupied(3), false);
+});
+
 test('8h4d copy_launcher_clips: copies below, reports occupancy, and guards the destination', async () => {
   const fx = fixture();
   await fx.seed(0);

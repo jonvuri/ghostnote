@@ -30,15 +30,21 @@ import {
   EditRefusal, clipPropertyWrite, documentClipLength, type ClipPropertyChanges,
 } from '../bindings/launcher-clip-edit.js';
 import { OVERLAP_DETAIL_PAIRS } from '../bindings/ghostnote-document.js';
-import type { Document } from '../document/index.js';
+import { DeriveRefusal, checkBound, deriveClip, type Derived } from '../bindings/launcher-clip-derive.js';
+import {
+  DocumentError, applyPatch, contentHash, type Document, type Materialized, type Patch, type StateDocument,
+} from '../document/index.js';
 import type { StashedChangeset } from '../stash/index.js';
 import {
   AGENT_NATIVE_TOOL_PROFILE, ToolFailure, failureResult, isFailureResult, readbackOrUnavailable,
   type Effect, type FailureStage, type Warning, type WriteResult,
 } from './agent-native-result.js';
-import { checkHealth, format, guarded, identityRegistryOf, selectionWarnings, withSelection } from './agent-native.js';
 import {
-  PROVENANCE_STATEMENT, VERIFIED_READBACK_STATEMENT, checkDesiredOverlaps, documentText, editLauncherClip, parseProposal,
+  asToolFailure, checkHealth, format, guarded, identityRegistryOf, selectionWarnings, withSelection,
+} from './agent-native.js';
+import {
+  PROVENANCE_STATEMENT, VERIFIED_READBACK_STATEMENT, acquireClipDocument, checkDesiredOverlaps, documentText,
+  editLauncherClip, parseProposal,
 } from './agent-native-edit.js';
 import {
   DESIRED_EXAMPLE_TEXT, FORMAT_STATEMENT, documentParameter, kindRepair,
@@ -212,13 +218,27 @@ const occupancyIn = (entries: Snapshot['entries'], target: Target, at: RevisionM
 
 // --- add_launcher_clip ---------------------------------------------------------
 
+const beat = z.union([z.string().min(1), z.number().int().min(0)]);
+const sourceInput = z.object({
+  trackId,
+  row,
+  from: beat.optional().describe('First source beat of the range, inclusive: exact beat text such as "4" or "3/2" '
+    + 'on the 1/512-beat plane. Default 0.'),
+  to: beat.optional().describe('End of the range in source beats, exclusive. Default the source clip length.'),
+  shift: beat.optional().describe('The beat of the new clip where from lands. Default 0.'),
+}).strict();
+
 const addInput = z.object({
   trackId,
   row,
   document: z.union([z.string().min(1), z.record(z.string(), z.unknown())]).optional().describe(
-    documentParameter('A desired document without BASE (one CLIP and its notes)'),
+    documentParameter('A desired document without BASE (one CLIP and its notes); with source, an optional patch'),
   ),
   documentPath: documentPathInput,
+  source: sourceInput.optional().describe(
+    'Derive the new clip from an existing Launcher clip instead of a desired document: its notes in a beat range, '
+    + 'moved by shift, then the optional patch in document or documentPath.',
+  ),
   format,
   readback: z.enum(['summary', 'document']).optional().describe(
     'summary (default): the new base, clip ID, ID counts, and discrepancies. document: also the read-back '
@@ -229,7 +249,8 @@ const addInput = z.object({
 type AddInput = z.infer<typeof addInput>;
 
 const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot from a Ghostnote Document 1.0 `
-  + `desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP). ${FORMAT_STATEMENT} `
+  + `desired document without BASE (DOC ghostnote-document 1.0 desired, one CLIP), or from an existing clip with `
+  + `source (below). ${FORMAT_STATEMENT} `
   + `${DOCUMENT_PATH_STATEMENT}\n`
   + `${DESIRED_EXAMPLE_TEXT}\n`
   + 'The CLIP length is the clip length in beats. A CLIP without loop makes a clip that does not loop; loop '
@@ -240,6 +261,17 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + `detail.overlaps (at most ${OVERLAP_DETAIL_PAIRS} pairs: event IDs, channel, pitch, and onsets), and `
   + 'detail.overlapPairs (the total count).\n'
   + `${PROVENANCE_STATEMENT}\n`
+  + 'source derives the new clip from an existing clip, with no document to restate: a slice (a beat range), a '
+  + 'split (one call per part; the source stays), or a variation (the whole clip with a patch). The call reads the '
+  + 'source and takes each note whose onset is in [from, to); a note that ends after to is shortened to end there '
+  + '(derived.shortened lists them), and a note that starts before from stays out. Each note moves so that from '
+  + 'lands at shift. The new clip is shift + (to - from) beats long and loops over that length when the source '
+  + 'loops. It keeps the source name, provenance, META, and EXTENSIONS; a provenance source range that spans the '
+  + 'source clip narrows to the slice. Every note keeps its source event ID; the new clip gets a new clip ID. '
+  + 'With source, document or documentPath is an optional patch: BASE is the sha256 and ref of a read of the '
+  + 'source, its records name source IDs and the source clip ID, and its beats are beats of the new clip; '
+  + 'CLIP_UPDATE can change the name, length, or loop. A source change since that read refuses with code stale. '
+  + 'derived reports the source base, the range, the note counts, and the patch counts.\n'
   + 'The slot must exist and be empty. An occupied slot refuses with code occupied: Bitwig would put the new clip '
   + 'on a new scene past the reachable rows. A missing row refuses with code absent; add scenes at the end with '
   + 'add_scenes.\n'
@@ -250,26 +282,138 @@ const ADD_DESCRIPTION = `${PROFILE} Create one Launcher clip in an empty slot fr
   + 'Bitwig selects the new clip; the tool then selects the Launcher slot that was selected before. With no slot '
   + 'selected before, the new clip stays selected (warning slot-selection-moved).';
 
+/** At most this many event IDs in each list of the derived facts. */
+const DERIVED_ID_ITEMS = 64;
+
+/** A beat input as exact text. */
+const beatText = (value: string | number | undefined): string | undefined =>
+  value === undefined ? undefined : String(value);
+
+/** A refused range or a refused patch of a derived clip: invalid-input before any write. */
+function deriveFailure(error: unknown, stage: FailureStage): unknown {
+  if (error instanceof DeriveRefusal) {
+    return new ToolFailure('invalid-input', stage, error.message, { detail: { field: `source.${error.field}` } });
+  }
+  if (error instanceof DocumentError) {
+    const missing = /missing event/.test(error.message);
+    return new ToolFailure('invalid-input', stage, `The patch does not apply to the derived clip: ${error.message}.`
+      + (missing ? ' A note outside the range is not in the derived clip.' : ''), {
+      detail: { rule: error.rule, path: error.path, message: error.message } });
+  }
+  return error;
+}
+
+interface DerivedAdd {
+  readonly document: StateDocument;
+  readonly facts: Record<string, unknown>;
+}
+
+/**
+ * B19 session 4: read the source clip and derive the desired document of the new clip. With a patch, the patch
+ * BASE is a current read of the source, and the patch applies to the derived notes (new-clip beats, source IDs).
+ */
+async function derivedDocument(
+  workspace: Workspace, state: RunState, source: NonNullable<AddInput['source']>, at: RevisionMark, patch: Patch | undefined,
+): Promise<DerivedAdd> {
+  state.stage = 'acquire';
+  let sourceRead: Awaited<ReturnType<typeof acquireClipDocument>>;
+  try {
+    sourceRead = await acquireClipDocument(workspace, source.trackId, source.row, at, patch);
+  } catch (error) {
+    // A source that read_launcher_clip refuses (range, collision, ...) keeps that code and its remediation.
+    throw asToolFailure(error);
+  }
+  const { acquired, projection } = sourceRead;
+  state.stage = 'plan';
+  let derived: Derived;
+  let applied: Materialized | undefined;
+  try {
+    derived = deriveClip(projection.document, {
+      ...(source.from === undefined ? {} : { from: beatText(source.from)! }),
+      ...(source.to === undefined ? {} : { to: beatText(source.to)! }),
+      ...(source.shift === undefined ? {} : { shift: beatText(source.shift)! }),
+    });
+    applied = patch === undefined ? undefined
+      : applyPatch(derived.document, { ...patch, base: { sha256: contentHash(derived.document) } });
+  } catch (error) {
+    throw deriveFailure(error, 'plan');
+  }
+  const cap = (list: readonly string[]) => list.slice(0, DERIVED_ID_ITEMS);
+  return {
+    document: applied?.document ?? derived.document,
+    facts: {
+      source: {
+        trackId: source.trackId, row: source.row, clipId: acquired.entry.clipId,
+        base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref },
+      },
+      from: derived.from, to: derived.to, shift: derived.shift, length: derived.length,
+      notes: derived.kept.length,
+      omitted: derived.omitted,
+      shortened: cap(derived.shortened),
+      ...(derived.shortened.length > DERIVED_ID_ITEMS ? { shortenedCount: derived.shortened.length } : {}),
+      ...(derived.narrowedSources.length === 0 ? {} : { narrowedSources: derived.narrowedSources }),
+      ...(applied === undefined ? {} : { patch: {
+        added: applied.report.added.length, removed: applied.report.removed.length,
+        changed: applied.report.changedFields.length,
+        ...(applied.report.clipFields.length === 0 ? {} : { clipFields: applied.report.clipFields.flatMap((item) => item.fields) }),
+      } }),
+    },
+  };
+}
+
 async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<unknown> {
   const started = performance.now();
   const target = { trackId: args.trackId, row: args.row };
   return guardedRun(ADD_SCHEMA, target, async (state) => {
-    const input = await documentInput(args, args.format ?? 'fields');
+    const source = args.source;
+    const hasDocument = args.document !== undefined || args.documentPath !== undefined;
+    const input = source !== undefined && !hasDocument ? undefined : await documentInput(args, args.format ?? 'fields');
     if (args.documentOutputPath !== undefined) await checkDocumentOutput(args.documentOutputPath);
-    const parsed = parseProposal(input, 'add'), proposal = parsed.document;
-    if (proposal.kind !== 'desired' || proposal.base !== undefined) {
-      throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
-        detail: { repair: kindRepair('add', input.format, documentText(input.document)) } });
+    let parsed: { document: Document } | undefined;
+    let patch: Patch | undefined;
+    if (source === undefined) {
+      parsed = parseProposal(input!, 'add');
+      const proposal = parsed.document;
+      if (proposal.kind !== 'desired' || proposal.base !== undefined) {
+        throw new ToolFailure('invalid-input', 'input', 'add_launcher_clip takes a desired document without BASE.', {
+          detail: { repair: kindRepair('add', input!.format, documentText(input!.document)) } });
+      }
+      if (proposal.clips.length !== 1) {
+        throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
+      }
+      checkDesiredOverlaps(proposal);
+      documentClipLength(proposal.clips[0]!);
+    } else {
+      if (source.trackId === args.trackId && source.row === args.row) {
+        throw new ToolFailure('invalid-input', 'input', 'The source and the new clip name one slot. Name an empty slot.');
+      }
+      try {
+        for (const field of ['from', 'to', 'shift'] as const) {
+          const value = beatText(source[field]);
+          if (value !== undefined) checkBound(field, value);
+        }
+      } catch (error) { throw deriveFailure(error, 'input'); }
+      if (input !== undefined) {
+        const proposal = parseProposal(input, 'edit').document;
+        if (proposal.kind !== 'patch') {
+          throw new ToolFailure('invalid-input', 'input', 'With source, document is an optional patch with BASE of a '
+            + 'read of the source clip. To write a complete document, omit source.');
+        }
+        patch = proposal;
+      }
     }
-    if (proposal.clips.length !== 1) {
-      throw new ToolFailure('invalid-input', 'input', 'A desired document for one Launcher clip has exactly one CLIP.');
-    }
-    checkDesiredOverlaps(proposal);
-    const lengthBeats = documentClipLength(proposal.clips[0]!);
 
     state.stage = 'resolve';
-    const at = await markFor(workspace, [args.row]);
-    await requireTracks(workspace, [args.trackId]);
+    const at = await markFor(workspace, source === undefined ? [args.row] : [args.row, source.row]);
+    await requireTracks(workspace, source === undefined ? [args.trackId] : [args.trackId, source.trackId]);
+    let derived: DerivedAdd | undefined;
+    if (source !== undefined) {
+      derived = await derivedDocument(workspace, state, source, at, patch);
+      parsed = { document: derived.document };
+      checkDesiredOverlaps(derived.document, 'plan');
+    }
+    const lengthBeats = documentClipLength((parsed!.document as StateDocument).clips[0]!);
+
     state.stage = 'acquire';
     const { occupancy } = await readSlots(workspace, [target], at);
     if (occupancy(target) === 'occupied') {
@@ -289,10 +433,10 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       // The content goes through the edit limb: an unguarded replacement of the new, empty clip.
       state.stage = 'plan';
       const edited = await editLauncherClip(workspace, {
-        trackId: args.trackId, row: args.row, document: input.document, intent: 'replace', format: args.format ?? 'fields',
+        trackId: args.trackId, row: args.row, intent: 'replace', format: args.format ?? 'fields',
         ...(args.readback === undefined ? {} : { readback: args.readback }),
         ...(args.documentOutputPath === undefined ? {} : { documentOutputPath: args.documentOutputPath }),
-      }, { parsed, ...(input.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
+      }, { parsed: parsed!, ...(input?.file === undefined ? {} : { documentFile: input.file }) }) as Record<string, any>;
       return { creation: made, content: edited };
     });
     const { creation, content } = written;
@@ -317,7 +461,8 @@ async function addLauncherClip(workspace: Workspace, args: AddInput): Promise<un
       warnings: [...(content['warnings'] ?? []), ...moved],
       timing: { ...(content['timing'] ?? {}), totalMs: performance.now() - started },
     };
-    return { ...result, target, ...(input.file === undefined ? {} : { documentFile: input.file }),
+    return { ...result, target, ...(input?.file === undefined ? {} : { documentFile: input.file }),
+      ...(derived === undefined ? {} : { derived: derived.facts }),
       ...(content['plan'] === undefined ? {} : { plan: content['plan'] }) };
   });
 }
@@ -331,7 +476,7 @@ const addLauncherClipTool: ToolSpec = {
   inputValidator: addInput,
   emits: ['clip.create', 'clip.update', 'note.remove', 'note.insert', 'note.clear', 'note.write'],
   resultContract: {
-    schema: ADD_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'documentFile', 'plan'], failure: FAILURE_FIELDS,
+    schema: ADD_SCHEMA, profile: AGENT_NATIVE_TOOL_PROFILE, envelope: [...WRITE_FIELDS, 'documentFile', 'plan', 'derived'], failure: FAILURE_FIELDS,
     readbackStatus: ['verified', 'differs', 'unavailable', 'unchanged'],
   },
   run: (workspace, input) => addLauncherClip(workspace, input as AddInput),

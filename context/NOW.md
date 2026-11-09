@@ -1,7 +1,7 @@
 ---
 title: Current state
 kind: status
-updated: 2026-11-08
+updated: 2026-11-09
 ---
 
 ## Now
@@ -35,9 +35,17 @@ pass, with no wire change. Live, provenance survives a project save; a
 save-as rename, a move, and a copy's destination lose it, and a
 provenance-only edit re-attaches it ([brief](work/b19-real-use-tooling-and-annotations.md#session-3-2026-11-08-implemented-and-checked-live)).
 Copy and move now carry it (D74, descriptions v69; a move keeps the clip and
-event IDs), checked live. Then
-session 4, clip operations, and session 5, analysis tools after the selector
-and tool-grain decisions. P01 is merged with
+event IDs), checked live.
+Session 4 is complete and checked live
+([D75](decisions/d75-clips-derived-from-a-source-clip.md),
+[E416](evidence/experiments/e416-b19-derived-clips-live.md)):
+`add_launcher_clip` takes `source` (a clip, a beat range and a shift) and an
+optional patch on a read of the source, so a slice, split part or variation
+needs no restated document; kept notes keep their source event IDs, and
+provenance carries with a spanning range narrowed (descriptions v70, 47
+tools; 2,608 brain tests; no wire change). A derived add took 3.0–3.1 s
+live, the source read 358 ms of it. Next is
+session 5, analysis tools after the selector and tool-grain decisions. P01 is merged with
 B19 session 1; P01's next deploy must carry `slot.occupancy`, and its live
 probes pin the 94-method hash until it merges session 2.
 

@@ -31,7 +31,7 @@ import {
   type ClipSnapshot, type ContentDelta, type RevisionMark, type Snapshot,
 } from '../contract/index.js';
 import { UnprotectedWriteError, takeAppliedAnything } from '../engine/index.js';
-import type { BaseEntry } from '../bindings/identity-registry.js';
+import type { Acquired, BaseEntry } from '../bindings/identity-registry.js';
 import { IdentityRegistry, storedEnvelope } from '../bindings/identity-registry.js';
 import {
   encodeLauncherClip, launcherClipCells, projectLauncherClip, type LauncherClipProjection,
@@ -184,14 +184,14 @@ export function parseProposal(
  * A desired document for an empty or replaced clip: every note is new, so any same-key overlap refuses. The check
  * uses only the document, so it runs before any host call (8i20, E270). The detail is the planner detail.
  */
-export function checkDesiredOverlaps(proposal: Document): void {
+export function checkDesiredOverlaps(proposal: Document, stage: FailureStage = 'input'): void {
   if (proposal.kind !== 'desired') return;
   try {
     refuseOverlaps(proposal.events);
   } catch (error) {
     if (!(error instanceof BindingRefusal)) throw error;
     const count = error.detail['overlapPairs'] as number;
-    throw new ToolFailure('unsupported', 'input', `${count} pair${count === 1 ? '' : 's'} of notes of one channel `
+    throw new ToolFailure('unsupported', stage, `${count} pair${count === 1 ? '' : 's'} of notes of one channel `
       + 'and pitch overlap. detail.overlaps lists the first pairs in onset order. Nothing was written.', {
       detail: { reason: 'overlap', ...error.detail } });
   }
@@ -256,6 +256,55 @@ function resolveBase(registry: IdentityRegistry, proposal: Document, trackId: st
       detail: { refTarget: { trackId: entry.snapshot.channelId, row: entry.snapshot.row } } });
   }
   return entry;
+}
+
+/**
+ * B19 session 4: acquire the document of a source clip at mark `now`, as read_launcher_clip does. With `guard` (a
+ * patch for the derived clip), its BASE must be a current read of this clip: the patch names the IDs of that read.
+ * A changed clip refuses with code stale and the new base; nothing is written.
+ */
+export async function acquireClipDocument(
+  workspace: Workspace, trackId: string, row: number, now: RevisionMark, guard?: Document,
+): Promise<{ acquired: Acquired; projection: LauncherClipProjection }> {
+  const registry = identityRegistryOf(workspace);
+  registry.sweep(now);
+  const guardedEntry = guard === undefined ? undefined : resolveBase(registry, guard, trackId, row);
+  const fresh = await readFresh(workspace, trackId, row, guardedEntry?.snapshot.mark, now);
+  const clip = snapshotClip({ channelId: trackId, row }, fresh.read.at.sceneEpoch);
+  if (guardedEntry !== undefined) {
+    const verdict = judgeClipSnapshot(guardedEntry.snapshot, fresh.read, fresh.delta, fresh.after);
+    if (verdict.verdict === 'stale') {
+      const { acquired } = bindSnapshot(registry, verdict.snapshot, { entry: guardedEntry, verdict: 'stale' });
+      throw new ToolFailure('stale', 'guard', 'The source clip changed since the base read. Nothing was written. '
+        + 'Read the source again and write the patch on that read.', {
+        detail: { base: { sha256: acquired.entry.contentHash, ref: acquired.entry.ref } } });
+    }
+    if (verdict.verdict !== 'current') {
+      registry.retireAddress(guardedEntry.snapshot, verdict.verdict);
+      throw new ToolFailure(VERDICT_CODES[verdict.verdict], 'guard', `The base ref is ${verdict.verdict}. `
+        + 'Nothing was written. Read the source clip again.', {
+        detail: { verdict: verdict.verdict, ...('why' in verdict ? { why: verdict.why } : {}) } });
+    }
+    if (guard!.base?.sha256 !== guardedEntry.contentHash) {
+      throw new ToolFailure('invalid-input', 'resolve', 'BASE sha256 does not match the base ref. Use the sha256 '
+        + 'and ref of the same read of the source clip.');
+    }
+    return bindSnapshot(registry, clipSnapshotFrom(fresh.read, clip), { entry: guardedEntry, verdict: 'current' });
+  }
+  if (fresh.after.project !== fresh.read.at.project || fresh.after.generation !== fresh.read.at.generation
+      || fresh.after.sceneEpoch !== fresh.read.at.sceneEpoch || !deltaComplete(fresh.delta)
+      || contentTouching(fresh.delta, clip).length > 0) {
+    throw new ToolFailure('target-changed', 'acquire', 'The project or the source clip changed during the read.', {
+      retryWhen: 'after the project stops changing' });
+  }
+  if (!occupied(fresh.read, trackId, row)) {
+    throw new ToolFailure('absent', 'acquire', 'The source slot holds no clip. Nothing was written.');
+  }
+  const snapshot = clipSnapshotFrom(fresh.read, clip);
+  const prior = registry.latestAt(trackId, row);
+  const priorDelta = prior === undefined ? undefined : await workspace.contentSince(prior.snapshot.mark);
+  const verdict = prior === undefined ? undefined : judgeClipSnapshot(prior.snapshot, fresh.read, priorDelta!, fresh.after).verdict;
+  return bindSnapshot(registry, snapshot, prior === undefined ? undefined : { entry: prior, verdict: verdict! });
 }
 
 /** A new read of the complete clip. */
